@@ -58,4 +58,16 @@
 <h2>Delegera din röst till <?php echo $delegate_info['title']; ?></h2>
 
 <?php
-	$constituencies = db_constituency::
+	$user_constituencies = db_constituency::get_constituencies_for_user($_SESSION['id']);
+?>
+
+<?php foreach($user_constituencies as $row) : ?>
+
+	<?php if(db_constituency::check_delegate_constituency_access($_GET['id'], $row['id'])) : ?>
+
+		<strong><?php echo $row['name']; ?></strong><br>
+		<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span>
+
+	<?php endif; ?>
+
+<?php endforeach; ?>
