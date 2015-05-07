@@ -1,0 +1,30 @@
+/* USER PRESENTATION PAGE */
+
+.user_presentation_left {
+    float: left;
+}
+
+.user_presentation_left img{margin-bottom: 10px}
+.user_presentation_left p{margin:20px 0px;}
+.user_presentation_left a{padding: 10px 5px}
+.user_presentation_left p a.active{background: #eee}
+
+.user_presentation_right {
+    float: left;
+    text-align: left;
+}
+
+.user_presentation_right p{margin: 0px 0px 5px 20px}
+
+.image150 {
+    width: 150px;
+}
+
+#main-content h2{margin-top: 40px;font-size: 1.3em;font-weight: 600}
+
+#settings_county{width: 15em}
+#settings_submit{margin-top: 20px;border-radius: 3px;height: 28px;width: 10em;cursor: pointer;border-color: #0074a2;}
+#settings_submit:hover{background: none repeat scroll 0 0 #1b7aa6;
+    border-color: #005684;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+    color: rgba(255, 255, 255, 0.95);}

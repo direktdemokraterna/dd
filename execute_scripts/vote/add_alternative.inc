@@ -1,0 +1,68 @@
+<?php
+
+if(isset($_POST['vote_id'])){
+
+	if($_GET['id'] == $_POST['vote_id']){
+
+		$voteinfo = db_vote::get_vote_info($_POST['vote_id']);
+
+		if($voteinfo['type'] == "prio-vote"){
+
+			if(isset($_POST['alternative_title'])){
+
+				if($_SESSION['acting_as_delegate']){
+					$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
+					$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
+				}
+
+				if(!empty($check_delegate_constituency_access)){
+					$ok = db_vote::add_alternative_by_delegate($_POST['vote_id'], $_POST['alternative_title'], $_POST['alternative_description'], $delegate_id);
+				}
+				else{
+					$ok = db_vote::add_alternative_by_user($_POST['vote_id'], $_POST['alternative_title'], $_POST['alternative_description'], $_SESSION['id']);
+				}
+
+				if($ok){
+					$message = "Alternativet har skapats.";
+					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
+				}
+				else{
+					$message = "Något gick fel. Ingenting skapat.";
+					db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+					$redirect = $_SERVER['REQUEST_URI'];
+				}
+
+			}
+
+		}
+
+		elseif($voteinfo['type'] == "candidate-election"){
+
+			if(db_vote::is_user_candidate_in_vote($_SESSION['id'], $_GET['id'])){
+
+				$ok = db_vote::remove_candidate($_GET['id'], $_SESSION['id']);
+				if($ok){
+					$message = "Din kandidatur har dragits tillbaka.";
+					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
+				}
+
+			}
+
+			else{
+
+				$ok = db_vote::add_candidate($_GET['id'], $_SESSION['id'], $_POST['alternative_description']);
+				if($ok){
+					$message = "Du är nu kandidat i omröstningen: " . $voteinfo['title'] . ".";
+					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
+				}
+
+			}
+
+		}
+
+	}
+
+}

@@ -1,0 +1,273 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+body, table, tr, td {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size:13px;
+    color: #444;
+    border-spacing: 0;
+}
+
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+    color: #F49500;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 24px;
+    color: #000;
+}
+
+h2 {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+h3 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+}
+
+p, blockquote, ul, ol {
+    max-width: 900px;
+    line-height: 18px;
+    text-align: justify;
+}
+
+blockquote {
+    padding-left: 20px;
+    background: url(images/img05.gif) repeat-y;
+}
+
+a {
+    color: #f67520;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+
+
+/* HEADER */
+
+.header {
+    position: relative;
+    padding-left: 2%;
+    padding-bottom: 30px;
+}
+
+#header-logo {
+    width: 100%;
+    max-width: 359px;
+}
+
+#dd-logo {
+    width: auto;
+    height: 60px;
+}
+
+@media screen and (max-width: 400px) {
+    #dd-logo {
+        width: 200px;
+        height: auto;
+        max-width: 100%;
+    }
+}
+
+
+
+/* CONTENT */
+
+#wrap {
+  margin: auto;
+  padding: 10px 10px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+
+#wrap-area{
+    background: #fff;
+    height: 100% auto;
+    padding-top:40px;
+
+}
+
+/* MAIN (LEFT) CONTAINER */
+
+#main-content {
+    float: left;
+    width: 95%;
+    max-width: 925px;
+}
+
+#main-content h1 {
+    font-size: 40px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    margin-bottom: 30px
+}
+
+
+
+/* Standard form */
+.standard-form label {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 10px 0px;
+    width: 220px;
+    font-size: 14px
+}
+
+.standard-form input{
+    max-width: 400px;
+    width: 95%;
+    margin: 8px 0px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    color: #333;
+    transition: border-color 0.05s ease-in-out 0s;
+    line-height: 15px;
+    padding: 3px 5px;
+}
+
+.standard-form select{
+    max-width: 400px;
+    width: 95%;
+    margin: 10px 0px;
+    line-height: 15px;
+    padding: 3px 5px;
+}
+
+.standard-form input[type="submit"]{
+    background: none repeat scroll 0 0 #2ea2cc;
+    border-color: #0074a2;
+    box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    color: #fff;
+    text-decoration: none;
+    margin-top: 20px;
+    border-radius: 3px;
+    height: 28px;
+    width: 10em;
+    cursor: pointer;
+}
+
+.standard-form textarea {
+    margin-left: 10px;
+    margin-bottom: 20px;
+    width: 95%;
+    margin-top: 5px;
+    height: 250px;
+    display: table;
+}
+
+.standard-form input[type="submit"]:hover{
+    background: none repeat scroll 0 0 #1b7aa6;
+    border-color: #005684;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.standard-form input[type="checkbox"]{
+    width: 20px;
+}
+
+.standard-form input[type="checkbox"]:focus, .standard-form input[type="email"]:focus, .standard-form input[type="number"]:focus, .standard-form input[type="password"]:focus, .standard-form input[type="radio"]:focus, .standard-form input[type="search"]:focus, .standard-form input[type="tel"]:focus, .standard-form input[type="text"]:focus, .standard-form input[type="url"]:focus, .standard-form select:focus, .standard-form textarea:focus {
+  border-color: #5b9dd9;
+  box-shadow: 0 0 2px rgba(30, 140, 190, 0.8);
+}
+
+/* Checkbox grid */
+.checkbox-grid li {
+    display: block;
+    float: left;
+    width: 25%;
+}
+
+/* Footer */
+
+#footer {
+    height: 100px;
+    padding: 20px;
+    background: #2D2D2D url(helpers/img/img07.gif) repeat-x;
+}
+
+#footer p {
+    text-align: center;
+    color: #999999;
+}
+
+
+
+/* GENERAL ATTRIBUTES */
+
+.clear {
+    clear: both;
+}
+
+.float-right {
+    float: right;
+}
+
+.invisible-link {
+    color: inherit;
+}
+
+.green_message {
+    max-width: 800px;
+    width: 95%;
+    border: 1px solid #999;
+    border-left: 4px solid #7ad03a;
+    padding: 1px 12px;
+    margin-bottom: 10px;
+}
+
+.red_message {
+    max-width: 800px;
+    width: 95%;
+    border: 1px solid #999;
+    border-left: 4px solid #dd3d36;
+    padding: 1px 12px;
+    margin-bottom: 10px;
+}
+
+
+
+
+/* NORMAL LIST */
+
+.list_of_links {
+    font-size: 14px;
+    line-height: 28px;
+}
+
+.list_of_link_menu {
+  clear: both;
+  margin-bottom: 15px;
+  margin-top:10px;
+  margin-left: 5px;
+  font-size: 12px;
+  color: #2b2b2b;
+  font-family: "Open Sans",sans-serif;font-weight: 300; 
+}
+
+.list_counter {
+    padding-right: 80px;
+}
+
+.list_sort_alternative {
+    padding-left: 30px;
+}

@@ -1,0 +1,43 @@
+#login-column {
+  width: 320px;
+  margin: auto;
+  margin-top:15%;
+}
+
+#login-form {
+  padding: 26px 24px 46px;
+/*  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);  */
+  font-weight: 400;font-family: 'Open Sans', sans-serif;
+  overflow: hidden
+}
+
+#login_image{
+   margin-left: auto; 
+   margin-right: auto; 
+   width: 120px;
+}
+
+#login-form > p > label{color: #777;font-size: 14px;'Open Sans', sans-serif;}login_image{
+   margin-left: auto; 
+   margin-right: auto; 
+   width: 120px;
+}
+#login-form > p > input{margin-bottom: 15px;margin-top: 3px;background: #fbfbfb;border: 1px solid #ddd;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;color: #333;transition: border-color 0.05s ease-in-out 0s;height: 35px;}
+
+#login-form form , #login-form input[type="text"], #login-form input[type="password"] {line-height: 1;margin: 2px 6px 16px 0;padding: 3px;width: 100%;}
+#login-form input[type="checkbox"] {margin-right: 10px}
+#login-form input[type="submit"]{float: right;border-radius: 3px;height: 30px;line-height: 28px;padding: 0 12px 2px;background: #005684;border: none;color: #fff;cursor: pointer}
+
+
+#login-form input[type="email"], #login-form input[type="number"], #login-form input[type="password"], #login-form input[type="search"], #login-form input[type="tel"], #login-form input[type="text"], #login-form input[type="url"], select, textarea {
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+  color: #333;
+  transition: border-color 0.05s ease-in-out 0s;
+    outline: 0 none;
+}
+
+#login-form input[type="checkbox"]:focus, #login-form input[type="email"]:focus, #login-form input[type="number"]:focus, #login-form input[type="password"]:focus, #login-form input[type="radio"]:focus, #login-form input[type="search"]:focus, #login-form input[type="tel"]:focus, #login-form input[type="text"]:focus, #login-form input[type="url"]:focus, select:focus, textarea:focus {
+  border-color: #5b9dd9;
+  box-shadow: 0 0 2px rgba(30, 140, 190, 0.8);
+}

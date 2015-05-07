@@ -1,0 +1,188 @@
+/* CALENDAR PAGE */
+
+.event {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 40px;
+	padding: 10px;
+}
+
+.month_table {
+	width: 90%;
+	max-width: 815px;
+	border-collapse: collapse;
+	border: 1px solid #ccc;	
+}
+
+.month_table td {
+	display: block;
+}
+
+.month_table td a {
+	display: block;
+	width: 100%;
+	text-align: center;
+	padding-top: 22px;
+	padding-bottom: 22px;
+	color: inherit;
+}
+
+.month_table td a:hover {
+	text-decoration: none;
+}
+
+.month_table_caption {
+	font-size: 20px;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: normal;
+	overflow: hidden;
+	display: table-caption;
+	padding: 5px;
+}
+
+.previous_month {
+	float: left;
+	color: #f67520;
+}
+
+.this_month {
+	margin: 0px auto;
+	width: 250px;
+}
+
+.next_month {
+	float: right;
+	color: #f67520;
+	display: inline;
+}
+
+.calendar_row {
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 16px;
+}
+
+.calendar_weekday_cell {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #ccc;	
+	width: 14.29%;
+}
+
+.non_day {
+
+}
+
+.event_day {
+	border: 1px solid #CCCCCC;
+	text-align: center;
+	height: 80px;
+	vertical-align: middle;
+	font-size: 26px;
+	color: #000;
+}
+
+.event_day span {
+    z-index:10;
+    display:none; 
+    padding:14px 20px;
+    margin-top:-30px; 
+    margin-left:28px;
+    width: auto;
+    max-width:300px; 
+    font-size: 14px;
+    line-height:16px;
+    text-transform: none;
+}
+
+.event_day:hover span{
+    display: inline; 
+    position: absolute; 
+    color: #111;
+    border: 1px solid #DCA; 
+    background: #fffAF0;
+}
+
+.no_event_day {
+	border: 1px solid #CCCCCC;
+	text-align: center;
+	height: 80px;
+	vertical-align: middle;
+	font-size: 26px;
+	color: #bbb;
+}
+
+#this_day{
+	background: #eee;
+}
+
+.calendar_form label {
+    float: left;
+	text-align: right;
+	margin-right: 25px;
+    padding: 10px 0px;
+    width: 140px;
+    font-size: 14px
+}
+
+.calendar_form input{
+    width:100px;
+    margin: 8px 0px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    color: #333;
+    transition: border-color 0.05s ease-in-out 0s;
+    line-height: 15px;
+    padding: 3px 5px;
+}
+
+.calendar_form select{
+    width: 100px;
+    margin: 10px 0px;
+    line-height: 15px;
+    padding: 3px 5px;
+}
+.calendar_form input[type="submit"]{
+    margin-left: 165px;
+    background: none repeat scroll 0 0 #2ea2cc;
+    border-color: #0074a2;
+    box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    color: #fff;
+    text-decoration: none;
+    margin-top: 20px;
+    border-radius: 3px;
+    height: 28px;
+    width: 10em;
+    cursor: pointer;
+}
+.calendar_form input[type="submit"]:hover{
+	background: none repeat scroll 0 0 #1b7aa6;
+    border-color: #005684;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.calendar_form input[type="radio"]{
+	padding-top: 10px;
+    vertical-align: middle; 
+    margin: 0px;
+    width: 20px;
+}
+
+.calendar_form input[type="checkbox"]:focus, .calendar_form input[type="email"]:focus, .calendar_form input[type="number"]:focus, .calendar_form input[type="password"]:focus, .calendar_form input[type="radio"]:focus, .calendar_form input[type="search"]:focus, .calendar_form input[type="tel"]:focus, .calendar_form input[type="text"]:focus, .calendar_form input[type="url"]:focus, .calendar_form select:focus, .calendar_form textarea:focus {
+  border-color: #5b9dd9;
+  box-shadow: 0 0 2px rgba(30, 140, 190, 0.8);
+}
+
+#repeat_per_day {
+	padding-top: 15px;
+}
+
+.checkbox_div {
+	clear: both;
+}
+
+.checkbox_inner_div {
+	padding-top: 12px;
+}

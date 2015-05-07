@@ -1,0 +1,18 @@
+/* USER PRESENTATION PAGE */
+
+.user_presentation_left {
+	float: left;
+	width: 190px;
+	padding: 20px;
+}
+
+.user_presentation_right {
+	float: left;
+	text-align: left;
+}
+
+.image150 {
+	width: 150px;
+}
+
+

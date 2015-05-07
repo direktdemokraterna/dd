@@ -1,0 +1,128 @@
+/* VOTE CSS */
+
+#list_of_votes {
+	display: none;
+}
+
+.vote_result_box {
+	max-width: 800px;
+	width: 95%;
+	padding: 10px;
+	border: 1px solid #330000;
+	background: #FFCCCC;
+	margin-bottom: 15px;
+}
+
+#user_vote_box {
+	max-width: 800px;
+	width: 95%;
+	padding: 10px;
+	border: 1px solid #330000;
+	background: #FFCCCC;
+	margin-bottom: 15px;
+}
+
+.yes-no {
+	max-width: 800px;
+	width: 95%;
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #444;
+	text-align: center;
+}
+
+.yes-no:after {
+  content: '';
+  width: 100%;
+  display: inline-block;
+}
+
+.vote_box {
+	margin-top: 30px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #444;
+}
+
+.vote_button {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+	display: inline-block;
+	width:120px;
+	height:120px;
+	border-radius:60px;
+	border: 5px solid #aaa;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#green_vote {
+	background: #7CD429;
+	top: 30px;
+}
+
+#red_vote {
+	background: #e3372c;
+}
+
+#yellow_vote {
+	background: #ffed63;
+	top: 30px;
+}
+
+
+/* Prio-vote sorting list */
+
+.prio-vote-box {
+	list-style-type: none;
+	border: 1px solid #330000;
+	padding: 10px;
+	min-height: 20px;
+	width: 40%;
+	min-width: 200px;
+}
+
+.support-box {
+	background: #7CD429;
+}
+
+.unsorted-box {
+	background: #eeeeee;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.reject-box {
+	background: #e3372c;
+}
+
+.sortable {
+	cursor: move;
+	border: 1px solid rgba(255, 255, 255, .1);
+	background: rgba(255, 255, 255, 0.3);
+	padding: 5px;
+	margin-top: 5px;
+	min-height: 20px;
+}
+
+.sortable-dragging {
+	height: 20px;
+	opacity: .5;
+}
+
+.sortable-placeholder {
+	height: 20px;
+	padding: 5px;
+	margin-top: 5px;
+	border: 1px dotted rgba(255, 255, 255, .1);
+}
+
+/*.sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+.sortable li span { position: absolute; margin-left: -1.3em; }
+.ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+.sortable-number { width: 25px;float: left;line-height: 1em;text-align: center;font-weight: bold; }
+*/

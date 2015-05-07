@@ -1,0 +1,12 @@
+<?php
+	if(!empty($_POST)){
+		if($_POST['access_type']==2) $access_type = "private";
+		else $access_type = "public";
+		$ok = db_forum_admin::add_forum($_POST['category'], htmlspecialchars($_POST['title']), htmlspecialchars($_POST['description']), $access_type);
+		if($ok){
+			$message = "Forumet skapat"; 
+			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$redirect = $_SERVER['REQUEST_URI'];
+		}
+	}
+?>

@@ -1,0 +1,251 @@
+<?
+
+class general_helpers {
+
+
+public static function GenerateRandomString ($length){
+
+	$Allowed_Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+	$random_string = "";
+	for($i=0; $i<$length; $i++)
+	{
+    	$random_string .= $Allowed_Chars[mt_rand(0,61)];
+	}
+
+	return $random_string;
+
+}
+
+
+public static function check_messages ($user_id){
+	$message_data = db_helpers::retrieve_error_message($user_id);
+
+	if(!empty($message_data)){
+		$return_message = "<div class=\"" . $message_data[0]['color'] . "_message\">" . $message_data[0]['message'] . "</div>";
+		return $return_message;
+	}
+	else{
+		return false;
+	}
+}
+
+
+public static function show_date ($time){
+
+	$tested_time = getdate($time);
+	$tested_time_yesterday = getdate($time+86400);
+	$tested_time_tomorrow = getdate($time-86400);
+	$present_time = getdate(time());
+
+	if($tested_time['yday']==$present_time['yday'] && $tested_time['year']==$present_time['year'])
+		$dag = "Idag";
+	elseif($tested_time_yesterday['yday']==$present_time['yday'] && $tested_time_yesterday['year']==$present_time['year'])
+		$dag = "Igår";
+	elseif($tested_time_tomorrow['yday']==$present_time['yday'] && $tested_time_tomorrow['year']==$present_time['year'])
+		$dag = "Imorgon";
+	else{
+		$dag = date("j/n", $time);
+	}
+
+	if($tested_time['year']==$present_time['year'])
+		$ar = "";
+	else{
+		$ar = "-" . date("Y", $time);
+	}
+
+	$time_of_day = " " . date("H:i",$time);
+
+	return($dag . $ar . $time_of_day);
+
+}
+
+public static function veckodag ($timestamp, $weekday = null){
+
+	if($timestamp > 0){
+		$weekday = date("w", $timestamp); 
+	}
+
+	if($weekday == 0) return "Söndag";
+	elseif($weekday == 1) return "Måndag";
+	elseif($weekday == 2) return "Tisdag";
+	elseif($weekday == 3) return "Onsdag";
+	elseif($weekday == 4) return "Torsdag";
+	elseif($weekday == 5) return "Fredag";
+	elseif($weekday == 6) return "Lördag";
+	
+}
+
+public static function manad ($timestamp, $month = null){
+
+	if($timestamp > 0){
+		$month = date("n", $timestamp); 
+	}
+
+	if($month == 1) return "Januari";
+	elseif($month == 2) return "Februari";
+	elseif($month == 3) return "Mars";
+	elseif($month == 4) return "April";
+	elseif($month == 5) return "Maj";
+	elseif($month == 6) return "Juni";
+	elseif($month == 7) return "Juli";
+	elseif($month == 8) return "Augusti";
+	elseif($month == 9) return "September";
+	elseif($month == 10) return "Oktober";
+	elseif($month == 11) return "November";
+	elseif($month == 12) return "December";
+	
+}
+
+
+public static function admin_mail ($receiver, $title, $text) {
+	// https://github.com/PHPMailer/PHPMailer
+	require_once('helpers/PHPMailer-master/PHPMailerAutoload.php');
+ 
+	$mail = new PHPMailer();
+ 
+	$mail->From = 'info@direktdemokraterna.se';
+	$mail->FromName = 'Direktdemokraterna';
+	$mail->AddAddress($receiver);
+	$mail->Subject = $title;
+	$mail->Body = $text;
+ 
+	$mail->IsSMTP();
+	$mail->SMTPAuth = true;
+	$mail->SMTPSecure = 'ssl';
+	$mail->Port = 465;
+	$mail->Host = 'my smtp host';
+	$mail->Username = 'my smtp username';
+	$mail->Password = 'my smtp password';
+ 
+	if(!$mail->send()) {
+	    return false;
+	} 
+	else {
+    	return true;
+	}
+}
+
+
+
+// makes the top links for choosing page and sorting alternatives for a list_of_links
+public static function make_list_of_link_menu ($page, $result_counter, $sort_alternatives = null, $filter_title = "Filtrering:", $filter_alternatives = null){
+
+	$number_of_pages = ceil($result_counter / LIST_ITEMS_PER_PAGE);
+	$first_showed_item_number = $page * LIST_ITEMS_PER_PAGE - (LIST_ITEMS_PER_PAGE - 1);
+	$last_showed_item_number = $page * LIST_ITEMS_PER_PAGE;
+	if($last_showed_item_number > $result_counter) $last_showed_item_number = $result_counter;
+
+	$get_parameters = $_GET;
+
+	echo "<div class=\"list_of_link_menu\">";
+	echo "<span class=\"list_counter\">";
+	echo $first_showed_item_number . " - " . $last_showed_item_number . " av totalt " . $result_counter;
+	echo "</span>";
+
+	if($sort_alternatives){
+		echo "<span class=\"list_sort_alternative\">Sortering: </span>";
+		foreach($sort_alternatives as $key => $value){
+			echo "<span class=\"list_sort_alternative\">";
+			$get_parameters['sort'] = $value;
+			$url = "index.php?" . http_build_query($get_parameters);
+		
+			echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a></span>";
+		}
+	}
+
+	echo "</div>";
+
+	if($filter_alternatives){
+		echo "<div class=\"list_of_link_menu\">";
+		echo "<span class=\"list_sort_alternative\">" . $filter_title . "</span>";
+		foreach($filter_alternatives as $key => $value){
+			echo "<span class=\"list_sort_alternative\">";
+			$get_parameters['filter'] = $value;
+			$url = "index.php?" . http_build_query($get_parameters);
+		
+			echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a></span>";
+		}
+		echo "</div>";
+	}
+
+	elseif($filter_title == "county_tegions"){
+		echo "<div class=\"list_of_link_menu\">";
+		
+		echo "<span class=\"list_sort_alternative\">Kommun: ";
+		$get_parameters['filter'] = "county";
+		$counties = db_helpers::get_counties();
+		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
+		echo "<option value=\"\"></option>";
+		foreach($counties as $row){
+			$get_parameters['county'] = $row['kommun'];
+			$url = "index.php?" . http_build_query($get_parameters);
+			echo "<option value=\"" . $url . "\">" . $row['kommun'] . "</option>\n";
+		}
+		echo "</select></span>";
+		$get_parameters['county'] = null;
+
+		echo "<span class=\"list_sort_alternative\">Län: ";
+		$get_parameters['filter'] = "region";
+		$regions = db_helpers::get_regions();
+		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
+		echo "<option value=\"\"></option>";
+		foreach($regions as $row){
+			$get_parameters['region'] = $row['lan'];
+			$url = "index.php?" . http_build_query($get_parameters);
+			echo "<option value=\"" . $url . "\">" . $row['lan'] . "</option>\n";
+		}
+		echo "</select>";
+		$get_parameters['region'] = null;
+
+		echo "</span></div>";
+	}
+
+
+}
+
+public static function find_max_in_multidimensional_array ($array, $key) {
+
+	if (!is_array($array) || count($array) == 0){
+		return false;
+	}
+
+	$max = $array[0][$key];
+	foreach($array as $array_row) {
+		if($array_row[$key] > $max) {
+			$max = $array_row[$key];
+		}
+	}
+	return $max;
+
+}
+
+public static function find_min_in_multidimensional_array ($array, $key) {
+
+	if (!is_array($array) || count($array) == 0){
+		return false;
+	}
+
+	$min = $array[0][$key];
+	foreach($array as $array_row){
+		if($array_row[$key] < $min) {
+			$min = $array_row[$key];
+		}
+	}
+	return $min;
+
+}
+
+public static function in_multiarray ($array, $key, $value) {
+
+	foreach($array as $array_row){
+		if($array_row[$key] == $value){
+			return true;
+		}
+	}
+
+	return false;
+
+}
+
+} //End of class

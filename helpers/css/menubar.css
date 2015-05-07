@@ -1,0 +1,210 @@
+/* TOP MENU */
+
+#pseudo_menubar {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    visibility: hidden;
+    background: #222;
+    float: left;
+}
+
+#pseudo_menubar ul {
+    margin: 0;
+    padding: 0;
+}
+
+
+#pseudo_menubar ul li a:hover{
+    color: #2ea2cc;
+}
+
+#pseudo_menubar ul ul {
+    display: block;
+}
+
+#pseudo_menubar ul ul li {
+    float: none;
+    position: relative;
+}
+
+#pseudo_menubar ul ul li a {
+    font: 400 13px/32px "Open Sans",sans-serif;
+    color: #ccc;
+    padding-left: 40px;
+}
+
+#pseudo_menubar ul ul li a:hover {
+    background: #222;
+    color:#2ea2cc;
+}
+
+#pseudo_menubar ul li:hover > ul {
+    display: block;
+    background: #222;
+    color:#fff
+}
+
+#pseudo_menubar ul li {
+    display: inline;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#pseudo_menubar ul li a {
+    display: block;
+    width: 120px;
+    font: 400 13px/32px "Open Sans",sans-serif;
+    text-decoration: none;
+    color: #ccc;
+    margin: 0;
+    padding: 0px 20px 0px 20px;
+}
+
+
+
+#menubar {
+    list-style-type: none;
+    position: fixed;
+    height: 40px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #222;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+#menubar ul {
+    margin: 0;
+    padding: 0;
+}
+
+
+#menubar ul li a:hover{
+    color: #2ea2cc;
+}
+
+#menubar ul ul {
+    display: none;
+}
+
+#menubar ul ul li {
+    float: none;
+    position: relative;
+}
+
+#menubar ul ul li a {
+    font: 400 13px/32px "Open Sans",sans-serif;
+    color: #ccc;
+}
+
+#menubar ul ul li a:hover {
+    background: #222;
+    color:#2ea2cc;
+}
+
+#menubar ul li:hover > ul {
+    display: block;
+    background: #222;
+    color:#fff
+}
+
+#menubar ul li {
+    display: inline;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#menubar ul li a {
+    display: block;
+    width: 120px;
+    font: 400 13px/32px "Open Sans",sans-serif;
+    text-decoration: none;
+    color: #ccc;
+    margin: 0;
+    padding: 0px 20px 0px 20px;
+}
+
+
+#logout-link {
+    float: right;
+}
+
+#alt-menu-row {
+    display: none;
+}
+
+
+
+@media screen and (max-width: 800px) {
+    #menubar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        background: #222;
+        float: left;
+        display: block;
+    }
+
+    #menubar ul ul li a {
+        font: 400 13px/32px "Open Sans",sans-serif;
+        color: #ccc;
+        padding-left: 40px;
+        display: block;
+    }
+
+    #alt-menu-row {
+        display: block;
+        background: #222;
+        width: 100%;
+        height: 40px;
+    }
+
+    #menubar ul ul {
+        display: block;
+    }
+
+    #hide_menu {
+        display: none;
+    }
+
+
+    #alt-menu-button {
+        float: right;
+        font-size: 40px;
+        color: #ccc;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    #alt-menu-button:hover {
+        color: #2ea2cc;
+    }
+
+    #alt-home-button {
+        float: left;
+        font-size: 40px;
+        color: #ccc;
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+    }
+
+    #alt-home-button:hover {
+        color: #2ea2cc;
+    }
+
+    #pseudo_menubar {
+        display: none;
+    }
+
+    #logout-link {
+        float: left;
+        display: none;
+    }
+}

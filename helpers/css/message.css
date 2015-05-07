@@ -1,0 +1,56 @@
+/* MESSAGE PAGES */
+
+.message{
+    max-width: 800px;
+    width: 95%;
+    border: 1px solid #e5e5e5;
+    border-bottom: none;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    background: #fff;border-spacing: 0;
+    margin-bottom: 15px
+}
+
+
+.message tbody td{
+    border-bottom: 1px solid #e1e1e1;
+    padding: 10px 5px;
+    font-size: 14px;
+    font-weight: 400px;
+    font-family: "Open Sans",sans-serif;
+}
+
+.message tbody td a strong{
+    font-weight: normal;
+}
+
+.message-form input{
+    margin-top: 15px;
+}
+
+.message-form input[type="submit"]{
+    background:#f7f7f7;
+    border:1px solid #ccc;
+    box-shadow: 0 1px 0 #fff inset, 0 1px 0 rgba(0, 0, 0, 0.08);
+    color: #555;
+    height: 30px;
+    cursor: pointer;
+}
+
+.message-form input[type="submit"]:hover{
+    border-color: #2b2b2b;
+}
+
+.message_box_left{
+    padding: 5px;
+    width: 200px;
+}
+
+.message-form{
+
+}
+
+.message-form p{
+    font-size: 12px;
+    font-weight: 300px;
+    font-family: "Open Sans",sans-serif;margin: 0px 0px 15px 5px;
+}
