@@ -78,6 +78,7 @@
 }
 
 #menubar ul {
+    max-width: 100%;
     margin: 0;
     padding: 0;
 }
@@ -121,7 +122,7 @@
 
 #menubar ul li a {
     display: block;
-    width: 120px;
+    min-width: 120px;
     font: 400 13px/32px "Open Sans",sans-serif;
     text-decoration: none;
     color: #ccc;
