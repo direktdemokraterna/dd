@@ -7,10 +7,13 @@
 
 <?php if($_GET['type'] == "vote") : ?>
 <script src="helpers/js/vote.js"></script>
+<script>
+	var dd_public_key = "<?php echo DD_PUBLIC_KEY; ?>";
+	var dd_anon_public_key = "<?php echo DD_ANON_PUBLIC_KEY; ?>";
+</script>
 
 <script src="helpers/Crypt/bin/jsencrypt.min.js"></script>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
-<script src="helpers/js/vote.js"></script>
 
 <script src="helpers/js/pidCrypt/pidcrypt.js"></script>
 <script src="helpers/js/pidCrypt/pidcrypt_util.js"></script>
