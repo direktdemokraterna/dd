@@ -30,10 +30,12 @@
 	Nej: <?php echo $ballot_counter['no']; ?><br>
 	Avstår: <?php echo $ballot_counter['abstain']; ?><br><br>
 
-	<?php if($voteinfo['status'] == "ended") : ?>
+	<?php if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished") : ?>
 		Omröstningen är avslutad. Den avslutades <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>.
 	<?php elseif($voteinfo['status'] == "del_ended") : ?>
 		Omröstningen avslutas <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>. För delegater stängdes röstningsmöjligheten <?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?>.
+	<?php elseif($voteinfo['status'] == "continuous") : ?>
+		Det här är en kontinuerlig omröstning och fortsätter tills en votering bestämmer att den ska avslutas.
 	<?php else : ?>
 		Omröstningen avslutas <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>. För delegater stänger röstningsmöjligheten <?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?>.
 	<?php endif; ?>
@@ -45,11 +47,19 @@
 
 <p>
 <strong>Valkrets: </strong><?php echo $voteinfo['constituency_name']; ?><br>
-<strong>Propositionen skapad: </strong><?php echo general_helpers::show_date($voteinfo['proposition_created']); ?><br>
-<strong>Propositionen skapad av: </strong><a href="index.php?type=member&action=view&id=<?php echo $voteinfo['user_id']; ?>"><?php echo $voteinfo['user_full_name']; ?></a><br>
+<?php if($voteinfo['proposition_created']) : ?>
+	<strong>Propositionen skapad: </strong><?php echo general_helpers::show_date($voteinfo['proposition_created']); ?><br>
+	<strong>Propositionen skapad av: </strong><a href="index.php?type=member&action=view&id=<?php echo $voteinfo['user_id']; ?>"><?php echo $voteinfo['user_full_name']; ?></a><br>
+<?php else : ?>
+	<strong>Omröstningen skapad av administratör</strong><br>
+<?php endif; ?>
 <strong>Omröstningen startad: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_created']); ?><br>
-<strong>Delegatröstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?><br>
-<strong>Personlig röstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?><br>
+<?php if($voteinfo['status'] == "continuous") : ?>
+	<strong>Omröstningen är kontinuerlig.</strong><br>
+<?php else : ?>
+	<strong>Delegatröstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?><br>
+	<strong>Personlig röstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?><br>
+<?php endif; ?>
 
 
 <strong>Beskrivning:</strong><br>

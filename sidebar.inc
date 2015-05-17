@@ -38,6 +38,10 @@ elseif($_GET['type']=="treasurer") {
 	require("sidebar/treasurer.inc");
 }
 
+elseif($_GET['type']=="vote_admin") {
+	require("sidebar/vote_admin.inc");
+}
+
 elseif($_GET['type']=="superadmin") {
 	require("sidebar/superadmin.inc");
 }

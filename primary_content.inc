@@ -201,6 +201,18 @@ elseif($_GET['type']=="forum_admin") {
 	}
 }
 
+elseif($_GET['type']=="vote_admin") {
+	if($_GET['action']=="create_new_vote"){
+		require("primary_content/vote_admin/create_new_vote.inc");
+	}
+	elseif($_GET['action']=="edit_vote"){
+		require("primary_content/vote_admin/edit_vote.inc");
+	}
+	else{
+		require("primary_content/vote_admin/votelist.inc");
+	}
+}
+
 elseif($_GET['type']=="treasurer") {
 	require("primary_content/treasurer.inc");
 }

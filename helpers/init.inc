@@ -17,6 +17,7 @@ include(dirname(__FILE__)."/db/db.inc");
 include(dirname(__FILE__)."/db/db_user.inc");
 include(dirname(__FILE__)."/db/db_admin.inc");
 include(dirname(__FILE__)."/db/db_forum_admin.inc");
+include(dirname(__FILE__)."/db/db_vote_admin.inc");
 include(dirname(__FILE__)."/db/db_forum.inc");
 include(dirname(__FILE__)."/db/db_message.inc");
 include(dirname(__FILE__)."/db/db_workgroup.inc");

@@ -54,6 +54,9 @@
 			<?php if(isset($_SESSION['is_forum_admin'])) : ?>
 			<li><a href="index.php?type=forum_admin">Forumadministratör</a></li>
 			<?php endif; ?>
+			<?php if(isset($_SESSION['is_vote_admin'])) : ?>
+			<li><a href="index.php?type=vote_admin">Valadministratör</a></li>
+			<?php endif; ?>
 			<?php if(isset($_SESSION['is_treasurer'])) : ?>
 			<li><a href="index.php?type=treasurer">Kassör</a></li>
 			<?php endif; ?>

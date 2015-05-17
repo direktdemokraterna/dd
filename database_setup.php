@@ -713,10 +713,10 @@ mysql_query($query);
 $query = "CREATE TABLE `dd`.`votes` (
   `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(20) NOT NULL,
-  `from_proposition_id` INTEGER UNSIGNED NOT NULL,
+  `from_proposition_id` INTEGER UNSIGNED,
   `timestamp_created` INTEGER UNSIGNED NOT NULL,
   `timestamp_delegate_ended` INTEGER UNSIGNED,
-  `timestamp_ended` INTEGER UNSIGNED NOT NULL,
+  `timestamp_ended` INTEGER UNSIGNED,
   `constituency_id` INTEGER UNSIGNED NOT NULL,
   `status` VARCHAR(10) NOT NULL DEFAULT 'active',
   `title` VARCHAR(90) NOT NULL,

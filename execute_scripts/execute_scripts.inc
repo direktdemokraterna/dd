@@ -111,6 +111,15 @@ elseif($_GET['type']=="forum_admin") {
 	}
 }
 
+elseif($_GET['type']=="vote_admin") {
+	if($_GET['action']=="edit_vote"){
+		require("execute_scripts/vote_admin/edit_vote.inc");
+	}
+	elseif($_GET['action']=="create_new_vote"){
+		require("execute_scripts/vote_admin/create_new_vote.inc");
+	}
+}
+
 elseif($_GET['type']=="treasurer") {
 
 }

@@ -2,6 +2,15 @@
 
 class db_constituency {
 
+	public static function get_all_constituencies (){
+
+		$query = "select c.id as id, c.title as name from constituencies c order by access_type, title";
+		$values = Array();
+
+		return db::select($query, $values);
+
+	}
+
 	public static function get_constituencies_for_user ($user_id){
 
 		$query = "select c.id as id, c.title as name
@@ -167,6 +176,18 @@ class db_constituency {
 			db::delete($query, $values);
 
 		}
+
+	}
+
+	public static function check_that_constituency_exists ($constituency_id){
+
+		$query = "select count(*) from constituencies where id = ?";
+		$values = Array($constituency_id);
+
+		$reply = db::select_single_value($query, $values);
+
+		if($reply==0) return false;
+		else return true;
 
 	}
 
