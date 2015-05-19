@@ -13,3 +13,21 @@ function expand_mobile_menu () {
 	}
 
 }
+
+function checkAll(ele, class_name) {
+	var checkboxes = document.getElementsByClassName(class_name);
+	if (ele.checked) {
+		for (var i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i].type == 'checkbox') {
+				checkboxes[i].checked = true;
+			}
+		}
+	} 
+	else {
+		for (var i = 0; i < checkboxes.length; i++) {
+			if (checkboxes[i].type == 'checkbox') {
+				checkboxes[i].checked = false;
+			}
+		}
+	}
+ }

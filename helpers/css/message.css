@@ -19,10 +19,6 @@
     font-family: "Open Sans",sans-serif;
 }
 
-.message tbody td a strong{
-    font-weight: normal;
-}
-
 .message-form input{
     margin-top: 15px;
 }

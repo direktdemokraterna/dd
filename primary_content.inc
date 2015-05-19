@@ -208,6 +208,12 @@ elseif($_GET['type']=="vote_admin") {
 	elseif($_GET['action']=="edit_vote"){
 		require("primary_content/vote_admin/edit_vote.inc");
 	}
+	elseif($_GET['action']=="edit_alternatives"){
+		require("primary_content/vote_admin/edit_alternatives.inc");
+	}
+	elseif($_GET['action']=="edit_alternative"){
+		require("primary_content/vote_admin/edit_alternative.inc");
+	}
 	else{
 		require("primary_content/vote_admin/votelist.inc");
 	}

@@ -118,6 +118,12 @@ elseif($_GET['type']=="vote_admin") {
 	elseif($_GET['action']=="create_new_vote"){
 		require("execute_scripts/vote_admin/create_new_vote.inc");
 	}
+	elseif($_GET['action']=="edit_alternatives"){
+		require("execute_scripts/vote_admin/edit_alternatives.inc");
+	}
+	elseif($_GET['action']=="edit_alternative"){
+		require("execute_scripts/vote_admin/edit_alternative.inc");
+	}
 }
 
 elseif($_GET['type']=="treasurer") {

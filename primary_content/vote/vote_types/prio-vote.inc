@@ -131,8 +131,12 @@
       <a href="index.php?type=vote&action=add_alternative&id=<?php echo $voteinfo['vote_id']; ?>">Kandidera till denna omröstning</a>
     <?php endif; ?>
   <?php endif; ?>
+  </p>
 
-  
+  <p>
+  <?php if(isset($_SESSION['is_vote_admin'])) : ?>
+    <a href="index.php?type=vote_admin&action=edit_alternatives&id=<?php echo $voteinfo['vote_id']; ?>">Valadministratör: Redigera alternativ för denna omröstning</a>
+  <?php endif; ?>
   </p>
 
 <?php endif; ?>

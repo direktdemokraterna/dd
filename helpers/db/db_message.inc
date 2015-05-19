@@ -32,6 +32,16 @@ class db_message {
 
 	}
 
+	public static function get_reply_message ($message_id){
+
+		$query = "select u.username as username, concat(u.first_name, ' ', u.last_name) as full_name, m.title as title, m.content as content 
+					from messages m, users u where m.sender_id = u.id and m.id = ?";
+		$values = Array($message_id);
+
+		return db::select_single_row($query, $values);
+
+	}
+
 	public static function create_message ($sender_id, $recipient_id, $title, $message){
 
 		$query = "insert into messages (sender_id, recipient_id, sent_time, title, content) values (?, ?, ?, ?, ?)";

@@ -260,7 +260,11 @@ class db_vote {
 		$query = "insert into votes_alternatives (vote_id, added_by_user, timestamp_added, alternative_title, alternative_description) values (?, ?, ?, ?, ?)";
 		$values = Array($vote_id, $user_id, time(), htmlspecialchars($title), htmlspecialchars($description));
 
-		return db::insert($query, $values);
+		$return =  db::insert($query, $values);
+
+		self::update_number_of_alternatives($vote_id);
+
+		return $return;
 
 	}
 
@@ -269,7 +273,11 @@ class db_vote {
 		$query = "insert into votes_alternatives (vote_id, added_by_delegate, timestamp_added, alternative_title, alternative_description) values (?, ?, ?, ?, ?)";
 		$values = Array($vote_id, $delegate_id, time(), htmlspecialchars($title), htmlspecialchars($description));
 
-		return db::insert($query, $values);
+		$return =  db::insert($query, $values);
+
+		self::update_number_of_alternatives($vote_id);
+
+		return $return;
 
 	}
 
@@ -283,6 +291,7 @@ class db_vote {
 		self::update_number_of_alternatives($vote_id);
 
 		return $return;
+
 	}
 
 	public static function remove_candidate ($vote_id, $user_id){
@@ -318,10 +327,19 @@ class db_vote {
 
 	public static function get_candidates_for_vote ($vote_id){
 
-		$query = "select id, alternative_user_id as user_id, alternative_title as user_name, alternative_description as description from votes_alternatives where vote_id = ? order by timestamp_added asc";
+		$query = "select id, alternative_user_id as user_id, alternative_title as user_name, alternative_title as title, alternative_description as description from votes_alternatives where vote_id = ? order by timestamp_added asc";
 		$values = Array($vote_id);
 
 		return db::select($query, $values);
+
+	}
+
+	public static function get_alternative_info ($alternative_id){
+
+		$query = "select * from votes_alternatives where id = ?";
+		$values = Array($alternative_id);
+
+		return db::select_single_row($query, $values);
 
 	}
 

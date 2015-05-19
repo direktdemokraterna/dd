@@ -6,7 +6,7 @@
 
 	$outbox = db_message::get_outbox($_SESSION['id'], $page);
 	$number_of_messages = count($outbox);
-	$start_message = $page * 20 + 1;
+	$start_message = ($page - 1) * 20 + 1;
 	$stop_message = $start_message + $number_of_messages - 1;
 	$i = 0;
 ?>
@@ -19,7 +19,7 @@
 
 	<?php foreach($outbox as $row) : ?>
 		<tr class="<?php if($i++ % 2) echo "even_row"; else echo "odd_row"; ?>">
-		<td><input type="checkbox" name="check_list[]" value="<?php echo $row['id']; ?>"></td>
+		<td><input type="checkbox" name="check_list[]" class="delete_checkbox" value="<?php echo $row['id']; ?>"></td>
 		<td><a href="index.php?type=member&action=view&id=<?php echo $row['sender_id']; ?>"><?php echo $row['full_name']; ?></a></td>
 		<td><a href="index.php?type=message&action=view&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
 		<td><?php echo general_helpers::show_date($row['sent_time']); ?></td>
@@ -27,6 +27,7 @@
 	<?php endforeach; ?>
 
 	</table>
+	<br><input type="checkbox" name="checkall" onclick="checkAll(this, 'delete_checkbox');">Markera alla
 	<br><input type="submit" value="Radera markerade">
 	</form>
 
