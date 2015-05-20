@@ -8,7 +8,7 @@
 		else{
 			$title = "Sv:" . $reply_info['title']; 
 		}
-		$content = $reply_info['content']; 
+		$content = ""; 
 	}
 	elseif(isset($_POST['recipient']) && isset($_POST['title']) && isset($_POST['message_text'])){
 		$recipient = $_POST['recipient']; 

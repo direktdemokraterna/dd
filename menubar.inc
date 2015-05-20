@@ -2,6 +2,9 @@
 
 	<div id="alt-menu-row">
 		<a href="index.php"><span class="fa fa-home" id="alt-home-button"></span></a>
+		<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>
+			<a href="index.php?type=message&action=inbox"><span class="fa fa-envelope-o" id="alt-mail-button"></span></a>
+		<?php endif; ?>
 		<a onClick="expand_mobile_menu()"><span class="fa fa-bars" id="alt-menu-button"></span></a>
 	</div>
 
@@ -13,6 +16,11 @@
 			<li><a href="index.php?type=member&action=memberlist">Medlemslista</a></li>
 		</ul>
 	</li>
+
+	<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>
+		<li id="unread-mail"><a href="index.php?type=message&action=inbox" style="min-width: 10px; padding: 0 0 0 0;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-envelope-o" id="fa-envelope-o"></span></a>
+		</li>
+	<?php endif; ?>
 
 	<li><a href="index.php?type=message">Meddelanden</a>
 		<ul>

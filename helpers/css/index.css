@@ -122,6 +122,15 @@ strong {
     margin-bottom: 30px
 }
 
+@media screen and (min-width: 801px) and (max-width: 1200px) {
+    #wrap {
+        max-width: calc(100% - 20px);
+    }
+    #main-content {
+        max-width: calc(100% - 255px);
+    }
+}
+
 
 
 /* Standard form */

@@ -122,7 +122,7 @@
 
 #menubar ul li a {
     display: block;
-    min-width: 120px;
+    min-width: 110px;
     font: 400 13px/32px "Open Sans",sans-serif;
     text-decoration: none;
     color: #ccc;
@@ -141,7 +141,7 @@
 
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
     #menubar {
         position: relative;
         width: 100%;
@@ -200,12 +200,29 @@
         color: #2ea2cc;
     }
 
+    #alt-mail-button {
+        float: left;
+        font-size: 40px;
+        color: #ccc;
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+    }
+
+    #alt-mail-button:hover {
+        color: #2ea2cc;
+    }
+
     #pseudo_menubar {
         display: none;
     }
 
     #logout-link {
         float: left;
+        display: none;
+    }
+
+    #unread-mail {
         display: none;
     }
 }
