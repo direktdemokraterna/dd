@@ -83,8 +83,8 @@
 				<input type="button" class="post_buttons" id="post_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic()">
 				<input type="button" class="post_buttons" id="post_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline()">
 			</div>
-			<textarea name="new_post_content" id="new_post_content"></textarea><br>
-			<input type="submit" id="new_post_submit" value="Skicka">
+			<textarea name="new_post_content" id="new_post_content" tabindex="1"></textarea><br>
+			<input type="submit" id="new_post_submit" value="Skicka" tabindex="2">
 		</fieldset>
 	</form>
 

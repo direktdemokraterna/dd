@@ -53,16 +53,16 @@
 			<legend class="create_new_topic">Skapa ny tråd i detta forum</legend>
 			<input type="hidden" name="forum_id" value="<?php echo $forum_info['id']; ?>">
 			<label for "new_topic_title">Ämnestitel</label>
-			<input type="text" name="new_topic_title" id="new_topic_title">
+			<input type="text" name="new_topic_title" id="new_topic_title" tabindex="1">
 			<br>
 			<div id="post_buttons_div">
 				<input type="button" class="post_buttons" id="post_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold()">
 				<input type="button" class="post_buttons" id="post_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic()">
 				<input type="button" class="post_buttons" id="post_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline()">
 			</div>
-			<textarea name="new_topic_content" id="new_topic_content" rows="12" cols="30"></textarea>
+			<textarea name="new_topic_content" id="new_topic_content" rows="12" cols="30" tabindex="2"></textarea>
 			<br>
-			<input type="submit" id="new_topic_submit" value="Skicka">
+			<input type="submit" id="new_topic_submit" value="Skicka" tabindex="3">
 		</fieldset>
 	</form>
 

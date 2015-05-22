@@ -101,7 +101,7 @@ class db_forum {
 	public static function new_topic ($user_id, $forum_id, $title){
 
 		$query = "insert into posts (user_id, forum_id, title, is_topic, posted_time) values (?, ?, ?, ?, ?)";
-		$values = Array($user_id, $forum_id, $title, 1, time());
+		$values = Array($user_id, $forum_id, htmlspecialchars($title), 1, time());
 
 		$insert_id = db::insert($query, $values);
 
@@ -110,7 +110,7 @@ class db_forum {
 
 		db::update($query, $values);
 
-		self::update_forum_post_count($forum_id, $insert_id);
+		self::update_forum_post_count($forum_id);
 
 		self::update_user_post_count($user_id);
 
