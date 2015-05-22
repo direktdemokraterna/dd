@@ -398,7 +398,7 @@ class db_workgroup {
 		$query = "select private_forum_id from workgroups where id = ?";
 		$values = Array($workgroup_id);
 
-		$return = db::select_single_value($query, $values);
+		return db::select_single_value($query, $values);
 
 	}
 }

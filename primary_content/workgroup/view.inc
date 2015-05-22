@@ -45,9 +45,9 @@
 				<?php endif; ?>
 				<?php if($exclude_info['is_excluder'] > 0) : ?>
 					 (Du stödjer en uteslutning av denna gruppmedlem.)
-					 <form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="cancel_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" value="Ångra"></form>
+					 &nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="cancel_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Ångra"></form>
 				<?php else : ?>
-					<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="support_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" value="Rösta för uteslutning av denna gruppmedlem"></form>
+					&nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="support_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Rösta för uteslutning av denna gruppmedlem"></form>
 				<?php endif; ?>
 			<?php endif; ?>
 			<br>
@@ -68,22 +68,27 @@
 						<?php $candidate_info = db_workgroup::candidate_info($workgroup['id'], $row['user_id'], $_SESSION['id']); ?>
 						 (<?php echo $candidate_info['number_of_supporters']; ?> gruppmedlem<?php if($candidate_info['number_of_supporters'] != 1) echo "mar"; ?> stödjer att denna kandidat upptas. 
 						<?php if($candidate_info['is_supporter'] > 0) : ?>
-						 	<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="cancel_support_candidate"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" value="Dra tillbaka ditt stöd för denna kandidat"></form>
+						 	&nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="cancel_support_candidate"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Dra tillbaka ditt stöd för denna kandidat"></form>
 						<?php else : ?>
-						 	<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="support_candidate"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" value="Stöd denna kandidat"></form>
+						 	&nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="support_candidate"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Stöd denna kandidat"></form>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				<?php endif; ?>
+
+				<p><strong>Avsluta ditt medlemskap</strong>
+				<form method="post" action="" class="standard-form"><input type="hidden" name="type" value="cancel_membership"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" style="width: auto;" value="Gå ur den här arbetsgruppen" onclick="return confirm('Vill du verkligen gå ur den här arbetsgruppen?');"></form>
+				</p>
+
 			<?php elseif($is_candidate) : ?>
 				<?php $candidate_info = db_workgroup::candidate_info($workgroup['id'], $_SESSION['id'], $_SESSION['id']); ?>
 				<?php $needed_member_count_for_candidate = ceil(db_workgroup::get_member_count($workgroup['id']) / 1.999); ?>
 				<p>Du har ansökt om medlemskap i denna arbetsgrupp. För närvarande har du stöd av <?php echo $candidate_info['number_of_supporters']; ?> medlem<?php if($candidate_info['number_of_supporters'] != 1) echo "mar"; ?>, <?php echo $needed_member_count_for_candidate; ?> behövs för att upphöjas till medlem.
 				<br>
-				<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="cancel_candidacy"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" value="Ta tillbaka medlemsansökan"></form>
+				<form method="post" action="" class="standard-form"><input type="hidden" name="type" value="cancel_candidacy"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" style="width: auto;" value="Ta tillbaka medlemsansökan"></form>
 				</p>
 			<?php else : ?>
 				<p>
-				<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="submit_candidacy"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" value="Ansök om medlemskap"></form>
+				<form method="post" action="" class="standard-form"><input type="hidden" name="type" value="submit_candidacy"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" style="width: auto;" value="Ansök om medlemskap"></form>
 				</p>
 			<?php endif; ?>
 		<?php endif; ?>
@@ -91,11 +96,12 @@
 	<?php else : ?>
 		<?php if($is_member) : ?>
 			<p>Du stödjer att denna arbetsgrupp aktiveras. 
-			<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="cancel_support_workgroup"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" value="Ta tillbaka ditt stöd till denna arbetsgrupp"></form>
+			<form method="post" action="" class="standard-form"><input type="hidden" name="type" value="cancel_support_workgroup"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" style="width: auto;" value="Ta tillbaka ditt stöd till denna arbetsgrupp"></form>
 		<?php else : ?>
 			<p>
-			<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="support_workgroup"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" value="Stöd denna arbetsgrupp"></form> 
+			<form method="post" action="" class="standard-form"><input type="hidden" name="type" value="support_workgroup"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="submit" style="width: auto;" value="Stöd denna arbetsgrupp"></form> 
 			(Arbetsgruppen kommer aktiveras när 3 medlemmar stödjer den. De tre stödjarna kommer automatiskt omvandlas till medlemmar.)</p>
 		<?php endif; ?>
 	<?php endif; ?>
 <?php endif; ?>
+

@@ -314,6 +314,7 @@ $query = "CREATE TABLE `dd`.`users` (
   `password` VARCHAR(128) NOT NULL,
   `remember_me_token` VARCHAR(128) DEFAULT null,
   `registration_time` INTEGER UNSIGNED NOT NULL,
+  `deletion_time` INTEGER UNSIGNED DEFAULT null,
   `last_login_time` INTEGER UNSIGNED DEFAULT null,
   `last_activity_time` INTEGER UNSIGNED DEFAULT null,
   `first_name` VARCHAR(45) DEFAULT '',
@@ -342,6 +343,21 @@ $query = "CREATE TABLE `dd`.`users` (
   `description` TEXT DEFAULT '',
   PRIMARY KEY (`id`), 
   FULLTEXT KEY 'search' ('first_name', 'last_name', 'description')
+)
+ENGINE = MyISAM;";
+
+mysql_query($query);
+
+
+$query = "CREATE TABLE `dd`.`membership_fees` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `timestamp` INTEGER UNSIGNED NOT NULL,
+  `sum` INTEGER UNSIGNED NOT NULL,
+  `to_account_id` INTEGER UNSIGNED,
+  `message` VARCHAR(255),
+  `payment_for_year` INTEGER(4) UNSIGNED,
+  PRIMARY KEY (`id`)
 )
 ENGINE = MyISAM;";
 
@@ -378,6 +394,10 @@ mysql_query("INSERT INTO admin_roles VALUES (3, 'Forumadministratör', '', 'forum
 mysql_query("INSERT INTO admin_roles VALUES (4, 'Valadministratör', '', 'vote_admin')");
 mysql_query("INSERT INTO admin_roles VALUES (5, 'Kassör', '', 'treasurer')");
 
+
+// CREATING DEFAULT ADMIN USER
+mysql_query("INSERT INTO users (id, username, first_name, password, registration_time, email, show_email) VALUES (1, 'admin', 'Admin', '$2a$08$e.8wjns479C6my6mBkWBUey/cCK5iY3zO1e5dO15AkJgCi6mVVA.C', " . time() . ", 'admin@direktdemokraterna.se', 0)");
+mysql_query("INSERT INTO admin_roles_users VALUES (null, 1, 1)");
 
 
 $query = "CREATE TABLE `dd`.`messages` (

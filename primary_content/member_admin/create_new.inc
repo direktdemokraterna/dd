@@ -28,5 +28,5 @@
 <input type="text" name="social_security_number" id="create_member_social_security_number">
 <br><label for "create_member_skype_name">Skype användarnamn</label>
 <input type="text" name="skype_name" id="create_member_skype_name">
-<br><input type="submit" name="" id="submit" value="Skicka in">
+<br><input type="submit" name="" id="submit" value="Skapa">
 </form>

@@ -1,5 +1,5 @@
 <?php 
-if($_POST){
+if(isset($_POST['edit_user'])){
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 		$message = "Mejladressen är inte korrekt."; 
 		db_helpers::insert_error_message($_SESSION['id'], $message, "red");
@@ -19,7 +19,7 @@ if($_POST){
 	}
 }
 
-if(isset($_GET['change_password'])){
+elseif(isset($_POST['change_password'])){
 	require("helpers/class-phpass.php");
 	$random_password = general_helpers::GenerateRandomString(12);
 	$hasher = new PasswordHash(8, FALSE);
@@ -31,6 +31,28 @@ if(isset($_GET['change_password'])){
 		db_helpers::insert_error_message($_SESSION['id'], $message);
 		$redirect = $_SERVER['REQUEST_URI'];
 	}
+}
+
+elseif(isset($_POST['delete_user'])){
+
+	$ok = db_member_admin::delete_user($_GET['id']);
+	if($ok){
+		$message = "Användaren är borttagen ur medlemslistan";
+		db_helpers::insert_error_message($_SESSION['id'], $message);
+		$redirect = $_SERVER['REQUEST_URI'];
+	}
+
+}
+
+elseif(isset($_POST['restore_user'])){
+
+	$ok = db_member_admin::restore_user($_GET['id']);
+	if($ok){
+		$message = "Användaren har återställts i medlemslistan";
+		db_helpers::insert_error_message($_SESSION['id'], $message);
+		$redirect = $_SERVER['REQUEST_URI'];
+	}
+
 }
 
 ?>

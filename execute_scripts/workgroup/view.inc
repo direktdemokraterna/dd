@@ -62,6 +62,11 @@ if(isset($_POST['type'])){
 		if($ok) $message = "Du stödjer inte längre denna arbetsgrupps aktivering.";
 	}
 
+	elseif($_POST['type']=="cancel_membership"){
+		$ok = db_workgroup::drop_member($_POST['id'], $_SESSION['id']);
+		if($ok) $message = "Du är inte längre medlem i denna arbetsgrupp.";
+	}
+
 	if(!empty($message)){
 		db_helpers::insert_error_message($_SESSION['id'], $message);
 		$redirect = $_SERVER['REQUEST_URI'];

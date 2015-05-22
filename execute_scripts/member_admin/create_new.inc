@@ -31,7 +31,7 @@ if($_POST){
 			}
 			$local_county_constituency = db_constituency::get_local_county_constituency($_POST['county']);
 			db_constituency::add_constituency_access($insert_id, $local_county_constituency);
-			$local_region_forum = db_helpers::get_local_region_forum($region);
+			$local_region_constituency = db_constituency::get_local_region_constituency($region);
 			db_constituency::add_constituency_access($insert_id, $local_region_constituency);
 
 			$message = "Användaren är skapad. Lösenordet är: " . $random_password;

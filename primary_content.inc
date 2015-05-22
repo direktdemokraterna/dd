@@ -197,7 +197,7 @@ elseif($_GET['type']=="forum_admin") {
 		require("primary_content/forum_admin/edit_forum.inc");
 	}
 	else{
-	
+		require("primary_content/forum_admin/list_categories.inc");
 	}
 }
 

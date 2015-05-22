@@ -71,7 +71,7 @@ class db_constituency {
 
 		$db_table = "constituencies_users";
 		$columns = Array("user_id", "constituency_id");
-		$values = Array($constituency_id, $forum_id);
+		$values = Array($user_id, $constituency_id);
 
 		$return = db::insert_ignore($db_table, $columns, $values);
 
@@ -84,7 +84,7 @@ class db_constituency {
 	public static function remove_constituency_access ($user_id, $constituency_id){
 
 		$query = "delete from constituencies_users where user_id = ? and constituency_id = ?";
-		$values = Array($user_id, $forum_id);
+		$values = Array($user_id, $constituency_id);
 
 		$return = db::delete($query, $values);
 
@@ -96,7 +96,7 @@ class db_constituency {
 
 	public static function count_constituency_members ($constituency_id){
 
-		$query = "update constituencies set number_of_voters = (select count(*) from constituencies_users where constituency_id = ?) where constituency_id = ?";
+		$query = "update constituencies set number_of_voters = (select count(*) from constituencies_users where constituency_id = ?) where id = ?";
 		$values = Array($constituency_id, $constituency_id);
 
 		return db::update($query, $values);
