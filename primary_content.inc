@@ -24,6 +24,12 @@ if($_GET['type']=="member") {
 	elseif($_GET['action']=="calendar_add") {
 		require("primary_content/member/calendar_add.inc");
 	}
+	elseif($_GET['action']=="admin_description") {
+		require("primary_content/member/admin_description.inc");
+	}
+	elseif($_GET['action']=="admin_list") {
+		require("primary_content/member/admin_list.inc");
+	}
 	elseif($_GET['action']=="search") {
 		require("primary_content/member/search.inc");
 	}
@@ -162,7 +168,7 @@ else {
 }
 
 
-elseif($_GET['type']=="member_admin") {
+elseif($_GET['type']=="member_admin" && isset($_SESSION['is_member_admin'])) {
 	if($_GET['action']=="create_new"){
 		require("primary_content/member_admin/create_new.inc");
 	}
@@ -177,7 +183,7 @@ elseif($_GET['type']=="member_admin") {
 	}
 }
 
-elseif($_GET['type']=="forum_admin") {
+elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {
 	if($_GET['action']=="new_category"){
 		require("primary_content/forum_admin/new_category.inc");
 	}
@@ -196,12 +202,18 @@ elseif($_GET['type']=="forum_admin") {
 	elseif($_GET['action']=="edit_forum"){
 		require("primary_content/forum_admin/edit_forum.inc");
 	}
+	elseif($_GET['action']=="edit_topic"){
+		require("primary_content/forum_admin/edit_topic.inc");
+	}
+	elseif($_GET['action']=="edit_post"){
+		require("primary_content/forum_admin/edit_post.inc");
+	}
 	else{
 		require("primary_content/forum_admin/list_categories.inc");
 	}
 }
 
-elseif($_GET['type']=="vote_admin") {
+elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
 	if($_GET['action']=="create_new_vote"){
 		require("primary_content/vote_admin/create_new_vote.inc");
 	}
@@ -219,11 +231,11 @@ elseif($_GET['type']=="vote_admin") {
 	}
 }
 
-elseif($_GET['type']=="treasurer") {
+elseif($_GET['type']=="treasurer" && isset($_SESSION['is_treasurer'])) {
 	require("primary_content/treasurer.inc");
 }
 
-elseif($_GET['type']=="superadmin") {
+elseif($_GET['type']=="superadmin" && isset($_SESSION['is_superadmin'])) {
 	if($_GET['action']=="edit_admin"){
 		require("primary_content/superadmin/edit_admin.inc");
 	}

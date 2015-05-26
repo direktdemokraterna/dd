@@ -2,6 +2,15 @@
 
 class db_admin {
 	
+	public static function get_all_admin_roles (){
+
+		$query = "select * from admin_roles";
+		$values = Array();
+
+		return db::select($query, $values);
+
+	}
+
 	public static function get_admin_roles_for_user ($user_id){
 
 		$query = "select admin_roles.* from admin_roles, admin_roles_users where admin_roles_users.admin_role_id = admin_roles.id and user_id = ?";
@@ -31,7 +40,7 @@ class db_admin {
 
 	public static function get_admin_role_users ($admin_role_id){
 
-		$query = "select users.* from users, admin_roles_users where admin_roles_users.user_id=users.id and admin_roles_users.admin_role_id = ?";
+		$query = "select u.id as id, concat(u.first_name, ' ', u.last_name) as full_name from users u, admin_roles_users aru where aru.user_id = u.id and aru.admin_role_id = ?";
 		$values = Array($admin_role_id);
 
 		return db::select($query, $values);

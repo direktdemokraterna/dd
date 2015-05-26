@@ -37,7 +37,7 @@ class db_forum {
 
 	public static function get_full_post_info ($post_id, $user_id){
 
-		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time 		as posted_time, p.last_edited_time as last_edited_time, u.image as user_image
+		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time 		as posted_time, p.last_edited_time as last_edited_time, p.forum_id as forum_id, u.image as user_image
 					from posts p, users u 
 					where u.id = p.user_id and p.id = ? and exists (select * from forums_users where forum_id = p.forum_id and user_id = ?)";
 		$values = Array($post_id, $user_id);
@@ -140,9 +140,7 @@ class db_forum {
 		$query = "update forums set last_posted_time = (select posted_time from posts where forum_id = ? order by posted_time desc limit 1), last_posted_post = (select id from posts where forum_id = ? order by posted_time desc limit 1), number_of_topics = (select count(*) from posts where is_topic = 1 and forum_id = ?), number_of_posts = (select count(*) from posts where forum_id = ?) where id = ?";
 		$values = Array($forum_id, $forum_id, $forum_id, $forum_id, $forum_id);
 
-		$check = db::update($query, $values);
-
-		return;
+		return db::update($query, $values);
 
 	}
 
@@ -155,12 +153,30 @@ class db_forum {
 
 	}
 
+	public static function get_user_id_from_post ($post_id){
+
+		$query = "select user_id from posts where id = ?";
+		$values = Array($post_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
 	public static function get_forum_from_post ($post_id){
 
 		$query = "select f.id as forum_id, f.title as forum_title from posts p, forums f where p.forum_id = f.id and p.id = ?";
 		$values = Array($post_id);
 
 		return db::select_single_row($query, $values);
+
+	}
+
+	public static function get_forum_id_from_post_id ($post_id){
+
+		$query = "select forum_id from posts where id = ?";
+		$values = Array($post_id);
+
+		return db::select_single_value($query, $values);
 
 	}
 

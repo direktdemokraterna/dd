@@ -33,7 +33,7 @@
 	<?php
 		$admin_roles = db_admin::get_admin_roles_for_user($_GET['id']);
 		foreach($admin_roles as $row){
-			echo "<p>Är <a href=\"index.php?type=admin_roles&action=description&id=" . $row['id'] . "\">" . strtolower($row['title']) . "</a></p>";
+			echo "<p>Är <a href=\"index.php?type=member&action=admin_description&id=" . $row['id'] . "\">" . strtolower($row['title']) . "</a></p>";
 		}
 	?>
 

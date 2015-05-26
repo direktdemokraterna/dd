@@ -10,8 +10,6 @@
 			$message = "Inlägget har redigerats.";
 			db_helpers::insert_error_message($_SESSION['id'], $message);
 			$redirect = "index.php?type=forum&action=show_posts&id=" . $post_info['topic_id'] . "&page=last";
-			header("Location: $redirect");
-			exit();
 		}
 	}
 	elseif($post_info['user_id'] != $_SESSION['id'] && ($post_info['posted_time'] + 10 * 60) > time()){

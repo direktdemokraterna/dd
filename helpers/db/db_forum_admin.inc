@@ -58,7 +58,6 @@ class db_forum_admin {
 
 		if($access_type == "public"){
 			$users = db_user::get_all_user_ids();
-var_dump($users);
 			$query = "insert into forums_users (forum_id, user_id) values (" . $forum_id . ", ?)";
 			db::insert_all($query, $users);
 		}
@@ -110,6 +109,109 @@ var_dump($users);
 		$values = Array($user_id, $forum_id);
 
 		return db::delete($query, $values);
+
+	}
+
+	public static function get_all_topics_for_forum ($forum_id){
+
+		$query = "select id, title from posts where is_topic = 1 and forum_id = ?";
+		$values = Array($forum_id);
+
+		return db::select($query, $values);
+
+	}
+
+	public static function get_all_forums (){
+
+		$query = "select id, title from forums";
+		$values = Array();
+
+		return db::select($query, $values);
+
+	}
+
+	public static function move_post ($post_id, $topic_id){
+
+		$query = "update posts set topic_id = ? where id = ?";
+		$values = Array($topic_id, $post_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function create_topic_from_post ($post_id, $title){
+
+		$user_id = db_forum::get_user_id_from_post($post_id);
+		$forum_id = db_forum::get_forum_id_from_post_id($post_id);
+
+		$query = "update posts set is_topic = 1, topic_id = ?, title = ? where id = ?";
+		$values = Array($post_id, htmlspecialchars($title), $post_id);
+
+		$return = db::update($query, $values);
+
+		db_forum::update_user_post_count($user_id);
+		db_forum::update_forum_post_count($forum_id);
+
+		return $return;
+
+	}
+
+	public static function move_topic ($topic_id, $forum_id){
+
+		$old_forum_id = db_forum::get_forum_id_from_post_id($topic_id);
+
+		$query = "update posts set forum_id = ? where topic_id = ?";
+		$values = Array($forum_id, $topic_id);
+
+		$return = db::update($query, $values);
+
+		db_forum::update_forum_post_count($old_forum_id);
+		db_forum::update_forum_post_count($forum_id);
+
+		return $return;
+	}
+
+	public static function delete_post ($post_id){
+
+		$user_id = db_forum::get_user_id_from_post($post_id);
+		$forum_id = db_forum::get_forum_id_from_post_id($post_id);
+
+		$query = "delete from posts where id = ?";
+		$values = Array($post_id);
+
+		$return = db::delete($query, $values);
+
+		db_forum::update_user_post_count($user_id);
+		db_forum::update_forum_post_count($forum_id);
+
+		return $return;
+
+	}
+
+	public static function delete_topic ($topic_id){
+
+		$forum_id = db_forum::get_forum_id_from_post_id($topic_id);
+		$user_ids = self::get_user_ids_from_topic($topic_id);
+
+		$query = "delete from posts where topic_id = ?";
+		$values = Array($topic_id);
+
+		$return = db::delete($query, $values);
+
+		db_forum::update_forum_post_count($forum_id);
+		foreach($user_ids as $user_id) {
+			db_forum::update_user_post_count($user_id);
+		}
+
+		return $return;
+	}
+
+	public static function get_user_ids_from_topic ($topic_id){
+
+		$query = "select distinct user_id from posts where topic_id = ?";
+		$values = Array($topic_id);
+
+		return db::select($query, $values);
 
 	}
 

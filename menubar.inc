@@ -14,6 +14,7 @@
 			<li><a href="index.php?type=member&action=calendar">Kalender</a></li>
 			<li><a href="index.php?type=member&action=settings">Inställningar</a></li>
 			<li><a href="index.php?type=member&action=memberlist">Medlemslista</a></li>
+			<li><a href="index.php?type=member&action=admin_list">Administratörslista</a></li>
 		</ul>
 	</li>
 

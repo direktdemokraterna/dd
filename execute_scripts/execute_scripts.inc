@@ -87,7 +87,7 @@ elseif($_GET['type']=="vote") {
 	}
 }
 
-elseif($_GET['type']=="member_admin") {
+elseif($_GET['type']=="member_admin" && isset($_SESSION['is_member_admin'])) {
 	if($_GET['action']=="create_new"){
 		require("execute_scripts/member_admin/create_new.inc");
 	}
@@ -96,7 +96,7 @@ elseif($_GET['type']=="member_admin") {
 	}
 }
 
-elseif($_GET['type']=="forum_admin") {
+elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {
 	if($_GET['action']=="new_category"){
 		require("execute_scripts/forum_admin/new_category.inc");
 	}
@@ -109,9 +109,15 @@ elseif($_GET['type']=="forum_admin") {
 	elseif($_GET['action']=="edit_forum"){
 		require("execute_scripts/forum_admin/edit_forum.inc");
 	}
+	elseif($_GET['action']=="edit_topic"){
+		require("execute_scripts/forum_admin/edit_topic.inc");
+	}
+	elseif($_GET['action']=="edit_post"){
+		require("execute_scripts/forum_admin/edit_post.inc");
+	}
 }
 
-elseif($_GET['type']=="vote_admin") {
+elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
 	if($_GET['action']=="edit_vote"){
 		require("execute_scripts/vote_admin/edit_vote.inc");
 	}
@@ -126,11 +132,11 @@ elseif($_GET['type']=="vote_admin") {
 	}
 }
 
-elseif($_GET['type']=="treasurer") {
+elseif($_GET['type']=="treasurer" && isset($_SESSION['is_treasurer'])) {
 
 }
 
-elseif($_GET['type']=="superadmin") {
+elseif($_GET['type']=="superadmin" && isset($_SESSION['is_superadmin'])) {
 	if($_GET['action']=="edit_admin"){
 		require("execute_scripts/superadmin/edit_admin.inc");
 	}
