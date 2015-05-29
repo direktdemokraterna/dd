@@ -588,20 +588,6 @@ mysql_query($query);
 
 
 
-$query = "CREATE TABLE `dd`.`error_messages` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER UNSIGNED NOT NULL,
-  `message` VARCHAR(90) NOT NULL,
-  `color` VARCHAR(9) NOT NULL DEFAULT 'green',
-  `timestamp` INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-)
-ENGINE = MyISAM;";
-
-mysql_query($query);
-
-
-
 
 $query = "CREATE TABLE `dd`.`post_reports` (
   `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,

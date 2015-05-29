@@ -6,9 +6,8 @@
 				$message = $deleted . " meddelanden raderade.";
 			}
 			else{
-				$message = "1 meddelande raderat.";
+				$_SESSION['report_message'] = "1 meddelande raderat.";
 			}
-			db_helpers::insert_error_message($_SESSION['id'], $message);
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}
@@ -21,9 +20,8 @@
 				$message = $deleted . " meddelanden raderade.";
 			}
 			else{
-				$message = "1 meddelande raderat.";
+				$_SESSION['report_message'] = "1 meddelande raderat.";
 			}
-			db_helpers::insert_error_message($_SESSION['id'], $message);
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}
@@ -36,9 +34,8 @@
 				$message = $deleted . " meddelanden raderade.";
 			}
 			else{
-				$message = "1 meddelande raderat.";
+				$_SESSION['report_message'] = "1 meddelande raderat.";
 			}
-			db_helpers::insert_error_message($_SESSION['id'], $message);
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}
@@ -46,8 +43,7 @@
 	if(isset($_GET['cancel'])){
 		$cancelled = db_message::cancel($_GET['cancel'], $_SESSION['id']);
 		if($cancelled>0){
-			$message = "Meddelandet har ångrats och mottagaren hann aldrig läsa det.";
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Meddelandet har ångrats och mottagaren hann aldrig läsa det.";
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}

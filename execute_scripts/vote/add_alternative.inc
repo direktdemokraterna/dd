@@ -23,13 +23,12 @@ if(isset($_POST['vote_id'])){
 				}
 
 				if($ok){
-					$message = "Alternativet har skapats.";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$_SESSION['report_message'] = "Alternativet har skapats.";
 					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
 				}
 				else{
-					$message = "Något gick fel. Ingenting skapat.";
-					db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+					$_SESSION['report_message'] = "Något gick fel. Ingenting skapat.";
+					$_SESSION['red_report_message'] = 1;
 					$redirect = $_SERVER['REQUEST_URI'];
 				}
 
@@ -43,8 +42,7 @@ if(isset($_POST['vote_id'])){
 
 				$ok = db_vote::remove_candidate($_GET['id'], $_SESSION['id']);
 				if($ok){
-					$message = "Din kandidatur har dragits tillbaka.";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$_SESSION['report_message'] = "Din kandidatur har dragits tillbaka.";
 					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
 				}
 
@@ -54,8 +52,7 @@ if(isset($_POST['vote_id'])){
 
 				$ok = db_vote::add_candidate($_GET['id'], $_SESSION['id'], $_POST['alternative_description']);
 				if($ok){
-					$message = "Du är nu kandidat i omröstningen: " . $voteinfo['title'] . ".";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$_SESSION['report_message'] = "Du är nu kandidat i omröstningen: " . $voteinfo['title'] . ".";
 					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
 				}
 

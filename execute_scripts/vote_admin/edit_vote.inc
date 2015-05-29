@@ -23,25 +23,24 @@
 					}
 
 					if($ok1 || $ok2){
-						$message = "Omröstningen är ändrad.";
-						db_helpers::insert_error_message($_SESSION['id'], $message);
+						$_SESSION['report_message'] = "Omröstningen är ändrad.";
 						$redirect = $_SERVER['REQUEST_URI'];
 					}
 					else{
-						$message = "Databasfel. Ingen ändring gjord.";
-						db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+						$_SESSION['report_message'] = "Databasfel. Ingen ändring gjord.";
+						$_SESSION['red_report_message'] = 1;
 					}
 
 				}
 				else{
-					$message = "Fel omröstningstyp. Ingen ändring gjord.";
-					db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+					$_SESSION['report_message'] = "Fel omröstningstyp. Ingen ändring gjord.";
+					$_SESSION['red_report_message'] = 1;
 				}
 
 			}
 			else{
-				$message = "Valkretsfel. Ingen ändring gjord.";
-				db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+				$_SESSION['report_message'] = "Valkretsfel. Ingen ändring gjord.";
+				$_SESSION['red_report_message'] = 1;
 			}
 
 		}

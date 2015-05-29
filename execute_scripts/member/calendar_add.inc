@@ -62,24 +62,23 @@
 
 		if(isset($insert_counter)){
 			if($insert_counter==1){
-				$message = "Aktivitet inlagd i kalendern.";
+				$_SESSION['report_message'] = "Aktivitet inlagd i kalendern.";
 			}
 			elseif($insert_counter>1){
 				$message = $insert_counter . " aktiviteter inlagda i kalendern.";
 			}
-			db_helpers::insert_error_message($_SESSION['id'], $message);
 			$redirect = "index.php?type=member&action=calendar";
 		}
 		else {
-			$message = "Något gick fel. Ingen aktivitet inlagd i kalendern.";
-			db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+			$_SESSION['report_message'] = "Något gick fel. Ingen aktivitet inlagd i kalendern.";
+			$_SESSION['red_report_message'] = 1;
 		}
 		
 	}
 
 	else{
-		$message = "Något fält som måste vara ifyllt var inte ifyllt."; 
-		db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+		$_SESSION['report_message'] = "Något fält som måste vara ifyllt var inte ifyllt."; 
+		$_SESSION['red_report_message'] = 1;
 	}
 
 ?>

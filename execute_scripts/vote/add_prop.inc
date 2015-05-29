@@ -9,21 +9,20 @@
 		if($constituency_check){
 			$insert_id = db_prop::add_prop($_POST['type_of_vote'], $_SESSION['id'], null, $_POST['constituency_id'], $title, $description);
 			if($insert_id){
-				$message = "Propositionen är skapad.";
-				db_helpers::insert_error_message($_SESSION['id'], $message);
+				$_SESSION['report_message'] = "Propositionen är skapad.";
 				$redirect = "index.php?type=vote&action=view_prop&id=" . $insert_id;
 			}
 		}
 		else{
-			$message = "Du har inte behörighet till den valkretsen.";
-			db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+			$_SESSION['report_message'] = "Du har inte behörighet till den valkretsen.";
+			$_SESSION['red_report_message'] = 1;
 		}
 
 	}
 
 	else{
-		$message = "Något fält var inte korrekt ifyllt.";
-		db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+		$_SESSION['report_message'] = "Något fält var inte korrekt ifyllt.";
+		$_SESSION['red_report_message'] = 1;
 	}
 
 ?>

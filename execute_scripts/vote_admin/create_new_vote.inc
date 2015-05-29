@@ -37,13 +37,12 @@
 				}
 
 				if($ok){
-					$message = "Omröstningen är skapad.";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$_SESSION['report_message'] = "Omröstningen är skapad.";
 					$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;
 				}
 				else{
-					$message = "Något gick fel. Ingen omröstning skapad.";
-					db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+					$_SESSION['report_message'] = "Något gick fel. Ingen omröstning skapad.";
+					$_SESSION['red_report_message'] = 1;
 				}
 
 			}

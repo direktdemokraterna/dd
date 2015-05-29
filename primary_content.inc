@@ -2,7 +2,7 @@
 
 <?php
 
-echo general_helpers::check_messages($_SESSION['id']);
+echo general_helpers::check_report_messages();
 
 
 if($_GET['type']=="member") {

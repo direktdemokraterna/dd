@@ -1,8 +1,8 @@
 <?php 
 if($_POST){
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-		$message = "Mejladressen var inte korrekt.";
-		db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+		$_SESSION['report_message'] = "Mejladressen var inte korrekt.";
+		$_SESSION['red_report_message'] = 1;
 	}
 	else{
 		$region = db_helpers::get_region_from_county($_POST['county']);
@@ -34,8 +34,7 @@ if($_POST){
 			$local_region_constituency = db_constituency::get_local_region_constituency($region);
 			db_constituency::add_constituency_access($insert_id, $local_region_constituency);
 
-			$message = "Användaren är skapad. Lösenordet är: " . $random_password;
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Användaren är skapad. Lösenordet är: " . $random_password;
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}

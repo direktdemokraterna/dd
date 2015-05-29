@@ -58,7 +58,7 @@ CREATE TABLE `admin_roles_users` (
   `admin_role_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin_roles_users`
@@ -66,8 +66,16 @@ CREATE TABLE `admin_roles_users` (
 
 /*!40000 ALTER TABLE `admin_roles_users` DISABLE KEYS */;
 INSERT INTO `admin_roles_users` (`id`,`admin_role_id`,`user_id`) VALUES 
+ (89,1,5),
+ (88,5,13),
+ (87,4,6),
  (80,2,4),
- (84,1,4);
+ (86,3,6),
+ (85,2,6),
+ (84,1,4),
+ (90,5,5),
+ (91,2,5),
+ (92,3,13);
 /*!40000 ALTER TABLE `admin_roles_users` ENABLE KEYS */;
 
 
@@ -677,28 +685,6 @@ INSERT INTO `delegates_users` (`id`,`delegate_id`,`user_id`) VALUES
 
 
 --
--- Definition of table `error_messages`
---
-
-DROP TABLE IF EXISTS `error_messages`;
-CREATE TABLE `error_messages` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `user_id` int(10) unsigned NOT NULL default '0',
-  `message` varchar(90) NOT NULL default '',
-  `color` varchar(9) NOT NULL default 'green',
-  `timestamp` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=175 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `error_messages`
---
-
-/*!40000 ALTER TABLE `error_messages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `error_messages` ENABLE KEYS */;
-
-
---
 -- Definition of table `forums`
 --
 
@@ -722,7 +708,7 @@ CREATE TABLE `forums` (
 
 /*!40000 ALTER TABLE `forums` DISABLE KEYS */;
 INSERT INTO `forums` (`id`,`category_id`,`title`,`description`,`last_posted_time`,`last_posted_post`,`number_of_topics`,`number_of_posts`,`access_type`) VALUES 
- (1,4,'Testforumet','Forum för att testa saker. ',1432278142,38,1,1,'public'),
+ (1,4,'Testforumet','Forum för att testa saker. ',1432645649,50,7,8,'public'),
  (2,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
  (3,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
  (4,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
@@ -1487,7 +1473,7 @@ CREATE TABLE `posts` (
   `content` text NOT NULL,
   PRIMARY KEY  USING HASH (`id`),
   FULLTEXT KEY `search` (`title`,`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `posts`
@@ -1495,7 +1481,14 @@ CREATE TABLE `posts` (
 
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
 INSERT INTO `posts` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_time`,`last_edited_time`,`title`,`content`) VALUES 
- (38,38,4,1,1,1432278142,NULL,'Testtråd','');
+ (38,38,4,1,1,1432278142,NULL,'Testtråd',''),
+ (39,39,4,1,1,1432294979,NULL,'Moderator lägger sig i','Ett svar. '),
+ (40,40,4,1,1,1432295280,NULL,'En till testtråd',''),
+ (41,41,4,1,1,1432295423,NULL,'Tredje testtråden',''),
+ (42,42,4,1,1,1432295491,NULL,'Fjärde testtråden','Ytterligare test. '),
+ (48,48,6,1,1,1432645559,NULL,'tst','svar'),
+ (50,50,6,1,1,1432645649,NULL,'asrta','asdf'),
+ (44,38,6,1,0,1432538300,NULL,'Testtråd','<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&id=39\">Gullan Katt skrev:</a>\nsvar</div>\r\nSvar med citat. ');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 
 
@@ -1646,10 +1639,10 @@ CREATE TABLE `users` (
 
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`,`username`,`password`,`remember_me_token`,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`,`county`,`region`,`social_security_number`,`email`,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) VALUES 
- (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe',NULL,1432280530,NULL,1432280541,1432280562,'Skutt','Katt','','','','Olofström','Blekinge\r\n','','skutt@direktdemokraterna.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
- (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$2Iz.i7jKVIz3VApiTTb4OOfbW4t.mJriq6vvJ1NceI7zExjMtZyjC',1420102449,NULL,1432280572,1432280579,'Gullan','Katt','','','','Olofström','Blekinge\r\n','','gullan@katt.se','','','',1,1,1,1,1,NULL,NULL,0,2,'','no_image.png','Mjau.'),
+ (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe',NULL,1432280530,NULL,1432280541,1432280562,'Skutt','Katt','','','','Olofström','Blekinge\r\n','','skutt@katt.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
+ (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$2Iz.i7jKVIz3VApiTTb4OOfbW4t.mJriq6vvJ1NceI7zExjMtZyjC',1420102449,NULL,1432285333,1432311720,'Gullan','Katt','','','','Olofström','Blekinge\r\n','','gullan@katt.se','','','',1,1,1,5,5,NULL,NULL,0,2,'','no_image.png','Mjau.'),
  (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$H/sPTWXHbSpnCeSaKKy7s.NnNGio2oc.XCGr7ePBJq4RWMeG/u/x.',1420102512,NULL,1432280590,1432280917,'Missan','Katt','','','','Olofström','Blekinge\r\n','','missan@katt.se','','','',1,1,1,2,2,NULL,NULL,0,2,'','no_image.png',NULL),
- (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$P/.wif2iQv1Mf2ogk2g9we7.tCvTjKFbkIKl0J2CyyWbo1n7Dw6mu',1420102590,NULL,1432278190,1432278196,'Suddis','Katt','','','','Olofström','Blekinge\r\n','','suddis@katt.se','','','',1,1,1,7,2,NULL,NULL,0,2,'','no_image.png',NULL);
+ (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$P/.wif2iQv1Mf2ogk2g9we7.tCvTjKFbkIKl0J2CyyWbo1n7Dw6mu',1420102590,NULL,1432311727,1432896196,'Suddis','Katt','','','','Olofström','Blekinge\r\n','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 

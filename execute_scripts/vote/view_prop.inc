@@ -18,12 +18,11 @@ if(isset($_POST['prop_id']) && isset($_POST['ballot'])){
 				$post_vars = Array("user_id" => $_SESSION['id'], "prop_id" => $_POST['prop_id'], "ballot" => $_POST['ballot']);
 				$reply = crypt_helpers::curl_to_anon_server("anonymise_prop_ballot.php", $post_vars);
 				if($reply == "success"){
-					$message = "Din röst är registrerad.";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
-				}
+					$_SESSION['report_message'] = "Din röst är registrerad.";
+					}
 				else{
-					$message = "Något gick fel. Rösten registrerades inte.";
-					db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+					$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+					$_SESSION['red_report_message'] = 1;
 				}
 				$redirect = $_SERVER['REQUEST_URI'];
 			}

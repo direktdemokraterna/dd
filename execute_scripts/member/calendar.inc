@@ -8,23 +8,21 @@
 			if($_POST['type'] == "participate"){
 				$ok = db_calendar::participate($_POST['id'], $_SESSION['id']);
 				if($ok){
-					$message = "Du är anmäld till denna aktivitet.";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$_SESSION['report_message'] = "Du är anmäld till denna aktivitet.";
 					$redirect = $_SERVER['REQUEST_URI'];;
 				}
 			}
 			elseif($_POST['type'] == "cancel_participate"){
 				$ok = db_calendar::cancel_participate($_POST['id'], $_SESSION['id']);
 				if($ok){
-					$message = "Du är inte längre anmäld till denna aktivitet.";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
+					$_SESSION['report_message'] = "Du är inte längre anmäld till denna aktivitet.";
 					$redirect = $_SERVER['REQUEST_URI'];;
 				}
 			}
 		}
 		else{
-			$message = "Anmälan är stängd för den här aktiviteten.";
-			db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+			$_SESSION['report_message'] = "Anmälan är stängd för den här aktiviteten.";
+			$_SESSION['red_report_message'] = 1;
 			$redirect = $_SERVER['REQUEST_URI'];;
 		}
 	}

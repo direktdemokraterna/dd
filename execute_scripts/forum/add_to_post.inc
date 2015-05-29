@@ -7,15 +7,14 @@
 		$ok = db_forum::add_content_to_post($_GET['id'], "\n\nTILLÄGG:\n" . $add_to_post_content, "add");
 
 		if($ok){
-			$message = "Inlägget har försetts med tillägg.";
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Inlägget har försetts med tillägg.";
 			$redirect = "index.php?type=forum&action=show_posts&id=" . $post_info['topic_id'] . "&page=last";
 			header("Location: $redirect");
 			exit();
 		}
 	}
 	else{
-		$message = "Du har inte behörighet till det inlägget.";
+		$_SESSION['report_message'] = "Du har inte behörighet till det inlägget.";
 		db_helpers::insert_error_message($_SESSION['id'], $message , "red");
 	}
 ?>

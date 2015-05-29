@@ -5,44 +5,44 @@ if(isset($_POST['type'])){
 	if($_POST['type']=="cancel_exclude"){
 		$ok = db_workgroup::cancel_exclude($_POST['id'], $_POST['user'], $_SESSION['id']);
 		if($ok){
-			$message = "Ditt stöd för uteslutning har tagits tillbaka.";
+			$_SESSION['report_message'] = "Ditt stöd för uteslutning har tagits tillbaka.";
 		}
 	}
 	elseif($_POST['type']=="support_exclude"){
 		$ok = db_workgroup::support_exclude($_POST['id'], $_POST['user'], $_SESSION['id']);
 		$excluded = db_workgroup::calculate_exclusion($_POST['id'], $_POST['user']);
 		if($excluded == "excluded"){
-			$message = "Du har stött en uteslutning. Medlemmen i fråga är numera utesluten.";
+			$_SESSION['report_message'] = "Du har stött en uteslutning. Medlemmen i fråga är numera utesluten.";
 		}
 		elseif($excluded == "still member"){
-			$message = "Du har stött en uteslutning. Medlemmen i fråga är fortfarande gruppmedlem.";
+			$_SESSION['report_message'] = "Du har stött en uteslutning. Medlemmen i fråga är fortfarande gruppmedlem.";
 		}
 	}
 	elseif($_POST['type']=="cancel_support_candidate"){
 		$ok = db_workgroup::cancel_support($_POST['id'], $_POST['user'], $_SESSION['id']);
 		if($ok){
-			$message = "Ditt stöd för medlemskap har tagits tillbaka.";
+			$_SESSION['report_message'] = "Ditt stöd för medlemskap har tagits tillbaka.";
 		}
 	}
 	elseif($_POST['type']=="support_candidate"){
 		$ok = db_workgroup::support_membership($_POST['id'], $_POST['user'], $_SESSION['id']);
 		$affirmed = db_workgroup::check_candidate_support($_POST['id'], $_POST['user']);
 		if($affirmed == "new member"){
-			$message = "Du har stött en kandidatur. Kandidaten är numera medlem.";
+			$_SESSION['report_message'] = "Du har stött en kandidatur. Kandidaten är numera medlem.";
 		}
 		elseif($affirmed == "still candidate"){
-			$message = "Du har stött en kandidatur. Kandidaten behöver fortfarande mer stöd.";
+			$_SESSION['report_message'] = "Du har stött en kandidatur. Kandidaten behöver fortfarande mer stöd.";
 		}
 
 	}
 	elseif($_POST['type']=="submit_candidacy"){
 		$ok = db_workgroup::submit_candidacy($_POST['id'], $_SESSION['id']);
-		if($ok) $message = "Din medlemsansökan är registrerad.";
+		if($ok) $_SESSION['report_message'] = "Din medlemsansökan är registrerad.";
 	}
 
 	elseif($_POST['type']=="cancel_candidacy"){
 		$ok = db_workgroup::cancel_candidacy($_POST['id'], $_SESSION['id']);
-		if($ok) $message = "Din medlemsansökan är borttagen.";
+		if($ok) $_SESSION['report_message'] = "Din medlemsansökan är borttagen.";
 	}
 
 	elseif($_POST['type']=="support_workgroup"){
@@ -50,25 +50,24 @@ if(isset($_POST['type'])){
 		if($ok){
 			$created = db_workgroup::is_active($_POST['id']);
 			if($created==1){
-				$message = "Arbetsgruppen är nu aktiverad och du är upptagen som medlem.";
+				$_SESSION['report_message'] = "Arbetsgruppen är nu aktiverad och du är upptagen som medlem.";
 			}
 			else{
-				$message = "Din medlemsansökan har registrerats.";
+				$_SESSION['report_message'] = "Din medlemsansökan har registrerats.";
 			}
 		} 
 	}
 	elseif($_POST['type']=="cancel_support_workgroup"){
 		$ok = db_workgroup::remove_supporting_member($_POST['id'], $_SESSION['id']);
-		if($ok) $message = "Du stödjer inte längre denna arbetsgrupps aktivering.";
+		if($ok) $_SESSION['report_message'] = "Du stödjer inte längre denna arbetsgrupps aktivering.";
 	}
 
 	elseif($_POST['type']=="cancel_membership"){
 		$ok = db_workgroup::drop_member($_POST['id'], $_SESSION['id']);
-		if($ok) $message = "Du är inte längre medlem i denna arbetsgrupp.";
+		if($ok) $_SESSION['report_message'] = "Du är inte längre medlem i denna arbetsgrupp.";
 	}
 
 	if(!empty($message)){
-		db_helpers::insert_error_message($_SESSION['id'], $message);
 		$redirect = $_SERVER['REQUEST_URI'];
 	}
 

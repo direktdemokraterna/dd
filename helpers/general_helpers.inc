@@ -18,16 +18,24 @@ public static function GenerateRandomString ($length){
 }
 
 
-public static function check_messages ($user_id){
-	$message_data = db_helpers::retrieve_error_message($user_id);
+public static function check_report_messages (){
 
-	if(!empty($message_data)){
-		$return_message = "<div class=\"" . $message_data[0]['color'] . "_message\">" . $message_data[0]['message'] . "</div>";
-		return $return_message;
+	if(isset($_SESSION['report_message'])){
+		if(isset($_SESSION['red_report_message'])){
+			$return_message = "<div class=\"red_message\">" . $_SESSION['report_message'] . "</div>";
+			unset($_SESSION['red_report_message']);
+		}
+		else{
+			$return_message = "<div class=\"green_message\">" . $_SESSION['report_message'] . "</div>";
+		}
+		unset($_SESSION['report_message']);
 	}
 	else{
-		return false;
+		$return_message = "";
 	}
+
+	return $return_message;
+
 }
 
 

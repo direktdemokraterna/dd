@@ -53,7 +53,7 @@ public static function process_post_text ($posted_post_id, $text){
 			//db_member::new_quoted_post_notice($posted_post_id, $post_info['user_id']);
 		}
 		else{
-			$message = "Ett citat i ditt inlägg är inte korrekt.";
+			$_SESSION['report_message'] = "Ett citat i ditt inlägg är inte korrekt.";
 			db_helpers::insert_error_message($_SESSION['id'], $message , "red");
 			$redirect = $_SERVER['REQUEST_URI'];
 			header("Location: $redirect");

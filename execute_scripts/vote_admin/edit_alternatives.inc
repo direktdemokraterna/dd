@@ -6,10 +6,9 @@
 				$message = $deleted . " omröstningsalternativ raderade.";
 			}
 			else{
-				$message = "1 omröstningsalternativ raderat.";
+				$_SESSION['report_message'] = "1 omröstningsalternativ raderat.";
 			}
 
-			db_helpers::insert_error_message($_SESSION['id'], $message);
 			$redirect = $_SERVER['REQUEST_URI'];
 			
 		}
@@ -27,14 +26,14 @@
 						$ok = db_vote::add_candidate($_POST['vote_id'], $user_id['id'], $_POST['description']);
 					}
 					else{
-						$message = "Användaren har inte valkretsbehörighet. Inget omröstningsalternativ skapat.";
-						db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+						$_SESSION['report_message'] = "Användaren har inte valkretsbehörighet. Inget omröstningsalternativ skapat.";
+						$_SESSION['red_report_message'] = 1;
 						$redirect = $_SERVER['REQUEST_URI'];
 					}
 				}
 				else{
-					$message = "Fel användarnamn. Inget omröstningsalternativ skapat.";
-					db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+					$_SESSION['report_message'] = "Fel användarnamn. Inget omröstningsalternativ skapat.";
+					$_SESSION['red_report_message'] = 1;
 					$redirect = $_SERVER['REQUEST_URI'];
 				}
 
@@ -45,13 +44,12 @@
 			}
 
 			if($ok){
-				$message = "Omröstningsalternativ skapat.";
-				db_helpers::insert_error_message($_SESSION['id'], $message);
+				$_SESSION['report_message'] = "Omröstningsalternativ skapat.";
 				$redirect = $_SERVER['REQUEST_URI'];
 			}
 			else{
-				$message = "Något gick fel. Inget omröstningsalternativ skapat.";
-				db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+				$_SESSION['report_message'] = "Något gick fel. Inget omröstningsalternativ skapat.";
+				$_SESSION['red_report_message'] = 1;
 				$redirect = $_SERVER['REQUEST_URI'];
 			}
 

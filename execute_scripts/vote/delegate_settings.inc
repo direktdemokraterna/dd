@@ -5,12 +5,11 @@
 		$ok = db_delegate::create_delegate($_SESSION['id']);
 
 		if($ok){
-			$message = "Din användare är nu delegat.";
-			db_helpers::insert_error_message($_SESSION['id'], $message);
-		}
+			$_SESSION['report_message'] = "Din användare är nu delegat.";
+			}
 		else{
-			$message = "Något gick fel.";
-			db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+			$_SESSION['report_message'] = "Något gick fel.";
+			$_SESSION['red_report_message'] = 1;
 		}
 		$redirect = $_SERVER['REQUEST_URI'];
 
@@ -21,16 +20,14 @@
 		if($_SESSION['acting_as_delegate']){
 			if(db_delegate::stop_acting_as_delegate($_SESSION['id'])){
 				$_SESSION['acting_as_delegate'] = 0;
-				$message = "Nu röstar du som enskild användare.";
-				db_helpers::insert_error_message($_SESSION['id'], $message);
-			}
+				$_SESSION['report_message'] = "Nu röstar du som enskild användare.";
+				}
 		}
 		else{
 			if(db_delegate::start_acting_as_delegate($_SESSION['id'])){
 				$_SESSION['acting_as_delegate'] = 1;
-				$message = "Nu röstar du som delegat.";
-				db_helpers::insert_error_message($_SESSION['id'], $message);
-			}
+				$_SESSION['report_message'] = "Nu röstar du som delegat.";
+				}
 		}
 		$redirect = $_SERVER['REQUEST_URI'];
 
@@ -46,8 +43,7 @@
 		}
 
 		if($ok>0){
-			$message = "Valkretsaktivitet uppdaterad.";
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Valkretsaktivitet uppdaterad.";
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 

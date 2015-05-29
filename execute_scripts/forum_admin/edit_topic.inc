@@ -3,16 +3,14 @@
 		$forum_id = db_forum::get_forum_from_post($_GET['id']);
 		$ok = db_forum_admin::delete_topic($_GET['id']);
 		if($ok){
-			$message = "Ämnet har raderats."; 
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Ämnet har raderats."; 
 			$redirect = "index.php?type=forum&action=show_topics&id=" . $forum_id;
 		}
 	}
 	elseif(isset($_POST['move_topic'])){
 		$ok = db_forum_admin::move_topic($_GET['id'], $_POST['forum_id']);
 		if($ok){
-			$message = "Ämnet har flyttats."; 
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Ämnet har flyttats."; 
 			$redirect = "index.php?type=forum&action=show_topics&id=" . $_POST['forum_id'];
 		}
 	}
@@ -21,8 +19,7 @@
 		$edited_post_content .= "\n\nInlägget ändrat av moderator " . date("Y-m-d G:i");
 		$ok = db_forum::add_content_to_post($_GET['id'], $edited_post_content, "edit");
 		if($ok){
-			$message = "Inlägget har redigerats."; 
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Inlägget har redigerats."; 
 			$redirect = "index.php?type=forum&action=show_posts&id=" . $_GET['id'];
 		}
 	}

@@ -14,12 +14,11 @@
 
 				$ok = vote_helpers::register_delegate_ballot($_POST['vote_id'], $delegate_id, $_POST['ballot']);
 				if($ok){
-					$message = "Din delegats röst är registrerad.";
-					db_helpers::insert_error_message($_SESSION['id'], $message);
-				}
+					$_SESSION['report_message'] = "Din delegats röst är registrerad.";
+					}
 				else{
-					$message = "Något gick fel. Rösten registrerades inte.";
-					db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+					$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+					$_SESSION['red_report_message'] = 1;
 				}
 
 			}
@@ -30,12 +29,11 @@
 					$post_vars = Array("user_id" => $_SESSION['id'], "vote_id" => $_POST['vote_id'], "ballot" => $_POST['ballot']);
 					$reply = crypt_helpers::curl_to_anon_server("anonymise_ballot.php", $post_vars);
 					if($reply == "success"){
-						$message = "Din röst är registrerad.";
-						db_helpers::insert_error_message($_SESSION['id'], $message);
-					}
+						$_SESSION['report_message'] = "Din röst är registrerad.";
+						}
 					else{
-						$message = "Något gick fel. Rösten registrerades inte.";
-						db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+						$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+						$_SESSION['red_report_message'] = 1;
 					}
 				}
 				else{
@@ -44,8 +42,8 @@
 
 			}
 			else{
-				$message = "Något gick fel. Rösten registrerades inte.";
-				db_helpers::insert_error_message($_SESSION['id'], $message, "red");
+				$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+				$_SESSION['red_report_message'] = 1;
 			}
 
 			$redirect = $_SERVER['REQUEST_URI'];

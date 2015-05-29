@@ -8,8 +8,7 @@
 		}
 
 		if($ok>0){
-			$message = "Administratörsrättigheter uppdaterade.";
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Administratörsrättigheter uppdaterade.";
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 

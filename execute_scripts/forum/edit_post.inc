@@ -7,17 +7,16 @@
 		$ok = db_forum::add_content_to_post($_GET['id'], $edited_post_content, "edit");
 
 		if($ok){
-			$message = "Inlägget har redigerats.";
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Inlägget har redigerats.";
 			$redirect = "index.php?type=forum&action=show_posts&id=" . $post_info['topic_id'] . "&page=last";
 		}
 	}
 	elseif($post_info['user_id'] != $_SESSION['id'] && ($post_info['posted_time'] + 10 * 60) > time()){
-		$message = "Du har inte behörighet att redigera det inlägget.";
+		$_SESSION['report_message'] = "Du har inte behörighet att redigera det inlägget.";
 		db_helpers::insert_error_message($_SESSION['id'], $message , "red");
 	}
 	elseif($post_info['user_id'] == $_SESSION['id'] && ($post_info['posted_time'] + 10 * 60) < time()){
-		$message = "Inlägg kan bara redigeras i 10 minuter efter att de postats, den tiden har redan passerat.";
+		$_SESSION['report_message'] = "Inlägg kan bara redigeras i 10 minuter efter att de postats, den tiden har redan passerat.";
 		db_helpers::insert_error_message($_SESSION['id'], $message , "red");
 	}
 ?>

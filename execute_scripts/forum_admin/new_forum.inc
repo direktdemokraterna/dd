@@ -4,8 +4,7 @@
 		else $access_type = "public";
 		$ok = db_forum_admin::add_forum($_POST['category'], htmlspecialchars($_POST['title']), htmlspecialchars($_POST['description']), $access_type);
 		if($ok){
-			$message = "Forumet skapat"; 
-			db_helpers::insert_error_message($_SESSION['id'], $message);
+			$_SESSION['report_message'] = "Forumet skapat"; 
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}
