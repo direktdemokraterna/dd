@@ -66,4 +66,121 @@ class db_vote_admin {
 
 	}
 
+	public static function get_votes_past_end_time (){
+
+		$query = "select id from votes where timestamp_ended < ? and (status = 'active' or status = 'del_ended')";
+		$values = Array(time());
+
+		return db::select($query, $values);
+
+	}
+
+	public static function end_vote ($vote_id){
+
+		$query = "update votes set status = 'ended', timestamp_ended = ? where id = ?";
+		$values = Array(time(), $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function end_delegate_vote ($vote_id){
+
+		$query = "update votes set status = 'del_ended', timestamp_delegate_ended = ? where id = ?";
+		$values = Array(time(), $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function restore_delegate_vote ($vote_id){
+
+		$query = "update votes set status = 'active', timestamp_delegate_ended = " . time() . " + (timestamp_ended - " . time() . ")/2 where id = ?";
+		$values = Array($vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function restore_vote ($vote_id){
+
+		$query = "update votes set status = 'active', timestamp_ended = ?, timestamp_delegate_ended = ? where id = ?";
+		$values = Array(time()+STANDARD_VOTE_LENGTH, time()+STANDARD_VOTE_LENGTH/2, $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function finish_vote ($vote_id){
+
+		$query = "update votes set status = 'finished', timestamp_ended = ? where id = ?";
+		$values = Array(time(), $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function restore_finished_vote ($vote_id){
+
+		$query = "update votes set status = 'continuous', timestamp_ended = null where id = ?";
+		$values = Array($vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function make_continuous ($vote_id){
+
+		$query = "update votes set status = 'continuous', timestamp_ended = null, timestamp_delegate_ended = null where id = ?";
+		$values = Array($vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function make_active ($vote_id){
+
+		$query = "update votes set status = 'active', timestamp_ended = ?, timestamp_delegate_ended = ? where id = ?";
+		$values = Array(time()+STANDARD_VOTE_LENGTH, time()+STANDARD_VOTE_LENGTH/2, $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function delegate_end_votes (){
+
+		$query = "update votes set status = 'del_ended' where timestamp_delegate_ended < ? and status = 'active'";
+		$values = Array(time());
+
+		return db::update($query, $values);
+
+	}
+
+	public static function get_user_codes_for_vote ($vote_id){
+
+		$query = "select user_code from ballots where vote_id = ?";
+		$values = Array($vote_id);
+
+		return db::select($query, $values);
+
+	}
+
+	public static function set_active_user_code_to_passive ($active_user_code, $passive_user_code, $vote_id){
+
+		$query = "update ballots set user_code = ? where user_code = ? and vote_id = ?";
+		$values = Array($passive_user_code, $active_user_code, $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function set_passive_user_code_to_active ($active_user_code, $passive_user_code, $vote_id){
+
+		$query = "update ballots set user_code = ? where user_code = ? and vote_id = ?";
+		$values = Array($active_user_code, $passive_user_code, $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
 }

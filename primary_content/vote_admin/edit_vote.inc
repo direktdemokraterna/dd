@@ -35,6 +35,33 @@
 	<br><label for "description">Beskrivning</label>
 	<textarea name="description" id="description" tabindex="4"><?php echo $voteinfo['description']; ?></textarea>
 
+	<br><label for "vote_status">Omröstningens status</label>
+	<?php 
+		if($voteinfo['status'] == "active") echo "Pågående";
+		elseif($voteinfo['status'] == "del_ended") echo "Avslutad för delegater";
+		elseif($voteinfo['status'] == "ended") echo "Avslutad";
+		elseif($voteinfo['status'] == "continuous") echo "Kontinuerlig";
+		elseif($voteinfo['status'] == "finished") echo "Avslutad kontinuerlig";
+	?>
+
+	<br>
+
+	<?php if($voteinfo['status'] == "active") : ?>
+		<input type="submit" name="end_vote" value="Avsluta omröstningen">
+		<input type="submit" name="end_delegate_vote" value="Avsluta delegatomröstningen">
+		<input type="submit" name="make_continuous" value="Gör om till kontinuerlig">
+	<?php elseif($voteinfo['status'] == "del_ended") : ?>
+		<input type="submit" name="end_vote" value="Avsluta omröstningen">
+		<input type="submit" name="restore_delegate_vote" value="Återuppta delegatomröstningen">
+	<?php elseif($voteinfo['status'] == "ended") : ?>
+		<input type="submit" name="restore_vote" value="Återuppta omröstningen">
+	<?php elseif($voteinfo['status'] == "continuous") : ?>
+		<input type="submit" name="finish_vote" value="Avsluta omröstningen">
+		<input type="submit" name="make_active" value="Gör om till tidsbegränsad">
+	<?php elseif($voteinfo['status'] == "finished") : ?>
+		<input type="submit" name="restore_finished_vote" value="Återuppta omröstningen">
+	<?php endif; ?>
+
 	<br><label for "forum_topic_id">Forumtråds-ID</label>
 	<input type="text" name="forum_topic_id" id="forum_topic_id" tabindex="5" value="<?php echo $voteinfo['forum_topic_id']; ?>">
 
@@ -97,6 +124,6 @@
 	: <input type="text" value="<?php echo date("i", $voteinfo['timestamp_delegate_ended']); ?>" name="delegate_minute" id="delegate_minute" style="width: 30px;">
 
 
-	<br><input type="submit" name="" id="submit" value="Uppdatera" tabindex="7">
+	<br><input type="submit" name="update" id="submit" value="Uppdatera" tabindex="7">
 
 </form>

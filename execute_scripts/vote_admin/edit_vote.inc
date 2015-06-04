@@ -1,5 +1,7 @@
 <?php 
 
+if(isset($_POST['update'])){
+
 	if(isset($_POST['vote_id']) && isset($_POST['type_of_vote']) && isset($_POST['constituency_id']) && isset($_POST['forum_topic_id']) && isset($_POST['title'])){
 
 		if($_POST['vote_id'] == $_GET['id']){
@@ -23,11 +25,11 @@
 					}
 
 					if($ok1 || $ok2){
-						$_SESSION['report_message'] = "Omröstningen är ändrad.";
+						$_SESSION['report_message'] = "Omröstningen är uppdaterad.";
 						$redirect = $_SERVER['REQUEST_URI'];
 					}
 					else{
-						$_SESSION['report_message'] = "Databasfel. Ingen ändring gjord.";
+						$_SESSION['report_message'] = "Databasfel. Ingen uppdatering gjord.";
 						$_SESSION['red_report_message'] = 1;
 					}
 
@@ -46,3 +48,85 @@
 		}
 
 	}
+
+}
+
+elseif(isset($_POST['end_vote'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "active" || $voteinfo['status'] == "del_ended"){
+		$ok = db_vote_admin::end_vote($_GET['id']);
+		vote_helpers::substitute_active_for_passive_user_codes($_GET['id']);
+	}
+}
+
+elseif(isset($_POST['end_delegate_vote'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "active"){
+		$ok = db_vote_admin::end_delegate_vote($_GET['id']);
+	}
+}
+
+elseif(isset($_POST['restore_delegate_vote'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "del_ended"){
+		$ok = db_vote_admin::restore_delegate_vote($_GET['id']);
+	}
+
+}
+
+elseif(isset($_POST['restore_vote'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "ended"){
+		$ok = db_vote_admin::restore_vote($_GET['id']);
+		vote_helpers::restore_active_user_codes($_GET['id']);
+	}
+}
+
+elseif(isset($_POST['finish_vote'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "continuous"){
+		$ok = db_vote_admin::finish_vote($_GET['id']);
+		vote_helpers::substitute_active_for_passive_user_codes($_GET['id']);
+	}
+}
+
+elseif(isset($_POST['restore_finished_vote'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "finished"){
+		$ok = db_vote_admin::restore_finished_vote($_GET['id']);
+		vote_helpers::restore_active_user_codes($_GET['id']);
+	}
+}
+
+elseif(isset($_POST['make_continuous'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "active"){
+		$ok = db_vote_admin::make_continuous($_GET['id']);
+	}
+}
+
+elseif(isset($_POST['make_active'])){
+	$voteinfo = db_vote::get_vote_info($_GET['id']);
+
+	if($voteinfo['status'] == "continuous"){
+		$ok = db_vote_admin::make_active($_GET['id']);
+	}
+}
+
+if(isset($ok)){
+	if($ok){
+		$_SESSION['report_message'] = "Omröstningen är ändrad.";
+		$redirect = $_SERVER['REQUEST_URI'];
+		}
+	else{
+		$_SESSION['report_message'] = "Databasfel. Ingen ändring gjord.";
+		$_SESSION['red_report_message'] = 1;
+	}
+}

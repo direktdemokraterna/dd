@@ -52,6 +52,8 @@
 	<strong>Delegatröstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?><br>
 	<strong>Personlig röstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?><br>
 <?php endif; ?>
+<strong>Antal lagda röster: </strong><?php echo $voteinfo['number_of_ballots']; ?><br>
+<strong>Varav personligt lagda röster: </strong><?php echo $voteinfo['number_of_direct_ballots']; ?><br>
 
 
 <strong>Beskrivning:</strong><br>

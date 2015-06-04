@@ -191,5 +191,14 @@ class db_constituency {
 
 	}
 
+	public static function get_constituency_name ($constituency_id){
+
+		$query = "select title as name from constituencies where id = ?";
+		$values = Array($constituency_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
 
 }

@@ -60,6 +60,8 @@
 	<strong>Delegatröstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?><br>
 	<strong>Personlig röstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?><br>
 <?php endif; ?>
+<strong>Antal lagda röster: </strong><?php echo $voteinfo['number_of_ballots']; ?><br>
+<strong>Varav personligt lagda röster: </strong><?php echo $voteinfo['number_of_direct_ballots']; ?><br>
 
 
 <strong>Beskrivning:</strong><br>
@@ -72,7 +74,7 @@
 
 	<div class="vote_box">
 
-	<?php if($voteinfo['status'] == "active" || ($voteinfo['status'] == "del_ended" && !$_SESSION['acting_as_delegate'])) : ?>
+	<?php if($voteinfo['status'] == "active" || $voteinfo['status'] == "continuous" || ($voteinfo['status'] == "del_ended" && !$_SESSION['acting_as_delegate'])) : ?>
 
 		Lägg din röst:<br>
 	

@@ -12,7 +12,7 @@
 	else $where_filter = "1=1";
 
 	$result = db_delegate::list_delegates_for_user_constituencies($_SESSION['id'], $page, LIST_ITEMS_PER_PAGE, $order_by, $where_filter);
-	$result_counter = db_delegate::list_delegates_for_user_constituencies_count($where_filter);
+	$result_counter = db_delegate::list_delegates_for_user_constituencies_count($_SESSION['id'], $where_filter);
 ?>
 
 <?php 

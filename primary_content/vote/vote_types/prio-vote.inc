@@ -31,10 +31,20 @@
   <p>
   <?php
     if($voteinfo['type'] == "prio-vote"){
-      vote_helpers::output_prio_vote_result($prio_vote_result);
+      if(empty($prio_vote_result)){
+        echo "Inga alternativ att visa.";
+      }
+      else{
+        vote_helpers::output_prio_vote_result($prio_vote_result);
+      }
     }
     else{
-      vote_helpers::output_candidate_election_result($prio_vote_result);
+      if(empty($prio_vote_result)){
+        echo "Inga kandidater att visa.";
+      }
+      else{
+        vote_helpers::output_candidate_election_result($prio_vote_result);
+      }
     }
   ?>
   </p>
@@ -68,6 +78,8 @@
   <strong>Delegatröstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?><br>
   <strong>Personlig röstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?><br>
 <?php endif; ?>
+<strong>Antal lagda röster: </strong><?php echo $voteinfo['number_of_ballots']; ?><br>
+<strong>Varav personligt lagda röster: </strong><?php echo $voteinfo['number_of_direct_ballots']; ?><br>
 
 
 <strong>Beskrivning:</strong><br>

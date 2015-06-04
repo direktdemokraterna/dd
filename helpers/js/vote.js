@@ -18,7 +18,7 @@ function encrypt_ballot (dd_message){
 		var dd_rsa_message_encrypted = dd_rsa.encrypt(dd_rsa_message_json);
 
 
-		var dd_anon_message = {user_id: user_id, rsa: dd_rsa_message_encrypted, aes: dd_aes_message};
+		var dd_anon_message = {user_id: user_id, user_code: sessionStorage.active_user_code, rsa: dd_rsa_message_encrypted, aes: dd_aes_message};
 		var dd_anon_message_json = JSON.stringify(dd_anon_message);
 
 		var dd_anon_password = Generate_Random_String(20);
@@ -80,6 +80,14 @@ function encrypt_median_ballot (){
 	var value = document.getElementById("median_value").value;
 	value = value.replace("'", ".");
 	var dd_message = {vote_id: vote_id, value: value};
+
+	encrypt_ballot(dd_message);
+
+	return true;
+}
+
+function encrypt_single_delegation (constituency_id){
+	var dd_message = {delegate_id: delegate_id, constituency_id: constituency_id};
 
 	encrypt_ballot(dd_message);
 

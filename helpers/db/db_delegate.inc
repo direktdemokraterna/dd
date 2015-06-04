@@ -333,12 +333,6 @@ class db_delegate {
 
 	}
 
-
-
-
-
-
-
 	public static function update_delegand_ballots_for_vote ($vote_id, $constituency_id){
 
 		$query = "select distinct vd.user_code as user_code from voters_delegates vd where vd.constituency_id = ? and not exists (select * from ballots b where b.vote_id = ? and b.user_code = vd.user_code)";
@@ -347,6 +341,50 @@ class db_delegate {
 		return db::select($query, $values);
 
 	}
+
+	public static function get_delegations_for_multiple_constituencies ($constituencies){
+
+		$in_clause = implode(',', array_fill(0, count($constituencies), '?'));
+
+
+		$query = "select vd.user_code as user_code, vd.constituency_id as constituency_id, vd.delegate_id as delegate_id, d.title as delegate_name 
+					from voters_delegates vd, delegates d 
+					where vd.delegate_id = d.id and vd.voter_is_delegate_id is null and vd.constituency_id in (" . $in_clause . ")";
+		$values = Array();
+		foreach($constituencies as $row){
+			$values[] = $row['id'];
+		}
+
+		return db::select($query, $values);
+
+	}
+
+	public static function register_delegation_ballot ($user_code, $delegate_id, $constituency_id){
+
+		$query = "select * from voters_delegates where user_code = ? and constituency_id = ?";
+		$values = Array($user_code, $constituency_id);
+
+		$result = db::select($query, $values);
+
+		if(empty($result)){
+
+			$query = "insert into voters_delegates (delegate_id, user_code, constituency_id, time_delegate_chosen) values (?, ?, ?, ?)";
+			$values = Array($delegate_id, $user_code, $constituency_id, time());
+
+			return db::insert($query, $values);
+
+		}
+		else{
+
+			$query = "update voters_delegates set delegate_id = ? and time_delegate_chosen = ? where user_code = ? and constituency_id = ?";
+			$values = Array($delegate_id, time(), $user_code, $constituency_id);
+
+			return db::update($query, $values);
+
+		}
+
+	}
+
 
 /*
 "update ballots b 
