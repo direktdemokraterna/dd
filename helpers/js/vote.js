@@ -93,3 +93,13 @@ function encrypt_single_delegation (constituency_id){
 
 	return true;
 }
+
+function encrypt_delegation_get_delegate_from_form (constituency_id){
+	var select_element = document.getElementById("select" + constituency_id);
+	var delegate_id_from_form = select_element.options[select_element.selectedIndex].value;
+	var dd_message = {delegate_id: delegate_id_from_form, constituency_id: constituency_id};
+
+	encrypt_ballot(dd_message);
+
+	return true;
+}

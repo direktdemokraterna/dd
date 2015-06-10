@@ -200,7 +200,7 @@ class db_vote {
 
 	public static function get_ballot_from_user_code ($vote_id, $user_code){
 
-		$query = "select id, ballot_alternative, vote_alternative_id, priority, median_vote_value, delegate_id, time_ballot_placed, delegate_level, delegate_priority, (select vd.priority from voters_delegates vd, votes v where v.constituency_id = vd.constituency_id and vd.user_code = b.user_code and vd.delegate_id = b.delegate_id) as priority from ballots b where b.vote_id = ? and b.user_code = ?";
+		$query = "select id, ballot_alternative, prio_ranking, median_vote_value, delegate_id, time_ballot_placed, delegation_level, delegate_priority, (select vd.priority from voters_delegates vd, votes v where v.constituency_id = vd.constituency_id and v.constituency_id = b.constituency_id and vd.user_code = b.user_code and vd.delegate_id = b.delegate_id) as priority from ballots b where b.vote_id = ? and b.user_code = ?";
 		$values = Array($vote_id, $user_code);
 
 		return db::select_single_row($query, $values);
@@ -209,7 +209,9 @@ class db_vote {
 
 	public static function get_ballot_from_voter_is_delegate_id ($vote_id, $voter_is_delegate_id){
 
-		$query = "select id, ballot_alternative, vote_alternative_id, priority, median_vote_value, delegate_id, time_ballot_placed, delegate_level, delegate_priority, (select vd.priority from voters_delegates vd, votes v where v.constituency_id = vd.constituency_id and vd.user_code = b.user_code and vd.delegate_id = b.delegate_id) as priority from ballots b where b.vote_id = ? and b.voter_is_delegate_id = ?";
+		$query = "select id, ballot_alternative, prio_ranking, median_vote_value, delegate_id, time_ballot_placed, delegation_level, delegate_priority, 
+			(select vd.priority from voters_delegates vd, votes v where v.constituency_id = vd.constituency_id v.constituency_id = b.constituency_id and and vd.user_code = b.user_code and vd.delegate_id = b.delegate_id) as priority 
+			from ballots b where b.vote_id = ? and b.voter_is_delegate_id = ?";
 		$values = Array($vote_id, $voter_is_delegate_id);
 
 		return db::select_single_row($query, $values);

@@ -1,0 +1,62 @@
+<?php
+	$constituencies = db_constituency::get_constituencies_for_user($_SESSION['id']);
+
+	$list_of_delegations_from_db = db_delegate::get_delegations_for_multiple_constituencies($constituencies);
+	$list_of_delegations = Array();
+	foreach($list_of_delegations_from_db as $row){
+		$list_of_delegations[] = Array("user_code" => $row['user_code'], "constituency_id" => $row['constituency_id'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+	}
+?>
+
+
+<script>
+	var user_id = <?php echo json_encode($_SESSION['id']); ?>;
+	var list_of_delegations = <?php echo json_encode($list_of_delegations); ?>;
+	<?php
+		if($_SESSION['acting_as_delegate']){
+			$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
+			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
+		}
+	?>
+	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
+</script>
+
+
+<h1>Dina nuvarande delegeringar</h1>
+
+
+<form method="post" action="" class="prio-vote">
+	<input type="hidden" name="ballot" id="ballot" value="">
+
+<?php foreach($constituencies as $row) : ?>
+
+	<div class="delegation_box">
+		<h2>Valkrets: <?php echo $row['name']; ?></h2>
+		<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span><br>
+		<br>
+		<?php
+			$delegates_for_constituency = db_delegate::get_delegates_for_constituency($row['id']);
+		?>
+		<select id="select<?php echo $row['id']; ?>">
+			<option value="null">Ta bort delegat</option>
+			<?php foreach ($delegates_for_constituency as $delegate): ?>
+				<option value="<?php echo $delegate['id']; ?>"><?php echo $delegate['title']; ?></option>
+			<?php endforeach ?>
+		</select>
+		<input type="submit" value="Delegera" onmousedown="return encrypt_delegation_get_delegate_from_form(<?php echo $row['id']; ?>)">
+	</div>
+
+<?php endforeach; ?>
+
+</form>
+
+
+
+<script>
+list_of_delegations.map(function (vote){
+	if(vote.user_code == sessionStorage.active_user_code){
+		var constituency_element = "constituency" + vote.constituency_id;
+		document.getElementById(constituency_element).innerHTML = "Du har delegerat din röst i denna valkrets till <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
+	}
+});
+</script>

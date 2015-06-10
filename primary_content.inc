@@ -156,6 +156,9 @@ elseif($_GET['type']=="vote") {
 	elseif($_GET['action']=="view_vote"){
 		require("primary_content/vote/view_vote.inc");
 	}
+	elseif($_GET['action']=="delegate_votes"){
+		require("primary_content/vote/delegate_votes.inc");
+	}
 	elseif($_GET['action']=="add_alternative"){
 		require("primary_content/vote/add_alternative.inc");
 	}
@@ -163,7 +166,7 @@ elseif($_GET['type']=="vote") {
 		require("primary_content/vote/search.inc");
 	}
 else {
-	require("primary_content/first_page.inc");
+	require("primary_content/vote/list_active_votes.inc");
 }
 }
 

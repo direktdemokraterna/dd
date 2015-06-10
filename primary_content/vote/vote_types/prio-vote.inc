@@ -86,6 +86,10 @@
 <?php echo nl2br($voteinfo['description']); ?>
 </p>
 
+<?php if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']) : ?>
+  <p><a href="index.php?type=vote&action=delegate_votes&id=<?php echo $_GET['id']; ?>">Se delegatröster för denna omröstning</a></p>
+<?php endif; ?>
+
 <?php if($user_allowed_to_vote) : ?>
 
   <p><a href="index.php?type=forum&action=show_posts&id=<?php echo $voteinfo['forum_topic_id']; ?>">Länk till denna omröstnings forumdebatt</a></p>

@@ -10,7 +10,7 @@
 	<li>
 		<h2>Omröstningar</h2>
 		<ul>
-			<li><a href="index.php?type=vote&action=list_active_votes">Lista aktuella omröstningar</a></li>
+			<li><a href="index.php?type=vote&action=list_active_votes">Lista pågående omröstningar</a></li>
 			<li><a href="index.php?type=vote&action=list_old_votes">Lista gamla omröstningar</a></li>
 		</ul>
 	</li>

@@ -82,6 +82,8 @@ else{
 
 		session_unset();
 		session_destroy();
+
+		echo "<script>sessionStorage.clear();</script>";
 	}
 }
 
