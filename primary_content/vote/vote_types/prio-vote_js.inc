@@ -1,4 +1,7 @@
 <script>
+
+
+
 <?php if($_SESSION['delegate_id']) : ?>
   <?php
     $delegate_ballot = db_delegate::get_ballot_for_vote($voteinfo['vote_id'], $_SESSION['delegate_id']);
@@ -10,8 +13,21 @@
     var ul_support = document.getElementById("support-list");
     var ul_reject = document.getElementById("reject-list");
 
-    for (var key in prio_ranking_object) {
-      if (prio_ranking_object.hasOwnProperty(key)) {
+   var sorted_prio_ranking=[];
+    for(var key in prio_ranking_object)
+        if(prio_ranking_object.hasOwnProperty(key))
+            sorted_prio_ranking.push([key, prio_ranking_object[key]]); // each item is an array in format [key, value]
+
+    // sort items by value
+    sorted_prio_ranking.sort(function(a, b)
+    {
+      return b[1]-a[1]; // compare numbers
+    });
+
+      for(var i = 0; i < sorted_prio_ranking.length; i++) {
+
+        var key = sorted_prio_ranking[i][0];
+        var value = sorted_prio_ranking[i][1];
  
         var li_element = document.getElementById(key);
         if(li_element != null){
@@ -22,7 +38,7 @@
           li.setAttribute("id", key);
           li.className = "sortable";
 
-          if(prio_ranking_object[key] > 0){
+          if(value > 0){
             ul_support.appendChild(li);
           }
           else{
@@ -31,7 +47,6 @@
 
           document.getElementById(key).innerHTML = li_content;
         }
-      }
     }
 
     if(vote.delegate_id != null){
