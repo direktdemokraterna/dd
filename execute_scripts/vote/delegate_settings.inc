@@ -17,15 +17,15 @@
 
 	elseif(isset($_POST['set_acting_as_delegate'])){
 
-		if($_SESSION['acting_as_delegate']){
+		if($_SESSION['delegate_id']){
 			if(db_delegate::stop_acting_as_delegate($_SESSION['id'])){
-				$_SESSION['acting_as_delegate'] = 0;
+				$_SESSION['delegate_id'] = 0;
 				$_SESSION['report_message'] = "Nu röstar du som enskild användare.";
 				}
 		}
 		else{
 			if(db_delegate::start_acting_as_delegate($_SESSION['id'])){
-				$_SESSION['acting_as_delegate'] = 1;
+				$_SESSION['delegate_id'] = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
 				$_SESSION['report_message'] = "Nu röstar du som delegat.";
 				}
 		}

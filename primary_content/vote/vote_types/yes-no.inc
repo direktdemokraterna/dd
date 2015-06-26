@@ -1,122 +1,14 @@
-<?php
-	$list_of_votes_from_db = db_vote::get_yes_no_ballots($_GET['id']);
-	$list_of_votes = Array();
-	foreach($list_of_votes_from_db as $row){
-		$list_of_votes[] = Array("user_code" => $row['user_code'], "alternative" => $row['alternative'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
-	}
-	$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($list_of_votes);
-?>
+<?php if($voteinfo['status'] == "active" || $voteinfo['status'] == "continuous" || ($voteinfo['status'] == "del_ended" && !$_SESSION['delegate_id'])) : ?>
 
-<script>
-	var user_id = <?php echo json_encode($_SESSION['id']); ?>;
-	var vote_id = <?php echo json_encode($voteinfo['vote_id']); ?>;
-	var constituency_id = <?php echo json_encode($voteinfo['constituency_id']); ?>;
-	var list_of_votes = <?php echo json_encode($list_of_votes); ?>;
-	<?php
-		if($_SESSION['acting_as_delegate']){
-			$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
-		}
-	?>
-	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
-</script>
-
-
-<h1>Votering: <?php echo $voteinfo['title']; ?></h1>
-
-<div class="vote_result_box">
-	Ställningen i denna omröstning är: <br>
-	Ja: <?php echo $ballot_counter['yes']; ?><br>
-	Nej: <?php echo $ballot_counter['no']; ?><br>
-	Avstår: <?php echo $ballot_counter['abstain']; ?><br><br>
-
-	<?php if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished") : ?>
-		Omröstningen är avslutad. Den avslutades <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>.
-	<?php elseif($voteinfo['status'] == "del_ended") : ?>
-		Omröstningen avslutas <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>. För delegater stängdes röstningsmöjligheten <?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?>.
-	<?php elseif($voteinfo['status'] == "continuous") : ?>
-		Det här är en kontinuerlig omröstning och fortsätter tills en votering bestämmer att den ska avslutas.
-	<?php else : ?>
-		Omröstningen avslutas <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>. För delegater stänger röstningsmöjligheten <?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?>.
-	<?php endif; ?>
-</div>
-
-<div id="user_vote_box">
-	Ingen röst är lagd i ditt namn i denna omröstning.
-</div>
-
-<p>
-<strong>Valkrets: </strong><?php echo $voteinfo['constituency_name']; ?><br>
-<?php if($voteinfo['proposition_created']) : ?>
-	<strong>Propositionen skapad: </strong><?php echo general_helpers::show_date($voteinfo['proposition_created']); ?><br>
-	<strong>Propositionen skapad av: </strong><a href="index.php?type=member&action=view&id=<?php echo $voteinfo['user_id']; ?>"><?php echo $voteinfo['user_full_name']; ?></a><br>
-<?php else : ?>
-	<strong>Omröstningen skapad av administratör</strong><br>
-<?php endif; ?>
-<strong>Omröstningen startad: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_created']); ?><br>
-<?php if($voteinfo['status'] == "continuous") : ?>
-	<strong>Omröstningen är kontinuerlig.</strong><br>
-<?php else : ?>
-	<strong>Delegatröstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?><br>
-	<strong>Personlig röstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?><br>
-<?php endif; ?>
-<strong>Antal lagda röster: </strong><?php echo $voteinfo['number_of_ballots']; ?><br>
-<strong>Varav personligt lagda röster: </strong><?php echo $voteinfo['number_of_direct_ballots']; ?><br>
-
-
-<strong>Beskrivning:</strong><br>
-<?php echo nl2br($voteinfo['description']); ?>
-</p>
-
-<?php if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']) : ?>
-	<p><a href="index.php?type=vote&action=delegate_votes&id=<?php echo $_GET['id']; ?>">Se delegatröster för denna omröstning</a></p>
-<?php endif; ?>
-
-<?php if($user_allowed_to_vote) : ?>
-
-	<p><a href="index.php?type=forum&action=show_posts&id=<?php echo $voteinfo['forum_topic_id']; ?>">Länk till denna voterings forumdebatt</a></p>
-
-	<div class="vote_box">
-
-	<?php if($voteinfo['status'] == "active" || $voteinfo['status'] == "continuous" || ($voteinfo['status'] == "del_ended" && !$_SESSION['acting_as_delegate'])) : ?>
-
-		Lägg din röst:<br>
+	Lägg din röst:<br>
 	
-		<form method="post" action="" class="yes-no">
-			<input type="hidden" name="vote_id" value="<?php echo $voteinfo['vote_id']; ?>">
-			<input type="hidden" name="ballot" id="ballot" value="">
+	<form method="post" action="" class="yes-no">
+		<input type="hidden" name="vote_id" value="<?php echo $voteinfo['vote_id']; ?>">
+		<input type="hidden" name="ballot" id="ballot" value="">
 
-			<input type="submit" class="vote_button" id="green_vote" value="Ja" onmousedown="return encrypt_yes_no_ballot('yes')">
-			<input type="submit" class="vote_button" id="red_vote" value="Nej" onmousedown="return encrypt_yes_no_ballot('no')">
-			<input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return encrypt_yes_no_ballot('abstain')">
-		</form>
-
-	<?php endif; ?>
-
-	</div>
+		<input type="submit" class="vote_button" id="green_vote" value="Ja" onmousedown="return encrypt_yes_no_ballot('yes')">
+		<input type="submit" class="vote_button" id="red_vote" value="Nej" onmousedown="return encrypt_yes_no_ballot('no')">
+		<input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return encrypt_yes_no_ballot('abstain')">
+	</form>
 
 <?php endif; ?>
-
-
-<script>
-list_of_votes.map(function (vote){
-	if(vote.user_code == sessionStorage.active_user_code){
-		if(vote.alternative == "yes"){
-			document.getElementById("user_vote_box").innerHTML = "Du har röstat ja.";
-		}
-		else if(vote.alternative == "no"){
-			document.getElementById("user_vote_box").innerHTML = "Du har röstat nej.";
-		}
-		else if(vote.alternative == "abstain"){
-			document.getElementById("user_vote_box").innerHTML = "Du har röstat avstår.";
-		}
-		
-		if(vote.delegate_id == null){
-			document.getElementById("user_vote_box").innerHTML += "<br>Du har själv lagt denna röst.";
-		}
-		else{
-			document.getElementById("user_vote_box").innerHTML += "<br>Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig.";
-		}
-	}
-});
-</script>

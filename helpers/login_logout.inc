@@ -11,7 +11,12 @@ if(!isset($_SESSION['id'])){
 		if ($hasher->CheckPassword($_COOKIE['user_token'], $user_data['remember_me_token'])) { // Cookie matches db token
 			$_SESSION['id'] = $user_data['id'];
 			$_SESSION['last_login_time'] = $user_data['last_login_time'];
-			$_SESSION['acting_as_delegate'] = $user_data['acting_as_delegate'];
+			if($user_data['acting_as_delegate'] == 1) {
+				$_SESSION['delegate_id'] = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
+			}
+			else{
+				$_SESSION['delegate_id'] = 0;
+			}
 			$admin_roles = db_admin::get_admin_roles_for_user($user_data['id']);
 			$counter = 0;
 			foreach($admin_roles as $row){
@@ -43,7 +48,12 @@ if(!isset($_SESSION['id'])){
 			if ($hasher->CheckPassword($_POST['password'], $user_data['password'])) { // Password is correct
 				$_SESSION['id'] = $user_data['id'];
 				$_SESSION['last_login_time'] = $user_data['last_login_time'];
-				$_SESSION['acting_as_delegate'] = $user_data['acting_as_delegate'];
+				if($user_data['acting_as_delegate'] == 1) {
+					$_SESSION['delegate_id'] = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
+				}
+				else{
+					$_SESSION['delegate_id'] = 0;
+				}
 				$admin_roles = db_admin::get_admin_roles_for_user($user_data['id']);
 				$counter = 0;
 				foreach($admin_roles as $row){

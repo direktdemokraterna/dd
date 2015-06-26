@@ -702,6 +702,7 @@ $query = "CREATE TABLE `dd`.`propositions_support` (
   `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `proposition_id` INTEGER UNSIGNED NOT NULL,
   `user_code` VARCHAR(20) NOT NULL,
+  `voter_is_delegate_id` INTEGER UNSIGNED,
   `delegate_id` INTEGER UNSIGNED,
   `support_type` VARCHAR(7) NOT NULL DEFAULT 'support',
   `time_ballot_placed` INTEGER UNSIGNED NOT NULL,
@@ -914,20 +915,6 @@ ENGINE = MyISAM;";
 mysql_query($query);
 
 
-
-
-$query = "CREATE TABLE `dd`.`delegates_delegates` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `delegate_id` INTEGER UNSIGNED NOT NULL,
-  `delegand_id` INTEGER UNSIGNED NOT NULL,
-  `constituency_id` INTEGER UNSIGNED NOT NULL,
-  `priority` INTEGER UNSIGNED NOT NULL DEFAULT 1,
-  `time_delegate_chosen` INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-)
-ENGINE = MyISAM;";
-
-mysql_query($query);
 
 
 

@@ -10,7 +10,7 @@ if(isset($_POST['user_code']) && isset($_POST['user_constituencies']) && isset($
 	if(in_array($ballot_decoded['constituency_id'], unserialize($_POST['user_constituencies']))){
 
 		if(db_constituency::check_delegate_constituency_access($ballot_decoded['delegate_id'], $ballot_decoded['constituency_id']) || $ballot_decoded['delegate_id'] == "null"){
-			$ok = db_delegate::register_delegation_ballot($_POST['user_code'], $ballot_decoded['delegate_id'], $ballot_decoded['constituency_id']);
+			$ok = db_delegate::register_delegation_ballot($_POST['user_code'], null, $ballot_decoded['delegate_id'], $ballot_decoded['constituency_id']);
 			if($ok){
 				echo "success";
 			}

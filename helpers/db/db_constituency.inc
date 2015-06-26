@@ -15,8 +15,19 @@ class db_constituency {
 
 		$query = "select c.id as id, c.title as name
 					from constituencies c, constituencies_users cu 
-					where c.id = cu.constituency_id and cu.user_id = ?";
+					where c.id = cu.constituency_id and cu.user_id = ? order by c.id asc";
 		$values = Array($user_id);
+
+		return db::select($query, $values);
+
+	}
+
+	public static function get_constituencies_for_delegate ($delegate_id){
+
+		$query = "select c.id as id, c.title as name
+					from constituencies c, constituencies_delegates cd 
+					where c.id = cd.constituency_id and cd.delegate_id = ? order by c.id asc";
+		$values = Array($delegate_id);
 
 		return db::select($query, $values);
 

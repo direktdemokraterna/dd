@@ -17,6 +17,19 @@ public static function GenerateRandomString ($length){
 
 }
 
+public static function make_genitive ($string){
+
+	if(substr($string, -1) == "s" || substr($string, -1) == "S"){
+		$return_string = $string;
+	}
+	else{
+		$return_string = $string . "s";
+	}
+
+	return $return_string;
+
+}
+
 
 public static function check_report_messages (){
 
@@ -140,7 +153,12 @@ public static function admin_mail ($receiver, $title, $text) {
 public static function make_list_of_link_menu ($page, $result_counter, $sort_alternatives = null, $filter_title = "Filtrering:", $filter_alternatives = null){
 
 	$number_of_pages = ceil($result_counter / LIST_ITEMS_PER_PAGE);
-	$first_showed_item_number = $page * LIST_ITEMS_PER_PAGE - (LIST_ITEMS_PER_PAGE - 1);
+	if($result_counter == 0){
+		$first_showed_item_number = 0;
+	}
+	else{
+		$first_showed_item_number = $page * LIST_ITEMS_PER_PAGE - (LIST_ITEMS_PER_PAGE - 1);
+	}
 	$last_showed_item_number = $page * LIST_ITEMS_PER_PAGE;
 	if($last_showed_item_number > $result_counter) $last_showed_item_number = $result_counter;
 

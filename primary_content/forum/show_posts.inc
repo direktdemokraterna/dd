@@ -35,7 +35,7 @@
 			<div class="post_top_row">
 				<span class="post_date"><?php echo general_helpers::show_date($post_info['posted_time']); ?></span>
 				<span class="post_alternatives">
-					<?php if($_SESSION['is_forum_admin']) : ?>
+					<?php if(isset($_SESSION['is_forum_admin'])) : ?>
 						<a href="index.php?type=forum_admin&action=edit_post&id=<?php echo $post_info['post_id']; ?>">Moderera</a> 
 					<?php endif; ?>
 					<?php if($post_info['posted_time'] > (time() - 10*60) && $post_info['user_id'] == $_SESSION['id']) : ?>
@@ -77,7 +77,7 @@
 		<?php endif; ?>
 	</div>
 
-	<?php if($_SESSION['is_forum_admin']) : ?>
+	<?php if(isset($_SESSION['is_forum_admin'])) : ?>
 		<p><a href="index.php?type=forum_admin&action=edit_topic&id=<?php echo $_GET['id']; ?>" style="float: right; margin-top: 20px;">Moderera ämne</a></p>
 	<?php endif; ?>
 

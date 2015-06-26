@@ -10,13 +10,12 @@ if(isset($_POST['vote_id'])){
 
 			if(isset($_POST['alternative_title'])){
 
-				if($_SESSION['acting_as_delegate']){
-					$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
-					$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
+				if($_SESSION['delegate_id']){
+					$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
 				}
 
 				if(!empty($check_delegate_constituency_access)){
-					$ok = db_vote::add_alternative_by_delegate($_POST['vote_id'], $_POST['alternative_title'], $_POST['alternative_description'], $delegate_id);
+					$ok = db_vote::add_alternative_by_delegate($_POST['vote_id'], $_POST['alternative_title'], $_POST['alternative_description'], $_SESSION['delegate_id']);
 				}
 				else{
 					$ok = db_vote::add_alternative_by_user($_POST['vote_id'], $_POST['alternative_title'], $_POST['alternative_description'], $_SESSION['id']);

@@ -20,7 +20,7 @@
 	<form method="post" action="" class="standard-form">
 	<input type="hidden" name="set_acting_as_delegate" value="1">
 	<label for "acting_as_delegate">Rösta som delegat: </label>
-	<input type="checkbox" id="acting_as_delegate" name="acting_as_delegate" onChange="this.form.submit()" <?php if($_SESSION['acting_as_delegate']) echo "checked"; ?>>
+	<input type="checkbox" id="acting_as_delegate" name="acting_as_delegate" onChange="this.form.submit()" <?php if($_SESSION['delegate_id']) echo "checked"; ?>>
 	</form>
 
 	<p>Om ovanstående ruta är ikryssad röstar du i alla omröstningar och propositioner som delegat istället för som enskild användare. Det innebär att du röstar för alla som har delegerat sin röst till dig i den frågan. Den innebär också att din röst blir offentlig och kan ses av andra. Du kan bara rösta som delegat inom de valkretsar som du angivit för din delegat här under. Röstar du inom någon annan valkrets kommer du rösta som enskild användare även om rutan ovan är ikryssad. </p>
@@ -44,8 +44,5 @@
 	</ul><div class="clear">
 	</div><br><input type="submit" style="margin-left: 10%;" id="submit" value="Välj valkretsar">
 	</form>
-
-
-
 
 <?php endif; ?>

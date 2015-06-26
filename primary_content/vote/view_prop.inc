@@ -14,9 +14,8 @@
 	var constituency_id = <?php echo json_encode($propinfo['constituency_id']); ?>;
 	var list_of_votes = <?php echo json_encode($list_of_votes); ?>;
 	<?php
-		if($_SESSION['acting_as_delegate']){
-			$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
+		if($_SESSION['delegate_id']){
+			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
 		}
 	?>
 	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;

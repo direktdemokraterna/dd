@@ -213,46 +213,54 @@ class db_delegate {
 		$delegands = self::get_delegands_for_delegate($delegate_id, $constituency_id);
 
 		foreach($delegands as $delegand){
-			if($delegand['voter_is_delegate_id']){ // Delegand is another delegate.
-				$ballot = db_vote::get_ballot_from_voter_is_delegate_id($vote_id, $delegand['voter_is_delegate_id']);
-				if(empty($ballot)){
-					$query = "insert into ballots (vote_id, constituency_id, ballot_alternative, prio_ranking, median_vote_value, voter_is_delegate_id, delegate_id, delegation_level, delegate_priority, time_ballot_placed) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-					$values = Array($vote_id, $constituency_id, $ballot_alternative, $prio_ranking, $median_vote_value, $delegand['voter_is_delegate_id'], $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time());
+			
+			$ballot = db_vote::get_ballot_from_delegate_or_user($vote_id, $delegand['user_code'], $delegand['voter_is_delegate_id']);
 
-					db::insert($query, $values);
+			if(empty($ballot)){
+				$query = "insert into ballots (vote_id, constituency_id, ballot_alternative, prio_ranking, median_vote_value, user_code, voter_is_delegate_id, delegate_id, delegation_level, delegate_priority, time_ballot_placed) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$values = Array($vote_id, $constituency_id, $ballot_alternative, $prio_ranking, $median_vote_value, $delegand['user_code'], $delegand['voter_is_delegate_id'], $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time());
 
+				db::insert($query, $values);
+
+				if($delegand['voter_is_delegate_id']){ // Delegand is another delegate.
 					self::register_ballot_for_delegands($delegand['voter_is_delegate_id'], $constituency_id, $vote_id, $ballot_alternative, $prio_ranking, $median_vote_value, $actual_delegate_voter_id, $delegation_level+1);
 				}
-				elseif(isset($ballot['delegate_id'])){
-					if($ballot['delegation_level'] > $delegation_level || $ballot['delegate_id'] == $delegate_id){
-						$query = "update ballots set ballot_alternative = ?, prio_ranking = ?, median_vote_value = ?, delegate_id = ?, delegation_level = ?, delegate_priority = ?, time_ballot_placed = ? where vote_id = ? and voter_is_delegate_id = ?";
-						$values = Array($ballot_alternative, $prio_ranking, $median_vote_value, $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time(), $vote_id, $delegand['voter_is_delegate_id']);
+			}
+			elseif(isset($ballot['delegate_id']) && ($ballot['delegation_level'] > $delegation_level || $ballot['delegate_id'] == $actual_delegate_voter_id)){
+				$query = "update ballots set ballot_alternative = ?, prio_ranking = ?, median_vote_value = ?, delegate_id = ?, delegation_level = ?, delegate_priority = ?, time_ballot_placed = ? where vote_id = ? and (user_code = ? or voter_is_delegate_id = ?)";
+				$values = Array($ballot_alternative, $prio_ranking, $median_vote_value, $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time(), $vote_id, $delegand['user_code'], $delegand['voter_is_delegate_id']);
 
-						db::update($query, $values);
+				db::update($query, $values);
 
-						self::register_ballot_for_delegands($delegand['voter_is_delegate_id'], $constituency_id, $vote_id, $ballot_alternative, $prio_ranking, $median_vote_value, $actual_delegate_voter_id, $delegation_level+1);
-					}
+				if($delegand['voter_is_delegate_id']){ // Delegand is another delegate.
+					self::register_ballot_for_delegands($delegand['voter_is_delegate_id'], $constituency_id, $vote_id, $ballot_alternative, $prio_ranking, $median_vote_value, $actual_delegate_voter_id, $delegation_level+1);
 				}
 			}
 
-			else{ // Delegand is a normal user.
-				$ballot = db_vote::get_ballot_from_user_code($vote_id, $delegand['user_code']);
-				if(empty($ballot)){
-					$query = "insert into ballots (vote_id, constituency_id, ballot_alternative, prio_ranking, median_vote_value, user_code, delegate_id, delegation_level, delegate_priority, time_ballot_placed) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-					$values = Array($vote_id, $constituency_id, $ballot_alternative, $prio_ranking, $median_vote_value, $delegand['user_code'], $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time());
-
-					db::insert($query, $values);
-				}
-				elseif(isset($ballot['delegate_id'])){
-					if($ballot['delegation_level'] > $delegation_level || $ballot['delegate_id'] == $delegate_id){
-						$query = "update ballots set ballot_alternative = ?, prio_ranking = ?, median_vote_value = ?, delegate_id = ?, delegation_level = ?, delegate_priority = ?, time_ballot_placed = ? where vote_id = ? and user_code = ?";
-						$values = Array($ballot_alternative, $prio_ranking, $median_vote_value, $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time(), $vote_id, $delegand['user_code']);
-
-						db::update($query, $values);
-					}
-				}
-			}
 		}
+
+	}
+
+	public static function register_prop_ballot ($prop_id, $delegate_id, $support_type){
+
+		$query = "delete from propositions_support where prop_id = ? and voter_is_delegate_id = ?";
+		$values = Array($prop_id, $delegate_id);
+
+		db::delete($query, $values);
+
+		$constituency_id = db_constituency::get_prop_constituency_id($prop_id);
+
+		$query = "insert into propositions_support (prop_id, constituency_id, prio_ranking, voter_is_delegate_id, time_ballot_placed) values (?, ?, ?, ?, ?)";
+		$values = Array($vote_id, $constituency_id, $prio_ranking, $delegate_id, time());
+
+		$ok = db::insert($query, $values);
+
+		self::register_ballot_for_delegands($delegate_id, $constituency_id, $vote_id, null, $prio_ranking, null, $delegate_id, 0);
+
+		db_vote::count_ballots_for_vote($vote_id);
+
+		if($ok) return true;
+		else return false;
 
 	}
 
@@ -302,13 +310,23 @@ class db_delegate {
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
 
-		$query = "select v.id as vote_id, v.title as title, v.type as type, b.ballot_alternative as ballot_alternative, b.median_vote_value as median_value, b.prio_ranking as 			prio_ranking 
+		$query = "select v.id as vote_id, v.title as title, v.type as type, b.ballot_alternative as ballot_alternative, b.median_vote_value as median_value, b.prio_ranking as 			prio_ranking, b.delegate_id as delegate_id, (select title from delegates d where d.id = b.delegate_id) as delegate_name 
 				from ballots b, votes v 
-				where b.vote_id = v.id and b.voter_is_delegate_id = ? and b.delegate_id is null and " . $where_filter . " 
+				where b.vote_id = v.id and b.voter_is_delegate_id = ? and " . $where_filter . " 
 				order by v.timestamp_created desc limit " . $page . ", " . $limit;
 		$values = Array($delegate_id);
 
 		return db::select($query, $values);
+
+	}
+
+	public static function get_delegate_ballot_for_vote ($vote_id, $delegate_id){
+
+		$query = "select ballot_alternative, median_vote_value, prio_ranking 
+				from ballots where vote_id = ? and voter_is_delegate_id = ? and delegate_id is null";
+		$values = Array($vote_id, $delegate_id);
+
+		return db::select_single_row($query, $values);
 
 	}
 
@@ -370,43 +388,43 @@ class db_delegate {
 
 	}
 
-	public static function register_delegation_ballot ($user_code, $delegate_id, $constituency_id, $priority = 1){
+	public static function register_delegation_ballot ($user_code, $delegand_id, $delegate_id, $constituency_id, $priority = 1){
 
-		$query = "select * from voters_delegates where user_code = ? and constituency_id = ?";
-		$values = Array($user_code, $constituency_id);
+		$query = "select * from voters_delegates where (user_code = ? or voter_is_delegate_id = ?) and constituency_id = ?";
+		$values = Array($user_code, $delegand_id, $constituency_id);
 
 		$result = db::select_single_row($query, $values);
 
 		if(!empty($result)){
 
-			$query = "delete from voters_delegates where user_code = ? and constituency_id = ?";	
-			$values = Array($user_code, $constituency_id);
+			$query = "delete from voters_delegates where (user_code = ? or voter_is_delegate_id = ?) and constituency_id = ?";	
+			$values = Array($user_code, $delegand_id, $constituency_id);
 
 			db::delete($query, $values);
 
 			if($delegate_id == "null"){
-				self::remove_delegate_votes($user_code, $result['delegate_id'], $constituency_id);
+				self::remove_delegate_votes($user_code, $delegand_id, $result['delegate_id'], $constituency_id);
 			}
 
 		}
 
 		if($delegate_id != "null"){
-			$query = "insert into voters_delegates (delegate_id, user_code, constituency_id, time_delegate_chosen) values (?, ?, ?, ?)";
-			$values = Array($delegate_id, $user_code, $constituency_id, time());
+			$query = "insert into voters_delegates (delegate_id, user_code, voter_is_delegate_id, constituency_id, time_delegate_chosen) values (?, ?, ?, ?, ?)";
+			$values = Array($delegate_id, $user_code, $delegand_id, $constituency_id, time());
 
 			db::insert($query, $values);
 
-			self::execute_delegate_votes_for_new_delegate($user_code, $delegate_id, $constituency_id);
+			self::execute_delegate_votes_for_new_delegate($user_code, $delegand_id, $delegate_id, $constituency_id);
 		}
 
 		return true; 
 
 	}
 
-	public static function remove_delegate_votes ($user_code, $delegate_id, $constituency_id){
+	public static function remove_delegate_votes ($user_code, $delegand_id, $delegate_id, $constituency_id){
 
-		$query = "delete from ballots where user_code = ? and delegate_id = ? and constituency_id = ?";
-		$values = Array($user_code, $delegate_id, $constituency_id);
+		$query = "delete from ballots where (user_code = ? or voter_is_delegate_id = ?) and delegate_id = ? and constituency_id = ?";
+		$values = Array($user_code, $delegand_id, $delegate_id, $constituency_id);
 
 		return db::delete($query, $values);
 
@@ -424,9 +442,9 @@ class db_delegate {
 
 	}
 
-	public static function execute_delegate_votes_for_new_delegate ($user_code, $delegate_id, $constituency_id){
+	public static function execute_delegate_votes_for_new_delegate ($user_code, $delegand_id, $delegate_id, $constituency_id){
 
-		$relevant_votes = db_delegate::get_votes_with_no_direct_ballots($constituency_id, $user_code);
+		$relevant_votes = db_delegate::get_votes_with_no_direct_ballots($constituency_id, $user_code, $delegand_id);
 
 		foreach ($relevant_votes as $row) {
 			$delegate_ballot = self::get_ballot_for_vote($row['id'], $delegate_id);
@@ -435,16 +453,37 @@ class db_delegate {
 
 	}
 
-	public static function get_votes_with_no_direct_ballots ($constituency_id, $user_code){
+	public static function get_votes_with_no_direct_ballots ($constituency_id, $user_code, $delegand_id){
 
-		$query = "select v.id as id from votes v where v.constituency_id = ? and not exists (select * from ballots b where b.user_code = ? and b.vote_id = v.id and b.delegate_id is null)";
-		$values = Array($constituency_id, $user_code);
+		$query = "select v.id as id from votes v where v.constituency_id = ? and not exists (select * from ballots b where (b.user_code = ? or b.voter_is_delegate_id = ?) and b.vote_id = v.id and b.delegate_id is null)";
+		$values = Array($constituency_id, $user_code, $delegand_id);
 
 		return db::select($query, $values);
 
 
 	}
 
+	public static function get_delegate_delegates ($delegand_id){
+
+		$query = "select d.id as delegate_id, d.title as delegate_title, c.id as constituency_id, c.title as constituency_title, vd.time_delegate_chosen as time_delegate_chosen
+			from voters_delegates vd, delegates d, constituencies c
+			where vd.delegate_id = d.id and vd.constituency_id = c.id and vd.voter_is_delegate_id = ?";
+		$values = Array($delegand_id);
+
+		return db::select($query, $values);
+
+	}
+
+	public static function get_delegates_delegate_for_constituency ($delegand_id, $constituency_id){
+
+		$query = "select d.id as delegate_id, d.title as delegate_title, vd.time_delegate_chosen as time_delegate_chosen
+			from voters_delegates vd, delegates d
+			where vd.delegate_id = d.id and vd.voter_is_delegate_id = ? and vd.constituency_id = ?";
+		$values = Array($delegand_id, $constituency_id);
+
+		return db::select_single_row($query, $values);
+
+	}
 
 /*
 "update ballots b 

@@ -6,10 +6,22 @@ if(isset($_POST['prop_id']) && isset($_POST['ballot'])){
 
 		$prop_info = db_prop::get_prop_info($_POST['prop_id']);
 
-		if($_SESSION['acting_as_delegate'] && $prop_info['status'] == "pending"){
+		if($_SESSION['delegate_id']){
+			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
+		}	
 
-			// Handle vote as a delegate vote.
+		if(!empty($check_delegate_constituency_access) && $prop_info['status'] == "pending"){
 
+			$ballot_decoded = json_decode($_POST['ballot'], true);
+
+			$ok = db_delegate::register_delegate_prop_ballot($_POST['prop_id'], $_SESSION['delegate_id'], $_POST['ballot']);
+			if($ok){
+				$_SESSION['report_message'] = "Din delegats röst är registrerad.";
+			}
+			else{
+				$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+				$_SESSION['red_report_message'] = 1;
+			}
 		}
 		elseif($prop_info['status'] == "pending"){
 			$check_user_access = db_constituency::check_user_constituency_access($_SESSION['id'], $prop_info['constituency_id']);

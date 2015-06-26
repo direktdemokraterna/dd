@@ -130,6 +130,18 @@ class db_vote {
 
 	}
 
+	public static function get_ballots ($vote_id){
+
+		$query = "select b.user_code as user_code, b.ballot_alternative as alternative, b.median_vote_value as value, b.prio_ranking as prio_ranking, b.delegate_id as delegate_id, 
+					(select d.title from delegates d where b.delegate_id = d.id) as delegate_name 
+					from ballots b 
+					where user_code is not null and b.vote_id = ?";
+		$values = Array($vote_id);
+
+		return db::select($query, $values);
+
+	}
+
 	public static function get_yes_no_ballots ($vote_id){
 
 		$query = "select b.user_code as user_code, b.ballot_alternative as alternative, b.delegate_id as delegate_id, 
@@ -198,21 +210,10 @@ class db_vote {
 
 	}
 
-	public static function get_ballot_from_user_code ($vote_id, $user_code){
+	public static function get_ballot_from_delegate_or_user ($vote_id, $user_code, $delegand_id){
 
-		$query = "select id, ballot_alternative, prio_ranking, median_vote_value, delegate_id, time_ballot_placed, delegation_level, delegate_priority, (select vd.priority from voters_delegates vd, votes v where v.constituency_id = vd.constituency_id and v.constituency_id = b.constituency_id and vd.user_code = b.user_code and vd.delegate_id = b.delegate_id) as priority from ballots b where b.vote_id = ? and b.user_code = ?";
-		$values = Array($vote_id, $user_code);
-
-		return db::select_single_row($query, $values);
-
-	}
-
-	public static function get_ballot_from_voter_is_delegate_id ($vote_id, $voter_is_delegate_id){
-
-		$query = "select id, ballot_alternative, prio_ranking, median_vote_value, delegate_id, time_ballot_placed, delegation_level, delegate_priority, 
-			(select vd.priority from voters_delegates vd, votes v where v.constituency_id = vd.constituency_id v.constituency_id = b.constituency_id and and vd.user_code = b.user_code and vd.delegate_id = b.delegate_id) as priority 
-			from ballots b where b.vote_id = ? and b.voter_is_delegate_id = ?";
-		$values = Array($vote_id, $voter_is_delegate_id);
+		$query = "select id, ballot_alternative, prio_ranking, median_vote_value, delegate_id, time_ballot_placed, delegation_level, delegate_priority from ballots b where b.vote_id = ? and (b.user_code = ? or b.voter_is_delegate_id = ?)";
+		$values = Array($vote_id, $user_code, $delegand_id);
 
 		return db::select_single_row($query, $values);
 
@@ -229,7 +230,7 @@ class db_vote {
 
 	public static function get_alternative_ids_from_vote_id ($vote_id){
 
-		$query = "select id from votes_alternatives where vote_id = ?";
+		$query = "select id from votes_alternatives where vote_id = ? order by timestamp_added asc";
 		$values = Array($vote_id);
 
 		return db::select($query, $values);

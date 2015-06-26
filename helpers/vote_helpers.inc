@@ -148,7 +148,7 @@ public static function calculate_prio_vote_result ($vote_id){
 
 }
 
-public static function output_prio_vote_result ($result_array){
+public static function calculate_and_output_prio_vote_result ($result_array){
 
 	$rank = 1;
 	$previous_rank = 1;
@@ -169,7 +169,7 @@ public static function output_prio_vote_result ($result_array){
 
 }
 
-public static function output_candidate_election_result ($result_array){
+public static function calculate_and_output_candidate_election_result ($result_array){
 
 	$rank = 1;
 	$previous_rank = 1;
@@ -266,5 +266,71 @@ public static function restore_active_user_codes ($vote_id){
 	return;
 
 }
+
+public static function output_yes_no_result ($list_of_votes){
+
+	$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($list_of_votes);
+
+	$yes_percentage = round($ballot_counter['yes'] / ($ballot_counter['yes'] + $ballot_counter['no']), 4) * 100;
+	$no_percentage = 100 - $yes_percentage;
+
+	echo "Ställningen i denna omröstning är: <br>";
+	echo "Ja: " . $ballot_counter['yes'] . " (" . $yes_percentage . " %)<br>";
+	echo "Nej: " . $ballot_counter['no'] . " (" . $no_percentage . " %)<br>";
+	echo "Avstår: ". $ballot_counter['abstain'] . "<br><br>";
+
+	return;
+
+}
+
+public static function output_median_result ($list_of_votes){
+
+	$ballot_counter = vote_helpers::ballot_count_median($list_of_votes);
+
+	echo "Ställningen i denna omröstning är: <br>";
+	echo "Medianvärde: " . $ballot_counter. "<br><br>";
+
+	return;
+
+}
+
+public static function output_prio_vote_result ($vote_id){
+
+	$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
+
+	echo "Ställningen i denna omröstning är: <br><p>";
+
+	if(empty($prio_vote_result)){
+		echo "Inga alternativ att visa.";
+	}
+	else{
+		vote_helpers::calculate_and_output_prio_vote_result($prio_vote_result);
+	}
+
+	echo "</p>";
+
+	return;
+
+}
+
+public static function output_candidate_election_result ($vote_id){
+
+	$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
+
+	echo "Ställningen i denna omröstning är: <br><p>";
+
+	if(empty($prio_vote_result)){
+		echo "Inga kandidater att visa.";
+	}
+	else{
+		vote_helpers::calculate_and_output_candidate_election_result($prio_vote_result);
+	}
+
+	echo "</p>";
+
+	return;
+
+}
+
 
 } //End of class

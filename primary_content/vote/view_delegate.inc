@@ -26,9 +26,8 @@
 	var delegate_id = <?php echo json_encode($_GET['id']); ?>;
 	var list_of_delegations = <?php echo json_encode($list_of_delegations); ?>;
 	<?php
-		if($_SESSION['acting_as_delegate']){
-			$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
+		if($_SESSION['delegate_id']){
+			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
 		}
 	?>
 	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
@@ -67,14 +66,28 @@
 				elseif($row['ballot_alternative'] == "abstain") echo "Avstår";
 			}
 			elseif($row['type'] == "median") echo $row['median_value'];
-			elseif($row['type'] == "prio-vote") vote_helpers::output_prio_vote_result(vote_helpers::make_result_array_of_json_prio_ranking($row['prio_ranking']));
-			elseif($row['type'] == "candidate-election") vote_helpers::output_candidate_election_result(vote_helpers::make_result_array_of_json_prio_ranking($row['prio_ranking']));
+			elseif($row['type'] == "prio-vote") vote_helpers::calculate_and_output_prio_vote_result(vote_helpers::make_result_array_of_json_prio_ranking($row['prio_ranking']));
+			elseif($row['type'] == "candidate-election") vote_helpers::calculate_and_output_candidate_election_result(vote_helpers::make_result_array_of_json_prio_ranking($row['prio_ranking']));
 			elseif($row['type'] == "budget") echo "";
 		?></td>
 	</tr>
 <?php endforeach; ?>
 
 </table>
+
+<h2><?php echo general_helpers::make_genitive($delegate_info['title']); ?> delegeringar</h2>
+
+<?php
+	$delegate_delegations = db_delegate::get_delegate_delegates($_GET['id']);
+?>
+
+<?php if(empty($delegate_delegations)) : ?>
+	Inga delegeringar<br>
+<?php else : ?>
+	<?php foreach($delegate_delegations as $row) : ?>
+		Valkrets <?php echo $row['constituency_title']; ?>: <?php echo $delegate_info['title']; ?> har delegerat till <a href="index.php?type=vote&action=view_delegate&id=<?php echo $row['delegate_id']; ?>"><?php echo $row['delegate_title']; ?></a><br>
+	<?php endforeach; ?>
+<?php endif; ?>
 
 <h2>Delegera din röst till <?php echo $delegate_info['title']; ?></h2>
 
@@ -85,7 +98,13 @@
 
 	<div class="delegation_box">
 		Valkrets: <strong><?php echo $row['name']; ?></strong><br>
-		<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span><br>
+		<?php if($_SESSION['delegate_id']) : ?>
+			<?php
+				$delegates_delegate = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);
+			?>
+		<?php else : ?>
+			<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span><br>
+		<?php endif; ?>
 		<br>
 		<input type="submit" value="Delegera din röst i valkretsen <?php echo $row['name']; ?> till <?php echo $delegate_info['title']; ?>" onmousedown="return encrypt_single_delegation(<?php echo $row['id']; ?>)">
 	</div>
@@ -93,6 +112,7 @@
 <?php endforeach; ?>
 
 </form>
+
 
 
 

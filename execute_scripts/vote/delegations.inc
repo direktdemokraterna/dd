@@ -2,9 +2,25 @@
 
 if(isset($_POST['ballot'])){
 
-	if($_SESSION['acting_as_delegate']){
+	if($_SESSION['delegate_id']){
 
-		// Handle vote as a delegate vote.
+		$delegand_id = $_SESSION['delegate_id'];
+		$ballot = json_decode($_POST['ballot'], true);
+		$constituency_id = $ballot['constituency_id'];
+		$delegate_id = $ballot['delegate_id'];
+
+		$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegand_id, $constituency_id);
+
+		$ok = db_delegate::register_delegation_ballot(null, $delegand_id, $delegate_id, $constituency_id);
+
+		if($ok){
+			$_SESSION['report_message'] = "Din delegats delegering är registrerad.";
+			$redirect = $_SERVER['REQUEST_URI'];
+		}
+		else{
+			$_SESSION['report_message'] = "Något gick fel. Ingen delegering registrerad.";
+			$_SESSION['red_report_message'] = 1;
+		}
 
 	}
 

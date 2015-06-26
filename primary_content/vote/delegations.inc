@@ -1,5 +1,10 @@
 <?php
-	$constituencies = db_constituency::get_constituencies_for_user($_SESSION['id']);
+	if($_SESSION['delegate_id']){
+		$constituencies = db_constituency::get_constituencies_for_delegate($_SESSION['delegate_id']);
+	}
+	else{
+		$constituencies = db_constituency::get_constituencies_for_user($_SESSION['id']);
+	}
 
 	$list_of_delegations_from_db = db_delegate::get_delegations_for_multiple_constituencies($constituencies);
 	$list_of_delegations = Array();
@@ -12,17 +17,14 @@
 <script>
 	var user_id = <?php echo json_encode($_SESSION['id']); ?>;
 	var list_of_delegations = <?php echo json_encode($list_of_delegations); ?>;
-	<?php
-		if($_SESSION['acting_as_delegate']){
-			$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
-		}
-	?>
-	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
+	var acting_as_delegate = <?php if($_SESSION['delegate_id']) echo "true"; else echo "false"; ?>;
 </script>
 
-
-<h1>Dina nuvarande delegeringar</h1>
+<?php if($_SESSION['delegate_id']) : ?>
+	<h1>Dina nuvarande delegeringar som delegat</h1>
+<?php else : ?>
+	<h1>Dina nuvarande delegeringar</h1>	
+<?php endif; ?>
 
 
 <form method="post" action="" class="prio-vote">
@@ -32,7 +34,22 @@
 
 	<div class="delegation_box">
 		<h2>Valkrets: <?php echo $row['name']; ?></h2>
-		<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span><br>
+
+		<?php if($_SESSION['delegate_id']) : ?>
+			<span>
+				<?php
+					$delegate_delegate_for_constituency = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);
+				?>
+				<?php if($delegate_delegate_for_constituency) : ?>
+					Du har delegerat din röst i denna valkrets till <a href="index.php?type=vote&action=view_delegate&id=<?php echo $delegate_delegate_for_constituency['delegate_id']; ?>"><?php echo $delegate_delegate_for_constituency['delegate_title']; ?></a>
+				<?php else : ?>
+					Du har ingen delegat i denna valkrets
+				<?php endif; ?>
+			</span><br>
+		<?php else : ?>
+			<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span><br>
+		<?php endif; ?>
+
 		<br>
 		<?php
 			$delegates_for_constituency = db_delegate::get_delegates_for_constituency($row['id']);

@@ -5,17 +5,16 @@
 
 			$voteinfo = db_vote::get_vote_info($_GET['id']); 
 
-			if($_SESSION['acting_as_delegate']){
-				$delegate_id = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
-				$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $voteinfo['constituency_id']);
+			if($_SESSION['delegate_id']){
+				$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
 			}	
 
 			if(!empty($check_delegate_constituency_access) && ($voteinfo['status'] == "active" || $voteinfo['status'] == "continuous")){
 
-				$ok = vote_helpers::register_delegate_ballot($_POST['vote_id'], $delegate_id, $_POST['ballot']);
+				$ok = vote_helpers::register_delegate_ballot($_POST['vote_id'], $_SESSION['delegate_id'], $_POST['ballot']);
 				if($ok){
 					$_SESSION['report_message'] = "Din delegats röst är registrerad.";
-					}
+				}
 				else{
 					$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
 					$_SESSION['red_report_message'] = 1;

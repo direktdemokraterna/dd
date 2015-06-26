@@ -15,12 +15,12 @@
 			<input type="hidden" name="vote_id" value="<?php echo $voteinfo['vote_id']; ?>">
 
 			<label for "alternative_title">Titel</label>
-			<input type="text" name="alternative_title" id="alternative_title"><br>
+			<input type="text" name="alternative_title" id="alternative_title" tabindex="1"><br>
 
 			<label for "alternative_description">Beskrivning</label>
-			<textarea name="alternative_description" id="alternative_description"></textarea>
+			<textarea name="alternative_description" id="alternative_description" tabindex="2"></textarea>
 
-			<input type="submit" value="Skapa alternativ">
+			<input type="submit" value="Skapa alternativ" tabindex="3">
 		</form>
 
 	<?php elseif($voteinfo['type'] == "candidate-election") : ?>
