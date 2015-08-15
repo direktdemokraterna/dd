@@ -1,4 +1,4 @@
-<?
+<?php
 	$post_info = db_forum::get_post_info($_GET['id']);
 
 	if($post_info['user_id'] == $_SESSION['id']){ // Allowed to add to post

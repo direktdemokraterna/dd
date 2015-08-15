@@ -1,4 +1,4 @@
-<?
+<?php
 
 class vote_helpers {
 

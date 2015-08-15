@@ -248,7 +248,7 @@ elseif($_GET['type']=="superadmin" && isset($_SESSION['is_superadmin'])) {
 }
 
 else {
-	require("primary_content/first_page.inc");
+	require("primary_content/vote/vote_history.inc");
 }
 
 ?>

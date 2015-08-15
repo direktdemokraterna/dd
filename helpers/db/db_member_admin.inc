@@ -1,4 +1,4 @@
-<?
+<?php
 
 class db_member_admin {
 

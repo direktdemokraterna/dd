@@ -1,4 +1,4 @@
-<?
+<?php
 	if(isset($_GET['id'])){
 		$topic_id = db_forum::get_topic($_GET['id']);
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class general_helpers {
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class forum_helpers {
 
