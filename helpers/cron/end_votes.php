@@ -1,6 +1,6 @@
 <?php
 
-require("./../init.inc");
+require(dirname(__FILE__)."./../init.inc");
 
 db_vote_admin::delegate_end_votes();
 

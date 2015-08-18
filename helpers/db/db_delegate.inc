@@ -144,7 +144,7 @@ class db_delegate {
 
 		$deleted = db::delete($query, $values);
 
-		$query = "insert into constituencies_delegates (constituency_id, delegate_id) select * from (select ? as constituency_id, ? as delegate_id) as tmp where not exists (select * from constituencies_delegates where constituency_id = ? and delegate_id = ?) limit 1";
+		$query = "insert into constituencies_delegates (constituency_id, delegate_id) select ? as constituency_id, ? as delegate_id from dual where not exists (select * from constituencies_delegates where constituency_id = ? and delegate_id = ?) limit 1";
 		$inserted = db::insert_ignore_from_array($query, $constituency_ids, $delegate_id);
 
 		return $deleted + $inserted;

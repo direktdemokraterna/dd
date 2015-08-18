@@ -26,8 +26,6 @@
 			}
 		?>
 	</select>
-	<br><label for "settings_social_security_number">Personnummer</label>
-	<input type="text" value="<?php echo $user_settings['social_security_number']; ?>" name="social_security_number" id="settings_social_security_number">
 	<br><label for "settings_email">Mejladress</label>
 	<input type="text" value="<?php echo $user_settings['email']; ?>" name="email" id="settings_email">
 	<br><label for "settings_skype_name">Skype användarnamn</label>
@@ -52,7 +50,7 @@
 
 	<h2>Ändra presentationsbild</h2>
 	<form enctype="multipart/form-data" class="standard-form" method="post" action="">
-	<br><label for "settings_image">Personlig bild (endast jpg)</label>
+	<br><label for "settings_image">Personlig bild (jpg, gif eller png)</label>
 	<input type="file" name="image" value="" id="settings_image">
 	<br><br><label>Nuvarande bild:</label>
 	<br><img class="image150" src="<?php echo USERIMG_PATH . $user_settings['image']; ?>">

@@ -231,9 +231,9 @@ public static function substitute_active_for_passive_user_codes ($vote_id){
 	$reply = crypt_helpers::curl_to_anon_server("get_passive_user_codes.php", $post_vars);
 	$passive_user_codes = unserialize($reply);
 
-	foreach ($ballot_user_codes_for_ended_vote as $row) {
-		$active_user_code = $row['user_code'];
-		$passive_user_code = $passive_user_codes[$active_user_code];
+	foreach ($ballot_user_codes_for_ended_vote as $key => $value) {
+		$active_user_code = $key;
+		$passive_user_code = $value;
 
 		if(!empty($active_user_code) && !empty($passive_user_code)){
 			db_vote_admin::set_active_user_code_to_passive($active_user_code, $passive_user_code, $vote_id);
