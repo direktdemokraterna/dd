@@ -261,7 +261,7 @@ class db_vote {
 	public static function add_alternative_by_user ($vote_id, $title, $description, $user_id){
 
 		$query = "insert into votes_alternatives (vote_id, added_by_user, timestamp_added, alternative_title, alternative_description) values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $user_id, time(), htmlspecialchars($title), htmlspecialchars($description));
+		$values = Array($vote_id, $user_id, time(), htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true));
 
 		$return =  db::insert($query, $values);
 
@@ -274,7 +274,7 @@ class db_vote {
 	public static function add_alternative_by_delegate ($vote_id, $title, $description, $delegate_id){
 
 		$query = "insert into votes_alternatives (vote_id, added_by_delegate, timestamp_added, alternative_title, alternative_description) values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $delegate_id, time(), htmlspecialchars($title), htmlspecialchars($description));
+		$values = Array($vote_id, $delegate_id, time(), htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true));
 
 		$return =  db::insert($query, $values);
 
@@ -287,7 +287,7 @@ class db_vote {
 	public static function add_candidate ($vote_id, $user_id, $description){
 
 		$query = "insert into votes_alternatives (vote_id, added_by_user, timestamp_added, alternative_user_id, alternative_title, alternative_description) values (?, ?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $user_id, time(), $user_id, db_user::get_user_full_name($user_id), htmlspecialchars($description));
+		$values = Array($vote_id, $user_id, time(), $user_id, db_user::get_user_full_name($user_id), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true));
 
 		$return = db::insert($query, $values);
 

@@ -8,7 +8,7 @@
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
 		else{
-			$report_insert_id = db_forum::new_report($_POST['post_id'], $_SESSION['id'], htmlspecialchars($_POST['report_post_argument']));
+			$report_insert_id = db_forum::new_report($_POST['post_id'], $_SESSION['id'], htmlspecialchars($_POST['report_post_argument'], ENT_COMPAT,'ISO-8859-1', true));
 			if($report_insert_id){
 				$_SESSION['report_message'] = "Anmälan är mottagen.";
 				$redirect = "index.php?type=forum&action=show_posts&id=" . $_POST['topic_id'];

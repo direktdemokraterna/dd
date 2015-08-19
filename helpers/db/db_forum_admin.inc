@@ -145,7 +145,7 @@ class db_forum_admin {
 		$forum_id = db_forum::get_forum_id_from_post_id($post_id);
 
 		$query = "update posts set is_topic = 1, topic_id = ?, title = ? where id = ?";
-		$values = Array($post_id, htmlspecialchars($title), $post_id);
+		$values = Array($post_id, htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), $post_id);
 
 		$return = db::update($query, $values);
 

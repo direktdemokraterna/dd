@@ -12,14 +12,14 @@
 		$timestamp = $event_time - ($event_time % 86400) + 86399;
 
 		$content = forum_helpers::process_text($_POST['content']);
-		$title = htmlspecialchars($_POST['title']);
+		$title = htmlspecialchars($_POST['title'], ENT_COMPAT,'ISO-8859-1', true);
 		if(isset($_POST['time'])){
-			$time = htmlspecialchars($_POST['time']);
+			$time = htmlspecialchars($_POST['time'], ENT_COMPAT,'ISO-8859-1', true);
 		}
 		else{
 			$time = "";
 		}
-		$location = htmlspecialchars($_POST['location']);
+		$location = htmlspecialchars($_POST['location'], ENT_COMPAT,'ISO-8859-1', true);
 		
 		if(db_calendar::edit_event($timestamp, $year, $month, $day, $time, $location, $title, $content, $_GET['id'])){
 			$_SESSION['report_message'] = "Aktiviteten har ändrats.";

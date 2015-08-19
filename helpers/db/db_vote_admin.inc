@@ -5,7 +5,7 @@ class db_vote_admin {
 	public static function update_vote ($type, $constituency_id, $title, $description, $forum_topic_id, $vote_id){
 
 		$query = "update votes set type = ?, constituency_id = ?, title = ?, description = ?, forum_topic_id = ? where id = ?";
-		$values = Array($type, $constituency_id, htmlspecialchars($title), htmlspecialchars($description), $forum_topic_id, $vote_id);
+		$values = Array($type, $constituency_id, htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true), $forum_topic_id, $vote_id);
 
 		return db::update($query, $values);
 
@@ -23,7 +23,7 @@ class db_vote_admin {
 	public static function create_vote ($type, $status, $constituency_id, $title, $description, $forum_topic_id, $timestamp_ended, $timestamp_delegate_ended){
 
 		$query = "insert into votes (type, status, constituency_id, title, description , forum_topic_id, timestamp_created, timestamp_ended, timestamp_delegate_ended) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($type, $status, $constituency_id, htmlspecialchars($title), htmlspecialchars($description), $forum_topic_id, time(), $timestamp_ended, $timestamp_delegate_ended);
+		$values = Array($type, $status, $constituency_id, htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true), $forum_topic_id, time(), $timestamp_ended, $timestamp_delegate_ended);
 
 		return db::insert($query, $values);
 
@@ -47,7 +47,7 @@ class db_vote_admin {
 	public static function add_alternative_by_admin ($vote_id, $title, $description){
 
 		$query = "insert into votes_alternatives (vote_id, timestamp_added, alternative_title, alternative_description) values (?, ?, ?, ?)";
-		$values = Array($vote_id, time(), htmlspecialchars($title), htmlspecialchars($description));
+		$values = Array($vote_id, time(), htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true));
 
 		$return = db::insert($query, $values);
 
@@ -60,7 +60,7 @@ class db_vote_admin {
 	public static function update_alternative ($alternative_title, $alternative_description, $alternative_id){
 
 		$query = "update votes_alternatives set alternative_title = ?, alternative_description = ? where id = ?";
-		$values = Array(htmlspecialchars($alternative_title), htmlspecialchars($alternative_description), $alternative_id);
+		$values = Array(htmlspecialchars($alternative_title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($alternative_description, ENT_COMPAT,'ISO-8859-1', true), $alternative_id);
 
 		return db::update($query, $values);
 
