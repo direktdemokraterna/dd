@@ -2,12 +2,21 @@
 
 class db_calendar {
 
-	public static function add_event ($timestamp, $year, $month, $day, $time, $user_id, $group, $title, $content){
+	public static function add_event ($timestamp, $year, $month, $day, $time, $user_id, $location, $title, $content){
 
 		$query = "insert into calendar (timestamp, year, month, day, time, timestamp_added, added_by_user, location, title, content) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($timestamp, $year, $month, $day, $time, time(), $user_id, $group, $title, $content);
+		$values = Array($timestamp, $year, $month, $day, $time, time(), $user_id, $location, $title, $content);
 
 		return db::insert($query, $values);
+
+	}
+
+	public static function edit_event ($timestamp, $year, $month, $day, $time, $location, $title, $content, $calendar_id){
+
+		$query = "update calendar set timestamp = ?, year = ?, month = ?, day = ?, time = ?, location = ?, title = ?, content = ? where id = ?";
+		$values = Array($timestamp, $year, $month, $day, $time, $location, $title, $content, $calendar_id);
+
+		return db::update($query, $values);
 
 	}
 
@@ -24,7 +33,7 @@ class db_calendar {
 
 	public static function get_events ($year, $month, $day){
 
-		$query = "select c.id as event_id, c.time as time, c.timestamp_added as timestamp_added, c.added_by_user as user_id, concat(u.first_name, ' ', u.last_name) as full_name, c.location as 			location, c.title as title, c.content as content 
+		$query = "select c.id as event_id, c.time as time, c.timestamp_added as timestamp_added, c.added_by_user as user_id, concat(u.first_name, ' ', u.last_name) as full_name, c.location as 			location, c.title as title, c.content as content, c.timestamp as timestamp 
 					from calendar c, users u 
 					where c.added_by_user = u.id and c.year = ? and c.month = ? and c.day = ?";
 		$values = Array($year, $month, $day);

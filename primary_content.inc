@@ -24,6 +24,9 @@ if($_GET['type']=="member") {
 	elseif($_GET['action']=="calendar_add") {
 		require("primary_content/member/calendar_add.inc");
 	}
+	elseif($_GET['action']=="calendar_edit") {
+		require("primary_content/member/calendar_edit.inc");
+	}
 	elseif($_GET['action']=="admin_description") {
 		require("primary_content/member/admin_description.inc");
 	}

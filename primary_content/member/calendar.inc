@@ -79,6 +79,10 @@
 					<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="participate"><input type="hidden" name="id" value="<?php echo $row['event_id']; ?>"><input type="submit" value="Anmäl dig till denna händelse"></form>
 				<?php endif; ?>
 			<?php endif; ?>
+			
+			<?php if($row['user_id'] == $_SESSION['id'] && $row['timestamp'] > time()) : ?>
+				<a href="index.php?type=member&action=calendar_edit&id=<?php echo $row['event_id']; ?>">Redigera denna händelse</a>
+			<?php endif; ?>
 
 		</div>
 	<?php endforeach; ?>

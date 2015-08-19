@@ -10,6 +10,9 @@ if($_GET['type']=="member") {
 	elseif($_GET['action']=="calendar_add") {
 		require("execute_scripts/member/calendar_add.inc");
 	}
+	elseif($_GET['action']=="calendar_edit") {
+		require("execute_scripts/member/calendar_edit.inc");
+	}
 }
 
 elseif($_GET['type']=="message") {
