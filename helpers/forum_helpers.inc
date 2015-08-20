@@ -5,7 +5,7 @@ class forum_helpers {
 
 public static function process_text ($text){
 
-	$processed_text = htmlspecialchars($text, ENT_COMPAT,'ISO-8859-1', true);
+	$processed_text = htmlspecialchars($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
 
 	$processed_text = forum_helpers::urls_to_links($processed_text);
 
@@ -98,7 +98,7 @@ public static function urls_to_links ($text){
     	list($url, $urlPosition) = $match[0];
 
     	// Print the text leading up to the URL.
-    	$return_value = htmlspecialchars(substr($text, $position, $urlPosition - $position), ENT_COMPAT,'ISO-8859-1', true);
+    	$return_value = substr($text, $position, $urlPosition - $position);
 
 	    $domain = $match[2][0];
     	$port   = $match[3][0];
@@ -112,12 +112,12 @@ public static function urls_to_links ($text){
         	$completeUrl = $match[1][0] ? $url : "http://$url";
 
         	// Print the hyperlink.
-	        $return_value .= sprintf('<a href="%s" target="_blank">%s</a>', htmlspecialchars($completeUrl, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars("$domain$port$path"));
+	        $return_value .= sprintf('<a href="%s" target="_blank">%s</a>', $completeUrl, "$domain$port$path");
     	}
 	    else
     	{
         	// Not a valid URL.
-        	$return_value .= htmlspecialchars($url, ENT_COMPAT,'ISO-8859-1', true);
+        	$return_value .= $url;
 	    }
 
     	// Continue text parsing from after the URL.
@@ -125,7 +125,7 @@ public static function urls_to_links ($text){
 	}
 
 	// Print the remainder of the text.
-	$return_value .= htmlspecialchars(substr($text, $position));
+	$return_value .= substr($text, $position);
 
 	return $return_value;
 
