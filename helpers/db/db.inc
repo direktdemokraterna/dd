@@ -1,35 +1,28 @@
 <?php
 
-include("settings.inc");
-
 class db {
 	
 	public static function connect (){
-		$conn = self::createConnection();
+
+		$data_source = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME;
+		$conn = new PDO($data_source, DB_USERNAME, DB_PASSWORD);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
 		return $conn;
-	}
 
-	private static function createConnection() {
-		$dbUserName = settings::getDbUserName();
-		$dbUserPassword = settings::getDbUserPassword();
-		$dataSource = self::createDataSource();
-		return new PDO($dataSource, $dbUserName, $dbUserPassword);
-	}
-
-	private static function createDataSource() {
-		$dbHost = settings::getDbHost();
-		$dbName = settings::getDbName();
-		return "mysql:host={$dbHost};dbname={$dbName}";
 	}
 
 	// returns a result array from a select query
 	public static function select ($query, $values){
+
 		$db = self::connect();
+
 		$stmt = $db->prepare($query);
 		$stmt->execute($values);
+
 		return $stmt->fetchAll();
+
 	}
 
 	// returns single value from a select query

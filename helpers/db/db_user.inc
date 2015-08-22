@@ -2,21 +2,37 @@
 
 class db_user {
 	
-	public static function add_user ($username, $password, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name){
+	public static function add_user ($username, $password, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name = ""){
 
 		$query = "insert into users (username, password, registration_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, skype_name) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		$registration_time = time();
-
-		$values = Array($username, $password, $registration_time, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name);
+		$values = Array($username, $password, time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name);
 
 		$user_id = db::insert($query, $values);
 
-		$public_forums = db_forum::get_public_forum_ids();
+		if(!$user_id){
+			return false;
+		}
 
-		$query = "insert into forums_users (forum_id, user_id) values (?, " . $user_id . ")";
+		// Adding forum accesses for new user
+		$public_forums = db_helpers::get_public_forum_ids();
+		foreach($public_forums as $row){
+			db_forum_admin::add_forum_access($user_id, $row['id']);
+		}
+		$local_county_forum = db_helpers::get_local_county_forum($_POST['county']);
+		db_forum_admin::add_forum_access($user_id, $local_county_forum);
+		$local_region_forum = db_helpers::get_local_region_forum($region);
+		db_forum_admin::add_forum_access($user_id, $local_region_forum);
 
-		db::insert_all($query, $public_forums);
+		// Adding constituency access for new user
+		$public_constituencies = db_constituency::get_public_constituency_ids();
+		foreach($public_constituencies as $row){
+			db_constituency::add_constituency_access($user_id, $row['id']);
+		}
+		$local_county_constituency = db_constituency::get_local_county_constituency($_POST['county']);
+		db_constituency::add_constituency_access($user_id, $local_county_constituency);
+		$local_region_constituency = db_constituency::get_local_region_constituency($region);
+		db_constituency::add_constituency_access($user_id, $local_region_constituency);
 
 		return $user_id;
 
@@ -197,6 +213,15 @@ class db_user {
 
 	}
 
+	public static function get_all_usernames_and_full_names (){
+
+		$query = "select username as username, concat(first_name, ' ', last_name) as full_name from users";
+		$values = Array();
+
+		return db::select($query, $values);
+
+	}
+
 	public static function search_users ($search, $page = 0, $limit = LIST_ITEMS_PER_PAGE){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
@@ -209,6 +234,43 @@ class db_user {
 		$values = Array($search);
 
 		return db::select($query, $values);
+
+	}
+
+	public static function enter_user_application ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone){
+
+		$query = "insert into user_applications (application_filed_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, telephone1) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		$values = Array(time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone);
+
+		return db::insert($query, $values);
+
+	}
+
+	public static function get_all_user_applications (){
+
+		$query = "select id, concat(first_name, ' ', last_name) as full_name, application_filed_time from user_applications order by application_filed_time desc";
+		$values = Array();
+
+		return db::select($query, $values);
+
+	}
+
+	public static function get_user_application ($id){
+
+		$query = "select *, concat(first_name, ' ', last_name) as full_name from user_applications where id = ?";
+		$values = Array($id);
+
+		return db::select_single_row($query, $values);
+
+	}
+
+	public static function delete_user_application ($id){
+
+		$query = "delete from user_applications where id = ?";
+		$values = Array($id);
+
+		return db::delete($query, $values);
 
 	}
 
