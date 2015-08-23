@@ -8,7 +8,7 @@ if(!isset($_SESSION['id'])){
 	if(isset($_COOKIE['user_id']) && isset($_COOKIE['user_token'])){
 		$user_data = db_user::get_user_data($_COOKIE['user_id']);
 
-		if ($hasher->CheckPassword($_COOKIE['user_token'], $user_data['remember_me_token'])) { // Cookie matches db token
+		if ($hasher->CheckPassword($_COOKIE['user_token'], $user_data['remember_me_token']) && !isset($user_data['deletion_time'])) { // Cookie matches db token and account is not suspended
 			$_SESSION['id'] = $user_data['id'];
 			$_SESSION['last_login_time'] = $user_data['last_login_time'];
 			if($user_data['acting_as_delegate'] == 1) {
@@ -45,7 +45,10 @@ if(!isset($_SESSION['id'])){
 		if(isset($_POST['username']) && isset($_POST['password'])){
 			$user_data = db_user::get_user_data_from_username($_POST['username']);
 
-			if ($hasher->CheckPassword($_POST['password'], $user_data['password'])) { // Password is correct
+			if(isset($user_data['deletion_time'])){ // User account is suspended
+				echo "<div class=\"red_message\">Användaren är tillfälligt avstängd</div>";
+			}
+			elseif($hasher->CheckPassword($_POST['password'], $user_data['password'])) { // Password is correct
 				$_SESSION['id'] = $user_data['id'];
 				$_SESSION['last_login_time'] = $user_data['last_login_time'];
 				if($user_data['acting_as_delegate'] == 1) {
