@@ -274,4 +274,46 @@ class db_user {
 
 	}
 
+	public static function check_if_personnummer_exists ($personnummer){
+
+		$query = "select * from users where social_security_number = ?";
+		$values = Array($personnummer);
+
+		$user_result = db::select($query, $values);
+
+		$query = "select * from user_applications where social_security_number = ?";
+		$values = Array($personnummer);
+
+		$user_application_result = db::select($query, $values);
+
+		if($user_result || $user_application_result){
+			return true;
+		}
+		else{
+			return false;
+		}
+
+	}
+
+	public static function check_if_email_exists ($email){
+
+		$query = "select * from users where email = ?";
+		$values = Array($email);
+
+		$user_result = db::select($query, $values);
+
+		$query = "select * from user_applications where email = ?";
+		$values = Array($email);
+
+		$user_application_result = db::select($query, $values);
+
+		if($user_result || $user_application_result){
+			return true;
+		}
+		else{
+			return false;
+		}
+
+	}
+
 } 

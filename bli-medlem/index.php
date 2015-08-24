@@ -8,12 +8,22 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['st
 	$telephone = str_replace("-", "", $_POST['telephone']);
 	$telephone = str_replace(" ", "", $_POST['telephone']);
 
-	if(!general_helpers::check_personnummer($_POST['social_security_number'])){
+	$personnummer = general_helpers::clean_personnummer($_POST['social_security_number']);
+	
+	if(db_user::check_if_personnummer_exists($personnummer)){
+		die("Det finns redan en användare med det personnumret");
+	}
+
+	if(!general_helpers::check_personnummer($personnummer)){
 		die("Ogiltigt personnummer");
 	}
 
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 		die("Ogiltig mejladress");
+	}
+
+	if(db_user::check_if_email_exists($_POST['email'])){
+		die("Det finns redan en användare med den mejladressen");
 	}
 
 	$region = db_helpers::get_region_from_county($_POST['county']);
@@ -22,7 +32,7 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['st
 		die("Välj din kommun.");
 	}
 
-	$form_data_has_been_processed = db_user::enter_user_application(htmlspecialchars($_POST['first_name'], ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($_POST['last_name'], ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($_POST['street_address'], ENT_COMPAT,'ISO-8859-1', true), (int)$_POST['zip_code'], htmlspecialchars($_POST['city_address'], ENT_COMPAT,'ISO-8859-1', true), $_POST['county'], $region, $_POST['social_security_number'], $_POST['email'], (int)$telephone);
+	$form_data_has_been_processed = db_user::enter_user_application(htmlspecialchars($_POST['first_name'], ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($_POST['last_name'], ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($_POST['street_address'], ENT_COMPAT,'ISO-8859-1', true), (int)$_POST['zip_code'], htmlspecialchars($_POST['city_address'], ENT_COMPAT,'ISO-8859-1', true), $_POST['county'], $region, $personnummer, $_POST['email'], (int)$telephone);
 
 }
 

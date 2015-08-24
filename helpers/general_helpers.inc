@@ -305,12 +305,18 @@ public static function in_multiarray ($array, $key, $value) {
 
 }
 
-public static function check_personnummer ($personnummer) { 
+public static function clean_personnummer ($personnummer) { 
 
 	$personnummer = str_replace("-", "", $_POST['social_security_number']);
 	if(strlen($personnummer) > 10){
 		$personnummer = substr($personnummer, 2);
 	}
+
+	return $personnummer;
+
+}
+
+public static function check_personnummer ($personnummer) { 
 
 	$n = 2; 
 	$control_sum = 0;
