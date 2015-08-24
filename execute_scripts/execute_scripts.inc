@@ -97,6 +97,9 @@ elseif($_GET['type']=="member_admin" && isset($_SESSION['is_member_admin'])) {
 	elseif($_GET['action']=="edit"){
 		require("execute_scripts/member_admin/edit.inc");
 	}
+	elseif($_GET['action']=="process_application"){
+		require("execute_scripts/member_admin/process_application.inc");
+	}
 }
 
 elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {

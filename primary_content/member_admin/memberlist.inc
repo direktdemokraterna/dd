@@ -16,7 +16,7 @@
 
 <?php 
 	$sort_alternatives = Array("Senast inloggad" => "last_login", "Alfabetisk" => "alphabetic");
-	general_helpers::make_list_of_link_menu($page, $result_counter, $sort_alternatives, "county_tegions"); 
+	general_helpers::make_list_of_link_menu($page, $result_counter, $sort_alternatives, "county_regions"); 
 ?>
 
 

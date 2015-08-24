@@ -121,29 +121,34 @@ public static function manad ($timestamp, $month = null){
 
 public static function admin_mail ($receiver, $title, $text) {
 	// https://github.com/PHPMailer/PHPMailer
-	require_once('helpers/PHPMailer-master/PHPMailerAutoload.php');
+	require_once('PHPMailer-master/PHPMailerAutoload.php');
  
 	$mail = new PHPMailer();
  
-	$mail->From = 'info@direktdemokraterna.se';
+	$mail->From = 'direktdemokraterna@hotmail.com';
 	$mail->FromName = 'Direktdemokraterna';
 	$mail->AddAddress($receiver);
 	$mail->Subject = $title;
 	$mail->Body = $text;
- 
+
 	$mail->IsSMTP();
 	$mail->SMTPAuth = true;
-	$mail->SMTPSecure = 'ssl';
-	$mail->Port = 465;
-	$mail->Host = 'my smtp host';
-	$mail->Username = 'my smtp username';
-	$mail->Password = 'my smtp password';
- 
+	$mail->SMTPSecure = 'tls';
+	$mail->Port = 587;
+//	$mail->Host = 'smtp.gmail.com';
+//	$mail->Username = 'direktdemokraterna.test@gmail.com';
+//	$mail->Password = '475954952T13bwy';
+
+	$mail->Host = 'smtp-mail.outlook.com';
+	$mail->Username = 'direktdemokraterna@hotmail.com';
+	$mail->Password = '475954952T13bwy';
+
+
 	if(!$mail->send()) {
-	    return false;
+	    return $mail->ErrorInfo;
 	} 
 	else {
-    	return true;
+    	return "success";
 	}
 }
 
@@ -195,22 +200,9 @@ public static function make_list_of_link_menu ($page, $result_counter, $sort_alt
 		echo "</div>";
 	}
 
-	elseif($filter_title == "county_tegions"){
+	elseif($filter_title == "county_regions"){
 		echo "<div class=\"list_of_link_menu\">";
 		
-		echo "<span class=\"list_sort_alternative\">Kommun: ";
-		$get_parameters['filter'] = "county";
-		$counties = db_helpers::get_counties();
-		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
-		echo "<option value=\"\"></option>";
-		foreach($counties as $row){
-			$get_parameters['county'] = $row['kommun'];
-			$url = "index.php?" . http_build_query($get_parameters);
-			echo "<option value=\"" . $url . "\">" . $row['kommun'] . "</option>\n";
-		}
-		echo "</select></span>";
-		$get_parameters['county'] = null;
-
 		echo "<span class=\"list_sort_alternative\">Län: ";
 		$get_parameters['filter'] = "region";
 		$regions = db_helpers::get_regions();
@@ -219,10 +211,27 @@ public static function make_list_of_link_menu ($page, $result_counter, $sort_alt
 		foreach($regions as $row){
 			$get_parameters['region'] = $row['lan'];
 			$url = "index.php?" . http_build_query($get_parameters);
-			echo "<option value=\"" . $url . "\">" . $row['lan'] . "</option>\n";
+			echo "<option value=\"" . $url . "\"";
+			if(isset($_GET['region']) && $row['lan'] == $_GET['region']) echo " selected";
+			echo ">" . $row['lan'] . "</option>\n";
 		}
 		echo "</select>";
 		$get_parameters['region'] = null;
+
+		echo "<span class=\"list_sort_alternative\">Kommun: ";
+		$get_parameters['filter'] = "county";
+		$counties = db_helpers::get_counties();
+		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
+		echo "<option value=\"\"></option>";
+		foreach($counties as $row){
+			$get_parameters['county'] = $row['kommun'];
+			$url = "index.php?" . http_build_query($get_parameters);
+			echo "<option value=\"" . $url . "\"";
+			if(isset($_GET['county']) && $row['kommun'] == $_GET['county']) echo " selected";
+			echo ">" . $row['kommun'] . "</option>\n";
+		}
+		echo "</select></span>";
+		$get_parameters['county'] = null;
 
 		echo "</span></div>";
 	}
@@ -271,6 +280,49 @@ public static function in_multiarray ($array, $key, $value) {
 	}
 
 	return false;
+
+}
+
+public static function check_personnummer ($personnummer) { 
+
+	$personnummer = str_replace("-", "", $_POST['social_security_number']);
+	if(strlen($personnummer) > 10){
+		$personnummer = substr($personnummer, 2);
+	}
+
+	$n = 2; 
+	$control_sum = 0;
+	for ($i=0; $i<9; $i++){ 
+		$temp = $personnummer[$i] * $n; 
+		if($temp > 9){
+			$control_sum += 1 + ($temp % 10);
+		}
+		else{
+			$control_sum += $temp; 
+		}
+
+		if($n == 2){
+			$n = 1;
+		}
+		else{
+			$n = 2; 
+		}
+	} 
+
+	$control_digit = (10 - $control_sum % 10) % 10;
+	
+	if($control_digit == $personnummer[9]){
+		return true;
+	}
+	else{
+		return false; 
+	}
+
+}
+
+public static function clean ($data) { 
+
+	return htmlspecialchars($data, ENT_COMPAT,'ISO-8859-1', true);
 
 }
 

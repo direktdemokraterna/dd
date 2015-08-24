@@ -184,6 +184,12 @@ elseif($_GET['type']=="member_admin" && isset($_SESSION['is_member_admin'])) {
 	elseif($_GET['action']=="memberlist"){
 		require("primary_content/member_admin/memberlist.inc");
 	}
+	elseif($_GET['action']=="list_applications"){
+		require("primary_content/member_admin/list_applications.inc");
+	}
+	elseif($_GET['action']=="process_application"){
+		require("primary_content/member_admin/process_application.inc");
+	}
 	else{
 		require("primary_content/member_admin/memberlist.inc");
 	}
