@@ -1,6 +1,8 @@
 <?php 
 session_start();
 
+date_default_timezone_set('Europe/Stockholm');
+
 // Declares unset variables
 if(empty($_GET['action'])) $_GET['action']=null; 
 if(empty($_GET['type'])) $_GET['type']=null; 
