@@ -29,6 +29,15 @@ class db_helpers {
 
 	}
 
+	public static function get_counties_for_region ($region){
+
+		$query = "select kommun from kommuner where lan = ?";
+		$values = Array($region);
+
+		return db::select($query, $values);
+
+	}
+
 	public static function insert_error_message ($user_id, $message, $color = "green"){
 
 		$query = "insert into error_messages (user_id, message, color, timestamp) values (?, ?, ?, ?)";

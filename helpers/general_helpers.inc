@@ -204,10 +204,15 @@ public static function make_list_of_link_menu ($page, $result_counter, $sort_alt
 		echo "<div class=\"list_of_link_menu\">";
 		
 		echo "<span class=\"list_sort_alternative\">Län: ";
-		$get_parameters['filter'] = "region";
 		$regions = db_helpers::get_regions();
 		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
-		echo "<option value=\"\"></option>";
+
+		$get_parameters['region'] = null;
+		$get_parameters['filter'] = null;
+		$url = "index.php?" . http_build_query($get_parameters);
+		echo "<option value=\"" . $url . "\">Alla län</option>";
+
+		$get_parameters['filter'] = "region";
 		foreach($regions as $row){
 			$get_parameters['region'] = $row['lan'];
 			$url = "index.php?" . http_build_query($get_parameters);
@@ -216,13 +221,30 @@ public static function make_list_of_link_menu ($page, $result_counter, $sort_alt
 			echo ">" . $row['lan'] . "</option>\n";
 		}
 		echo "</select>";
-		$get_parameters['region'] = null;
+		if(isset($_GET['region'])){
+			$get_parameters['region'] = $_GET['region'];
+		}
 
 		echo "<span class=\"list_sort_alternative\">Kommun: ";
-		$get_parameters['filter'] = "county";
-		$counties = db_helpers::get_counties();
+		if(isset($_GET['region'])){
+			$counties = db_helpers::get_counties_for_region($_GET['region']);
+		}
+		else{
+			$counties = db_helpers::get_counties();
+		}
 		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
-		echo "<option value=\"\"></option>";
+
+		$get_parameters['county'] = null;
+		if(isset($_GET['region'])){
+			$get_parameters['filter'] = "region";
+		}
+		else{
+			$get_parameters['filter'] = null;
+		}
+		$url = "index.php?" . http_build_query($get_parameters);
+		echo "<option value=\"". $url . "\">Alla kommuner</option>";
+
+		$get_parameters['filter'] = "county";
 		foreach($counties as $row){
 			$get_parameters['county'] = $row['kommun'];
 			$url = "index.php?" . http_build_query($get_parameters);
