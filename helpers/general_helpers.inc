@@ -208,6 +208,7 @@ public static function make_list_of_link_menu ($page, $result_counter, $sort_alt
 		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
 
 		$get_parameters['region'] = null;
+		$get_parameters['county'] = null;
 		$get_parameters['filter'] = null;
 		$url = "index.php?" . http_build_query($get_parameters);
 		echo "<option value=\"" . $url . "\">Alla län</option>";
@@ -234,7 +235,6 @@ public static function make_list_of_link_menu ($page, $result_counter, $sort_alt
 		}
 		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
 
-		$get_parameters['county'] = null;
 		if(isset($_GET['region'])){
 			$get_parameters['filter'] = "region";
 		}
