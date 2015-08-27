@@ -8,26 +8,39 @@ if($_POST['accept']){
 	else{
 		$region = db_helpers::get_region_from_county($_POST['county']);
 		
+		$username = strtolower(general_helpers::clean($_POST['first_name']) . general_helpers::clean($_POST['last_name']));
+		$username = str_replace(Array("å", "ä", "ö", "é"), Array("a", "a", "o", "e"), $username);
+
+		if(db_user::get_user_id($username)){
+			for($i=2; $i<1000; $i++){
+				$username_with_number = $username . $i;
+				if(!db_user::get_user_id($username_with_number)){
+					break;
+				}
+			}
+			$username = $username_with_number;
+		}
+
 		require("helpers/class-phpass.php");
 		$random_password = general_helpers::GenerateRandomString(12);
 		$hasher = new PasswordHash(8, FALSE);
 		$password = $hasher->HashPassword($random_password);
 		
-		$ok = db_user::add_user(general_helpers::clean($_POST['username']), $password, general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region, general_helpers::clean($_POST['social_security_number']), $_POST['email']);
+		$ok = db_user::add_user($username, $password, general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region, general_helpers::clean($_POST['social_security_number']), $_POST['email']);
 
 		if($ok){
 			db_user::delete_user_application($_GET['id']);
 
 			$mail_receiver = $_POST['email'];
 			$mail_title = "Välkommen till Direktdemokraterna";
-			$mail_text = "Du har blivit antagen som medlem i Direktdemokraterna och kan logga in på medlems-sidan.\n\nDina inloggningsuppgifter är följande:\n\nAnvändarnamn: " . general_helpers::clean($_POST['username']) . "\nLösenord: " . $random_password;
+			$mail_text = "Du har blivit antagen som medlem i Direktdemokraterna och kan logga in på medlems-sidan.\n\nDina inloggningsuppgifter är följande:\n\nAnvändarnamn: " . $username . "\nLösenord: " . $random_password;
 
 			$mail_response = general_helpers::admin_mail($mail_receiver, $mail_title, $mail_text);
 			if($mail_response != "success"){
 				die($mail_response);
 			}
 
-			$_SESSION['report_message'] = "Användaren är skapad. Användaruppgifter har skickats via mejl till användaren.";
+			$_SESSION['report_message'] = "Användaren är skapad. Anvädarnamnet blev " . $username . ". Användaruppgifter har skickats via mejl till användaren.";
 			$redirect = "index.php?type=member_admin&action=list_applications";
 		}
 		else{

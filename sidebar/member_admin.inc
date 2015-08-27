@@ -4,7 +4,9 @@
 		<ul>
 			<li><a href="index.php?type=member_admin">Medlemslista</li>
 			<li><a href="index.php?type=member_admin&action=create_new">Skapa ny medlem</li>
-			<li><a href="index.php?type=member_admin&action=list_applications">Hantera ansökningar</li>
+			<?php if(db_user::get_all_user_applications()) : ?>
+				<li><a href="index.php?type=member_admin&action=list_applications">Hantera ansökningar</li>
+			<?php endif; ?>
 		</ul>
 	</li>
 </ul>

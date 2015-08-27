@@ -2,7 +2,17 @@
 	$application_data = db_user::get_user_application($_GET['id']);
 
 	$suggested_username = strtolower($application_data['first_name'] . $application_data['last_name']);
-	$suggested_username = str_replace(Array("å", "ä", "ö", "é"), Array("a", "a", "o", "e"), $suggested_username)
+	$suggested_username = str_replace(Array("å", "ä", "ö", "é"), Array("a", "a", "o", "e"), $suggested_username);
+
+	if(db_user::get_user_id($suggested_username)){
+		for($i=2; $i<1000; $i++){
+			$suggested_username_with_number = $suggested_username . $i;
+			if(!db_user::get_user_id($suggested_username_with_number)){
+				break;
+			}
+		}
+		$suggested_username = $suggested_username_with_number;
+	}
 ?>
 
 <h1>Processa ansökan från <?php echo $application_data['full_name']; ?></h1>
@@ -11,14 +21,9 @@
 	<p>
 	<input type="hidden" name="accept" value="1">
 
-	<br><label for "username">Föreslaget användarnamn</label>
-	<input type="text" name="username" id="username" value="<?php echo $suggested_username; ?>" tabindex="1">
-	<?php
-		$check_if_username_exists = db_user::get_user_id($suggested_username);
-		if($check_if_username_exists){
-			echo "Användarnamnet finns redan.<br>";
-		}
-	?>
+	<br><label for "username">Användarnamn</label>
+	<input type="text" name="username" id="username" value="<?php echo $suggested_username; ?>" style="background: #E8E8E8; color: #B0B0B0;" disabled>
+
 	<br><label for "first_name">Förnamn</label>
 	<input type="text" name="first_name" id="first_name" value="<?php echo $application_data['first_name']; ?>" tabindex="2">
 
