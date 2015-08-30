@@ -1,15 +1,15 @@
 <?php
-$ALPHANUMERIC_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-$WEEK_DAY_NAMES = array("Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag");
-$MONTH_NAMES = array("NO_MONTH", "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December");
 
 class general_helpers {
-	const DAY_IN_SECONDS = 86400;
+	private static $ALPHANUMERIC_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	private static $WEEK_DAY_NAMES = array("Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag");
+	private static $MONTH_NAMES = array("NO_MONTH", "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December");
+	private static $DAY_IN_SECONDS = 86400;
 
 	public static function GenerateRandomString ($length){
 		$random_string = "";
 		for($i=0; $i<$length; $i++)
-			$random_string .= $ALPHANUMERIC_CHARS[mt_rand(0,61)];
+			$random_string .= self::$ALPHANUMERIC_CHARS[mt_rand(0,61)];
 		return $random_string;
 	}
 
@@ -18,7 +18,7 @@ class general_helpers {
 	}
 
 	private static function is_genitive ($str){
-		return strlen($str) > 0 && strtolower(substr($str, -1)) = "s";
+		return strlen($str) > 0 && strtolower(substr($str, -1)) == "s";
 	}
 
 	public static function check_report_messages (){
@@ -38,13 +38,13 @@ class general_helpers {
 	}
 
 	private static function unset_report_message_flags (){
-		self::unset_report_message_flag('report_message');
-		self::unset_report_message_flag('red_report_message');
+		self::unset_flag('report_message');
+		self::unset_flag('red_report_message');
 	}
 
 	private static function unset_flag ($flag){
 		if(isset($_SESSION[$flag]))
-			unset($_SESSION[$flag]);
+		unset($_SESSION[$flag]);
 	}
 
 	public static function show_date ($time){
@@ -57,14 +57,14 @@ class general_helpers {
 
 	private static function get_pretty_day_representation ($time, $present_time){
 		$tested_time = getdate($time);
-		$tested_time_next_day = getdate($time+DAY_IN_SECONDS);
-		$tested_time_previous_day = getdate($time-DAY_IN_SECONDS);
+		$tested_time_next_day = getdate($time+self::$DAY_IN_SECONDS);
+		$tested_time_previous_day = getdate($time-self::$DAY_IN_SECONDS);
 		if(self::is_same_day($tested_time, $present_time))
-			return "Idag";
+		return "Idag";
 		if(self::is_same_day($tested_time_next_day, $present_time))
-			return "Igår";
+		return "Igår";
 		if(self::is_same_day($tested_time_previous_day, $present_time))
-			return "Imorgon";
+		return "Imorgon";
 		return date("j/n", $time);
 	}
 	
@@ -79,18 +79,18 @@ class general_helpers {
 			: "-" . date("Y", $time);
 	}
 
-	public static function veckodag ($timestamp, $weekday = null){
+	public static function veckodag ($timestamp, $weekday = 0){
 		$weekday = $timestamp > 0 
 			? date("w", $timestamp) 
-			: $weekday ?? 0;
-		return $WEEK_DAY_NAMES[$weekday];
+			: $weekday;
+		return self::$WEEK_DAY_NAMES[$weekday];
 	}
 
-	public static function manad ($timestamp, $month = null){
+	public static function manad ($timestamp, $month = 0){
 		$month = $timestamp > 0 
 			? date("n", $timestamp) 
-			: $month ?? 0;
-		return $MONTH_NAMES[$month];
+			: $month;
+		return self::$MONTH_NAMES[$month];
 	}
 
 	public static function admin_mail ($receiver, $title, $text) {
@@ -114,19 +114,13 @@ class general_helpers {
 			: $mail->ErrorInfo;
 	}
 	
-	//!!!
-	// JS 20150830: Refactored to here, will contine with rest of the file tomorrow
-	//!!!
-	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
 	public static function make_list_of_link_menu ($page, $result_counter, $sort_alternatives = null, $filter_title = "Filtrering:", $filter_alternatives = null){
 		$number_of_pages = ceil($result_counter / LIST_ITEMS_PER_PAGE);
-		if($result_counter == 0)
-		$first_showed_item_number = 0;
-		else
-			$first_showed_item_number = $page * LIST_ITEMS_PER_PAGE - (LIST_ITEMS_PER_PAGE - 1);
-		$last_showed_item_number = $page * LIST_ITEMS_PER_PAGE;
-		if($last_showed_item_number > $result_counter) $last_showed_item_number = $result_counter;
+		$first_showed_item_number = $result_counter > 0
+			? $page * LIST_ITEMS_PER_PAGE - (LIST_ITEMS_PER_PAGE - 1)
+			: 0;
+		$last_showed_item_number = min($page * LIST_ITEMS_PER_PAGE, $result_counter);
 		$get_parameters = $_GET;
 		echo "<div class=\"list_of_link_menu\">";
 		echo "<span class=\"list_counter\">";
@@ -137,8 +131,7 @@ class general_helpers {
 			foreach($sort_alternatives as $key => $value){
 				echo "<span class=\"list_sort_alternative\">";
 				$get_parameters['sort'] = $value;
-				$url = "index.php?" . http_build_query($get_parameters);
-				echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a></span>";
+				self::makeLink($get_parameters, $key);
 			}
 		}
 		echo "</div>";
@@ -148,56 +141,56 @@ class general_helpers {
 			foreach($filter_alternatives as $key => $value){
 				echo "<span class=\"list_sort_alternative\">";
 				$get_parameters['filter'] = $value;
-				$url = "index.php?" . http_build_query($get_parameters);
-				echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a></span>";
+				self::makeLink($get_parameters, $key);
+				echo("</span>");
 			}
 			echo "</div>";
 		}
 		elseif($filter_title == "county_regions"){
 			echo "<div class=\"list_of_link_menu\">";
 			echo "<span class=\"list_sort_alternative\">Län: ";
-			$regions = db_helpers::get_regions();
-			echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
 			$get_parameters['region'] = null;
 			$get_parameters['county'] = null;
 			$get_parameters['filter'] = null;
-			$url = "index.php?" . http_build_query($get_parameters);
-			echo "<option value=\"" . $url . "\">Alla län</option>";
-			$get_parameters['filter'] = "region";
-			foreach($regions as $row){
-				$get_parameters['region'] = $row['lan'];
-				$url = "index.php?" . http_build_query($get_parameters);
-				echo "<option value=\"" . $url . "\"";
-				if(isset($_GET['region']) && $row['lan'] == $_GET['region']) echo " selected";
-				echo ">" . $row['lan'] . "</option>\n";
-			}
-			echo "</select>";
+			self::makeSelecBox($get_parameters, 'region', db_helpers::get_regions(), 'lan', "Alla län");
 			if(isset($_GET['region']))
-			$get_parameters['region'] = $_GET['region'];
+				$get_parameters['region'] = $_GET['region'];
 			echo "<span class=\"list_sort_alternative\">Kommun: ";
-			if(isset($_GET['region']))
-			$counties = db_helpers::get_counties_for_region($_GET['region']);
-			else
-				$counties = db_helpers::get_counties();
-			echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
-			if(isset($_GET['region']))
-			$get_parameters['filter'] = "region";
-			else
-				$get_parameters['filter'] = null;
-			$url = "index.php?" . http_build_query($get_parameters);
-			echo "<option value=\"". $url . "\">Alla kommuner</option>";
-			$get_parameters['filter'] = "county";
-			foreach($counties as $row){
-				$get_parameters['county'] = $row['kommun'];
-				$url = "index.php?" . http_build_query($get_parameters);
-				echo "<option value=\"" . $url . "\"";
-				if(isset($_GET['county']) && $row['kommun'] == $_GET['county']) echo " selected";
-				echo ">" . $row['kommun'] . "</option>\n";
-			}
-			echo "</select></span>";
+			$get_parameters['filter'] = isset($_GET['region']) ? "region" : null;
+			self::makeSelecBox($get_parameters, 'county', self::getCounties(), 'kommun', "Alla kommuner");
+			echo "</span>";
 			$get_parameters['county'] = null;
 			echo "</span></div>";
 		}
+	}
+	
+	private static function getCounties() {
+		return isset($_GET['region']) 
+			? db_helpers::get_counties_for_region($_GET['region'])
+			: db_helpers::get_counties();
+	}
+	
+	private static function makeSelecBox($get_parameters, $paramName, $rows, $columnName, $unselectedLabel) {
+		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
+		self::makeOption($get_parameters, $unselectedLabel);
+		$get_parameters['filter'] = $paramName;
+		foreach($rows as $row){
+			$get_parameters[$paramName] = $row[$columnName];
+			$select = isset($_GET[$paramName]) && $row[$columnName] == $_GET[$paramName];
+			//echo("hej");
+			//echo($_GET[$paramName] . "=" . $row[$columnName]);
+			self::makeOption($get_parameters, $row[$columnName], $select);
+		}
+		echo "</select>";
+	}
+	
+	private static function makeLink($get_parameters, $key) {
+		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a>";
+	}
+	
+	private static function makeOption($get_parameters, $label, $selected = false) {
+		$url = "index.php?" . http_build_query($get_parameters);
+		echo "<option value=\"" . $url . ($selected ? " selected" : "") . "\">" . $label . "</option>";
 	}
 
 	public static function find_max_in_multidimensional_array ($array, $key) {
