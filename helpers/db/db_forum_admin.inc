@@ -112,6 +112,43 @@ class db_forum_admin {
 
 	}
 
+	public static function get_all_forums_and_if_user_belongs ($user_id){
+
+		$query = "select f.id as forum_id, f.title as forum_name, (if (exists (select * from forums_users fu where fu.forum_id = f.id and fu.user_id = ?), 1, 0)) as user_access from forums f";
+		$values = Array($user_id);
+
+		return db::select($query, $values);
+
+	}
+
+	public static function update_forums_for_user ($forum_ids, $user_id){
+
+		$not_in_clause = implode(',', array_fill(0, count($forum_ids), '?'));
+
+		$query = "delete from forums_users where forum_id not in (" . $not_in_clause . ") and user_id = ?";
+		$values = $forum_ids;
+		array_push($values, $user_id);
+
+		$deleted = db::delete($query, $values);
+
+		$query = "insert into forums_users (forum_id, user_id) select ? as forum_id, ? as user_id from dual where not exists (select * from forums_users where forum_id = ? and user_id = ?) limit 1";
+		$inserted = db::insert_ignore_from_array($query, $forum_ids, $user_id);
+
+		return $deleted + $inserted;
+
+	}
+
+	public static function drop_local_forums_for_user ($user_id){
+
+		$query = "delete fu from forums_users fu 
+					left join forums f on f.id = fu.forum_id
+					where (f.access_type = 'local_region' or f.access_type = 'local_county') and fu.forum_id = f.id and fu.user_id = ?";
+		$values = Array($user_id);
+
+		return db::delete($query, $values);
+
+	}
+
 	public static function get_all_topics_for_forum ($forum_id){
 
 		$query = "select id, title from posts where is_topic = 1 and forum_id = ?";

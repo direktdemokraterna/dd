@@ -121,6 +121,9 @@ elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {
 	elseif($_GET['action']=="edit_post"){
 		require("execute_scripts/forum_admin/edit_post.inc");
 	}
+	elseif($_GET['action']=="edit_user"){
+		require("execute_scripts/forum_admin/edit_user.inc");
+	}
 }
 
 elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
@@ -135,6 +138,9 @@ elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
 	}
 	elseif($_GET['action']=="edit_alternative"){
 		require("execute_scripts/vote_admin/edit_alternative.inc");
+	}
+	elseif($_GET['action']=="edit_user"){
+		require("execute_scripts/vote_admin/edit_user.inc");
 	}
 }
 

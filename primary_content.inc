@@ -220,6 +220,9 @@ elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {
 	elseif($_GET['action']=="edit_post"){
 		require("primary_content/forum_admin/edit_post.inc");
 	}
+	elseif($_GET['action']=="edit_user"){
+		require("primary_content/forum_admin/edit_user.inc");
+	}
 	else{
 		require("primary_content/forum_admin/list_categories.inc");
 	}
@@ -237,6 +240,15 @@ elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
 	}
 	elseif($_GET['action']=="edit_alternative"){
 		require("primary_content/vote_admin/edit_alternative.inc");
+	}
+	elseif($_GET['action']=="edit_user"){
+		require("primary_content/vote_admin/edit_user.inc");
+	}
+	elseif($_GET['action']=="edit_constituency"){
+		require("primary_content/vote_admin/edit_constituency.inc");
+	}
+	elseif($_GET['action']=="constituencylist"){
+		require("primary_content/vote_admin/constituencylist.inc");
 	}
 	else{
 		require("primary_content/vote_admin/votelist.inc");

@@ -15,8 +15,6 @@
 
 	<p>Den här medlemmens medlemskap avslutades <?php echo general_helpers::show_date($userinfo['deletion_time']); ?>.</p>
 
-	</div>
-
 <?php else : ?>
 
 	<div class="user_presentation_left">
@@ -59,6 +57,24 @@
 	<?php echo nl2br($userinfo['description']); ?>
 	</p>
 
-	</div>
-
 <?php endif; ?>
+
+<br>
+
+<?php if(isset($_SESSION['is_member_admin'])) : ?>
+	<p><a href="index.php?type=member_admin&action=edit&id=<?php echo $_GET['id']; ?>">Ändra uppgifter för denna användare</a></p>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['is_forum_admin'])) : ?>
+	<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in forumbehörighter för denna användare</a></p>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['is_vote_admin'])) : ?>
+	<p><a href="index.php?type=vote_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in valkretsbehörigheter för denna användare</a></p>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['is_superadmin'])) : ?>
+	<p><a href="index.php?type=superadmin&action=edit_admin&id=<?php echo $_GET['id']; ?>">Ställ in administratörsrättigheter för denna användare</a></p>
+<?php endif; ?>
+
+</div>

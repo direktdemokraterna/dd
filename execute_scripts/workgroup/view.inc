@@ -67,7 +67,7 @@ if(isset($_POST['type'])){
 		if($ok) $_SESSION['report_message'] = "Du är inte längre medlem i denna arbetsgrupp.";
 	}
 
-	if(!empty($message)){
+	if(!empty($_SESSION['report_message'])){
 		$redirect = $_SERVER['REQUEST_URI'];
 	}
 

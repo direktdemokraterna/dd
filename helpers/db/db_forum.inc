@@ -135,6 +135,15 @@ class db_forum {
 
 	}
 
+	public static function get_post_count ($post_id){
+
+		$query = "select count(*) from posts where topic_id = ?";
+		$values = Array($post_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
 	public static function update_forum_post_count ($forum_id){
 
 		$query = "update forums set last_posted_time = (select posted_time from posts where forum_id = ? order by posted_time desc limit 1), last_posted_post = (select id from posts where forum_id = ? order by posted_time desc limit 1), number_of_topics = (select count(*) from posts where is_topic = 1 and forum_id = ?), number_of_posts = (select count(*) from posts where forum_id = ?) where id = ?";
@@ -174,15 +183,6 @@ class db_forum {
 	public static function get_forum_id_from_post_id ($post_id){
 
 		$query = "select forum_id from posts where id = ?";
-		$values = Array($post_id);
-
-		return db::select_single_value($query, $values);
-
-	}
-
-	public static function get_post_count ($post_id){
-
-		$query = "select count(*) from posts where topic_id = ?";
 		$values = Array($post_id);
 
 		return db::select_single_value($query, $values);

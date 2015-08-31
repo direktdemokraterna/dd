@@ -40,7 +40,7 @@ if($_POST['accept']){
 				die($mail_response);
 			}
 
-			$_SESSION['report_message'] = "Användaren är skapad. Anvädarnamnet blev " . $username . ". Användaruppgifter har skickats via mejl till användaren.";
+			$_SESSION['report_message'] = "Ny medlem har registrerats med användarnamnet " . $username . ". Användaruppgifter har skickats via e-post till medlemmen.";
 			$redirect = "index.php?type=member_admin&action=list_applications";
 		}
 		else{

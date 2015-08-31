@@ -1,3 +1,4 @@
+
 <h1>Redigera medlem</h1>
 	
 <?php $result = db_user::get_user_data($_GET['id']); ?>
@@ -60,6 +61,14 @@
 		<input type="hidden" name="delete_user" value="1">
 		<input type="submit" value="Ta bort denna användare från medlemslistan" style="width: auto;" onclick="return confirm('Vill du verkligen ta bort denna användare?');">
 	</form>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['is_forum_admin'])) : ?>
+	<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in forumbehörighter för denna användare</a></p>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['is_vote_admin'])) : ?>
+	<p><a href="index.php?type=vote_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in valkretsbehörigheter för denna användare</a></p>
 <?php endif; ?>
 
 <?php if(isset($_SESSION['is_superadmin'])) : ?>
