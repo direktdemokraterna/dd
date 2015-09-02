@@ -1,0 +1,1922 @@
+"General"
+{
+"ProjectType" = "local"
+"AutoLoadTemplate" = "%s.php;class.%s.php;"
+"IncludeDirs" = ""
+}
+"Configurations"
+{
+    "Local|PHP 5.5"
+    {
+    }
+    "Staging|PHP 5.5"
+    {
+    }
+    "Production|PHP 5.5"
+    {
+    }
+}
+"Files"
+{
+    ".vsphpignore"
+    {
+    "ProjRelPath" = "T"
+    }
+    "database_setup.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "dd.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\execute_scripts.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\add_to_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\delete_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\edit_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\report_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\show_forums.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\show_posts.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\show_topics.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum\\sort_posts_and_topics.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum_admin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum_admin\\edit_category.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum_admin\\edit_forum.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum_admin\\edit_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum_admin\\edit_topic.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum_admin\\new_category.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\forum_admin\\new_forum.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member\\calendar.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member\\calendar_add.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member\\calendar_edit.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member\\settings.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member_admin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member_admin\\create_new.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\member_admin\\edit.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\message"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\message\\inbox.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\message\\outbox.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\message\\write.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\superadmin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\superadmin\\edit_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote\\add_alternative.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote\\add_prop.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote\\delegate_settings.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote\\delegations.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote\\view_delegate.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote\\view_prop.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote\\view_vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote_admin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote_admin\\create_new_vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote_admin\\edit_alternative.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote_admin\\edit_alternatives.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\vote_admin\\edit_vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\workgroup"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\workgroup\\create.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "execute_scripts\\workgroup\\view.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\class-phpass.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\cron"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\cron\\end_votes.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\AES.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\Base.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\bin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\bin\\jsencrypt.min.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\Blowfish.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\DES.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\GibberishAES.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\Hash.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\Random.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\RC2.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\RC4.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\Rijndael.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\RSA.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\TripleDES.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Crypt\\Twofish.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\crypt_helpers.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\admin.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\calendar.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\forum.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\index.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\login.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\member.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\menubar.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\message.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\old_css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\old_css\\admin.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\old_css\\forum.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\old_css\\index.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\old_css\\login.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\old_css\\member.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\old_css\\message.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\responsive-tables.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\sidebar.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\css\\vote.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_calendar.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_constituency.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_delegate.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_forum.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_forum_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_helpers.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_member_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_message.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_prop.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_user.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_vote_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\db\\db_workgroup.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\css\\font-awesome.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\css\\font-awesome.min.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\fonts"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\fonts\\fontawesome-webfont.eot"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\fonts\\fontawesome-webfont.svg"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\fonts\\fontawesome-webfont.ttf"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\fonts\\fontawesome-webfont.woff"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\fonts\\fontawesome-webfont.woff2"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\fonts\\FontAwesome.otf"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\animated.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\bordered-pulled.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\core.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\fixed-width.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\font-awesome.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\icons.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\larger.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\list.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\mixins.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\path.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\rotated-flipped.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\stacked.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\less\\variables.less"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_animated.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_bordered-pulled.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_core.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_fixed-width.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_icons.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_larger.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_list.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_mixins.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_path.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_rotated-flipped.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_stacked.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\_variables.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\font-awesome-4.3.0\\scss\\font-awesome.scss"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\forum_helpers.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\general_helpers.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\init.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\forum.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\index.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\libs"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\libs\\gibberish-aes.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\libs\\jquery.ui.touch-punch.min.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\libs\\responsive-tables.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\aes_cbc.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\aes_core.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\aes_ctr.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\asn1.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\aes_cbc_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\aes_core_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\aes_ctr_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\asn1_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\compress_all.sh"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\jsbn_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\md5_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\pidcrypt_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\pidcrypt_util_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\prng4_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\rng_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\rsa_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\seedrandom.min.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\sha1_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\sha256_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\sha512_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\compressed\\string_extend_c.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\gpl-3.0.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\history.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\jsbn.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\md5.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\oids.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\asn1.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\jsbn.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\md5.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\prng4.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\rng.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\rsa.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\seedrandom.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\sha1.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\sha256.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\original scripts\\sha512.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\pidcrypt.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\pidcrypt_util.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\prng4.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\rng.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\rsa.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\seedrandom.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\sha1.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\sha256.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\sha512.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\string_extend.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\test"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\test\\test_aes-cbc.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\test\\test_aes-ctr.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\pidCrypt\\test\\test_hashes.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\js\\vote.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\keys"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\keys\\dd_anon_pub_key.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\keys\\dd_priv_key.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\keys\\dd_pub_key.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\load_css.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\load_js.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\login_logout.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Math"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\Math\\BigInteger.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\.gitignore"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\.scrutinizer.yml"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\.travis.yml"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\changelog.md"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\class.phpmailer.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\class.pop3.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\class.smtp.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\composer.json"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs\\Callback_function_notes.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs\\DomainKeys_notes.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs\\extending.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs\\faq.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs\\generatedocs.sh"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs\\Note_for_SMTP_debugging.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\docs\\pop3_article.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\code_generator.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\contents.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\exceptions.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\gmail.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\images"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\images\\phpmailer.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\images\\phpmailer_mini.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\index.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\mail.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\mailing_list.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\pop_before_smtp.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\scripts"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\scripts\\shAutoloader.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\scripts\\shBrushPhp.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\scripts\\shCore.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\scripts\\shLegacy.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\scripts\\XRegExp.js"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\sendmail.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\smtp.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\smtp_check.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\smtp_no_auth.phps"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCore.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreDefault.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreDjango.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreEclipse.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreEmacs.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreFadeToGrey.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreMDUltra.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreMidnight.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shCoreRDark.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeAppleScript.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeDefault.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeDjango.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeEclipse.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeEmacs.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeFadeToGrey.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeMDUltra.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeMidnight.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeRDark.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\shThemeVisualStudio.css"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\examples\\styles\\wrapping.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\extras"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\extras\\EasyPeasyICS.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\extras\\htmlfilter.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\extras\\ntlm_sasl_client.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\extras\\README.md"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-ar.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-az.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-be.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-br.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-ca.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-ch.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-cz.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-de.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-dk.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-el.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-eo.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-es.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-et.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-fa.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-fi.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-fo.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-fr.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-gl.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-he.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-hr.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-hu.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-id.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-it.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-ja.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-ka.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-lt.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-lv.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-nl.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-no.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-pl.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-pt.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-ro.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-ru.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-se.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-sk.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-sr.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-tr.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-uk.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-vi.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-zh.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\language\\phpmailer.lang-zh_cn.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\LICENSE"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\PHPMailerAutoload.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\README.md"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\bootstrap.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\fakepopserver.sh"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\fakesendmail.sh"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\phpmailerLangTest.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\phpmailerTest.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\runfakepopserver.sh"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\test_callback.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\test\\testbootstrap-dist.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\travis.phpunit.xml.dist"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\PHPMailer-master\\VERSION"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\AES.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\Base.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\Blowfish.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\DES.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\Hash.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\Random.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\RC2.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\RC4.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\Rijndael.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\RSA.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\TripleDES.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Crypt\\Twofish.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\init.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Math"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\Math\\BigInteger.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\receive_ballot.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\receive_delegation_ballot.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\receiver_scripts_from_anon_server\\receive_prop_ballot.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "helpers\\vote_helpers.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\dd120.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\direktdemokraterna-blomma.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\direktdemokraterna-logotyp.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\favicon.ico"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\img06.gif"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\userimg"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\userimg\\hYZHnctpul3n7MkgVt.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\userimg\\no_image.png"
+    {
+    "ProjRelPath" = "T"
+    }
+    "images\\userimg\\Pb8fdDccUQwOv6thRoG0.jpg"
+    {
+    "ProjRelPath" = "T"
+    }
+    "index.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "index_logged_in.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "index_logged_out.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "menubar.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\admin_role"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\admin_role\\description.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\first_page.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\add_to_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\edit_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\posts_by_user.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\report_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\search.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\show_forums.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\show_posts.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\show_topics.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum\\topics_by_user.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\edit_category.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\edit_forum.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\edit_post.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\edit_topic.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\list_categories.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\list_forums.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\new_category.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\forum_admin\\new_forum.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\admin_description.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\admin_list.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\calendar.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\calendar_add.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\calendar_edit.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\memberlist.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\notices.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\search.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\settings.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member\\view.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member_admin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member_admin\\create_new.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member_admin\\edit.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\member_admin\\memberlist.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\message"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\message\\inbox.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\message\\outbox.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\message\\view.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\message\\write.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\superadmin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\superadmin\\edit_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\superadmin\\memberlist.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\add_alternative.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\add_prop.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\delegate_settings.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\delegate_votes.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\delegations.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\list_active_votes.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\list_delegates.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\list_old_props.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\list_old_votes.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\list_props.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\search.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\view_delegate.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\view_prop.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\view_vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_history.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\budget.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\candidate-election.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\median.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\median_js.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\prio-vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\prio-vote_js.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\yes-no.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote\\vote_types\\yes-no_js.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote_admin"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote_admin\\create_new_vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote_admin\\edit_alternative.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote_admin\\edit_alternatives.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote_admin\\edit_vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\vote_admin\\votelist.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\workgroup"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\workgroup\\create.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\workgroup\\listall.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\workgroup\\listproposed.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "primary_content\\workgroup\\view.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "settings.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\admin_roles.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\default.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\forum.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\forum_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\member.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\member_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\message.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\superadmin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\treasurer.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\vote.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\vote_admin.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sidebar\\workgroup.inc"
+    {
+    "ProjRelPath" = "T"
+    }
+}
+"ProjStartupServices"
+{
+}
+"Globals"
+{
+}
+"References"
+{
+}
