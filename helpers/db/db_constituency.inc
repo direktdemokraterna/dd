@@ -13,6 +13,17 @@ class db_constituency {
 
 	}
 
+	public static function get_constituency_ids_for_user ($user_id){
+
+		$query = "select c.id as id
+					from constituencies c, constituencies_users cu 
+					where c.id = cu.constituency_id and cu.user_id = ? order by c.id asc";
+		$values = Array($user_id);
+
+		return db::select_sequential_array($query, $values);
+
+	}
+
 	public static function get_constituencies_for_delegate ($delegate_id){
 
 		$query = "select c.id as id, c.title as name
@@ -69,6 +80,24 @@ class db_constituency {
 
 	}
 
+	public static function get_local_county_constituency_for_user ($user_id){
+
+		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.access_type = 'local_county' and cu.user_id = ?";
+		$values = Array($user_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_local_region_constituency_for_user ($user_id){
+
+		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.access_type = 'local_region' and cu.user_id = ?";
+		$values = Array($user_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
 	public static function add_constituency_access ($user_id, $constituency_id){
 
 		$db_table = "constituencies_users";
@@ -85,10 +114,32 @@ class db_constituency {
 
 	public static function remove_constituency_access ($user_id, $constituency_id){
 
+		// Remove active ballots for this user and this constituency
+		$post_vars = Array("user_id" => $user_id);
+		$user_code = crypt_helpers::curl_to_anon_server("give_active_user_code_for_user_id.php", $post_vars);
+
+		$query = "delete from ballots where user_code = ? and constituency_id = ?";
+		$values = Array($user_code, $constituency_id);
+
+		db::delete($query, $values);
+
+		// Remove delegations for this user and this constituency
+		$query = "delete from voters_delegates where user_code = ? and constituency_id = ?";
+		$values = Array($user_code, $constituency_id);
+
+		db::delete($query, $values);
+
+		// Remove constituency access
 		$query = "delete from constituencies_users where user_id = ? and constituency_id = ?";
 		$values = Array($user_id, $constituency_id);
 
 		$return = db::delete($query, $values);
+
+		// If delegate, remove delegate's constituency access
+		if(db_delegate::is_user_delegate($user_id)){
+			$delegate_id = db_delegate::get_delegate_id_from_user_id($user_id);
+			self::remove_constituency_from_delegate($delegate_id, $constituency_id);
+		}
 
 		self::count_constituency_members($constituency_id);
 		
@@ -179,6 +230,8 @@ class db_constituency {
 
 		}
 
+		return $reply;
+
 	}
 
 	public static function check_that_constituency_exists ($constituency_id){
@@ -213,16 +266,18 @@ class db_constituency {
 
 	public static function update_constituencies_for_user ($constituency_ids, $user_id){
 
-		$not_in_clause = implode(',', array_fill(0, count($constituency_ids), '?'));
+		$old_constituencies = self::get_constituency_ids_for_user($user_id);
 
-		$query = "delete from constituencies_users where constituency_id not in (" . $not_in_clause . ") and user_id = ?";
-		$values = $constituency_ids;
-		array_push($values, $user_id);
+		$added_constituencies = array_diff($constituency_ids, $old_constituencies);
+		$removed_constituencies = array_diff($old_constituencies, $constituency_ids);
 
-		$deleted = db::delete($query, $values);
+		foreach($added_constituencies as $added_constituency){
+			$inserted = self::add_constituency_access($user_id, $added_constituency);
+		}
 
-		$query = "insert into constituencies_users (constituency_id, user_id) select ? as constituency_id, ? as user_id from dual where not exists (select * from constituencies_users where constituency_id = ? and user_id = ?) limit 1";
-		$inserted = db::insert_ignore_from_array($query, $constituency_ids, $user_id);
+		foreach($removed_constituencies as $removed_constituency){
+			$deleted = self::remove_constituency_access($user_id, $removed_constituency);
+		}
 
 		return $deleted + $inserted;
 
