@@ -85,6 +85,8 @@ class db_workgroup {
 				$values = Array($vote_id, $workgroup_id);
 
 				db::update($query, $values);
+
+				return true;
 			}
 		}
 		else{
