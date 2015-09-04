@@ -5,7 +5,7 @@ class forum_helpers {
 
 public static function process_text ($text){
 
-	$processed_text = htmlspecialchars($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
+	$processed_text = general_helpers::clean($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
 
 	$processed_text = forum_helpers::urls_to_links($processed_text);
 

@@ -809,7 +809,8 @@ ENGINE = MyISAM;";
 mysql_query($query);
 
 
-
+// FILLING IN DEFAULT CONSTITUENCIES
+mysql_query("INSERT INTO constituencies VALUES (null, 1, 'Allmänt', 0, 1, 'public')");
 // FILLING IN LOCAL FORUMS AND CONSTITUENCIES
 $kommuner = mysql_fetch_array(mysql_query("SELECT kommun FROM kommuner ORDER BY kommun ASC"));
 foreach($kommuner as $row){
@@ -919,7 +920,15 @@ mysql_query($query);
 
 
 
-$query = "";
+$query = "CREATE TABLE `dd`.`workgroup_election_changes` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `workgroup_id` INTEGER UNSIGNED NOT NULL,
+  `timestamp` INTEGER UNSIGNED NOT NULL,
+  `user_id_in` INTEGER UNSIGNED NOT NULL,
+  `user_id_out` INTEGER UNSIGNED,
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB;";
 
 mysql_query($query);
 

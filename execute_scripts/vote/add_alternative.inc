@@ -35,7 +35,7 @@ if(isset($_POST['vote_id'])){
 
 		}
 
-		elseif($voteinfo['type'] == "candidate-election"){
+		elseif($voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election"){
 
 			if(db_vote::is_user_candidate_in_vote($_SESSION['id'], $_GET['id'])){
 

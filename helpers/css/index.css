@@ -197,6 +197,10 @@ strong {
     width: 20px;
 }
 
+.standard-form input[type="radio"]{
+    width: 20px;
+}
+
 .standard-form input[type="checkbox"]:focus, .standard-form input[type="email"]:focus, .standard-form input[type="number"]:focus, .standard-form input[type="password"]:focus, .standard-form input[type="radio"]:focus, .standard-form input[type="search"]:focus, .standard-form input[type="tel"]:focus, .standard-form input[type="text"]:focus, .standard-form input[type="url"]:focus, .standard-form select:focus, .standard-form textarea:focus {
   border-color: #5b9dd9;
   box-shadow: 0 0 2px rgba(30, 140, 190, 0.8);

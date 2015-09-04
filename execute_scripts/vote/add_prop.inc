@@ -2,7 +2,7 @@
 
 	if(isset($_POST['new_prop_title']) && isset($_POST['new_prop_description']) && isset($_POST['constituency_id']) && ($_POST['type_of_vote'] == "yes-no" || $_POST['type_of_vote'] == "prio-vote" || $_POST['type_of_vote'] == "candidate-election" || $_POST['type_of_vote'] == "median" || $_POST['type_of_vote'] == "budget")){
 
-		$title = htmlspecialchars($_POST['new_prop_title'], ENT_COMPAT,'ISO-8859-1', true);
+		$title = general_helpers::clean($_POST['new_prop_title']);
 		$description = forum_helpers::process_text($_POST['new_prop_description']);
 
 		$constituency_check = db_constituency::check_user_constituency_access($_SESSION['id'], $_POST['constituency_id']);

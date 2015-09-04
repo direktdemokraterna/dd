@@ -101,7 +101,7 @@ class db_forum {
 	public static function new_topic ($user_id, $forum_id, $title){
 
 		$query = "insert into posts (user_id, forum_id, title, is_topic, posted_time) values (?, ?, ?, ?, ?)";
-		$values = Array($user_id, $forum_id, htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), 1, time());
+		$values = Array($user_id, $forum_id, general_helpers::clean($title), 1, time());
 
 		$insert_id = db::insert($query, $values);
 

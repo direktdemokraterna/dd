@@ -86,9 +86,9 @@
 			<legend class="create_new_topic">Skriv svar i tråden</legend>
 			<input type="hidden" name="topic_id" value="<?php echo $_GET['id']; ?>">
 			<div id="post_buttons_div">
-				<input type="button" class="post_buttons" id="post_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold()">
-				<input type="button" class="post_buttons" id="post_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic()">
-				<input type="button" class="post_buttons" id="post_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline()">
+				<input type="button" class="post_buttons" id="post_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold('new_post_content')">
+				<input type="button" class="post_buttons" id="post_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic('new_post_content')">
+				<input type="button" class="post_buttons" id="post_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline('new_post_content')">
 			</div>
 			<textarea name="new_post_content" id="new_post_content" tabindex="1"></textarea><br>
 			<input type="submit" id="new_post_submit" value="Skicka" tabindex="2">

@@ -31,6 +31,13 @@
 	<h1>Personval: <?php echo $voteinfo['title']; ?></h1>
 <?php elseif($voteinfo['type'] == "median") : ?>
 	<h1>Medianomröstning: <?php echo $voteinfo['title']; ?></h1>
+<?php elseif($voteinfo['type'] == "workgroup-election") : ?>
+	<h1><?php echo $voteinfo['title']; ?></h1>
+	<?php
+		$workgroup_id = $voteinfo['from_proposition_id']; // workgroup_id is stored in db column from_proposition_id
+		$workgroup_title = db_workgroup::get_name_from_id($workgroup_id);
+	?>
+	<p>Den här omröstningen utser medlemmarna till arbetsgruppen <a href="index.php?type=workgroup&action=view&id=<?php echo $workgroup_id; ?>"><?php echo $workgroup_title; ?></a></p>
 <?php endif; ?>
 
 <div class="vote_result_box">
@@ -41,6 +48,8 @@
 		<?php vote_helpers::output_prio_vote_result($_GET['id']); ?>
 	<?php elseif($voteinfo['type'] == "candidate-election") : ?>
 		<?php vote_helpers::output_candidate_election_result($_GET['id']); ?>
+	<?php elseif($voteinfo['type'] == "workgroup-election") : ?>
+		<?php vote_helpers::output_workgroup_election_result($_GET['id'], $workgroup_id); ?>
 	<?php elseif($voteinfo['type'] == "median") : ?>
 		<?php vote_helpers::output_median_result($list_of_votes); ?>
 	<?php endif; ?>
@@ -105,7 +114,7 @@
 
 <?php if($user_allowed_to_vote) : ?>
 
-	<p><a href="index.php?type=forum&action=show_posts&id=<?php echo $voteinfo['forum_topic_id']; ?>">Länk till denna voterings forumdebatt</a></p>
+	<p><a href="index.php?type=forum&action=show_posts&id=<?php echo $voteinfo['forum_topic_id']; ?>">Länk till denna omröstnings forumdebatt</a></p>
 
 	<div class="vote_box">
 
@@ -113,7 +122,7 @@
 			<?php include(dirname(__FILE__)."/vote_types/yes-no.inc"); ?>
 		<?php elseif($voteinfo['type'] == "prio-vote") : ?>
 			<?php include(dirname(__FILE__)."/vote_types/prio-vote.inc"); ?>
-		<?php elseif($voteinfo['type'] == "candidate-election") : ?>
+		<?php elseif($voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
 			<?php include(dirname(__FILE__)."/vote_types/candidate-election.inc"); ?>
 		<?php elseif($voteinfo['type'] == "median") : ?>
 			<?php include(dirname(__FILE__)."/vote_types/median.inc"); ?>
@@ -126,7 +135,7 @@
 
 <?php if($voteinfo['type'] == "yes-no") : ?>
 	<?php include(dirname(__FILE__)."/vote_types/yes-no_js.inc"); ?>
-<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election") : ?>
+<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
 	<?php include(dirname(__FILE__)."/vote_types/prio-vote_js.inc"); ?>
 <?php elseif($voteinfo['type'] == "median") : ?>
 	<?php include(dirname(__FILE__)."/vote_types/median_js.inc"); ?>

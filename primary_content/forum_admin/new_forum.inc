@@ -1,6 +1,6 @@
 <h1>Skapa nytt forum</h1>
 
-<form method="post" action="">
+<form method="post" action="" class="standard-form">
 <p>
 <label for "title">Namn</label>
 <input type="text" name="title" id="title" tabindex="1">
