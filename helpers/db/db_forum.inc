@@ -101,7 +101,7 @@ class db_forum {
 	public static function new_topic ($user_id, $forum_id, $title){
 
 		$query = "insert into posts (user_id, forum_id, title, is_topic, posted_time) values (?, ?, ?, ?, ?)";
-		$values = Array($user_id, $forum_id, htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), 1, time());
+		$values = Array($user_id, $forum_id, general_helpers::clean($title), 1, time());
 
 		$insert_id = db::insert($query, $values);
 
@@ -132,6 +132,15 @@ class db_forum {
 		$values = Array($topic_id, $access_user_id);
 
 		return db::select($query, $values);
+
+	}
+
+	public static function get_post_count ($post_id){
+
+		$query = "select count(*) from posts where topic_id = ?";
+		$values = Array($post_id);
+
+		return db::select_single_value($query, $values);
 
 	}
 
@@ -174,15 +183,6 @@ class db_forum {
 	public static function get_forum_id_from_post_id ($post_id){
 
 		$query = "select forum_id from posts where id = ?";
-		$values = Array($post_id);
-
-		return db::select_single_value($query, $values);
-
-	}
-
-	public static function get_post_count ($post_id){
-
-		$query = "select count(*) from posts where topic_id = ?";
 		$values = Array($post_id);
 
 		return db::select_single_value($query, $values);

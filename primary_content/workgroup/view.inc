@@ -29,6 +29,9 @@
 	<strong>Beskrivning:</strong><br>
 	<?php echo nl2br($workgroup['description']); ?>
 	</p>
+	<?php if($is_member) : ?>
+		<a href="index.php?type=workgroup&action=edit&id=<?php echo $_GET['id']; ?>">Redigera beskrivning</a><br>
+	<?php endif; ?>
 
 	<?php if($workgroup['is_active']==1) : ?>
 
@@ -53,8 +56,27 @@
 			<br>
 		<?php endforeach; ?>
 
-		<?php if($workgroup['is_restricted']==1) : ?>
-			<p>Den här arbetsgruppen har restriktioner för medlemskap. Mest troligt beror detta på att arbetsgruppens medlemmar utses genom val bland medlemmarna.</p>
+		<?php if($workgroup['is_restricted']>0) : ?>
+			<br><p>Den här arbetsgruppen är stängd och medlemmarna väljs via personval. Det går inte att ansöka om medlemskap på samma sätt som i öppna grupper. Omröstningen där medlemmarna i denna arbetsgrupp utses finns <a href="index.php?type=vote&action=view_vote&id=<?php echo $workgroup['is_restricted']; ?>">här</a>.</p>
+
+			<?php
+				$workgroup_membership_changes = db_workgroup::get_workgroup_election_changes($_GET['id']);
+			?>
+			<?php if(!empty($workgroup_membership_changes)) : ?>
+				<p>
+				<strong>Kommande förändringar i medlemskap</strong><br>
+				<table>
+				<tr><th>Tidpunkt</th><th>Medlem ut</th><th>Kandidat in</th></tr>
+				<?php foreach($workgroup_membership_changes as $row) : ?>
+					<?php
+						$name_of_user_in = db_user::get_user_full_name($row['user_id_in']);
+						$name_of_user_out = db_user::get_user_full_name($row['user_id_out']);
+						$time_of_transfer = general_helpers::show_date($row['timestamp']+BUFFER_TIME_FOR_CONTINUOUS_ELECTIONS);
+					?>
+					<tr><td><?php echo $time_of_transfer; ?></td><td><a href="index.php?type=member&action=view&id=<?php echo $row['user_id_out']; ?>"><?php echo $name_of_user_out; ?></a></td><td><a href="index.php?type=member&action=view&id=<?php echo $row['user_id_in']; ?>"><?php echo $name_of_user_in; ?></a></td></tr>
+				<?php endforeach; ?>
+				</table></p>
+			<?php endif; ?>
 		<?php else : ?>
 			<?php if($is_member) : ?>
 				<?php $workgroup_candidates = db_workgroup::list_candidates($workgroup['id']); ?>
@@ -105,3 +127,6 @@
 	<?php endif; ?>
 <?php endif; ?>
 
+<?php if(isset($_SESSION['is_member_admin'])) : ?>
+	<a href="index.php?type=member_admin&action=edit_workgroup&id=<?php echo $workgroup['id']; ?>">Administrera denna arbetsgrupp som medlemsadministratör</a>
+<?php endif; ?>

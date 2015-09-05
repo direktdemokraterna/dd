@@ -37,6 +37,9 @@ elseif($_GET['type']=="workgroup") {
 	elseif($_GET['action']=="view"){
 		require("execute_scripts/workgroup/view.inc");
 	}
+	elseif($_GET['action']=="edit"){
+		require("execute_scripts/workgroup/edit.inc");
+	}
 }
 
 elseif($_GET['type']=="admin_role") {
@@ -100,6 +103,13 @@ elseif($_GET['type']=="member_admin" && isset($_SESSION['is_member_admin'])) {
 	elseif($_GET['action']=="process_application"){
 		require("execute_scripts/member_admin/process_application.inc");
 	}
+	elseif($_GET['action']=="create_workgroup"){
+		require("execute_scripts/member_admin/create_workgroup.inc");
+	}
+	elseif($_GET['action']=="edit_workgroup"){
+		require("execute_scripts/member_admin/edit_workgroup.inc");
+	}
+
 }
 
 elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {
@@ -121,6 +131,9 @@ elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {
 	elseif($_GET['action']=="edit_post"){
 		require("execute_scripts/forum_admin/edit_post.inc");
 	}
+	elseif($_GET['action']=="edit_user"){
+		require("execute_scripts/forum_admin/edit_user.inc");
+	}
 }
 
 elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
@@ -135,6 +148,9 @@ elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
 	}
 	elseif($_GET['action']=="edit_alternative"){
 		require("execute_scripts/vote_admin/edit_alternative.inc");
+	}
+	elseif($_GET['action']=="edit_user"){
+		require("execute_scripts/vote_admin/edit_user.inc");
 	}
 }
 

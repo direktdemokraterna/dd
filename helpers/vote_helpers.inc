@@ -139,10 +139,20 @@ public static function calculate_prio_vote_result ($vote_id){
 			$row_sum += $result_matrix[$result_row_value][$result_column_value];
 		}
 
-		$result_array[] = Array("alternative_id" => $result_row[0], "score" => $row_sum);
+		// Get age of alternative for secondary sorting
+		$alternative_created = db_vote::get_timestamp_added_for_alternative($result_row[0]);
+
+		$result_array[] = Array("alternative_id" => $result_row[0], "score" => $row_sum, "created" => $alternative_created);
 	}
 
-	usort($result_array, function($a, $b) { return $b["score"] - $a["score"]; });
+	usort($result_array, function($a, $b) 
+		{ 
+			$score_compare = $b["score"] - $a["score"];
+			if($score_compare == 0){
+				return $a["created"] - $b["created"];
+			}
+			return $score_compare; 
+		});
 
 	return $result_array;	
 
@@ -184,6 +194,38 @@ public static function calculate_and_output_candidate_election_result ($result_a
 			echo $previous_rank;
 		}
 		echo ". <a href=\"index.php?type=member&action=view&id=" . $alternative_candidate_info['user_id'] . "\" class=\"invisible-link\">" . $alternative_candidate_info['user_name'] . "</a><br>";
+		$previous_score = $row['score'];
+		$rank++;
+	}
+
+}
+
+public static function calculate_and_output_workgroup_election_result ($result_array, $workgroup_id){
+
+	$rank = 1;
+	$previous_rank = 1;
+	$previous_score = PHP_INT_MAX;
+	$number_of_winners = db_workgroup::get_number_of_members($workgroup_id);
+	foreach($result_array as $row){
+		$alternative_candidate_info = db_vote::get_alternative_candidate_info($row['alternative_id']);
+		if($row['score'] < $previous_score){
+			echo $rank;
+			$previous_rank = $rank;
+		}
+		else{
+			echo $previous_rank;
+		}
+		echo ". <a href=\"index.php?type=member&action=view&id=" . $alternative_candidate_info['user_id'] . "\" class=\"invisible-link\">";
+		if(db_workgroup::is_member($workgroup_id, $alternative_candidate_info['user_id'])){
+			echo "<strong>" . $alternative_candidate_info['user_name'] . "</strong>";
+		}
+		else{
+			echo $alternative_candidate_info['user_name'];
+		}
+		echo "</a><br>";
+		if($rank == $number_of_winners){
+			echo "<hr><br>";
+		}
 		$previous_score = $row['score'];
 		$rank++;
 	}
@@ -332,5 +374,92 @@ public static function output_candidate_election_result ($vote_id){
 
 }
 
+public static function output_workgroup_election_result ($vote_id, $workgroup_id){
+
+	$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
+
+	echo "Kandidater ovanför strecket är valda till arbetsgruppen, kandidater i fetstil är de som för närvarande upptar platserna: <br><p>";
+
+	if(empty($prio_vote_result)){
+		echo "Inga kandidater att visa.";
+	}
+	else{
+		vote_helpers::calculate_and_output_workgroup_election_result($prio_vote_result, $workgroup_id);
+	}
+
+	echo "</p>";
+
+	return;
+
+}
+
+public static function change_county_region_constituencies ($user_id, $county){
+
+	$old_county_constituency_id = db_constituency::get_local_county_constituency_for_user($user_id);
+	$old_region_constituency_id = db_constituency::get_local_region_constituency_for_user($user_id);
+
+	$new_county_constituency_id = db_constituency::get_local_county_constituency($county);
+	$new_region = db_helpers::get_region_from_county($_POST['county']);
+	$new_region_constituency_id = db_constituency::get_local_region_constituency($new_region);
+
+	db_constituency::remove_constituency_access($user_id, $old_county_constituency_id);
+	db_constituency::remove_constituency_access($user_id, $old_region_constituency_id);
+
+	db_constituency::add_constituency_access($user_id, $new_county_constituency_id);
+	db_constituency::add_constituency_access($user_id, $new_region_constituency_id);
+
+	return;
+}
+
+public static function workgroup_election_compare_result ($vote_id){
+
+	$voteinfo = db_vote::get_vote_info($vote_id);
+	$workgroup_id = $voteinfo['from_proposition_id'];
+	$number_of_winners = db_workgroup::get_number_of_members($workgroup_id);
+
+	$election_result = vote_helpers::calculate_prio_vote_result($vote_id);
+	$election_result_winners = array_slice($election_result, 0, $number_of_winners);
+
+	$election_winners = Array();
+	foreach($election_result_winners as $row){
+		$election_winners[] = db_vote::get_alternative_user_id($row['alternative_id']);
+	}
+
+	$workgroup_members = db_workgroup::get_member_ids($workgroup_id);
+
+	$members_in = array_diff($election_winners, $workgroup_members);
+	$members_out = array_diff($workgroup_members, $election_winners);
+
+	$members_in_from_db = db_workgroup::get_workgroup_election_members_in($workgroup_id);
+	$members_out_from_db = db_workgroup::get_workgroup_election_members_out($workgroup_id);
+
+	$new_members_in = array_diff($members_in, $members_in_from_db);
+	$new_members_out = array_diff($members_out, $members_out_from_db);
+
+	$old_members_in = array_diff($members_in_from_db, $members_in);
+	$old_members_out = array_diff($members_out_from_db, $members_out);
+
+	for($i=0; $i<count($new_members_in); $i++){
+		if(isset($new_members_out[$i])){
+			db_workgroup::insert_workgroup_election_changes($workgroup_id, $new_members_in[$i], $new_members_out[$i]);
+		}
+		elseif(!empty($old_members_in)){
+			$member_out_to_pair_with = db_workgroup::get_workgroup_election_changes_for_member_in($workgroup_id, $old_members_in[0]);
+			db_workgroup::delete_workgroup_election_changes($member_out_to_pair_with['id']);
+			db_workgroup::insert_workgroup_election_changes($workgroup_id, $new_members_in[$i], $member_out_to_pair_with['user_id_out']);
+
+			// Removing user_id from old_members_in
+			unset($old_members_in[0]);
+			if(!empty($old_members_in)){
+				$old_members_in = array_values($old_members_in);
+			}
+		}
+		else{
+			db_workgroup::insert_workgroup_election_changes($workgroup_id, $new_members_in[$i], null);
+		}
+	}
+
+	return;
+}
 
 } //End of class

@@ -57,7 +57,7 @@ class db_admin {
 
 		$deleted = db::delete($query, $values);
 
-		$query = "insert into admin_roles_users (admin_role_id, user_id) select * from (select ? as admin_role_id, ? as user_id) as tmp where not exists (select * from admin_roles_users where admin_role_id = ? and user_id = ?) limit 1";
+		$query = "insert into admin_roles_users (admin_role_id, user_id) select ? as admin_role_id, ? as user_id from dual where not exists (select * from admin_roles_users where admin_role_id = ? and user_id = ?) limit 1";
 		$inserted = db::insert_ignore_from_array($query, $admin_role_ids, $user_id);
 
 		return $deleted + $inserted;

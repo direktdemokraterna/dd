@@ -3,7 +3,7 @@
 		$user_id = db_user::get_user_id($_POST['recipient']);
 		if($user_id){
 			if(!empty($_POST['title']) && !empty($_POST['message_text'])){
-				$ok = db_message::create_message($_SESSION['id'], $user_id, htmlspecialchars($_POST['title'], ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($_POST['message_text'], ENT_COMPAT,'ISO-8859-1', true));
+				$ok = db_message::create_message($_SESSION['id'], $user_id, general_helpers::clean($_POST['title']), general_helpers::clean($_POST['message_text']));
 				if($ok){
 					$_SESSION['report_message'] = "Meddelandet har skickats";
 					$redirect = "index.php?type=message&action=inbox";

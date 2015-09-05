@@ -37,11 +37,14 @@ if(isset($_POST['user_code']) && isset($_POST['vote_id']) && isset($_POST['rsa']
 			}
 		}
 
-		elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election"){
+		elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election"){
 			// Check that ballot is valid
 			if(is_array($ballot_decoded['prio_ranking'])){
 				$prio_ranking = json_encode($ballot_decoded['prio_ranking']);
 				$ok = db_vote::register_prio_vote_ballot($_POST['vote_id'], $_POST['user_code'], $prio_ranking);
+				if($voteinfo['type'] == "workgroup-election"){
+					vote_helpers::workgroup_election_compare_result($_POST['vote_id']);
+				}
 				if($ok){
 					echo "success";
 				}
@@ -50,8 +53,6 @@ if(isset($_POST['user_code']) && isset($_POST['vote_id']) && isset($_POST['rsa']
 				echo "fail - invalid ballot";
 			}
 		}
-
-
 
 	}
 

@@ -87,8 +87,10 @@
 			elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county']) && isset($_POST['email'])){
 			
 				$region = db_helpers::get_region_from_county($_POST['county']);
-				$ok = db_user::update_profile($_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county'], $region, $_POST['email'], $_POST['skype_name'], $_POST['telephone1'], $_POST['telephone2'], $_SESSION['id']);
+				$ok = db_user::update_profile(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region, $_POST['email'], general_helpers::clean($_POST['skype_name']), general_helpers::clean($_POST['telephone1']), general_helpers::clean($_POST['telephone2']), $_SESSION['id']);
 				if($ok){
+					forum_helpers::update_county_region_forum_access($_SESSION['id'], $_POST['county']);
+					vote_helpers::change_county_region_constituencies($_SESSION['id'], $_POST['county']);
 					$_SESSION['report_message'] = "Din profil är uppdaterad";
 					$redirect = $_SERVER['REQUEST_URI'];
 				}

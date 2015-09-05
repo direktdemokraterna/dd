@@ -7,6 +7,7 @@
 			<?php if(db_user::get_all_user_applications()) : ?>
 				<li><a href="index.php?type=member_admin&action=list_applications">Hantera ansökningar</li>
 			<?php endif; ?>
+			<li><a href="index.php?type=member_admin&action=create_workgroup">Skapa arbetsgrupp</li>
 		</ul>
 	</li>
 </ul>

@@ -20,7 +20,7 @@
 					db_forum::add_content_to_post($forum_topic_id, $_POST['description']);
 
 
-					$ok = db_vote_admin::create_vote($_POST['type_of_vote'], $_POST['vote_status'], $_POST['constituency_id'], $_POST['title'], $_POST['description'], $forum_topic_id, $timestamp_ended, $timestamp_delegate_ended); 
+					$ok = db_vote_admin::create_vote($_POST['type_of_vote'], $_POST['vote_status'], $_POST['constituency_id'], general_helpers::clean($_POST['title']), general_helpers::clean($_POST['description']), $forum_topic_id, $timestamp_ended, $timestamp_delegate_ended); 
 
 				}
 				elseif($_POST['vote_status'] == "continuous"){

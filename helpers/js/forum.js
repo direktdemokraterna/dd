@@ -1,5 +1,5 @@
-function make_bold () {
-	var textarea = document.getElementById("new_post_content");
+function make_bold (element) {
+	var textarea = document.getElementById(element);
 
 	var len = textarea.value.length;
 	var start = textarea.selectionStart;
@@ -15,8 +15,8 @@ function make_bold () {
 	}
 }
 
-function make_italic () {
-	var textarea = document.getElementById("new_post_content");
+function make_italic (element) {
+	var textarea = document.getElementById(element);
 
 	var len = textarea.value.length;
 	var start = textarea.selectionStart;
@@ -32,8 +32,8 @@ function make_italic () {
 	}
 }
 
-function make_underline () {
-	var textarea = document.getElementById("new_post_content");
+function make_underline (element) {
+	var textarea = document.getElementById(element);
 
 	var len = textarea.value.length;
 	var start = textarea.selectionStart;

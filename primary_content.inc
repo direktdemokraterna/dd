@@ -69,6 +69,9 @@ elseif($_GET['type']=="workgroup") {
 	elseif($_GET['action']=="create"){
 		require("primary_content/workgroup/create.inc");
 	}
+	elseif($_GET['action']=="edit"){
+		require("primary_content/workgroup/edit.inc");
+	}
 	elseif($_GET['action']=="view" || $_GET['action']=="cancel_exclude" || $_GET['action']=="support_exclude" || $_GET['action']=="support_candidate" || $_GET['action']=="cancel_support_candidate" || $_GET['action']=="submit_candidacy" || $_GET['action']=="cancel_candidacy" || $_GET['action']=="support_workgroup" || $_GET['action']=="cancel_support_workgroup"){
 		require("primary_content/workgroup/view.inc");
 	}
@@ -190,6 +193,12 @@ elseif($_GET['type']=="member_admin" && isset($_SESSION['is_member_admin'])) {
 	elseif($_GET['action']=="process_application"){
 		require("primary_content/member_admin/process_application.inc");
 	}
+	elseif($_GET['action']=="create_workgroup"){
+		require("primary_content/member_admin/create_workgroup.inc");
+	}
+	elseif($_GET['action']=="edit_workgroup"){
+		require("primary_content/member_admin/edit_workgroup.inc");
+	}
 	else{
 		require("primary_content/member_admin/memberlist.inc");
 	}
@@ -220,6 +229,9 @@ elseif($_GET['type']=="forum_admin" && isset($_SESSION['is_forum_admin'])) {
 	elseif($_GET['action']=="edit_post"){
 		require("primary_content/forum_admin/edit_post.inc");
 	}
+	elseif($_GET['action']=="edit_user"){
+		require("primary_content/forum_admin/edit_user.inc");
+	}
 	else{
 		require("primary_content/forum_admin/list_categories.inc");
 	}
@@ -237,6 +249,15 @@ elseif($_GET['type']=="vote_admin" && isset($_SESSION['is_vote_admin'])) {
 	}
 	elseif($_GET['action']=="edit_alternative"){
 		require("primary_content/vote_admin/edit_alternative.inc");
+	}
+	elseif($_GET['action']=="edit_user"){
+		require("primary_content/vote_admin/edit_user.inc");
+	}
+	elseif($_GET['action']=="edit_constituency"){
+		require("primary_content/vote_admin/edit_constituency.inc");
+	}
+	elseif($_GET['action']=="constituencylist"){
+		require("primary_content/vote_admin/constituencylist.inc");
 	}
 	else{
 		require("primary_content/vote_admin/votelist.inc");

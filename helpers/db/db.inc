@@ -25,6 +25,18 @@ class db {
 
 	}
 
+	// returns a sequential only result array from a select query
+	public static function select_sequential_array ($query, $values){
+
+		$db = self::connect();
+
+		$stmt = $db->prepare($query);
+		$stmt->execute($values);
+
+		return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+	}
+
 	// returns single value from a select query
 	public static function select_single_row ($query, $values){
 

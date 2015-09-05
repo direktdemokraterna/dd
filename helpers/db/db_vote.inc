@@ -261,7 +261,7 @@ class db_vote {
 	public static function add_alternative_by_user ($vote_id, $title, $description, $user_id){
 
 		$query = "insert into votes_alternatives (vote_id, added_by_user, timestamp_added, alternative_title, alternative_description) values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $user_id, time(), htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true));
+		$values = Array($vote_id, $user_id, time(), general_helpers::clean($title), general_helpers::clean($description));
 
 		$return =  db::insert($query, $values);
 
@@ -274,7 +274,7 @@ class db_vote {
 	public static function add_alternative_by_delegate ($vote_id, $title, $description, $delegate_id){
 
 		$query = "insert into votes_alternatives (vote_id, added_by_delegate, timestamp_added, alternative_title, alternative_description) values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $delegate_id, time(), htmlspecialchars($title, ENT_COMPAT,'ISO-8859-1', true), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true));
+		$values = Array($vote_id, $delegate_id, time(), general_helpers::clean($title), general_helpers::clean($description));
 
 		$return =  db::insert($query, $values);
 
@@ -287,7 +287,7 @@ class db_vote {
 	public static function add_candidate ($vote_id, $user_id, $description){
 
 		$query = "insert into votes_alternatives (vote_id, added_by_user, timestamp_added, alternative_user_id, alternative_title, alternative_description) values (?, ?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $user_id, time(), $user_id, db_user::get_user_full_name($user_id), htmlspecialchars($description, ENT_COMPAT,'ISO-8859-1', true));
+		$values = Array($vote_id, $user_id, time(), $user_id, db_user::get_user_full_name($user_id), general_helpers::clean($description));
 
 		$return = db::insert($query, $values);
 
@@ -364,6 +364,15 @@ class db_vote {
 
 	}
 
+	public static function get_alternative_user_id ($alternative_id){
+
+		$query = "select alternative_user_id as user_id from votes_alternatives where id = ?";
+		$values = Array($alternative_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
 	public static function is_user_candidate_in_vote ($user_id, $vote_id){
 
 		$query = "select id from votes_alternatives where alternative_user_id = ? and vote_id = ?";
@@ -380,6 +389,15 @@ class db_vote {
 
 		$query = "select type from votes where id = ?";
 		$values = Array($vote_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_timestamp_added_for_alternative ($alternative_id){
+
+		$query = "select timestamp_added from votes_alternatives where id = ?";
+		$values = Array($alternative_id);
 
 		return db::select_single_value($query, $values);
 

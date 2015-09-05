@@ -39,21 +39,75 @@ class db_workgroup {
 
 	public static function create ($title, $description, $user_id){
 
-		$query = "select count(*) from workgroups where title = ?";
-		$values = Array($title);
-
-		$already_exists = db::select_single_value($query, $values);
+		$already_exists = self::get_id_from_name($title);
 
 		if($already_exists==0){
+			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
+			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen".$title, "workgroup");
 
-			$query = "insert into workgroups (title, description, propose_time, create_user) values (?, ?, ?, ?)";
-			$values = Array($title, $description, time(), $user_id);
+			$query = "insert into workgroups (title, description, propose_time, create_user, public_forum_id, private_forum_id) values (?, ?, ?, ?, ?, ?)";
+			$values = Array($title, $description, time(), $user_id, $public_forum_id, $private_forum_id);
 
 			return db::insert($query, $values);
 		}
 		else{
 			return false;
 		}
+
+	}
+
+	public static function create_restricted ($title, $description, $number_of_members, $constituency_id){
+
+		$already_exists = self::get_id_from_name($title);
+		$constituency_exists = db_constituency::check_that_constituency_exists($constituency_id);
+
+		if($already_exists==0 && $constituency_exists){
+			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
+			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen".$title, "workgroup");
+
+			$query = "insert into workgroups (title, description, is_active, number_of_members, create_time, create_user, public_forum_id, private_forum_id, is_restricted) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$values = Array($title, $description, 1, $number_of_members, time(), $_SESSION['id'], $public_forum_id, $private_forum_id, 1);
+
+			$workgroup_id = db::insert($query, $values);
+
+			if($workgroup_id){
+				// Creating election to elect members of workgroup
+				$vote_title = "Val av medlemmar till arbetsgruppen " . $title;
+				$vote_description = "Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=" . $workgroup_id . "\">" . $title . "</a>.";
+
+				$forum_topic_id = db_forum::new_topic($_SESSION['id'], $public_forum_id, "Personval till arbetsgruppen ".$title);
+				db_forum::add_content_to_post($forum_topic_id, $vote_description);
+
+				$vote_id = db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
+
+				// Updating workgroup with vote_id
+				$query = "update workgroups set is_restricted = ? where id = ?";
+				$values = Array($vote_id, $workgroup_id);
+
+				db::update($query, $values);
+
+				return true;
+			}
+		}
+		else{
+			return false;
+		}
+
+	}
+
+	public static function update ($workgroup_id, $description, $title = null, $number_of_members = null, $is_restricted = null){
+
+		if($title == null || $number_of_members == null || $is_restricted == null){
+			$workgroup_info = self::get_info($workgroup_id);
+			$title = $workgroup_info['title'];
+			$number_of_members = $workgroup_info['number_of_members'];
+			$is_restricted = $workgroup_info['is_restricted'];
+		}
+
+		$query = "update workgroups set title = ?, description = ?, number_of_members = ?, is_restricted = ? where id = ?";
+		$values = Array($title, $description, $number_of_members, $is_restricted, $workgroup_id);
+
+		return db::update($query, $values);
 
 	}
 
@@ -69,6 +123,15 @@ class db_workgroup {
 	public static function is_active ($workgroup_id){
 
 		$query = "select is_active from workgroups where id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function is_restricted ($workgroup_id){
+
+		$query = "select is_restricted from workgroups where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -109,6 +172,15 @@ class db_workgroup {
 		$values = Array($workgroup_id);
 
 		return db::select($query, $values);
+
+	}
+
+	public static function get_member_ids ($workgroup_id){
+
+		$query = "select user_id from workgroups_members where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select_sequential_array($query, $values);
 
 	}
 
@@ -192,11 +264,13 @@ class db_workgroup {
 
 		db_forum_admin::remove_forum_access($excluded_id, $private_forum_id);
 
-		self::update_membership_count($workgroup_id);
+		if(!self::is_restricted($workgroup_id)){
+			self::update_membership_count($workgroup_id);
 
-		$number_of_members = self::get_member_count($workgroup_id);
-		if($number_of_members < 3){
-			self::deactivate($workgroup_id);
+			$number_of_members = self::get_member_count($workgroup_id);
+			if($number_of_members < 3){
+				self::deactivate($workgroup_id);
+			}
 		}
 
 		return true;
@@ -337,8 +411,8 @@ class db_workgroup {
 			if($member_count >= 3){
 				$workgroup_name = self::get_info($workgroup_id);
 
-				$public_forum_id = db_forum_admin::add_forum(WORKGRUOP_PUBLIC_FORUMS_CATEGORY, $workgroup_name['title'], "Publikt forum för arbetsgruppen " . $workgroup_name['title'] . ".", "public");
-				$private_forum_id = db_forum_admin::add_forum(WORKGRUOP_PRIVATE_FORUMS_CATEGORY, $workgroup_name['title'], "Privat forum för arbetsgruppen " . $workgroup_name['title'] . ".", "workgroup");
+				$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $workgroup_name['title'], "Publikt forum för arbetsgruppen " . $workgroup_name['title'] . ".", "public");
+				$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $workgroup_name['title'], "Privat forum för arbetsgruppen " . $workgroup_name['title'] . ".", "workgroup");
 
 				self::activate($public_forum_id, $private_forum_id, $workgroup_id);
 
@@ -401,4 +475,122 @@ class db_workgroup {
 		return db::select_single_value($query, $values);
 
 	}
+	
+	public static function get_id_from_name ($workgroup_name){
+
+		$query = "select id from workgroups where title = ?";
+		$values = Array($workgroup_name);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_name_from_id ($workgroup_id){
+
+		$query = "select title as name from workgroups where id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_number_of_members ($workgroup_id){
+
+		$query = "select number_of_members from workgroups where id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_workgroup_election_changes ($workgroup_id){
+
+		$query = "select timestamp, user_id_in, user_id_out from workgroup_election_changes where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select($query, $values);
+
+	}
+
+	public static function get_workgroup_election_members_in ($workgroup_id){
+
+		$query = "select user_id_in from workgroup_election_changes where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select_sequential_array($query, $values);
+
+	}
+
+	public static function get_workgroup_election_members_out ($workgroup_id){
+
+		$query = "select user_id_out from workgroup_election_changes where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select_sequential_array($query, $values);
+
+	}
+
+	public static function check_if_workgroup_election_member_in_exists_and_get_timestamp ($workgroup_id, $user_id){
+
+		$query = "select timestamp from workgroup_election_changes where workgroup_id = ? and user_id_in = ?";
+		$values = Array($workgroup_id, $user_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function check_if_workgroup_election_member_out_exists_and_get_timestamp ($workgroup_id, $user_id){
+
+		$query = "select timestamp from workgroup_election_changes where workgroup_id = ? and user_id_out = ?";
+		$values = Array($workgroup_id, $user_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_oldest_workgroup_election_member ($workgroup_id){
+
+		$query = "select * from workgroup_election_changes where workgroup_id = ? order by timestamp asc limit 1";
+		$values = Array($workgroup_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_workgroup_election_changes_for_member_in ($workgroup_id, $user_id_in){
+
+		$query = "select * from workgroup_election_changes where workgroup_id = ? and user_id_in = ?";
+		$values = Array($workgroup_id, $user_id_in);
+
+		return db::select_single_row($query, $values);
+
+	}
+
+	public static function insert_workgroup_election_changes ($workgroup_id, $user_id_in, $user_id_out){
+
+		$query = "insert into workgroup_election_changes (workgroup_id, timestamp, user_id_in, user_id_out) values (?, ?, ?, ?)";
+		$values = Array($workgroup_id, time(), $user_id_in, $user_id_out);
+
+		return db::insert($query, $values);
+
+	}
+
+	public static function delete_workgroup_election_changes ($workgroup_election_changes_id){
+
+		$query = "delete from workgroup_election_changes where id = ?";
+		$values = Array($workgroup_election_changes_id);
+
+		return db::delete($query, $values);
+
+	}
+
+	public static function get_workgroup_election_changes_to_execute (){
+
+		$query = "select id, workgroup_id, timestamp, user_id_in, user_id_out from workgroup_election_changes where timestamp < ?";
+		$values = Array(time() + BUFFER_TIME_FOR_CONTINUOUS_ELECTIONS);
+
+		return db::select($query, $values);
+
+	}
+
 }
