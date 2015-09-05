@@ -114,6 +114,87 @@ class general_helpers {
 			: $mail->ErrorInfo;
 	}
 	
+	public static function make_list_of_link_menu1 ($page, $result_counter, $sort_alternatives = null, $filter_title = "Filtrering:", $filter_alternatives = null){
+		$number_of_pages = ceil($result_counter / LIST_ITEMS_PER_PAGE);
+		if($result_counter == 0)
+		$first_showed_item_number = 0;
+		else
+			$first_showed_item_number = $page * LIST_ITEMS_PER_PAGE - (LIST_ITEMS_PER_PAGE - 1);
+		$last_showed_item_number = $page * LIST_ITEMS_PER_PAGE;
+		if($last_showed_item_number > $result_counter) $last_showed_item_number = $result_counter;
+		$get_parameters = $_GET;
+		echo "<div class=\"list_of_link_menu\">";
+		echo "<span class=\"list_counter\">";
+		echo $first_showed_item_number . " - " . $last_showed_item_number . " av totalt " . $result_counter;
+		echo "</span>";
+		if($sort_alternatives){
+			echo "<span class=\"list_sort_alternative\">Sortering: </span>";
+			foreach($sort_alternatives as $key => $value){
+				echo "<span class=\"list_sort_alternative\">";
+				$get_parameters['sort'] = $value;
+				$url = "index.php?" . http_build_query($get_parameters);
+				echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a></span>";
+			}
+		}
+		echo "</div>";
+		if($filter_alternatives){
+			echo "<div class=\"list_of_link_menu\">";
+			echo "<span class=\"list_sort_alternative\">" . $filter_title . "</span>";
+			foreach($filter_alternatives as $key => $value){
+				echo "<span class=\"list_sort_alternative\">";
+				$get_parameters['filter'] = $value;
+				$url = "index.php?" . http_build_query($get_parameters);
+				echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a></span>";
+			}
+			echo "</div>";
+		}
+		elseif($filter_title == "county_regions"){
+			echo "<div class=\"list_of_link_menu\">";
+			echo "<span class=\"list_sort_alternative\">Län: ";
+			$regions = db_helpers::get_regions();
+			echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
+			$get_parameters['region'] = null;
+			$get_parameters['county'] = null;
+			$get_parameters['filter'] = null;
+			$url = "index.php?" . http_build_query($get_parameters);
+			echo "<option value=\"" . $url . "\">Alla län</option>";
+			$get_parameters['filter'] = "region";
+			foreach($regions as $row){
+				$get_parameters['region'] = $row['lan'];
+				$url = "index.php?" . http_build_query($get_parameters);
+				echo "<option value=\"" . $url . "\"";
+				if(isset($_GET['region']) && $row['lan'] == $_GET['region']) echo " selected";
+				echo ">" . $row['lan'] . "</option>\n";
+			}
+			echo "</select>";
+			if(isset($_GET['region']))
+			$get_parameters['region'] = $_GET['region'];
+			echo "<span class=\"list_sort_alternative\">Kommun: ";
+			if(isset($_GET['region']))
+			$counties = db_helpers::get_counties_for_region($_GET['region']);
+			else
+				$counties = db_helpers::get_counties();
+			echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
+			if(isset($_GET['region']))
+			$get_parameters['filter'] = "region";
+			else
+				$get_parameters['filter'] = null;
+			$url = "index.php?" . http_build_query($get_parameters);
+			echo "<option value=\"". $url . "\">Alla kommuner</option>";
+			$get_parameters['filter'] = "county";
+			foreach($counties as $row){
+				$get_parameters['county'] = $row['kommun'];
+				$url = "index.php?" . http_build_query($get_parameters);
+				echo "<option value=\"" . $url . "\"";
+				if(isset($_GET['county']) && $row['kommun'] == $_GET['county']) echo " selected";
+				echo ">" . $row['kommun'] . "</option>\n";
+			}
+			echo "</select></span>";
+			$get_parameters['county'] = null;
+			echo "</span></div>";
+		}
+	}
+	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
 	public static function make_list_of_link_menu ($page, $result_counter, $sort_alternatives = null, $filter_title = "Filtrering:", $filter_alternatives = null){
 		$number_of_pages = ceil($result_counter / LIST_ITEMS_PER_PAGE);
@@ -152,7 +233,8 @@ class general_helpers {
 			$get_parameters['region'] = null;
 			$get_parameters['county'] = null;
 			$get_parameters['filter'] = null;
-			self::makeSelecBox($get_parameters, 'region', db_helpers::get_regions(), 'lan', "Alla län");
+			$regions = db_helpers::get_regions();
+			self::makeSelecBox($get_parameters, 'region', $regions, 'lan', "Alla län");
 			if(isset($_GET['region']))
 				$get_parameters['region'] = $_GET['region'];
 			echo "<span class=\"list_sort_alternative\">Kommun: ";
@@ -164,12 +246,6 @@ class general_helpers {
 		}
 	}
 	
-	private static function getCounties() {
-		return isset($_GET['region']) 
-			? db_helpers::get_counties_for_region($_GET['region'])
-			: db_helpers::get_counties();
-	}
-	
 	private static function makeSelecBox($get_parameters, $paramName, $rows, $columnName, $unselectedLabel) {
 		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
 		self::makeOption($get_parameters, $unselectedLabel);
@@ -177,20 +253,24 @@ class general_helpers {
 		foreach($rows as $row){
 			$get_parameters[$paramName] = $row[$columnName];
 			$select = isset($_GET[$paramName]) && $row[$columnName] == $_GET[$paramName];
-			//echo("hej");
-			//echo($_GET[$paramName] . "=" . $row[$columnName]);
 			self::makeOption($get_parameters, $row[$columnName], $select);
 		}
 		echo "</select>";
 	}
 	
-	private static function makeLink($get_parameters, $key) {
-		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a>";
-	}
-	
 	private static function makeOption($get_parameters, $label, $selected = false) {
 		$url = "index.php?" . http_build_query($get_parameters);
-		echo "<option value=\"" . $url . ($selected ? " selected" : "") . "\">" . $label . "</option>";
+		echo "<option value=\"" . $url . "\"" . ($selected ? " selected" : "") . ">" . $label . "</option>";
+	}
+	
+	private static function getCounties() {
+		return isset($_GET['region']) 
+			? db_helpers::get_counties_for_region($_GET['region'])
+			: db_helpers::get_counties();
+	}
+	
+	private static function makeLink($get_parameters, $key) {
+		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a>";
 	}
 
 	public static function find_max_in_multidimensional_array ($array, $key) {
