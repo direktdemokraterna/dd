@@ -23,11 +23,6 @@
 
 <h2>Röstningshistorik</h2>
 
-<?php 
-//	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic");
-//	general_helpers::make_list_of_link_menu($page, $result_counter, $sort_alternatives); 
-?>
-
 <table class="responsive">
 <tr><th>Omröstning</th><th>Typ</th><th>Röst</th><th>Delegat</th></tr>
 

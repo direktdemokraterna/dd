@@ -21,7 +21,7 @@
 	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic");
 	$filter_title = "Omröstningstyp:";
 	$filter_alternatives = Array("Votering" => "yes-no", "Prioritetsomröstning" => "prio-vote", "Personval" => "candidate-election", "Medianomröstning" => "median", "Budgetomröstning" => "budget");
-	general_helpers::make_list_of_link_menu($page, $result_counter, $sort_alternatives, $filter_title, $filter_alternatives); 
+general_helpers::make_list_of_links_header($page, $result_counter, $sort_alternatives, $filter_title, $filter_alternatives); 
 ?>
 
 
