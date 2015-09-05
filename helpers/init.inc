@@ -12,6 +12,7 @@ if(empty($_GET['filter'])) $_GET['filter']=null;
 // Includes files
 include(dirname(__FILE__)."/config.inc");
 include(dirname(__FILE__)."/general_helpers.inc");
+include(dirname(__FILE__)."/navigation_helpers.inc");
 include(dirname(__FILE__)."/forum_helpers.inc");
 include(dirname(__FILE__)."/vote_helpers.inc");
 include(dirname(__FILE__)."/crypt_helpers.inc");
