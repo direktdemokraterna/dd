@@ -8,8 +8,8 @@
 	<p>
 
 	<label for "workgroup_type">Typ av arbetsgrupp</label>
-	<input type="radio" name="workgroup_type" id="workgroup_type" value="0" <?php if($workgroup['is_restricted']==0) echo "checked"; ?>>Öppen
-	<input type="radio" name="workgroup_type" id="workgroup_type" value="1" <?php if($workgroup['is_restricted']==1) echo "checked"; ?>>Stängd
+	<input type="radio" name="is_restricted" id="is_restricted" value="0" <?php if($workgroup['is_restricted']==0) echo "checked"; ?>>Öppen
+	<input type="radio" name="is_restricted" id="is_restricted" value="1" <?php if($workgroup['is_restricted']>1) echo "checked"; ?>>Stängd
 	<br>
 
 	<label for "title">Namn på arbetsgrupp</label>
