@@ -8,8 +8,8 @@
 	<p>
 
 	<label for "workgroup_type">Typ av arbetsgrupp</label>
-	<input type="radio" name="workgroup_type" id="workgroup_type" value="0" <?php if($workgroup['is_restricted']==0) echo "checked"; ?>>Öppen
-	<input type="radio" name="workgroup_type" id="workgroup_type" value="1" <?php if($workgroup['is_restricted']==1) echo "checked"; ?>>Stängd
+	<input type="radio" name="is_restricted" id="is_restricted" value="0" <?php if($workgroup['is_restricted']==0) echo "checked"; ?>>Öppen
+	<input type="radio" name="is_restricted" id="is_restricted" value="1" <?php if($workgroup['is_restricted']>1) echo "checked"; ?>>Stängd
 	<br>
 
 	<label for "title">Namn på arbetsgrupp</label>
@@ -23,7 +23,7 @@
 	<?php endif; ?>
 
 	<label for "description">Beskrivning av arbetsgruppen</label>
-	<textarea name="description" id="description" cols="60" rows="10"><?php forum_helpers::de_process_text(echo $workgroup['description']); ?></textarea>
+	<textarea name="description" id="description" cols="60" rows="10"><?php echo forum_helpers::de_process_text($workgroup['description']); ?></textarea>
 	<br>
 	<input type="submit" value="Ändra">
 

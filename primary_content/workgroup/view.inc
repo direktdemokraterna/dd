@@ -25,7 +25,11 @@
 
 	<p>
 	<strong>Antal medlemmar: </strong><?php echo $workgroup['number_of_members']; ?><br>
-	<strong>Skapad: </strong><?php echo general_helpers::show_date($workgroup['create_time']); ?><br>
+	<?php if($workgroup['is_active']) : ?>
+		<strong>Skapad: </strong><?php echo general_helpers::show_date($workgroup['create_time']); ?><br>
+	<?php else : ?>
+		<strong>Föreslagen: </strong><?php echo general_helpers::show_date($workgroup['propose_time']); ?><br>
+	<?php endif; ?>
 	<strong>Beskrivning:</strong><br>
 	<?php echo nl2br($workgroup['description']); ?>
 	</p>

@@ -1,6 +1,6 @@
 <?php 
 
-if(isset($_POST['title']) && isset($_POST['workgroup_type'])){
+if(isset($_POST['title']) && isset($_POST['is_restricted'])){
 
 	$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['description']), general_helpers::clean($_POST['title']), (int)$_POST['number_of_members'], (int)$_POST['is_restricted']);
 

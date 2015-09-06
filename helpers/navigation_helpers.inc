@@ -1,7 +1,7 @@
 <?php
 
 class navigation_helpers {
-	private static $MEMBER_PAGES = [
+	private static $MEMBER_PAGES = Array(
 		"list" => "memberlist.inc"
 		,"view" => "view.inc"
 		,"notices" => "notices.inc"
@@ -12,16 +12,16 @@ class navigation_helpers {
 		,"admin_description" => "admin_description.inc"
 		,"admin_list" => "admin_list.inc"
 		,"search" => "search.inc"
-		];
+		);
 	
-	private static $MESSAGE_PAGES = [
+	private static $MESSAGE_PAGES = Array(
 		"inbox" => "inbox.inc"
 		,"outbox" => "outbox.inc"
 		,"write" => "write.inc"
 		,"view" => "view.inc"
-		];
+		);
 	
-	private static $WORKGROUP_PAGES = [
+	private static $WORKGROUP_PAGES = Array(
 		"listall" => "listall.inc"
 		,"listproposed" => "listproposed.inc"
 		,"create" => "create.inc"
@@ -37,9 +37,9 @@ class navigation_helpers {
 		,"support_workgroup" => "view.inc"
 		,"cancel_support_workgroup" => "view.inc"
 		,"search" => "search.inc"
-		];
+		);
 
-	private static $FORUM_PAGES = [
+	private static $FORUM_PAGES = Array(
 		"show_forums" => "show_forums.inc"
 		,"show_topics" => "show_topics.inc"
 		,"show_posts" => "show_posts.inc"
@@ -51,9 +51,9 @@ class navigation_helpers {
 		,"topics_by_user" => "topics_by_user.inc"
 		,"posts_by_user" => "posts_by_user.inc"
 		,"search" => "search.inc"
-		];
+		);
 
-	private static $VOTE_PAGES = [
+	private static $VOTE_PAGES = Array(
 		"add_prop" => "add_prop.inc"
 		,"list_props" => "list_props.inc"
 		,"list_old_props" => "list_old_props.inc"
@@ -68,13 +68,13 @@ class navigation_helpers {
 		,"delegate_votes" => "delegate_votes.inc"
 		,"add_alternative" => "add_alternative.inc"
 		,"search" => "search.inc"
-		];
+		);
 	
-	private static $ADMIN_ROLE_PAGES = [
+	private static $ADMIN_ROLE_PAGES = Array(
 		"description" => "description.inc"
-		];
+		);
 
-	private static $MEMBER_ADMIN_PAGES = [
+	private static $MEMBER_ADMIN_PAGES = Array(
 		"create_new" => "create_new.inc"
 		,"edit" => "edit.inc"
 		,"memberlist" => "memberlist.inc"
@@ -84,9 +84,9 @@ class navigation_helpers {
 		,"list_delegates" => "list_delegates.inc"
 		,"create_workgroup" => "create_workgroup.inc"
 		,"edit_workgroup" => "edit_workgroup.inc"
-		];
+		);
 
-	private static $FORUM_ADMIN_PAGES = [
+	private static $FORUM_ADMIN_PAGES = Array(
 		"new_category" => "new_category.inc"
 		,"list_categories" => "list_categories.inc"
 		,"edit_category" => "edit_category.inc"
@@ -96,9 +96,9 @@ class navigation_helpers {
 		,"edit_topic" => "edit_topic.inc"
 		,"edit_post" => "edit_post.inc"
 		,"edit_user" => "edit_user.inc"
-		];
+		);
 
-	private static $VOTE_ADMIN_PAGES = [
+	private static $VOTE_ADMIN_PAGES = Array(
 		"create_new_vote" => "create_new_vote.inc"
 		,"edit_vote" => "edit_vote.inc"
 		,"edit_alternatives" => "edit_alternatives.inc"
@@ -108,11 +108,11 @@ class navigation_helpers {
 		,"constituencylist" => "constituencylist.inc"
 		,"edit_post" => "edit_post.inc"
 		,"edit_user" => "edit_user.inc"
-		];
+		);
 
-	private static $SUPER_ADMIN_PAGES = [
+	private static $SUPER_ADMIN_PAGES = Array(
 		"edit_admin" => "edit_admin.inc"
-		];
+		);
 
 	public static function get_subpage() {
 		$page = self::get_specific_page();
