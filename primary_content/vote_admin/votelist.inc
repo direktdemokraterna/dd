@@ -13,7 +13,7 @@
 
 <?php 
 	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic");
-	general_helpers::make_list_of_link_menu($page, $result_counter, $sort_alternatives); 
+general_helpers::make_list_of_links_header($page, $result_counter, $sort_alternatives); 
 ?>
 
 

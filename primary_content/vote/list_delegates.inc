@@ -17,7 +17,7 @@
 
 <?php 
 	$sort_alternatives = Array("Popularitet" => "popularity", "Skapad" => "age", "Alfabetisk" => "alphabetic");
-	general_helpers::make_list_of_link_menu($page, $result_counter, $sort_alternatives, "county_tegions"); 
+general_helpers::make_list_header_with_region_county_filter($page, $result_counter, $sort_alternatives); 
 ?>
 
 
