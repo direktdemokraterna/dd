@@ -23,7 +23,7 @@
 	<?php endif; ?>
 
 	<label for "description">Beskrivning av arbetsgruppen</label>
-	<textarea name="description" id="description" cols="60" rows="10"><?php forum_helpers::de_process_text(echo $workgroup['description']); ?></textarea>
+	<textarea name="description" id="description" cols="60" rows="10"><?php echo forum_helpers::de_process_text($workgroup['description']); ?></textarea>
 	<br>
 	<input type="submit" value="Ändra">
 
