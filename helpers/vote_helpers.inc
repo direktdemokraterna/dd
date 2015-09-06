@@ -313,7 +313,12 @@ public static function output_yes_no_result ($list_of_votes){
 
 	$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($list_of_votes);
 
-	$yes_percentage = round($ballot_counter['yes'] / ($ballot_counter['yes'] + $ballot_counter['no']), 4) * 100;
+	if($ballot_counter['yes'] > 0 || $ballot_counter['no'] > 0){
+		$yes_percentage = round($ballot_counter['yes'] / ($ballot_counter['yes'] + $ballot_counter['no']), 4) * 100;
+	}
+	else{
+		$yes_percentage = 0;
+	}
 	$no_percentage = 100 - $yes_percentage;
 
 	echo "Ställningen i denna omröstning är: <br>";
