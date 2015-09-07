@@ -86,8 +86,11 @@
         }
       }
 
-      if(vote.delegate_id != null){
-        document.getElementById("if_delegate_vote").innerHTML += "<br>Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig.";
+      if(vote.delegate_id == null){
+        document.getElementById("user_vote_box").innerHTML = "Du har röstat själv i denna fråga.";
+      }
+      else{
+        document.getElementById("user_vote_box").innerHTML = "Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig i denna fråga.";
       }
     }
   });

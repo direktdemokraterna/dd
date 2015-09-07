@@ -67,21 +67,17 @@
 
 </div>
 
-<?php if($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median") : ?>
+<div class="vote_result_box" id="user_vote_box">
 	<?php if($_SESSION['delegate_id']) : ?>
-		<div id="user_vote_box">
-			<?php if($delegate_vote = db_delegate::get_delegate_ballot_for_vote($_GET['id'], $_SESSION['delegate_id'])) : ?>
-				Du som delegat har röstat i denna omröstning.
-			<?php else : ?>
-				Du som delegat har inte röstat i denna omröstning.
-			<?php endif; ?>
-		</div>
-	<?php endif; ?>
-
-	<div id="user_vote_box">
+		<?php if($delegate_vote = db_delegate::get_delegate_ballot_for_vote($_GET['id'], $_SESSION['delegate_id'])) : ?>
+			Du som delegat har röstat i denna omröstning.
+		<?php else : ?>
+			Du som delegat har inte röstat i denna omröstning.
+		<?php endif; ?>
+	<?php else : ?>
 		Ingen röst är lagd i ditt namn i denna omröstning.
-	</div>
-<?php endif; ?>
+	<?php endif; ?>
+</div>
 
 
 <p>
@@ -129,6 +125,12 @@
 		<?php endif; ?>
 
 	</div>
+
+	<?php if(isset($delegate_id)) : ?>
+		Du röstar som delegat.
+	<?php else : ?>
+		Du röstar som enskild användare.
+	<?php endif; ?>
 
 <?php endif; ?>
 

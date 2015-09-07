@@ -9,17 +9,11 @@
 	width: 95%;
 	padding: 10px;
 	border: 1px solid #330000;
-	background: #FFCCCC;
+	background: #FF9966;
 	margin-bottom: 15px;
 }
 
 #user_vote_box {
-	max-width: 800px;
-	width: 95%;
-	padding: 10px;
-	border: 1px solid #330000;
-	background: #FFCCCC;
-	margin-bottom: 15px;
 }
 
 .yes-no {
