@@ -19,8 +19,8 @@
 	<div class="forum_info">
 		<a href="index.php?type=forum&action=show_forums=1">Forum</a> > 
 		<a href="index.php?type=forum&action=show_topics&id=<?php echo $forum_info['forum_id']; ?>"><?php echo $forum_info['forum_title']; ?></a> > 
-		<a href="index.php?type=forum&action=show_posts&id=<?php echo $_GET['id']; ?>"><?php echo $post_title; ?></a>
 	</div>
+	<h1><?php echo $post_title; ?></h1>
 	<div class="post_count_info">
 		<span class="post_counter">Visar inlägg <?php echo $first_showed_post_number; ?> - <?php echo $last_showed_post_number; ?> av totalt <?php echo $post_count; ?></span>
 		<?php if($post_count > POSTS_PER_PAGE) : ?>

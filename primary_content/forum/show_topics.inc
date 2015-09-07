@@ -5,6 +5,9 @@
 <?php if(empty($forum_info)) : ?>
 	<p>Hittar inte forumet.</p>
 <?php else : ?>
+	<div class="forum_info">
+		<a href="index.php?type=forum&action=show_forums=1">Forum</a> > 
+	</div>
 
 	<?php
 		if(isset($_GET['page'])) $page = $_GET['page']; else $page = 1;
