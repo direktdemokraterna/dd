@@ -166,7 +166,7 @@ class db_vote {
 
 	}
 
-	public static function list_active_votes ($page = 0, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
+	public static function list_active_votes ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;
@@ -188,7 +188,7 @@ class db_vote {
 
 	}
 
-	public static function list_old_votes ($page = 0, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
+	public static function list_old_votes ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;
@@ -223,6 +223,15 @@ class db_vote {
 
 		$query = "update votes set number_of_ballots = (select count(*) from ballots where vote_id = ? and user_code is not null), number_of_direct_ballots = (select count(*) from ballots where vote_id = ? and user_code is not null and delegate_id is null) where id = ?";
 		$values = Array($vote_id, $vote_id, $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function count_ballots_for_active_votes_for_constituency ($constituency_id){
+
+		$query = "update votes v set number_of_ballots = (select count(*) from ballots b1 where b1.vote_id = v.id and user_code is not null), number_of_direct_ballots = (select count(*) from ballots b2 where b2.vote_id = v.id and user_code is not null and delegate_id is null) where (v.status = 'active' or v.status = 'del_ended' or v.status = 'continuous') and v.constituency_id = ?";
+		$values = Array($constituency_id);
 
 		return db::update($query, $values);
 

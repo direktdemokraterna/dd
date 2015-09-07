@@ -11,11 +11,11 @@
 	if($last_showed_post_number > $post_count) $last_showed_post_number = $post_count;
 ?>
 
-<h1><?php echo $post_title; ?></h1>
-
 <?php if(empty($posts)) : ?>
-	<p>Hittar inte tråden.</p>
+	<p>Tråden finns inte eller du saknar behörighet att läsa den.</p>
 <?php else : ?>
+	<h1><?php echo $post_title; ?></h1>
+
 	<div class="forum_info">
 		<a href="index.php?type=forum&action=show_forums=1">Forum</a> > 
 		<a href="index.php?type=forum&action=show_topics&id=<?php echo $forum_info['forum_id']; ?>"><?php echo $forum_info['forum_title']; ?></a> > 

@@ -6,7 +6,7 @@ class db_constituency {
 
 		$query = "select c.id as id, c.title as name
 					from constituencies c, constituencies_users cu 
-					where c.id = cu.constituency_id and cu.user_id = ? order by c.id asc";
+					where c.id = cu.constituency_id and cu.user_id = ? order by field(c.access_type, 'public', 'workgroup', 'local_region', 'local_county'), c.id asc";
 		$values = Array($user_id);
 
 		return db::select($query, $values);
@@ -122,6 +122,8 @@ class db_constituency {
 		$values = Array($user_code, $constituency_id);
 
 		db::delete($query, $values);
+
+		db_vote::count_ballots_for_active_votes_for_constituency($constituency_id);
 
 		// Remove delegations for this user and this constituency
 		$query = "delete from voters_delegates where user_code = ? and constituency_id = ?";

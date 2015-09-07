@@ -273,7 +273,7 @@ class db_delegate {
 
 	}
 
-	public static function list_delegates_for_user_constituencies ($user_id, $page = 0, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
+	public static function list_delegates_for_user_constituencies ($user_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;
@@ -304,7 +304,7 @@ class db_delegate {
 
 	}
 
-	public static function list_delegate_ballots ($delegate_id, $page = 0, $limit = LIST_ITEMS_PER_PAGE_SHORT, $where_filter = "1=1"){
+	public static function list_delegate_ballots ($delegate_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE_SHORT, $where_filter = "1=1"){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;

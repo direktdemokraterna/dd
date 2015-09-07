@@ -58,7 +58,7 @@ CREATE TABLE `admin_roles_users` (
   `admin_role_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin_roles_users`
@@ -75,7 +75,9 @@ INSERT INTO `admin_roles_users` (`id`,`admin_role_id`,`user_id`) VALUES
  (84,1,4),
  (90,5,5),
  (91,2,5),
- (92,3,13);
+ (92,3,13),
+ (93,3,4),
+ (94,4,4);
 /*!40000 ALTER TABLE `admin_roles_users` ENABLE KEYS */;
 
 
@@ -98,7 +100,7 @@ CREATE TABLE `ballots` (
   `delegate_priority` int(10) unsigned default NULL,
   `time_ballot_placed` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ballots`
@@ -107,8 +109,7 @@ CREATE TABLE `ballots` (
 /*!40000 ALTER TABLE `ballots` DISABLE KEYS */;
 INSERT INTO `ballots` (`id`,`vote_id`,`constituency_id`,`ballot_alternative`,`prio_ranking`,`median_vote_value`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) VALUES 
  (9,1,165,'no',NULL,NULL,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1429079651),
- (5,1,165,'no',NULL,NULL,'OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1428507410),
- (6,2,165,NULL,NULL,10,'OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1428695008),
+ (100,8,313,NULL,'[]',NULL,'OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1441401249),
  (10,2,165,NULL,NULL,30,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1429079955),
  (18,1,165,'no',NULL,NULL,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430117214),
  (15,2,165,NULL,NULL,22,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1429606227),
@@ -120,7 +121,8 @@ INSERT INTO `ballots` (`id`,`vote_id`,`constituency_id`,`ballot_alternative`,`pr
  (71,5,0,'no',NULL,NULL,'9ZvUSJF2Y9binMKfwOr7',NULL,6,1,1,1433854681),
  (77,1,165,'yes',NULL,NULL,NULL,6,NULL,NULL,NULL,1434557442),
  (80,3,165,NULL,NULL,NULL,'osb8A8xrrQrGQfologrm',NULL,7,2,1,1434868361),
- (82,4,165,NULL,NULL,NULL,'osb8A8xrrQrGQfologrm',NULL,7,2,1,1434868361);
+ (82,4,165,NULL,NULL,NULL,'osb8A8xrrQrGQfologrm',NULL,7,2,1,1434868361),
+ (99,9,313,NULL,'{\"11\":2,\"12\":1}',NULL,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1441369382);
 /*!40000 ALTER TABLE `ballots` ENABLE KEYS */;
 
 
@@ -143,7 +145,7 @@ CREATE TABLE `calendar` (
   `content` text NOT NULL,
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`title`,`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `calendar`
@@ -153,7 +155,9 @@ CREATE TABLE `calendar` (
 INSERT INTO `calendar` (`id`,`timestamp`,`year`,`month`,`day`,`time`,`timestamp_added`,`added_by_user`,`location`,`title`,`content`) VALUES 
  (1,1425513599,2015,3,5,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
  (2,1425599999,2015,3,6,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
- (3,1425686399,2015,3,7,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.');
+ (3,1425686399,2015,3,7,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
+ (4,1439855999,2015,8,18,'18.00',1439889397,5,'Internet','Test','test'),
+ (5,1440115199,2015,8,21,'15',1439964396,5,'Internet','Ändrings-test','Bara test3');
 /*!40000 ALTER TABLE `calendar` ENABLE KEYS */;
 
 
@@ -199,7 +203,8 @@ INSERT INTO `categories` (`id`,`title`,`description`) VALUES
  (4,'Testkategorin','Bara ett test. '),
  (5,'Andra testkategorin','Ännu ett test. '),
  (8,'Interna arbetsgruppsforum','Dessa forum har bara medlemmarna i den respektive arbetsgrupperna tillg†ng till.'),
- (9,'Arbetsgrupper','Publika forum f”r de olika arbetsgrupperna.');
+ (9,'Arbetsgrupper','Publika forum f”r de olika arbetsgrupperna.'),
+ (2,'Lokala forum','');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 
@@ -216,7 +221,7 @@ CREATE TABLE `constituencies` (
   `forum_id` int(10) unsigned NOT NULL default '0',
   `access_type` varchar(12) NOT NULL default 'public',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=313 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=314 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `constituencies`
@@ -388,7 +393,7 @@ INSERT INTO `constituencies` (`id`,`title`,`description`,`number_of_voters`,`for
  (162,'Nynäshamn','',0,172,'local_county'),
  (163,'Nässjö','',0,173,'local_county'),
  (164,'Ockelbo','',0,174,'local_county'),
- (165,'Olofström','',4,175,'local_county'),
+ (165,'Olofström','',9,175,'local_county'),
  (166,'Orsa','',0,176,'local_county'),
  (167,'Orust','',0,177,'local_county'),
  (168,'Osby','',0,178,'local_county'),
@@ -514,7 +519,7 @@ INSERT INTO `constituencies` (`id`,`title`,`description`,`number_of_voters`,`for
  (288,'Östra Göinge','',0,298,'local_county'),
  (289,'Överkalix','',0,299,'local_county'),
  (290,'Övertorneå','',0,300,'local_county'),
- (291,'Blekinge\r\n','',4,301,'local_region'),
+ (291,'Blekinge\r\n','',9,301,'local_region'),
  (292,'Dalarna\r\n','',0,302,'local_region'),
  (293,'Gotland\r\n','',0,303,'local_region'),
  (294,'Gävleborg\r\n','',0,304,'local_region'),
@@ -535,7 +540,8 @@ INSERT INTO `constituencies` (`id`,`title`,`description`,`number_of_voters`,`for
  (309,'Västmanland\r\n','',0,319,'local_region'),
  (310,'Västra Götaland\r\n','',0,320,'local_region'),
  (311,'Örebro\r\n','',0,321,'local_region'),
- (312,'Östergötland\r\n','',0,322,'local_region');
+ (312,'Östergötland\r\n','',0,322,'local_region'),
+ (313,'Allmant','Allm„nt',0,1,'public');
 /*!40000 ALTER TABLE `constituencies` ENABLE KEYS */;
 
 
@@ -549,7 +555,7 @@ CREATE TABLE `constituencies_delegates` (
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `delegate_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `constituencies_delegates`
@@ -559,8 +565,8 @@ CREATE TABLE `constituencies_delegates` (
 INSERT INTO `constituencies_delegates` (`id`,`constituency_id`,`delegate_id`) VALUES 
  (7,291,6),
  (6,165,6),
- (8,165,7),
- (9,291,7);
+ (10,165,7),
+ (11,291,7);
 /*!40000 ALTER TABLE `constituencies_delegates` ENABLE KEYS */;
 
 
@@ -574,7 +580,7 @@ CREATE TABLE `constituencies_users` (
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `constituencies_users`
@@ -583,13 +589,25 @@ CREATE TABLE `constituencies_users` (
 /*!40000 ALTER TABLE `constituencies_users` DISABLE KEYS */;
 INSERT INTO `constituencies_users` (`id`,`constituency_id`,`user_id`) VALUES 
  (12,291,13),
- (2,165,4),
- (3,165,5),
+ (34,165,4),
+ (24,165,5),
  (4,165,6),
  (5,291,6),
  (6,291,5),
- (7,291,4),
- (11,165,13);
+ (37,313,5),
+ (11,165,13),
+ (13,165,14),
+ (14,291,14),
+ (15,165,15),
+ (16,291,15),
+ (17,165,16),
+ (18,291,16),
+ (19,165,17),
+ (20,291,17),
+ (21,165,18),
+ (22,291,18),
+ (35,291,4),
+ (36,313,4);
 /*!40000 ALTER TABLE `constituencies_users` ENABLE KEYS */;
 
 
@@ -687,7 +705,7 @@ CREATE TABLE `forums` (
   `number_of_posts` int(10) unsigned NOT NULL default '0',
   `access_type` varchar(12) NOT NULL default 'public',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=323 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=337 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `forums`
@@ -695,7 +713,7 @@ CREATE TABLE `forums` (
 
 /*!40000 ALTER TABLE `forums` DISABLE KEYS */;
 INSERT INTO `forums` (`id`,`category_id`,`title`,`description`,`last_posted_time`,`last_posted_post`,`number_of_topics`,`number_of_posts`,`access_type`) VALUES 
- (1,4,'Testforumet','Forum för att testa saker. ',1432645649,50,7,8,'public'),
+ (1,4,'Testforumet','Forum för att testa saker. ',1441469576,107,8,59,'public'),
  (2,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
  (3,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
  (4,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
@@ -864,7 +882,7 @@ INSERT INTO `forums` (`id`,`category_id`,`title`,`description`,`last_posted_time
  (172,2,'Nynäshamn','',NULL,NULL,0,0,'local_county'),
  (173,2,'Nässjö','',NULL,NULL,0,0,'local_county'),
  (174,2,'Ockelbo','',NULL,NULL,0,0,'local_county'),
- (175,2,'Olofström','',1430808242,35,5,5,'local_county'),
+ (175,2,'Olofström','',1441541122,108,1,1,'local_county'),
  (176,2,'Orsa','',NULL,NULL,0,0,'local_county'),
  (177,2,'Orust','',NULL,NULL,0,0,'local_county'),
  (178,2,'Osby','',NULL,NULL,0,0,'local_county'),
@@ -1011,7 +1029,21 @@ INSERT INTO `forums` (`id`,`category_id`,`title`,`description`,`last_posted_time
  (319,2,'Västmanland\r\n','',NULL,NULL,0,0,'local_region'),
  (320,2,'Västra Götaland\r\n','',NULL,NULL,0,0,'local_region'),
  (321,2,'Örebro\r\n','',NULL,NULL,0,0,'local_region'),
- (322,2,'Östergötland\r\n','',NULL,NULL,0,0,'local_region');
+ (322,2,'Östergötland\r\n','',NULL,NULL,0,0,'local_region'),
+ (323,9,'Styrelsen','Publikt forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'public'),
+ (324,8,'Styrelsen','Privat forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'workgroup'),
+ (325,9,'Styrelsen','Publikt forum för arbetsgruppenStyrelsen',1441285219,102,1,1,'public'),
+ (326,8,'Styrelsen','Privat forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'workgroup'),
+ (327,9,'Styrelsen','Publikt forum för arbetsgruppenStyrelsen',1441285293,103,1,1,'public'),
+ (328,8,'Styrelsen','Privat forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'workgroup'),
+ (329,9,'Styrelsen','Publikt forum för arbetsgruppenStyrelsen',1441285446,104,1,1,'public'),
+ (330,8,'Styrelsen','Privat forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'workgroup'),
+ (331,9,'Styrelsen','Publikt forum för arbetsgruppenStyrelsen',1441286282,105,1,1,'public'),
+ (332,8,'Styrelsen','Privat forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'workgroup'),
+ (333,9,'Test','Publikt forum för arbetsgruppenTest',1441375857,106,1,1,'public'),
+ (334,8,'Test','Privat forum för arbetsgruppenTest',NULL,NULL,0,0,'workgroup'),
+ (335,9,'Ytterligare testgruppen','Publikt forum för arbetsgruppenYtterligare testgruppen',NULL,NULL,0,0,'public'),
+ (336,8,'Ytterligare testgruppen','Privat forum för arbetsgruppenYtterligare testgruppen',NULL,NULL,0,0,'workgroup');
 /*!40000 ALTER TABLE `forums` ENABLE KEYS */;
 
 
@@ -1026,7 +1058,7 @@ CREATE TABLE `forums_users` (
   `forum_id` int(10) unsigned NOT NULL default '0',
   `access_type` tinyint(3) unsigned NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `forums_users`
@@ -1038,7 +1070,7 @@ INSERT INTO `forums_users` (`id`,`user_id`,`forum_id`,`access_type`) VALUES
  (2,4,1,1),
  (3,5,1,1),
  (4,6,1,1),
- (5,5,0,1),
+ (98,4,323,1),
  (43,13,175,1),
  (7,4,4,1),
  (8,5,4,1),
@@ -1046,14 +1078,72 @@ INSERT INTO `forums_users` (`id`,`user_id`,`forum_id`,`access_type`) VALUES
  (42,13,4,1),
  (11,4,5,1),
  (41,13,3,1),
- (14,4,175,1),
+ (97,4,301,1),
  (15,5,175,1),
  (16,6,175,1),
  (17,6,301,1),
  (18,5,301,1),
- (19,4,301,1),
+ (96,4,175,1),
  (40,13,2,1),
- (39,13,1,1);
+ (39,13,1,1),
+ (45,14,1,1),
+ (46,14,2,1),
+ (47,14,3,1),
+ (48,14,4,1),
+ (49,14,175,1),
+ (50,14,301,1),
+ (51,15,1,1),
+ (52,15,2,1),
+ (53,15,3,1),
+ (54,15,4,1),
+ (55,15,175,1),
+ (56,15,301,1),
+ (57,16,1,1),
+ (58,16,2,1),
+ (59,16,3,1),
+ (60,16,4,1),
+ (61,16,175,1),
+ (62,16,301,1),
+ (63,17,1,1),
+ (64,17,2,1),
+ (65,17,3,1),
+ (66,17,4,1),
+ (67,17,175,1),
+ (68,17,301,1),
+ (69,18,1,1),
+ (70,18,2,1),
+ (71,18,3,1),
+ (72,18,4,1),
+ (73,18,175,1),
+ (74,18,301,1),
+ (99,5,323,1),
+ (100,6,323,1),
+ (101,13,323,1),
+ (102,4,325,1),
+ (103,5,325,1),
+ (104,6,325,1),
+ (105,13,325,1),
+ (106,4,327,1),
+ (107,5,327,1),
+ (108,6,327,1),
+ (109,13,327,1),
+ (110,4,329,1),
+ (111,5,329,1),
+ (112,6,329,1),
+ (113,13,329,1),
+ (114,4,331,1),
+ (115,5,331,1),
+ (116,6,331,1),
+ (117,13,331,1),
+ (119,5,332,1),
+ (120,4,333,1),
+ (121,5,333,1),
+ (122,6,333,1),
+ (123,13,333,1),
+ (124,4,335,1),
+ (125,5,335,1),
+ (126,6,335,1),
+ (127,13,335,1);
 /*!40000 ALTER TABLE `forums_users` ENABLE KEYS */;
 
 
@@ -1409,13 +1499,16 @@ CREATE TABLE `messages` (
   `content` text NOT NULL,
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`title`,`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `messages`
 --
 
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` (`id`,`sender_id`,`recipient_id`,`sent_time`,`read_time`,`deleted_by_sender`,`deleted_by_recipient`,`title`,`content`) VALUES 
+ (9,5,6,1440141538,1440831678,0,0,'test','test'),
+ (10,5,0,1440141623,0,0,0,'Ingentest','test');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 
@@ -1460,7 +1553,7 @@ CREATE TABLE `posts` (
   `content` text NOT NULL,
   PRIMARY KEY  USING HASH (`id`),
   FULLTEXT KEY `search` (`title`,`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `posts`
@@ -1475,7 +1568,64 @@ INSERT INTO `posts` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_tim
  (42,42,4,1,1,1432295491,NULL,'Fjärde testtråden','Ytterligare test. '),
  (48,48,6,1,1,1432645559,NULL,'tst','svar'),
  (50,50,6,1,1,1432645649,NULL,'asrta','asdf'),
- (44,38,6,1,0,1432538300,NULL,'Testtråd','<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&id=39\">Gullan Katt skrev:</a>\nsvar</div>\r\nSvar med citat. ');
+ (44,38,6,1,0,1432538300,NULL,'Testtråd','<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&id=39\">Gullan Katt skrev:</a>\nsvar</div>\r\nSvar med citat. '),
+ (51,50,5,1,0,1439976262,1439976272,'asrta','Ett svaråäö'),
+ (52,50,5,1,0,1440052928,NULL,'asrta','Svar med &amp;quot;'),
+ (53,50,5,1,0,1440053117,NULL,'asrta','Svar med &amp;quot;'),
+ (54,50,5,1,0,1440053963,NULL,'asrta','Svar med &quot;'),
+ (102,102,4,325,1,1441285219,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=2\">Styrelsen</a>.'),
+ (56,50,4,1,0,1440937896,NULL,'asrta','asdf'),
+ (57,50,4,1,0,1440937902,NULL,'asrta','asdf'),
+ (58,50,4,1,0,1440937904,NULL,'asrta','sadf'),
+ (59,50,4,1,0,1440937906,NULL,'asrta','asdf'),
+ (60,50,4,1,0,1440937909,NULL,'asrta','sdfa'),
+ (61,50,4,1,0,1440937911,NULL,'asrta','sdf'),
+ (62,50,4,1,0,1440937913,NULL,'asrta','sdfasd'),
+ (63,50,4,1,0,1440937916,NULL,'asrta','asdfas'),
+ (64,50,4,1,0,1440937918,NULL,'asrta','sadfsa'),
+ (65,50,4,1,0,1440937921,NULL,'asrta','asdf'),
+ (66,50,4,1,0,1440937923,NULL,'asrta','sadf'),
+ (67,50,4,1,0,1440937925,NULL,'asrta','sadf'),
+ (68,50,4,1,0,1440937927,NULL,'asrta','asdf'),
+ (69,50,4,1,0,1440937929,NULL,'asrta','sadfa'),
+ (70,50,4,1,0,1440937931,NULL,'asrta','asdf'),
+ (71,50,4,1,0,1440937934,NULL,'asrta','asdf'),
+ (72,50,4,1,0,1440937937,NULL,'asrta','sdf'),
+ (73,50,4,1,0,1440937938,NULL,'asrta','sadf'),
+ (74,50,4,1,0,1440937940,NULL,'asrta','sadf'),
+ (75,50,4,1,0,1440937942,NULL,'asrta','sadf'),
+ (76,50,4,1,0,1440937944,NULL,'asrta','asdf'),
+ (77,50,4,1,0,1440937946,NULL,'asrta','sadf'),
+ (78,50,4,1,0,1440937948,NULL,'asrta','sadfa'),
+ (79,50,4,1,0,1440937949,NULL,'asrta','asdf'),
+ (80,50,4,1,0,1440937951,NULL,'asrta','sadf'),
+ (81,50,4,1,0,1440937953,NULL,'asrta','asdf'),
+ (82,50,4,1,0,1440937955,NULL,'asrta','asdf'),
+ (83,50,4,1,0,1440937957,NULL,'asrta','asdf'),
+ (84,50,4,1,0,1440937959,NULL,'asrta','sadf'),
+ (85,50,4,1,0,1440937960,NULL,'asrta','asdf'),
+ (86,50,4,1,0,1440937962,NULL,'asrta','asdf'),
+ (87,50,4,1,0,1440937964,NULL,'asrta','sadf'),
+ (88,50,4,1,0,1440937966,NULL,'asrta','asdf'),
+ (89,50,4,1,0,1440937970,NULL,'asrta','sadf\r\n'),
+ (90,50,4,1,0,1440937971,NULL,'asrta','sadf'),
+ (91,50,4,1,0,1440937975,NULL,'asrta','\r\nsadf'),
+ (92,50,4,1,0,1440937977,NULL,'asrta','sadf'),
+ (93,50,4,1,0,1440937978,NULL,'asrta','asdf'),
+ (94,50,4,1,0,1440937980,NULL,'asrta','sdaf'),
+ (95,50,4,1,0,1440937982,NULL,'asrta','sadf'),
+ (96,50,4,1,0,1440937983,NULL,'asrta','sadf'),
+ (97,50,4,1,0,1440937985,NULL,'asrta','sadf'),
+ (98,50,4,1,0,1440937987,NULL,'asrta','asdf'),
+ (99,50,4,1,0,1440937989,NULL,'asrta','sadf'),
+ (100,50,4,1,0,1440937991,NULL,'asrta','sadf'),
+ (101,50,4,1,0,1440937996,NULL,'asrta','sadf'),
+ (103,103,4,327,1,1441285293,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=3\">Styrelsen</a>.'),
+ (104,104,4,329,1,1441285446,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=4\">Styrelsen</a>.'),
+ (105,105,4,331,1,1441286282,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=5\">Styrelsen</a>.'),
+ (106,106,5,333,1,1441375857,NULL,'Personval till arbetsgruppen Test','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=6\">Test</a>.'),
+ (107,107,5,1,1,1441469576,NULL,'test','test'),
+ (108,108,5,175,1,1441541122,NULL,'Nytt test','test\r\n');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 
 
@@ -1500,7 +1650,7 @@ CREATE TABLE `propositions` (
   `forum_topic_id` int(10) unsigned default NULL,
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`title`,`description`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `propositions`
@@ -1512,7 +1662,9 @@ INSERT INTO `propositions` (`id`,`type`,`created_by_user`,`created_by_delegate`,
  (2,'yes-no',5,NULL,1428388195,NULL,165,'affirmed',1,0,'Testvotering2','Ett test till. ',32),
  (3,'median',4,NULL,1428506873,1428506887,165,'affirmed',1,0,'Mediantest','Test av medianomröstningar.',33),
  (4,'prio-vote',6,NULL,1430116507,1430117564,165,'affirmed',1,0,'Prio-test','Det är dags att testa prioritetsomröstningar. ',34),
- (5,'candidate-election',6,NULL,1430808243,1430850944,165,'affirmed',1,0,'Personvalstest','Test av personvalsfunktionen. ',35);
+ (5,'candidate-election',6,NULL,1430808243,1430850944,165,'affirmed',1,0,'Personvalstest','Test av personvalsfunktionen. ',35),
+ (6,'yes-no',5,NULL,1441469576,1441469588,313,'affirmed',1,0,'test','test',107),
+ (7,'yes-no',5,NULL,1441541122,NULL,165,'pending',0,0,'Nytt test','test\r\n',108);
 /*!40000 ALTER TABLE `propositions` ENABLE KEYS */;
 
 
@@ -1530,7 +1682,7 @@ CREATE TABLE `propositions_support` (
   `support_type` varchar(7) NOT NULL default 'support',
   `time_ballot_placed` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `propositions_support`
@@ -1542,7 +1694,8 @@ INSERT INTO `propositions_support` (`id`,`proposition_id`,`user_code`,`voter_is_
  (7,2,'osb8A8xrrQrGQfologrm',NULL,NULL,'support',1428388208),
  (8,3,'OBc7rZoonK45KsRWs4gq',NULL,NULL,'support',1428506887),
  (9,4,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,'support',1430117564),
- (10,5,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,'support',1430850943);
+ (10,5,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,'support',1430850943),
+ (11,6,'osb8A8xrrQrGQfologrm',NULL,NULL,'support',1441469588);
 /*!40000 ALTER TABLE `propositions_support` ENABLE KEYS */;
 
 
@@ -1569,7 +1722,7 @@ CREATE TABLE `user_applications` (
   `membership_fee_payed` int(10) unsigned default NULL,
   `admin_notes` varchar(255) default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_applications`
@@ -1619,7 +1772,7 @@ CREATE TABLE `users` (
   `description` text,
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -1628,9 +1781,9 @@ CREATE TABLE `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`,`username`,`password`,`remember_me_token`,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`,`county`,`region`,`social_security_number`,`email`,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) VALUES 
  (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe','$2a$08$WAzFNLCyIlWNmP3uzPqewe8phR06obIhBVeudO.vaN3zHE2gM9IWu',1432280530,NULL,1433764952,1433765659,'Skutt','Katt','','','','Olofström','Blekinge\r\n','','skutt@katt.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
- (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$2Iz.i7jKVIz3VApiTTb4OOfbW4t.mJriq6vvJ1NceI7zExjMtZyjC',1420102449,NULL,1433832994,1433833004,'Gullan','Katt','','','','Olofström','Blekinge\r\n','','gullan@katt.se','','','',1,1,1,5,5,NULL,NULL,0,2,'','no_image.png','Mjau.'),
- (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$hv4CMxbcQVCzykv6cNdHseykcw/5vs9w1Wqynvel.y4pFzvF3m9RW',1420102512,NULL,1434988715,1434989211,'Missan','Katt','','','','Olofström','Blekinge\r\n','','missan@katt.se','','','',1,1,1,2,2,NULL,NULL,0,2,'','no_image.png',NULL),
- (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$GfBTKJg/H1AFXc9BiKNyyePGYDfd7.K/lrA5vBzU5tDrKLfl3A6Pq',1420102590,NULL,1434555986,1434988697,'Suddis','Katt','','','','Olofström','Blekinge\r\n','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,1,2,'','no_image.png',NULL);
+ (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$eqsqQVMQ3TD4Eedn3bZxbu.F3CYI1Bwl2fgYtivLGu.bWxEVB4Bou',1420102449,NULL,1441270294,1441305594,'Gullan','Katt','Blä 3','12345','Olle','Olofström','Blekinge\r\n','','gullan@katt.se','','','',1,1,1,55,9,NULL,NULL,0,2,'','no_image.png','Mjau.'),
+ (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$QC80c04SbDVioZSE3Wt/DOWUDZOsmcbrMy/3733WSJt.gZHeCzMwO',1420102512,NULL,1441305620,1441543018,'Missan','Katt','','','','Olofström','Blekinge\r\n','110202-1234','missan@katt.se','','','',1,1,1,7,3,NULL,NULL,0,2,'','Pb8fdDccUQwOv6thRoG0.jpg',NULL),
+ (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$GfBTKJg/H1AFXc9BiKNyyePGYDfd7.K/lrA5vBzU5tDrKLfl3A6Pq',1420102590,NULL,1440831621,1440834607,'Suddis','Katt','','','','Olofström','Blekinge\r\n','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,1,2,'','no_image.png',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
@@ -1687,7 +1840,7 @@ CREATE TABLE `votes` (
   `forum_topic_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`title`,`description`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `votes`
@@ -1695,12 +1848,17 @@ CREATE TABLE `votes` (
 
 /*!40000 ALTER TABLE `votes` DISABLE KEYS */;
 INSERT INTO `votes` (`id`,`type`,`from_proposition_id`,`timestamp_created`,`timestamp_delegate_ended`,`timestamp_ended`,`constituency_id`,`status`,`title`,`description`,`number_of_alternatives`,`number_of_ballots`,`number_of_direct_ballots`,`forum_topic_id`) VALUES 
- (1,'yes-no',2,1428388208,1434010767,1434615349,165,'active','Testvotering2','Ett test till. ',0,4,4,32),
- (2,'median',3,1428506887,1429111687,1429716487,165,'del_ended','Mediantest','Test av medianomröstningar.',0,3,3,33),
- (3,'prio-vote',4,1430117564,1430722364,1431327164,165,'active','Prio-test','Det är dags att testa prioritetsomröstningar. ',5,1,1,34),
- (4,'candidate-election',5,1430850944,1432061700,1432148100,165,'active','Personvalstest','Test av personvalsfunktionen. ',2,1,1,35),
- (5,'yes-no',NULL,1431852086,NULL,NULL,291,'continuous','Adminskapad omröstning','Test av admin-funktioner.',0,1,0,36),
- (6,'prio-vote',NULL,1431861479,NULL,NULL,291,'continuous','Kontinuerlig prioritetsomröstning','Ännu ett test. ',0,0,0,37);
+ (1,'yes-no',2,1428388208,1434010767,1439842347,165,'ended','Testvotering2','Ett test till. ',0,4,4,32),
+ (2,'median',3,1428506887,1429111687,1439842440,165,'ended','Mediantest','Test av medianomröstningar.',0,3,3,33),
+ (3,'prio-vote',4,1430117564,1430722364,1439842523,165,'ended','Prio-test','Det är dags att testa prioritetsomröstningar. ',5,1,1,34),
+ (4,'candidate-election',5,1430850944,1432061700,1439842560,165,'ended','Personvalstest','Test av personvalsfunktionen. ',2,1,1,35),
+ (5,'yes-no',NULL,1431852086,NULL,NULL,291,'continuous','Adminskapad omröstning','Test av admin-funktioner.',0,3,1,36),
+ (6,'prio-vote',NULL,1431861479,NULL,NULL,291,'continuous','Kontinuerlig prioritetsomröstning','Ännu ett test. ',1,0,0,37),
+ (7,'workgroup-election',NULL,1441285293,NULL,NULL,313,'continuous','Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen &lt;a href=&quot;index.php?type=workgroup&amp;action=view&amp;id=3&quot;&gt;Styrelsen&lt;/a&gt;.',0,0,0,103),
+ (8,'workgroup-election',NULL,1441285446,NULL,NULL,313,'continuous','Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen &lt;a href=&quot;index.php?type=workgroup&amp;action=view&amp;id=4&quot;&gt;Styrelsen&lt;/a&gt;.',0,1,1,104),
+ (9,'workgroup-election',5,1441286283,NULL,NULL,313,'continuous','Val av medlemmar till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=5\">Styrelsen</a>.',2,1,1,105),
+ (10,'workgroup-election',6,1441375857,NULL,NULL,313,'continuous','Val av medlemmar till arbetsgruppen Test','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=6\">Test</a>.',0,0,0,106),
+ (11,'yes-no',6,1441469588,1442074388,1442679188,313,'active','test','test',0,0,0,107);
 /*!40000 ALTER TABLE `votes` ENABLE KEYS */;
 
 
@@ -1719,7 +1877,7 @@ CREATE TABLE `votes_alternatives` (
   `alternative_description` text NOT NULL,
   `alternative_user_id` int(10) unsigned default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `votes_alternatives`
@@ -1733,8 +1891,35 @@ INSERT INTO `votes_alternatives` (`id`,`vote_id`,`added_by_user`,`added_by_deleg
  (4,3,6,NULL,1430807992,'Fjärde alternativet','Ett fjärde alternativ. ',NULL),
  (6,4,6,NULL,1430897482,'Suddis Katt','Mer katter i den flytande demokratin. ',6),
  (8,3,NULL,NULL,1432040362,'Alternativ fem','Numero cinq.',NULL),
- (10,4,4,NULL,1432053297,'Gullan Katt','Gullan är en tvångskandidat.',4);
+ (10,4,4,NULL,1432053297,'Gullan Katt','Gullan är en tvångskandidat.',4),
+ (11,9,4,NULL,1441305522,'Gullan Katt','Det här är Gullan.',4),
+ (12,9,5,NULL,1441305636,'Missan Katt','Det här är Missan.',5),
+ (13,6,5,NULL,1441363409,'Ett alternativ','Alternativ 1',NULL);
 /*!40000 ALTER TABLE `votes_alternatives` ENABLE KEYS */;
+
+
+--
+-- Definition of table `workgroup_election_changes`
+--
+
+DROP TABLE IF EXISTS `workgroup_election_changes`;
+CREATE TABLE `workgroup_election_changes` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `workgroup_id` int(10) unsigned NOT NULL default '0',
+  `timestamp` int(10) unsigned NOT NULL default '0',
+  `user_id_in` int(10) unsigned NOT NULL default '0',
+  `user_id_out` int(10) unsigned default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `workgroup_election_changes`
+--
+
+/*!40000 ALTER TABLE `workgroup_election_changes` DISABLE KEYS */;
+INSERT INTO `workgroup_election_changes` (`id`,`workgroup_id`,`timestamp`,`user_id_in`,`user_id_out`) VALUES 
+ (6,5,1441369382,4,5);
+/*!40000 ALTER TABLE `workgroup_election_changes` ENABLE KEYS */;
 
 
 --
@@ -1756,7 +1941,7 @@ CREATE TABLE `workgroups` (
   `private_forum_id` int(10) unsigned default NULL,
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`title`,`description`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `workgroups`
@@ -1764,7 +1949,10 @@ CREATE TABLE `workgroups` (
 
 /*!40000 ALTER TABLE `workgroups` DISABLE KEYS */;
 INSERT INTO `workgroups` (`id`,`title`,`description`,`is_active`,`number_of_members`,`create_time`,`create_user`,`public_forum_id`,`is_restricted`,`propose_time`,`private_forum_id`) VALUES 
- (1,'Testgruppen','Vi testar funktionerna. ',1,3,1423038623,1,4,0,0,5);
+ (1,'Testgruppen','Vi <b>testar </b><u>funktionerna</u>. ',1,3,1423038623,1,4,0,0,5),
+ (5,'Styrelsen','Styrelsen was here.',1,1,1441286282,4,331,9,0,332),
+ (6,'Test','test',1,2,1441375856,5,333,10,0,334),
+ (7,'Ytterligare testgruppen','mer test',0,0,NULL,5,335,0,1441470863,336);
 /*!40000 ALTER TABLE `workgroups` ENABLE KEYS */;
 
 
@@ -1823,7 +2011,7 @@ CREATE TABLE `workgroups_members` (
   `user_id` int(10) unsigned NOT NULL default '0',
   `member_since` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `workgroups_members`
@@ -1833,7 +2021,8 @@ CREATE TABLE `workgroups_members` (
 INSERT INTO `workgroups_members` (`id`,`workgroup_id`,`user_id`,`member_since`) VALUES 
  (15,1,6,1432278227),
  (14,1,4,1423038623),
- (16,1,13,1432280594);
+ (16,1,13,1432280594),
+ (18,5,5,1441368106);
 /*!40000 ALTER TABLE `workgroups_members` ENABLE KEYS */;
 
 
@@ -1858,6 +2047,177 @@ CREATE TABLE `workgroups_members_exclude` (
 INSERT INTO `workgroups_members_exclude` (`id`,`workgroup_id`,`excluded_id`,`excluder_id`) VALUES 
  (19,1,1,4);
 /*!40000 ALTER TABLE `workgroups_members_exclude` ENABLE KEYS */;
+
+--
+-- Create schema dd_anon
+--
+
+CREATE DATABASE IF NOT EXISTS dd_anon;
+USE dd_anon;
+
+--
+-- Definition of table `temp_codes_constituencies`
+--
+
+DROP TABLE IF EXISTS `temp_codes_constituencies`;
+CREATE TABLE `temp_codes_constituencies` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `temp_code` varchar(45) NOT NULL default '',
+  `constituency_id` int(10) unsigned NOT NULL default '0',
+  `timestamp_created` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `temp_codes_constituencies`
+--
+
+/*!40000 ALTER TABLE `temp_codes_constituencies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `temp_codes_constituencies` ENABLE KEYS */;
+
+
+--
+-- Definition of table `user_temp_codes`
+--
+
+DROP TABLE IF EXISTS `user_temp_codes`;
+CREATE TABLE `user_temp_codes` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `temp_code` varchar(45) NOT NULL default '',
+  `user_id` int(10) unsigned default NULL,
+  `timestamp_created` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_temp_codes`
+--
+
+/*!40000 ALTER TABLE `user_temp_codes` DISABLE KEYS */;
+INSERT INTO `user_temp_codes` (`id`,`temp_code`,`user_id`,`timestamp_created`) VALUES 
+ (1,'j7O5zpQpJ1Dpc28VyYxb',5,1428224049),
+ (2,'s6eY7CZM1Ghp8kTkms3',5,1428224399),
+ (3,'7oTsdUgON7w9YRG2ljEp',5,1428224421),
+ (4,'DLwuMGBGw9GTlIxRksuI',5,1428224573),
+ (5,'2plbn3WeF66nm0nxEwH',5,1428224621),
+ (6,'WJc0JMmnC8sHEcGmu2oR',5,1428224819),
+ (7,'cA90oizGqSAmYvRsKM35',5,1428225044),
+ (8,'Fit4ZtzB8Ldro1Jnub',5,1428228361),
+ (9,'p3Ly25MPTFe7MiJgXHJ',5,1428228387),
+ (10,'O2SnE2xo9CTpbGLNRiv1',5,1428229939),
+ (11,'YJDQpf8BSzTtPVbBnG2R',5,1428230032),
+ (12,'vsQLeg1EsPWtbShsFgBL',5,1428230131),
+ (13,'uCMCLJh3A85f8K0hwvRC',5,1428230311),
+ (14,'eHuSaRnV8AvC1iOsjUpk',5,1428231196),
+ (15,'DqHpdgKvQ9La6UxqP0oJ',5,1428231331),
+ (16,'o8WGpOqAw9l9bZrGQWQ',5,1428231686),
+ (17,'QtFauzkoaI2w2MmoPbhI',5,1428231824),
+ (18,'RJeZlSfwzm46pUYylak',5,1428232713),
+ (19,'XJraWK20nfQhO2XVNWdP',4,1428469709),
+ (20,'3PhSBo0LaKp2ZINxo1uu',5,1428695056),
+ (21,'CbsoVTMt73DQji09BLl0',6,1429087518),
+ (22,'vP0hl3kM3nDD8hqJJq0y',5,1429092557),
+ (23,'IShC4Kgif0olNQy5UVLe',1,1429092564),
+ (24,'L9U240yGy0tzJuNn28ly',6,1429123006),
+ (25,'eaQBqwZ59UOuEBIrewE0',1,1429166182),
+ (26,'eu4P0EEr0dJixZmqDQxT',6,1429166227),
+ (27,'C2060ASDolZQrqwH5Ei1',6,1429521738),
+ (28,'yN7QBxING30BgByj0sFf',6,1429601269),
+ (29,'9hUbPxlPzMg6QdRxEJ1H',6,1429604714),
+ (30,'vmmU4cjllex5dqqOsY9j',6,1431326289),
+ (31,'jI01TPxbXDVfjWtuCGYy',1,1431328858),
+ (32,'2g5JLOkTCN34jSVTFUcO',1,1431425285),
+ (33,'BowmOCjV12sfdyMCUL4r',6,1432010082),
+ (34,'yKJIH8UyHQqXTPjDqr88',1,1432012108),
+ (35,'ChYErZkWoLc4RZ0h4DBH',6,1432105445),
+ (36,'HAw439LECP1zJYysM0xQ',1,1432108440),
+ (37,'VeKxedxNyS1JxQ2c5Pma',6,1432108798),
+ (38,'pgI0dc2yqc8JpjLsCt9h',1,1432110519),
+ (39,'ogHKs9ddjioTOP9buswy',8,1432275195),
+ (40,'HsGHVzfYjsatTTLs9wH1',11,1432277331),
+ (41,'Ostp6LsXeuy4ZAjYXhXU',11,1432277702),
+ (42,'M6QtXCkGnvEpXxaIHX9c',1,1432277749),
+ (43,'v9lFidqj9Cfl8HVgVh2f',4,1432278021),
+ (44,'KC4XFi124KNHxGBT3nLE',6,1432278189),
+ (45,'EjZBjUobImMZUlfnCFr0',5,1432278207),
+ (46,'U5EyS5uCJ2gflf3FiRMZ',4,1432278223),
+ (47,'lInIMMoMSoQesaqobdxk',13,1432280541),
+ (48,'1jc1QYgKjA5xrFd4vI2w',4,1432280572),
+ (49,'5Y9oW7I6e3His02q1GrL',5,1432280590),
+ (50,'AztDYFxAP11JJAOz5AiJ',4,1432285333),
+ (51,'9IXGx18M6xc0gvv9kQMO',6,1432311727),
+ (52,'1gQrG1vahFgpPdHzwXM2',5,1433239547),
+ (53,'2U8GMPxNfi36hitomQ7J',6,1433330071),
+ (54,'Rk7LisGCRlWlnpq8bWoY',13,1433490316),
+ (55,'OM8aRSXEgliEOWsCznaC',5,1433764911),
+ (56,'QMbwFglGrlsNvoXmNZAI',13,1433764952),
+ (57,'jo3gwhnzYRXycDIJp6Yp',6,1433765673),
+ (58,'7RufJUSfpkE1jQ8rF1Hu',5,1433765976),
+ (59,'X0TodqxamuSuKRZ9m2EK',6,1433831435),
+ (60,'xw6EnH4ynyrqcSfrNNRF',5,1433832939),
+ (61,'Ix4CiWGwDngSl0IqvdXr',4,1433832994),
+ (62,'2vBLZ4kKf0AWf4PoenC1',5,1433833055),
+ (63,'zWbZpxWeBZKojag381EN',6,1433833296),
+ (64,'lHIxuHyjCsG6dkQffX2O',6,1433833316),
+ (65,'RfDBVGbkyQtulnDoj7eB',6,1433833439),
+ (66,'0ftemHL3SfoAoS607TY9',6,1433921138),
+ (67,'FPkJzbyVyCRgxOoQ8K7S',6,1434022933),
+ (68,'XZ08UK25sxaVCVMw2sMi',6,1434356128),
+ (69,'ljqbxLvRrGMmexb6lEtX',6,1434555986),
+ (70,'RBXL2ZnG7iXYA4MizTti',5,1434988715),
+ (71,'OCEiQ6jjpnEJAIjRePMD',5,1435233880),
+ (72,'nmJH8fR3dw6EJ6ROnuke',5,1435236707),
+ (73,'jXey8auMiiriWJe5kpat',5,1435306855),
+ (74,'BwVNEbo39sQoR3P749dd',5,1436274029),
+ (75,'1biXd2W0rE8x0ycHYBEg',5,1439705639),
+ (76,'Vzz2xr23Bzk8broaSzU8',14,1440242816),
+ (77,'utTXx42XXfY2dTzT1MoY',5,1440243656),
+ (78,'wAkXsf2WWOe3Ot3KL4hE',14,1440243808),
+ (79,'aL7AOZnZ4gzZhQnMOrAe',5,1440244687),
+ (80,'QJgmf8FNufhj09KNstYe',5,1440271739),
+ (81,'WQtAWMfuML3odctv03q1',5,1440314817),
+ (82,'KNEtaMoQOBSdI2w6NP0U',16,1440401333),
+ (83,'TSmxM48i76kYpaTiK4AD',5,1440401359),
+ (84,'08sG2cjfaO0TOy5aMdRG',6,1440831621),
+ (85,'vjkLzEXsGtcnWOrptzjF',4,1440834631),
+ (86,'STHCEpCP1SnVmAtO3kFc',4,1440834660),
+ (87,'5EdJwG2teV3VU9fqt13V',5,1441045436),
+ (88,'DNFH2PmH5V1Mjr77GJUs',4,1441045449),
+ (89,'azof6c4JsvjiKgpmHMVo',5,1441193417),
+ (90,'C48KLllW06yJTng5YREj',4,1441270293),
+ (91,'JTi51VF5E75YQxVPgRXn',5,1441305620),
+ (92,'5EXrG8eqthTXK50UNBip',4,1441401216);
+/*!40000 ALTER TABLE `user_temp_codes` ENABLE KEYS */;
+
+
+--
+-- Definition of table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `active_user_code` varchar(20) NOT NULL default '',
+  `passive_user_code1` varchar(20) NOT NULL default '',
+  `passive_user_code2` varchar(20) NOT NULL default '',
+  `passive_user_code3` varchar(20) NOT NULL default '',
+  `timestamp_last_login` int(10) unsigned default NULL,
+  `timestamp_last_activity` int(10) unsigned default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`,`user_id`,`active_user_code`,`passive_user_code1`,`passive_user_code2`,`passive_user_code3`,`timestamp_last_login`,`timestamp_last_activity`) VALUES 
+ (1,5,'osb8A8xrrQrGQfologrm','Csc0Wdfy6CHQB9eEx2UW','nTY2K5KFS3qsVuewTQNj','evYYqLsXAtpiEyQAu9vU',NULL,NULL),
+ (2,6,'9ZvUSJF2Y9binMKfwOr7','QzcZsdP5ilu1roSlrhSW','qW4dkmHmZGXd2qpTAAeC','4uNKQd3WK8RzdQAqtFRp',NULL,NULL),
+ (3,4,'OBc7rZoonK45KsRWs4gq','S28ZUXNjGMofzPxd16iJ','Dys7rHw0qdeH3vOrmDk0','afflJNzLhhT5QyX1cDuF',NULL,NULL),
+ (4,13,'nNSpJccU3OdwJxq3SMBw','sKbDUhNO4GHSweyENtF4','nrjiKEbZCJm7XrUhg8Yg','ko7qVZd1ePk3vF5JU8o5',NULL,NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
 

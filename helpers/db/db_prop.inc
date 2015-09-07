@@ -48,7 +48,7 @@ class db_prop {
 
 	}
 
-	public static function list_active_props ($page = 0, $limit = LIST_ITEMS_PER_PAGE, $order_by = "created_by_user desc", $where_filter = "1=1"){
+	public static function list_active_props ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "created_by_user desc", $where_filter = "1=1"){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;
@@ -130,7 +130,7 @@ class db_prop {
 
 	}
 
-	public static function list_old_props ($page = 0, $limit = LIST_ITEMS_PER_PAGE, $order_by = "created_by_user desc", $where_filter = "1=1"){
+	public static function list_old_props ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "created_by_user desc", $where_filter = "1=1"){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;

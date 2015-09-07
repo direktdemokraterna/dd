@@ -6,9 +6,9 @@ class db_forum {
 
 		$query = "select p.id as post_id, p.title as post_title, p.posted_time as posted_time, u.id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, 
 					f.id as forum_id, f.title as forum_title, c.id as cat_id, c.title as cat_title, (select id from posts t where t.id = p.topic_id) as topic_id 
-					from posts p, users u, categories c, forums f 
-					where p.user_id = u.id and p.forum_id = f.id and f.category_id = c.id order by p.posted_time desc limit 10";
-		$values = Array();
+					from posts p, users u, categories c, forums f, forums_users fu 
+					where p.user_id = u.id and p.forum_id = f.id and f.category_id = c.id and f.id = fu.forum_id and fu.user_id = ? order by p.posted_time desc limit 10";
+		$values = Array($_SESSION['id']);
 
 		return db::select($query, $values);
 
@@ -18,7 +18,8 @@ class db_forum {
 
 		$query = "select c.id as cat_id, c.title as cat_name, f.id as forum_id, f.title as forum_name, f.description as description, f.last_posted_time as last_posted_time, f.					last_posted_post as last_posted_id, f.number_of_topics as number_of_topics, f.number_of_posts as number_of_posts
 					from forums f, categories c, forums_users fu 
-					where c.id = f.category_id and f.id = fu.forum_id and fu.user_id = ?";
+					where c.id = f.category_id and f.id = fu.forum_id and fu.user_id = ?
+					order by field(f.access_type, 'public', 'workgroup', 'local_region', 'local_county'), f.id asc";
 		$values = Array($_SESSION['id']);
 
 		return db::select($query, $values);
@@ -381,6 +382,24 @@ class db_forum {
 
 		$query = "select count(*) from posts p, forums_users fu where fu.user_id = ? and fu.forum_id = p.forum_id and match(p.title, p.content) against(? in boolean mode)";
 		$values = Array($access_user_id, $search);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_local_county_forum ($county){
+
+		$query = "select id from forums where access_type = 'local_county' and title = ?";
+		$values = Array($county);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_local_region_forum ($region){
+
+		$query = "select id from forums where access_type = 'local_region' and title = ?";
+		$values = Array($region);
 
 		return db::select_single_value($query, $values);
 

@@ -44,7 +44,7 @@ public static function send_user_codes_to_user ($user_id){
 		echo "};\n";
 		echo "</script>\n";
 		echo "\n";
-		echo "<script src='" . ANON_SERVER_URL . "give_out_user_codes.php?callback=JSONP&user_id=" . $user_id . "&temp_code=" . $temp_code . "'></script>\n";
+		echo "<script src='" . ANON_SERVER_BROWSER_URL . "give_out_user_codes.php?callback=JSONP&user_id=" . $user_id . "&temp_code=" . $temp_code . "'></script>\n";
 
 	}
 

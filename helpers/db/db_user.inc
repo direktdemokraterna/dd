@@ -38,7 +38,7 @@ class db_user {
 
 	}
 
-	public static function get_all_users ($page = 0, $limit = LIST_ITEMS_PER_PAGE, $order_by = "last_activity_time desc", $where_filter = "1=1"){
+	public static function get_all_users ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "last_activity_time desc", $where_filter = "1=1"){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;
@@ -222,7 +222,7 @@ class db_user {
 
 	}
 
-	public static function search_users ($search, $page = 0, $limit = LIST_ITEMS_PER_PAGE){
+	public static function search_users ($search, $page = 1, $limit = LIST_ITEMS_PER_PAGE){
 // NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 
 		$page = (int)($page-1) * $limit;
