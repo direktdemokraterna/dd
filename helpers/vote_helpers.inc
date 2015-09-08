@@ -319,7 +319,13 @@ public static function output_yes_no_result ($list_of_votes){
 	else{
 		$yes_percentage = 0;
 	}
-	$no_percentage = 100 - $yes_percentage;
+	
+	if($ballot_counter['no'] == 0){
+		$no_percentage = 0; 
+	}
+	else{
+		$no_percentage = 100 - $yes_percentage;
+	}
 
 	echo "Ställningen i denna omröstning är: <br>";
 	echo "Ja: " . $ballot_counter['yes'] . " (" . $yes_percentage . " %)<br>";
