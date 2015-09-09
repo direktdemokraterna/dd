@@ -21,16 +21,22 @@ class db_vote {
 		$query = "insert into votes (type, from_proposition_id, timestamp_created, timestamp_delegate_ended, timestamp_ended, constituency_id, title, description, forum_topic_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = Array($prop_data['type'], $prop_id, time(), $timestamp_delegate_ended, $timestamp_ended, $prop_data['constituency_id'], $prop_data['title'], $prop_data['description'], $prop_data['forum_topic_id']);
 
-		$ok = db::insert($query, $values);
+		$vote_id = db::insert($query, $values);
 
-		if($ok){
+		if($vote_id){
 			$query = "update propositions set status = 'affirmed', timestamp_ended = ? where id = ?";
 			$values = Array(time(), $prop_id);
 
 			db::update($query, $values);
+
+			$post_title = "Omröstning: " . $title;
+			$post_content = "Det här är en automatiskt skapad forumtråd tillhörande omröstningen: <a href=\"index.php?type=vote&action=view_vote&id=" . $vote_id . "\">" . $prop_data['title'] . "</a>\n\n" . $prop_data['description'];
+
+			db_forum_admin::edit_title($post_title, $prop_data['forum_topic_id']);
+			db_forum_admin::edit_content($post_content, $prop_data['forum_topic_id']);
 		}
 
-		return $ok;
+		return $vote_id;
 
 	}
 
@@ -397,6 +403,15 @@ class db_vote {
 	public static function get_vote_type_from_id ($vote_id){
 
 		$query = "select type from votes where id = ?";
+		$values = Array($vote_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_constituency_id_for_vote ($vote_id){
+
+		$query = "select constituency_id from votes where id = ?";
 		$values = Array($vote_id);
 
 		return db::select_single_value($query, $values);

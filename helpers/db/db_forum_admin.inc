@@ -252,4 +252,22 @@ class db_forum_admin {
 
 	}
 
+	public static function edit_title ($title, $topic_id){
+
+		$query = "update posts set title = ? where topic_id = ?";
+		$values = Array($title, $topic_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function edit_content ($content, $post_id){
+
+		$query = "update posts set content = ? where id = ?";
+		$values = Array($content, $post_id);
+
+		return db::update($query, $values);
+
+	}
+
 }

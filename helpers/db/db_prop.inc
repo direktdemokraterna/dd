@@ -6,13 +6,19 @@ class db_prop {
 
 		$forum_id = db_constituency::get_constituency_forum_id($constituency_id);
 
-		$forum_topic_id = db_forum::new_topic($created_by_user, $forum_id, $title);
-		db_forum::add_content_to_post($forum_topic_id, $description);
+		$post_title = "Proposition: " . $title;
+
+		$forum_topic_id = db_forum::new_topic($created_by_user, $forum_id, $post_title);
 
 		$query = "insert into propositions (type, created_by_user, created_by_delegate, timestamp_created, constituency_id, title, description, forum_topic_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = Array($type, $created_by_user, $created_by_delegate, time(), $constituency_id, $title, $description, $forum_topic_id);
 
-		return db::insert($query, $values);
+		$prop_id = db::insert($query, $values);
+
+		$post_content = "Det här är en automatiskt skapad forumtråd tillhörande propositionen: <a href=\"index.php?type=vote&action=view_prop&id=" . $prop_id . "\">" . $title . "</a>\n\n" . $description;
+		db_forum::add_content_to_post($forum_topic_id, $post_content);
+
+		return $prop_id;
 
 	}
 
