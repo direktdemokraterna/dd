@@ -7,7 +7,7 @@ if(isset($_POST['prop_id']) && isset($_POST['ballot'])){
 		$prop_info = db_prop::get_prop_info($_POST['prop_id']);
 
 		if($_SESSION['delegate_id']){
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
+			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $prop_info['constituency_id']);
 		}	
 
 		if(!empty($check_delegate_constituency_access) && $prop_info['status'] == "pending"){

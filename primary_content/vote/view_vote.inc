@@ -126,7 +126,7 @@
 
 	</div>
 
-	<?php if(isset($delegate_id)) : ?>
+	<?php if(isset($_SESSION['delegate_id'])) : ?>
 		Du röstar som delegat.
 	<?php else : ?>
 		Du röstar som enskild användare.
