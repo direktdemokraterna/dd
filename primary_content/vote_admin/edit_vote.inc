@@ -20,7 +20,7 @@
 	<br><label for "constituency_id">Valkrets</label>
 	<select name="constituency_id" id="constituency_id" tabindex="2">
 		<?php 
-			$constituencies = db_constituency::get_all_constituencies();
+			$constituencies = db_constituency::get_all_constituencies(1, PHP_INT_MAX);
 			foreach($constituencies as $row){
 				echo "<option value=\"" . $row['id'] . "\"";
 				if($voteinfo['constituency_id'] == $row['id']) echo " selected";

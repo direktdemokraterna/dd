@@ -10,7 +10,13 @@ if(isset($_POST['update'])){
 
 				if($_POST['type_of_vote'] == "yes-no" || $_POST['type_of_vote'] == "prio-vote" || $_POST['type_of_vote'] == "candidate-election" || $_POST['type_of_vote'] == "median" || $_POST['type_of_vote'] == "budget"){
 
-					$ok1 = db_vote_admin::update_vote($_POST['type_of_vote'], $_POST['constituency_id'], $_POST['title'], $_POST['description'], $_POST['forum_topic_id'], $_POST['vote_id']);
+					$current_constituency = db_vote::get_constituency_id_for_vote($_POST['vote_id']);
+
+					if($current_constituency != $_POST['constituency_id']){
+						db_vote_admin::change_constituency($_POST['constituency_id'], $_POST['vote_id']);
+					}
+
+					$ok1 = db_vote_admin::update_vote($_POST['type_of_vote'], $_POST['title'], $_POST['description'], $_POST['forum_topic_id'], $_POST['vote_id']);
 
 					if(isset($_POST['year']) && isset($_POST['month']) && isset($_POST['day']) && isset($_POST['hour']) && isset($_POST['minute']) && isset($_POST['delegate_year']) && isset($_POST['delegate_month']) && isset($_POST['delegate_day']) && isset($_POST['delegate_hour']) && isset($_POST['delegate_minute'])){
 

@@ -1,7 +1,5 @@
 <script>
 
-
-
 <?php if($_SESSION['delegate_id']) : ?>
   <?php
     $delegate_ballot = db_delegate::get_ballot_for_vote($voteinfo['vote_id'], $_SESSION['delegate_id']);
@@ -88,6 +86,7 @@
 
       if(vote.delegate_id == null){
         document.getElementById("user_vote_box").innerHTML = "Du har röstat själv i denna fråga.";
+        document.getElementById("white_vote").style.display = "inline-block";
       }
       else{
         document.getElementById("user_vote_box").innerHTML = "Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig i denna fråga.";
@@ -100,6 +99,7 @@
 
 
 var numberOfAlternatives = <?php echo $voteinfo['number_of_alternatives']; ?>;
+var prio_type = "";
 
 var lists = {
     unsorted: $('.unsorted-box'),
@@ -145,6 +145,14 @@ function updateNumbersReject() {
     });
 }
 
+function prio_abstain(){
+  prio_type = "abstain";
+}
+
+function prio_cancel(){
+  prio_type = "cancel";
+}
+
 onAfterUnsortedListPopulated();
 
 $('.support-box, .unsorted-box, .reject-box').sortable({
@@ -170,20 +178,30 @@ $('.support-box, .unsorted-box, .reject-box').sortable({
 });
 
 $('form').submit(function() {
-  
-    var data = {};
+
+    if(prio_type === "abstain"){
+      var data = {};
+      encrypt_prio_ballot(data);
+    }
+    else if(prio_type === "cancel"){
+      encrypt_prio_ballot("cancel");
+    }
+    else{
+      var data = {};
     
-    lists.support.find('li').each(function() {
+      lists.support.find('li').each(function() {
         data[$(this).data('option-id')] = numberOfAlternatives - $(this).index();
-    });
+      });
     
-    lists.reject.find('li').each(function() {
+      lists.reject.find('li').each(function() {
         data[$(this).data('option-id')] = -1 * ($(this).index() + 1);
-    });
+      });
     
-    encrypt_prio_ballot(data);
-  
+      encrypt_prio_ballot(data);
+    }
+
     return true;
+
 });
 
 numberOfNonRejected = getElementsWithoutDragged(lists.support.add(lists.unsorted)).length;

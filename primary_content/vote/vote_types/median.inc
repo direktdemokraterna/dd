@@ -9,6 +9,8 @@
 		<label for "median_value">Ditt önskade värde</label>
 		<input type="text" name="median_value" id="median_value">
 		<input type="submit" value="Rösta" onmousedown="return encrypt_median_ballot()">
+		<input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return encrypt_median_ballot('abstain')">
+		<input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: none;" onmousedown="return encrypt_median_ballot('cancel')">
 	</form>
 
 <?php endif; ?>

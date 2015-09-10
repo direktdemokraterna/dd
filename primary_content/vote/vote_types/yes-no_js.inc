@@ -13,6 +13,7 @@ list_of_votes.map(function (vote){
 		
 		if(vote.delegate_id == null){
 			document.getElementById("user_vote_box").innerHTML += "<br>Du har själv lagt denna röst.";
+			document.getElementById("white_vote").style.display = "inline-block";
 		}
 		else{
 			document.getElementById("user_vote_box").innerHTML += "<br>Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig.";

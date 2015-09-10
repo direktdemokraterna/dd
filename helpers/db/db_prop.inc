@@ -107,6 +107,19 @@ class db_prop {
 
 	}
 
+	public static function cancel_ballot ($prop_id, $user_code){
+
+		$query = "delete from propositions_support where prop_id = ? and user_code = ? and delegate_id is null";
+		$values = Array($prop_id, $user_code);
+
+		$return = db::delete($query, $values);
+
+		self::count_prop_support($prop_id);
+
+		return $return;
+
+	}
+
 	public static function count_prop_support ($prop_id){
 
 		$query = "update propositions set number_of_supporters = (select count(*) from propositions_support where proposition_id = ? and support_type = 'support'), number_of_enemies = (select count(*) from propositions_support where proposition_id = ? and support_type = 'reject') where id = ?";

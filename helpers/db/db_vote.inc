@@ -89,6 +89,10 @@ class db_vote {
 
 		db::delete($query, $values);
 
+		if(!is_numeric($value)){
+			$value = null;
+		}
+
 		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
 
 		$query = "insert into ballots (vote_id, constituency_id, median_vote_value, user_code, time_ballot_placed) values (?, ?, ?, ?, ?)";
@@ -120,6 +124,19 @@ class db_vote {
 		$values = Array($vote_id, $constituency_id, $sorted_prio_ranking, $user_code, time());
 
 		$return = db::insert($query, $values);
+
+		self::count_ballots_for_vote($vote_id);
+
+		return $return;
+
+	}
+
+	public static function cancel_ballot ($vote_id, $user_code){
+
+		$query = "delete from ballots where vote_id = ? and user_code = ? and delegate_id is null";
+		$values = Array($vote_id, $user_code);
+
+		$return = db::delete($query, $values);
 
 		self::count_ballots_for_vote($vote_id);
 

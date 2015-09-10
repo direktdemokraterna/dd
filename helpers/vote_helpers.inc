@@ -21,17 +21,19 @@ public static function ballot_count_yes_no_abstain ($array_of_ballots){
 
 public static function ballot_count_median ($array_of_ballots){
 
-	$count = count($array_of_ballots);
+	$array_of_values = array();
+	foreach ($array_of_ballots as $item) {
+   		if($item['value'] != null){
+   			$array_of_values[] = $item['value'];
+   		}
+	}
+
+	$count = count($array_of_values);
 
 	if($count == 0){
 		return "Inget värde satt";
 	}
 	else{
-		$array_of_values = array();
-		foreach ($array_of_ballots as $item) {
-    		$array_of_values[] = $item['value'];
-		}
-
 		$middle_index = floor($count / 2);
 		sort($array_of_values, SORT_NUMERIC);
 		$median = $array_of_values[$middle_index]; // assume an odd # of items

@@ -15,6 +15,9 @@ if(isset($_POST['user_code']) && isset($_POST['prop_id']) && isset($_POST['rsa']
 				echo "success";
 			}
 		}
+		elseif($ballot_decoded['support_type'] == "cancel"){
+			$ok = db_prop::cancel_ballot($_POST['prop_id'], $_POST['user_code']);
+		}
 		else{
 			echo "fail - invalid ballot";
 		}

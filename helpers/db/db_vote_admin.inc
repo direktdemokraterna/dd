@@ -2,10 +2,23 @@
 
 class db_vote_admin {
 	
-	public static function update_vote ($type, $constituency_id, $title, $description, $forum_topic_id, $vote_id){
+	public static function update_vote ($type, $title, $description, $forum_topic_id, $vote_id){
 
-		$query = "update votes set type = ?, constituency_id = ?, title = ?, description = ?, forum_topic_id = ? where id = ?";
-		$values = Array($type, $constituency_id, general_helpers::clean($title), general_helpers::clean($description), $forum_topic_id, $vote_id);
+		$query = "update votes set type = ?, title = ?, description = ?, forum_topic_id = ? where id = ?";
+		$values = Array($type, general_helpers::clean($title), general_helpers::clean($description), $forum_topic_id, $vote_id);
+
+		return db::update($query, $values);
+
+	}
+
+	public static function change_constituency ($constituency_id, $vote_id){
+
+		$old_constituency = db_vote::get_constituency_id_for_vote($vote_id);
+
+
+
+		$query = "update votes set constituency_id = ? where id = ?";
+		$values = Array($constituency_id, $vote_id);
 
 		return db::update($query, $values);
 

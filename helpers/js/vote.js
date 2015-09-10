@@ -58,6 +58,16 @@ function encrypt_prio_ballot (prio_ranking){
 	return true;
 }
 
+function encrypt_prio_abstain (){
+	var prio_ranking = {};
+
+	encrypt_prio_ballot(prio_ranking);
+
+	var already_encrypted = true;
+
+	return true;
+}
+
 function encrypt_prop_ballot (support_type){
 	var dd_message = {prop_id: prop_id, support_type: support_type};
 
@@ -76,9 +86,17 @@ function Generate_Random_String(len){
     return text;
 }
 
-function encrypt_median_ballot (){
-	var value = document.getElementById("median_value").value;
-	value = value.replace("'", ".");
+function encrypt_median_ballot (abstain_or_cancel){
+	if(abstain_or_cancel === "abstain"){
+		var value = "abstain";
+	}
+	else if(abstain_or_cancel === "cancel"){
+		var value = "cancel";
+	}
+	else{
+		var value = document.getElementById("median_value").value;
+		value = value.replace("'", ".");
+	}
 	var dd_message = {vote_id: vote_id, value: value};
 
 	encrypt_ballot(dd_message);

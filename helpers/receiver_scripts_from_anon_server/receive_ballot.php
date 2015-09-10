@@ -15,9 +15,9 @@ if(isset($_POST['user_code']) && isset($_POST['vote_id']) && isset($_POST['rsa']
 			// Check that ballot is valid
 			if($ballot_decoded['alternative'] == "yes" || $ballot_decoded['alternative'] == "no" || $ballot_decoded['alternative'] == "abstain"){
 				$ok = db_vote::register_yes_no_ballot($_POST['vote_id'], $_POST['user_code'], $ballot_decoded['alternative']);
-				if($ok){
-					echo "success";
-				}
+			}
+			elseif($ballot_decoded['alternative'] == "cancel"){
+				$ok = db_vote::cancel_ballot($_POST['vote_id'], $_POST['user_code']);
 			}
 			else{
 				echo "fail - invalid ballot";
@@ -26,11 +26,11 @@ if(isset($_POST['user_code']) && isset($_POST['vote_id']) && isset($_POST['rsa']
 
 		elseif($voteinfo['type'] == "median"){
 			// Check that ballot is valid
-			if(is_numeric($ballot_decoded['value'])){
+			if(is_numeric($ballot_decoded['value']) || $ballot_decoded['value']=="abstain"){
 				$ok = db_vote::register_median_ballot($_POST['vote_id'], $_POST['user_code'], $ballot_decoded['value']);
-				if($ok){
-					echo "success";
-				}
+			}
+			elseif($ballot_decoded['value'] == "cancel"){
+				$ok = db_vote::cancel_ballot($_POST['vote_id'], $_POST['user_code']);
 			}
 			else{
 				echo "fail - invalid ballot";
@@ -45,13 +45,17 @@ if(isset($_POST['user_code']) && isset($_POST['vote_id']) && isset($_POST['rsa']
 				if($voteinfo['type'] == "workgroup-election"){
 					vote_helpers::workgroup_election_compare_result($_POST['vote_id']);
 				}
-				if($ok){
-					echo "success";
-				}
+			}
+			elseif($ballot_decoded['prio_ranking'] == "cancel"){
+				$ok = db_vote::cancel_ballot($_POST['vote_id'], $_POST['user_code']);
 			}
 			else{
 				echo "fail - invalid ballot";
 			}
+		}
+
+		if($ok){
+			echo "success";
 		}
 
 	}
