@@ -1,9 +1,6 @@
 <script>
 
 <?php if($_SESSION['delegate_id']) : ?>
-  <?php
-    $delegate_ballot = db_delegate::get_ballot_for_vote($voteinfo['vote_id'], $_SESSION['delegate_id']);
-  ?>
   <?php if(!empty($delegate_ballot)) : ?>
     var vote = <?php echo json_encode($delegate_ballot); ?>;
     var prio_ranking_object = JSON.parse(vote.prio_ranking);

@@ -140,7 +140,7 @@ class db_vote {
 
 		self::count_ballots_for_vote($vote_id);
 
-		return $return;
+		return true;
 
 	}
 

@@ -24,7 +24,7 @@
 
     <input type="submit" value="Rösta"><br>
     <input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return prio_abstain()">
-    <input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: none;" onmousedown="return prio_cancel()">
+    <input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: <?php if($_SESSION['delegate_id'] && !empty($delegate_ballot)) echo "inline-block"; else echo "none"; ?>;" onmousedown="return prio_cancel()">
     <br><span id="if_delegate_vote"></span>
   </form>
 

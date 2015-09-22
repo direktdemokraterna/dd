@@ -1,13 +1,18 @@
 <?php 
 	$voteinfo = db_vote::get_vote_info($_GET['id']); 
 	$user_allowed_to_vote = db_constituency::check_user_constituency_access($_SESSION['id'], $voteinfo['constituency_id']);
+	$number_of_delegate_ballots = db_delegate::number_of_delegate_ballots_for_vote($_GET['id']);
 
 	$list_of_votes_from_db = db_vote::get_ballots($_GET['id']);
 	$list_of_votes = Array();
 	foreach($list_of_votes_from_db as $row){
 		$list_of_votes[] = Array("user_code" => $row['user_code'], "alternative" => $row['alternative'], "value" => $row['value'], "prio_ranking" => $row['prio_ranking'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 	}
-	$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($list_of_votes);
+
+	if($_SESSION['delegate_id']){
+		$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
+		$delegate_ballot = db_delegate::get_ballot_for_vote($_GET['id'], $_SESSION['delegate_id']);
+	}		
 ?>
 
 <script>
@@ -15,11 +20,6 @@
 	var vote_id = <?php echo json_encode($voteinfo['vote_id']); ?>;
 	var constituency_id = <?php echo json_encode($voteinfo['constituency_id']); ?>;
 	var list_of_votes = <?php echo json_encode($list_of_votes); ?>;
-	<?php
-		if($_SESSION['delegate_id']){
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
-		}
-	?>
 	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
 </script>
 
@@ -69,10 +69,29 @@
 
 <div class="vote_result_box" id="user_vote_box">
 	<?php if($_SESSION['delegate_id']) : ?>
-		<?php if($delegate_vote = db_delegate::get_delegate_ballot_for_vote($_GET['id'], $_SESSION['delegate_id'])) : ?>
-			Du som delegat har röstat i denna omröstning.
-		<?php else : ?>
+		<?php if(empty($delegate_ballot)) : ?>
 			Du som delegat har inte röstat i denna omröstning.
+		<?php else : ?>
+			<?php if(isset($delegate_ballot['delegate_id'])) : ?>
+				Du som delegat har låtit din delegat rösta i denna omröstning.
+			<?php else : ?>
+				Du som delegat har röstat själv i denna omröstning.
+			<?php endif; ?>
+			<br>
+			Din röst:<br>
+			<?php if($voteinfo['type'] == "yes-no") : ?>
+				<?php if($delegate_ballot['ballot_alternative'] == "yes") : ?>
+					Ja
+				<?php elseif($delegate_ballot['ballot_alternative'] == "no") : ?>
+					Nej
+				<?php else : ?>
+					Avstår
+				<?php endif; ?>
+			<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
+				<?php vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], json_decode($delegate_ballot['prio_ranking'], true)); ?>
+			<?php elseif($voteinfo['type'] == "median") : ?>
+				<?php echo $delegate_ballot['median_vote_value']; ?>
+			<?php endif; ?>
 		<?php endif; ?>
 	<?php else : ?>
 		Ingen röst är lagd i ditt namn i denna omröstning.
@@ -97,6 +116,7 @@
 <?php endif; ?>
 <strong>Antal lagda röster: </strong><?php echo $voteinfo['number_of_ballots']; ?><br>
 <strong>Varav personligt lagda röster: </strong><?php echo $voteinfo['number_of_direct_ballots']; ?><br>
+<strong>Antal delegater som röstat: </strong><?php echo $number_of_delegate_ballots; ?><br>
 
 <strong>Beskrivning:</strong><br>
 <?php echo nl2br($voteinfo['description']); ?>

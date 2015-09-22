@@ -9,7 +9,7 @@
 		<input type="submit" class="vote_button" id="green_vote" value="Ja" onmousedown="return encrypt_yes_no_ballot('yes')">
 		<input type="submit" class="vote_button" id="red_vote" value="Nej" onmousedown="return encrypt_yes_no_ballot('no')">
 		<input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return encrypt_yes_no_ballot('abstain')">
-		<input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: none;" onmousedown="return encrypt_yes_no_ballot('cancel')">
+		<input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: <?php if(!empty($delegate_ballot)) echo "inline-block"; else echo "none"; ?>;" onmousedown="return encrypt_yes_no_ballot('cancel')">
 	</form>
 
 <?php endif; ?>

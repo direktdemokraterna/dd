@@ -5,16 +5,6 @@
 	<label for "title">Namn</label>
 	<input type="text" name="title" id="title" tabindex="2"><br>
 
-	<label for "constituency_id">Valkrets</label>
-	<select name="constituency_id" id="constituency_id" tabindex="3">
-		<?php 
-			$constituencies = db_constituency::get_all_constituencies(1, PHP_INT_MAX);
-			foreach($constituencies as $row){
-				echo "<option value=\"" . $row['id'] . "\">" . $row['name'] . "</option>";
-			}
-		?>
-	</select><br>
-
 	<label for "number_of_members">Antal medlemmar</label>
 	<input type="text" name="number_of_members" id="number_of_members" tabindex="4"><br>
 

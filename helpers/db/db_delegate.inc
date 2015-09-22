@@ -185,6 +185,33 @@ class db_delegate {
 
 	}
 
+	public static function register_median_ballot ($vote_id, $delegate_id, $value){
+
+		$query = "delete from ballots where vote_id = ? and voter_is_delegate_id = ?";
+		$values = Array($vote_id, $delegate_id);
+
+		db::delete($query, $values);
+
+		if(!is_numeric($value)){
+			$value = null;
+		}
+
+		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
+
+		$query = "insert into ballots (vote_id, constituency_id, median_vote_value, voter_is_delegate_id, time_ballot_placed) values (?, ?, ?, ?, ?)";
+		$values = Array($vote_id, $constituency_id, $value, $delegate_id, time());
+
+		$ok = db::insert($query, $values);
+
+		self::register_ballot_for_delegands($delegate_id, $constituency_id, $vote_id, null, null, $value, $delegate_id, 0);
+
+		db_vote::count_ballots_for_vote($vote_id);
+
+		if($ok) return true;
+		else return false;
+
+	}
+
 	public static function register_prio_ballot ($vote_id, $delegate_id, $prio_ranking){
 
 		$query = "delete from ballots where vote_id = ? and voter_is_delegate_id = ?";
@@ -205,6 +232,23 @@ class db_delegate {
 
 		if($ok) return true;
 		else return false;
+
+	}
+
+	public static function cancel_ballot ($vote_id, $delegate_id){
+
+		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
+		$delegates_delegate = self::get_delegates_delegate_for_constituency($delegate_id, $constituency_id);
+		$delegates_delegate_ballot = 
+
+		$query = "delete from ballots where vote_id = ? and (voter_is_delegate_id = ? or delegate_id = ?)";
+		$values = Array($vote_id, $delegate_id, $delegate_id);
+
+		$return = db::delete($query, $values);
+
+		db_vote::count_ballots_for_vote($vote_id);
+
+		return $return;
 
 	}
 
@@ -322,8 +366,7 @@ class db_delegate {
 
 	public static function get_delegate_ballot_for_vote ($vote_id, $delegate_id){
 
-		$query = "select ballot_alternative, median_vote_value, prio_ranking 
-				from ballots where vote_id = ? and voter_is_delegate_id = ? and delegate_id is null";
+		$query = "select * from ballots where vote_id = ? and voter_is_delegate_id = ?";
 		$values = Array($vote_id, $delegate_id);
 
 		return db::select_single_row($query, $values);
@@ -485,16 +528,13 @@ class db_delegate {
 
 	}
 
-/*
-"update ballots b 
-	left join delegate_ballots db
-		on b.vote_id = db.vote_id
-	left join voters_delegates vd 
-		on vd.user_code = b.user_code and b.constituency_id = vd.constituency_id 
-	set b.ballot_alternative = db.ballot_alternative, b.vote_alternative_id = db.vote_alternative_id, b.priority = db.priority, b.median_vote_value = db.median_vote_value, b.delegate_id = vd.delegate_id, b.delegate_priority = vd.priority, time_ballot_placed = ? 
-	where (b.delegate_id is not null and b.delegate_priority > vd.priority) or (b.delegate_id = vd.delegate_id and (b.ballot_alternative != db.ballot_alternative or b.vote_alternative_id != db.vote_alternative_id or b.priority != db.priority or b.median_vote_value != db.median_vote_value))"
-*/
+	public static function number_of_delegate_ballots_for_vote ($vote_id){
 
+		$query = "select count(*) from ballots where voter_is_delegate_id is not null and delegate_id is null and vote_id = ?";
+		$values = Array($vote_id);
 
+		return db::select_single_value($query, $values);
+
+	}
 
 }

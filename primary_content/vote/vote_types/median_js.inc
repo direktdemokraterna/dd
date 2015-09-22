@@ -1,6 +1,6 @@
 <script>
 list_of_votes.map(function (vote){
-	if(vote.user_code == sessionStorage.active_user_code){
+	if(vote.user_code == sessionStorage.active_user_code && acting_as_delegate == false){
 		if(vote.value === null){
 			document.getElementById("user_vote_box").innerHTML = "Du har röstat avstår";
 		}

@@ -51,18 +51,38 @@ public static function ballot_count_median ($array_of_ballots){
 public static function register_delegate_ballot ($vote_id, $delegate_id, $ballot){
 
 	$type = db_vote::get_vote_type_from_id($vote_id);
+	$ballot_decoded = json_decode($ballot, true);
 
-	if($type == "yes-no"){
-		$ballot_decoded = json_decode($ballot, true);
-		return db_delegate::register_yes_no_ballot($vote_id, $delegate_id, $ballot_decoded['alternative']);
+	if($ballot_decoded['alternative'] == "cancel" || $ballot_decoded['value'] == "cancel" || $ballot_decoded['prio_ranking'] == "cancel"){
+		return db_delegate::cancel_ballot($vote_id, $delegate_id);
 	}
-	elseif($type == "median"){
-		$ballot_decoded = json_decode($ballot, true);
-		return db_delegate::register_median_ballot($vote_id, $delegate_id, $ballot_decoded['value']);
-	}
-	elseif($type == "prio-vote" || $type == "candidate-election"){
-		$ballot_decoded = json_decode($ballot, true);
-		return db_delegate::register_prio_ballot($vote_id, $delegate_id, json_encode($ballot_decoded['prio_ranking']));
+	else{
+
+		if($type == "yes-no"){
+			if($ballot_decoded['alternative'] == "yes" || $ballot_decoded['alternative'] == "no" || $ballot_decoded['alternative'] == "abstain" || $ballot_decoded['alternative'] == "cancel"){
+				return db_delegate::register_yes_no_ballot($vote_id, $delegate_id, $ballot_decoded['alternative']);
+			}
+			else{
+				return false;
+			}
+		}
+		elseif($type == "median"){
+			if(is_numeric($ballot_decoded['value']) || $ballot_decoded['value']=="abstain" || $ballot_decoded['value'] == "cancel"){
+				return db_delegate::register_median_ballot($vote_id, $delegate_id, $ballot_decoded['value']);
+			}
+			else{
+				return false;
+			}
+		}
+		elseif($type == "prio-vote" || $type == "candidate-election" || $type == "workgroup-election"){
+			if(is_array($ballot_decoded['prio_ranking']) || $ballot_decoded['prio_ranking'] == "cancel"){
+				return db_delegate::register_prio_ballot($vote_id, $delegate_id, json_encode($ballot_decoded['prio_ranking']));
+			}
+			else{
+				return false;
+			}
+		}
+
 	}
 
 }
@@ -474,5 +494,45 @@ public static function workgroup_election_compare_result ($vote_id){
 
 	return;
 }
+
+public static function get_prio_vote_result_for_single_voter ($vote_id, $prio_ranking){
+
+	$vote_type = db_vote::get_vote_type_from_id($vote_id);
+
+	$alternatives = db_vote::get_alternative_ids_from_vote_id($vote_id);
+
+	$result_array = Array();
+
+	foreach($alternatives as $row){
+		$alternative_id = $row[0];
+		$score = $prio_ranking[$alternative_id];
+		if(!isset($score)){
+			$score = 0;
+		}
+		$result_array[] = Array("alternative_id" => $row[0], "score" => $score, "created" => 0);
+	}
+
+	usort($result_array, function($a, $b) 
+	{ 
+		$score_compare = $b["score"] - $a["score"];
+		if($score_compare == 0){
+			return $a["created"] - $b["created"];
+		}
+		return $score_compare; 
+	});
+
+	if($vote_type == "prio-vote"){
+		vote_helpers::calculate_and_output_prio_vote_result($result_array);
+	}
+	elseif($vote_type == "candidate-election"){
+		vote_helpers::calculate_and_output_candidate_election_result($result_array);
+	}
+	elseif($vote_type == "workgroup-election"){
+		$voteinfo = db_vote::get_vote_info($vote_id);
+		vote_helpers::calculate_and_output_workgroup_election_result($result_array, $voteinfo['from_proposition_id']);
+	}
+
+}
+
 
 } //End of class

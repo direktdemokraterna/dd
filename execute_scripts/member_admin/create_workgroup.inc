@@ -4,7 +4,7 @@
 		$already_exists = db_workgroup::get_id_from_name($_POST['title']);
 
 		if(!$already_exists){
-			$workgroup_id = db_workgroup::create_restricted(general_helpers::clean($_POST['title']), forum_helpers::process_text($_POST['description']), (int)$_POST['number_of_members'], $_POST['constituency_id']);
+			$workgroup_id = db_workgroup::create_restricted(general_helpers::clean($_POST['title']), forum_helpers::process_text($_POST['description']), (int)$_POST['number_of_members']);
 			if($workgroup_id){
 				$_SESSION['report_message'] = "Arbetsgruppen skapad";
 				$redirect = "index.php?type=workgroup&action=view&id=" . $workgroup_id;

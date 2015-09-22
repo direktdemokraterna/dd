@@ -15,20 +15,6 @@
 	<input type="radio" name="is_restricted" id="is_restricted" value="1" tabindex="2" <?php if($workgroup['is_restricted']>0) echo "checked"; ?>>Stängd
 	<br>
 
-	<label for "constituency">Valkrets (bara stängda grupper)</label>
-	<select name="constituency" id="constituency" tabindex="3">
-		<option value=""></option>
-		<?php 
-			$constituencies = db_constituency::get_all_constituencies(1, PHP_INT_MAX);
-			foreach($constituencies as $row){
-				echo "<option value=\"" . $row['id'] . "\"";
-				if($constituency_id == $row['id']) echo " selected";
-				echo ">" . $row['name'] . "</option>";
-			}
-		?>
-	</select><br>
-
-
 	<label for "title">Namn på arbetsgrupp</label>
 	<input type="text" name="title" id="title" value="<?php echo $workgroup['title']; ?>" tabindex="4">
 	<br>

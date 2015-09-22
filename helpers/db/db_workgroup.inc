@@ -56,10 +56,10 @@ class db_workgroup {
 
 	}
 
-	public static function create_restricted ($title, $description, $number_of_members, $constituency_id){
+	public static function create_restricted ($title, $description, $number_of_members){
 
 		$already_exists = self::get_id_from_name($title);
-		$constituency_exists = db_constituency::check_that_constituency_exists($constituency_id);
+		$constituency_id = DEFAULT_CONSTITUENCY_ID;
 
 		if($already_exists==0 && $constituency_exists){
 			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
@@ -593,11 +593,9 @@ class db_workgroup {
 
 	}
 
-	public static function make_restricted ($workgroup_id, $constituency_id){
+	public static function make_restricted ($workgroup_id){
 
-		if(!db_constituency::check_that_constituency_exists($constituency_id)){
-			return false;
-		}
+		$constituency_id = DEFAULT_CONSTITUENCY_ID;
 
 		$workgroup_info = self::get_info($workgroup_id);
 
