@@ -31,3 +31,12 @@
 	<input type="submit" value="Ändra" tabindex="7">
 
 </form>
+
+<form method="post" action="" class="standard-form">
+
+	<input type="hidden" name="delete" value="1">
+	<input type="submit" value="Ta bort" tabindex="8" onclick="return confirm('Vill du verkligen ta bort den här arbetsgruppen?');">
+	<p>
+	Borttagande av arbetsgrupp kan inte ångras.
+	</p>
+</form>

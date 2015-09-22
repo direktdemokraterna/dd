@@ -30,3 +30,22 @@ if(isset($_POST['title']) && isset($_POST['is_restricted'])){
 	}
 
 }
+
+elseif(isset($_POST['delete'])){
+
+	if(db_workgroup::is_restricted($_GET['id'])){
+		db_workgroup::make_unrestricted($_GET['id']);
+	}
+
+	$ok = db_workgroup::delete($_GET['id']);
+
+	if($ok){
+		$_SESSION['report_message'] = "Arbetsgruppen borttagen";
+		$redirect = $_SERVER['REQUEST_URI'];
+	}
+	else{
+		$_SESSION['report_message'] = "Inga ändringar gjorda";
+		$_SESSION['red_report_message'] = 1;
+	}
+
+}

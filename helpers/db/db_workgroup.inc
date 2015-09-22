@@ -61,7 +61,7 @@ class db_workgroup {
 		$already_exists = self::get_id_from_name($title);
 		$constituency_id = DEFAULT_CONSTITUENCY_ID;
 
-		if($already_exists==0 && $constituency_exists){
+		if($already_exists==0){
 			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
 			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen".$title, "workgroup");
 
@@ -71,7 +71,7 @@ class db_workgroup {
 			$workgroup_id = db::insert($query, $values);
 
 			if($workgroup_id){
-				self::create_vote_for_restricted($workgroup_id, $title, $public_forum_id, $constituency_id, $_SESSION['id']);
+				$vote_id = self::create_vote_for_restricted($workgroup_id, $title, $public_forum_id, $constituency_id, $_SESSION['id']);
 
 				return $workgroup_id;
 			}
@@ -368,12 +368,22 @@ class db_workgroup {
 		$query = "delete from workgroups_candidates where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
-		db::delete($query, $values);
+		$ok = db::delete($query, $values);
 
 		$query = "delete from workgroups_candidates_support where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		db::delete($query, $values);
+
+		if(!self::is_active($workgroup_id)){
+			$number_of_candidates = self::count_candidates($workgroup_id);
+
+			if($number_of_candidates == 0){
+				self::delete($workgroup_id);
+			}
+		}
+
+		return $ok;
 
 	}
 
@@ -584,7 +594,7 @@ class db_workgroup {
 		$workgroup_info = self::get_info($_GET['id']);
 		$vote_id = $workgroup_info['is_restricted'];
 
-		db_vote::finish_vote($vote_id);
+		db_vote_admin::finish_vote($vote_id);
 
 		$query = "update workgroups set is_restricted = 0 where id = ?";
 		$values = Array($workgroup_id);
@@ -599,12 +609,7 @@ class db_workgroup {
 
 		$workgroup_info = self::get_info($workgroup_id);
 
-		self::create_vote_for_restricted($workgroup_id, $workgroup_info['title'], $workgroup_info['public_forum_id'], $constituency_id, $workgroup_info['create_user']);
-
-		$query = "update workgroups set is_restricted = ? where id = ?";
-		$values = Array($vote_id, $workgroup_id);
-
-		return db::update($query, $values);
+		return self::create_vote_for_restricted($workgroup_id, $workgroup_info['title'], $workgroup_info['public_forum_id'], $constituency_id, $workgroup_info['create_user']);
 
 	}
 
@@ -616,7 +621,53 @@ class db_workgroup {
 		$forum_topic_id = db_forum::new_topic($user_id, $public_forum_id, "Personval till arbetsgruppen ".$title);
 		db_forum::add_content_to_post($forum_topic_id, $vote_description);
 
-		return db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
+		$vote_id = db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
+
+		$query = "update workgroups set is_restricted = ? where id = ?";
+		$values = Array($vote_id, $workgroup_id);
+
+		db::update($query, $values);
+
+		return $vote_id;
+
+	}
+
+	public static function count_candidates ($workgroup_id){
+
+		$query = "select count(*) from workgroups_candidates where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		return db::select_single_value($query, $values);
+
+	}
+
+	public static function delete ($workgroup_id){
+
+		$query = "delete from workgroups_members where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		db::delete($query, $values);
+
+		$query = "delete from workgroups_candidates where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		db::delete($query, $values);
+
+		$query = "delete from workgroups_candidates_support where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		db::delete($query, $values);
+
+		$query = "delete from workgroups_members_exclude where workgroup_id = ?";
+		$values = Array($workgroup_id);
+
+		db::delete($query, $values);
+
+
+		$query = "delete from workgroups where id = ?";
+		$values = Array($workgroup_id);
+
+		return db::delete($query, $values);
 
 	}
 
