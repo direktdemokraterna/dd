@@ -2,7 +2,24 @@ ALTER TABLE `dd`.`ballots` ADD COLUMN `ballot` TEXT AFTER `constituency_id`;
 UPDATE `dd`.`ballots` SET `ballot` = `ballot_alternative` WHERE `ballot_alternative` IS NOT NULL;
 UPDATE `dd`.`ballots` SET `ballot` = `prio_ranking` WHERE `prio_ranking` IS NOT NULL;
 UPDATE `dd`.`ballots` SET `ballot` = `median_vote_value` WHERE `median_vote_value` IS NOT NULL;
+
 ALTER TABLE `dd`.`ballots` 
  DROP COLUMN `ballot_alternative`,
  DROP COLUMN `prio_ranking`,
  DROP COLUMN `median_vote_value`;
+
+ALTER TABLE `dd`.`propositions`
+ ADD COLUMN `number_of_abstains` INTEGER UNSIGNED NOT NULL DEFAULT 0
+UPDATE `dd`.`propositions` SET `number_of_abstains` = `number_of_enemies`
+ALTER TABLE `dd`.`propositions`
+ DROP COLUMN `number_of_enemies`
+
+ALTER TABLE `dd`.`propositions_support`
+ ALTER COLUMN `user_code` VARCHAR(20);
+
+ALTER TABLE `dd`.`propositions_support`
+ ADD COLUMN `constituency_id` INTEGER UNSIGNED NOT NULL;
+ALTER TABLE `dd`.`propositions_support`
+ ADD COLUMN `delegation_level` INTEGER UNSIGNED;
+ALTER TABLE `dd`.`propositions_support`
+ ADD COLUMN `delegate_priority` INTEGER UNSIGNED;
