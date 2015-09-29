@@ -41,7 +41,7 @@ elseif(isset($_POST['delete'])){
 
 	if($ok){
 		$_SESSION['report_message'] = "Arbetsgruppen borttagen";
-		$redirect = $_SERVER['REQUEST_URI'];
+		$redirect = "index.php?type=workgroup";
 	}
 	else{
 		$_SESSION['report_message'] = "Inga ändringar gjorda";

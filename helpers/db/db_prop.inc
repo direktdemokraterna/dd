@@ -24,7 +24,7 @@ class db_prop {
 
 	public static function get_prop_info ($prop_id){
 
-		$query = "select p.id as prop_id, p.title as title, p.description as description, u.id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.type as type, p.timestamp_created as timestamp_created, p.number_of_supporters as number_of_supporters, p.number_of_enemies as number_of_enemies, p.status as status, p.forum_topic_id as forum_topic_id, c.id as constituency_id, c.title as constituency_name, c.number_of_voters as number_of_voters 
+		$query = "select p.id as prop_id, p.title as title, p.description as description, u.id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.type as type, p.timestamp_created as timestamp_created, p.number_of_supporters as number_of_supporters, p.number_of_abstains as number_of_abstains, p.status as status, p.forum_topic_id as forum_topic_id, c.id as constituency_id, c.title as constituency_name, c.number_of_voters as number_of_voters 
 			from propositions p, users u, constituencies c 
 			where u.id = p.created_by_user and c.id = p.constituency_id and p.id = ?";
 		$values = Array($prop_id);
@@ -90,8 +90,10 @@ class db_prop {
 			$ok = db::update($query, $values);
 		}
 		else{
-			$query = "insert into propositions_support (proposition_id, user_code, support_type, time_ballot_placed) values (?, ?, ?, ?)";
-			$values = Array($prop_id, $user_code, $support_type, time());
+			$constituency_id = db_constituency::get_prop_constituency_id($prop_id);
+
+			$query = "insert into propositions_support (proposition_id, constituency_id, user_code, support_type, time_ballot_placed) values (?, ?, ?, ?, ?)";
+			$values = Array($prop_id, $constituency_id, $user_code, $support_type, time());
 
 			$ok = db::insert($query, $values);
 		}
@@ -109,7 +111,7 @@ class db_prop {
 
 	public static function cancel_ballot ($prop_id, $user_code){
 
-		$query = "delete from propositions_support where prop_id = ? and user_code = ? and delegate_id is null";
+		$query = "delete from propositions_support where proposition_id = ? and user_code = ? and delegate_id is null";
 		$values = Array($prop_id, $user_code);
 
 		$return = db::delete($query, $values);
@@ -122,7 +124,7 @@ class db_prop {
 
 	public static function count_prop_support ($prop_id){
 
-		$query = "update propositions set number_of_supporters = (select count(*) from propositions_support where proposition_id = ? and support_type = 'support'), number_of_enemies = (select count(*) from propositions_support where proposition_id = ? and support_type = 'reject') where id = ?";
+		$query = "update propositions set number_of_supporters = (select count(*) from propositions_support where proposition_id = ? and support_type = 'support' and user_code is not null), number_of_abstains = (select count(*) from propositions_support where proposition_id = ? and support_type = 'reject' and user_code is not null) where id = ?";
 		$values = Array($prop_id, $prop_id, $prop_id);
 
 		$ok = db::update($query, $values);
@@ -132,9 +134,9 @@ class db_prop {
 		if($prop_info['number_of_supporters'] >= ceil($prop_info['number_of_voters'] * PROP_TO_VOTE_SUPPORT)){
 			db_vote::make_vote_from_prop($prop_id);
 		}
-		elseif($prop_info['number_of_enemies'] > $prop_info['number_of_supporters']){
-			self::reject_prop($prop_id);
-		}
+//		elseif($prop_info['number_of_abstains'] > $prop_info['number_of_supporters']){
+//			self::reject_prop($prop_id);
+//		}
 
 		return $ok;
 
@@ -168,6 +170,24 @@ class db_prop {
 		$values = Array();
 
 		return db::select_single_value($query, $values);
+
+	}
+
+	public static function get_old_props (){
+
+		$query = "select id from propositions where timestamp_created > ?";
+		$values = Array(time() - PROP_REMOVAL_TIME);
+
+		return db::select($query, $values);
+
+	}
+
+	public static function get_prop_ballot_from_delegate_or_user ($prop_id, $user_code, $delegand_id){
+
+		$query = "select id, support_type, delegate_id, time_ballot_placed, delegation_level, delegate_priority from propositions_support where proposition_id = ? and (user_code = ? or voter_is_delegate_id = ?)";
+		$values = Array($prop_id, $user_code, $delegand_id);
+
+		return db::select_single_row($query, $values);
 
 	}
 

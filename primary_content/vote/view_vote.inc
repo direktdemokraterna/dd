@@ -6,13 +6,21 @@
 	$list_of_votes_from_db = db_vote::get_ballots($_GET['id']);
 	$list_of_votes = Array();
 	foreach($list_of_votes_from_db as $row){
-		$list_of_votes[] = Array("user_code" => $row['user_code'], "alternative" => $row['alternative'], "value" => $row['value'], "prio_ranking" => $row['prio_ranking'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+		if($voteinfo['type'] == "yes-no"){
+			$list_of_votes[] = Array("user_code" => $row['user_code'], "alternative" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+		}
+		elseif($voteinfo['type'] == "median"){
+			$list_of_votes[] = Array("user_code" => $row['user_code'], "value" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+		}
+		elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election"){
+			$list_of_votes[] = Array("user_code" => $row['user_code'], "prio_ranking" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+		}
 	}
 
 	if($_SESSION['delegate_id']){
 		$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
 		$delegate_ballot = db_delegate::get_ballot_for_vote($_GET['id'], $_SESSION['delegate_id']);
-	}		
+	}
 ?>
 
 <script>
@@ -80,17 +88,17 @@
 			<br>
 			Din röst:<br>
 			<?php if($voteinfo['type'] == "yes-no") : ?>
-				<?php if($delegate_ballot['ballot_alternative'] == "yes") : ?>
+				<?php if($delegate_ballot['ballot'] == "yes") : ?>
 					Ja
-				<?php elseif($delegate_ballot['ballot_alternative'] == "no") : ?>
+				<?php elseif($delegate_ballot['ballot'] == "no") : ?>
 					Nej
 				<?php else : ?>
 					Avstår
 				<?php endif; ?>
 			<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
-				<?php vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], json_decode($delegate_ballot['prio_ranking'], true)); ?>
+				<?php vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], json_decode($delegate_ballot['ballot'], true)); ?>
 			<?php elseif($voteinfo['type'] == "median") : ?>
-				<?php echo $delegate_ballot['median_vote_value']; ?>
+				<?php echo $delegate_ballot['ballot']; ?>
 			<?php endif; ?>
 		<?php endif; ?>
 	<?php else : ?>
@@ -101,7 +109,7 @@
 
 <p>
 <strong>Valkrets: </strong><?php echo $voteinfo['constituency_name']; ?><br>
-<?php if($voteinfo['proposition_created']) : ?>
+<?php if($voteinfo['status'] != "continuous" && $voteinfo['status'] != "finished") : ?>
   <strong>Propositionen skapad: </strong><?php echo general_helpers::show_date($voteinfo['proposition_created']); ?><br>
   <strong>Propositionen skapad av: </strong><a href="index.php?type=member&action=view&id=<?php echo $voteinfo['user_id']; ?>"><?php echo $voteinfo['user_full_name']; ?></a><br>
 <?php else : ?>

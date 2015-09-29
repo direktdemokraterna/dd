@@ -534,5 +534,14 @@ public static function get_prio_vote_result_for_single_voter ($vote_id, $prio_ra
 
 }
 
+public static function sort_prio_ranking ($prio_ranking){
+	// Ordering JSON prio ranking so that highest rank is top and lowest rank bottom
+	$prio_ranking_array = json_decode($prio_ranking, true);
+	arsort($prio_ranking_array, SORT_NUMERIC);
+	$sorted_prio_ranking = json_encode($prio_ranking_array);
+
+	return $sorted_prio_ranking;
+}
+
 
 } //End of class

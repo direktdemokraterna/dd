@@ -62,66 +62,24 @@ class db_vote {
 
 	}
 
-	public static function register_yes_no_ballot ($vote_id, $user_code, $alternative){
-
-		$query = "delete from ballots where vote_id = ? and user_code = ?";
-		$values = Array($vote_id, $user_code);
-
-		db::delete($query, $values);
+	public static function insert_ballot ($vote_id, $ballot, $user_code, $voter_is_delegate_id = null, $delegate_id = null, $delegation_level = null, $delegate_priority = null){
 
 		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
 
-		$query = "insert into ballots (vote_id, constituency_id, ballot_alternative, user_code, time_ballot_placed) values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $constituency_id, $alternative, $user_code, time());
-
-		$return = db::insert($query, $values);
-
-		self::count_ballots_for_vote($vote_id);
-
-		return $return;
-
-	}
-
-	public static function register_median_ballot ($vote_id, $user_code, $value){
-
-		$query = "delete from ballots where vote_id = ? and user_code = ?";
-		$values = Array($vote_id, $user_code);
-
-		db::delete($query, $values);
-
-		if(!is_numeric($value)){
-			$value = null;
+		if($user_code){
+			$query = "delete from ballots where vote_id = ? and user_code = ?";
+			$values = Array($vote_id, $user_code);
+		}
+		else{
+			$query = "delete from ballots where vote_id = ? and voter_is_delegate_id = ?";
+			$values = Array($vote_id, $delegate_id);
 		}
 
-		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
-
-		$query = "insert into ballots (vote_id, constituency_id, median_vote_value, user_code, time_ballot_placed) values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $constituency_id, $value, $user_code, time());
-
-		$return = db::insert($query, $values);
-
-		self::count_ballots_for_vote($vote_id);
-
-		return $return;
-
-	}
-
-	public static function register_prio_vote_ballot ($vote_id, $user_code, $prio_ranking){
-
-		$query = "delete from ballots where vote_id = ? and user_code = ?";
-		$values = Array($vote_id, $user_code);
-
 		db::delete($query, $values);
 
-		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
 
-		// Ordering JSON prio ranking so that highest rank is top and lowest rank bottom
-		$prio_ranking_array = json_decode($prio_ranking, true);
-		arsort($prio_ranking_array, SORT_NUMERIC);
-		$sorted_prio_ranking = json_encode($prio_ranking_array);
-
-		$query = "insert into ballots (vote_id, constituency_id, prio_ranking, user_code, time_ballot_placed) values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $constituency_id, $sorted_prio_ranking, $user_code, time());
+		$query = "insert into ballots (vote_id, constituency_id, ballot, user_code, voter_is_delegate_id, delegate_id, delegation_level, delegate_priority, time_ballot_placed) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($vote_id, $constituency_id, $ballot, $user_code, $voter_is_delegate_id, $delegate_id, $delegation_level, $delegate_priority, time());
 
 		$return = db::insert($query, $values);
 
@@ -155,31 +113,7 @@ class db_vote {
 
 	public static function get_ballots ($vote_id){
 
-		$query = "select b.user_code as user_code, b.ballot_alternative as alternative, b.median_vote_value as value, b.prio_ranking as prio_ranking, b.delegate_id as delegate_id, 
-					(select d.title from delegates d where b.delegate_id = d.id) as delegate_name 
-					from ballots b 
-					where user_code is not null and b.vote_id = ?";
-		$values = Array($vote_id);
-
-		return db::select($query, $values);
-
-	}
-
-	public static function get_yes_no_ballots ($vote_id){
-
-		$query = "select b.user_code as user_code, b.ballot_alternative as alternative, b.delegate_id as delegate_id, 
-					(select d.title from delegates d where b.delegate_id = d.id) as delegate_name 
-					from ballots b 
-					where user_code is not null and b.vote_id = ?";
-		$values = Array($vote_id);
-
-		return db::select($query, $values);
-
-	}
-
-	public static function get_median_ballots ($vote_id){
-
-		$query = "select b.user_code as user_code, b.median_vote_value as value, b.delegate_id as delegate_id, 
+		$query = "select b.user_code as user_code, b.ballot as ballot, b.delegate_id as delegate_id, 
 					(select d.title from delegates d where b.delegate_id = d.id) as delegate_name 
 					from ballots b 
 					where user_code is not null and b.vote_id = ?";
@@ -235,7 +169,7 @@ class db_vote {
 
 	public static function get_ballot_from_delegate_or_user ($vote_id, $user_code, $delegand_id){
 
-		$query = "select id, ballot_alternative, prio_ranking, median_vote_value, delegate_id, time_ballot_placed, delegation_level, delegate_priority from ballots b where b.vote_id = ? and (b.user_code = ? or b.voter_is_delegate_id = ?)";
+		$query = "select id, ballot, delegate_id, time_ballot_placed, delegation_level, delegate_priority from ballots b where b.vote_id = ? and (b.user_code = ? or b.voter_is_delegate_id = ?)";
 		$values = Array($vote_id, $user_code, $delegand_id);
 
 		return db::select_single_row($query, $values);
@@ -271,7 +205,7 @@ class db_vote {
 
 	public static function get_prio_vote_ballots ($vote_id){
 
-		$query = "select b.user_code as user_code, b.prio_ranking as prio_ranking, b.delegate_id as delegate_id, 
+		$query = "select b.user_code as user_code, b.ballot as prio_ranking, b.delegate_id as delegate_id, 
 					(select d.title from delegates d where b.delegate_id = d.id) as delegate_name 
 					from ballots b 
 					where user_code is not null and b.vote_id = ?";
@@ -283,7 +217,7 @@ class db_vote {
 
 	public static function get_prio_vote_ballots_without_extra_info ($vote_id){
 
-		$query = "select prio_ranking as prio_ranking from ballots where user_code is not null and vote_id = ?";
+		$query = "select ballot as prio_ranking from ballots where user_code is not null and vote_id = ?";
 		$values = Array($vote_id);
 
 		return db::select($query, $values);

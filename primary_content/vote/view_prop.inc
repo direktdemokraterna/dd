@@ -6,6 +6,11 @@
 	foreach($list_of_votes_from_db as $row){
 		$list_of_votes[] = Array("user_code" => $row['user_code'], "support_type" => $row['support_type'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 	}
+
+	if($_SESSION['delegate_id']){
+		$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $propinfo['constituency_id']);
+		$delegate_ballot = db_delegate::get_ballot_for_prop($_GET['id'], $_SESSION['delegate_id']);
+	}		
 ?>
 
 <script>
@@ -13,11 +18,6 @@
 	var prop_id = <?php echo json_encode($propinfo['prop_id']); ?>;
 	var constituency_id = <?php echo json_encode($propinfo['constituency_id']); ?>;
 	var list_of_votes = <?php echo json_encode($list_of_votes); ?>;
-	<?php
-		if($_SESSION['delegate_id']){
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
-		}
-	?>
 	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
 </script>
 
@@ -26,18 +26,37 @@
 
 <div class="vote_result_box">
 	<?php if($propinfo['status'] == "pending") : ?>
-		Det är <?php echo $propinfo['number_of_supporters']; ?> medlem<?php if($propinfo['number_of_supporters'] != 1) echo "mar"; ?> som stöder denna proposition och <?php echo $propinfo['number_of_enemies']; ?> som förkastar den. <br>
-		Nödvändigt antal för att den ska godkännas och gå vidare till omröstning är <?php echo ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT); ?>.
+		Det är <?php echo $propinfo['number_of_supporters']; ?> medlem<?php if($propinfo['number_of_supporters'] != 1) echo "mar"; ?> som stöder denna proposition och <?php echo $propinfo['number_of_abstains']; ?> medlem<?php if($propinfo['number_of_abstains'] != 1) echo "mar"; ?> som avstår att att stödja den.<br>
+		Nödvändigt antal stödjare för att den ska godkännas och gå vidare till omröstning är <?php echo ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT); ?>.
 	<?php elseif($propinfo['status'] == "rejected") : ?>
-		Den här propositionen har förkastats av medlemmarna och är inte längre aktiv. 
+		Den här propositionen har förkastats och är inte längre aktiv. 
 	<?php elseif($propinfo['status'] == "affirmed") : ?>
 		<?php $vote_id = db_vote::get_vote_id_from_prop_id($propinfo['prop_id']); ?>
 		Den här propositionen har uppnått tillräckligt stöd för att gå vidare och bli omröstning. Omröstningen finns <a href="index.php?type=vote&action=view_vote&id=<?php echo $vote_id; ?>">här</a>.
 	<?php endif; ?>
 </div>
 
-<div id="user_vote_box">
-	Ingen röst är lagd i ditt namn angående denna proposition.
+<div class="vote_result_box" id="user_vote_box">
+	<?php if($_SESSION['delegate_id']) : ?>
+		<?php if(empty($delegate_ballot)) : ?>
+			Du som delegat har inte röstat om denna proposition.
+		<?php else : ?>
+			<?php if(isset($delegate_ballot['delegate_id'])) : ?>
+				Du som delegat har låtit din delegat rösta om denna proposition.
+			<?php else : ?>
+				Du som delegat har röstat själv om denna proposition.
+			<?php endif; ?>
+			<br>
+			Din röst:<br>
+			<?php if($delegate_ballot['support_type'] == "support") : ?>
+				Stöder
+			<?php elseif($delegate_ballot['support_type'] == "abstain") : ?>
+				Avstår
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php else : ?>
+		Ingen röst är lagd i ditt namn angående denna proposition.
+	<?php endif; ?>
 </div>
 
 <p>
@@ -74,8 +93,8 @@
 
 
 			<input type="submit" class="vote_button" id="green_vote" value="Stöder" onmousedown="return encrypt_prop_ballot('support')">
-			<input type="submit" class="vote_button" id="red_vote" value="Förkastar" onmousedown="return encrypt_prop_ballot('reject')">
 			<input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return encrypt_prop_ballot('abstain')">
+			<input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: <?php if(!empty($delegate_ballot)) echo "inline-block"; else echo "none"; ?>;" onmousedown="return encrypt_prop_ballot('cancel')">
 		</form>
 
 	<?php endif; ?>
@@ -106,6 +125,7 @@ list_of_votes.map(function (vote){
 		
 		if(vote.delegate_id == null){
 			document.getElementById("user_vote_box").innerHTML += "<br>Du har själv lagt denna röst.";
+			document.getElementById("white_vote").style.display = "inline-block";
 		}
 		else{
 			document.getElementById("user_vote_box").innerHTML += "<br>Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig.";
