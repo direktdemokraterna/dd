@@ -11,7 +11,18 @@
 
 			if(!empty($check_delegate_constituency_access) && ($voteinfo['status'] == "active" || $voteinfo['status'] == "continuous")){
 
-				$ok = vote_helpers::register_delegate_ballot($_POST['vote_id'], $_SESSION['delegate_id'], $_POST['ballot']);
+				$ballot_decoded = json_decode($_POST['ballot'], true);
+
+				if($ballot_decoded['ballot'] == "cancel"){
+					$ok = db_delegate::cancel_ballot($_POST['vote_id'], $_SESSION['delegate_id']);
+				}
+				elseif((($ballot_decoded['ballot'] == "yes" || $ballot_decoded['ballot'] == "no" || $ballot_decoded['ballot'] == "abstain") && $voteinfo['type'] == "yes-no") || ((is_numeric($ballot_decoded['ballot']) || $ballot_decoded['ballot']=="abstain") && $voteinfo['type'] == "median") || (($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") && is_array($ballot_decoded['ballot']))){
+					$ok = db_delegate::register_ballot($_POST['vote_id'], $_SESSION['delegate_id'], $ballot_decoded['ballot']);
+				}
+				else{
+					$ok = false;
+				}
+			
 				if($ok){
 					$_SESSION['report_message'] = "Din delegats röst är registrerad.";
 				}
@@ -27,6 +38,7 @@
 				if($check_user_access){
 					$post_vars = Array("user_id" => $_SESSION['id'], "vote_id" => $_POST['vote_id'], "ballot" => $_POST['ballot']);
 					$reply = crypt_helpers::curl_to_anon_server("anonymise_ballot.php", $post_vars);
+
 					if($reply == "success"){
 						$_SESSION['report_message'] = "Din röst är registrerad.";
 						}

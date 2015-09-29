@@ -1,0 +1,8 @@
+ALTER TABLE `dd`.`ballots` ADD COLUMN `ballot` TEXT AFTER `constituency_id`;
+UPDATE `dd`.`ballots` SET `ballot` = `ballot_alternative` WHERE `ballot_alternative` IS NOT NULL;
+UPDATE `dd`.`ballots` SET `ballot` = `prio_ranking` WHERE `prio_ranking` IS NOT NULL;
+UPDATE `dd`.`ballots` SET `ballot` = `median_vote_value` WHERE `median_vote_value` IS NOT NULL;
+ALTER TABLE `dd`.`ballots` 
+ DROP COLUMN `ballot_alternative`,
+ DROP COLUMN `prio_ranking`,
+ DROP COLUMN `median_vote_value`;

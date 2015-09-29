@@ -43,7 +43,7 @@ function encrypt_ballot (dd_message){
 }
 
 function encrypt_yes_no_ballot (alternative){
-	var dd_message = {vote_id: vote_id, alternative: alternative};
+	var dd_message = {vote_id: vote_id, ballot: alternative};
 
 	encrypt_ballot(dd_message);
 
@@ -51,7 +51,7 @@ function encrypt_yes_no_ballot (alternative){
 }
 
 function encrypt_prio_ballot (prio_ranking){
-	var dd_message = {vote_id: vote_id, prio_ranking: prio_ranking};
+	var dd_message = {vote_id: vote_id, ballot: prio_ranking};
 
 	encrypt_ballot(dd_message);
 
@@ -97,7 +97,7 @@ function encrypt_median_ballot (abstain_or_cancel){
 		var value = document.getElementById("median_value").value;
 		value = value.replace("'", ".");
 	}
-	var dd_message = {vote_id: vote_id, value: value};
+	var dd_message = {vote_id: vote_id, ballot: value};
 
 	encrypt_ballot(dd_message);
 

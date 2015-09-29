@@ -11,47 +11,14 @@ if(isset($_POST['user_code']) && isset($_POST['vote_id']) && isset($_POST['rsa']
 
 		$voteinfo = db_vote::get_vote_info($_POST['vote_id']);
 
-		if($voteinfo['type'] == "yes-no"){
-			// Check that ballot is valid
-			if($ballot_decoded['alternative'] == "yes" || $ballot_decoded['alternative'] == "no" || $ballot_decoded['alternative'] == "abstain"){
-				$ok = db_vote::register_yes_no_ballot($_POST['vote_id'], $_POST['user_code'], $ballot_decoded['alternative']);
-			}
-			elseif($ballot_decoded['alternative'] == "cancel"){
-				$ok = db_vote::cancel_ballot($_POST['vote_id'], $_POST['user_code']);
-			}
-			else{
-				echo "fail - invalid ballot";
-			}
+		if((($ballot_decoded['ballot'] == "yes" || $ballot_decoded['ballot'] == "no" || $ballot_decoded['ballot'] == "abstain") && $voteinfo['type'] == "yes-no") || ((is_numeric($ballot_decoded['ballot']) || $ballot_decoded['ballot']=="abstain") && $voteinfo['type'] == "median") || (($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") && is_array($ballot_decoded['ballot']))){
+			$ok = db_vote::insert_ballot($_POST['vote_id'], $ballot_decoded['ballot'], $_POST['user_code']);
 		}
-
-		elseif($voteinfo['type'] == "median"){
-			// Check that ballot is valid
-			if(is_numeric($ballot_decoded['value']) || $ballot_decoded['value']=="abstain"){
-				$ok = db_vote::register_median_ballot($_POST['vote_id'], $_POST['user_code'], $ballot_decoded['value']);
-			}
-			elseif($ballot_decoded['value'] == "cancel"){
-				$ok = db_vote::cancel_ballot($_POST['vote_id'], $_POST['user_code']);
-			}
-			else{
-				echo "fail - invalid ballot";
-			}
+		elseif($ballot_decoded['ballot'] == "cancel"){
+			$ok = db_vote::cancel_ballot($_POST['vote_id'], $_POST['user_code']);
 		}
-
-		elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election"){
-			// Check that ballot is valid
-			if(is_array($ballot_decoded['prio_ranking'])){
-				$prio_ranking = json_encode($ballot_decoded['prio_ranking']);
-				$ok = db_vote::register_prio_vote_ballot($_POST['vote_id'], $_POST['user_code'], $prio_ranking);
-				if($voteinfo['type'] == "workgroup-election"){
-					vote_helpers::workgroup_election_compare_result($_POST['vote_id']);
-				}
-			}
-			elseif($ballot_decoded['prio_ranking'] == "cancel"){
-				$ok = db_vote::cancel_ballot($_POST['vote_id'], $_POST['user_code']);
-			}
-			else{
-				echo "fail - invalid ballot";
-			}
+		else{
+			echo "fail - invalid ballot";
 		}
 
 		if($ok){

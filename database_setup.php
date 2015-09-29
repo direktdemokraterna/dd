@@ -682,7 +682,7 @@ $query = "CREATE TABLE `dd`.`propositions` (
   `constituency_id` INTEGER UNSIGNED NOT NULL,
   `status` VARCHAR(12) NOT NULL DEFAULT 'pending',
   `number_of_supporters` INTEGER UNSIGNED NOT NULL DEFAULT 0,
-  `number_of_enemies` INTEGER UNSIGNED NOT NULL DEFAULT 0,
+  `number_of_abstains` INTEGER UNSIGNED NOT NULL DEFAULT 0,
   `title` VARCHAR(90) NOT NULL,
   `description` TEXT NOT NULL,
   `forum_topic_id` INTEGER UNSIGNED,
@@ -701,9 +701,12 @@ mysql_query($query);
 $query = "CREATE TABLE `dd`.`propositions_support` (
   `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `proposition_id` INTEGER UNSIGNED NOT NULL,
-  `user_code` VARCHAR(20) NOT NULL,
+  `constituency_id` INTEGER UNSIGNED NOT NULL,
+  `user_code` VARCHAR(20),
   `voter_is_delegate_id` INTEGER UNSIGNED,
   `delegate_id` INTEGER UNSIGNED,
+  `delegation_level` INTEGER UNSIGNED,
+  `delegate_priority` INTEGER UNSIGNED,
   `support_type` VARCHAR(7) NOT NULL DEFAULT 'support',
   `time_ballot_placed` INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)

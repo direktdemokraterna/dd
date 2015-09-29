@@ -14,7 +14,16 @@ if(isset($_POST['prop_id']) && isset($_POST['ballot'])){
 
 			$ballot_decoded = json_decode($_POST['ballot'], true);
 
-			$ok = db_delegate::register_delegate_prop_ballot($_POST['prop_id'], $_SESSION['delegate_id'], $_POST['ballot']);
+			if($ballot_decoded['support_type'] == "cancel"){
+				$ok = db_delegate::cancel_prop_ballot($_POST['prop_id'], $_SESSION['delegate_id']);
+			}
+			elseif($ballot_decoded['support_type'] == "support" || $ballot_decoded['support_type'] == "abstain"){
+				$ok = db_delegate::register_prop_ballot($_POST['prop_id'], $_SESSION['delegate_id'], $ballot_decoded['support_type']);
+			}
+			else{
+				$ok = false;
+			}
+
 			if($ok){
 				$_SESSION['report_message'] = "Din delegats röst är registrerad.";
 			}
