@@ -56,6 +56,7 @@ elseif($_GET['type']=="forum") {
 		require("execute_scripts/forum/show_topics.inc");
 	}
 	elseif($_GET['action']=="show_posts"){
+ 		require("execute_scripts/forum/sort_posts_and_topics.inc");
 		require("execute_scripts/forum/show_posts.inc");
 	}
 	elseif($_GET['action']=="report"){
@@ -66,6 +67,9 @@ elseif($_GET['type']=="forum") {
 	}
 	elseif($_GET['action']=="add"){
 		require("execute_scripts/forum/add_to_post.inc");
+	}
+	elseif($_GET['action']=="delete"){
+		require("execute_scripts/forum/delete_post.inc");
 	}
 }
 
