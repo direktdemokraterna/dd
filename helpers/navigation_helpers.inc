@@ -1,151 +1,231 @@
 <?php
-
 class navigation_helpers {
-public static $DIVISIONS = Array(
-	"member" => array("pages" => Array(
-		"list" => array("actions" => array(), "page" => "memberlist.inc")
-		,"view" => array("actions" => array(), "page" => "view.inc")
-		,"notices" => array("actions" => array(), "page" => "notices.inc")
-		,"settings" => array("actions" => array(), "page" => "settings.inc")
-		,"calendar" => array("actions" => array(), "page" => "calendar.inc")
-		,"calendar_add" => array("actions" => array(), "page" => "calendar_add.inc")
-		,"calendar_edit" => array("actions" => array(), "page" => "calendar_edit.inc")
-		,"admin_description" => array("actions" => array(), "page" => "admin_description.inc")
-		,"admin_list" => array("actions" => array(), "page" => "admin_list.inc")
-		,"search" => array("actions" => array(), "page" => "search.inc"))
-	,"default_page" => "memberlist.inc", "role" => null)
+	private static $divisions = null;
 
-	,"message" => array("pages" => Array(
-		"inbox" => array("actions" => array(), "page" => "inbox.inc")
-		,"outbox" => array("actions" => array(), "page" => "outbox.inc")
-		,"write" => array("actions" => array(), "page" => "write.inc")
-		,"view" => array("actions" => array(), "page" => "view.inc"))
-	, "default_page" => "inbox.inc", "role" => null)
+	public static function getDivisions() {
+		if (self::$divisions == null) {
+			self::$divisions = self::create_divisions();
+		}
+		return self::$divisions;
+	}
 
-	,"workgroup" => array("pages" => Array(
-		"listall" => array("actions" => array(), "page" => "listall.inc")
-		,"listproposed" => array("actions" => array(), "page" => "listproposed.inc")
-		,"create" => array("actions" => array(), "page" => "create.inc")
-		,"edit" => array("actions" => array(), "page" => "edit.inc")
-		,"edit" => array("actions" => array(), "page" => "edit.inc")
-		,"view" => array("actions" => array(), "page" => "view.inc")
-		,"cancel_exclude" => array("actions" => array(), "page" => "view.inc")
-		,"support_exclude" => array("actions" => array(), "page" => "view.inc")
-		,"support_candidate" => array("actions" => array(), "page" => "view.inc")
-		,"cancel_support_candidate" => array("actions" => array(), "page" => "view.inc")
-		,"submit_candidacy" => array("actions" => array(), "page" => "view.inc")
-		,"cancel_candidacy" => array("actions" => array(), "page" => "view.inc")
-		,"support_workgroup" => array("actions" => array(), "page" => "view.inc")
-		,"cancel_support_workgroup" => array("actions" => array(), "page" => "view.inc")
-		,"search" => array("actions" => array(), "page" => "search.inc"))
-, "default_page" => "listall.inc", "role" => null)
+	private static function create_divisions() {
+		return array(
+			"admin_role" => Division_info::create(array(
+				"view" => Page_info::create("description.inc", Page_info::VIEW_AND_EXECUTE)))
+			,"member" => Division_info::create(array(
+				"list" => Page_info::create("memberlist.inc")
+				,"view" => Page_info::create("view.inc")
+				,"notices" => Page_info::create("notices.inc")
+				,"settings" => Page_info::create("settings.inc")
+				,"calendar" => Page_info::create("calendar.inc", Page_info::VIEW_AND_EXECUTE)
+				,"calendar_add" => Page_info::create("calendar_add.inc", Page_info::VIEW_AND_EXECUTE)
+				,"calendar_edit" => Page_info::create("calendar_edit.inc", Page_info::VIEW_AND_EXECUTE)
+				,"admin_description" => Page_info::create("admin_description.inc")
+				,"admin_list" => Page_info::create("admin_list.inc")
+				,"search" => Page_info::create("search.inc")
+				,"settings" => Page_info::create("settings.inc", Page_info::EXECUTE))
+			,"memberlist.inc")
 
-,"admin_role" => array("pages" => 
-	Array("description" => array("actions" => array(), "page" => "description.inc"))
-	, "default_page" => null, "role" => null)
+			,"message" => Division_info::create(array(
+				"inbox" => Page_info::create("inbox.inc", Page_info::VIEW_AND_EXECUTE)
+				,"outbox" => Page_info::create("outbox.inc", Page_info::VIEW_AND_EXECUTE)
+				,"write" => Page_info::create("write.inc", Page_info::VIEW_AND_EXECUTE)
+				,"view" => Page_info::create("view.inc", Page_info::VIEW_AND_EXECUTE))
+			, "inbox.inc")
 
-,"forum" => array("pages" => Array(
-	"show_forums" => array("actions" => array(), "page" => "show_forums.inc")
-	,"show_topics" => array("actions" => array(), "page" => "show_topics.inc")
-	,"show_posts" => array("actions" => array(), "page" => "show_posts.inc")
-	,"new_topic" => array("actions" => array(), "page" => "new_topic.inc")
-	,"new_post" => array("actions" => array(), "page" => "new_post.inc")
-	,"report" => array("actions" => array(), "page" => "report_post.inc")
-	,"edit" => array("actions" => array(), "page" => "edit_post.inc")
-	,"add" => array("actions" => array(), "page" => "add_to_post.inc")
-	,"topics_by_user" => array("actions" => array(), "page" => "topics_by_user.inc")
-	,"posts_by_user" => array("actions" => array(), "page" => "posts_by_user.inc")
-	,"search" => array("actions" => array(), "page" => "search.inc"))
-, "default_page" => "show_forums.inc", "role" => null)
+			,"workgroup" => Division_info::create(array(
+				"listall" => Page_info::create("listall.inc")
+				,"listproposed" => Page_info::create("listproposed.inc")
+				,"create" => Page_info::create("create.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit" => Page_info::create("edit.inc", Page_info::VIEW_AND_EXECUTE)
+				,"view" => Page_info::create("view.inc", Page_info::VIEW_AND_EXECUTE)
+				,"cancel_exclude" => Page_info::create("view.inc")
+				,"support_exclude" => Page_info::create("view.inc")
+				,"support_candidate" => Page_info::create("view.inc")
+				,"cancel_support_candidate" => Page_info::create("view.inc")
+				,"submit_candidacy" => Page_info::create("view.inc")
+				,"cancel_candidacy" => Page_info::create("view.inc")
+				,"support_workgroup" => Page_info::create("view.inc")
+				,"cancel_support_workgroup" => Page_info::create("view.inc")
+				,"search" => Page_info::create("view.inc"))
+			,"listall.inc")
 
-,"vote" => array("pages" => Array(
-	"add_prop" => array("actions" => array(), "page" => "add_prop.inc")
-	,"list_props" => array("actions" => array(), "page" => "list_props.inc")
-	,"list_old_props" => array("actions" => array(), "page" => "list_old_props.inc")
-	,"view_prop" => array("actions" => array(), "page" => "view_prop.inc")
-	,"delegate_settings" => array("actions" => array(), "page" => "delegate_settings.inc")
-	,"view_delegate" => array("actions" => array(), "page" => "view_delegate.inc")
-	,"list_delegates" => array("actions" => array(), "page" => "list_delegates.inc")
-	,"delegations" => array("actions" => array(), "page" => "delegations.inc")
-	,"list_active_votes" => array("actions" => array(), "page" => "list_active_votes.inc")
-	,"list_old_votes" => array("actions" => array(), "page" => "list_old_votes.inc")
-	,"view_vote" => array("actions" => array(), "page" => "view_vote.inc")
-	,"delegate_votes" => array("actions" => array(), "page" => "delegate_votes.inc")
-	,"add_alternative" => array("actions" => array(), "page" => "add_alternative.inc")
-	,"search" => array("actions" => array(), "page" => "search.inc"))
-, "default_page" => "list_active_votes.inc", "role" => null)
+			,"forum" => Division_info::create(array(
+				"show_forums" => Page_info::create("show_forums.inc", Page_info::VIEW_AND_EXECUTE)
+				,"show_topics" => Page_info::create("show_topics.inc", Page_info::VIEW_AND_EXECUTE)
+				,"show_posts" => Page_info::create("show_posts.inc", Page_info::VIEW_AND_EXECUTE)
+				,"new_topic" => Page_info::create("new_topic.inc")
+				,"new_post" => Page_info::create("new_post.inc")
+				,"report" => Page_info::create("report_post.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit" => Page_info::create("edit_post.inc", Page_info::VIEW_AND_EXECUTE)
+				,"add" => Page_info::create("add_to_post.inc", Page_info::VIEW_AND_EXECUTE)
+				,"delete" => Page_info::create("delete_post.inc", Page_info::EXECUTE)
+				,"topics_by_user" => Page_info::create("topics_by_user.inc")
+				,"posts_by_user" => Page_info::create("posts_by_user.inc")
+				,"search" => Page_info::create("search.inc"))
+			, "show_forums.inc")
 
-,"member_admin" => array("pages" => Array(
-	"create_new" => array("actions" => array(), "page" => "create_new.inc")
-	,"edit" => array("actions" => array(), "page" => "edit.inc")
-	,"memberlist" => array("actions" => array(), "page" => "memberlist.inc")
-	,"list_applications" => array("actions" => array(), "page" => "list_applications.inc")
-	,"process_application" => array("actions" => array(), "page" => "process_application.inc")
-	,"view_delegate" => array("actions" => array(), "page" => "view_delegate.inc")
-	,"list_delegates" => array("actions" => array(), "page" => "list_delegates.inc")
-	,"create_workgroup" => array("actions" => array(), "page" => "create_workgroup.inc")
-	,"edit_workgroup" => array("actions" => array(), "page" => "edit_workgroup.inc"))
-, "default_page" => "memberlist.inc", "role" => "is_member_admin")
+			,"vote" => Division_info::create(array(
+				"add_prop" => Page_info::create("add_prop.inc", Page_info::VIEW_AND_EXECUTE)
+				,"list_props" => Page_info::create("list_props.inc")
+				,"list_old_props" => Page_info::create("list_old_props.inc")
+				,"view_prop" => Page_info::create("view_prop.inc", Page_info::VIEW_AND_EXECUTE)
+				,"delegate_settings" => Page_info::create("delegate_settings.inc", Page_info::VIEW_AND_EXECUTE)
+				,"view_delegate" => Page_info::create("view_delegate.inc", Page_info::VIEW_AND_EXECUTE)
+				,"list_delegates" => Page_info::create("list_delegates.inc")
+				,"delegations" => Page_info::create("delegations.inc", Page_info::VIEW_AND_EXECUTE)
+				,"list_active_votes" => Page_info::create("list_active_votes.inc")
+				,"list_old_votes" => Page_info::create("list_old_votes.inc")
+				,"view_vote" => Page_info::create("view_vote.inc", Page_info::VIEW_AND_EXECUTE)
+				,"delegate_votes" => Page_info::create("delegate_votes.inc")
+				,"add_alternative" => Page_info::create("add_alternative.inc", Page_info::VIEW_AND_EXECUTE)
+				,"search" => Page_info::create("search.inc"))
+			, "list_active_votes.inc")
 
-,"forum_admin" => array("pages" => Array(
-	"new_category" => array("actions" => array(), "page" => "new_category.inc")
-	,"list_categories" => array("actions" => array(), "page" => "list_categories.inc")
-	,"edit_category" => array("actions" => array(), "page" => "edit_category.inc")
-	,"new_forum" => array("actions" => array(), "page" => "new_forum.inc")
-	,"list_forums" => array("actions" => array(), "page" => "list_forums.inc")
-	,"edit_forum" => array("actions" => array(), "page" => "edit_forum.inc")
-	,"edit_topic" => array("actions" => array(), "page" => "edit_topic.inc")
-	,"edit_post" => array("actions" => array(), "page" => "edit_post.inc")
-	,"edit_user" => array("actions" => array(), "page" => "edit_user.inc"))
-, "default_page" => "list_categories.inc", "role" => "is_forum_admin")
+			,"member_admin" => Division_info::create(array(
+				"create_new" => Page_info::create("create_new.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit" => Page_info::create("edit.inc", Page_info::VIEW_AND_EXECUTE)
+				,"memberlist" => Page_info::create("memberlist.inc")
+				,"list_applications" => Page_info::create("list_applications.inc")
+				,"process_application" => Page_info::create("process_application.inc", Page_info::VIEW_AND_EXECUTE)
+				,"view_delegate" => Page_info::create("view_delegate.inc")
+				,"list_delegates" => Page_info::create("list_delegates.inc")
+				,"create_workgroup" => Page_info::create("create_workgroup.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_workgroup" => Page_info::create("edit_workgroup.inc", Page_info::VIEW_AND_EXECUTE))
+			, "memberlist.inc", "is_member_admin")
 
-,"vote_admin" => array("pages" => Array(
-	"create_new_vote" => array("actions" => array(), "page" => "create_new_vote.inc")
-	,"edit_vote" => array("actions" => array(), "page" => "edit_vote.inc")
-	,"edit_alternatives" => array("actions" => array(), "page" => "edit_alternatives.inc")
-	,"edit_alternative" => array("actions" => array(), "page" => "edit_alternative.inc")
-	,"edit_user" => array("actions" => array(), "page" => "edit_user.inc")
-	,"edit_constituency" => array("actions" => array(), "page" => "edit_constituency.inc")
-	,"constituencylist" => array("actions" => array(), "page" => "constituencylist.inc")
-	,"edit_post" => array("actions" => array(), "page" => "edit_post.inc")
-	,"edit_user" => array("actions" => array(), "page" => "edit_user.inc"))
-, "default_page" => "votelist.inc", "role" => "is_vote_admin")
+			,"forum_admin" => Division_info::create(array(
+				"new_category" => Page_info::create("new_category.inc", Page_info::VIEW_AND_EXECUTE)
+				,"list_categories" => Page_info::create("list_categories.inc")
+				,"edit_category" => Page_info::create("edit_category.inc", Page_info::VIEW_AND_EXECUTE)
+				,"new_forum" => Page_info::create("new_forum.inc", Page_info::VIEW_AND_EXECUTE)
+				,"list_forums" => Page_info::create("list_forums.inc")
+				,"edit_forum" => Page_info::create("edit_forum.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_topic" => Page_info::create("edit_topic.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_post" => Page_info::create("edit_post.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_user" => Page_info::create("edit_user.inc", Page_info::VIEW_AND_EXECUTE))
+			, "list_categories.inc", "is_forum_admin")
 
-,"treasurer" => array("pages" => 
-	Array("treasurer" => array("actions" => array(), "page" => "treasurer.inc"))
-	, "default_page" => "treasurer.inc", "role" => "is_treasurer")
+			,"vote_admin" => Division_info::create(array(
+				"create_new_vote" => Page_info::create("create_new_vote.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_vote" => Page_info::create("edit_vote.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_alternatives" => Page_info::create("edit_alternatives.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_alternative" => Page_info::create("edit_alternative.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_user" => Page_info::create("edit_user.inc")
+				,"edit_constituency" => Page_info::create("edit_constituency.inc")
+				,"constituencylist" => Page_info::create("constituencylist.inc")
+				,"edit_post" => Page_info::create("edit_post.inc")
+				,"edit_user" => Page_info::create("edit_user.inc", Page_info::VIEW_AND_EXECUTE))
+			, "votelist.inc", "is_vote_admin")
 
-,"superadmin" => array("pages" => 
-	Array("edit_admin" => array("actions" => array(), "page" => "edit_admin.inc"))
-	, "default_page" => "memberlist.inc", "role" => "is_superadmin")
-);
+			,"treasurer" => Division_info::create(array(
+				"treasurer" => Page_info::create("treasurer.inc"))
+			, "treasurer.inc", "is_treasurer")
 
-public static function execute_action_script() {
+			,"superadmin" => Division_info::create(array(
+				"edit_admin" => Page_info::create("edit_admin.inc", Page_info::VIEW_AND_EXECUTE))
+			, "memberlist.inc", "is_superadmin")
+		);
+	}
+
+	public static function execute_action_script() {
+		$divisionName = $_GET['type'];
+		$division = self::get_division($divisionName);
+		if ($division == null) return;
+		$pageInfo = $division->get_page($_GET['action'], Page_info::EXECUTE);
+		if ($pageInfo != null) {
+			$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
+			require($path);
+			if(isset($redirect)){
+				header("Location: $redirect");
+				exit();
+			}
+		}
+	}
+
+	public static function get_subpage() {
+		$path = self::get_specific_path();
+		return $path != null 
+			? $path
+			: "primary_content/first_page.inc";
+	}
+
+	private static function get_specific_path() {
+		$divisionName = $_GET['type'];
+		$division = self::get_division($divisionName);
+		if ($division == null) return null;
+		$pageName = $division->get_page_name($_GET['action']);
+		return $pageName != null 
+			? "primary_content/" . $divisionName . "/" . $pageName 
+			: null;
+	}
+
+	private static function get_division($divisionName) {
+		$divisions = self::getDivisions();
+		$division = isset($divisions[$divisionName]) 
+			? $divisions[$divisionName] 
+			: null;
+		return $division != null && $division->user_has_access() 
+			? $division 
+			: null;
+	}
 }
 
-public static function get_subpage() {
-	$path = self::get_specific_path();
-	return $path != null 
-	? $path
-	: "primary_content/first_page.inc";
+class Division_info {
+	public $pages;
+	public $default_page;
+	public $role;
+
+	public static function create($pages, $default_page = null, $role = null) {
+		$division_info = new Division_info;
+		$division_info->pages = $pages;
+		$division_info->default_page = $default_page;
+		$division_info->role = $role;
+		return $division_info;
+	}
+
+	public function get_page_name($actionName) {
+		$pageInfo = $this->get_page($actionName);
+		return $pageInfo != null
+			? $pageInfo->name 
+			: $division->default_page;
+	}
+
+	public function get_page($name, $page_type = Page_info::VIEW) {
+		$page = isset($this->pages[$name])
+			? $this->pages[$name]
+			: null;
+		return $page != null && $page->is_applicable($page_type) 
+			? $page 
+			: null;
+	}
+
+	public function user_has_access() {
+		return $this->role == null || isset($_SESSION[$this->role]);
+	}
 }
 
-private static function get_specific_path() {
-	$divisionName = $_GET['type'];
-	$division = isset(self::$DIVISIONS[$divisionName]) 
-	? self::$DIVISIONS[$divisionName] 
-	: null;
-	if($division == null || !self::user_has_access($division)) return null;
+class Page_info {
+	const VIEW = 1;
+	const EXECUTE = 2;
+	const VIEW_AND_EXECUTE = 3;
 
-	$actionName = $_GET['action'];
-	$pages = $division["pages"];
-	$pageName = isset($pages[$actionName])
-	? $pages[$actionName]["page"] 
-	: $division["default_page"];
-	return $pageName != null ? "primary_content/" . $divisionName . "/" . $pageName : null;
-}
+	public $name;
+	public $page_type;
+	public $show;
+	public $execute;
 
-private static function user_has_access($division) {
-	return $division["role"] == null || isset($_SESSION[$division["role"]]);
+	public static function create($name, $page_type = self::VIEW) {
+		$page_info = new Page_info();
+		$page_info->name = $name;
+		$page_info->page_type = $page_type;
+		$page_info->show = $page_info->is_applicable(self::VIEW);
+		$page_info->execute = $page_info->is_applicable(self::EXECUTE);
+		return $page_info;
+	}
+
+	public function is_applicable($page_type) {
+		return ($page_type & $this->page_type) === $page_type;
+	}
 }
-} //End of class

@@ -1,6 +1,6 @@
 <?php 
 include("helpers/init.inc");
-include("execute_scripts/execute_scripts.inc");
+navigation_helpers::execute_action_script();
 ?>
 <html><head>
 <?php
@@ -17,14 +17,14 @@ if(isset($_GET['login']) || isset($_GET['logout']) || (!isset($_SESSION['id']) &
 
 <body>
 
-<?php
+	<?php
 	if(isset($_SESSION['id'])){
 		require("index_logged_in.inc");
 	}
 	else{
 		require("index_logged_out.inc");
 	}
-?>
+	?>
 
 </body>
 </html>
