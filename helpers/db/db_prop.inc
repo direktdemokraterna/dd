@@ -124,7 +124,7 @@ class db_prop {
 
 	public static function count_prop_support ($prop_id){
 
-		$query = "update propositions set number_of_supporters = (select count(*) from propositions_support where proposition_id = ? and support_type = 'support' and user_code is not null), number_of_abstains = (select count(*) from propositions_support where proposition_id = ? and support_type = 'reject' and user_code is not null) where id = ?";
+		$query = "update propositions set number_of_supporters = (select count(*) from propositions_support where proposition_id = ? and support_type = 'support' and user_code is not null), number_of_abstains = (select count(*) from propositions_support where proposition_id = ? and support_type = 'abstain' and user_code is not null) where id = ?";
 		$values = Array($prop_id, $prop_id, $prop_id);
 
 		$ok = db::update($query, $values);
