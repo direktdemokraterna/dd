@@ -65,16 +65,6 @@ function encrypt_prio_ballot (prio_ranking){
 	return true;
 }
 
-function encrypt_prio_abstain (){
-	var prio_ranking = '{}';
-
-	encrypt_prio_ballot(prio_ranking);
-
-	var already_encrypted = true;
-
-	return true;
-}
-
 function encrypt_prop_ballot (support_type){
 	var dd_message = {prop_id: prop_id, support_type: support_type};
 
