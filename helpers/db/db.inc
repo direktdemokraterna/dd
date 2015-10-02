@@ -25,6 +25,18 @@ class db {
 
 	}
 
+	// returns a result array from a select query with result in a associative array only
+	public static function select_associative ($query, $values){
+
+		$db = self::connect();
+
+		$stmt = $db->prepare($query);
+		$stmt->execute($values);
+
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	}
+
 	// returns a sequential only result array from a select query
 	public static function select_sequential_array ($query, $values){
 
@@ -37,7 +49,7 @@ class db {
 
 	}
 
-	// returns single value from a select query
+	// returns single row from a select query
 	public static function select_single_row ($query, $values){
 
 		$db = self::connect();
@@ -45,7 +57,25 @@ class db {
 		$stmt = $db->prepare($query);
 		$stmt->execute($values);
 
-		$result = $stmt->fetchAll();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		if(!empty($result)){
+			return $result[0];
+		}
+		else{
+			return false;
+		}
+
+	}
+
+	// returns single row from a select query with result in a associative array only
+	public static function select_single_row_associative ($query, $values){
+
+		$db = self::connect();
+
+		$stmt = $db->prepare($query);
+		$stmt->execute($values);
+
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		if(!empty($result)){
 			return $result[0];
 		}

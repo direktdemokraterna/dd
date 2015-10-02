@@ -33,6 +33,15 @@ class db_prop {
 
 	}
 
+	public static function get_number_of_ballots ($prop_id){
+
+		$query = "select (select count(*) from propositions_support where proposition_id = ? and user_code is not null) as total_number_of_ballots, (select count(*) from propositions_support where proposition_id = ? and user_code is not null and delegate_id is null) as number_of_direct_ballots, (select count(*) from propositions_support where proposition_id = ? and user_code is null) as number_of_delegate_ballots";
+		$values = Array($prop_id, $prop_id, $prop_id);
+
+		return db::select_single_row($query, $values);
+
+	}
+
 	public static function get_prop_status ($prop_id){
 
 		$query = "select status from propositions p where id = ?";
@@ -44,8 +53,8 @@ class db_prop {
 
 	public static function get_prop_supporters ($prop_id){
 
-		$query = "select ps.user_code as user_code, ps.support_type as support_type, ps.delegate_id as delegate_id, 
-					(select d.title from delegates d where ps.delegate_id = d.id) as delegate_name 
+		$query = "select ps.user_code as user_code, ps.voter_is_delegate_id as voter_is_delegate_id, (select d1.title from delegates d1 where ps.voter_is_delegate_id = d1.id) as voter_is_delegate_name, ps.support_type as support_type, ps.delegate_id as delegate_id, 
+					(select d2.title from delegates d2 where ps.delegate_id = d2.id) as delegate_name, time_ballot_placed as time_ballot_placed 
 					from propositions_support ps 
 					where ps.proposition_id = ?";
 		$values = Array($prop_id);

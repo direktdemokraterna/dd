@@ -1,9 +1,9 @@
 <script>
 
 <?php if($_SESSION['delegate_id']) : ?>
-  <?php if(!empty($delegate_ballot)) : ?>
+  <?php if(!empty($delegate_ballot) && $delegate_ballot['ballot'] != "abstain") : ?>
     var vote = <?php echo json_encode($delegate_ballot); ?>;
-    var prio_ranking_object = JSON.parse(vote.prio_ranking);
+    var prio_ranking_object = JSON.parse(vote.ballot);
 
     var ul_support = document.getElementById("support-list");
     var ul_reject = document.getElementById("reject-list");
@@ -52,41 +52,47 @@
 <?php else : ?>
   list_of_votes.map(function (vote){
     if(vote.user_code == sessionStorage.active_user_code){
-      var prio_ranking_object = JSON.parse(vote.prio_ranking);
-
-      var ul_support = document.getElementById("support-list");
-      var ul_reject = document.getElementById("reject-list");
-
-      for (var key in prio_ranking_object) {
-        if (prio_ranking_object.hasOwnProperty(key)) {
- 
-          var li_element = document.getElementById(key);
-          if(li_element != null){
-            var li_content = li_element.innerHTML;
-            li_element.parentNode.removeChild(li_element);
-
-            var li = document.createElement("li");
-            li.setAttribute("id", key);
-            li.className = "sortable";
-
-            if(prio_ranking_object[key] > 0){
-              ul_support.appendChild(li);
-            }
-            else{
-              ul_reject.appendChild(li);
-            }
-
-            document.getElementById(key).innerHTML = li_content;
-          }
-        }
-      }
-
       if(vote.delegate_id == null){
         document.getElementById("user_vote_box").innerHTML = "Du har röstat själv i denna fråga.";
         document.getElementById("white_vote").style.display = "inline-block";
       }
       else{
         document.getElementById("user_vote_box").innerHTML = "Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig i denna fråga.";
+      }
+
+      if(vote.prio_ranking == "abstain"){
+        document.getElementById("user_vote_box").innerHTML += "<br>Din röst:<br>Avstår";
+      }
+
+      else{
+        var prio_ranking_object = JSON.parse(vote.prio_ranking);
+
+        var ul_support = document.getElementById("support-list");
+        var ul_reject = document.getElementById("reject-list");
+
+        for (var key in prio_ranking_object) {
+          if (prio_ranking_object.hasOwnProperty(key)) {
+ 
+            var li_element = document.getElementById(key);
+            if(li_element != null){
+              var li_content = li_element.innerHTML;
+              li_element.parentNode.removeChild(li_element);
+
+              var li = document.createElement("li");
+              li.setAttribute("id", key);
+              li.className = "sortable";
+
+              if(prio_ranking_object[key] > 0){
+                ul_support.appendChild(li);
+              }
+              else{
+                ul_reject.appendChild(li);
+              }
+
+              document.getElementById(key).innerHTML = li_content;
+            }
+          }
+        }
       }
     }
   });

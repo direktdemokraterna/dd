@@ -7,13 +7,13 @@
 	$list_of_votes = Array();
 	foreach($list_of_votes_from_db as $row){
 		if($voteinfo['type'] == "yes-no"){
-			$list_of_votes[] = Array("user_code" => $row['user_code'], "alternative" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+			$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_is_delegate_id" => $row['voter_is_delegate_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "alternative" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 		}
 		elseif($voteinfo['type'] == "median"){
-			$list_of_votes[] = Array("user_code" => $row['user_code'], "value" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+			$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_is_delegate_id" => $row['voter_is_delegate_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "value" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 		}
 		elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election"){
-			$list_of_votes[] = Array("user_code" => $row['user_code'], "prio_ranking" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+			$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_is_delegate_id" => $row['voter_is_delegate_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "prio_ranking" => $row['ballot'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 		}
 	}
 
@@ -87,17 +87,15 @@
 			<?php endif; ?>
 			<br>
 			Din röst:<br>
-			<?php if($voteinfo['type'] == "yes-no") : ?>
-				<?php if($delegate_ballot['ballot'] == "yes") : ?>
-					Ja
-				<?php elseif($delegate_ballot['ballot'] == "no") : ?>
-					Nej
-				<?php else : ?>
-					Avstår
-				<?php endif; ?>
-			<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
+			<?php if($delegate_ballot['ballot'] == "abstain") : ?>
+				Avstår
+			<?php elseif($voteinfo['type'] == "yes-no" && $delegate_ballot['ballot'] == "yes") : ?>
+				Ja
+			<?php elseif($voteinfo['type'] == "yes-no" && $delegate_ballot['ballot'] == "no") : ?>
+				Nej
+			<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election" && $delegate_ballot['ballot'] != "abstain") : ?>
 				<?php vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], json_decode($delegate_ballot['ballot'], true)); ?>
-			<?php elseif($voteinfo['type'] == "median") : ?>
+			<?php elseif($voteinfo['type'] == "median" && is_numeric($delegate_ballot['ballot'])) : ?>
 				<?php echo $delegate_ballot['ballot']; ?>
 			<?php endif; ?>
 		<?php endif; ?>
@@ -132,7 +130,13 @@
 
 
 <?php if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']) : ?>
-	<p><a href="index.php?type=vote&action=delegate_votes&id=<?php echo $_GET['id']; ?>">Se delegatröster för denna omröstning</a></p>
+	<?php if($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median") : ?>
+		<div class="" id="delegate_votes_box">
+			<a href="#" onclick="show_delegate_votes()">Se delegaters röster för denna omröstning</a>
+		</div>
+	<?php else : ?>
+		<p><a href="index.php?type=vote&action=view_ballots&id=<?php echo $_GET['id']; ?>">Se alla röster för denna omröstning</a></p>
+	<?php endif; ?>
 <?php endif; ?>
 
 

@@ -16,8 +16,12 @@
 				if($ballot_decoded['ballot'] == "cancel"){
 					$ok = db_delegate::cancel_ballot($_POST['vote_id'], $_SESSION['delegate_id']);
 				}
-				elseif((($ballot_decoded['ballot'] == "yes" || $ballot_decoded['ballot'] == "no" || $ballot_decoded['ballot'] == "abstain") && $voteinfo['type'] == "yes-no") || ((is_numeric($ballot_decoded['ballot']) || $ballot_decoded['ballot']=="abstain") && $voteinfo['type'] == "median") || (($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") && is_array($ballot_decoded['ballot']))){
+				elseif($ballot_decoded['ballot'] == "abstain" || (($ballot_decoded['ballot'] == "yes" || $ballot_decoded['ballot'] == "no") && $voteinfo['type'] == "yes-no") || (is_numeric($ballot_decoded['ballot']) && $voteinfo['type'] == "median")){
 					$ok = db_delegate::register_ballot($_POST['vote_id'], $_SESSION['delegate_id'], $ballot_decoded['ballot']);
+				}
+				elseif(($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") && is_array($ballot_decoded['ballot'])){
+					$ballot = json_encode($ballot_decoded['ballot']);
+					$ok = db_delegate::register_ballot($_POST['vote_id'], $_SESSION['delegate_id'], $ballot);
 				}
 				else{
 					$ok = false;

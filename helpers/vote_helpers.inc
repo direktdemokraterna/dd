@@ -10,9 +10,11 @@ public static function ballot_count_yes_no_abstain ($array_of_ballots){
 	$abstain = 0;
 
 	foreach($array_of_ballots as $row){
-	    if($row['alternative'] == "yes") $yes++;
-	    elseif($row['alternative'] == "no") $no++;
-	    elseif($row['alternative'] == "abstain") $abstain++;
+		if($row['user_code'] != null){
+		    if($row['alternative'] == "yes") $yes++;
+		    elseif($row['alternative'] == "no") $no++;
+	    	elseif($row['alternative'] == "abstain") $abstain++;
+	    }
 	}
 
 	return Array("yes" => $yes, "no" => $no, "abstain" => $abstain);
@@ -23,8 +25,10 @@ public static function ballot_count_median ($array_of_ballots){
 
 	$array_of_values = array();
 	foreach ($array_of_ballots as $item) {
-   		if($item['value'] != null){
-   			$array_of_values[] = $item['value'];
+		if($item['user_code'] != null){
+	   		if(is_numeric($item['value'])){
+   				$array_of_values[] = $item['value'];
+   			}
    		}
 	}
 
@@ -44,45 +48,6 @@ public static function ballot_count_median ($array_of_ballots){
 		}
 
 		return $median;
-	}
-
-}
-
-public static function register_delegate_ballot ($vote_id, $delegate_id, $ballot){
-
-	$type = db_vote::get_vote_type_from_id($vote_id);
-	$ballot_decoded = json_decode($ballot, true);
-
-	if($ballot_decoded['alternative'] == "cancel" || $ballot_decoded['value'] == "cancel" || $ballot_decoded['prio_ranking'] == "cancel"){
-		return db_delegate::cancel_ballot($vote_id, $delegate_id);
-	}
-	else{
-
-		if($type == "yes-no"){
-			if($ballot_decoded['alternative'] == "yes" || $ballot_decoded['alternative'] == "no" || $ballot_decoded['alternative'] == "abstain" || $ballot_decoded['alternative'] == "cancel"){
-				return db_delegate::register_yes_no_ballot($vote_id, $delegate_id, $ballot_decoded['alternative']);
-			}
-			else{
-				return false;
-			}
-		}
-		elseif($type == "median"){
-			if(is_numeric($ballot_decoded['value']) || $ballot_decoded['value']=="abstain" || $ballot_decoded['value'] == "cancel"){
-				return db_delegate::register_median_ballot($vote_id, $delegate_id, $ballot_decoded['value']);
-			}
-			else{
-				return false;
-			}
-		}
-		elseif($type == "prio-vote" || $type == "candidate-election" || $type == "workgroup-election"){
-			if(is_array($ballot_decoded['prio_ranking']) || $ballot_decoded['prio_ranking'] == "cancel"){
-				return db_delegate::register_prio_ballot($vote_id, $delegate_id, json_encode($ballot_decoded['prio_ranking']));
-			}
-			else{
-				return false;
-			}
-		}
-
 	}
 
 }
@@ -505,8 +470,10 @@ public static function get_prio_vote_result_for_single_voter ($vote_id, $prio_ra
 
 	foreach($alternatives as $row){
 		$alternative_id = $row[0];
-		$score = $prio_ranking[$alternative_id];
-		if(!isset($score)){
+		if(isset($prio_ranking[$alternative_id])){
+			$score = $prio_ranking[$alternative_id];
+		}
+		else{
 			$score = 0;
 		}
 		$result_array[] = Array("alternative_id" => $row[0], "score" => $score, "created" => 0);

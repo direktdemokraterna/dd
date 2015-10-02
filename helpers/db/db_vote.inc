@@ -113,10 +113,10 @@ class db_vote {
 
 	public static function get_ballots ($vote_id){
 
-		$query = "select b.user_code as user_code, b.ballot as ballot, b.delegate_id as delegate_id, 
-					(select d.title from delegates d where b.delegate_id = d.id) as delegate_name 
+		$query = "select b.user_code as user_code, b.voter_is_delegate_id as voter_is_delegate_id, (select d1.title from delegates d1 where b.voter_is_delegate_id = d1.id) as voter_is_delegate_name, b.ballot as ballot, b.delegate_id as delegate_id, 
+					(select d2.title from delegates d2 where b.delegate_id = d2.id) as delegate_name, b.delegation_level as delegation_level, b.time_ballot_placed as time_ballot_placed 
 					from ballots b 
-					where user_code is not null and b.vote_id = ?";
+					where b.vote_id = ?";
 		$values = Array($vote_id);
 
 		return db::select($query, $values);

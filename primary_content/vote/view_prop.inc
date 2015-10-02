@@ -1,10 +1,11 @@
 <?php 
-	$propinfo = db_prop::get_prop_info($_GET['id']); 
+	$propinfo = db_prop::get_prop_info($_GET['id']);
+	$number_of_ballots = db_prop::get_number_of_ballots($_GET['id']);
 	$user_allowed_to_vote = db_constituency::check_user_constituency_access($_SESSION['id'], $propinfo['constituency_id']);
 	$list_of_votes_from_db = db_prop::get_prop_supporters($_GET['id']);
 	$list_of_votes = Array();
 	foreach($list_of_votes_from_db as $row){
-		$list_of_votes[] = Array("user_code" => $row['user_code'], "support_type" => $row['support_type'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+		$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_is_delegate_id" => $row['voter_is_delegate_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "support_type" => $row['support_type'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 	}
 
 	if($_SESSION['delegate_id']){
@@ -72,10 +73,19 @@
 <strong>Valkrets: </strong><?php echo $propinfo['constituency_name']; ?><br>
 <strong>Skapad: </strong><?php echo general_helpers::show_date($propinfo['timestamp_created']); ?><br>
 <strong>Upplagd av: </strong><a href="index.php?type=member&action=view&id=<?php echo $propinfo['user_id']; ?>"><?php echo $propinfo['user_full_name']; ?></a><br>
+<strong>Antal lagda röster: </strong><?php echo $number_of_ballots['total_number_of_ballots']; ?><br>
+<strong>Varav personligt lagda röster: </strong><?php echo $number_of_ballots['number_of_direct_ballots']; ?><br>
+<strong>Antal delegater som röstat: </strong><?php echo $number_of_ballots['number_of_delegate_ballots']; ?><br>
 
 <strong>Beskrivning:</strong><br>
 <?php echo nl2br($propinfo['description']); ?>
 </p>
+
+<?php if($number_of_ballots['number_of_delegate_ballots'] > 0) : ?>
+	<div class="" id="delegate_votes_box">
+		<a href="#" onclick="show_delegate_votes('prop')">Se delegaters röster för denna proposition</a>
+	</div>
+<?php endif; ?>
 
 <?php if($user_allowed_to_vote) : ?>
 
@@ -112,12 +122,9 @@
 
 <script>
 list_of_votes.map(function (vote){
-	if(vote.user_code == sessionStorage.active_user_code){
+	if(vote.user_code == sessionStorage.active_user_code && !acting_as_delegate){
 		if(vote.support_type == "support"){
 			document.getElementById("user_vote_box").innerHTML = "Du stödjer denna proposition.";
-		}
-		else if(vote.support_type == "reject"){
-			document.getElementById("user_vote_box").innerHTML = "Du förkastar denna proposition.";
 		}
 		else if(vote.support_type == "abstain"){
 			document.getElementById("user_vote_box").innerHTML = "Du avstår att ha en åsikt om denna proposition.";
