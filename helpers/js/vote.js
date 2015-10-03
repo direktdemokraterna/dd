@@ -1,52 +1,72 @@
-function encrypt_ballot (dd_message){
-	var dd_message_json = JSON.stringify(dd_message);
+////////////////////////////////////////////
+/// Encryption
+////////////////////////////////////////////
 
-	if(acting_as_delegate == true){
-		document.getElementById("ballot").value = dd_message_json;
-	}
-
-	else{
-		var dd_password = Generate_Random_String(20);
-
-		var dd_aes_message = GibberishAES.enc(dd_message_json, dd_password);
-
-		var dd_rsa_message = {password: dd_password};
-		var dd_rsa_message_json = JSON.stringify(dd_rsa_message);
-
-		var dd_rsa = new JSEncrypt();
-		dd_rsa.setPublicKey(dd_public_key);
-		var dd_rsa_message_encrypted = dd_rsa.encrypt(dd_rsa_message_json);
-
-
-		var dd_anon_message = {user_id: user_id, user_code: sessionStorage.active_user_code, rsa: dd_rsa_message_encrypted, aes: dd_aes_message};
-		var dd_anon_message_json = JSON.stringify(dd_anon_message);
-
-		var dd_anon_password = Generate_Random_String(20);
-
-		var dd_anon_aes_message = GibberishAES.enc(dd_anon_message_json, dd_anon_password);
-
-		var dd_anon_rsa_message = {password: dd_anon_password};
-		var dd_anon_rsa_message_json = JSON.stringify(dd_anon_rsa_message);
-
-		var dd_anon_rsa = new JSEncrypt();
-		dd_anon_rsa.setPublicKey(dd_anon_public_key);
-		var dd_anon_rsa_message_encrypted = dd_anon_rsa.encrypt(dd_anon_rsa_message_json);
-
-		var ballot = {rsa: dd_anon_rsa_message_encrypted, aes: dd_anon_aes_message, anon_password: dd_anon_password};
-		var ballot_json = JSON.stringify(ballot);
-
-		document.getElementById("ballot").value = ballot_json;
-	}
-
-	return true;
-
+function Generate_Random_String(len){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for( var i=0; i < len; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
 }
+
+function rsa_encrypt_string (strMessage, public_key){
+	var rsa = new JSEncrypt();
+	rsa.setPublicKey(public_key);
+	return rsa.encrypt(strMessage);
+}
+
+function encrypt_password (password, public_key){
+	var password_message_json = JSON.stringify({password: password});
+	return rsa_encrypt_string(password_message_json, public_key);
+}
+
+function encrypt_message (message_json, public_key){
+	var password = Generate_Random_String(20);
+	var encrypted_password = encrypt_password(password, public_key);
+	var aes_message = GibberishAES.enc(message_json, password);
+	return {rsa: encrypted_password, aes: aes_message, password: password};
+}
+
+////////////////////////////////////////////
+/// Ballet encryption
+////////////////////////////////////////////
+
+function package_encrypted_ballot (encrypted_ballot_json){
+	var packaged_ballot = encrypt_message(encrypted_ballot_json, dd_anon_public_key);
+	packaged_ballot["anon_password"] = packaged_ballot["password"];
+	return packaged_ballot;
+}
+
+function encrypt_ballot (ballot_json){
+	var encrypted_ballot = encrypt_message(ballot_json, dd_public_key);
+	encrypted_ballot["user_id"] = user_id;
+	encrypted_ballot["user_code"] = sessionStorage.active_user_code;
+	return encrypted_ballot;
+}
+
+function encrypt_and_package_ballot (ballot_json){
+	var encrypted_ballot = encrypt_ballot(ballot_json);
+	var encrypted_ballot_json = JSON.stringify(encrypted_ballot);
+	var packaged_ballot = package_encrypted_ballot(encrypted_ballot_json);
+	return JSON.stringify(packaged_ballot);
+}
+
+function prepare_ballot_for_submit (ballot){
+	var ballot_json = JSON.stringify(ballot);
+	packaged_ballot_json = acting_as_delegate 
+		? ballot_json 
+		: encrypt_and_package_ballot(ballot_json);
+	document.getElementById("ballot").value = packaged_ballot_json;
+}
+
+////////////////////////////////////////////
+/// Public API - specific ballet encryption methods
+////////////////////////////////////////////
 
 function encrypt_yes_no_ballot (alternative){
 	var dd_message = {vote_id: vote_id, ballot: alternative};
-
-	encrypt_ballot(dd_message);
-
+	prepare_ballot_for_submit(dd_message);
 	return true;
 }
 
@@ -57,30 +77,21 @@ function encrypt_prio_ballot (prio_ranking){
 	else if(prio_type == "cancel"){
 		prio_ranking = "cancel";
 	}
-
 	var dd_message = {vote_id: vote_id, ballot: prio_ranking};
+	prepare_ballot_for_submit(dd_message);
+	return true;
+}
 
-	encrypt_ballot(dd_message);
-
+function encrypt_prio_abstain (){
+	var prio_ranking = '{}';
+	encrypt_prio_ballot(prio_ranking);
 	return true;
 }
 
 function encrypt_prop_ballot (support_type){
 	var dd_message = {prop_id: prop_id, support_type: support_type};
-
-	encrypt_ballot(dd_message);
-
+	prepare_ballot_for_submit(dd_message);
 	return true;
-}
-
-function Generate_Random_String(len){
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for( var i=0; i < len; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
 }
 
 function encrypt_median_ballot (abstain_or_cancel){
@@ -95,17 +106,13 @@ function encrypt_median_ballot (abstain_or_cancel){
 		value = value.replace("'", ".");
 	}
 	var dd_message = {vote_id: vote_id, ballot: value};
-
-	encrypt_ballot(dd_message);
-
+	prepare_ballot_for_submit(dd_message);
 	return true;
 }
 
 function encrypt_single_delegation (constituency_id){
 	var dd_message = {delegate_id: delegate_id, constituency_id: constituency_id};
-
-	encrypt_ballot(dd_message);
-
+	prepare_ballot_for_submit(dd_message);
 	return true;
 }
 
@@ -113,16 +120,14 @@ function encrypt_delegation_get_delegate_from_form (constituency_id){
 	var select_element = document.getElementById("select" + constituency_id);
 	var delegate_id_from_form = select_element.options[select_element.selectedIndex].value;
 	var dd_message = {delegate_id: delegate_id_from_form, constituency_id: constituency_id};
-
-	encrypt_ballot(dd_message);
-
+	prepare_ballot_for_submit(dd_message);
 	return true;
 }
 
 function show_delegate_votes (is_prop){
 	document.getElementById("delegate_votes_box").className = "vote_result_box";
 
-	var delegate_votes_box_content = "Delegatröster:<table><tr><th>Delegat</th><th>Röst</th><Rösten lagd av</th></tr>";
+	var delegate_votes_box_content = "DelegatrÃ¶ster:<table><tr><th>Delegat</th><th>RÃ¶st</th><RÃ¶sten lagd av</th></tr>";
 
 	list_of_votes.map(function (vote){
 		if(vote.user_code == null){
@@ -130,10 +135,10 @@ function show_delegate_votes (is_prop){
 
 			if(vote.hasOwnProperty('support_type')){
 				if(vote.support_type == "support"){
-					delegate_votes_box_content += "Stöder";
+					delegate_votes_box_content += "StÃ¶der";
 				}
 				else if(vote.support_type == "abstain"){
-					delegate_votes_box_content += "Avstår";
+					delegate_votes_box_content += "AvstÃ¥r";
 				}
 			}
 			else if(vote.hasOwnProperty('alternative')){
@@ -144,12 +149,12 @@ function show_delegate_votes (is_prop){
 					delegate_votes_box_content += "Nej";
 				}
 				else if(vote.alternative == "abstain"){
-					delegate_votes_box_content += "Avstår";
+					delegate_votes_box_content += "AvstÃ¥r";
 				}
 			}
 			else if(vote.hasOwnProperty('value')){
 				if(vote.value == "abstain"){
-					delegate_votes_box_content += "Avstår";
+					delegate_votes_box_content += "AvstÃ¥r";
 				}
 				else{
 					delegate_votes_box_content += vote.value;
@@ -165,10 +170,10 @@ function show_delegate_votes (is_prop){
 	});
 
 	if(is_prop == "prop"){
-		delegate_votes_box_content += "</table><p><a href=\"index.php?type=vote&action=view_prop_ballots&id=" + prop_id + "\">Se alla röster för denna omröstning</a></p>";
+		delegate_votes_box_content += "</table><p><a href=\"index.php?type=vote&action=view_prop_ballots&id=" + prop_id + "\">Se alla rÃ¶ster fÃ¶r denna omrÃ¶stning</a></p>";
 	}
 	else{
-		delegate_votes_box_content += "</table><p><a href=\"index.php?type=vote&action=view_ballots&id=" + vote_id + "\">Se alla röster för denna omröstning</a></p>";
+		delegate_votes_box_content += "</table><p><a href=\"index.php?type=vote&action=view_ballots&id=" + vote_id + "\">Se alla rÃ¶ster fÃ¶r denna omrÃ¶stning</a></p>";
 	}
 
 	document.getElementById("delegate_votes_box").innerHTML = delegate_votes_box_content;
