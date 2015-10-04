@@ -191,7 +191,7 @@ class Division_info {
 		$pageInfo = $this->get_page($actionName);
 		return $pageInfo != null
 			? $pageInfo->name 
-			: $division->default_page;
+			: $this->default_page;
 	}
 
 	public function get_page($name, $page_type = Page_info::VIEW) {
