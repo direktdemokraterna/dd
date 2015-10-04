@@ -27,27 +27,11 @@ public static function curl_to_anon_server ($anon_server_script, $post_vars = nu
 
 // Function for calling up anon server and ordering it to hand out user codes to user, it also prints out the JS code for the user to fetch said user codes
 public static function send_user_codes_to_user ($user_id){
-
 	$temp_code = general_helpers::GenerateRandomString(20);
-
 	$post_vars = Array("user_id" => $user_id, "temp_code" => $temp_code);
 	$reply = crypt_helpers::curl_to_anon_server("receive_temp_code.php", $post_vars);
-
-	if($reply == "success"){
-
-		echo "<script>\n";
-		echo "function JSONP (json) {\n";
-		echo "sessionStorage.active_user_code = json.active_user_code;\n";
-		echo "sessionStorage.passive_user_code1 = json.passive_user_code1;\n";
-		echo "sessionStorage.passive_user_code2 = json.passive_user_code2;\n";
-		echo "sessionStorage.passive_user_code3 = json.passive_user_code3;\n";
-		echo "};\n";
-		echo "</script>\n";
-		echo "\n";
-		echo "<script src='" . ANON_SERVER_BROWSER_URL . "give_out_user_codes.php?callback=JSONP&user_id=" . $user_id . "&temp_code=" . $temp_code . "'></script>\n";
-
-	}
-
+	if($reply == "success")
+		echo "<script>retrieveUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $temp_code . "');</script>\n";
 }
 
 public static function decrypt_ballot ($rsa_message, $aes_message){

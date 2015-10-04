@@ -5,6 +5,7 @@
 <script src="helpers/js/index.js"></script>
 <script src="helpers/js/forum.js"></script>
 <script src="helpers/js/libs/responsive-tables.js"></script>
+<script src="helpers/js/session.js"></script>
 
 <?php if($_GET['type'] == "vote") : ?>
 <script src="helpers/js/vote.js"></script>
