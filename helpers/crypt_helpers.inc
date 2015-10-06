@@ -30,8 +30,9 @@ public static function send_user_codes_to_user ($user_id){
 	$temp_code = general_helpers::GenerateRandomString(20);
 	$post_vars = Array("user_id" => $user_id, "temp_code" => $temp_code);
 	$reply = crypt_helpers::curl_to_anon_server("receive_temp_code.php", $post_vars);
-	if($reply == "success")
-		echo "<script>retrieveUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $temp_code . "');</script>\n";
+	if($reply != "success") 
+		die($reply);
+	echo "<script>retrieveUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $temp_code . "');</script>\n";
 }
 
 public static function decrypt_ballot ($rsa_message, $aes_message){

@@ -42,6 +42,7 @@ if(isset($_POST['prop_id']) && isset($_POST['ballot'])){
 					$_SESSION['report_message'] = "Din röst är registrerad.";
 					}
 				else{
+					//die($reply);
 					$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
 					$_SESSION['red_report_message'] = 1;
 				}

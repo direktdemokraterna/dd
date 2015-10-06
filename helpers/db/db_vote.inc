@@ -29,7 +29,7 @@ class db_vote {
 
 			db::update($query, $values);
 
-			$post_title = "Omröstning: " . $title;
+			$post_title = "Omröstning: " . $prop_data['title'];
 			$post_content = "Det här är en automatiskt skapad forumtråd tillhörande omröstningen: <a href=\"index.php?type=vote&action=view_vote&id=" . $vote_id . "\">" . $prop_data['title'] . "</a>\n\n" . $prop_data['description'];
 
 			db_forum_admin::edit_title($post_title, $prop_data['forum_topic_id']);
