@@ -126,6 +126,11 @@
 	border: 1px dotted #ccc;
 }
 
+/* Validation */
+.invalidInput {
+	background: pink;
+}
+
 
 
 /*.sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }

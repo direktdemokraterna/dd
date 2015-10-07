@@ -1,4 +1,4 @@
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script src="helpers/js/libs/jquery.ui.touch-punch.min.js"></script>
 
@@ -6,6 +6,7 @@
 <script src="helpers/js/forum.js"></script>
 <script src="helpers/js/libs/responsive-tables.js"></script>
 <script src="helpers/js/session.js"></script>
+<script src="helpers/js/validateForm.js"></script>
 
 <?php if($_GET['type'] == "vote") : ?>
 <script src="helpers/js/vote.js"></script>
