@@ -66,7 +66,7 @@
 <?php endif; ?>
 
 <?php if(isset($_SESSION['is_forum_admin'])) : ?>
-	<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in forumbehörighter för denna användare</a></p>
+	<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in forumbehörigheter för denna användare</a></p>
 <?php endif; ?>
 
 <?php if(isset($_SESSION['is_vote_admin'])) : ?>
