@@ -52,7 +52,8 @@
 
 		<br>
 		<?php
-			$delegates_for_constituency = db_delegate::get_delegates_for_constituency($row['id']);
+			$delegates_for_constituency = db_delegate::get_available_delegates_for_constituency($row['id'], 
+				$_SESSION['delegate_id']);
 		?>
 		<select id="select<?php echo $row['id']; ?>">
 			<option value="null">Ta bort delegat</option>

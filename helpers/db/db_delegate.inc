@@ -40,12 +40,14 @@ class db_delegate {
 
 	}
 
-	public static function get_delegates_for_constituency ($constituency_id){
+	public static function get_available_delegates_for_constituency ($constituency_id, $delegate_id){
 
 		$query = "select d.id as id, d.title as title 
 			from delegates d, constituencies_delegates cd 
-			where d.id = cd.delegate_id and cd.constituency_id = ?";
-		$values = Array($constituency_id);
+			where d.id = cd.delegate_id 
+			and cd.constituency_id = ?
+			and d.id <> ?";
+		$values = Array($constituency_id, $delegate_id);
 
 		return db::select($query, $values);
 
