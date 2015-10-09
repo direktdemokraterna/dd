@@ -37,7 +37,7 @@
 					<?php endif; ?>
 					<a href="index.php?type=forum&action=report&id=<?php echo $row['post_id']; ?>">Anmäl</a> 
 					<a onMouseDown="quote_post(<?php echo $row['post_id']; ?>)" unselectable="on">Citera</a> 
-					<a href="index.php?type=forum&action=show_posts&id=<?php echo $_GET['id']; ?>&page=<?php echo $page; ?>#<?php echo $row['post_id']; ?>">#<?php echo $row['post_id']; ?></a> 
+					<a href="index.php?type=forum&action=show_posts&id=<?php echo $row['post_id']; ?>&page=<?php echo $page; ?>#<?php echo $row['post_id']; ?>">#<?php echo $row['post_id']; ?></a> 
 				</span>
 			</div>
 

@@ -106,7 +106,6 @@ function encrypt_median_ballot (abstain_or_cancel){
 		var value = document.getElementById("median_value").value;
 		value = value.replace("'", ".");
 	}
-	alert(value);
 	var dd_message = {vote_id: vote_id, ballot: value};
 	prepare_ballot_for_submit(dd_message);
 	return true;
