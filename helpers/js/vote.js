@@ -29,7 +29,7 @@ function encrypt_message (message_json, public_key){
 }
 
 ////////////////////////////////////////////
-/// Ballet encryption
+/// Ballot encryption
 ////////////////////////////////////////////
 
 function package_encrypted_ballot (encrypted_ballot_json){
@@ -62,7 +62,7 @@ function prepare_ballot_for_submit (ballot){
 }
 
 ////////////////////////////////////////////
-/// Public API - specific ballet encryption methods
+/// Public API - specific ballot encryption methods
 ////////////////////////////////////////////
 
 function encrypt_yes_no_ballot (alternative){
@@ -106,6 +106,7 @@ function encrypt_median_ballot (abstain_or_cancel){
 		var value = document.getElementById("median_value").value;
 		value = value.replace("'", ".");
 	}
+	alert(value);
 	var dd_message = {vote_id: vote_id, ballot: value};
 	prepare_ballot_for_submit(dd_message);
 	return true;

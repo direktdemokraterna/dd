@@ -7,10 +7,10 @@
 		<input type="hidden" name="ballot" id="ballot" value="">
 
 		<label for "median_value">Ditt önskade värde</label>
-		<input type="text" name="median_value" id="median_value" value="<?php if(!empty($delegate_ballot)) echo $delegate_ballot['ballot']; ?>" oninput="validateMedianValue('median_value', 'submit_vote');" onpropertychange="this.oninput();">
+		<input type="text" name="median_value" id="median_value" value="<?php if(!empty($delegate_ballot) && is_numeric($delegate_ballot['ballot'])) echo $delegate_ballot['ballot']; ?>" oninput="validateMedianValue('median_value', 'submit_vote');" onpropertychange="this.oninput();">
 		<input id="submit_vote" type="submit" value="Rösta" onmousedown="return encrypt_median_ballot()">
 		<input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return encrypt_median_ballot('abstain')">
-		<input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: <?php if(!empty($delegate_ballot)) echo "inline-block"; else echo "none"; ?> onmousedown="return encrypt_median_ballot('cancel')">
+		<input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: <?php if(!empty($delegate_ballot)) echo "inline-block"; else echo "none"; ?>" onmousedown="return encrypt_median_ballot('cancel')">
 	</form>
 
 <?php endif; ?>

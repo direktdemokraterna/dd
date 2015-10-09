@@ -5,8 +5,13 @@ list_of_votes.map(function (vote){
 			document.getElementById("user_vote_box").innerHTML = "Du har röstat avstår";
 		}
 		else{
-			document.getElementById("user_vote_box").innerHTML = "Du har röstat " + vote.value;
-			document.getElementById("median_value").value = vote.value;
+			if(vote.value === "abstain"){
+				document.getElementById("user_vote_box").innerHTML = "Du har röstat avstår.";
+			}
+			else{
+				document.getElementById("user_vote_box").innerHTML = "Du har röstat " + vote.value + ".";
+				document.getElementById("median_value").value = vote.value;
+			}
 		}
 
 		if(vote.delegate_id == null){
