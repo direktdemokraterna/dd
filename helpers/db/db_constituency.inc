@@ -217,9 +217,8 @@ class db_constituency {
 	}
 
 	public static function remove_constituency_from_delegate ($delegate_id, $constituency_id){
-
 		$query = "delete from constituencies_delegates where delegate_id = ? and constituency_id = ?";
-		$values = Array($delagate_id, $constituency_id);
+		$values = Array($delegate_id, $constituency_id);
 
 		$reply = db::delete($query, $values);
 
