@@ -17,14 +17,13 @@ class navigation_helpers {
 				"list" => Page_info::create("memberlist.inc")
 				,"view" => Page_info::create("view.inc")
 				,"notices" => Page_info::create("notices.inc")
-				,"settings" => Page_info::create("settings.inc")
+				,"settings" => Page_info::create("settings.inc", Page_info::VIEW_AND_EXECUTE)
 				,"calendar" => Page_info::create("calendar.inc", Page_info::VIEW_AND_EXECUTE)
 				,"calendar_add" => Page_info::create("calendar_add.inc", Page_info::VIEW_AND_EXECUTE)
 				,"calendar_edit" => Page_info::create("calendar_edit.inc", Page_info::VIEW_AND_EXECUTE)
 				,"admin_description" => Page_info::create("admin_description.inc")
 				,"admin_list" => Page_info::create("admin_list.inc")
-				,"search" => Page_info::create("search.inc")
-				,"settings" => Page_info::create("settings.inc", Page_info::EXECUTE))
+				,"search" => Page_info::create("search.inc"))
 			,"memberlist.inc")
 
 			,"message" => Division_info::create(array(
