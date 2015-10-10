@@ -510,5 +510,19 @@ public static function sort_prio_ranking ($prio_ranking){
 	return $sorted_prio_ranking;
 }
 
+public static function get_vote_list() 
+{
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+	return db_vote::list_active_votes($sort, $page);
+}
+
+public static function make_vote_list_header() 
+{
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$result_counter = db_vote::list_active_votes_count();
+	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic");
+	general_helpers::make_list_of_links_header($page, $result_counter, $sort_alternatives); 
+}
 
 } //End of class
