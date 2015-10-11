@@ -519,11 +519,12 @@ public static function get_vote_groups($statuses)
 	return self::group_vote_entities($votes);
 }
 
-public static function get_prop_groups() 
+public static function get_prop_groups($statuses) 
 {
+	$user_id = $_SESSION['id'];
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
-	$props = db_prop::list_active_props($sort, $page);
+	$props = db_prop::list_props($statuses, $user_id, $sort, $page);
 	return self::group_vote_entities($props);
 }
 
@@ -533,9 +534,10 @@ public static function make_vote_list_header($statuses)
 	self::make_list_header(db_vote::list_votes_count($statuses, $user_id));
 }
 
-public static function make_prop_list_header() 
+public static function make_prop_list_header($statuses) 
 {
-	self::make_list_header(db_prop::list_active_props_count());
+	$user_id = $_SESSION['id'];
+	self::make_list_header(db_prop::list_props_count($statuses, $user_id));
 }
 
 private static function group_vote_entities($rows) 

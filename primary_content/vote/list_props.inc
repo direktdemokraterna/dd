@@ -1,7 +1,8 @@
 <h1>Lagda propositioner</h1>
 <?php 
-	vote_helpers::make_prop_list_header();
-	$prop_groups = vote_helpers::get_prop_groups();
+	$statuses = array('pending');
+	vote_helpers::make_prop_list_header($statuses);
+	$prop_groups = vote_helpers::get_prop_groups($statuses);
 ?>
 <div class="list_of_links">
 	<?php foreach($prop_groups as $prop_group) : ?>
