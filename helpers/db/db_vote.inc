@@ -124,14 +124,14 @@ class db_vote {
 	}
 
 	// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-	public static function list_active_votes ($sort, $page = 1)
+	public static function list_active_votes ($sort, $page, $user_id)
 	{
-		$where_clause = self::get_votes_where_clause("V.");
+		$where_clause = self::get_votes_where_clause();
+		$from_clause = self::get_votes_from_clause($user_id);
 		$order_by = self::get_votes_order_by($sort);
 		$row_offset = (int)($page-1) * LIST_ITEMS_PER_PAGE;
 		$query = "select V.id, V.title, C.title as constituency 
-					from votes V
-					join constituencies C on C.id = V.constituency_id 
+					" . $from_clause . "
 					" . $where_clause . "
 					order by C.constituency_level asc, C.id, " . $order_by . " 
 					limit " . $row_offset . ", " . LIST_ITEMS_PER_PAGE;
@@ -144,16 +144,29 @@ class db_vote {
 		return $sort === "alphabetic" ? "V.title asc" : "V.timestamp_created desc";
 	}
 
-	public static function list_active_votes_count ()
+	public static function list_active_votes_count ($user_id)
 	{
-		$query = "select count(*) from votes " . self::get_votes_where_clause();
+		$where_clause = self::get_votes_where_clause();
+		$from_clause = self::get_votes_from_clause($user_id);
+		$query = "select count(*) 
+					" . $from_clause . "
+					" . $where_clause;
 		$values = Array();
 		return db::select_single_value($query, $values);
 	}
 
-	private static function get_votes_where_clause ($prefix = '')
+	private static function get_votes_from_clause ($user_id)
 	{
-		return "where " . $prefix . "status in ('active', 'del_ended', 'continuous')";
+		return "from votes V
+					join constituencies C on C.id = V.constituency_id
+					left join constituencies_users CU 
+						on CU.constituency_id = C.id and CU.user_id = " . $user_id;
+	}
+
+	private static function get_votes_where_clause ()
+	{
+		return "where V.status in ('active', 'del_ended', 'continuous')
+				and (CU.id IS NOT NULL or C.constituency_level = 1)";
 	}
 
 	public static function list_old_votes ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
