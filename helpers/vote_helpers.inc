@@ -510,12 +510,12 @@ public static function sort_prio_ranking ($prio_ranking){
 	return $sorted_prio_ranking;
 }
 
-public static function get_vote_groups() 
+public static function get_vote_groups($statuses) 
 {
 	$user_id = $_SESSION['id'];
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
-	$votes = db_vote::list_active_votes($sort, $page, $user_id);
+	$votes = db_vote::list_votes($statuses, $user_id, $sort, $page);
 	return self::group_vote_entities($votes);
 }
 
@@ -527,10 +527,10 @@ public static function get_prop_groups()
 	return self::group_vote_entities($props);
 }
 
-public static function make_vote_list_header() 
+public static function make_vote_list_header($statuses) 
 {
 	$user_id = $_SESSION['id'];
-	self::make_list_header(db_vote::list_active_votes_count($user_id));
+	self::make_list_header(db_vote::list_votes_count($statuses, $user_id));
 }
 
 public static function make_prop_list_header() 

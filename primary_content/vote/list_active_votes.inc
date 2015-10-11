@@ -1,7 +1,8 @@
 <h1>Pågående omröstningar</h1>
 <?php 
-	vote_helpers::make_vote_list_header();
-	$vote_groups = vote_helpers::get_vote_groups();
+	$statuses = array('active', 'del_ended', 'continuous');
+	vote_helpers::make_vote_list_header($statuses);
+	$vote_groups = vote_helpers::get_vote_groups($statuses);
 ?>
 <div class="list_of_links">
 	<?php foreach($vote_groups as $vote_group) : ?>
