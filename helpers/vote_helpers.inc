@@ -510,19 +510,77 @@ public static function sort_prio_ranking ($prio_ranking){
 	return $sorted_prio_ranking;
 }
 
-public static function get_vote_list() 
+public static function get_vote_groups() 
 {
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
-	return db_vote::list_active_votes($sort, $page);
+	$votes = db_vote::list_active_votes($sort, $page);
+	return self::group_vote_entities($votes);
+}
+
+public static function get_prop_groups() 
+{
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+	$props = db_prop::list_active_props($sort, $page);
+	return self::group_vote_entities($props);
 }
 
 public static function make_vote_list_header() 
 {
+	self::make_list_header(db_vote::list_active_votes_count());
+}
+
+public static function make_prop_list_header() 
+{
+	self::make_list_header(db_prop::list_active_props_count());
+}
+
+private static function group_vote_entities($rows) 
+{
+	$groups = array();
+	foreach ($rows as $row) {
+		$group = self::get_vote_group($groups, $row["constituency"]);
+		$group->add_vote($row);
+	}
+	return $groups;
+}
+
+private static function &get_vote_group(&$vote_groups, $constituency) 
+{
+	if (array_key_exists($constituency, $vote_groups)) {
+		return $vote_groups[$constituency];
+	}
+	$vote_group = Vote_group::create();
+	$vote_groups[$constituency] = $vote_group;
+	return $vote_group;
+}
+
+private static function make_list_header($res_count) 
+{
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
-	$result_counter = db_vote::list_active_votes_count();
 	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic");
-	general_helpers::make_list_of_links_header($page, $result_counter, $sort_alternatives); 
+	general_helpers::make_list_of_links_header($page, $res_count, $sort_alternatives); 
 }
 
 } //End of class
+
+class Vote_group {
+	public $constituency;
+	public $votes = array();
+
+	public static function create() {
+		$vote_group = new vote_group();
+		$vote_group->votes = array();
+		return $vote_group;
+	}
+
+	public function add_vote($vote) {
+		if ($this->constituency == null)
+			$this->constituency = $vote["constituency"];
+		else if ($this->constituency != $vote["constituency"])
+			throw new Exception("Cannot mix votes from different constituencies in same vote group.
+				Tried to add " . $vote["constituency"] . " to ". $this->constituency);
+		array_push($this->votes, $vote);
+	}
+} 

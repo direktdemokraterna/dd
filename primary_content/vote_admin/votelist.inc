@@ -4,7 +4,10 @@
 	$vote_list = vote_helpers::get_vote_list();
 ?>
 <div class="list_of_links">
-<?php foreach($result as $row) : ?>
-	<a href="index.php?type=vote_admin&action=edit_vote&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a><br>
-<?php endforeach; ?>
+	<?php foreach($vote_groups as $vote_group) : ?>
+		<h2><?php echo $vote_group->constituency; ?></h2>
+		<?php foreach($vote_group->votes as $row) : ?>
+			<a href="index.php?type=vote_admin&action=edit_vote&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a><br>
+		<?php endforeach; ?>
+	<?php endforeach; ?>
 </div>

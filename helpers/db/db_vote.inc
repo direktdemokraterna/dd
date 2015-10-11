@@ -126,18 +126,15 @@ class db_vote {
 	// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 	public static function list_active_votes ($sort, $page = 1)
 	{
+		$where_clause = self::get_votes_where_clause("V.");
 		$order_by = self::get_votes_order_by($sort);
 		$row_offset = (int)($page-1) * LIST_ITEMS_PER_PAGE;
-		$query = "select V.id, V.title
+		$query = "select V.id, V.title, C.title as constituency 
 					from votes V
-					" . self::get_votes_where_clause("V.") . "
-					order by " . $order_by . " limit " . $row_offset . ", " . LIST_ITEMS_PER_PAGE;
-		// Work in progress: add constituency title so results can be grouped by constituency, ordered by generality
-		// $query = "select V.id, V.title, C.title as constituency 
-		// 			from votes V
-		// 			join constituencies C on C.id = V.constituency_id 
-		//			" . self::get_votes_where_clause("V.") . "
-		// 			order by V.id, " . $order_by . " limit " . $row_offset . ", " . LIST_ITEMS_PER_PAGE;
+					join constituencies C on C.id = V.constituency_id 
+					" . $where_clause . "
+					order by C.constituency_level asc, C.id, " . $order_by . " 
+					limit " . $row_offset . ", " . LIST_ITEMS_PER_PAGE;
 		$values = Array();
 		return db::select($query, $values);
 	}

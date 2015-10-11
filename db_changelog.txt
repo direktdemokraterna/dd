@@ -23,3 +23,40 @@ ALTER TABLE `dd`.`propositions_support`
  ADD COLUMN `delegation_level` INTEGER UNSIGNED;
 ALTER TABLE `dd`.`propositions_support`
  ADD COLUMN `delegate_priority` INTEGER UNSIGNED;
+
+/* 2015-10-10 */
+
+create table `constituency_level` (
+    `level` int unsigned NOT NULL auto_increment
+	, `name` varchar(20) NOT NULL
+	, PRIMARY KEY  (`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+insert into `constituency_level`
+(name)
+values ('global'),('local_region'),('local_county'),('workgroup');
+
+ALTER TABLE `dd`.`constituencies`
+ ADD COLUMN `constituency_level` INTEGER UNSIGNED NOT NULL DEFAULT 1;
+
+ALTER TABLE `dd`.`constituencies`
+	ADD FOREIGN KEY (constituency_level) REFERENCES constituency_level(`level`);
+    
+update constituencies
+set constituency_level = 1
+where access_type = 'public';
+    
+update constituencies
+set constituency_level = 2
+where access_type = 'local_region';
+    
+update constituencies
+set constituency_level = 3
+where access_type = 'local_county';
+    
+update constituencies
+set constituency_level = 4
+where access_type = 'workgroup';
+
+ALTER TABLE `dd`.`constituencies`
+drop column `access_type`;

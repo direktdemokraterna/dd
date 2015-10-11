@@ -6,7 +6,8 @@ class db_constituency {
 	{
 		$query = "select c.id as id, c.title as name
 					from constituencies c, constituencies_users cu 
-					where c.id = cu.constituency_id and cu.user_id = ? order by field(c.access_type, 'public', 'workgroup', 'local_region', 'local_county'), c.id asc";
+					where c.id = cu.constituency_id and cu.user_id = ? 
+					order by c.constituency_level asc, c.id asc";
 		$values = Array($user_id);
 		return db::select($query, $values);
 	}
@@ -45,35 +46,35 @@ class db_constituency {
 
 	public static function get_public_constituency_ids ()
 	{
-		$query = "select id from constituencies where access_type = 'public'";
+		$query = "select id from constituencies where constituency_level = 1";
 		$values = Array();
 		return db::select($query, $values);
 	}
 
-	public static function get_local_county_constituency ($county)
+	public static function get_local_region_constituency ($region)
 	{
-		$query = "select id from constituencies where access_type = 'local_county' and title = ?";
-		$values = Array($county);
+		$query = "select id from constituencies where constituency_level = 2 and title = ?";
+		$values = Array($region);
 		return db::select_single_value($query, $values);
 	}
 
-	public static function get_local_region_constituency ($region)
+	public static function get_local_county_constituency ($county)
 	{
-		$query = "select id from constituencies where access_type = 'local_region' and title = ?";
-		$values = Array($region);
+		$query = "select id from constituencies where constituency_level = 3 and title = ?";
+		$values = Array($county);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_local_county_constituency_for_user ($user_id)
 	{
-		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.access_type = 'local_county' and cu.user_id = ?";
+		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.constituency_level = 3 and cu.user_id = ?";
 		$values = Array($user_id);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_local_region_constituency_for_user ($user_id)
 	{
-		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.access_type = 'local_region' and cu.user_id = ?";
+		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.constituency_level = 2 and cu.user_id = ?";
 		$values = Array($user_id);
 		return db::select_single_value($query, $values);
 	}
@@ -227,7 +228,7 @@ class db_constituency {
 	}
 
 	// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-	public static function get_all_constituencies ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "access_type desc, title asc", $where_filter = "1=1"){
+	public static function get_all_constituencies ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "consistuency_level asc, title asc", $where_filter = "1=1"){
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
 		$query = "select c.id as id, c.title as name from constituencies c where " . $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;

@@ -92,7 +92,7 @@ class db_helpers {
 
 	public static function get_public_constituency_ids (){
 
-		$query = "select id from constituencies where access_type = 'public'";
+		$query = "select id from constituencies where consistuency_level = 1";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -101,7 +101,7 @@ class db_helpers {
 
 	public static function get_local_county_constituency ($county){
 
-		$query = "select id from constituencies where access_type = 'local_county' and title = ?";
+		$query = "select id from constituencies where consistuency_level = 3 and title = ?";
 		$values = Array($county);
 
 		return db::select_single_value($query, $values);
@@ -110,7 +110,7 @@ class db_helpers {
 
 	public static function get_local_region_constituency ($region){
 
-		$query = "select id from constituencies where access_type = 'local_region' and title = ?";
+		$query = "select id from constituencies where consistuency_level = 2 and title = ?";
 		$values = Array($region);
 
 		return db::select_single_value($query, $values);

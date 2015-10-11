@@ -63,26 +63,36 @@ class db_prop {
 
 	}
 
-	public static function list_active_props ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "created_by_user desc", $where_filter = "1=1"){
-// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
-
-		$query = "select id, title from propositions where " . $where_filter . " and status = 'pending' order by " . $order_by . " limit " . $page . ", " . $limit;
+	public static function list_active_props ($sort, $page = 1)
+	{
+		$where_clause = self::get_props_where_clause("P.");
+		$order_by = self::get_props_order_by($sort);
+		$row_offset = (int)($page-1) * LIST_ITEMS_PER_PAGE;
+		$query = "select P.id, P.title, C.title as constituency 
+					from propositions P
+					join constituencies C on C.id = P.constituency_id 
+					" . $where_clause . "
+					order by C.constituency_level asc, C.id, " . $order_by . " 
+					limit " . $row_offset . ", " . LIST_ITEMS_PER_PAGE;
 		$values = Array();
-
 		return db::select($query, $values);
-
 	}
 
-	public static function list_active_props_count ($where_filter = "1=1"){
+	public static function get_props_order_by ($sort)
+	{
+		return $sort === "alphabetic" ? "P.title asc" : "P.timestamp_created desc";
+	}
 
-		$query = "select count(*) from propositions where " . $where_filter . " and status = 'pending'";
+	public static function list_active_props_count ()
+	{
+		$query = "select count(*) from propositions " . self::get_props_where_clause();
 		$values = Array();
-
 		return db::select_single_value($query, $values);
+	}
 
+	private static function get_props_where_clause ($prefix = '')
+	{
+		return "where " . $prefix . "status = 'pending'";
 	}
 
 	public static function register_prop_ballot ($prop_id, $user_code, $support_type){
