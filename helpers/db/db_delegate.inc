@@ -1,32 +1,22 @@
 <?php
 
-class db_delegate {
-
-	public static function is_user_delegate ($user_id){
-
+class db_delegate 
+{
+	public static function is_user_delegate ($user_id)
+	{
 		$query = "select count(*) from delegates_users where user_id = ?";
 		$values = Array($user_id);
-
 		$result = db::select_single_value($query, $values);
-
-		if($result == 1){
-			return true;
-		}
-		else{
-			return false;
-		}
-
+		return $result == 1;
 	}
 
-	public static function get_delegate_settings ($user_id){
-
+	public static function get_delegate_settings ($user_id)
+	{
 		$query = "select d.id as delegate_id, d.title as title, d.description as description 
 			from delegates d, delegates_users du 
 			where d.id = du.delegate_id and du.user_id = ?";
 		$values = Array($user_id);
-
 		return db::select_single_row($query, $values);
-
 	}
 
 	public static function get_constituencies_for_delegate ($delegate_id){
@@ -79,22 +69,18 @@ class db_delegate {
 
 	}
 
-	public static function get_delegate_id_from_user_id ($user_id){
-
+	public static function get_delegate_id_from_user_id ($user_id)
+	{
 		$query = "select delegate_id from delegates_users where user_id = ?";
 		$values = Array($user_id);
-
 		return db::select_single_value($query, $values);
-
 	}
 
-	public static function get_user_id_from_delegate_id ($delegate_id){
-
+	public static function get_user_id_from_delegate_id ($delegate_id)
+	{
 		$query = "select user_id from delegates_users where delegate_id = ?";
 		$values = Array($delegate_id);
-
 		return db::select_single_value($query, $values);
-
 	}
 
 	public static function start_acting_as_delegate ($user_id){

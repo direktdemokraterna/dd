@@ -131,17 +131,20 @@ class navigation_helpers {
 	}
 
 	public static function execute_action_script() {
+		if (empty($_POST)) return;
+
 		$divisionName = $_GET['type'];
 		$division = self::get_division($divisionName);
 		if ($division == null) return;
+
 		$pageInfo = $division->get_page($_GET['action'], Page_info::EXECUTE);
-		if ($pageInfo != null) {
-			$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
-			require($path);
-			if(isset($redirect)){
-				header("Location: $redirect");
-				exit();
-			}
+		if ($pageInfo == null) return;
+
+		$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
+		require($path);
+		if(isset($redirect)){
+			header("Location: $redirect");
+			exit();
 		}
 	}
 
