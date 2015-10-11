@@ -405,11 +405,10 @@ CREATE TABLE `constituencies` (
   `description` text NOT NULL,
   `number_of_voters` int(10) unsigned default NULL,
   `forum_id` int(10) unsigned NOT NULL default '0',
-  `constituency_level` INTEGER UNSIGNED NOT NULL DEFAULT 1;
+  `constituency_level` INTEGER UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY  (`id`),
-  FOREIGN KEY (constituency_level) REFERENCES constituency_level(`level`);
+  FOREIGN KEY (constituency_level) REFERENCES constituency_level(`level`)
 ) ENGINE=MyISAM AUTO_INCREMENT=314 DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `constituencies`
 --
