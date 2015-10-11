@@ -59,3 +59,5 @@ public static function decrypt_ballot ($rsa_message, $aes_message){
 
 
 } //End of class
+
+?>

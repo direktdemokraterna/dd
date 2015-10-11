@@ -584,3 +584,5 @@ class Vote_group {
 		array_push($this->votes, $vote);
 	}
 } 
+
+?>
