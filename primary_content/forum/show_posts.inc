@@ -27,44 +27,10 @@
 			</span>
 		<?php endif; ?>
 	</div>
-	<?php foreach($posts as $post_info) : ?>
-		<div class="single_post_container">
-		<a id="post<?php echo $post_info['post_id']; ?>"></a>
-			<div class="post_top_row">
-				<span class="post_date"><?php echo general_helpers::show_date($post_info['posted_time']); ?></span>
-				<span class="post_alternatives">
-					<?php if(isset($_SESSION['is_forum_admin'])) : ?>
-						<a href="index.php?type=forum_admin&action=edit_post&id=<?php echo $post_info['post_id']; ?>">Moderera</a> 
-					<?php endif; ?>
-					<?php if($post_info['posted_time'] > (time() - 10*60) && $post_info['user_id'] == $_SESSION['id']) : ?>
-						<a href="index.php?type=forum&action=delete&id=<?php echo $post_info['post_id']; ?>" onclick="return confirm('Vill du verkligen radera inlägget?')">Radera</a> 
-						<a href="index.php?type=forum&action=edit&id=<?php echo $post_info['post_id']; ?>">Redigera</a> 
-					<?php elseif($post_info['posted_time'] <= (time() - 10*60) && $post_info['user_id'] == $_SESSION['id']) : ?>
-						<a href="index.php?type=forum&action=add&id=<?php echo $post_info['post_id']; ?>">Tillägg</a> 
-					<?php endif; ?>
-					<a href="index.php?type=forum&action=report&id=<?php echo $post_info['post_id']; ?>">Anmäl</a> 
-					<a onMouseDown="quote_post(<?php echo $post_info['post_id']; ?>)" style="user-select: none;" unselectable="on">Citera</a> 
-					<a href="index.php?type=forum&action=show_posts&id=<?php echo $_GET['id']; ?>&page=<?php echo $page; ?>#<?php echo $post_info['post_id']; ?>">#<?php echo $post_info['post_id']; ?></a> 
-				</span>
-			</div>
-
-			<div class="post_bottom_row">
-			<div class="post_user_info">
-				<img src="<?php echo USERIMG_PATH . $post_info['user_image']; ?>" class="post_user_image" width="80"><br>
-				<a class="user_name_link" href="index.php?type=member&action=view&id=<?php echo $post_info['user_id']; ?>"><?php echo $post_info['user_full_name']; ?></a>
-			</div>
-			
-			<div class="post_content">
-				<span id="post_content_<?php echo $post_info['post_id']; ?>"><?php echo nl2br($post_info['content']); ?></span>
-				<?php if(isset($post_info['last_edited_time'])) : ?>
-					<span class="post_last_edited">Ändrades senast <?php echo strtolower(general_helpers::show_date($post_info['last_edited_time'])); ?>.</span>
-				<?php endif; ?>
-			</div>
-			</div>
-		
-			<div style="clear: both;"></div>
-		</div>
-	<?php endforeach; ?>
+	<?php 
+		foreach($posts as $post_info) 
+			\View\forum_post_helper::make_post($post_info, $page);
+	?>
 
 	<div class="post_count_info">
 		<span class="post_counter">Visar inlägg <?php echo $first_showed_post_number; ?> - <?php echo $last_showed_post_number; ?> av totalt <?php echo $post_count; ?></span>
