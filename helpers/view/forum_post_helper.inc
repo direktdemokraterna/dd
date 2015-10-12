@@ -1,8 +1,45 @@
 <?php
 namespace View;
+
 class forum_post_helper 
 {
-	public static function make_post($post_info, $page) {
+	public static function show_topic_breadcrumbs($topic_id) {
+		$forum_info = \db_forum::get_forum_from_post($topic_id);
+		self::open_div("forum_info");
+		self::make_internal_link("Forum", "forum", "show_forums");
+		echo " >&nbsp;";
+		self::make_internal_link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
+		self::close_div();
+	} 
+
+	public static function show_topic_title($topic_id) {
+		$topic_title = \db_forum::get_title($topic_id);
+		echo "<h1>" . $topic_title . "</h1>";
+	} 
+
+	public static function show_posts($page, $posts, $post_count) {
+		$paging_info = Paging_info::create($page, $post_count);
+		self::show_paging_row($paging_info);
+		foreach($posts as $post_info) 
+			self::make_post($post_info, $page);
+		self::show_paging_row($paging_info);
+	}
+
+	private static function show_paging_row($paging_info) {
+		self::open_div("post_count_info");
+		self::open_span("post_counter");
+		echo "Visar inlägg " . $paging_info->first_showed_post_number . " - " . $paging_info->last_showed_post_number . " av totalt " . $paging_info->post_count;
+		self::close_span();
+		if ($paging_info->post_count > POSTS_PER_PAGE) {
+			self::open_span("post_page_chooser");
+			\forum_helpers::output_page_links($paging_info->number_of_pages, $paging_info->page, 
+				"index.php?type=forum&action=show_posts&id=" . $_GET['id'] . "&page=");
+			self::close_span();
+		}
+		self::close_div();
+	}
+
+	private static function make_post($post_info, $page) {
 		self::open_div("single_post_container");
 		self::make_post_header($post_info, $page);
 		self::make_post_body($post_info);
@@ -15,7 +52,7 @@ class forum_post_helper
 		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']) . '</span>';
 		self::open_span("post_alternatives");
 		self::make_post_actions($post_info);
-		self::make_internal_link('#' . $post_info['post_id'], "forum", "show_posts", "id=" . $_GET['id'] . '&page=' . $page);
+		self::make_internal_link('#' . $post_info['post_id'], "forum", "show_posts", "id=" . $post_info['post_id'] . '&page=' . $page);
 		self::close_span();
 		self::close_div();
 	}
@@ -49,7 +86,8 @@ class forum_post_helper
 	private static function make_post_user_tag($post_info) {
 		self::open_div("post_user_info");
 		echo '<img src="' . USERIMG_PATH . $post_info['user_image'] . '" class="post_user_image" width="80"><br>';
-		self::make_internal_link($post_info['user_full_name'], "member", "view", "id=" . $post_info['post_id'], "user_name_link");
+		self::make_internal_link($post_info['user_full_name'], "member", "view", "id=" . 
+			$post_info['post_id'], "user_name_link");
 		self::close_div();
 	}
 
@@ -87,6 +125,24 @@ class forum_post_helper
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
 		$onclick = ($confirm ? " return confirm('" . $confirm . "')" : '');
 		echo '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>&nbsp;'; 
+	}
+}
+
+class Paging_info {
+	public $page;
+	public $post_count;
+	public $number_of_pages;
+	public $first_showed_post_number;
+	public $last_showed_post_number;
+
+	public static function create($page, $post_count) {
+		$instance = new Paging_info();
+		$instance->page = $page;
+		$instance->post_count = $post_count;
+		$instance->number_of_pages = ceil($post_count / POSTS_PER_PAGE);
+		$instance->first_showed_post_number = 1 + ($page - 1) * POSTS_PER_PAGE;
+		$instance->last_showed_post_number = min($page * POSTS_PER_PAGE, $post_count);
+		return $instance;
 	}
 }
 ?>
