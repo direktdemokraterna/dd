@@ -340,7 +340,7 @@ class db_delegate
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
 
-		$query = "select v.id as vote_id, v.title as title, v.type as type, b.ballot_alternative as ballot_alternative, b.median_vote_value as median_value, b.prio_ranking as 			prio_ranking, b.delegate_id as delegate_id, (select title from delegates d where d.id = b.delegate_id) as delegate_name 
+		$query = "select v.id as vote_id, v.title as title, v.type as type, b.ballot as ballot, b.delegate_id as delegate_id, (select title from delegates d where d.id = b.delegate_id) as delegate_name 
 				from ballots b, votes v 
 				where b.vote_id = v.id and b.voter_is_delegate_id = ? and " . $where_filter . " 
 				order by v.timestamp_created desc limit " . $page . ", " . $limit;
@@ -488,7 +488,7 @@ class db_delegate
 
 	public static function get_delegate_ballots_for_vote ($vote_id){
 
-		$query = "select b.voter_is_delegate_id as voter_is_delegate_id, b.ballot_alternative as alternative, b.prio_ranking as prio_ranking, b.median_vote_value as value, b.delegate_id as delegate_id, 
+		$query = "select b.voter_is_delegate_id as voter_is_delegate_id, b.ballot as ballot, b.delegate_id as delegate_id, 
 					(select d.title from delegates d where b.delegate_id = d.id) as delegate_name 
 					from ballots b 
 					where b.voter_is_delegate_id is not null and b.vote_id = ?";
@@ -504,7 +504,7 @@ class db_delegate
 
 		foreach ($relevant_votes as $row) {
 			$delegate_ballot = self::get_ballot_for_vote($row['id'], $delegate_id);
-			self::register_ballot_for_delegands($delegate_id, $constituency_id, $row['id'], $delegate_ballot['ballot_alternative'], $delegate_ballot['prio_ranking'], $delegate_ballot['median_vote_value'], $delegate_id, 1);
+			self::register_ballot_for_delegands($delegate_id, $constituency_id, $row['id'], $delegate_ballot['ballot'], $delegate_id, 1);
 		}
 
 	}
@@ -576,7 +576,7 @@ class db_delegate
 				$delegate_vote = self::get_delegate_ballot_for_vote($vote_id, $delegate_id);
 
 				if(!empty($delegate_vote)){
-					db_vote::insert_ballot($vote_id, $delegate_vote['ballot_alternative'], $delegate_vote['prio_ranking'], $delegate_vote['median_vote_value'], $user_code, $voter_is_delegate_id, $delegate_id, $delegation_level, 1);
+					db_vote::insert_ballot($vote_id, $delegate_vote['ballot'], $user_code, $voter_is_delegate_id, $delegate_id, $delegation_level, 1);
 					return true;
 				}
 				else{

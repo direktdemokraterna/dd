@@ -42,7 +42,7 @@
 				if($check_user_access){
 					$post_vars = Array("user_id" => $_SESSION['id'], "vote_id" => $_POST['vote_id'], "ballot" => $_POST['ballot']);
 					$reply = crypt_helpers::curl_to_anon_server("anonymise_ballot.php", $post_vars);
-
+die($reply);
 					if($reply == "success"){
 						$_SESSION['report_message'] = "Din röst är registrerad.";
 						}

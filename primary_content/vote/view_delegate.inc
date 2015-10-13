@@ -56,13 +56,13 @@
 		?></td>
 		<td><?php
 			if($row['type'] == "yes-no"){
-				if($row['ballot_alternative'] == "yes") echo "Ja";
-				elseif($row['ballot_alternative'] == "no") echo "Nej";
-				elseif($row['ballot_alternative'] == "abstain") echo "Avstår";
+				if($row['ballot'] == "yes") echo "Ja";
+				elseif($row['ballot'] == "no") echo "Nej";
+				elseif($row['ballot'] == "abstain") echo "Avstår";
 			}
-			elseif($row['type'] == "median") echo $row['median_value'];
-			elseif($row['type'] == "prio-vote") vote_helpers::calculate_and_output_prio_vote_result(vote_helpers::make_result_array_of_json_prio_ranking($row['prio_ranking']));
-			elseif($row['type'] == "candidate-election") vote_helpers::calculate_and_output_candidate_election_result(vote_helpers::make_result_array_of_json_prio_ranking($row['prio_ranking']));
+			elseif($row['type'] == "median") echo $row['ballot'];
+			elseif($row['type'] == "prio-vote") vote_helpers::calculate_and_output_prio_vote_result(vote_helpers::make_result_array_of_json_prio_ranking($row['ballot']));
+			elseif($row['type'] == "candidate-election") vote_helpers::calculate_and_output_candidate_election_result(vote_helpers::make_result_array_of_json_prio_ranking($row['ballot']));
 			elseif($row['type'] == "budget") echo "";
 		?></td>
 	</tr>
