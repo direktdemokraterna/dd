@@ -8,7 +8,7 @@ class db_workgroup {
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
 
-		$query = "select * from workgroups where is_active=1 order by id asc limit " . $page . ", " . $limit;
+		$query = "select * from workgroup where is_active=1 order by id asc limit " . $page . ", " . $limit;
 		$values = Array();
 
 		return db::select($query, $values);
@@ -21,7 +21,7 @@ class db_workgroup {
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
 
-		$query = "select * from workgroups where is_active=0 order by id asc limit " . $page . ", " . $limit;
+		$query = "select * from workgroup where is_active=0 order by id asc limit " . $page . ", " . $limit;
 		$values = Array();
 
 		return db::select($query, $values);
@@ -30,7 +30,7 @@ class db_workgroup {
 
 	public static function list_workgroups_where_user_is_member ($user_id){
 
-		$query = "select * from workgroups w where is_active=1 and exists (select * from workgroups_members wm where w.id = wm.workgroup_id and user_id = ?) order by id asc";
+		$query = "select * from workgroup w where is_active=1 and exists (select * from workgroup_member wm where w.id = wm.workgroup_id and user_id = ?) order by id asc";
 		$values = Array($user_id);
 
 		return db::select($query, $values);
@@ -45,7 +45,7 @@ class db_workgroup {
 			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
 			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen".$title, "workgroup");
 
-			$query = "insert into workgroups (title, description, propose_time, create_user, public_forum_id, private_forum_id) values (?, ?, ?, ?, ?, ?)";
+			$query = "insert into workgroup (title, description, propose_time, create_user, public_forum_id, private_forum_id) values (?, ?, ?, ?, ?, ?)";
 			$values = Array($title, $description, time(), $user_id, $public_forum_id, $private_forum_id);
 
 			return db::insert($query, $values);
@@ -65,7 +65,7 @@ class db_workgroup {
 			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
 			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen".$title, "workgroup");
 
-			$query = "insert into workgroups (title, description, is_active, number_of_members, create_time, create_user, public_forum_id, private_forum_id, is_restricted) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$query = "insert into workgroup (title, description, is_active, number_of_members, create_time, create_user, public_forum_id, private_forum_id, is_restricted) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$values = Array($title, $description, 1, $number_of_members, time(), $_SESSION['id'], $public_forum_id, $private_forum_id, 1);
 
 			$workgroup_id = db::insert($query, $values);
@@ -90,7 +90,7 @@ class db_workgroup {
 			$is_restricted = $workgroup_info['is_restricted'];
 		}
 
-		$query = "update workgroups set title = ?, description = ?, number_of_members = ?, is_restricted = ? where id = ?";
+		$query = "update workgroup set title = ?, description = ?, number_of_members = ?, is_restricted = ? where id = ?";
 		$values = Array($title, $description, $number_of_members, $is_restricted, $workgroup_id);
 
 		return db::update($query, $values);
@@ -99,7 +99,7 @@ class db_workgroup {
 
 	public static function get_info ($id){
 
-		$query = "select * from workgroups where id = ?";
+		$query = "select * from workgroup where id = ?";
 		$values = Array($id);
 
 		return db::select_single_row($query, $values);
@@ -108,7 +108,7 @@ class db_workgroup {
 
 	public static function is_active ($workgroup_id){
 
-		$query = "select is_active from workgroups where id = ?";
+		$query = "select is_active from workgroup where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -117,7 +117,7 @@ class db_workgroup {
 
 	public static function is_restricted ($workgroup_id){
 
-		$query = "select is_restricted from workgroups where id = ?";
+		$query = "select is_restricted from workgroup where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -126,7 +126,7 @@ class db_workgroup {
 
 	public static function is_member ($workgroup_id, $user_id){
 
-		$query = "select count(*) from workgroups_members where workgroup_id = ? and user_id = ?";
+		$query = "select count(*) from workgroup_member where workgroup_id = ? and user_id = ?";
 		$values = Array($workgroup_id, $user_id);
 
 		return db::select_single_value($query, $values);
@@ -135,7 +135,7 @@ class db_workgroup {
 
 	public static function is_candidate ($workgroup_id, $candidate_id){
 
-		$query = "select count(*) from workgroups_candidates where workgroup_id = ? and candidate_id = ?";
+		$query = "select count(*) from workgroup_candidate where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		return db::select_single_value($query, $values);
@@ -144,7 +144,7 @@ class db_workgroup {
 
 	public static function get_member_count ($workgroup_id){
 
-		$query = "select number_of_members from workgroups where id = ?";
+		$query = "select number_of_members from workgroup where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -154,7 +154,7 @@ class db_workgroup {
 	public static function list_members ($workgroup_id){
 
 		$query = "select u.id as user_id, concat(u.first_name, ' ', u.last_name) as full_name 
-					from workgroups_members wm, users u where wm.user_id = u.id and wm.workgroup_id = ?";
+					from workgroup_member wm, user u where wm.user_id = u.id and wm.workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select($query, $values);
@@ -163,7 +163,7 @@ class db_workgroup {
 
 	public static function get_member_ids ($workgroup_id){
 
-		$query = "select user_id from workgroups_members where workgroup_id = ?";
+		$query = "select user_id from workgroup_member where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_sequential_array($query, $values);
@@ -173,7 +173,7 @@ class db_workgroup {
 	public static function list_candidates ($workgroup_id){
 
 		$query = "select concat(u.first_name, ' ', u.last_name) as full_name, u.id as user_id 
-					from workgroups_candidates wc, users u where wc.candidate_id = u.id and wc.workgroup_id = ?";
+					from workgroup_candidate wc, user u where wc.candidate_id = u.id and wc.workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select($query, $values);
@@ -183,8 +183,8 @@ class db_workgroup {
 	public static function exclude_info ($workgroup_id, $excluded_id, $excluder_id){
 
 		$query = "select count(*) as number_of_excluders, 
-					(select id from workgroups_members_exclude wme2 where wme2.workgroup_id = ? and wme2.excluded_id = ? and wme2.excluder_id = ?) as is_excluder 
-					from workgroups_members_exclude wme where wme.workgroup_id = ? and wme.excluded_id = ?";
+					(select id from workgroup_member_exclude wme2 where wme2.workgroup_id = ? and wme2.excluded_id = ? and wme2.excluder_id = ?) as is_excluder 
+					from workgroup_member_exclude wme where wme.workgroup_id = ? and wme.excluded_id = ?";
 		$values = Array($workgroup_id, $excluded_id, $excluder_id, $workgroup_id, $excluded_id);
 
 		return db::select_single_row($query, $values);
@@ -193,7 +193,7 @@ class db_workgroup {
 
 	public static function members_supporting_exclusion ($workgroup_id, $excluded_id){
 
-		$query = "select count(*) from workgroups_members_exclude where workgroup_id = ? and excluded_id = ?";
+		$query = "select count(*) from workgroup_member_exclude where workgroup_id = ? and excluded_id = ?";
 		$values = Array($workgroup_id, $excluded_id);
 
 		return db::select_single_value($query, $values);
@@ -202,7 +202,7 @@ class db_workgroup {
 
 	public static function cancel_exclude ($workgroup_id, $excluded_id, $excluder_id){
 
-		$query = "delete from workgroups_members_exclude where workgroup_id = ? and excluded_id = ? and excluder_id = ?";
+		$query = "delete from workgroup_member_exclude where workgroup_id = ? and excluded_id = ? and excluder_id = ?";
 		$values = Array($workgroup_id, $excluded_id, $excluder_id);
 
 		return db::delete($query, $values);
@@ -236,12 +236,12 @@ class db_workgroup {
 
 	public static function drop_member ($workgroup_id, $excluded_id){
 
-		$query = "delete from workgroups_members where workgroup_id = ? and user_id = ?";
+		$query = "delete from workgroup_member where workgroup_id = ? and user_id = ?";
 		$values = Array($workgroup_id, $excluded_id);
 
 		db::delete($query, $values);
 
-		$query = "delete from workgroups_members_exclude where workgroup_id = ? and excluded_id = ?";
+		$query = "delete from workgroup_member_exclude where workgroup_id = ? and excluded_id = ?";
 		$values = Array($workgroup_id, $excluded_id);
 
 		db::delete($query, $values);
@@ -265,7 +265,7 @@ class db_workgroup {
 
 	public static function update_membership_count ($workgroup_id){
 
-		$query = "update workgroups set number_of_members = (select count(*) from workgroups_members where workgroup_id = ?) where id = ?";
+		$query = "update workgroup set number_of_members = (select count(*) from workgroup_member where workgroup_id = ?) where id = ?";
 		$values = Array($workgroup_id, $workgroup_id);
 
 		return db::update($query, $values);
@@ -275,8 +275,8 @@ class db_workgroup {
 	public static function candidate_info ($workgroup_id, $candidate_id, $supporter_id){
 
 		$query = "select count(*) as number_of_supporters, 
-					(select id from workgroups_candidates_support wcs where wcs.workgroup_id = ? and wcs.candidate_id = ? and wcs.supporter_id = ?) as is_supporter 
-					from workgroups_candidates_support wcs2 where wcs2.workgroup_id = ? and wcs2.candidate_id = ?";
+					(select id from workgroup_candidate_support wcs where wcs.workgroup_id = ? and wcs.candidate_id = ? and wcs.supporter_id = ?) as is_supporter 
+					from workgroup_candidate_support wcs2 where wcs2.workgroup_id = ? and wcs2.candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id, $supporter_id, $workgroup_id, $candidate_id);
 
 		return db::select_single_row($query, $values);
@@ -285,7 +285,7 @@ class db_workgroup {
 
 	public static function cancel_support ($workgroup_id, $candidate_id, $supporter_id){
 
-		$query = "delete from workgroups_candidates_support where workgroup_id = ? and candidate_id = ? and supporter_id = ?";
+		$query = "delete from workgroup_candidate_support where workgroup_id = ? and candidate_id = ? and supporter_id = ?";
 		$values = Array($workgroup_id, $candidate_id, $supporter_id);
 
 		return db::delete($query, $values);
@@ -319,7 +319,7 @@ class db_workgroup {
 
 	public static function members_supporting_candidate ($workgroup_id, $candidate_id){
 
-		$query = "select count(*) from workgroups_candidates_support where workgroup_id = ? and candidate_id = ?";
+		$query = "select count(*) from workgroup_candidate_support where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		return db::select_single_value($query, $values);
@@ -328,17 +328,17 @@ class db_workgroup {
 
 	public static function add_member ($workgroup_id, $candidate_id){
 
-		$query = "delete from workgroups_candidates where workgroup_id = ? and candidate_id = ?";
+		$query = "delete from workgroup_candidate where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		db::delete($query, $values);
 
-		$query = "delete from workgroups_candidates_support where workgroup_id = ? and candidate_id = ?";
+		$query = "delete from workgroup_candidate_support where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		db::delete($query, $values);
 
-		$query = "insert into workgroups_members (workgroup_id, user_id, member_since) values (?, ?, ?)";
+		$query = "insert into workgroup_member (workgroup_id, user_id, member_since) values (?, ?, ?)";
 		$values = Array($workgroup_id, $candidate_id, time());
 
 		db::insert($query, $values);
@@ -365,12 +365,12 @@ class db_workgroup {
 
 	public static function cancel_candidacy ($workgroup_id, $candidate_id){
 
-		$query = "delete from workgroups_candidates where workgroup_id = ? and candidate_id = ?";
+		$query = "delete from workgroup_candidate where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		$ok = db::delete($query, $values);
 
-		$query = "delete from workgroups_candidates_support where workgroup_id = ? and candidate_id = ?";
+		$query = "delete from workgroup_candidate_support where workgroup_id = ? and candidate_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		db::delete($query, $values);
@@ -413,7 +413,7 @@ class db_workgroup {
 				self::activate($public_forum_id, $private_forum_id, $workgroup_id);
 
 				$members = self::list_members($workgroup_id);
-				$query = "insert into forums_users (forum_id, user_id) values (" . $private_forum_id . ", ?)";
+				$query = "insert into forum_user (forum_id, user_id) values (" . $private_forum_id . ", ?)";
 
 				db::insert_all($query, $members);
 
@@ -427,7 +427,7 @@ class db_workgroup {
 
 	public static function remove_supporting_member ($workgroup_id, $candidate_id){
 
-		$query = "delete from workgroups_members where workgroup_id = ? and user_id = ?";
+		$query = "delete from workgroup_member where workgroup_id = ? and user_id = ?";
 		$values = Array($workgroup_id, $candidate_id);
 
 		$return = db::delete($query, $values);
@@ -440,12 +440,12 @@ class db_workgroup {
 
 	public static function activate ($public_forum_id, $private_forum_id, $workgroup_id){
 
-		$query = "update workgroups set is_active = 1, create_time = ?, public_forum_id = ?, private_forum_id = ? where id = ?";
+		$query = "update workgroup set is_active = 1, create_time = ?, public_forum_id = ?, private_forum_id = ? where id = ?";
 		$values = Array(time(), $public_forum_id, $private_forum_id, $workgroup_id);
 
 		db::update($query, $values);
 
-		$query = "update workgroups_members set member_since = ? where workgroup_id = ?";
+		$query = "update workgroup_member set member_since = ? where workgroup_id = ?";
 		$values = Array(time(), $workgroup_id);
 
 		db::update($query, $values);
@@ -456,7 +456,7 @@ class db_workgroup {
 
 	public static function deactivate ($workgroup_id){
 
-		$query = "update workgroups set is_active = 0 where id = ?";
+		$query = "update workgroup set is_active = 0 where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::update($query, $values);
@@ -465,7 +465,7 @@ class db_workgroup {
 
 	public static function get_private_forum_id ($workgroup_id){
 
-		$query = "select private_forum_id from workgroups where id = ?";
+		$query = "select private_forum_id from workgroup where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -474,7 +474,7 @@ class db_workgroup {
 	
 	public static function get_id_from_name ($workgroup_name){
 
-		$query = "select id from workgroups where title = ?";
+		$query = "select id from workgroup where title = ?";
 		$values = Array($workgroup_name);
 
 		return db::select_single_value($query, $values);
@@ -483,7 +483,7 @@ class db_workgroup {
 
 	public static function get_name_from_id ($workgroup_id){
 
-		$query = "select title as name from workgroups where id = ?";
+		$query = "select title as name from workgroup where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -492,7 +492,7 @@ class db_workgroup {
 
 	public static function get_number_of_members ($workgroup_id){
 
-		$query = "select number_of_members from workgroups where id = ?";
+		$query = "select number_of_members from workgroup where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -501,7 +501,7 @@ class db_workgroup {
 
 	public static function get_workgroup_election_changes ($workgroup_id){
 
-		$query = "select timestamp, user_id_in, user_id_out from workgroup_election_changes where workgroup_id = ?";
+		$query = "select timestamp, user_id_in, user_id_out from workgroup_election_change where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select($query, $values);
@@ -510,7 +510,7 @@ class db_workgroup {
 
 	public static function get_workgroup_election_members_in ($workgroup_id){
 
-		$query = "select user_id_in from workgroup_election_changes where workgroup_id = ?";
+		$query = "select user_id_in from workgroup_election_change where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_sequential_array($query, $values);
@@ -519,7 +519,7 @@ class db_workgroup {
 
 	public static function get_workgroup_election_members_out ($workgroup_id){
 
-		$query = "select user_id_out from workgroup_election_changes where workgroup_id = ?";
+		$query = "select user_id_out from workgroup_election_change where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_sequential_array($query, $values);
@@ -528,7 +528,7 @@ class db_workgroup {
 
 	public static function check_if_workgroup_election_member_in_exists_and_get_timestamp ($workgroup_id, $user_id){
 
-		$query = "select timestamp from workgroup_election_changes where workgroup_id = ? and user_id_in = ?";
+		$query = "select timestamp from workgroup_election_change where workgroup_id = ? and user_id_in = ?";
 		$values = Array($workgroup_id, $user_id);
 
 		return db::select_single_value($query, $values);
@@ -537,7 +537,7 @@ class db_workgroup {
 
 	public static function check_if_workgroup_election_member_out_exists_and_get_timestamp ($workgroup_id, $user_id){
 
-		$query = "select timestamp from workgroup_election_changes where workgroup_id = ? and user_id_out = ?";
+		$query = "select timestamp from workgroup_election_change where workgroup_id = ? and user_id_out = ?";
 		$values = Array($workgroup_id, $user_id);
 
 		return db::select_single_value($query, $values);
@@ -546,7 +546,7 @@ class db_workgroup {
 
 	public static function get_oldest_workgroup_election_member ($workgroup_id){
 
-		$query = "select * from workgroup_election_changes where workgroup_id = ? order by timestamp asc limit 1";
+		$query = "select * from workgroup_election_change where workgroup_id = ? order by timestamp asc limit 1";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -555,7 +555,7 @@ class db_workgroup {
 
 	public static function get_workgroup_election_changes_for_member_in ($workgroup_id, $user_id_in){
 
-		$query = "select * from workgroup_election_changes where workgroup_id = ? and user_id_in = ?";
+		$query = "select * from workgroup_election_change where workgroup_id = ? and user_id_in = ?";
 		$values = Array($workgroup_id, $user_id_in);
 
 		return db::select_single_row($query, $values);
@@ -564,7 +564,7 @@ class db_workgroup {
 
 	public static function insert_workgroup_election_changes ($workgroup_id, $user_id_in, $user_id_out){
 
-		$query = "insert into workgroup_election_changes (workgroup_id, timestamp, user_id_in, user_id_out) values (?, ?, ?, ?)";
+		$query = "insert into workgroup_election_change (workgroup_id, timestamp, user_id_in, user_id_out) values (?, ?, ?, ?)";
 		$values = Array($workgroup_id, time(), $user_id_in, $user_id_out);
 
 		return db::insert($query, $values);
@@ -573,7 +573,7 @@ class db_workgroup {
 
 	public static function delete_workgroup_election_changes ($workgroup_election_changes_id){
 
-		$query = "delete from workgroup_election_changes where id = ?";
+		$query = "delete from workgroup_election_change where id = ?";
 		$values = Array($workgroup_election_changes_id);
 
 		return db::delete($query, $values);
@@ -582,7 +582,7 @@ class db_workgroup {
 
 	public static function get_workgroup_election_changes_to_execute (){
 
-		$query = "select id, workgroup_id, timestamp, user_id_in, user_id_out from workgroup_election_changes where timestamp < ?";
+		$query = "select id, workgroup_id, timestamp, user_id_in, user_id_out from workgroup_election_change where timestamp < ?";
 		$values = Array(time() + BUFFER_TIME_FOR_CONTINUOUS_ELECTIONS);
 
 		return db::select($query, $values);
@@ -596,7 +596,7 @@ class db_workgroup {
 
 		db_vote_admin::finish_vote($vote_id);
 
-		$query = "update workgroups set is_restricted = 0 where id = ?";
+		$query = "update workgroup set is_restricted = 0 where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::update($query, $values);
@@ -623,7 +623,7 @@ class db_workgroup {
 
 		$vote_id = db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
 
-		$query = "update workgroups set is_restricted = ? where id = ?";
+		$query = "update workgroup set is_restricted = ? where id = ?";
 		$values = Array($vote_id, $workgroup_id);
 
 		db::update($query, $values);
@@ -634,7 +634,7 @@ class db_workgroup {
 
 	public static function count_candidates ($workgroup_id){
 
-		$query = "select count(*) from workgroups_candidates where workgroup_id = ?";
+		$query = "select count(*) from workgroup_candidate where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		return db::select_single_value($query, $values);
@@ -643,28 +643,28 @@ class db_workgroup {
 
 	public static function delete ($workgroup_id){
 
-		$query = "delete from workgroups_members where workgroup_id = ?";
+		$query = "delete from workgroup_member where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		db::delete($query, $values);
 
-		$query = "delete from workgroups_candidates where workgroup_id = ?";
+		$query = "delete from workgroup_candidate where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		db::delete($query, $values);
 
-		$query = "delete from workgroups_candidates_support where workgroup_id = ?";
+		$query = "delete from workgroup_candidate_support where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		db::delete($query, $values);
 
-		$query = "delete from workgroups_members_exclude where workgroup_id = ?";
+		$query = "delete from workgroup_member_exclude where workgroup_id = ?";
 		$values = Array($workgroup_id);
 
 		db::delete($query, $values);
 
 
-		$query = "delete from workgroups where id = ?";
+		$query = "delete from workgroup where id = ?";
 		$values = Array($workgroup_id);
 
 		return db::delete($query, $values);

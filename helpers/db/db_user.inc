@@ -4,7 +4,7 @@ class db_user {
 	
 	public static function add_user ($username, $password, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name = ""){
 
-		$query = "insert into users (username, password, registration_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, skype_name) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$query = "insert into user (username, password, registration_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, skype_name) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		$values = Array($username, $password, time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name);
 
@@ -44,7 +44,7 @@ class db_user {
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
 
-		$query = "select id, concat(first_name, ' ', last_name) as full_name from users where " . $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
+		$query = "select id, concat(first_name, ' ', last_name) as full_name from user where " . $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
 		$values = Array();
 
 		return db::select($query, $values);
@@ -53,7 +53,7 @@ class db_user {
 
 	public static function get_all_users_count ($where_filter = "1=1"){
 
-		$query = "select count(*) from users where " . $where_filter;
+		$query = "select count(*) from user where " . $where_filter;
 		$values = Array();
 
 		return db::select_single_value($query, $values);
@@ -62,7 +62,7 @@ class db_user {
 
 	public static function get_user_data ($id){
 
-		$query = "select *, concat(first_name, ' ', last_name) as full_name from users where id = ?";
+		$query = "select *, concat(first_name, ' ', last_name) as full_name from user where id = ?";
 		$values = Array($id);
 
 		return db::select_single_row($query, $values);
@@ -71,7 +71,7 @@ class db_user {
 
 	public static function get_password ($id){
 
-		$query = "select password from users where id = ?";
+		$query = "select password from user where id = ?";
 		$values = Array($id);
 
 		return db::select_single_value($query, $values);
@@ -80,7 +80,7 @@ class db_user {
 
 	public static function get_user_data_from_username ($username){
 
-		$query = "select * from users where username = ?";
+		$query = "select * from user where username = ?";
 		$values = Array($username);
 
 		return db::select_single_row($query, $values);
@@ -89,7 +89,7 @@ class db_user {
 
 	public static function update_last_activity_time ($user_id){
 
-		$query = "update users set last_activity_time = ? where id = ?";
+		$query = "update user set last_activity_time = ? where id = ?";
 		$values = Array(time(), $user_id);
 
 		return db::update($query, $values);
@@ -98,7 +98,7 @@ class db_user {
 
 	public static function update_last_login_time ($user_id){
 
-		$query = "update users set last_login_time = ? where id = ?";
+		$query = "update user set last_login_time = ? where id = ?";
 		$values = Array(time(), $user_id);
 
 		return db::update($query, $values);
@@ -107,7 +107,7 @@ class db_user {
 
 	public static function update_password ($password_hash, $id){
 
-		$query = "update users set password = ? where id = ?";
+		$query = "update user set password = ? where id = ?";
 		$values = Array($password_hash, $id);
 
 		return db::update($query, $values);
@@ -116,7 +116,7 @@ class db_user {
 
 	public static function update_image ($image, $id){
 
-		$query = "update users set image = ? where id = ?";
+		$query = "update user set image = ? where id = ?";
 		$values = Array($image, $id);
 
 		return db::update($query, $values);
@@ -125,7 +125,7 @@ class db_user {
 
 	public static function update_settings ($show_email, $show_telephone, $show_skype, $id){
 
-		$query = "update users set show_email = ?, show_telephone = ?, show_skype = ? where id = ?";
+		$query = "update user set show_email = ?, show_telephone = ?, show_skype = ? where id = ?";
 		$values = Array($show_email, $show_telephone, $show_skype, $id);
 
 		return db::update($query, $values);
@@ -134,7 +134,7 @@ class db_user {
 
 	public static function update_profile ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $email, $skype_name, $telephone1, $telephone2, $id){
 
-		$query = "update users set first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county = ?, region = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
+		$query = "update user set first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county = ?, region = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
 		$values = Array($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $email, $skype_name, $telephone1, $telephone2, $id);
 
 		return db::update($query, $values);
@@ -143,7 +143,7 @@ class db_user {
 
 	public static function update_description ($description, $id){
 
-		$query = "update users set description = ? where id = ?";
+		$query = "update user set description = ? where id = ?";
 		$values = Array($description, $id);
 
 		return db::update($query, $values);
@@ -152,7 +152,7 @@ class db_user {
 
 	public static function update_user_by_admin ($username, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name, $telephone1, $telephone2, $id){
 
-		$query = "update users set username = ?, first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county = ?, region = ?, social_security_number = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
+		$query = "update user set username = ?, first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county = ?, region = ?, social_security_number = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
 		$values = Array($username, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name, $telephone1, $telephone2, $id);
 
 		return db::update($query, $values);
@@ -161,7 +161,7 @@ class db_user {
 
 	public static function get_username ($user_id){
 
-		$query = "select username from users where id = ?";
+		$query = "select username from user where id = ?";
 		$values = Array($user_id);
 
 		return db::select_single_value($query, $values);
@@ -170,7 +170,7 @@ class db_user {
 
 	public static function get_user_id ($username){
 
-		$query = "select id from users where username = ?";
+		$query = "select id from user where username = ?";
 		$values = Array($username);
 
 		return db::select_single_value($query, $values);
@@ -179,7 +179,7 @@ class db_user {
 
 	public static function get_user_full_name ($user_id){
 
-		$query = "select concat(first_name, ' ', last_name) as full_name from users where id = ?";
+		$query = "select concat(first_name, ' ', last_name) as full_name from user where id = ?";
 		$values = Array($user_id);
 
 		return db::select_single_value($query, $values);
@@ -188,7 +188,7 @@ class db_user {
 
 	public static function get_public_forum_ids (){
 
-		$query = "select id from users";
+		$query = "select id from user";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -197,7 +197,7 @@ class db_user {
 
 	public static function set_remember_me_token ($remember_me_token, $id){
 
-		$query = "update users set remember_me_token = ? where id = ?";
+		$query = "update user set remember_me_token = ? where id = ?";
 		$values = Array($remember_me_token, $id);
 
 		return db::update($query, $values);
@@ -206,7 +206,7 @@ class db_user {
 
 	public static function get_all_user_ids (){
 
-		$query = "select id from users";
+		$query = "select id from user";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -215,7 +215,7 @@ class db_user {
 
 	public static function get_all_usernames_and_full_names (){
 
-		$query = "select username as username, concat(first_name, ' ', last_name) as full_name from users";
+		$query = "select username as username, concat(first_name, ' ', last_name) as full_name from user";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -228,7 +228,7 @@ class db_user {
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
 
-		$query = "select id, concat(first_name, ' ', last_name) as full_name from users 
+		$query = "select id, concat(first_name, ' ', last_name) as full_name from user 
 					where match(first_name, last_name, description) against (? in boolean mode) 
 					limit " . $page . ", " . $limit;
 		$values = Array($search);
@@ -239,7 +239,7 @@ class db_user {
 
 	public static function enter_user_application ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone){
 
-		$query = "insert into user_applications (application_filed_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, telephone1) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$query = "insert into user_application (application_filed_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, telephone1) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		$values = Array(time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone);
 
@@ -249,7 +249,7 @@ class db_user {
 
 	public static function get_all_user_applications (){
 
-		$query = "select id, concat(first_name, ' ', last_name) as full_name, application_filed_time from user_applications order by application_filed_time desc";
+		$query = "select id, concat(first_name, ' ', last_name) as full_name, application_filed_time from user_application order by application_filed_time desc";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -258,7 +258,7 @@ class db_user {
 
 	public static function get_user_application ($id){
 
-		$query = "select *, concat(first_name, ' ', last_name) as full_name from user_applications where id = ?";
+		$query = "select *, concat(first_name, ' ', last_name) as full_name from user_application where id = ?";
 		$values = Array($id);
 
 		return db::select_single_row($query, $values);
@@ -267,7 +267,7 @@ class db_user {
 
 	public static function delete_user_application ($id){
 
-		$query = "delete from user_applications where id = ?";
+		$query = "delete from user_application where id = ?";
 		$values = Array($id);
 
 		return db::delete($query, $values);
@@ -276,12 +276,12 @@ class db_user {
 
 	public static function check_if_personnummer_exists ($personnummer){
 
-		$query = "select * from users where social_security_number = ?";
+		$query = "select * from user where social_security_number = ?";
 		$values = Array($personnummer);
 
 		$user_result = db::select($query, $values);
 
-		$query = "select * from user_applications where social_security_number = ?";
+		$query = "select * from user_application where social_security_number = ?";
 		$values = Array($personnummer);
 
 		$user_application_result = db::select($query, $values);
@@ -297,12 +297,12 @@ class db_user {
 
 	public static function check_if_email_exists ($email){
 
-		$query = "select * from users where email = ?";
+		$query = "select * from user where email = ?";
 		$values = Array($email);
 
 		$user_result = db::select($query, $values);
 
-		$query = "select * from user_applications where email = ?";
+		$query = "select * from user_application where email = ?";
 		$values = Array($email);
 
 		$user_application_result = db::select($query, $values);

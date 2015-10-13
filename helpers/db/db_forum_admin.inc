@@ -4,7 +4,7 @@ class db_forum_admin {
 	
 	public static function add_category ($title, $description){
 
-		$query = "insert into categories (title, description) values (?, ?)";
+		$query = "insert into category (title, description) values (?, ?)";
 		$values = Array($title, $description);
 
 		return db::insert($query, $values);
@@ -13,7 +13,7 @@ class db_forum_admin {
 
 	public static function list_categories (){
 
-		$query = "select * from categories";
+		$query = "select * from category";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -22,7 +22,7 @@ class db_forum_admin {
 
 	public static function update_category ($title, $description, $cat_id){
 
-		$query = "update categories set title = ?, description = ? where id = ?";
+		$query = "update category set title = ?, description = ? where id = ?";
 		$values = Array($title, $description, $cat_id);
 
 		return db::update($query, $values);
@@ -31,7 +31,7 @@ class db_forum_admin {
 
 	public static function get_category_info ($cat_id){
 
-		$query = "select * from categories where id = ?";
+		$query = "select * from category where id = ?";
 		$values = Array($cat_id);
 
 		return db::select_single_row($query, $values);
@@ -41,7 +41,7 @@ class db_forum_admin {
 	public static function list_sub_forums ($cat_id){
 
 		$query = "select f.id as forum_id, f.title as forum_name, f.description as description, p.posted_time as last_posted_time, p.id as last_posted_id, p.title as post_title, u.id 			as user_id, concat(u.first_name, ' ', u.last_name) as full_name, f.number_of_topics as number_of_topics, f.number_of_posts as number_of_posts
-					from forums f, posts p, users u where p.id = f.last_posted_post and u.id = p.user_id and 
+					from forum f, post p, user u where p.id = f.last_posted_post and u.id = p.user_id and 
 					f.category_id = ?";
 		$values = Array($cat_id);
 
@@ -51,14 +51,14 @@ class db_forum_admin {
 
 	public static function add_forum ($cat_id, $title, $description, $access_type){
 
-		$query = "insert into forums (category_id, title, description, access_type) values (?, ?, ?, ?)";
+		$query = "insert into forum (category_id, title, description, access_type) values (?, ?, ?, ?)";
 		$values = Array($cat_id, $title, $description, $access_type);
 
 		$forum_id = db::insert($query, $values);
 
 		if($access_type == "public"){
 			$users = db_user::get_all_user_ids();
-			$query = "insert into forums_users (forum_id, user_id) values (" . $forum_id . ", ?)";
+			$query = "insert into forum_user (forum_id, user_id) values (" . $forum_id . ", ?)";
 			db::insert_all($query, $users);
 		}
 
@@ -68,7 +68,7 @@ class db_forum_admin {
 
 	public static function list_forums (){
 
-		$query = "select * from forums";
+		$query = "select * from forum";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -77,7 +77,7 @@ class db_forum_admin {
 
 	public static function update_forum ($cat_id, $title, $description, $forum_id){
 
-		$query = "update forums set category_id = ?, title = ?, description = ? where id = ?";
+		$query = "update forum set category_id = ?, title = ?, description = ? where id = ?";
 		$values = Array($cat_id, $title, $description, $forum_id);
 
 		return db::update($query, $values);
@@ -86,7 +86,7 @@ class db_forum_admin {
 
 	public static function get_forum_info ($forum_id){
 
-		$query = "select * from forums where id = ?";
+		$query = "select * from forum where id = ?";
 		$values = Array($forum_id);
 
 		return db::select_single_row($query, $values);
@@ -105,7 +105,7 @@ class db_forum_admin {
 
 	public static function remove_forum_access ($user_id, $forum_id){
 
-		$query = "delete from forums_users where user_id = ? and forum_id = ?";
+		$query = "delete from forum_user where user_id = ? and forum_id = ?";
 		$values = Array($user_id, $forum_id);
 
 		return db::delete($query, $values);
@@ -114,7 +114,7 @@ class db_forum_admin {
 
 	public static function get_all_forums_and_if_user_belongs ($user_id){
 
-		$query = "select f.id as forum_id, f.title as forum_name, (if (exists (select * from forums_users fu where fu.forum_id = f.id and fu.user_id = ?), 1, 0)) as user_access from forums f";
+		$query = "select f.id as forum_id, f.title as forum_name, (if (exists (select * from forum_user fu where fu.forum_id = f.id and fu.user_id = ?), 1, 0)) as user_access from forum f";
 		$values = Array($user_id);
 
 		return db::select($query, $values);
@@ -125,13 +125,13 @@ class db_forum_admin {
 
 		$not_in_clause = implode(',', array_fill(0, count($forum_ids), '?'));
 
-		$query = "delete from forums_users where forum_id not in (" . $not_in_clause . ") and user_id = ?";
+		$query = "delete from forum_user where forum_id not in (" . $not_in_clause . ") and user_id = ?";
 		$values = $forum_ids;
 		array_push($values, $user_id);
 
 		$deleted = db::delete($query, $values);
 
-		$query = "insert into forums_users (forum_id, user_id) select ? as forum_id, ? as user_id from dual where not exists (select * from forums_users where forum_id = ? and user_id = ?) limit 1";
+		$query = "insert into forum_user (forum_id, user_id) select ? as forum_id, ? as user_id from dual where not exists (select * from forum_user where forum_id = ? and user_id = ?) limit 1";
 		$inserted = db::insert_ignore_from_array($query, $forum_ids, $user_id);
 
 		return $deleted + $inserted;
@@ -140,8 +140,8 @@ class db_forum_admin {
 
 	public static function drop_local_forums_for_user ($user_id){
 
-		$query = "delete fu from forums_users fu 
-					left join forums f on f.id = fu.forum_id
+		$query = "delete fu from forum_user fu 
+					left join forum f on f.id = fu.forum_id
 					where (f.access_type = 'local_region' or f.access_type = 'local_county') and fu.forum_id = f.id and fu.user_id = ?";
 		$values = Array($user_id);
 
@@ -151,7 +151,7 @@ class db_forum_admin {
 
 	public static function get_all_topics_for_forum ($forum_id){
 
-		$query = "select id, title from posts where is_topic = 1 and forum_id = ?";
+		$query = "select id, title from post where is_topic = 1 and forum_id = ?";
 		$values = Array($forum_id);
 
 		return db::select($query, $values);
@@ -160,7 +160,7 @@ class db_forum_admin {
 
 	public static function get_all_forums (){
 
-		$query = "select id, title from forums";
+		$query = "select id, title from forum";
 		$values = Array();
 
 		return db::select($query, $values);
@@ -169,7 +169,7 @@ class db_forum_admin {
 
 	public static function move_post ($post_id, $topic_id){
 
-		$query = "update posts set topic_id = ? where id = ?";
+		$query = "update post set topic_id = ? where id = ?";
 		$values = Array($topic_id, $post_id);
 
 		return db::update($query, $values);
@@ -181,7 +181,7 @@ class db_forum_admin {
 		$user_id = db_forum::get_user_id_from_post($post_id);
 		$forum_id = db_forum::get_forum_id_from_post_id($post_id);
 
-		$query = "update posts set is_topic = 1, topic_id = ?, title = ? where id = ?";
+		$query = "update post set is_topic = 1, topic_id = ?, title = ? where id = ?";
 		$values = Array($post_id, general_helpers::clean($title), $post_id);
 
 		$return = db::update($query, $values);
@@ -197,7 +197,7 @@ class db_forum_admin {
 
 		$old_forum_id = db_forum::get_forum_id_from_post_id($topic_id);
 
-		$query = "update posts set forum_id = ? where topic_id = ?";
+		$query = "update post set forum_id = ? where topic_id = ?";
 		$values = Array($forum_id, $topic_id);
 
 		$return = db::update($query, $values);
@@ -213,7 +213,7 @@ class db_forum_admin {
 		$user_id = db_forum::get_user_id_from_post($post_id);
 		$forum_id = db_forum::get_forum_id_from_post_id($post_id);
 
-		$query = "delete from posts where id = ?";
+		$query = "delete from post where id = ?";
 		$values = Array($post_id);
 
 		$return = db::delete($query, $values);
@@ -230,7 +230,7 @@ class db_forum_admin {
 		$forum_id = db_forum::get_forum_id_from_post_id($topic_id);
 		$user_ids = self::get_user_ids_from_topic($topic_id);
 
-		$query = "delete from posts where topic_id = ?";
+		$query = "delete from post where topic_id = ?";
 		$values = Array($topic_id);
 
 		$return = db::delete($query, $values);
@@ -245,7 +245,7 @@ class db_forum_admin {
 
 	public static function get_user_ids_from_topic ($topic_id){
 
-		$query = "select distinct user_id from posts where topic_id = ?";
+		$query = "select distinct user_id from post where topic_id = ?";
 		$values = Array($topic_id);
 
 		return db::select($query, $values);
@@ -254,7 +254,7 @@ class db_forum_admin {
 
 	public static function edit_title ($title, $topic_id){
 
-		$query = "update posts set title = ? where topic_id = ?";
+		$query = "update post set title = ? where topic_id = ?";
 		$values = Array($title, $topic_id);
 
 		return db::update($query, $values);
@@ -263,7 +263,7 @@ class db_forum_admin {
 
 	public static function edit_content ($content, $post_id){
 
-		$query = "update posts set content = ? where id = ?";
+		$query = "update post set content = ? where id = ?";
 		$values = Array($content, $post_id);
 
 		return db::update($query, $values);

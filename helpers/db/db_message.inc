@@ -4,7 +4,7 @@ class db_message {
 
 	public static function check_unread ($user_id){
 
-		$query = "select count(*) from messages where read_time = 0 and deleted_by_recipient = 0 and recipient_id = ?";
+		$query = "select count(*) from message where read_time = 0 and deleted_by_recipient = 0 and recipient_id = ?";
 		$values = Array($user_id);
 
 		return db::select_single_value($query, $values);
@@ -13,7 +13,7 @@ class db_message {
 
 	public static function mark_read ($message_id, $user_id){
 
-		$query = "update messages set read_time = ? where read_time = 0 and id = ? and recipient_id = ?";
+		$query = "update message set read_time = ? where read_time = 0 and id = ? and recipient_id = ?";
 		$values = Array(time(), $message_id, $user_id);
 
 		return db::update($query, $values);
@@ -23,9 +23,9 @@ class db_message {
 	public static function get_message ($message_id){
 
 		$query = "select *, 
-					(select concat(first_name, ' ', last_name) from users where users.id = messages.recipient_id) as recipient_name, 
-					(select concat(first_name, ' ', last_name) from users where users.id = messages.sender_id) as sender_name
-					from messages where id = ?";
+					(select concat(first_name, ' ', last_name) from user where user.id = message.recipient_id) as recipient_name, 
+					(select concat(first_name, ' ', last_name) from user where user.id = message.sender_id) as sender_name
+					from message where id = ?";
 		$values = Array($message_id);
 
 		return db::select_single_row($query, $values);
@@ -35,7 +35,7 @@ class db_message {
 	public static function get_reply_message ($message_id){
 
 		$query = "select u.username as username, concat(u.first_name, ' ', u.last_name) as full_name, m.title as title, m.content as content 
-					from messages m, users u where m.sender_id = u.id and m.id = ?";
+					from message m, user u where m.sender_id = u.id and m.id = ?";
 		$values = Array($message_id);
 
 		return db::select_single_row($query, $values);
@@ -44,7 +44,7 @@ class db_message {
 
 	public static function create_message ($sender_id, $recipient_id, $title, $message){
 
-		$query = "insert into messages (sender_id, recipient_id, sent_time, title, content) values (?, ?, ?, ?, ?)";
+		$query = "insert into message (sender_id, recipient_id, sent_time, title, content) values (?, ?, ?, ?, ?)";
 		$values = Array($sender_id, $recipient_id, time(), $title, $message);
 
 		return db::insert($query, $values);
@@ -58,8 +58,8 @@ class db_message {
 		$limit = (int)$limit;
 		
 		$query = "select *, 
-					(select concat(first_name, ' ', last_name) from users where users.id = messages.sender_id) as full_name 
-					from messages where recipient_id = ? and deleted_by_recipient = 0 order by sent_time desc limit " . $page . ", " . $limit;
+					(select concat(first_name, ' ', last_name) from user where user.id = message.sender_id) as full_name 
+					from message where recipient_id = ? and deleted_by_recipient = 0 order by sent_time desc limit " . $page . ", " . $limit;
 		$values = Array($user_id);
 
 		return db::select($query, $values);
@@ -73,8 +73,8 @@ class db_message {
 		$limit = (int)$limit;
 		
 		$query = "select *, 
-					(select concat(first_name, ' ', last_name) from users where users.id = messages.recipient_id) as full_name 
-					from messages where sender_id = ? and deleted_by_sender = 0 order by sent_time desc limit " . $page . ", " . $limit;
+					(select concat(first_name, ' ', last_name) from user where user.id = message.recipient_id) as full_name 
+					from message where sender_id = ? and deleted_by_sender = 0 order by sent_time desc limit " . $page . ", " . $limit;
 		$values = Array($user_id);
 
 		return db::select($query, $values);
@@ -85,7 +85,7 @@ class db_message {
 
 		$in_clause = implode(',', array_fill(0, count($message_ids), '?'));
 
-		$query = "update messages set deleted_by_recipient = " . time() . " where id in (" . $in_clause . ") and recipient_id = ?";
+		$query = "update message set deleted_by_recipient = " . time() . " where id in (" . $in_clause . ") and recipient_id = ?";
 		$values = $message_ids;
 		array_push($values, $user_id);
 
@@ -97,7 +97,7 @@ class db_message {
 
 		$in_clause = implode(',', array_fill(0, count($message_ids), '?'));
 
-		$query = "update messages set deleted_by_sender = " . time() . " where id in (" . $in_clause . ") and sender_id = ?";
+		$query = "update message set deleted_by_sender = " . time() . " where id in (" . $in_clause . ") and sender_id = ?";
 		$values = $message_ids;
 		array_push($values, $user_id);
 
@@ -107,7 +107,7 @@ class db_message {
 
 	public static function cancel ($message_id, $user_id){
 
-		$query = "delete from messages where id = ? and sender_id = ? and read_time = 0";
+		$query = "delete from message where id = ? and sender_id = ? and read_time = 0";
 		$values = Array($message_id, $user_id);
 
 		return db::delete($query, $values);

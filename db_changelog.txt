@@ -60,3 +60,37 @@ where access_type = 'workgroup';
 
 ALTER TABLE `dd`.`constituencies`
 drop column `access_type`;
+
+
+
+/* 2015-10-13 */
+ALTER TABLE `dd`.`admin_roles` RENAME TO `dd`.`admin_role`;
+ALTER TABLE `dd`.`admin_roles_users` RENAME TO `dd`.`admin_role_user`;
+ALTER TABLE `dd`.`ballots` RENAME TO `dd`.`ballot`;
+ALTER TABLE `dd`.`calendar_participants` RENAME TO `dd`.`calendar_participant`;
+ALTER TABLE `dd`.`categories` RENAME TO `dd`.`category`;
+ALTER TABLE `dd`.`constituencies` RENAME TO `dd`.`constituency`;
+ALTER TABLE `dd`.`constituencies_delegates` RENAME TO `dd`.`constituency_delegate`;
+ALTER TABLE `dd`.`constituencies_users` RENAME TO `dd`.`constituency_user`;
+ALTER TABLE `dd`.`delegates` RENAME TO `dd`.`delegate`;
+ALTER TABLE `dd`.`delegates_users` RENAME TO `dd`.`delegate_user`;
+ALTER TABLE `dd`.`delegate_ballots` RENAME TO `dd`.`delegate_ballot`;
+ALTER TABLE `dd`.`forums` RENAME TO `dd`.`forum`;
+ALTER TABLE `dd`.`forums_users` RENAME TO `dd`.`forum_user`;
+ALTER TABLE `dd`.`membership_fees` RENAME TO `dd`.`membership_fee`;
+ALTER TABLE `dd`.`messages` RENAME TO `dd`.`message`;
+ALTER TABLE `dd`.`posts` RENAME TO `dd`.`post`;
+ALTER TABLE `dd`.`post_reports` RENAME TO `dd`.`post_report`;
+ALTER TABLE `dd`.`propositions` RENAME TO `dd`.`proposition`;
+ALTER TABLE `dd`.`propositions_support` RENAME TO `dd`.`proposition_support`;
+ALTER TABLE `dd`.`users` RENAME TO `dd`.`user`;
+ALTER TABLE `dd`.`user_applications` RENAME TO `dd`.`user_application`;
+ALTER TABLE `dd`.`voters_delegates` RENAME TO `dd`.`voter_delegate`;
+ALTER TABLE `dd`.`votes` RENAME TO `dd`.`vote`;
+ALTER TABLE `dd`.`votes_alternatives` RENAME TO `dd`.`vote_alternative`;
+ALTER TABLE `dd`.`workgroups` RENAME TO `dd`.`workgroup`;
+ALTER TABLE `dd`.`workgroups_candidates` RENAME TO `dd`.`workgroup_candidate`;
+ALTER TABLE `dd`.`workgroups_candidates_support` RENAME TO `dd`.`workgroup_candidate_support`;
+ALTER TABLE `dd`.`workgroups_members` RENAME TO `dd`.`workgroup_member`;
+ALTER TABLE `dd`.`workgroups_members_exclude` RENAME TO `dd`.`workgroup_member_exclude`;
+ALTER TABLE `dd`.`workgroup_election_changes` RENAME TO `dd`.`workgroup_election_change`;

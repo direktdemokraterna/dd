@@ -153,7 +153,12 @@ INSERT INTO `user_temp_codes` (`id`,`temp_code`,`user_id`,`timestamp_created`) V
  (90,'C48KLllW06yJTng5YREj',4,1441270293),
  (91,'JTi51VF5E75YQxVPgRXn',5,1441305620),
  (92,'5EXrG8eqthTXK50UNBip',4,1441401216),
- (93,'6EXRgA6TqKqjXLNr5AuT',5,1442754858);
+ (93,'6EXRgA6TqKqjXLNr5AuT',5,1442754858),
+ (94,'cgooYscZuQNfSIo9YaUK',5,1444411776),
+ (95,'AJa5JY5NSrBMWkA1vQ5V',5,1444481227),
+ (96,'nntNF69OeYdgkbG62tw0',6,1444481394),
+ (97,'ab56LBCjpsytcMyn6hwz',6,1444547284),
+ (98,'O1JOBVwLYYIcxae5tHsd',6,1444585621);
 /*!40000 ALTER TABLE `user_temp_codes` ENABLE KEYS */;
 
 
@@ -194,11 +199,11 @@ CREATE DATABASE IF NOT EXISTS dd;
 USE dd;
 
 --
--- Definition of table `admin_roles`
+-- Definition of table `admin_role`
 --
 
-DROP TABLE IF EXISTS `admin_roles`;
-CREATE TABLE `admin_roles` (
+DROP TABLE IF EXISTS `admin_role`;
+CREATE TABLE `admin_role` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(90) NOT NULL default '',
   `description` text,
@@ -207,25 +212,25 @@ CREATE TABLE `admin_roles` (
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admin_roles`
+-- Dumping data for table `admin_role`
 --
 
-/*!40000 ALTER TABLE `admin_roles` DISABLE KEYS */;
-INSERT INTO `admin_roles` (`id`,`title`,`description`,`type`) VALUES 
+/*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
+INSERT INTO `admin_role` (`id`,`title`,`description`,`type`) VALUES 
  (1,'Superadmin','','superadmin'),
  (2,'Medlemsadministratör','','member_admin'),
  (3,'Forumadministratör','','forum_admin'),
  (4,'Valadministratör','','vote_admin'),
  (5,'Kassör','','treasurer');
-/*!40000 ALTER TABLE `admin_roles` ENABLE KEYS */;
+/*!40000 ALTER TABLE `admin_role` ENABLE KEYS */;
 
 
 --
--- Definition of table `admin_roles_users`
+-- Definition of table `admin_role_user`
 --
 
-DROP TABLE IF EXISTS `admin_roles_users`;
-CREATE TABLE `admin_roles_users` (
+DROP TABLE IF EXISTS `admin_role_user`;
+CREATE TABLE `admin_role_user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `admin_role_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
@@ -233,11 +238,11 @@ CREATE TABLE `admin_roles_users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admin_roles_users`
+-- Dumping data for table `admin_role_user`
 --
 
-/*!40000 ALTER TABLE `admin_roles_users` DISABLE KEYS */;
-INSERT INTO `admin_roles_users` (`id`,`admin_role_id`,`user_id`) VALUES 
+/*!40000 ALTER TABLE `admin_role_user` DISABLE KEYS */;
+INSERT INTO `admin_role_user` (`id`,`admin_role_id`,`user_id`) VALUES 
  (89,1,5),
  (88,5,13),
  (87,4,6),
@@ -250,15 +255,15 @@ INSERT INTO `admin_roles_users` (`id`,`admin_role_id`,`user_id`) VALUES
  (92,3,13),
  (93,3,4),
  (94,4,4);
-/*!40000 ALTER TABLE `admin_roles_users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `admin_role_user` ENABLE KEYS */;
 
 
 --
--- Definition of table `ballots`
+-- Definition of table `ballot`
 --
 
-DROP TABLE IF EXISTS `ballots`;
-CREATE TABLE `ballots` (
+DROP TABLE IF EXISTS `ballot`;
+CREATE TABLE `ballot` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `vote_id` int(10) unsigned NOT NULL default '0',
   `constituency_id` int(10) unsigned NOT NULL default '0',
@@ -270,14 +275,14 @@ CREATE TABLE `ballots` (
   `delegate_priority` int(10) unsigned default NULL,
   `time_ballot_placed` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=187 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ballots`
+-- Dumping data for table `ballot`
 --
 
-/*!40000 ALTER TABLE `ballots` DISABLE KEYS */;
-INSERT INTO `ballots` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) VALUES 
+/*!40000 ALTER TABLE `ballot` DISABLE KEYS */;
+INSERT INTO `ballot` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) VALUES 
  (185,13,313,'no',NULL,7,NULL,NULL,NULL,1443531961),
  (100,8,313,'[]','OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1441401249),
  (18,1,165,'no','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430117214),
@@ -289,9 +294,9 @@ INSERT INTO `ballots` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`vo
  (186,13,313,'no','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443531961),
  (71,5,0,'no','9ZvUSJF2Y9binMKfwOr7',NULL,6,1,1,1433854681),
  (77,1,165,'yes',NULL,6,NULL,NULL,NULL,1434557442),
- (178,12,165,'60',NULL,7,NULL,NULL,NULL,1443514409),
- (179,12,165,'60','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443514409);
-/*!40000 ALTER TABLE `ballots` ENABLE KEYS */;
+ (209,9,313,'{\"12\":2}',NULL,7,NULL,NULL,NULL,1443792695),
+ (210,9,313,'{\"12\":2}','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443792696);
+/*!40000 ALTER TABLE `ballot` ENABLE KEYS */;
 
 
 --
@@ -330,11 +335,11 @@ INSERT INTO `calendar` (`id`,`timestamp`,`year`,`month`,`day`,`time`,`timestamp_
 
 
 --
--- Definition of table `calendar_participants`
+-- Definition of table `calendar_participant`
 --
 
-DROP TABLE IF EXISTS `calendar_participants`;
-CREATE TABLE `calendar_participants` (
+DROP TABLE IF EXISTS `calendar_participant`;
+CREATE TABLE `calendar_participant` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `calendar_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
@@ -343,19 +348,19 @@ CREATE TABLE `calendar_participants` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `calendar_participants`
+-- Dumping data for table `calendar_participant`
 --
 
-/*!40000 ALTER TABLE `calendar_participants` DISABLE KEYS */;
-/*!40000 ALTER TABLE `calendar_participants` ENABLE KEYS */;
+/*!40000 ALTER TABLE `calendar_participant` DISABLE KEYS */;
+/*!40000 ALTER TABLE `calendar_participant` ENABLE KEYS */;
 
 
 --
--- Definition of table `categories`
+-- Definition of table `category`
 --
 
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE `categories` (
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(45) NOT NULL default '',
   `description` text NOT NULL,
@@ -363,58 +368,41 @@ CREATE TABLE `categories` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `categories`
+-- Dumping data for table `category`
 --
 
-/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` (`id`,`title`,`description`) VALUES 
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` (`id`,`title`,`description`) VALUES 
  (4,'Testkategorin','Bara ett test. '),
  (5,'Andra testkategorin','Ännu ett test. '),
  (8,'Interna arbetsgruppsforum','Dessa forum har bara medlemmarna i den respektive arbetsgrupperna tillg†ng till.'),
  (9,'Arbetsgrupper','Publika forum f”r de olika arbetsgrupperna.'),
  (2,'Lokala forum','');
-/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+
 
 --
--- Definition of table `constituency_level`
+-- Definition of table `constituency`
 --
 
-DROP TABLE IF EXISTS `constituency_level`;
-create table `constituency_level` (
-    `level` int unsigned NOT NULL auto_increment
-  , `name` varchar(20) NOT NULL
-  , PRIMARY KEY  (`level`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `constituency_level`
---
-
-insert into `constituency_level`
-(name)
-values ('global'),('local_region'),('local_county'),('workgroup');
-
---
--- Definition of table `constituencies`
---
-
-DROP TABLE IF EXISTS `constituencies`;
-CREATE TABLE `constituencies` (
+DROP TABLE IF EXISTS `constituency`;
+CREATE TABLE `constituency` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(90) NOT NULL default '',
   `description` text NOT NULL,
   `number_of_voters` int(10) unsigned default NULL,
   `forum_id` int(10) unsigned NOT NULL default '0',
-  `constituency_level` INTEGER UNSIGNED NOT NULL DEFAULT 1,
+  `constituency_level` int(10) unsigned NOT NULL default '1',
   PRIMARY KEY  (`id`),
-  FOREIGN KEY (constituency_level) REFERENCES constituency_level(`level`)
+  KEY `constituency_level` (`constituency_level`)
 ) ENGINE=MyISAM AUTO_INCREMENT=314 DEFAULT CHARSET=latin1;
+
 --
--- Dumping data for table `constituencies`
+-- Dumping data for table `constituency`
 --
 
-/*!40000 ALTER TABLE `constituencies` DISABLE KEYS */;
-INSERT INTO `constituencies` (`id`,`title`,`description`,`number_of_voters`,`forum_id`,`constituency_level`) VALUES 
+/*!40000 ALTER TABLE `constituency` DISABLE KEYS */;
+INSERT INTO `constituency` (`id`,`title`,`description`,`number_of_voters`,`forum_id`,`constituency_level`) VALUES 
  (1,'Ale','',0,11,3),
  (2,'Alingsås','',0,12,3),
  (3,'Alvesta','',0,13,3),
@@ -728,15 +716,15 @@ INSERT INTO `constituencies` (`id`,`title`,`description`,`number_of_voters`,`for
  (311,'Örebro\r\n','',0,321,2),
  (312,'Östergötland\r\n','',0,322,2),
  (313,'Allmant','Allm„nt',0,1,1);
-/*!40000 ALTER TABLE `constituencies` ENABLE KEYS */;
+/*!40000 ALTER TABLE `constituency` ENABLE KEYS */;
 
 
 --
--- Definition of table `constituencies_delegates`
+-- Definition of table `constituency_delegate`
 --
 
-DROP TABLE IF EXISTS `constituencies_delegates`;
-CREATE TABLE `constituencies_delegates` (
+DROP TABLE IF EXISTS `constituency_delegate`;
+CREATE TABLE `constituency_delegate` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `delegate_id` int(10) unsigned NOT NULL default '0',
@@ -744,25 +732,49 @@ CREATE TABLE `constituencies_delegates` (
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `constituencies_delegates`
+-- Dumping data for table `constituency_delegate`
 --
 
-/*!40000 ALTER TABLE `constituencies_delegates` DISABLE KEYS */;
-INSERT INTO `constituencies_delegates` (`id`,`constituency_id`,`delegate_id`) VALUES 
+/*!40000 ALTER TABLE `constituency_delegate` DISABLE KEYS */;
+INSERT INTO `constituency_delegate` (`id`,`constituency_id`,`delegate_id`) VALUES 
  (7,291,6),
  (6,165,6),
  (10,165,7),
  (11,291,7),
  (12,313,7);
-/*!40000 ALTER TABLE `constituencies_delegates` ENABLE KEYS */;
+/*!40000 ALTER TABLE `constituency_delegate` ENABLE KEYS */;
 
 
 --
--- Definition of table `constituencies_users`
+-- Definition of table `constituency_level`
 --
 
-DROP TABLE IF EXISTS `constituencies_users`;
-CREATE TABLE `constituencies_users` (
+DROP TABLE IF EXISTS `constituency_level`;
+CREATE TABLE `constituency_level` (
+  `level` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `constituency_level`
+--
+
+/*!40000 ALTER TABLE `constituency_level` DISABLE KEYS */;
+INSERT INTO `constituency_level` (`level`,`name`) VALUES 
+ (1,'global'),
+ (2,'local_region'),
+ (3,'local_county'),
+ (4,'workgroup');
+/*!40000 ALTER TABLE `constituency_level` ENABLE KEYS */;
+
+
+--
+-- Definition of table `constituency_user`
+--
+
+DROP TABLE IF EXISTS `constituency_user`;
+CREATE TABLE `constituency_user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
@@ -770,11 +782,11 @@ CREATE TABLE `constituencies_users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `constituencies_users`
+-- Dumping data for table `constituency_user`
 --
 
-/*!40000 ALTER TABLE `constituencies_users` DISABLE KEYS */;
-INSERT INTO `constituencies_users` (`id`,`constituency_id`,`user_id`) VALUES 
+/*!40000 ALTER TABLE `constituency_user` DISABLE KEYS */;
+INSERT INTO `constituency_user` (`id`,`constituency_id`,`user_id`) VALUES 
  (12,291,13),
  (34,165,4),
  (40,165,5),
@@ -795,15 +807,39 @@ INSERT INTO `constituencies_users` (`id`,`constituency_id`,`user_id`) VALUES
  (22,291,18),
  (35,291,4),
  (36,313,4);
-/*!40000 ALTER TABLE `constituencies_users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `constituency_user` ENABLE KEYS */;
 
 
 --
--- Definition of table `delegate_ballots`
+-- Definition of table `delegate`
 --
 
-DROP TABLE IF EXISTS `delegate_ballots`;
-CREATE TABLE `delegate_ballots` (
+DROP TABLE IF EXISTS `delegate`;
+CREATE TABLE `delegate` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(90) NOT NULL default '',
+  `description` text NOT NULL,
+  `timestamp_created` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `delegate`
+--
+
+/*!40000 ALTER TABLE `delegate` DISABLE KEYS */;
+INSERT INTO `delegate` (`id`,`title`,`description`,`timestamp_created`) VALUES 
+ (6,'Suddis Katt','',0),
+ (7,'Missan Katt','',0);
+/*!40000 ALTER TABLE `delegate` ENABLE KEYS */;
+
+
+--
+-- Definition of table `delegate_ballot`
+--
+
+DROP TABLE IF EXISTS `delegate_ballot`;
+CREATE TABLE `delegate_ballot` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `vote_id` int(10) unsigned NOT NULL default '0',
   `constituency_id` int(10) unsigned NOT NULL default '0',
@@ -820,45 +856,21 @@ CREATE TABLE `delegate_ballots` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `delegate_ballots`
+-- Dumping data for table `delegate_ballot`
 --
 
-/*!40000 ALTER TABLE `delegate_ballots` DISABLE KEYS */;
-INSERT INTO `delegate_ballots` (`id`,`vote_id`,`constituency_id`,`ballot_alternative`,`vote_alternative_id`,`priority`,`median_vote_value`,`ballot_owner_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) VALUES 
+/*!40000 ALTER TABLE `delegate_ballot` DISABLE KEYS */;
+INSERT INTO `delegate_ballot` (`id`,`vote_id`,`constituency_id`,`ballot_alternative`,`vote_alternative_id`,`priority`,`median_vote_value`,`ballot_owner_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) VALUES 
  (1,1,165,'yes',NULL,NULL,NULL,0,6,NULL,NULL,1429188717);
-/*!40000 ALTER TABLE `delegate_ballots` ENABLE KEYS */;
+/*!40000 ALTER TABLE `delegate_ballot` ENABLE KEYS */;
 
 
 --
--- Definition of table `delegates`
+-- Definition of table `delegate_user`
 --
 
-DROP TABLE IF EXISTS `delegates`;
-CREATE TABLE `delegates` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `title` varchar(90) NOT NULL default '',
-  `description` text NOT NULL,
-  `timestamp_created` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `delegates`
---
-
-/*!40000 ALTER TABLE `delegates` DISABLE KEYS */;
-INSERT INTO `delegates` (`id`,`title`,`description`,`timestamp_created`) VALUES 
- (6,'Suddis Katt','',0),
- (7,'Missan Katt','',0);
-/*!40000 ALTER TABLE `delegates` ENABLE KEYS */;
-
-
---
--- Definition of table `delegates_users`
---
-
-DROP TABLE IF EXISTS `delegates_users`;
-CREATE TABLE `delegates_users` (
+DROP TABLE IF EXISTS `delegate_user`;
+CREATE TABLE `delegate_user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `delegate_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
@@ -866,22 +878,22 @@ CREATE TABLE `delegates_users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `delegates_users`
+-- Dumping data for table `delegate_user`
 --
 
-/*!40000 ALTER TABLE `delegates_users` DISABLE KEYS */;
-INSERT INTO `delegates_users` (`id`,`delegate_id`,`user_id`) VALUES 
+/*!40000 ALTER TABLE `delegate_user` DISABLE KEYS */;
+INSERT INTO `delegate_user` (`id`,`delegate_id`,`user_id`) VALUES 
  (1,6,6),
  (2,7,5);
-/*!40000 ALTER TABLE `delegates_users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `delegate_user` ENABLE KEYS */;
 
 
 --
--- Definition of table `forums`
+-- Definition of table `forum`
 --
 
-DROP TABLE IF EXISTS `forums`;
-CREATE TABLE `forums` (
+DROP TABLE IF EXISTS `forum`;
+CREATE TABLE `forum` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `category_id` int(10) unsigned NOT NULL default '0',
   `title` varchar(45) NOT NULL default '',
@@ -895,11 +907,11 @@ CREATE TABLE `forums` (
 ) ENGINE=MyISAM AUTO_INCREMENT=337 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `forums`
+-- Dumping data for table `forum`
 --
 
-/*!40000 ALTER TABLE `forums` DISABLE KEYS */;
-INSERT INTO `forums` (`id`,`category_id`,`title`,`description`,`last_posted_time`,`last_posted_post`,`number_of_topics`,`number_of_posts`,`access_type`) VALUES 
+/*!40000 ALTER TABLE `forum` DISABLE KEYS */;
+INSERT INTO `forum` (`id`,`category_id`,`title`,`description`,`last_posted_time`,`last_posted_post`,`number_of_topics`,`number_of_posts`,`access_type`) VALUES 
  (1,4,'Testforumet','Forum för att testa saker. ',1441614926,110,9,60,'public'),
  (2,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
  (3,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
@@ -1231,15 +1243,15 @@ INSERT INTO `forums` (`id`,`category_id`,`title`,`description`,`last_posted_time
  (334,8,'Test','Privat forum för arbetsgruppenTest',NULL,NULL,0,0,'workgroup'),
  (335,9,'Ytterligare testgruppen','Publikt forum för arbetsgruppenYtterligare testgruppen',NULL,NULL,0,0,'public'),
  (336,8,'Ytterligare testgruppen','Privat forum för arbetsgruppenYtterligare testgruppen',NULL,NULL,0,0,'workgroup');
-/*!40000 ALTER TABLE `forums` ENABLE KEYS */;
+/*!40000 ALTER TABLE `forum` ENABLE KEYS */;
 
 
 --
--- Definition of table `forums_users`
+-- Definition of table `forum_user`
 --
 
-DROP TABLE IF EXISTS `forums_users`;
-CREATE TABLE `forums_users` (
+DROP TABLE IF EXISTS `forum_user`;
+CREATE TABLE `forum_user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `user_id` int(10) unsigned NOT NULL default '0',
   `forum_id` int(10) unsigned NOT NULL default '0',
@@ -1248,11 +1260,11 @@ CREATE TABLE `forums_users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=132 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `forums_users`
+-- Dumping data for table `forum_user`
 --
 
-/*!40000 ALTER TABLE `forums_users` DISABLE KEYS */;
-INSERT INTO `forums_users` (`id`,`user_id`,`forum_id`,`access_type`) VALUES 
+/*!40000 ALTER TABLE `forum_user` DISABLE KEYS */;
+INSERT INTO `forum_user` (`id`,`user_id`,`forum_id`,`access_type`) VALUES 
  (44,13,301,1),
  (2,4,1,1),
  (3,5,1,1),
@@ -1331,7 +1343,7 @@ INSERT INTO `forums_users` (`id`,`user_id`,`forum_id`,`access_type`) VALUES
  (125,5,335,1),
  (126,6,335,1),
  (127,13,335,1);
-/*!40000 ALTER TABLE `forums_users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `forum_user` ENABLE KEYS */;
 
 
 --
@@ -1646,11 +1658,11 @@ INSERT INTO `kommuner` (`id`,`kommun`,`lan`) VALUES
 
 
 --
--- Definition of table `membership_fees`
+-- Definition of table `membership_fee`
 --
 
-DROP TABLE IF EXISTS `membership_fees`;
-CREATE TABLE `membership_fees` (
+DROP TABLE IF EXISTS `membership_fee`;
+CREATE TABLE `membership_fee` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `user_id` int(10) unsigned NOT NULL default '0',
   `timestamp` int(10) unsigned NOT NULL default '0',
@@ -1662,19 +1674,19 @@ CREATE TABLE `membership_fees` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `membership_fees`
+-- Dumping data for table `membership_fee`
 --
 
-/*!40000 ALTER TABLE `membership_fees` DISABLE KEYS */;
-/*!40000 ALTER TABLE `membership_fees` ENABLE KEYS */;
+/*!40000 ALTER TABLE `membership_fee` DISABLE KEYS */;
+/*!40000 ALTER TABLE `membership_fee` ENABLE KEYS */;
 
 
 --
--- Definition of table `messages`
+-- Definition of table `message`
 --
 
-DROP TABLE IF EXISTS `messages`;
-CREATE TABLE `messages` (
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `sender_id` int(10) unsigned NOT NULL default '0',
   `recipient_id` int(10) unsigned NOT NULL default '0',
@@ -1689,46 +1701,22 @@ CREATE TABLE `messages` (
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `messages`
+-- Dumping data for table `message`
 --
 
-/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` (`id`,`sender_id`,`recipient_id`,`sent_time`,`read_time`,`deleted_by_sender`,`deleted_by_recipient`,`title`,`content`) VALUES 
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO `message` (`id`,`sender_id`,`recipient_id`,`sent_time`,`read_time`,`deleted_by_sender`,`deleted_by_recipient`,`title`,`content`) VALUES 
  (9,5,6,1440141538,1440831678,0,0,'test','test'),
  (10,5,0,1440141623,0,0,0,'Ingentest','test');
-/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
 
 
 --
--- Definition of table `post_reports`
+-- Definition of table `post`
 --
 
-DROP TABLE IF EXISTS `post_reports`;
-CREATE TABLE `post_reports` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `post_id` int(10) unsigned NOT NULL default '0',
-  `reporter_id` int(10) unsigned NOT NULL default '0',
-  `time_report_filed` int(10) unsigned NOT NULL default '0',
-  `argument` text NOT NULL,
-  `time_resolved` int(10) unsigned NOT NULL default '0',
-  `resolved_by_id` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `post_reports`
---
-
-/*!40000 ALTER TABLE `post_reports` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post_reports` ENABLE KEYS */;
-
-
---
--- Definition of table `posts`
---
-
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE `posts` (
+DROP TABLE IF EXISTS `post`;
+CREATE TABLE `post` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `topic_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
@@ -1743,11 +1731,11 @@ CREATE TABLE `posts` (
 ) ENGINE=MyISAM AUTO_INCREMENT=111 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `posts`
+-- Dumping data for table `post`
 --
 
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_time`,`last_edited_time`,`title`,`content`) VALUES 
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_time`,`last_edited_time`,`title`,`content`) VALUES 
  (38,38,4,1,1,1432278142,NULL,'Testtråd',''),
  (39,39,4,1,1,1432294979,NULL,'Moderator lägger sig i','Ett svar. '),
  (40,40,4,1,1,1432295280,NULL,'En till testtråd',''),
@@ -1815,15 +1803,39 @@ INSERT INTO `posts` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_tim
  (108,108,5,175,1,1441541122,NULL,'Nytt test','test\r\n'),
  (109,109,5,175,1,1441566649,NULL,'mediantest','test'),
  (110,110,5,1,1,1441614926,NULL,'fdfgd','hfgdf');
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 
 --
--- Definition of table `propositions`
+-- Definition of table `post_report`
 --
 
-DROP TABLE IF EXISTS `propositions`;
-CREATE TABLE `propositions` (
+DROP TABLE IF EXISTS `post_report`;
+CREATE TABLE `post_report` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `post_id` int(10) unsigned NOT NULL default '0',
+  `reporter_id` int(10) unsigned NOT NULL default '0',
+  `time_report_filed` int(10) unsigned NOT NULL default '0',
+  `argument` text NOT NULL,
+  `time_resolved` int(10) unsigned NOT NULL default '0',
+  `resolved_by_id` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `post_report`
+--
+
+/*!40000 ALTER TABLE `post_report` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post_report` ENABLE KEYS */;
+
+
+--
+-- Definition of table `proposition`
+--
+
+DROP TABLE IF EXISTS `proposition`;
+CREATE TABLE `proposition` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `type` varchar(20) NOT NULL default '',
   `created_by_user` int(10) unsigned default NULL,
@@ -1842,11 +1854,11 @@ CREATE TABLE `propositions` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `propositions`
+-- Dumping data for table `proposition`
 --
 
-/*!40000 ALTER TABLE `propositions` DISABLE KEYS */;
-INSERT INTO `propositions` (`id`,`type`,`created_by_user`,`created_by_delegate`,`timestamp_created`,`timestamp_ended`,`constituency_id`,`status`,`number_of_supporters`,`number_of_abstains`,`title`,`description`,`forum_topic_id`) VALUES 
+/*!40000 ALTER TABLE `proposition` DISABLE KEYS */;
+INSERT INTO `proposition` (`id`,`type`,`created_by_user`,`created_by_delegate`,`timestamp_created`,`timestamp_ended`,`constituency_id`,`status`,`number_of_supporters`,`number_of_abstains`,`title`,`description`,`forum_topic_id`) VALUES 
  (1,'yes-no',5,NULL,1426586078,NULL,165,'rejected',0,1,'Testvotering','Bara ett test. ',31),
  (2,'yes-no',5,NULL,1428388195,NULL,165,'affirmed',1,0,'Testvotering2','Ett test till. ',32),
  (3,'median',4,NULL,1428506873,1428506887,165,'affirmed',1,0,'Mediantest','Test av medianomröstningar.',33),
@@ -1856,15 +1868,15 @@ INSERT INTO `propositions` (`id`,`type`,`created_by_user`,`created_by_delegate`,
  (7,'yes-no',5,NULL,1441541122,NULL,165,'pending',2,0,'Nytt test','test\r\n',108),
  (8,'median',5,NULL,1441566650,1441566655,165,'affirmed',1,0,'mediantest','test',109),
  (9,'yes-no',5,NULL,1441614927,1441614937,313,'affirmed',1,0,'fdfgd','hfgdf',110);
-/*!40000 ALTER TABLE `propositions` ENABLE KEYS */;
+/*!40000 ALTER TABLE `proposition` ENABLE KEYS */;
 
 
 --
--- Definition of table `propositions_support`
+-- Definition of table `proposition_support`
 --
 
-DROP TABLE IF EXISTS `propositions_support`;
-CREATE TABLE `propositions_support` (
+DROP TABLE IF EXISTS `proposition_support`;
+CREATE TABLE `proposition_support` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `proposition_id` int(10) unsigned NOT NULL default '0',
   `constituency_id` int(10) unsigned NOT NULL default '0',
@@ -1876,14 +1888,14 @@ CREATE TABLE `propositions_support` (
   `support_type` varchar(7) NOT NULL default 'support',
   `time_ballot_placed` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `propositions_support`
+-- Dumping data for table `proposition_support`
 --
 
-/*!40000 ALTER TABLE `propositions_support` DISABLE KEYS */;
-INSERT INTO `propositions_support` (`id`,`proposition_id`,`constituency_id`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`support_type`,`time_ballot_placed`) VALUES 
+/*!40000 ALTER TABLE `proposition_support` DISABLE KEYS */;
+INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`support_type`,`time_ballot_placed`) VALUES 
  (6,1,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'reject',0),
  (7,2,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1428388208),
  (8,3,0,'OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,'support',1428506887),
@@ -1892,51 +1904,18 @@ INSERT INTO `propositions_support` (`id`,`proposition_id`,`constituency_id`,`use
  (11,6,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1441469588),
  (12,8,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1441566655),
  (13,9,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1441614937),
- (24,7,165,'nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,'support',1443085997),
- (26,7,165,NULL,7,NULL,NULL,NULL,'support',1443085997),
+ (31,7,165,'nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,'support',1443615670),
+ (30,7,165,NULL,7,NULL,NULL,NULL,'support',1443615670),
  (27,7,165,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1443515050);
-/*!40000 ALTER TABLE `propositions_support` ENABLE KEYS */;
+/*!40000 ALTER TABLE `proposition_support` ENABLE KEYS */;
 
 
 --
--- Definition of table `user_applications`
+-- Definition of table `user`
 --
 
-DROP TABLE IF EXISTS `user_applications`;
-CREATE TABLE `user_applications` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `application_filed_time` int(10) unsigned default NULL,
-  `first_name` varchar(45) default '',
-  `last_name` varchar(45) default '',
-  `street_address` varchar(45) default '',
-  `zip_code` varchar(10) default '',
-  `city_address` varchar(45) default '',
-  `county` varchar(45) default '',
-  `region` varchar(45) default '',
-  `social_security_number` varchar(13) default '',
-  `email` varchar(45) NOT NULL default '',
-  `telephone1` varchar(20) default '',
-  `telephone2` varchar(20) default '',
-  `skype_name` varchar(45) default '',
-  `membership_fee_payed` int(10) unsigned default NULL,
-  `admin_notes` varchar(255) default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_applications`
---
-
-/*!40000 ALTER TABLE `user_applications` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_applications` ENABLE KEYS */;
-
-
---
--- Definition of table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `username` varchar(45) NOT NULL default '',
   `password` varchar(128) NOT NULL default '',
@@ -1974,53 +1953,57 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `user`
 --
 
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`,`username`,`password`,`remember_me_token`,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`,`county`,`region`,`social_security_number`,`email`,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) VALUES 
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`,`username`,`password`,`remember_me_token`,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`,`county`,`region`,`social_security_number`,`email`,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) VALUES 
  (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe','$2a$08$WAzFNLCyIlWNmP3uzPqewe8phR06obIhBVeudO.vaN3zHE2gM9IWu',1432280530,NULL,1433764952,1433765659,'Skutt','Katt','','','','Olofström','Blekinge\r\n','','skutt@katt.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
  (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$eqsqQVMQ3TD4Eedn3bZxbu.F3CYI1Bwl2fgYtivLGu.bWxEVB4Bou',1420102449,NULL,1441270294,1441305594,'Gullan','Katt','Blä 3','12345','Olle','Olofström','Blekinge\r\n','','gullan@katt.se','','','',1,1,1,55,9,NULL,NULL,0,2,'','no_image.png','Mjau.'),
- (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$4xgV9F8JEz8icZQ80tAeq.2qM6zFVPbx.dOLeEBHRxjchcmWzykoG',1420102512,NULL,1442754859,1443531961,'Missan','Katt','','0','','Olofström','Blekinge\r\n','110202-1234','missan@katt.se','','','',1,1,1,9,5,NULL,NULL,1,2,'','Pb8fdDccUQwOv6thRoG0.jpg',NULL),
- (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$GfBTKJg/H1AFXc9BiKNyyePGYDfd7.K/lrA5vBzU5tDrKLfl3A6Pq',1420102590,NULL,1440831621,1440834607,'Suddis','Katt','','','','Olofström','Blekinge\r\n','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,1,2,'','no_image.png',NULL);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+ (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$.xLTCZskLeEw3wfJNyUHBeg1eRrhYbvk/bYtmOXrpB3n2jh0BeInO',1420102512,NULL,1444481227,1444481384,'Missan','Katt','','0','','Olofström','Blekinge\r\n','110202-1234','missan@katt.se','','','',1,1,1,9,5,NULL,NULL,0,2,'','Pb8fdDccUQwOv6thRoG0.jpg',NULL),
+ (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$E/pVVtVRuew/mflf3YJHDuHihl4TN0vlpK3fv0oSQ/Lfm2GC7mthq',1420102590,NULL,1444585621,1444729438,'Suddis','Katt','','','','Olofström','Blekinge\r\n','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
 --
--- Definition of table `voters_delegates`
+-- Definition of table `user_application`
 --
 
-DROP TABLE IF EXISTS `voters_delegates`;
-CREATE TABLE `voters_delegates` (
+DROP TABLE IF EXISTS `user_application`;
+CREATE TABLE `user_application` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `delegate_id` int(10) unsigned NOT NULL default '0',
-  `user_code` varchar(20) default NULL,
-  `voter_is_delegate_id` int(10) unsigned default NULL,
-  `constituency_id` int(10) unsigned NOT NULL default '0',
-  `priority` int(10) unsigned NOT NULL default '1',
-  `time_delegate_chosen` int(10) unsigned NOT NULL default '0',
+  `application_filed_time` int(10) unsigned default NULL,
+  `first_name` varchar(45) default '',
+  `last_name` varchar(45) default '',
+  `street_address` varchar(45) default '',
+  `zip_code` varchar(10) default '',
+  `city_address` varchar(45) default '',
+  `county` varchar(45) default '',
+  `region` varchar(45) default '',
+  `social_security_number` varchar(13) default '',
+  `email` varchar(45) NOT NULL default '',
+  `telephone1` varchar(20) default '',
+  `telephone2` varchar(20) default '',
+  `skype_name` varchar(45) default '',
+  `membership_fee_payed` int(10) unsigned default NULL,
+  `admin_notes` varchar(255) default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `voters_delegates`
+-- Dumping data for table `user_application`
 --
 
-/*!40000 ALTER TABLE `voters_delegates` DISABLE KEYS */;
-INSERT INTO `voters_delegates` (`id`,`delegate_id`,`user_code`,`voter_is_delegate_id`,`constituency_id`,`priority`,`time_delegate_chosen`) VALUES 
- (3,7,'nNSpJccU3OdwJxq3SMBw',NULL,313,1,1433765591),
- (4,7,'nNSpJccU3OdwJxq3SMBw',NULL,165,1,1433765597),
- (10,6,'9ZvUSJF2Y9binMKfwOr7',NULL,291,1,1433854555),
- (14,7,NULL,6,291,1,1434868372);
-/*!40000 ALTER TABLE `voters_delegates` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user_application` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_application` ENABLE KEYS */;
 
 
 --
--- Definition of table `votes`
+-- Definition of table `vote`
 --
 
-DROP TABLE IF EXISTS `votes`;
-CREATE TABLE `votes` (
+DROP TABLE IF EXISTS `vote`;
+CREATE TABLE `vote` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `type` varchar(20) NOT NULL default '',
   `from_proposition_id` int(10) unsigned default NULL,
@@ -2040,11 +2023,11 @@ CREATE TABLE `votes` (
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `votes`
+-- Dumping data for table `vote`
 --
 
-/*!40000 ALTER TABLE `votes` DISABLE KEYS */;
-INSERT INTO `votes` (`id`,`type`,`from_proposition_id`,`timestamp_created`,`timestamp_delegate_ended`,`timestamp_ended`,`constituency_id`,`status`,`title`,`description`,`number_of_alternatives`,`number_of_ballots`,`number_of_direct_ballots`,`forum_topic_id`) VALUES 
+/*!40000 ALTER TABLE `vote` DISABLE KEYS */;
+INSERT INTO `vote` (`id`,`type`,`from_proposition_id`,`timestamp_created`,`timestamp_delegate_ended`,`timestamp_ended`,`constituency_id`,`status`,`title`,`description`,`number_of_alternatives`,`number_of_ballots`,`number_of_direct_ballots`,`forum_topic_id`) VALUES 
  (1,'yes-no',2,1428388208,1434010767,1439842347,165,'ended','Testvotering2','Ett test till. ',0,4,4,32),
  (2,'median',3,1428506887,1429111687,1439842440,165,'ended','Mediantest','Test av medianomröstningar.',0,3,3,33),
  (3,'prio-vote',4,1430117564,1430722364,1439842523,165,'ended','Prio-test','Det är dags att testa prioritetsomröstningar. ',5,1,1,34),
@@ -2053,20 +2036,20 @@ INSERT INTO `votes` (`id`,`type`,`from_proposition_id`,`timestamp_created`,`time
  (6,'prio-vote',NULL,1431861479,NULL,NULL,291,'continuous','Kontinuerlig prioritetsomröstning','Ännu ett test. ',1,0,0,37),
  (7,'workgroup-election',NULL,1441285293,NULL,NULL,313,'continuous','Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen &lt;a href=&quot;index.php?type=workgroup&amp;action=view&amp;id=3&quot;&gt;Styrelsen&lt;/a&gt;.',0,0,0,103),
  (8,'workgroup-election',NULL,1441285446,NULL,NULL,313,'continuous','Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen &lt;a href=&quot;index.php?type=workgroup&amp;action=view&amp;id=4&quot;&gt;Styrelsen&lt;/a&gt;.',0,1,1,104),
- (9,'workgroup-election',5,1441286283,NULL,NULL,313,'continuous','Val av medlemmar till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=5\">Styrelsen</a>.',2,0,0,105),
+ (9,'workgroup-election',5,1441286283,NULL,NULL,313,'continuous','Val av medlemmar till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=5\">Styrelsen</a>.',2,1,0,105),
  (10,'workgroup-election',6,1441375857,NULL,NULL,313,'continuous','Val av medlemmar till arbetsgruppen Test','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=6\">Test</a>.',0,0,0,106),
  (11,'yes-no',6,1441469588,1442074388,1442679188,313,'active','test','test',0,0,0,107),
- (12,'median',8,1441566655,1442171455,1442776255,165,'active','mediantest','test',0,2,1,109),
+ (12,'median',8,1441566655,1442171455,1442776255,165,'active','mediantest','test',0,0,0,109),
  (13,'yes-no',9,1441614937,1442219737,1442824537,313,'active','fdfgd','hfgdf',0,1,0,110);
-/*!40000 ALTER TABLE `votes` ENABLE KEYS */;
+/*!40000 ALTER TABLE `vote` ENABLE KEYS */;
 
 
 --
--- Definition of table `votes_alternatives`
+-- Definition of table `vote_alternative`
 --
 
-DROP TABLE IF EXISTS `votes_alternatives`;
-CREATE TABLE `votes_alternatives` (
+DROP TABLE IF EXISTS `vote_alternative`;
+CREATE TABLE `vote_alternative` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `vote_id` int(10) unsigned NOT NULL default '0',
   `added_by_user` int(10) unsigned default NULL,
@@ -2079,11 +2062,11 @@ CREATE TABLE `votes_alternatives` (
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `votes_alternatives`
+-- Dumping data for table `vote_alternative`
 --
 
-/*!40000 ALTER TABLE `votes_alternatives` DISABLE KEYS */;
-INSERT INTO `votes_alternatives` (`id`,`vote_id`,`added_by_user`,`added_by_delegate`,`timestamp_added`,`alternative_title`,`alternative_description`,`alternative_user_id`) VALUES 
+/*!40000 ALTER TABLE `vote_alternative` DISABLE KEYS */;
+INSERT INTO `vote_alternative` (`id`,`vote_id`,`added_by_user`,`added_by_delegate`,`timestamp_added`,`alternative_title`,`alternative_description`,`alternative_user_id`) VALUES 
  (1,3,6,NULL,1430376548,'Första alternativet','Det allra första alternativet i en prioomröstning. ',NULL),
  (2,3,6,NULL,1430390060,'Andra alternativet','Ett alternativ till. ',NULL),
  (3,3,6,NULL,1430390078,'Tredje alternativet','Och, slutligen, ännu ett alternativ. ',NULL),
@@ -2094,39 +2077,44 @@ INSERT INTO `votes_alternatives` (`id`,`vote_id`,`added_by_user`,`added_by_deleg
  (11,9,4,NULL,1441305522,'Gullan Katt','Det här är Gullan.',4),
  (12,9,5,NULL,1441305636,'Missan Katt','Det här är Missan.',5),
  (13,6,5,NULL,1441363409,'Ett alternativ','Alternativ 1',NULL);
-/*!40000 ALTER TABLE `votes_alternatives` ENABLE KEYS */;
+/*!40000 ALTER TABLE `vote_alternative` ENABLE KEYS */;
 
 
 --
--- Definition of table `workgroup_election_changes`
+-- Definition of table `voter_delegate`
 --
 
-DROP TABLE IF EXISTS `workgroup_election_changes`;
-CREATE TABLE `workgroup_election_changes` (
+DROP TABLE IF EXISTS `voter_delegate`;
+CREATE TABLE `voter_delegate` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `workgroup_id` int(10) unsigned NOT NULL default '0',
-  `timestamp` int(10) unsigned NOT NULL default '0',
-  `user_id_in` int(10) unsigned NOT NULL default '0',
-  `user_id_out` int(10) unsigned default NULL,
+  `delegate_id` int(10) unsigned NOT NULL default '0',
+  `user_code` varchar(20) default NULL,
+  `voter_is_delegate_id` int(10) unsigned default NULL,
+  `constituency_id` int(10) unsigned NOT NULL default '0',
+  `priority` int(10) unsigned NOT NULL default '1',
+  `time_delegate_chosen` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `workgroup_election_changes`
+-- Dumping data for table `voter_delegate`
 --
 
-/*!40000 ALTER TABLE `workgroup_election_changes` DISABLE KEYS */;
-INSERT INTO `workgroup_election_changes` (`id`,`workgroup_id`,`timestamp`,`user_id_in`,`user_id_out`) VALUES 
- (6,5,1441369382,4,5);
-/*!40000 ALTER TABLE `workgroup_election_changes` ENABLE KEYS */;
+/*!40000 ALTER TABLE `voter_delegate` DISABLE KEYS */;
+INSERT INTO `voter_delegate` (`id`,`delegate_id`,`user_code`,`voter_is_delegate_id`,`constituency_id`,`priority`,`time_delegate_chosen`) VALUES 
+ (3,7,'nNSpJccU3OdwJxq3SMBw',NULL,313,1,1433765591),
+ (4,7,'nNSpJccU3OdwJxq3SMBw',NULL,165,1,1433765597),
+ (10,6,'9ZvUSJF2Y9binMKfwOr7',NULL,291,1,1433854555),
+ (14,7,NULL,6,291,1,1434868372);
+/*!40000 ALTER TABLE `voter_delegate` ENABLE KEYS */;
 
 
 --
--- Definition of table `workgroups`
+-- Definition of table `workgroup`
 --
 
-DROP TABLE IF EXISTS `workgroups`;
-CREATE TABLE `workgroups` (
+DROP TABLE IF EXISTS `workgroup`;
+CREATE TABLE `workgroup` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(90) NOT NULL default '',
   `description` text NOT NULL,
@@ -2143,24 +2131,24 @@ CREATE TABLE `workgroups` (
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `workgroups`
+-- Dumping data for table `workgroup`
 --
 
-/*!40000 ALTER TABLE `workgroups` DISABLE KEYS */;
-INSERT INTO `workgroups` (`id`,`title`,`description`,`is_active`,`number_of_members`,`create_time`,`create_user`,`public_forum_id`,`is_restricted`,`propose_time`,`private_forum_id`) VALUES 
+/*!40000 ALTER TABLE `workgroup` DISABLE KEYS */;
+INSERT INTO `workgroup` (`id`,`title`,`description`,`is_active`,`number_of_members`,`create_time`,`create_user`,`public_forum_id`,`is_restricted`,`propose_time`,`private_forum_id`) VALUES 
  (1,'Testgruppen','Vi <b>testar </b><u>funktionerna</u>. ',1,3,1423038623,1,4,1,0,5),
  (5,'Styrelsen','Styrelsen was here.',1,2,1441286282,4,331,1,0,332),
  (6,'Test','test',1,2,1441375856,5,333,10,0,334),
  (7,'Ytterligare testgruppen','mer test',0,0,NULL,5,335,0,1441470863,336);
-/*!40000 ALTER TABLE `workgroups` ENABLE KEYS */;
+/*!40000 ALTER TABLE `workgroup` ENABLE KEYS */;
 
 
 --
--- Definition of table `workgroups_candidates`
+-- Definition of table `workgroup_candidate`
 --
 
-DROP TABLE IF EXISTS `workgroups_candidates`;
-CREATE TABLE `workgroups_candidates` (
+DROP TABLE IF EXISTS `workgroup_candidate`;
+CREATE TABLE `workgroup_candidate` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `workgroup_id` int(10) unsigned NOT NULL default '0',
   `candidate_id` int(10) unsigned NOT NULL default '0',
@@ -2169,19 +2157,19 @@ CREATE TABLE `workgroups_candidates` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `workgroups_candidates`
+-- Dumping data for table `workgroup_candidate`
 --
 
-/*!40000 ALTER TABLE `workgroups_candidates` DISABLE KEYS */;
-/*!40000 ALTER TABLE `workgroups_candidates` ENABLE KEYS */;
+/*!40000 ALTER TABLE `workgroup_candidate` DISABLE KEYS */;
+/*!40000 ALTER TABLE `workgroup_candidate` ENABLE KEYS */;
 
 
 --
--- Definition of table `workgroups_candidates_support`
+-- Definition of table `workgroup_candidate_support`
 --
 
-DROP TABLE IF EXISTS `workgroups_candidates_support`;
-CREATE TABLE `workgroups_candidates_support` (
+DROP TABLE IF EXISTS `workgroup_candidate_support`;
+CREATE TABLE `workgroup_candidate_support` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `workgroup_id` int(10) unsigned NOT NULL default '0',
   `candidate_id` int(10) unsigned NOT NULL default '0',
@@ -2190,21 +2178,45 @@ CREATE TABLE `workgroups_candidates_support` (
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `workgroups_candidates_support`
+-- Dumping data for table `workgroup_candidate_support`
 --
 
-/*!40000 ALTER TABLE `workgroups_candidates_support` DISABLE KEYS */;
-INSERT INTO `workgroups_candidates_support` (`id`,`workgroup_id`,`candidate_id`,`supporter_id`) VALUES 
+/*!40000 ALTER TABLE `workgroup_candidate_support` DISABLE KEYS */;
+INSERT INTO `workgroup_candidate_support` (`id`,`workgroup_id`,`candidate_id`,`supporter_id`) VALUES 
  (3,1,6,4);
-/*!40000 ALTER TABLE `workgroups_candidates_support` ENABLE KEYS */;
+/*!40000 ALTER TABLE `workgroup_candidate_support` ENABLE KEYS */;
 
 
 --
--- Definition of table `workgroups_members`
+-- Definition of table `workgroup_election_change`
 --
 
-DROP TABLE IF EXISTS `workgroups_members`;
-CREATE TABLE `workgroups_members` (
+DROP TABLE IF EXISTS `workgroup_election_change`;
+CREATE TABLE `workgroup_election_change` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `workgroup_id` int(10) unsigned NOT NULL default '0',
+  `timestamp` int(10) unsigned NOT NULL default '0',
+  `user_id_in` int(10) unsigned NOT NULL default '0',
+  `user_id_out` int(10) unsigned default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `workgroup_election_change`
+--
+
+/*!40000 ALTER TABLE `workgroup_election_change` DISABLE KEYS */;
+INSERT INTO `workgroup_election_change` (`id`,`workgroup_id`,`timestamp`,`user_id_in`,`user_id_out`) VALUES 
+ (6,5,1441369382,4,5);
+/*!40000 ALTER TABLE `workgroup_election_change` ENABLE KEYS */;
+
+
+--
+-- Definition of table `workgroup_member`
+--
+
+DROP TABLE IF EXISTS `workgroup_member`;
+CREATE TABLE `workgroup_member` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `workgroup_id` int(10) unsigned NOT NULL default '0',
   `user_id` int(10) unsigned NOT NULL default '0',
@@ -2213,24 +2225,24 @@ CREATE TABLE `workgroups_members` (
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `workgroups_members`
+-- Dumping data for table `workgroup_member`
 --
 
-/*!40000 ALTER TABLE `workgroups_members` DISABLE KEYS */;
-INSERT INTO `workgroups_members` (`id`,`workgroup_id`,`user_id`,`member_since`) VALUES 
+/*!40000 ALTER TABLE `workgroup_member` DISABLE KEYS */;
+INSERT INTO `workgroup_member` (`id`,`workgroup_id`,`user_id`,`member_since`) VALUES 
  (15,1,6,1432278227),
  (14,1,4,1423038623),
  (16,1,13,1432280594),
  (18,5,5,1441368106);
-/*!40000 ALTER TABLE `workgroups_members` ENABLE KEYS */;
+/*!40000 ALTER TABLE `workgroup_member` ENABLE KEYS */;
 
 
 --
--- Definition of table `workgroups_members_exclude`
+-- Definition of table `workgroup_member_exclude`
 --
 
-DROP TABLE IF EXISTS `workgroups_members_exclude`;
-CREATE TABLE `workgroups_members_exclude` (
+DROP TABLE IF EXISTS `workgroup_member_exclude`;
+CREATE TABLE `workgroup_member_exclude` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `workgroup_id` int(10) unsigned NOT NULL default '0',
   `excluded_id` int(10) unsigned NOT NULL default '0',
@@ -2239,13 +2251,13 @@ CREATE TABLE `workgroups_members_exclude` (
 ) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `workgroups_members_exclude`
+-- Dumping data for table `workgroup_member_exclude`
 --
 
-/*!40000 ALTER TABLE `workgroups_members_exclude` DISABLE KEYS */;
-INSERT INTO `workgroups_members_exclude` (`id`,`workgroup_id`,`excluded_id`,`excluder_id`) VALUES 
+/*!40000 ALTER TABLE `workgroup_member_exclude` DISABLE KEYS */;
+INSERT INTO `workgroup_member_exclude` (`id`,`workgroup_id`,`excluded_id`,`excluder_id`) VALUES 
  (19,1,1,4);
-/*!40000 ALTER TABLE `workgroups_members_exclude` ENABLE KEYS */;
+/*!40000 ALTER TABLE `workgroup_member_exclude` ENABLE KEYS */;
 
 
 

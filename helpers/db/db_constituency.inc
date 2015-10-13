@@ -5,7 +5,7 @@ class db_constituency {
 	public static function get_constituencies_for_user ($user_id)
 	{
 		$query = "select c.id as id, c.title as name
-					from constituencies c, constituencies_users cu 
+					from constituency c, constituency_user cu 
 					where c.id = cu.constituency_id and cu.user_id = ? 
 					order by c.constituency_level asc, c.id asc";
 		$values = Array($user_id);
@@ -15,7 +15,7 @@ class db_constituency {
 	public static function get_constituency_ids_for_user ($user_id)
 	{
 		$query = "select c.id as id
-					from constituencies c, constituencies_users cu 
+					from constituency c, constituency_user cu 
 					where c.id = cu.constituency_id and cu.user_id = ? order by c.id asc";
 		$values = Array($user_id);
 		return db::select_sequential_array($query, $values);
@@ -24,7 +24,7 @@ class db_constituency {
 	public static function get_constituencies_for_delegate ($delegate_id)
 	{
 		$query = "select c.id as id, c.title as name
-					from constituencies c, constituencies_delegates cd 
+					from constituency c, constituency_delegate cd 
 					where c.id = cd.constituency_id and cd.delegate_id = ? order by c.id asc";
 		$values = Array($delegate_id);
 		return db::select($query, $values);
@@ -32,49 +32,49 @@ class db_constituency {
 
 	public static function get_prop_constituency_id ($prop_id)
 	{
-		$query = "select constituency_id from propositions where id = ?";
+		$query = "select constituency_id from proposition where id = ?";
 		$values = Array($prop_id);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_vote_constituency_id ($vote_id)
 	{
-		$query = "select constituency_id from votes where id = ?";
+		$query = "select constituency_id from vote where id = ?";
 		$values = Array($vote_id);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_public_constituency_ids ()
 	{
-		$query = "select id from constituencies where constituency_level = 1";
+		$query = "select id from constituency where constituency_level = 1";
 		$values = Array();
 		return db::select($query, $values);
 	}
 
 	public static function get_local_region_constituency ($region)
 	{
-		$query = "select id from constituencies where constituency_level = 2 and title = ?";
+		$query = "select id from constituency where constituency_level = 2 and title = ?";
 		$values = Array($region);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_local_county_constituency ($county)
 	{
-		$query = "select id from constituencies where constituency_level = 3 and title = ?";
+		$query = "select id from constituency where constituency_level = 3 and title = ?";
 		$values = Array($county);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_local_county_constituency_for_user ($user_id)
 	{
-		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.constituency_level = 3 and cu.user_id = ?";
+		$query = "select c.id as id from constituency c, constituency_user cu where cu.constituency_id = c.id and c.constituency_level = 3 and cu.user_id = ?";
 		$values = Array($user_id);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_local_region_constituency_for_user ($user_id)
 	{
-		$query = "select c.id as id from constituencies c, constituencies_users cu where cu.constituency_id = c.id and c.constituency_level = 2 and cu.user_id = ?";
+		$query = "select c.id as id from constituency c, constituency_user cu where cu.constituency_id = c.id and c.constituency_level = 2 and cu.user_id = ?";
 		$values = Array($user_id);
 		return db::select_single_value($query, $values);
 	}
@@ -109,7 +109,7 @@ class db_constituency {
 
 	private static function remove_user_ballots_for_constituency ($user_code, $constituency_id)
 	{
-		$query = "delete from ballots where user_code = ? and constituency_id = ?";
+		$query = "delete from ballot where user_code = ? and constituency_id = ?";
 		$values = Array($user_code, $constituency_id);
 		db::delete($query, $values);
 		db_vote::count_ballots_for_active_votes_for_constituency($constituency_id);
@@ -117,14 +117,14 @@ class db_constituency {
 
 	private static function remove_user_delegations_for_constituency ($user_code, $constituency_id)
 	{
-		$query = "delete from voters_delegates where user_code = ? and constituency_id = ?";
+		$query = "delete from voter_delegate where user_code = ? and constituency_id = ?";
 		$values = Array($user_code, $constituency_id);
 		return db::delete($query, $values);
 	}
 
 	private static function remove_user_from_constituency ($user_id, $constituency_id)
 	{
-		$query = "delete from constituencies_users where user_id = ? and constituency_id = ?";
+		$query = "delete from constituency_user where user_id = ? and constituency_id = ?";
 		$values = Array($user_id, $constituency_id);
 		return db::delete($query, $values);
 	}
@@ -139,15 +139,15 @@ class db_constituency {
 
 	public static function update_constituency_member_count ($constituency_id)
 	{
-		$query = "update constituencies set number_of_voters = (select count(*) 
-			from constituencies_users where constituency_id = ?) where id = ?";
+		$query = "update constituency set number_of_voters = (select count(*) 
+			from constituency_user where constituency_id = ?) where id = ?";
 		$values = Array($constituency_id, $constituency_id);
 		return db::update($query, $values);
 	}
 
 	public static function check_user_constituency_access ($user_id, $constituency_id)
 	{
-		$query = "select id from constituencies_users where user_id = ? and constituency_id = ?";
+		$query = "select id from constituency_user where user_id = ? and constituency_id = ?";
 		$values = Array($user_id, $constituency_id);
 		$result = db::select_single_value($query, $values);
 		return !empty($result);
@@ -155,14 +155,14 @@ class db_constituency {
 
 	public static function check_delegate_constituency_access ($delegate_id, $constituency_id)
 	{
-		$query = "select id from constituencies_delegates where delegate_id = ? and constituency_id = ?";
+		$query = "select id from constituency_delegate where delegate_id = ? and constituency_id = ?";
 		$values = Array($delegate_id, $constituency_id);
 		$result = db::select_single_value($query, $values);
 		return !empty($result);
 	}
 
 	public static function get_constituency_forum_id ($constituency_id){
-		$query = "select forum_id from constituencies where id = ?";
+		$query = "select forum_id from constituency where id = ?";
 		$values = Array($constituency_id);
 		return db::select_single_value($query, $values);
 	}
@@ -179,11 +179,11 @@ class db_constituency {
 
 	public static function remove_constituency_from_delegate ($delegate_id, $constituency_id)
 	{
-		$query = "delete from constituencies_delegates where delegate_id = ? and constituency_id = ?";
+		$query = "delete from constituency_delegate where delegate_id = ? and constituency_id = ?";
 		$values = Array($delegate_id, $constituency_id);
 		$reply = db::delete($query, $values);
 		if($reply){
-			$query = "delete from voters_delegates where delegate_id = ? and constituency_id = ?";
+			$query = "delete from voter_delegate where delegate_id = ? and constituency_id = ?";
 			$values = Array($delagate_id, $constituency_id);
 			db::delete($query, $values);
 		}
@@ -192,7 +192,7 @@ class db_constituency {
 
 	public static function check_that_constituency_exists ($constituency_id)
 	{
-		$query = "select count(*) from constituencies where id = ?";
+		$query = "select count(*) from constituency where id = ?";
 		$values = Array($constituency_id);
 		$reply = db::select_single_value($query, $values);
 		return $reply > 0;
@@ -200,14 +200,14 @@ class db_constituency {
 
 	public static function get_constituency_name ($constituency_id)
 	{
-		$query = "select title as name from constituencies where id = ?";
+		$query = "select title as name from constituency where id = ?";
 		$values = Array($constituency_id);
 		return db::select_single_value($query, $values);
 	}
 
 	public static function get_all_constituencies_and_if_user_belongs ($user_id)
 	{
-		$query = "select c.id as constituency_id, c.title as constituency_name, (if (exists (select * from constituencies_users cu where cu.constituency_id = c.id and cu.user_id = ?), 1, 0)) as user_access from constituencies c";
+		$query = "select c.id as constituency_id, c.title as constituency_name, (if (exists (select * from constituency_user cu where cu.constituency_id = c.id and cu.user_id = ?), 1, 0)) as user_access from constituency c";
 		$values = Array($user_id);
 		return db::select($query, $values);
 	}
@@ -231,13 +231,13 @@ class db_constituency {
 	public static function get_all_constituencies ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "consistuency_level asc, title asc", $where_filter = "1=1"){
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
-		$query = "select c.id as id, c.title as name from constituencies c where " . $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
+		$query = "select c.id as id, c.title as name from constituency c where " . $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
 		$values = Array();
 		return db::select($query, $values);
 	}
 
 	public static function get_all_constituencies_count ($where_filter = "1=1"){
-		$query = "select count(*) from constituencies where " . $where_filter;
+		$query = "select count(*) from constituency where " . $where_filter;
 		$values = Array();
 		return db::select_single_value($query, $values);
 	}

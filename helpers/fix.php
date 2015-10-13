@@ -2,7 +2,7 @@
 
 require("init.inc");
 
-		$query = "insert into constituencies (title, description, number_of_voters, forum_id) values (?, ?, ?, ?)";
+		$query = "insert into constituency (title, description, number_of_voters, forum_id) values (?, ?, ?, ?)";
 		$values = Array("Allmänt", "Den allmänna kategorin för allt möjligt", 0, 1);
 
 		$con_id = db::insert($query, $values);
