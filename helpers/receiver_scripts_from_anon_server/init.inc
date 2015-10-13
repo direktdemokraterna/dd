@@ -9,7 +9,7 @@ define("DB_PASSWORD", "");
 define("USERIMG_PATH", "images/userimg/");
 define("WORKGRUOP_PUBLIC_FORUMS_CATEGORY", 9);
 define("WORKGRUOP_PRIVATE_FORUMS_CATEGORY", 8);
-define("POSTS_PER_PAGE", 50);
+//define("POSTS_PER_PAGE", 10);
 define("LIST_ITEMS_PER_PAGE", 50);
 
 define("PROP_TO_VOTE_SUPPORT", 0.05);

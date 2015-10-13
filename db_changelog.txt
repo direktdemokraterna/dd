@@ -24,7 +24,9 @@ ALTER TABLE `dd`.`propositions_support`
 ALTER TABLE `dd`.`propositions_support`
  ADD COLUMN `delegate_priority` INTEGER UNSIGNED;
 
+/**************/
 /* 2015-10-10 */
+/**************/
 
 create table `constituency_level` (
     `level` int unsigned NOT NULL auto_increment
@@ -61,9 +63,10 @@ where access_type = 'workgroup';
 ALTER TABLE `dd`.`constituencies`
 drop column `access_type`;
 
-
-
+/**************/
 /* 2015-10-13 */
+/**************/
+
 ALTER TABLE `dd`.`admin_roles` RENAME TO `dd`.`admin_role`;
 ALTER TABLE `dd`.`admin_roles_users` RENAME TO `dd`.`admin_role_user`;
 ALTER TABLE `dd`.`ballots` RENAME TO `dd`.`ballot`;

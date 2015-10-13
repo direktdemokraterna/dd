@@ -9,13 +9,12 @@
 		else{
 			$topic_insert_id = db_forum::new_topic($_SESSION['id'], $_POST['forum_id'], $_POST['new_topic_title']);
 			if($topic_insert_id){
-				$new_topic_content = forum_helpers::process_post_text($topic_insert_id, $_POST['new_topic_content']);
-				db_forum::add_content_to_post($topic_insert_id, $new_topic_content);
-
-				$_SESSION['report_message'] = "Tråden skapad.";
-				$redirect = "index.php?type=forum&action=show_posts&id=" . $topic_insert_id;
+				$ok = db_forum::add_content_to_post($topic_insert_id, $_POST['new_topic_content']);
+				if($ok){
+					$_SESSION['report_message'] = "Tråden skapad.";
+					$redirect = "index.php?type=forum&action=show_posts&id=" . $topic_insert_id;
+				}
 			}
 		}
-
 	}
 ?>

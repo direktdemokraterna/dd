@@ -11,6 +11,14 @@ class forum_helpers
 		return $processed_text;
 	}
 
+	public static function update_post_content ($post_id, $text, $action = "new")
+	{
+		$processed_post_content = forum_helpers::process_post_text($post_id, $text);
+		return empty($processed_post_content)
+			? false
+			: db_forum::add_content_to_post($post_id, $edited_post_content, $action);
+	}
+
 	public static function process_post_text ($posted_post_id, $text)
 	{
 		$processed_text = forum_helpers::process_text($text);
@@ -40,9 +48,8 @@ class forum_helpers
 			else{
 				$_SESSION['report_message'] = "Ett citat i ditt inlägg är inte korrekt.";
 				db_helpers::insert_error_message($_SESSION['id'], $message , "red");
-				$redirect = $_SERVER['REQUEST_URI'];
-				header("Location: $redirect");
-				exit();
+				//$redirect = $_SERVER['REQUEST_URI'];
+				return null;
 			}
 		}
 		return $processed_text;

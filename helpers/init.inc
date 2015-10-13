@@ -41,7 +41,7 @@ include(dirname(__FILE__)."/db/db_constituency.inc");
 define("USERIMG_PATH", "images/userimg/");
 define("WORKGROUP_PUBLIC_FORUMS_CATEGORY", 9);
 define("WORKGROUP_PRIVATE_FORUMS_CATEGORY", 8);
-define("POSTS_PER_PAGE", 50);
+define("POSTS_PER_PAGE", 10);
 define("LIST_ITEMS_PER_PAGE", 50);
 define("LIST_ITEMS_PER_PAGE_SHORT", 20);
 define("VOTE_ITEMS_PER_LIST", 10);

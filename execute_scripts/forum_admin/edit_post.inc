@@ -22,11 +22,11 @@
 		}
 	}
 	elseif(isset($_POST['edit'])){
-		$edited_post_content = forum_helpers::process_post_text($_GET['id'], $_POST['edit_post_content']);
-		$edited_post_content .= "\n\nInlägget ändrat av moderator " . date("Y-m-d G:i");
-		$ok = db_forum::add_content_to_post($_GET['id'], $edited_post_content, "edit");
+		$text = $_POST['edit_post_content'] . "\n\nInlägget ändrat av moderator " . date("Y-m-d G:i");
+		$ok = forum_helpers::update_post_content($_GET['id'], $text, "edit");
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har redigerats."; 
 			$redirect = "index.php?type=forum&action=show_posts&id=" . $_GET['id'];
 		}
 	}
+?>

@@ -17,15 +17,15 @@ class forum_post_helper
 		echo "<h1>" . $topic_title . "</h1>";
 	} 
 
-	public static function show_posts($page, $posts, $post_count) {
+	public static function show_posts($url_without_page, $page, $posts, $post_count) {
 		$paging_info = Paging_info::create($page, $post_count);
-		self::show_paging_row($paging_info);
+		self::show_paging_row($url_without_page, $paging_info);
 		foreach($posts as $post_info) 
 			self::make_post($post_info, $page);
-		self::show_paging_row($paging_info);
+		self::show_paging_row($url_without_page, $paging_info);
 	}
 
-	private static function show_paging_row($paging_info) {
+	private static function show_paging_row($url_without_page, $paging_info) {
 		self::open_div("post_count_info");
 		self::open_span("post_counter");
 		echo "Visar inlägg " . $paging_info->first_showed_post_number . " - " . $paging_info->last_showed_post_number . " av totalt " . $paging_info->post_count;
@@ -33,7 +33,7 @@ class forum_post_helper
 		if ($paging_info->post_count > POSTS_PER_PAGE) {
 			self::open_span("post_page_chooser");
 			\forum_helpers::output_page_links($paging_info->number_of_pages, $paging_info->page, 
-				"index.php?type=forum&action=show_posts&id=" . $_GET['id'] . "&page=");
+				$url_without_page . "&page=");
 			self::close_span();
 		}
 		self::close_div();
