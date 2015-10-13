@@ -111,8 +111,10 @@ class db_prop
 
 	private static function get_props_where_clause ($statuses)
 	{
-		return "where P.status in ('" . implode("', '", $statuses) . "')
-				and (CU.id IS NOT NULL or C.constituency_level = 1)";
+		$where_clause = "where CU.id IS NOT NULL";
+		if (!empty($statuses))
+			$where_clause .= " and P.status in ('" . implode("', '", $statuses) . "')";
+		return $where_clause;
 	}
 
 	public static function register_prop_ballot ($prop_id, $user_code, $support_type)

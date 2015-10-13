@@ -121,7 +121,7 @@ class db_vote
 	}
 
 	// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-	public static function list_votes ($statuses, $user_id, $sort, $page)
+	public static function list_votes ($user_id, $sort, $page, $statuses)
 	{
 		$where_clause = self::get_votes_where_clause($statuses);
 		$from_clause = self::get_votes_from_clause($user_id);
@@ -162,8 +162,10 @@ class db_vote
 
 	private static function get_votes_where_clause ($statuses)
 	{
-		return "where V.status in ('" . implode("', '", $statuses) . "')
-				and (CU.id IS NOT NULL or C.constituency_level = 1)";
+		$where_clause = "where CU.id IS NOT NULL";
+		if (!empty($statuses))
+			$where_clause .= " and V.status in ('" . implode("', '", $statuses) . "')";
+		return $where_clause;
 	}
 
 	public static function get_ballot_from_delegate_or_user ($vote_id, $user_code, $delegand_id)

@@ -115,6 +115,7 @@ class navigation_helpers {
 				,"edit_alternative" => Page_info::create("edit_alternative.inc", Page_info::VIEW_AND_EXECUTE)
 				,"edit_user" => Page_info::create("edit_user.inc")
 				,"edit_constituency" => Page_info::create("edit_constituency.inc")
+				,"create_constituency" => Page_info::create("create_constituency.inc")
 				,"constituencylist" => Page_info::create("constituencylist.inc")
 				,"edit_post" => Page_info::create("edit_post.inc")
 				,"edit_user" => Page_info::create("edit_user.inc", Page_info::VIEW_AND_EXECUTE))

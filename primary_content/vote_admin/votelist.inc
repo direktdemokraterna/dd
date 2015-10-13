@@ -1,7 +1,7 @@
-<h1>Pågående omröstningar</h1>
+<h1>Alla omröstningar</h1>
 <?php 
 	vote_helpers::make_vote_list_header();
-	$vote_list = vote_helpers::get_vote_list();
+	$vote_groups = vote_helpers::get_vote_groups();
 ?>
 <div class="list_of_links">
 	<?php foreach($vote_groups as $vote_group) : ?>

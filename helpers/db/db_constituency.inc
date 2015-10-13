@@ -81,7 +81,7 @@ class db_constituency {
 
 	public static function add_constituency_access ($user_id, $constituency_id)
 	{
-		$db_table = "constituencies_users";
+		$db_table = "constituency_user";
 		$columns = Array("user_id", "constituency_id");
 		$values = Array($user_id, $constituency_id);
 		$return = db::insert_ignore($db_table, $columns, $values);
@@ -228,10 +228,12 @@ class db_constituency {
 	}
 
 	// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-	public static function get_all_constituencies ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "consistuency_level asc, title asc", $where_filter = "1=1"){
+	public static function get_all_constituencies ($page = 1, $limit = LIST_ITEMS_PER_PAGE, 
+		$order_by = "constituency_level asc, title asc", $where_filter = "1=1"){
 		$page = (int)($page-1) * $limit;
 		$limit = (int)$limit;
-		$query = "select c.id as id, c.title as name from constituency c where " . $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
+		$query = "select c.id as id, c.title as name from constituency c where " 
+		. $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
 		$values = Array();
 		return db::select($query, $values);
 	}

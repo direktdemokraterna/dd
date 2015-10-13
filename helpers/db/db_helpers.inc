@@ -119,7 +119,7 @@ class db_helpers {
 
 	public static function add_constituency_access ($user_id, $constituency_id){
 
-		$db_table = "constituencies_users";
+		$db_table = "constituency_user";
 		$columns = Array("user_id", "constituency_id");
 		$values = Array($constituency_id, $forum_id);
 
