@@ -120,7 +120,7 @@ class forum_post_helper
 	}
 
 	private static function make_internal_link($label, $type, $action, $params = null, $class = null, $confirm = null) {
-		$url = 'index.php?type=' . $type . "&action=" . $action . '"' . (empty($params) ? '' : '&' . $params);
+		$url = 'index.php?type=' . $type . '&action=' . $action . (empty($params) ? '' : '&' . $params);
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
 		$onclick = ($confirm ? " return confirm('" . $confirm . "')" : '');
