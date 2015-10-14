@@ -29,12 +29,16 @@ class general_helper
 		return isset($_POST[$parameter_name]) ? $_POST[$parameter_name] : '';
 	}
 
-	public static function open_div($class_name) {
-		echo('<div class="' . $class_name . '">' . PHP_EOL);
+	public static function open_div($classes, $id = null) {
+		$div_tag = '<div class="' . $classes . '"';
+		if (!empty($id))
+			$div_tag .= ' id="' . $id . '"';
+		$div_tag .= '>';
+		echo $div_tag;
 	}
 
-	public static function open_span($class_name) {
-		echo('<span class="' . $class_name . '">' . PHP_EOL);
+	public static function open_span($classes) {
+		echo('<span class="' . $classes . '">' . PHP_EOL);
 	}
 
 	public static function close_div() {
