@@ -21,7 +21,7 @@
 		<span class="post_counter">Visar inlägg <?php echo $first_showed_post_number; ?> - <?php echo $last_showed_post_number; ?> av totalt <?php echo $post_count; ?></span>
 		<?php if($post_count > POSTS_PER_PAGE) : ?>
 			<span class="post_page_chooser">
-				<?php forum_helpers::output_page_links($number_of_pages, $page, "index.php?type=forum&action=show_posts&id=" . $_GET['id'] . "&page="); ?>
+				<?php forum_helpers::output_page_links($number_of_pages, $page, "index.php?type=forum&action=show_posts&user_id=" . $_GET['id'] . "&page="); ?>
 			</span>
 		<?php endif; ?>
 	</div>
@@ -65,7 +65,7 @@
 		<span class="post_counter">Visar inlägg <?php echo $first_showed_post_number; ?> - <?php echo $last_showed_post_number; ?> av totalt <?php echo $post_count; ?></span>
 		<?php if($post_count > POSTS_PER_PAGE) : ?>
 			<span class="post_page_chooser">
-				<?php forum_helpers::output_page_links($number_of_pages, $page, "index.php?type=forum&action=show_posts&id=" . $_GET['id'] . "&page="); ?>
+				<?php forum_helpers::output_page_links($number_of_pages, $page, "index.php?type=forum&action=show_posts&user_id=" . $_GET['id'] . "&page="); ?>
 			</span>
 		<?php endif; ?>
 	</div>

@@ -8,7 +8,7 @@
 	<tr class="single_post_top_row">
 		<td class="single_post_top_left_cell"><?php echo general_helpers::show_date($post_info['posted_time']); ?></td>
 		<td class="single_post_top_right_cell">
-			<a href="index.php?type=forum&action=show_posts&id=<?php echo $_GET['id']; ?>&page=<?php echo $page; ?>#<?php echo $post_info['post_id']; ?>" class="specific_post_link">#<?php echo $post_info['post_id']; ?></a> 
+			<a href="index.php?type=forum&action=show_posts&post_id=<?php echo $_GET['id']; ?>&page=<?php echo $page; ?>#<?php echo $post_info['post_id']; ?>" class="specific_post_link">#<?php echo $post_info['post_id']; ?></a> 
 		</td>
 	</tr>
 	<tr class="single_post_bottom_row">

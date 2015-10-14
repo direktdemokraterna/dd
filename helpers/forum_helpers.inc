@@ -177,6 +177,31 @@ class forum_helpers
 		db_forum_admin::add_forum_access($user_id, $region_forum_id);
 	}
 
+	public static function get_requested_topic() {
+		return isset($_GET['id']) 
+			? $_GET['id']
+			: db_forum::get_topic($_GET['post_id']);
+	}
+
+	public static function get_requested_page($topic_id) {
+		if(isset($_GET['page'])) {
+			if ($_GET['page'] == "last"){
+				$number_of_posts_in_topic = db_forum::get_number_of_posts($topic_id);
+				return self::get_page_from_post_number($number_of_posts_in_topic);
+			}
+			return $_GET['page'];
+		}
+		if(isset($_GET['post_id'])){
+			$posts_before_this_post = db_forum::count_posts_before_post_id($topic_id, $_GET['post_id']);
+			return self::get_page_from_post_number($posts_before_this_post+1);
+		}
+		return 1;
+	}
+
+	private static function get_page_from_post_number($number) {
+		return ceil($number / POSTS_PER_PAGE);
+	}
+
 	private static function replace_format_tags_with_brackets($text)
 	{
 		$text = str_replace("<b>", "[b]", $text);

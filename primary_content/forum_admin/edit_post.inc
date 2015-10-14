@@ -8,7 +8,7 @@
 <div class="forum_info">
 	<a href="index.php?type=forum&action=show_forums=1">Forum</a> > 
 	<a href="index.php?type=forum&action=show_topics&id=<?php echo $forum_info['forum_id']; ?>"><?php echo $forum_info['forum_title']; ?></a> > 
-	<a href="index.php?type=forum&action=show_posts&id=<?php echo $_GET['id']; ?>"><?php echo $post_info['title']; ?></a>
+	<a href="index.php?type=forum&action=show_posts&post_id=<?php echo $_GET['id']; ?>"><?php echo $post_info['title']; ?></a>
 </div>
 <br>
 <div class="single_post_container">
@@ -16,7 +16,7 @@
 	<div class="post_top_row">
 		<span class="post_date"><?php echo general_helpers::show_date($post_info['posted_time']); ?></span>
 		<span class="post_alternatives">
-			<a href="index.php?type=forum&action=show_posts&id=<?php echo $_GET['id']; ?>&page=<?php echo $page; ?>#<?php echo $post_info['post_id']; ?>">#<?php echo $post_info['post_id']; ?></a> 
+			<a href="index.php?type=forum&action=show_posts&post_id=<?php echo $_GET['id']; ?>&page=<?php echo $page; ?>#<?php echo $post_info['post_id']; ?>">#<?php echo $post_info['post_id']; ?></a> 
 		</span>
 	</div>
 

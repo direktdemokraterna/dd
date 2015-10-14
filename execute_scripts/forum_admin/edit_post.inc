@@ -18,7 +18,7 @@
 		$ok = db_forum_admin::create_topic_from_post($_GET['id'], $_POST['topic_title']);
 		if($ok){
 			$_SESSION['report_message'] = "En ny tråd har skapats från inlägget."; 
-			$redirect = "index.php?type=forum&action=show_posts&id=" . $_GET['id'];
+			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $_GET['id'];
 		}
 	}
 	elseif(isset($_POST['edit'])){
@@ -26,7 +26,7 @@
 		$ok = forum_helpers::update_post_content($_GET['id'], $text, "edit");
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har redigerats."; 
-			$redirect = "index.php?type=forum&action=show_posts&id=" . $_GET['id'];
+			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $_GET['id'];
 		}
 	}
 ?>

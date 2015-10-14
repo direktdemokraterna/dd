@@ -68,7 +68,7 @@ class forum_post_helper
 	private static function make_post_reference_link($post_info, $page) 
 	{
 		$post_element_id = self::make_post_element_id($post_info);
-		general_helper::make_internal_link('#' . $post_info['post_id'], "forum", "show_posts", "id=" . 
+		general_helper::make_internal_link('#' . $post_info['post_id'], "forum", "show_posts", "post_id=" . 
 			$post_info['post_id'] . '&page=' . $page . '#' . $post_element_id);
 	}
 
