@@ -16,7 +16,7 @@
 	<div class="post_top_row">
 		<span class="post_date"><?php echo general_helpers::show_date($post_info['posted_time']); ?></span>
 		<span class="post_alternatives">
-			<a href="index.php?type=forum&action=show_posts&post_id=<?php echo $_GET['id']; ?>&page=<?php echo $page; ?>#<?php echo $post_info['post_id']; ?>">#<?php echo $post_info['post_id']; ?></a> 
+			<?php echo \View\forum_post_helper::make_post_reference_link($_GET['id']); ?></a> 
 		</span>
 	</div>
 

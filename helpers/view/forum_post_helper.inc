@@ -24,8 +24,15 @@ class forum_post_helper
 		$paging_info = Paging_info::create($page, $post_count);
 		self::show_paging_row($url_without_page, $paging_info);
 		foreach($posts as $post_info)
-			self::make_post($post_info, $page);			
+			self::make_post($post_info);			
 		self::show_paging_row($url_without_page, $paging_info);
+	}
+
+	public static function make_post_reference_link($post_id) 
+	{
+		$post_element_id = self::make_post_element_id($post_id);
+		general_helper::make_internal_link('#' . $post_id, "forum", "show_posts", "post_id=" . 
+			$post_id . '#' . $post_element_id);
 	}
 
 	private static function show_paging_row($url_without_page, $paging_info) 
@@ -43,38 +50,32 @@ class forum_post_helper
 		general_helper::close_div();
 	}
 
-	private static function make_post($post_info, $page) 
+	private static function make_post($post_info) 
 	{
-		$post_element_id = self::make_post_element_id($post_info);
+		$post_element_id = self::make_post_element_id($post_info['post_id']);
 		general_helper::open_div("single_post_container anchor", $post_element_id);
-		self::make_post_header($post_info, $page);
+		self::make_post_header($post_info);
 		self::make_post_body($post_info);
 		echo '<div style="clear: both;"></div>';
 		general_helper::close_div();
 	}
 
-	private static function make_post_header($post_info, $page) 
+	private static function make_post_header($post_info) 
 	{
-		$post_element_id = self::make_post_element_id($post_info);
+		$post_id = $post_info['post_id'];
+		$post_element_id = self::make_post_element_id($post_id);
 		general_helper::open_div("post_top_row");
 		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']) . '</span>';
 		general_helper::open_span("post_alternatives");
 		self::make_post_actions($post_info);
-		self::make_post_reference_link($post_info, $page);
+		self::make_post_reference_link($post_id);
 		general_helper::close_span();
 		general_helper::close_div();
 	}
 
-	private static function make_post_reference_link($post_info, $page) 
+	private static function make_post_element_id($post_id) 
 	{
-		$post_element_id = self::make_post_element_id($post_info);
-		general_helper::make_internal_link('#' . $post_info['post_id'], "forum", "show_posts", "post_id=" . 
-			$post_info['post_id'] . '&page=' . $page . '#' . $post_element_id);
-	}
-
-	private static function make_post_element_id($post_info) 
-	{
-		return 'post' . $post_info['post_id'];		
+		return 'post' . $post_id;		
 	}
 
 	private static function make_post_actions($post_info) 
