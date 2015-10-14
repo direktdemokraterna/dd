@@ -1,40 +1,28 @@
 <?php
 
-class db_workgroup {
-
-	public static function list_all ($page, $limit = LIST_ITEMS_PER_PAGE){
-// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
-
-		$query = "select * from workgroup where is_active=1 order by id asc limit " . $page . ", " . $limit;
+class db_workgroup 
+{
+	public static function list_all ($page, $limit = LIST_ITEMS_PER_PAGE)
+	{
+		$limit_clause = db_general::get_limit_clause($page, $limit);
+		$query = "select * from workgroup where is_active=1 order by id asc " . $limit_clause;
 		$values = Array();
-
 		return db::select($query, $values);
-
 	}
 
-	public static function list_proposed ($page, $limit = LIST_ITEMS_PER_PAGE){
-// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
-
-		$query = "select * from workgroup where is_active=0 order by id asc limit " . $page . ", " . $limit;
+	public static function list_proposed ($page, $limit = LIST_ITEMS_PER_PAGE)
+	{
+		$limit_clause = db_general::get_limit_clause($page, $limit);
+		$query = "select * from workgroup where is_active=0 order by id asc " . $limit_clause;
 		$values = Array();
-
 		return db::select($query, $values);
-
 	}
 
-	public static function list_workgroups_where_user_is_member ($user_id){
-
+	public static function list_workgroups_where_user_is_member ($user_id)
+	{
 		$query = "select * from workgroup w where is_active=1 and exists (select * from workgroup_member wm where w.id = wm.workgroup_id and user_id = ?) order by id asc";
 		$values = Array($user_id);
-
 		return db::select($query, $values);
-
 	}
 
 	public static function create ($title, $description, $user_id){

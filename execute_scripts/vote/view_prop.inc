@@ -40,23 +40,17 @@ if(isset($_POST['prop_id']) && isset($_POST['ballot'])){
 				$reply = crypt_helpers::curl_to_anon_server("anonymise_prop_ballot.php", $post_vars);
 				if($reply == "success"){
 					$_SESSION['report_message'] = "Din röst är registrerad.";
-					}
+				}
 				else{
-					//die($reply);
 					$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
 					$_SESSION['red_report_message'] = 1;
 				}
 				$redirect = $_SERVER['REQUEST_URI'];
 			}
-			else{
+			else
 				die("ingen constituency access");
-			}
-
 		}
-
 	}
-	else{
+	else
 		die("mismatch prop_id");
-	}
-
 }

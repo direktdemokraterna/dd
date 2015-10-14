@@ -39,43 +39,31 @@ class db_user {
 	}
 
 	public static function get_all_users ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "last_activity_time desc", $where_filter = "1=1"){
-// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
-
-		$query = "select id, concat(first_name, ' ', last_name) as full_name from user where " . $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
+		$limit_clause = db_general::get_limit_clause($page, $limit);
+		$query = "select id, concat(first_name, ' ', last_name) as full_name from user where " . $where_filter . " order by " . $order_by . " " . $limit_clause;
 		$values = Array();
-
 		return db::select($query, $values);
-
 	}
 
-	public static function get_all_users_count ($where_filter = "1=1"){
-
+	public static function get_all_users_count ($where_filter = "1=1")
+	{
 		$query = "select count(*) from user where " . $where_filter;
 		$values = Array();
-
 		return db::select_single_value($query, $values);
-
 	}
 
-	public static function get_user_data ($id){
-
+	public static function get_user_data ($id)
+	{
 		$query = "select *, concat(first_name, ' ', last_name) as full_name from user where id = ?";
 		$values = Array($id);
-
 		return db::select_single_row($query, $values);
-
 	}
 
-	public static function get_password ($id){
-
+	public static function get_password ($id)
+	{
 		$query = "select password from user where id = ?";
 		$values = Array($id);
-
 		return db::select_single_value($query, $values);
-
 	}
 
 	public static function get_user_data_from_username ($username){
@@ -222,19 +210,14 @@ class db_user {
 
 	}
 
-	public static function search_users ($search, $page = 1, $limit = LIST_ITEMS_PER_PAGE){
-// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
-
+	public static function search_users ($search, $page = 1, $limit = LIST_ITEMS_PER_PAGE)
+	{
+		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select id, concat(first_name, ' ', last_name) as full_name from user 
 					where match(first_name, last_name, description) against (? in boolean mode) 
-					limit " . $page . ", " . $limit;
+					" . $limit_clause;
 		$values = Array($search);
-
 		return db::select($query, $values);
-
 	}
 
 	public static function enter_user_application ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone){

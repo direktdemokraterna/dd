@@ -120,23 +120,38 @@ class db_vote
 		return db::select($query, $values);
 	}
 
-	// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 	public static function list_votes ($user_id, $sort, $page, $statuses)
 	{
 		$where_clause = self::get_votes_where_clause($statuses);
 		$from_clause = self::get_votes_from_clause($user_id);
 		$order_by = self::get_votes_order_by($sort);
-		$row_offset = (int)($page-1) * LIST_ITEMS_PER_PAGE;
+		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
 		$query = "select V.id, V.title, C.title as constituency 
 					" . $from_clause . "
 					" . $where_clause . "
 					order by C.constituency_level asc, C.id, " . $order_by . " 
-					limit " . $row_offset . ", " . LIST_ITEMS_PER_PAGE;
+					" . $limit_clause;
 		$values = Array();
 		return db::select($query, $values);
 	}
 
-	public static function get_votes_order_by ($sort)
+	public static function search_votes ($search, $user_id, $sort, $page = 1)
+	{
+		$from_clause = self::get_votes_from_clause($user_id);
+		$where_clause = self::get_votes_where_clause() . "
+					and match(V.title, V.description) against(? in boolean mode)";
+		$order_by = self::get_votes_order_by($sort);
+		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
+		$query = "select V.id, V.title, C.title as constituency 
+					" . $from_clause . "
+					" . $where_clause . "
+					order by C.constituency_level asc, C.id, " . $order_by . " 
+					" . $limit_clause;
+		$values = Array($search);
+		return db::select($query, $values);
+	}
+
+	public static function get_votes_order_by ($sort = null)
 	{
 		return $sort === "alphabetic" ? "V.title asc" : "V.timestamp_created desc";
 	}
@@ -152,6 +167,18 @@ class db_vote
 		return db::select_single_value($query, $values);
 	}
 
+	public static function search_votes_count ($search, $user_id, $page = 1)
+	{
+		$from_clause = self::get_votes_from_clause($user_id);
+		$where_clause = self::get_votes_where_clause() . "
+					and match(V.title, V.description) against(? in boolean mode)";
+		$query = "select count(*) 
+					" . $from_clause . "
+					" . $where_clause;
+		$values = Array($search);
+		return db::select_single_value($query, $values);
+	}
+
 	private static function get_votes_from_clause ($user_id)
 	{
 		return "from vote V
@@ -160,11 +187,13 @@ class db_vote
 						on CU.constituency_id = C.id and CU.user_id = " . $user_id;
 	}
 
-	private static function get_votes_where_clause ($statuses)
+	private static function get_votes_where_clause ($statuses = null)
 	{
 		$where_clause = "where CU.id IS NOT NULL";
-		if (!empty($statuses))
+		if (!empty($statuses)) {
+			//echo($statuses);
 			$where_clause .= " and V.status in ('" . implode("', '", $statuses) . "')";
+		}
 		return $where_clause;
 	}
 

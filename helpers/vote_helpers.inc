@@ -516,7 +516,7 @@ public static function get_vote_groups($statuses = null)
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 	$votes = db_vote::list_votes($user_id, $sort, $page, $statuses);
-	return self::group_vote_entities($votes);
+	return self::group_by_constituency($votes);
 }
 
 public static function get_prop_groups($statuses) 
@@ -525,22 +525,24 @@ public static function get_prop_groups($statuses)
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 	$props = db_prop::list_props($statuses, $user_id, $sort, $page);
-	return self::group_vote_entities($props);
+	return self::group_by_constituency($props);
 }
 
-public static function make_vote_list_header($statuses = null) 
+public static function make_vote_list_header($statuses = null, $vote_count = null)
 {
-	$user_id = $_SESSION['id'];
-	self::make_list_header(db_vote::list_votes_count($statuses, $user_id));
+	if ($vote_count == null) 
+		$vote_count = db_vote::list_votes_count($statuses, $_SESSION['id']);
+	self::make_list_header($vote_count);
 }
 
-public static function make_prop_list_header($statuses) 
+public static function make_prop_list_header($statuses = null, $prop_count = null)
 {
-	$user_id = $_SESSION['id'];
-	self::make_list_header(db_prop::list_props_count($statuses, $user_id));
+	if ($prop_count == null) 
+		$prop_count = db_prop::list_props_count($statuses, $_SESSION['id']);
+	self::make_list_header($prop_count);
 }
 
-private static function group_vote_entities($rows) 
+public static function group_by_constituency($rows) 
 {
 	$groups = array();
 	foreach ($rows as $row) {

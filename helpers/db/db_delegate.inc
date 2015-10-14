@@ -304,16 +304,10 @@ class db_delegate
 	}
 
 	public static function list_delegates_for_user_constituencies ($user_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
-// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
-
-		$query = "select d.id as id, d.title as title from delegate d where exists (select * from constituency_delegate cd, constituency_user cu where cd.delegate_id = d.id and cd.constituency_id = cu.constituency_id and cu.user_id = ? and " . $where_filter . ") order by " . $order_by . " limit " . $page . ", " . $limit;
+		$limit_clause = db_general::get_limit_clause($page, $limit);
+		$query = "select d.id as id, d.title as title from delegate d where exists (select * from constituency_delegate cd, constituency_user cu where cd.delegate_id = d.id and cd.constituency_id = cu.constituency_id and cu.user_id = ? and " . $where_filter . ") order by " . $order_by . " " . $limit_clause;
 		$values = Array($user_id);
-
 		return db::select($query, $values);
-
 	}
 
 	public static function list_delegates_for_user_constituencies_count ($user_id, $where_filter = "1=1"){
@@ -335,87 +329,67 @@ class db_delegate
 	}
 
 	public static function list_delegate_ballots ($delegate_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE_SHORT, $where_filter = "1=1"){
-// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
-
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
-
+		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select v.id as vote_id, v.title as title, v.type as type, b.ballot as ballot, b.delegate_id as delegate_id, (select title from delegate d where d.id = b.delegate_id) as delegate_name 
 				from ballot b, vote v 
 				where b.vote_id = v.id and b.voter_is_delegate_id = ? and " . $where_filter . " 
-				order by v.timestamp_created desc limit " . $page . ", " . $limit;
+				order by v.timestamp_created desc " . $limit_clause;
 		$values = Array($delegate_id);
-
 		return db::select($query, $values);
-
 	}
 
-	public static function get_delegate_ballot_for_vote ($vote_id, $delegate_id){
-
+	public static function get_delegate_ballot_for_vote ($vote_id, $delegate_id)
+	{
 		$query = "select * from ballot where vote_id = ? and voter_is_delegate_id = ?";
 		$values = Array($vote_id, $delegate_id);
-
 		return db::select_single_row($query, $values);
-
 	}
 
-	public static function get_delegand_ballots_for_vote ($vote_id, $delegate_id){
-
+	public static function get_delegand_ballots_for_vote ($vote_id, $delegate_id)
+	{
 		$query = "select * from ballot where vote_id = ? and delegate_id = ?";
 		$values = Array($vote_id, $delegate_id);
-
 		return db::select($query, $values);
-
 	}
 
-	public static function get_delegand_ballots_for_prop ($prop_id, $delegate_id){
-
+	public static function get_delegand_ballots_for_prop ($prop_id, $delegate_id)
+	{
 		$query = "select * from proposition_support where proposition_id = ? and delegate_id = ?";
 		$values = Array($prop_id, $delegate_id);
-
 		return db::select($query, $values);
-
 	}
 
-	public static function get_delegate_prop_ballot_for_prop ($prop_id, $delegate_id){
-
+	public static function get_delegate_prop_ballot_for_prop ($prop_id, $delegate_id)
+	{
 		$query = "select * from proposition_support where proposition_id = ? and voter_is_delegate_id = ?";
 		$values = Array($prop_id, $delegate_id);
-
 		return db::select_single_row($query, $values);
-
 	}
 
-	public static function list_delegate_ballots_count ($delegate_id, $where_filter = "1=1"){
-
+	public static function list_delegate_ballots_count ($delegate_id, $where_filter = "1=1")
+	{
 		$query = "select count(*)
 				from ballot b, vote v 
 				where b.vote_id = v.id and b.voter_is_delegate_id = ? and b.delegate_id is null and " . $where_filter;
 		$values = Array($delegate_id);
-
 		return db::select_single_value($query, $values);
-
 	}
 
-	public static function get_complete_list_of_user_delegations (){
-
+	public static function get_complete_list_of_user_delegations ()
+	{
 		$query = "select vd.user_code as user_code, vd.constituency_id as constituency_id, vd.delegate_id as delegate_id, 
 					(select d.title from delegate d where vd.delegate_id = d.id) as delegate_name 
 					from voter_delegate vd 
 					where user_code is not null";
 		$values = Array($vote_id);
-
 		return db::select($query, $values);
-
 	}
 
-	public static function get_ballot_for_vote ($vote_id, $delegate_id){
-
+	public static function get_ballot_for_vote ($vote_id, $delegate_id)
+	{
 		$query = "select b.voter_is_delegate_id as voter_id, b.ballot as ballot, b.delegate_id as delegate_id, (select d.title from delegate d where b.delegate_id = d.id) as delegate_name from ballot b where b.vote_id = ? and b.voter_is_delegate_id = ?";
 		$values = Array($vote_id, $delegate_id);
-
 		return db::select_single_row_associative($query, $values);
-
 	}
 
 	public static function get_ballot_for_prop ($prop_id, $delegate_id){

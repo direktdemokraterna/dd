@@ -29,6 +29,30 @@ class general_helper
 		return isset($_POST[$parameter_name]) ? $_POST[$parameter_name] : '';
 	}
 
+	public static function open_div($class_name) {
+		echo('<div class="' . $class_name . '">' . PHP_EOL);
+	}
+
+	public static function open_span($class_name) {
+		echo('<span class="' . $class_name . '">' . PHP_EOL);
+	}
+
+	public static function close_div() {
+		echo('</div>' . PHP_EOL);
+	}
+
+	public static function close_span() {
+		echo('</span>' . PHP_EOL);
+	}
+
+	public static function make_internal_link($label, $type, $action, $params = null, $line_break = false, $class = null, $confirm = null) {
+		$url = 'index.php?type=' . $type . '&action=' . $action . (empty($params) ? '' : '&' . $params);
+		$href = 'href="' . $url . '"';
+		$classAttr = ($class ? ' class="' . $class . '"'  : '');
+		$onclick = ($confirm ? " return confirm('" . $confirm . "')" : '');
+		echo '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>' . ($line_break ? '<br>' : '&nbsp;'); 
+	}	
+
 	private static function make_control_label($control_name, $control_label) {
 		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
 	}	
@@ -45,6 +69,6 @@ class general_helper
 		$selected_option = isset($_POST[$selected_parameter]) ? $_POST[$selected_parameter] : null;
 		echo('<option value="' . $option_name . '"' . ($selected_option == $option_name ? ' selected' : '') . '>' . 
 			$option_label . '</option>' . PHP_EOL);
-	}	
+	}
 }
 ?>

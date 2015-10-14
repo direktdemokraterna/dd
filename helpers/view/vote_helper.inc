@@ -1,6 +1,7 @@
 <?php
 namespace View;
-class prop_helper 
+
+class vote_helper 
 {
 	public static function make_vote_type_selector() {
 		$options = array(
@@ -27,6 +28,16 @@ class prop_helper
 
 	public static function make_description_input() {
 		general_helper::make_textarea("new_prop_description", "Beskrivning", 4);
-	}	
+	}
+
+	public static function make_vote_list($vote_groups, $type, $action) {
+		general_helper::open_div("list_of_links");
+		foreach($vote_groups as $vote_group) {
+			echo '<h2>' . $vote_group->constituency . '</h2>';
+			foreach($vote_group->votes as $row)
+				general_helper::make_internal_link($row['title'], $type, $action, '&id=' . $row['id'], true);
+		}
+		general_helper::close_div("list_of_links");
+	}
 }
 ?>

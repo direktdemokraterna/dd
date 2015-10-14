@@ -227,13 +227,11 @@ class db_constituency {
 		return $chg_cnt;
 	}
 
-	// NOTE: This db function does not utilise full parametrised input due to bug in current MySQL that doesn't allow parametrised input in limit clause. Variables are instead sanitised by casting as int. When this bug is resolved, this function can be corrected. 
 	public static function get_all_constituencies ($page = 1, $limit = LIST_ITEMS_PER_PAGE, 
 		$order_by = "constituency_level asc, title asc", $where_filter = "1=1"){
-		$page = (int)($page-1) * $limit;
-		$limit = (int)$limit;
+		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select c.id as id, c.title as name from constituency c where " 
-		. $where_filter . " order by " . $order_by . " limit " . $page . ", " . $limit;
+		. $where_filter . " order by " . $order_by . " " . $limit_clause;
 		$values = Array();
 		return db::select($query, $values);
 	}

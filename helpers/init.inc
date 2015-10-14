@@ -18,10 +18,11 @@ include(dirname(__FILE__)."/vote_helpers.inc");
 include(dirname(__FILE__)."/crypt_helpers.inc");
 
 include(dirname(__FILE__)."/view/general_helper.inc");
-include(dirname(__FILE__)."/view/prop_helper.inc");
+include(dirname(__FILE__)."/view/vote_helper.inc");
 include(dirname(__FILE__)."/view/forum_post_helper.inc");
 
 include(dirname(__FILE__)."/db/db.inc");
+include(dirname(__FILE__)."/db/db_general.inc");
 include(dirname(__FILE__)."/db/db_user.inc");
 include(dirname(__FILE__)."/db/db_admin.inc");
 include(dirname(__FILE__)."/db/db_forum_admin.inc");
@@ -44,7 +45,6 @@ define("WORKGROUP_PRIVATE_FORUMS_CATEGORY", 8);
 define("POSTS_PER_PAGE", 10);
 define("LIST_ITEMS_PER_PAGE", 50);
 define("LIST_ITEMS_PER_PAGE_SHORT", 20);
-define("VOTE_ITEMS_PER_LIST", 10);
 define("DEFAULT_CONSTITUENCY_ID", 313);
 
 define("PROP_TO_VOTE_SUPPORT", 0.05);
