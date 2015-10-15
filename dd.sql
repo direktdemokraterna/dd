@@ -3,7 +3,6 @@
 -- ------------------------------------------------------
 -- Server version	4.1.22-community-nt
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -12,7 +11,6 @@
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
 
 --
 -- Create schema dd_anon
@@ -40,7 +38,6 @@ CREATE TABLE `temp_codes_constituencies` (
 
 /*!40000 ALTER TABLE `temp_codes_constituencies` DISABLE KEYS */;
 /*!40000 ALTER TABLE `temp_codes_constituencies` ENABLE KEYS */;
-
 
 --
 -- Definition of table `user_temp_codes`
@@ -223,7 +220,6 @@ INSERT INTO `admin_role` (`id`,`title`,`description`,`type`) VALUES
  (5,'Kassör','','treasurer');
 /*!40000 ALTER TABLE `admin_role` ENABLE KEYS */;
 
-
 --
 -- Definition of table `admin_role_user`
 --
@@ -255,7 +251,6 @@ INSERT INTO `admin_role_user` (`id`,`admin_role_id`,`user_id`) VALUES
  (93,3,4),
  (94,4,4);
 /*!40000 ALTER TABLE `admin_role_user` ENABLE KEYS */;
-
 
 --
 -- Definition of table `ballot`
@@ -297,7 +292,6 @@ INSERT INTO `ballot` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`vot
  (210,9,313,'{\"12\":2}','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443792696);
 /*!40000 ALTER TABLE `ballot` ENABLE KEYS */;
 
-
 --
 -- Definition of table `calendar`
 --
@@ -332,7 +326,6 @@ INSERT INTO `calendar` (`id`,`timestamp`,`year`,`month`,`day`,`time`,`timestamp_
  (5,1440115199,2015,8,21,'15',1439964396,5,'Internet','Ändrings-test','Bara test3');
 /*!40000 ALTER TABLE `calendar` ENABLE KEYS */;
 
-
 --
 -- Definition of table `calendar_participant`
 --
@@ -345,14 +338,6 @@ CREATE TABLE `calendar_participant` (
   `timestamp_registration` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `calendar_participant`
---
-
-/*!40000 ALTER TABLE `calendar_participant` DISABLE KEYS */;
-/*!40000 ALTER TABLE `calendar_participant` ENABLE KEYS */;
-
 
 --
 -- Definition of table `category`
@@ -378,7 +363,6 @@ INSERT INTO `category` (`id`,`title`,`description`) VALUES
  (9,'Arbetsgrupper','Publika forum f”r de olika arbetsgrupperna.'),
  (2,'Lokala forum','');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
-
 
 --
 -- Definition of table `constituency`
@@ -744,7 +728,6 @@ INSERT INTO `constituency_delegate` (`id`,`constituency_id`,`delegate_id`) VALUE
  (12,313,7);
 /*!40000 ALTER TABLE `constituency_delegate` ENABLE KEYS */;
 
-
 --
 -- Definition of table `constituency_level`
 --
@@ -767,7 +750,6 @@ INSERT INTO `constituency_level` (`level`,`name`) VALUES
  (3,'county'),
  (4,'workgroup');
 /*!40000 ALTER TABLE `constituency_level` ENABLE KEYS */;
-
 
 --
 -- Definition of table `constituency_user`
@@ -809,7 +791,6 @@ INSERT INTO `constituency_user` (`id`,`constituency_id`,`user_id`) VALUES
  (36,313,4);
 /*!40000 ALTER TABLE `constituency_user` ENABLE KEYS */;
 
-
 --
 -- Definition of table `delegate`
 --
@@ -832,7 +813,6 @@ INSERT INTO `delegate` (`id`,`title`,`description`,`timestamp_created`) VALUES
  (6,'Suddis Katt','',0),
  (7,'Missan Katt','',0);
 /*!40000 ALTER TABLE `delegate` ENABLE KEYS */;
-
 
 --
 -- Definition of table `delegate_ballot`
@@ -864,7 +844,6 @@ INSERT INTO `delegate_ballot` (`id`,`vote_id`,`constituency_id`,`ballot_alternat
  (1,1,165,'yes',NULL,NULL,NULL,0,6,NULL,NULL,1429188717);
 /*!40000 ALTER TABLE `delegate_ballot` ENABLE KEYS */;
 
-
 --
 -- Definition of table `delegate_user`
 --
@@ -887,7 +866,6 @@ INSERT INTO `delegate_user` (`id`,`delegate_id`,`user_id`) VALUES
  (2,7,5);
 /*!40000 ALTER TABLE `delegate_user` ENABLE KEYS */;
 
-
 --
 -- Definition of table `forum`
 --
@@ -907,7 +885,7 @@ CREATE TABLE `forum` (
 ) ENGINE=MyISAM AUTO_INCREMENT=337 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `forum`
+-- Dumping data for timestamp_addedble `forum`
 --
 
 /*!40000 ALTER TABLE `forum` DISABLE KEYS */;
@@ -917,318 +895,6 @@ INSERT INTO `forum` (`id`,`category_id`,`title`,`description`,`last_posted_time`
  (3,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
  (4,9,'Testgruppen','Publikt forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'public'),
  (5,8,'Testgruppen','Privat forum för arbetsgruppen Testgruppen.',NULL,NULL,0,0,'workgroup'),
- (12,2,'Alingsås','',NULL,NULL,0,0,'local_county'),
- (11,2,'Ale','',NULL,NULL,0,0,'local_county'),
- (13,2,'Alvesta','',NULL,NULL,0,0,'local_county'),
- (14,2,'Aneby','',NULL,NULL,0,0,'local_county'),
- (15,2,'Arboga','',NULL,NULL,0,0,'local_county'),
- (16,2,'Arjeplog','',NULL,NULL,0,0,'local_county'),
- (17,2,'Arvidsjaur','',NULL,NULL,0,0,'local_county'),
- (18,2,'Arvika','',NULL,NULL,0,0,'local_county'),
- (19,2,'Askersund','',NULL,NULL,0,0,'local_county'),
- (20,2,'Avesta','',NULL,NULL,0,0,'local_county'),
- (21,2,'Bengtsfors','',NULL,NULL,0,0,'local_county'),
- (22,2,'Berg','',NULL,NULL,0,0,'local_county'),
- (23,2,'Bjurholm','',NULL,NULL,0,0,'local_county'),
- (24,2,'Bjuv','',NULL,NULL,0,0,'local_county'),
- (25,2,'Boden','',NULL,NULL,0,0,'local_county'),
- (26,2,'Bollebygd','',NULL,NULL,0,0,'local_county'),
- (27,2,'Bollnäs','',NULL,NULL,0,0,'local_county'),
- (28,2,'Borgholm','',NULL,NULL,0,0,'local_county'),
- (29,2,'Borlänge','',NULL,NULL,0,0,'local_county'),
- (30,2,'Borås','',NULL,NULL,0,0,'local_county'),
- (31,2,'Botkyrka','',NULL,NULL,0,0,'local_county'),
- (32,2,'Boxholm','',NULL,NULL,0,0,'local_county'),
- (33,2,'Bromölla','',NULL,NULL,0,0,'local_county'),
- (34,2,'Bräcke','',NULL,NULL,0,0,'local_county'),
- (35,2,'Burlöv','',NULL,NULL,0,0,'local_county'),
- (36,2,'Båstad','',NULL,NULL,0,0,'local_county'),
- (37,2,'Dals-Ed','',NULL,NULL,0,0,'local_county'),
- (38,2,'Danderyd','',NULL,NULL,0,0,'local_county'),
- (39,2,'Degerfors','',NULL,NULL,0,0,'local_county'),
- (40,2,'Dorotea','',NULL,NULL,0,0,'local_county'),
- (41,2,'Eda','',NULL,NULL,0,0,'local_county'),
- (42,2,'Ekerö','',NULL,NULL,0,0,'local_county'),
- (43,2,'Eksjö','',NULL,NULL,0,0,'local_county'),
- (44,2,'Emmaboda','',NULL,NULL,0,0,'local_county'),
- (45,2,'Enköping','',NULL,NULL,0,0,'local_county'),
- (46,2,'Eskilstuna','',NULL,NULL,0,0,'local_county'),
- (47,2,'Eslöv','',NULL,NULL,0,0,'local_county'),
- (48,2,'Essunga','',NULL,NULL,0,0,'local_county'),
- (49,2,'Fagersta','',NULL,NULL,0,0,'local_county'),
- (50,2,'Falkenberg','',NULL,NULL,0,0,'local_county'),
- (51,2,'Falköping','',NULL,NULL,0,0,'local_county'),
- (52,2,'Falu','',NULL,NULL,0,0,'local_county'),
- (53,2,'Filipstad','',NULL,NULL,0,0,'local_county'),
- (54,2,'Finspång','',NULL,NULL,0,0,'local_county'),
- (55,2,'Flen','',NULL,NULL,0,0,'local_county'),
- (56,2,'Forshaga','',NULL,NULL,0,0,'local_county'),
- (57,2,'Färgelanda','',NULL,NULL,0,0,'local_county'),
- (58,2,'Gagnef','',NULL,NULL,0,0,'local_county'),
- (59,2,'Gislaved','',NULL,NULL,0,0,'local_county'),
- (60,2,'Gnesta','',NULL,NULL,0,0,'local_county'),
- (61,2,'Gnosjö','',NULL,NULL,0,0,'local_county'),
- (62,2,'Gotland','',NULL,NULL,0,0,'local_county'),
- (63,2,'Grums','',NULL,NULL,0,0,'local_county'),
- (64,2,'Grästorp','',NULL,NULL,0,0,'local_county'),
- (65,2,'Gullspång','',NULL,NULL,0,0,'local_county'),
- (66,2,'Gällivare','',NULL,NULL,0,0,'local_county'),
- (67,2,'Gävle','',NULL,NULL,0,0,'local_county'),
- (68,2,'Göteborg','',NULL,NULL,0,0,'local_county'),
- (69,2,'Götene','',NULL,NULL,0,0,'local_county'),
- (70,2,'Habo','',NULL,NULL,0,0,'local_county'),
- (71,2,'Hagfors','',NULL,NULL,0,0,'local_county'),
- (72,2,'Hallsberg','',NULL,NULL,0,0,'local_county'),
- (73,2,'Hallstahammar','',NULL,NULL,0,0,'local_county'),
- (74,2,'Halmstad','',NULL,NULL,0,0,'local_county'),
- (75,2,'Hammarö','',NULL,NULL,0,0,'local_county'),
- (76,2,'Haninge','',NULL,NULL,0,0,'local_county'),
- (77,2,'Haparanda','',NULL,NULL,0,0,'local_county'),
- (78,2,'Heby','',NULL,NULL,0,0,'local_county'),
- (79,2,'Hedemora','',NULL,NULL,0,0,'local_county'),
- (80,2,'Helsingborg','',NULL,NULL,0,0,'local_county'),
- (81,2,'Herrljunga','',NULL,NULL,0,0,'local_county'),
- (82,2,'Hjo','',NULL,NULL,0,0,'local_county'),
- (83,2,'Hofors','',NULL,NULL,0,0,'local_county'),
- (84,2,'Huddinge','',NULL,NULL,0,0,'local_county'),
- (85,2,'Hudiksvall','',NULL,NULL,0,0,'local_county'),
- (86,2,'Hultsfred','',NULL,NULL,0,0,'local_county'),
- (87,2,'Hylte','',NULL,NULL,0,0,'local_county'),
- (88,2,'Håbo','',NULL,NULL,0,0,'local_county'),
- (89,2,'Hällefors','',NULL,NULL,0,0,'local_county'),
- (90,2,'Härjedalen','',NULL,NULL,0,0,'local_county'),
- (91,2,'Härnösand','',NULL,NULL,0,0,'local_county'),
- (92,2,'Härryda','',NULL,NULL,0,0,'local_county'),
- (93,2,'Hässleholm','',NULL,NULL,0,0,'local_county'),
- (94,2,'Höganäs','',NULL,NULL,0,0,'local_county'),
- (95,2,'Högsby','',NULL,NULL,0,0,'local_county'),
- (96,2,'Hörby','',NULL,NULL,0,0,'local_county'),
- (97,2,'Höör','',NULL,NULL,0,0,'local_county'),
- (98,2,'Jokkmokk','',NULL,NULL,0,0,'local_county'),
- (99,2,'Järfälla','',NULL,NULL,0,0,'local_county'),
- (100,2,'Jönköping','',NULL,NULL,0,0,'local_county'),
- (101,2,'Kalix','',NULL,NULL,0,0,'local_county'),
- (102,2,'Kalmar','',NULL,NULL,0,0,'local_county'),
- (103,2,'Karlsborg','',NULL,NULL,0,0,'local_county'),
- (104,2,'Karlshamn','',NULL,NULL,0,0,'local_county'),
- (105,2,'Karlskoga','',NULL,NULL,0,0,'local_county'),
- (106,2,'Karlskrona','',NULL,NULL,0,0,'local_county'),
- (107,2,'Karlstad','',NULL,NULL,0,0,'local_county'),
- (108,2,'Katrineholm','',NULL,NULL,0,0,'local_county'),
- (109,2,'Kil','',NULL,NULL,0,0,'local_county'),
- (110,2,'Kinda','',NULL,NULL,0,0,'local_county'),
- (111,2,'Kiruna','',NULL,NULL,0,0,'local_county'),
- (112,2,'Klippan','',NULL,NULL,0,0,'local_county'),
- (113,2,'Knivsta','',NULL,NULL,0,0,'local_county'),
- (114,2,'Kramfors','',NULL,NULL,0,0,'local_county'),
- (115,2,'Kristianstad','',NULL,NULL,0,0,'local_county'),
- (116,2,'Kristinehamn','',NULL,NULL,0,0,'local_county'),
- (117,2,'Krokom','',NULL,NULL,0,0,'local_county'),
- (118,2,'Kumla','',NULL,NULL,0,0,'local_county'),
- (119,2,'Kungsbacka','',NULL,NULL,0,0,'local_county'),
- (120,2,'Kungsör','',NULL,NULL,0,0,'local_county'),
- (121,2,'Kungälv','',NULL,NULL,0,0,'local_county'),
- (122,2,'Kävlinge','',NULL,NULL,0,0,'local_county'),
- (123,2,'Köping','',NULL,NULL,0,0,'local_county'),
- (124,2,'Laholm','',NULL,NULL,0,0,'local_county'),
- (125,2,'Landskrona','',NULL,NULL,0,0,'local_county'),
- (126,2,'Laxå','',NULL,NULL,0,0,'local_county'),
- (127,2,'Lekeberg','',NULL,NULL,0,0,'local_county'),
- (128,2,'Leksand','',NULL,NULL,0,0,'local_county'),
- (129,2,'Lerum','',NULL,NULL,0,0,'local_county'),
- (130,2,'Lessebo','',NULL,NULL,0,0,'local_county'),
- (131,2,'Lidingö','',NULL,NULL,0,0,'local_county'),
- (132,2,'Lidköping','',NULL,NULL,0,0,'local_county'),
- (133,2,'Lilla Edet','',NULL,NULL,0,0,'local_county'),
- (134,2,'Lindesberg','',NULL,NULL,0,0,'local_county'),
- (135,2,'Linköping','',NULL,NULL,0,0,'local_county'),
- (136,2,'Ljungby','',NULL,NULL,0,0,'local_county'),
- (137,2,'Ljusdal','',NULL,NULL,0,0,'local_county'),
- (138,2,'Ljusnarsberg','',NULL,NULL,0,0,'local_county'),
- (139,2,'Lomma','',NULL,NULL,0,0,'local_county'),
- (140,2,'Ludvika','',NULL,NULL,0,0,'local_county'),
- (141,2,'Luleå','',NULL,NULL,0,0,'local_county'),
- (142,2,'Lund','',NULL,NULL,0,0,'local_county'),
- (143,2,'Lycksele','',NULL,NULL,0,0,'local_county'),
- (144,2,'Lysekil','',NULL,NULL,0,0,'local_county'),
- (145,2,'Malmö','',NULL,NULL,0,0,'local_county'),
- (146,2,'Malung-Sälen','',NULL,NULL,0,0,'local_county'),
- (147,2,'Malå','',NULL,NULL,0,0,'local_county'),
- (148,2,'Mariestad','',NULL,NULL,0,0,'local_county'),
- (149,2,'Mark','',NULL,NULL,0,0,'local_county'),
- (150,2,'Markaryd','',NULL,NULL,0,0,'local_county'),
- (151,2,'Mellerud','',NULL,NULL,0,0,'local_county'),
- (152,2,'Mjölby','',NULL,NULL,0,0,'local_county'),
- (153,2,'Mora','',NULL,NULL,0,0,'local_county'),
- (154,2,'Motala','',NULL,NULL,0,0,'local_county'),
- (155,2,'Mullsjö','',NULL,NULL,0,0,'local_county'),
- (156,2,'Munkedal','',NULL,NULL,0,0,'local_county'),
- (157,2,'Munkfors','',NULL,NULL,0,0,'local_county'),
- (158,2,'Mölndal','',NULL,NULL,0,0,'local_county'),
- (159,2,'Mönsterås','',NULL,NULL,0,0,'local_county'),
- (160,2,'Mörbylånga','',NULL,NULL,0,0,'local_county'),
- (161,2,'Nacka','',NULL,NULL,0,0,'local_county'),
- (162,2,'Nora','',NULL,NULL,0,0,'local_county'),
- (163,2,'Norberg','',NULL,NULL,0,0,'local_county'),
- (164,2,'Nordanstig','',NULL,NULL,0,0,'local_county'),
- (165,2,'Nordmaling','',NULL,NULL,0,0,'local_county'),
- (166,2,'Norrköping','',NULL,NULL,0,0,'local_county'),
- (167,2,'Norrtälje','',NULL,NULL,0,0,'local_county'),
- (168,2,'Norsjö','',NULL,NULL,0,0,'local_county'),
- (169,2,'Nybro','',NULL,NULL,0,0,'local_county'),
- (170,2,'Nykvarn','',NULL,NULL,0,0,'local_county'),
- (171,2,'Nyköping','',NULL,NULL,0,0,'local_county'),
- (172,2,'Nynäshamn','',NULL,NULL,0,0,'local_county'),
- (173,2,'Nässjö','',NULL,NULL,0,0,'local_county'),
- (174,2,'Ockelbo','',NULL,NULL,0,0,'local_county'),
- (175,2,'Olofström','',1441566649,109,2,2,'local_county'),
- (176,2,'Orsa','',NULL,NULL,0,0,'local_county'),
- (177,2,'Orust','',NULL,NULL,0,0,'local_county'),
- (178,2,'Osby','',NULL,NULL,0,0,'local_county'),
- (179,2,'Oskarshamn','',NULL,NULL,0,0,'local_county'),
- (180,2,'Ovanåker','',NULL,NULL,0,0,'local_county'),
- (181,2,'Oxelösund','',NULL,NULL,0,0,'local_county'),
- (182,2,'Pajala','',NULL,NULL,0,0,'local_county'),
- (183,2,'Partille','',NULL,NULL,0,0,'local_county'),
- (184,2,'Perstorp','',NULL,NULL,0,0,'local_county'),
- (185,2,'Piteå','',NULL,NULL,0,0,'local_county'),
- (186,2,'Ragunda','',NULL,NULL,0,0,'local_county'),
- (187,2,'Robertsfors','',NULL,NULL,0,0,'local_county'),
- (188,2,'Ronneby','',NULL,NULL,0,0,'local_county'),
- (189,2,'Rättvik','',NULL,NULL,0,0,'local_county'),
- (190,2,'Sala','',NULL,NULL,0,0,'local_county'),
- (191,2,'Salem','',NULL,NULL,0,0,'local_county'),
- (192,2,'Sandviken','',NULL,NULL,0,0,'local_county'),
- (193,2,'Sigtuna','',NULL,NULL,0,0,'local_county'),
- (194,2,'Simrishamn','',NULL,NULL,0,0,'local_county'),
- (195,2,'Sjöbo','',NULL,NULL,0,0,'local_county'),
- (196,2,'Skara','',NULL,NULL,0,0,'local_county'),
- (197,2,'Skellefteå','',NULL,NULL,0,0,'local_county'),
- (198,2,'Skinnskatteberg','',NULL,NULL,0,0,'local_county'),
- (199,2,'Skurup','',NULL,NULL,0,0,'local_county'),
- (200,2,'Skövde','',NULL,NULL,0,0,'local_county'),
- (201,2,'Smedjebacken','',NULL,NULL,0,0,'local_county'),
- (202,2,'Sollefteå','',NULL,NULL,0,0,'local_county'),
- (203,2,'Sollentuna','',NULL,NULL,0,0,'local_county'),
- (204,2,'Solna','',NULL,NULL,0,0,'local_county'),
- (205,2,'Sorsele','',NULL,NULL,0,0,'local_county'),
- (206,2,'Sotenäs','',NULL,NULL,0,0,'local_county'),
- (207,2,'Staffanstorp','',NULL,NULL,0,0,'local_county'),
- (208,2,'Stenungsund','',NULL,NULL,0,0,'local_county'),
- (209,2,'Stockholm','',NULL,NULL,0,0,'local_county'),
- (210,2,'Storfors','',NULL,NULL,0,0,'local_county'),
- (211,2,'Storuman','',NULL,NULL,0,0,'local_county'),
- (212,2,'Strängnäs','',NULL,NULL,0,0,'local_county'),
- (213,2,'Strömstad','',NULL,NULL,0,0,'local_county'),
- (214,2,'Strömsund','',NULL,NULL,0,0,'local_county'),
- (215,2,'Sundbyberg','',NULL,NULL,0,0,'local_county'),
- (216,2,'Sundsvall','',NULL,NULL,0,0,'local_county'),
- (217,2,'Sunne','',NULL,NULL,0,0,'local_county'),
- (218,2,'Surahammar','',NULL,NULL,0,0,'local_county'),
- (219,2,'Svalöv','',NULL,NULL,0,0,'local_county'),
- (220,2,'Svedala','',NULL,NULL,0,0,'local_county'),
- (221,2,'Svenljunga','',NULL,NULL,0,0,'local_county'),
- (222,2,'Säffle','',NULL,NULL,0,0,'local_county'),
- (223,2,'Säter','',NULL,NULL,0,0,'local_county'),
- (224,2,'Sävsjö','',NULL,NULL,0,0,'local_county'),
- (225,2,'Söderhamn','',NULL,NULL,0,0,'local_county'),
- (226,2,'Söderköping','',NULL,NULL,0,0,'local_county'),
- (227,2,'Södertälje','',NULL,NULL,0,0,'local_county'),
- (228,2,'Sölvesborg','',NULL,NULL,0,0,'local_county'),
- (229,2,'Tanum','',NULL,NULL,0,0,'local_county'),
- (230,2,'Tibro','',NULL,NULL,0,0,'local_county'),
- (231,2,'Tidaholm','',NULL,NULL,0,0,'local_county'),
- (232,2,'Tierp','',NULL,NULL,0,0,'local_county'),
- (233,2,'Timrå','',NULL,NULL,0,0,'local_county'),
- (234,2,'Tingsryd','',NULL,NULL,0,0,'local_county'),
- (235,2,'Tjörn','',NULL,NULL,0,0,'local_county'),
- (236,2,'Tomelilla','',NULL,NULL,0,0,'local_county'),
- (237,2,'Torsby','',NULL,NULL,0,0,'local_county'),
- (238,2,'Torsås','',NULL,NULL,0,0,'local_county'),
- (239,2,'Tranemo','',NULL,NULL,0,0,'local_county'),
- (240,2,'Tranås','',NULL,NULL,0,0,'local_county'),
- (241,2,'Trelleborg','',NULL,NULL,0,0,'local_county'),
- (242,2,'Trollhättan','',NULL,NULL,0,0,'local_county'),
- (243,2,'Trosa','',NULL,NULL,0,0,'local_county'),
- (244,2,'Tyresö','',NULL,NULL,0,0,'local_county'),
- (245,2,'Täby','',NULL,NULL,0,0,'local_county'),
- (246,2,'Töreboda','',NULL,NULL,0,0,'local_county'),
- (247,2,'Uddevalla','',NULL,NULL,0,0,'local_county'),
- (248,2,'Ulricehamn','',NULL,NULL,0,0,'local_county'),
- (249,2,'Umeå','',NULL,NULL,0,0,'local_county'),
- (250,2,'Upplands Väsby','',NULL,NULL,0,0,'local_county'),
- (251,2,'Upplands-Bro','',NULL,NULL,0,0,'local_county'),
- (252,2,'Uppsala','',NULL,NULL,0,0,'local_county'),
- (253,2,'Uppvidinge','',NULL,NULL,0,0,'local_county'),
- (254,2,'Vadstena','',NULL,NULL,0,0,'local_county'),
- (255,2,'Vaggeryd','',NULL,NULL,0,0,'local_county'),
- (256,2,'Valdemarsvik','',NULL,NULL,0,0,'local_county'),
- (257,2,'Vallentuna','',NULL,NULL,0,0,'local_county'),
- (258,2,'Vansbro','',NULL,NULL,0,0,'local_county'),
- (259,2,'Vara','',NULL,NULL,0,0,'local_county'),
- (260,2,'Varberg','',NULL,NULL,0,0,'local_county'),
- (261,2,'Vaxholm','',NULL,NULL,0,0,'local_county'),
- (262,2,'Vellinge','',NULL,NULL,0,0,'local_county'),
- (263,2,'Vetlanda','',NULL,NULL,0,0,'local_county'),
- (264,2,'Vilhelmina','',NULL,NULL,0,0,'local_county'),
- (265,2,'Vimmerby','',NULL,NULL,0,0,'local_county'),
- (266,2,'Vindeln','',NULL,NULL,0,0,'local_county'),
- (267,2,'Vingåker','',NULL,NULL,0,0,'local_county'),
- (268,2,'Vårgårda','',NULL,NULL,0,0,'local_county'),
- (269,2,'Vänersborg','',NULL,NULL,0,0,'local_county'),
- (270,2,'Vännäs','',NULL,NULL,0,0,'local_county'),
- (271,2,'Värmdö','',NULL,NULL,0,0,'local_county'),
- (272,2,'Värnamo','',NULL,NULL,0,0,'local_county'),
- (273,2,'Västervik','',NULL,NULL,0,0,'local_county'),
- (274,2,'Västerå','',NULL,NULL,0,0,'local_county'),
- (275,2,'Växjö','',NULL,NULL,0,0,'local_county'),
- (276,2,'Ydre','',NULL,NULL,0,0,'local_county'),
- (277,2,'Ystad','',NULL,NULL,0,0,'local_county'),
- (278,2,'Åmål','',NULL,NULL,0,0,'local_county'),
- (279,2,'Ånge','',NULL,NULL,0,0,'local_county'),
- (280,2,'Åre','',NULL,NULL,0,0,'local_county'),
- (281,2,'Årjäng','',NULL,NULL,0,0,'local_county'),
- (282,2,'Åsele','',NULL,NULL,0,0,'local_county'),
- (283,2,'Åstorp','',NULL,NULL,0,0,'local_county'),
- (284,2,'Åtvidaberg','',NULL,NULL,0,0,'local_county'),
- (285,2,'Älmhult','',NULL,NULL,0,0,'local_county'),
- (286,2,'Älvdalen','',NULL,NULL,0,0,'local_county'),
- (287,2,'Älvkarleby','',NULL,NULL,0,0,'local_county'),
- (288,2,'Älvsbyn','',NULL,NULL,0,0,'local_county'),
- (289,2,'Ängelholm','',NULL,NULL,0,0,'local_county'),
- (290,2,'Öckerö','',NULL,NULL,0,0,'local_county'),
- (291,2,'Ödeshög','',NULL,NULL,0,0,'local_county'),
- (292,2,'Örebro','',NULL,NULL,0,0,'local_county'),
- (293,2,'Örkelljunga','',NULL,NULL,0,0,'local_county'),
- (294,2,'Örnsköldsvik','',NULL,NULL,0,0,'local_county'),
- (295,2,'Östersund','',NULL,NULL,0,0,'local_county'),
- (296,2,'Österåker','',NULL,NULL,0,0,'local_county'),
- (297,2,'Östhammar','',NULL,NULL,0,0,'local_county'),
- (298,2,'Östra Göinge','',NULL,NULL,0,0,'local_county'),
- (299,2,'Överkalix','',NULL,NULL,0,0,'local_county'),
- (300,2,'Övertorneå','',NULL,NULL,0,0,'local_county'),
- (301,2,'Blekinge\r\n','',1431861479,37,2,2,'local_region'),
- (302,2,'Dalarna\r\n','',NULL,NULL,0,0,'local_region'),
- (303,2,'Gotland\r\n','',NULL,NULL,0,0,'local_region'),
- (304,2,'Gävleborg\r\n','',NULL,NULL,0,0,'local_region'),
- (305,2,'Halland\r\n','',NULL,NULL,0,0,'local_region'),
- (306,2,'Jämtland\r\n','',NULL,NULL,0,0,'local_region'),
- (307,2,'Jönköping\r\n','',NULL,NULL,0,0,'local_region'),
- (308,2,'Kalmar\r\n','',NULL,NULL,0,0,'local_region'),
- (309,2,'Kronoberg\r\n','',NULL,NULL,0,0,'local_region'),
- (310,2,'Norrbotten\r\n','',NULL,NULL,0,0,'local_region'),
- (311,2,'Norrbotten','',NULL,NULL,0,0,'local_region'),
- (312,2,'Skåne\r\n','',NULL,NULL,0,0,'local_region'),
- (313,2,'Stockholm\r\n','',NULL,NULL,0,0,'local_region'),
- (314,2,'Södermanland\r\n','',NULL,NULL,0,0,'local_region'),
- (315,2,'Uppsala\r\n','',NULL,NULL,0,0,'local_region'),
- (316,2,'Värmland\r\n','',NULL,NULL,0,0,'local_region'),
- (317,2,'Västerbotten\r\n','',NULL,NULL,0,0,'local_region'),
- (318,2,'Västernorrland\r\n','',NULL,NULL,0,0,'local_region'),
- (319,2,'Västmanland\r\n','',NULL,NULL,0,0,'local_region'),
- (320,2,'Västra Götaland\r\n','',NULL,NULL,0,0,'local_region'),
- (321,2,'Örebro\r\n','',NULL,NULL,0,0,'local_region'),
- (322,2,'Östergötland\r\n','',NULL,NULL,0,0,'local_region'),
  (323,9,'Styrelsen','Publikt forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'public'),
  (324,8,'Styrelsen','Privat forum för arbetsgruppenStyrelsen',NULL,NULL,0,0,'workgroup'),
  (325,9,'Styrelsen','Publikt forum för arbetsgruppenStyrelsen',1441285219,102,1,1,'public'),
@@ -1245,6 +911,31 @@ INSERT INTO `forum` (`id`,`category_id`,`title`,`description`,`last_posted_time`
  (336,8,'Ytterligare testgruppen','Privat forum för arbetsgruppenYtterligare testgruppen',NULL,NULL,0,0,'workgroup');
 /*!40000 ALTER TABLE `forum` ENABLE KEYS */;
 
+insert into forum
+(id, category_id, title, description, access_type)
+select forum_id, 2, title, description, 'local_county' 
+from constituency where constituency_level = 3;
+
+insert into forum
+(id, category_id, title, description, access_type)
+select forum_id, 2, title, description, 'local_region' 
+from constituency where constituency_level = 2;
+
+update forum 
+set 
+  last_posted_time = 1441566649,
+  last_posted_post = 109,
+    number_of_topics = 2,
+    number_of_posts = 2
+where id = 175;
+
+update forum 
+set 
+  last_posted_time = 1431861479,
+  last_posted_post = 37,
+    number_of_topics = 2,
+    number_of_posts = 2
+where id = 301;
 
 --
 -- Definition of table `forum_user`
@@ -1362,14 +1053,6 @@ CREATE TABLE `membership_fee` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `membership_fee`
---
-
-/*!40000 ALTER TABLE `membership_fee` DISABLE KEYS */;
-/*!40000 ALTER TABLE `membership_fee` ENABLE KEYS */;
-
-
---
 -- Definition of table `message`
 --
 
@@ -1397,7 +1080,6 @@ INSERT INTO `message` (`id`,`sender_id`,`recipient_id`,`sent_time`,`read_time`,`
  (9,5,6,1440141538,1440831678,0,0,'test','test'),
  (10,5,0,1440141623,0,0,0,'Ingentest','test');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
-
 
 --
 -- Definition of table `post`
@@ -1493,7 +1175,6 @@ INSERT INTO `post` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_time
  (110,110,5,1,1,1441614926,NULL,'fdfgd','hfgdf');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
-
 --
 -- Definition of table `post_report`
 --
@@ -1509,14 +1190,6 @@ CREATE TABLE `post_report` (
   `resolved_by_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `post_report`
---
-
-/*!40000 ALTER TABLE `post_report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post_report` ENABLE KEYS */;
-
 
 --
 -- Definition of table `proposition`
@@ -1558,7 +1231,6 @@ INSERT INTO `proposition` (`id`,`type`,`created_by_user`,`created_by_delegate`,`
  (9,'yes-no',5,NULL,1441614927,1441614937,313,'affirmed',1,0,'fdfgd','hfgdf',110);
 /*!40000 ALTER TABLE `proposition` ENABLE KEYS */;
 
-
 --
 -- Definition of table `proposition_support`
 --
@@ -1596,7 +1268,6 @@ INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user
  (30,7,165,NULL,7,NULL,NULL,NULL,'support',1443615670),
  (27,7,165,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1443515050);
 /*!40000 ALTER TABLE `proposition_support` ENABLE KEYS */;
-
 
 --
 -- Definition of table `user`
@@ -1652,7 +1323,6 @@ INSERT INTO `user` (`id`,`username`,`password`,`remember_me_token`,`registration
  (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$E/pVVtVRuew/mflf3YJHDuHihl4TN0vlpK3fv0oSQ/Lfm2GC7mthq',1420102590,NULL,1444585621,1444729438,'Suddis','Katt','','','','Olofström','Blekinge\r\n','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
-
 --
 -- Definition of table `user_application`
 --
@@ -1684,7 +1354,6 @@ CREATE TABLE `user_application` (
 
 /*!40000 ALTER TABLE `user_application` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_application` ENABLE KEYS */;
-
 
 --
 -- Definition of table `vote`
@@ -1731,7 +1400,6 @@ INSERT INTO `vote` (`id`,`type`,`from_proposition_id`,`timestamp_created`,`times
  (13,'yes-no',9,1441614937,1442219737,1442824537,313,'active','fdfgd','hfgdf',0,1,0,110);
 /*!40000 ALTER TABLE `vote` ENABLE KEYS */;
 
-
 --
 -- Definition of table `vote_alternative`
 --
@@ -1767,7 +1435,6 @@ INSERT INTO `vote_alternative` (`id`,`vote_id`,`added_by_user`,`added_by_delegat
  (13,6,5,NULL,1441363409,'Ett alternativ','Alternativ 1',NULL);
 /*!40000 ALTER TABLE `vote_alternative` ENABLE KEYS */;
 
-
 --
 -- Definition of table `voter_delegate`
 --
@@ -1795,7 +1462,6 @@ INSERT INTO `voter_delegate` (`id`,`delegate_id`,`user_code`,`voter_is_delegate_
  (10,6,'9ZvUSJF2Y9binMKfwOr7',NULL,291,1,1433854555),
  (14,7,NULL,6,291,1,1434868372);
 /*!40000 ALTER TABLE `voter_delegate` ENABLE KEYS */;
-
 
 --
 -- Definition of table `workgroup`
@@ -1830,7 +1496,6 @@ INSERT INTO `workgroup` (`id`,`title`,`description`,`is_active`,`number_of_membe
  (7,'Ytterligare testgruppen','mer test',0,0,NULL,5,335,0,1441470863,336);
 /*!40000 ALTER TABLE `workgroup` ENABLE KEYS */;
 
-
 --
 -- Definition of table `workgroup_candidate`
 --
@@ -1843,14 +1508,6 @@ CREATE TABLE `workgroup_candidate` (
   `number_of_supporters` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `workgroup_candidate`
---
-
-/*!40000 ALTER TABLE `workgroup_candidate` DISABLE KEYS */;
-/*!40000 ALTER TABLE `workgroup_candidate` ENABLE KEYS */;
-
 
 --
 -- Definition of table `workgroup_candidate_support`
@@ -1874,7 +1531,6 @@ INSERT INTO `workgroup_candidate_support` (`id`,`workgroup_id`,`candidate_id`,`s
  (3,1,6,4);
 /*!40000 ALTER TABLE `workgroup_candidate_support` ENABLE KEYS */;
 
-
 --
 -- Definition of table `workgroup_election_change`
 --
@@ -1897,7 +1553,6 @@ CREATE TABLE `workgroup_election_change` (
 INSERT INTO `workgroup_election_change` (`id`,`workgroup_id`,`timestamp`,`user_id_in`,`user_id_out`) VALUES 
  (6,5,1441369382,4,5);
 /*!40000 ALTER TABLE `workgroup_election_change` ENABLE KEYS */;
-
 
 --
 -- Definition of table `workgroup_member`
@@ -1924,7 +1579,6 @@ INSERT INTO `workgroup_member` (`id`,`workgroup_id`,`user_id`,`member_since`) VA
  (18,5,5,1441368106);
 /*!40000 ALTER TABLE `workgroup_member` ENABLE KEYS */;
 
-
 --
 -- Definition of table `workgroup_member_exclude`
 --
@@ -1946,9 +1600,6 @@ CREATE TABLE `workgroup_member_exclude` (
 INSERT INTO `workgroup_member_exclude` (`id`,`workgroup_id`,`excluded_id`,`excluder_id`) VALUES 
  (19,1,1,4);
 /*!40000 ALTER TABLE `workgroup_member_exclude` ENABLE KEYS */;
-
-
-
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
