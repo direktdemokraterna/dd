@@ -247,16 +247,18 @@ class db_constituency
 
 	public static function get_counties ()
 	{
-		$query = "select title from constituency order by title asc
-					where constituency_level = 3";
+		$query = "select title from constituency
+					where constituency_level = 3
+					 order by title asc";
 		$values = Array();
 		return db::select($query, $values);
 	}
 
 	public static function get_regions ()
 	{
-		$query = "select title from constituency order by title asc
-					where constituency_level = 2";
+		$query = "select title from constituency
+					where constituency_level = 2
+					 order by title asc";
 		$values = Array();
 		return db::select($query, $values);
 	}
