@@ -18,7 +18,7 @@
 	<br><label for "settings_county">Kommun</label>
 	<select name="county" id="settings_county">
 		<?php 
-			$counties = db_helpers::get_counties();
+			$counties = db_error::get_counties();
 			foreach($counties as $row){
 				echo "<option value=\"" . $row['kommun'] . "\"";
 				if($row['kommun']==$user_settings['county']) echo " selected";

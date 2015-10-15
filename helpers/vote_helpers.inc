@@ -397,7 +397,7 @@ public static function change_county_region_constituencies ($user_id, $county){
 	$old_region_constituency_id = db_constituency::get_local_region_constituency_for_user($user_id);
 
 	$new_county_constituency_id = db_constituency::get_local_county_constituency($county);
-	$new_region = db_helpers::get_region_from_county($_POST['county']);
+	$new_region = db_constituency::get_region_from_county($_POST['county']);
 	$new_region_constituency_id = db_constituency::get_local_region_constituency($new_region);
 
 	db_constituency::remove_constituency_access($user_id, $old_county_constituency_id);

@@ -85,7 +85,7 @@
 		}
 		elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county']) && isset($_POST['email'])){
 		
-			$region = db_helpers::get_region_from_county($_POST['county']);
+			$region = db_constituency::get_region_from_county($_POST['county']);
 			$ok = db_user::update_profile(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region, $_POST['email'], general_helpers::clean($_POST['skype_name']), general_helpers::clean($_POST['telephone1']), general_helpers::clean($_POST['telephone2']), $_SESSION['id']);
 			if($ok){
 				forum_helpers::update_county_region_forum_access($_SESSION['id'], $_POST['county']);

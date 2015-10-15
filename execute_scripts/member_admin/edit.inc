@@ -5,7 +5,7 @@ if(isset($_POST['edit_user'])){
 		$_SESSION['red_report_message'] = 1;
 	}
 	else{
-		$region = db_helpers::get_region_from_county($_POST['county']);
+		$region = db_constituency::get_region_from_county($_POST['county']);
 		$ok = db_user::update_user_by_admin($_POST['username'], $_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county'], $region, $_POST['social_security_number'], $_POST['email'], $_POST['skype_name'], $_POST['telephone1'], $_POST['telephone2'], $_GET['id']);
 		if($ok){
 			forum_helpers::update_county_region_forum_access($_GET['id'], $_POST['county']);

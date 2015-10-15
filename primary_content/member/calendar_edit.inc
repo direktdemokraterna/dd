@@ -41,7 +41,7 @@
 <select name="location" id="location">
 	<option value="Internet"<?php if($calendar_info['location'] == "Internet") echo " selected"; ?>>Internet</option>
 	<?php 
-		$counties = db_helpers::get_counties();
+		$counties = db_error::get_counties();
 		foreach($counties as $row){
 			echo "<option value=\"" . $row['kommun'] . "\"";
 			if($calendar_info['location'] == $row['kommun']) echo " selected";

@@ -18,7 +18,7 @@
 <br><label for "create_member_county">Kommun</label>
 <select name="county" id="create_member_county">
 	<?php 
-		$counties = db_helpers::get_counties();
+		$counties = db_error::get_counties();
 		foreach($counties as $row){
 			echo "<option value=\"" . $row['kommun'] . "\">" . $row['kommun'] . "</option>";
 		}

@@ -26,7 +26,7 @@ include("../db/db_forum_admin.inc");
 include("../db/db_forum.inc");
 include("../db/db_message.inc");
 include("../db/db_workgroup.inc");
-include("../db/db_helpers.inc");
+include("../db/db_error.inc");
 include("../db/db_calendar.inc");
 include("../db/db_vote.inc");
 include("../db/db_prop.inc");

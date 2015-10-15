@@ -31,7 +31,7 @@ include(dirname(__FILE__)."/db/db_member_admin.inc");
 include(dirname(__FILE__)."/db/db_forum.inc");
 include(dirname(__FILE__)."/db/db_message.inc");
 include(dirname(__FILE__)."/db/db_workgroup.inc");
-include(dirname(__FILE__)."/db/db_helpers.inc");
+include(dirname(__FILE__)."/db/db_error.inc");
 include(dirname(__FILE__)."/db/db_calendar.inc");
 include(dirname(__FILE__)."/db/db_vote.inc");
 include(dirname(__FILE__)."/db/db_prop.inc");

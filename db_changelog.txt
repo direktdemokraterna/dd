@@ -97,3 +97,22 @@ ALTER TABLE `dd`.`workgroups_candidates_support` RENAME TO `dd`.`workgroup_candi
 ALTER TABLE `dd`.`workgroups_members` RENAME TO `dd`.`workgroup_member`;
 ALTER TABLE `dd`.`workgroups_members_exclude` RENAME TO `dd`.`workgroup_member_exclude`;
 ALTER TABLE `dd`.`workgroup_election_changes` RENAME TO `dd`.`workgroup_election_change`;
+
+/**************/
+/* 2015-10-13 */
+/**************/
+
+alter table constituency 
+add column parent_id int(10) unsigned null;
+
+update constituency c
+join kommuner k on c.title = k.kommun
+join constituency cp on cp.title = k.lan
+set c.parent_id = cp.id;
+
+update constituency c
+set parent_id = 313
+where constituency_level = 2;
+
+DROP TABLE `kommuner`;
+

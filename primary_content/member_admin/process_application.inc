@@ -42,7 +42,7 @@
 	<br><label for "county">Kommun</label>
 	<select name="county" id="county" tabindex="7">
 		<?php 
-			$counties = db_helpers::get_counties();
+			$counties = db_error::get_counties();
 			foreach($counties as $row){
 				echo "<option value=\"" . $row['kommun'] . "\"";
 				if($row['kommun'] == $application_data['county']) echo " selected";

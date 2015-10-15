@@ -6,7 +6,7 @@ if($_POST['accept']){
 		$_SESSION['red_report_message'] = 1;
 	}
 	else{
-		$region = db_helpers::get_region_from_county($_POST['county']);
+		$region = db_constituency::get_region_from_county($_POST['county']);
 		
 		$username = strtolower(general_helpers::clean($_POST['first_name']) . general_helpers::clean($_POST['last_name']));
 		$username = str_replace(Array("å", "ä", "ö", "é"), Array("a", "a", "o", "e"), $username);

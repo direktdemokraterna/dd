@@ -11,6 +11,6 @@
 	}
 	else{
 		$_SESSION['report_message'] = "Du har inte behörighet till det inlägget.";
-		db_helpers::insert_error_message($_SESSION['id'], $message , "red");
+		db_error::insert_error_message($_SESSION['id'], $message , "red");
 	}
 ?>

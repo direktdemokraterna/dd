@@ -26,7 +26,7 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['st
 		die("Det finns redan en användare med den mejladressen");
 	}
 
-	$region = db_helpers::get_region_from_county($_POST['county']);
+	$region = db_constituency::get_region_from_county($_POST['county']);
 
 	if(!$region){
 		die("Välj din kommun.");
@@ -90,7 +90,7 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['st
 <select name="county" id="county" tabindex="6">
 	<option value="">Välj din kommun</option>
 	<?php 
-		$counties = db_helpers::get_counties();
+		$counties = db_constituency::get_counties();
 		foreach($counties as $row){
 			echo "<option value=\"" . $row['kommun'] . "\">" . $row['kommun'] . "</option>";
 		}

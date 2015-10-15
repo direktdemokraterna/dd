@@ -33,7 +33,7 @@
 <select name="location" id="location">
 	<option value="Internet" selected>Internet</option>
 	<?php 
-		$counties = db_helpers::get_counties();
+		$counties = db_error::get_counties();
 		foreach($counties as $row){
 			echo "<option value=\"" . $row['kommun'] . "\">" . $row['kommun'] . "</option>";
 		}

@@ -10,10 +10,10 @@
 	}
 	elseif($post_info['user_id'] != $_SESSION['id'] && ($post_info['posted_time'] + 10 * 60) > time()){
 		$_SESSION['report_message'] = "Du har inte behörighet att redigera det inlägget.";
-		db_helpers::insert_error_message($_SESSION['id'], $message , "red");
+		db_error::insert_error_message($_SESSION['id'], $message , "red");
 	}
 	elseif($post_info['user_id'] == $_SESSION['id'] && ($post_info['posted_time'] + 10 * 60) < time()){
 		$_SESSION['report_message'] = "Inlägg kan bara redigeras i 10 minuter efter att de postats, den tiden har redan passerat.";
-		db_helpers::insert_error_message($_SESSION['id'], $message , "red");
+		db_error::insert_error_message($_SESSION['id'], $message , "red");
 	}
 ?>

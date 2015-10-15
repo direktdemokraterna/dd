@@ -5,7 +5,7 @@ if($_POST){
 		$_SESSION['red_report_message'] = 1;
 	}
 	else{
-		$region = db_helpers::get_region_from_county($_POST['county']);
+		$region = db_constituency::get_region_from_county($_POST['county']);
 		
 		require("helpers/class-phpass.php");
 		$random_password = general_helpers::GenerateRandomString(12);

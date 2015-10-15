@@ -15,13 +15,13 @@ class db_user {
 		}
 
 		// Adding forum accesses for new user
-		$public_forums = db_helpers::get_public_forum_ids();
+		$public_forums = db_forum::get_public_forum_ids();
 		foreach($public_forums as $row){
 			db_forum_admin::add_forum_access($user_id, $row['id']);
 		}
-		$local_county_forum = db_helpers::get_local_county_forum($_POST['county']);
+		$local_county_forum = db_forum::get_local_county_forum($_POST['county']);
 		db_forum_admin::add_forum_access($user_id, $local_county_forum);
-		$local_region_forum = db_helpers::get_local_region_forum($region);
+		$local_region_forum = db_forum::get_local_region_forum($region);
 		db_forum_admin::add_forum_access($user_id, $local_region_forum);
 
 		// Adding constituency access for new user
@@ -171,15 +171,6 @@ class db_user {
 		$values = Array($user_id);
 
 		return db::select_single_value($query, $values);
-
-	}
-
-	public static function get_public_forum_ids (){
-
-		$query = "select id from user";
-		$values = Array();
-
-		return db::select($query, $values);
 
 	}
 

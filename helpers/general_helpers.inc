@@ -205,7 +205,7 @@ class general_helpers {
 		$get_parameters['region'] = null;
 		$get_parameters['county'] = null;
 		$get_parameters['filter'] = null;
-		$regions = db_helpers::get_regions();
+		$regions = db_constituency::get_regions();
 		self::makeSelecBox($get_parameters, 'region', $regions, 'lan', "Alla län");
 		if(isset($_GET['region']))
 		$get_parameters['region'] = $_GET['region'];
@@ -266,8 +266,8 @@ class general_helpers {
 	
 	private static function getCounties() {
 		return isset($_GET['region']) 
-			? db_helpers::get_counties_for_region($_GET['region'])
-			: db_helpers::get_counties();
+			? db_constituency::get_counties_for_region($_GET['region'])
+			: db_constituency::get_counties();
 	}
 	
 	private static function makeLink($get_parameters, $key) {
