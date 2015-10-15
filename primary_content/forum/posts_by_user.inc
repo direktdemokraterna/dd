@@ -4,7 +4,7 @@
 
 	$post_count = db_forum::get_post_count_by_user($_GET['id'], $_SESSION['id']);
 	$number_of_pages = ceil($post_count / POSTS_PER_PAGE);
-	$first_showed_post_number = $page * POSTS_PER_PAGE - 49;
+	$first_showed_post_number = $page * POSTS_PER_PAGE - (POSTS_PER_PAGE - 1);
 	$last_showed_post_number = $page * POSTS_PER_PAGE;
 	if($last_showed_post_number > $post_count) $last_showed_post_number = $post_count;
 
@@ -21,7 +21,7 @@
 		<span class="post_counter">Visar inlägg <?php echo $first_showed_post_number; ?> - <?php echo $last_showed_post_number; ?> av totalt <?php echo $post_count; ?></span>
 		<?php if($post_count > POSTS_PER_PAGE) : ?>
 			<span class="post_page_chooser">
-				<?php forum_helpers::output_page_links($number_of_pages, $page, "index.php?type=forum&action=show_posts&user_id=" . $_GET['id'] . "&page="); ?>
+				<?php forum_helpers::output_page_links($number_of_pages, $page, "index.php?type=forum&action=posts_by_user&id=" . $_GET['id'] . "&page="); ?>
 			</span>
 		<?php endif; ?>
 	</div>
