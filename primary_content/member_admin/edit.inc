@@ -25,17 +25,11 @@
 <input type="text" name="zip_code" value="<?php echo $result['zip_code']; ?>"id="zip_code">
 <br><label for "city_address">Postort</label>
 <input type="text" name="city_address" value="<?php echo $result['city_address']; ?>"id="city_address">
-<br><label for "county">Kommun</label>
-<select name="county" id="county">
-	<?php 
-		$counties = db_constituency::get_counties();
-		foreach($counties as $row){
-			echo "<option value=\"" . $row['kommun'] . "\"";
-			if($result['county'] == $row['kommun']) echo " selected";
-			echo ">" . $row['kommun'] . "</option>";
-		}
-	?>
-</select>
+<?php
+	$counties = db_constituency::get_counties();
+	$options = db_general::make_hash($counties, 'title', 'title');
+	\View\general_helper::make_selector("county", "Kommun", $options, $result['county']);
+?>
 <br><label for "skype_name">Skype användarnamn</label>
 <input type="text" name="skype_name" value="<?php echo $result['skype_name']; ?>"id="skype_name">
 <br><label for "telephone1">Primärt telefonnummer</label>

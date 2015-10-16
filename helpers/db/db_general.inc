@@ -9,4 +9,12 @@ class db_general
 		$offset = ($page-1) * $limit;
 		return "limit " . $offset . ", " . $limit;
 	}
+
+	public static function make_hash($rows, $key, $value) {
+		$hash = array();
+		foreach($rows as $row) {
+			$hash[$row[$key]] = $row[$value];
+		}
+		return $hash;
+	}
 }

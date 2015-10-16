@@ -11,7 +11,8 @@ class vote_helper
 			,"median" => "Medianomröstning"
 			,"budget" => "Budgetomröstning"
 			);
-		general_helper::make_selector("type_of_vote", "Typ av omröstning", 1, $options);
+		$selected_option = isset($_POST[$selected_parameter]) ? $_POST[$selected_parameter] : null;
+		general_helper::make_selector("type_of_vote", "Typ av omröstning", $options, $selected_option, 1);
 	}	
 
 	public static function make_constituency_selector() {
@@ -19,7 +20,8 @@ class vote_helper
 		$constituencies = \db_constituency::get_constituencies_for_user($_SESSION['id']);
 		foreach($constituencies as $row)
 			$options[$row['id']] = $row['name'];
-		general_helper::make_selector("constituency_id", "Valkrets", 2, $options);
+		$selected_option = isset($_POST[$selected_parameter]) ? $_POST[$selected_parameter] : null;
+		general_helper::make_selector("constituency_id", "Valkrets", $options, $selected_option, 2);
 	}	
 
 	public static function make_title_input() {

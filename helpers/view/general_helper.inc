@@ -2,11 +2,11 @@
 namespace View;
 class general_helper 
 {
-	public static function make_selector($control_name, $control_label, $tab_index, $options) {
+	public static function make_selector($control_name, $control_label, $options, $selected_option = null, $tab_index = null) {
 		self::make_control_label($control_name, $control_label);
 		self::open_select($control_name, $tab_index);
 		foreach(array_keys($options) as $option_name){
-			self::make_select_option($option_name, $options[$option_name], $control_name);
+			self::make_option($option_name, $selected_option, $options[$option_name]);
 		}
 		self::close_select();
 	}
@@ -62,17 +62,17 @@ class general_helper
 	}	
 
 	private static function open_select($control_name, $tab_index) {
-		echo('<select name="' . $control_name . '" id="' . $control_name . '" tabindex="' . $tab_index . '">' . PHP_EOL);
+		echo('<select name="' . $control_name . '" id="' . $control_name 
+			. ($tab_index != null ? '" tabindex="' . $tab_index : '') . '">' . PHP_EOL);
 	}	
 
 	private static function close_select($control_name, $tab_index) {
 		echo('</select>' . PHP_EOL);		
 	}	
 
-	private static function make_select_option($option_name, $option_label, $selected_parameter) {
-		$selected_option = isset($_POST[$selected_parameter]) ? $_POST[$selected_parameter] : null;
-		echo('<option value="' . $option_name . '"' . ($selected_option == $option_name ? ' selected' : '') . '>' . 
-			$option_label . '</option>' . PHP_EOL);
+	private static function make_option($value, $selected_value, $label = null) {
+		echo "<option value=\"" . $value . "\"" . ($value == $selected_value ? " selected" : "") . ">" 
+		. ($label != null ? $label : $value) . "</option>" . PHP_EOL;
 	}
 }
 ?>
