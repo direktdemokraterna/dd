@@ -199,7 +199,7 @@ class db_workgroup
 
 	public static function support_exclude ($workgroup_id, $excluded_id, $excluder_id){
 
-		$db_table = "workgroups_members_exclude";
+		$db_table = "workgroup_member_exclude";
 		$columns = Array("workgroup_id", "excluded_id", "excluder_id");
 		$values = Array($workgroup_id, $excluded_id, $excluder_id);
 
@@ -282,7 +282,7 @@ class db_workgroup
 
 	public static function support_membership ($workgroup_id, $candidate_id, $supporter_id){
 
-		$db_table = "workgroups_candidates_support";
+		$db_table = "workgroup_candidate_support";
 		$columns = Array("workgroup_id", "candidate_id", "supporter_id");
 		$values = Array($workgroup_id, $candidate_id, $supporter_id);
 
@@ -343,7 +343,7 @@ class db_workgroup
 
 	public static function submit_candidacy ($workgroup_id, $candidate_id){
 
-		$db_table = "workgroups_candidates";
+		$db_table = "workgroup_candidate";
 		$columns = Array("workgroup_id", "candidate_id");
 		$values = Array($workgroup_id, $candidate_id);
 
@@ -382,7 +382,7 @@ class db_workgroup
 			return false;
 		}
 		else{
-			$db_table = "workgroups_members";
+			$db_table = "workgroup_member";
 			$columns = Array("workgroup_id", "user_id");
 			$values = Array($workgroup_id, $candidate_id);
 

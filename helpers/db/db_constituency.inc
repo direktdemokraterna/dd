@@ -171,7 +171,7 @@ class db_constituency
 	{
 		if(!self::check_user_constituency_access($user_id, $constituency_id))
 			return false;
-		$db_table = "constituencies_delegates";
+		$db_table = "constituency_delegate";
 		$columns = Array("constituency_id", "delegate_id");
 		$values = Array($constituency_id, $delegate_id);
 		return db::insert_ignore($db_table, $columns, $values);

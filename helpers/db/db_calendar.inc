@@ -84,7 +84,7 @@ class db_calendar {
 
 	public static function participate ($event_id, $user_id){
 
-		$db_table = "calendar_participants";
+		$db_table = "calendar_participant";
 		$columns = Array("calendar_id", "user_id");
 		$values = Array($event_id, $user_id);
 

@@ -95,7 +95,7 @@ class db_forum_admin {
 
 	public static function add_forum_access ($user_id, $forum_id){
 
-		$db_table = "forums_users";
+		$db_table = "forum_user";
 		$columns = Array("user_id", "forum_id");
 		$values = Array($user_id, $forum_id);
 

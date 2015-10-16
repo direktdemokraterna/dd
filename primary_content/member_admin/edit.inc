@@ -28,7 +28,7 @@
 <br><label for "county">Kommun</label>
 <select name="county" id="county">
 	<?php 
-		$counties = db_error::get_counties();
+		$counties = db_constituency::get_counties();
 		foreach($counties as $row){
 			echo "<option value=\"" . $row['kommun'] . "\"";
 			if($result['county'] == $row['kommun']) echo " selected";

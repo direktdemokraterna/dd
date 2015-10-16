@@ -47,7 +47,7 @@ class db_delegate
 
 		$user_full_name = db_user::get_user_full_name($user_id);
 
-		$db_table = "delegates";
+		$db_table = "delegate";
 		$columns = Array("title");
 		$values = Array($user_full_name);
 
