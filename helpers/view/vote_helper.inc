@@ -11,7 +11,7 @@ class vote_helper
 			,"median" => "Medianomröstning"
 			,"budget" => "Budgetomröstning"
 			);
-		$selected_option = isset($_POST[$selected_parameter]) ? $_POST[$selected_parameter] : null;
+		$selected_option = isset($_POST["type_of_vote"]) ? $_POST["type_of_vote"] : null;
 		general_helper::make_selector("type_of_vote", "Typ av omröstning", $options, $selected_option, 1);
 	}	
 
@@ -20,7 +20,7 @@ class vote_helper
 		$constituencies = \db_constituency::get_constituencies_for_user($_SESSION['id']);
 		foreach($constituencies as $row)
 			$options[$row['id']] = $row['name'];
-		$selected_option = isset($_POST[$selected_parameter]) ? $_POST[$selected_parameter] : null;
+		$selected_option = isset($_POST["constituency_id"]) ? $_POST["constituency_id"] : null;
 		general_helper::make_selector("constituency_id", "Valkrets", $options, $selected_option, 2);
 	}	
 
