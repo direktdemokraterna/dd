@@ -927,15 +927,117 @@ set
   last_posted_post = 109,
     number_of_topics = 2,
     number_of_posts = 2
-where id = 175;
+where title = 'Olofström';
 
-update forum 
-set 
-  last_posted_time = 1431861479,
-  last_posted_post = 37,
-    number_of_topics = 2,
-    number_of_posts = 2
-where id = 301;
+--
+-- Definition of table `post`
+--
+
+DROP TABLE IF EXISTS `post`;
+CREATE TABLE `post` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `topic_id` int(10) unsigned NOT NULL default '0',
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `forum_id` int(10) unsigned NOT NULL default '0',
+  `is_topic` tinyint(3) unsigned NOT NULL default '0',
+  `posted_time` int(10) unsigned NOT NULL default '0',
+  `last_edited_time` int(10) unsigned default NULL,
+  `title` varchar(90) NOT NULL default '',
+  `content` text NOT NULL,
+  PRIMARY KEY  USING HASH (`id`),
+  FULLTEXT KEY `search` (`title`,`content`)
+) ENGINE=MyISAM AUTO_INCREMENT=111 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `post`
+--
+
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_time`,`last_edited_time`,`title`,`content`) VALUES 
+ (38,38,4,1,1,1432278142,NULL,'Testtråd',''),
+ (39,39,4,1,1,1432294979,NULL,'Moderator lägger sig i','Ett svar. '),
+ (40,40,4,1,1,1432295280,NULL,'En till testtråd',''),
+ (41,41,4,1,1,1432295423,NULL,'Tredje testtråden',''),
+ (42,42,4,1,1,1432295491,NULL,'Fjärde testtråden','Ytterligare test. '),
+ (48,48,6,1,1,1432645559,NULL,'tst','svar'),
+ (50,50,6,1,1,1432645649,NULL,'asrta','asdf'),
+ (44,38,6,1,0,1432538300,NULL,'Testtråd','<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&id=39\">Gullan Katt skrev:</a>\nsvar</div>\r\nSvar med citat. '),
+ (51,50,5,1,0,1439976262,1439976272,'asrta','Ett svaråäö'),
+ (52,50,5,1,0,1440052928,NULL,'asrta','Svar med &amp;quot;'),
+ (53,50,5,1,0,1440053117,NULL,'asrta','Svar med &amp;quot;'),
+ (54,50,5,1,0,1440053963,NULL,'asrta','Svar med &quot;'),
+ (102,102,4,325,1,1441285219,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=2\">Styrelsen</a>.'),
+ (56,50,4,1,0,1440937896,NULL,'asrta','asdf'),
+ (57,50,4,1,0,1440937902,NULL,'asrta','asdf'),
+ (58,50,4,1,0,1440937904,NULL,'asrta','sadf'),
+ (59,50,4,1,0,1440937906,NULL,'asrta','asdf'),
+ (60,50,4,1,0,1440937909,NULL,'asrta','sdfa'),
+ (61,50,4,1,0,1440937911,NULL,'asrta','sdf'),
+ (62,50,4,1,0,1440937913,NULL,'asrta','sdfasd'),
+ (63,50,4,1,0,1440937916,NULL,'asrta','asdfas'),
+ (64,50,4,1,0,1440937918,NULL,'asrta','sadfsa'),
+ (65,50,4,1,0,1440937921,NULL,'asrta','asdf'),
+ (66,50,4,1,0,1440937923,NULL,'asrta','sadf'),
+ (67,50,4,1,0,1440937925,NULL,'asrta','sadf'),
+ (68,50,4,1,0,1440937927,NULL,'asrta','asdf'),
+ (69,50,4,1,0,1440937929,NULL,'asrta','sadfa'),
+ (70,50,4,1,0,1440937931,NULL,'asrta','asdf'),
+ (71,50,4,1,0,1440937934,NULL,'asrta','asdf'),
+ (72,50,4,1,0,1440937937,NULL,'asrta','sdf'),
+ (73,50,4,1,0,1440937938,NULL,'asrta','sadf'),
+ (74,50,4,1,0,1440937940,NULL,'asrta','sadf'),
+ (75,50,4,1,0,1440937942,NULL,'asrta','sadf'),
+ (76,50,4,1,0,1440937944,NULL,'asrta','asdf'),
+ (77,50,4,1,0,1440937946,NULL,'asrta','sadf'),
+ (78,50,4,1,0,1440937948,NULL,'asrta','sadfa'),
+ (79,50,4,1,0,1440937949,NULL,'asrta','asdf'),
+ (80,50,4,1,0,1440937951,NULL,'asrta','sadf'),
+ (81,50,4,1,0,1440937953,NULL,'asrta','asdf'),
+ (82,50,4,1,0,1440937955,NULL,'asrta','asdf'),
+ (83,50,4,1,0,1440937957,NULL,'asrta','asdf'),
+ (84,50,4,1,0,1440937959,NULL,'asrta','sadf'),
+ (85,50,4,1,0,1440937960,NULL,'asrta','asdf'),
+ (86,50,4,1,0,1440937962,NULL,'asrta','asdf'),
+ (87,50,4,1,0,1440937964,NULL,'asrta','sadf'),
+ (88,50,4,1,0,1440937966,NULL,'asrta','asdf'),
+ (89,50,4,1,0,1440937970,NULL,'asrta','sadf\r\n'),
+ (90,50,4,1,0,1440937971,NULL,'asrta','sadf'),
+ (91,50,4,1,0,1440937975,NULL,'asrta','\r\nsadf'),
+ (92,50,4,1,0,1440937977,NULL,'asrta','sadf'),
+ (93,50,4,1,0,1440937978,NULL,'asrta','asdf'),
+ (94,50,4,1,0,1440937980,NULL,'asrta','sdaf'),
+ (95,50,4,1,0,1440937982,NULL,'asrta','sadf'),
+ (96,50,4,1,0,1440937983,NULL,'asrta','sadf'),
+ (97,50,4,1,0,1440937985,NULL,'asrta','sadf'),
+ (98,50,4,1,0,1440937987,NULL,'asrta','asdf'),
+ (99,50,4,1,0,1440937989,NULL,'asrta','sadf'),
+ (100,50,4,1,0,1440937991,NULL,'asrta','sadf'),
+ (101,50,4,1,0,1440937996,NULL,'asrta','sadf'),
+ (103,103,4,327,1,1441285293,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=3\">Styrelsen</a>.'),
+ (104,104,4,329,1,1441285446,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=4\">Styrelsen</a>.'),
+ (105,105,4,331,1,1441286282,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=5\">Styrelsen</a>.'),
+ (106,106,5,333,1,1441375857,NULL,'Personval till arbetsgruppen Test','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=6\">Test</a>.'),
+ (107,107,5,1,1,1441469576,NULL,'test','test'),
+ (108,108,5,175,1,1441541122,NULL,'Nytt test','test\r\n'),
+ (109,109,5,175,1,1441566649,NULL,'mediantest','test'),
+ (110,110,5,1,1,1441614926,NULL,'fdfgd','hfgdf');
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
+
+--
+-- Definition of table `post_report`
+--
+
+DROP TABLE IF EXISTS `post_report`;
+CREATE TABLE `post_report` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `post_id` int(10) unsigned NOT NULL default '0',
+  `reporter_id` int(10) unsigned NOT NULL default '0',
+  `time_report_filed` int(10) unsigned NOT NULL default '0',
+  `argument` text NOT NULL,
+  `time_resolved` int(10) unsigned NOT NULL default '0',
+  `resolved_by_id` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Definition of table `forum_user`
@@ -1080,116 +1182,6 @@ INSERT INTO `message` (`id`,`sender_id`,`recipient_id`,`sent_time`,`read_time`,`
  (9,5,6,1440141538,1440831678,0,0,'test','test'),
  (10,5,0,1440141623,0,0,0,'Ingentest','test');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
-
---
--- Definition of table `post`
---
-
-DROP TABLE IF EXISTS `post`;
-CREATE TABLE `post` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `topic_id` int(10) unsigned NOT NULL default '0',
-  `user_id` int(10) unsigned NOT NULL default '0',
-  `forum_id` int(10) unsigned NOT NULL default '0',
-  `is_topic` tinyint(3) unsigned NOT NULL default '0',
-  `posted_time` int(10) unsigned NOT NULL default '0',
-  `last_edited_time` int(10) unsigned default NULL,
-  `title` varchar(90) NOT NULL default '',
-  `content` text NOT NULL,
-  PRIMARY KEY  USING HASH (`id`),
-  FULLTEXT KEY `search` (`title`,`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=111 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `post`
---
-
-/*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_time`,`last_edited_time`,`title`,`content`) VALUES 
- (38,38,4,1,1,1432278142,NULL,'Testtråd',''),
- (39,39,4,1,1,1432294979,NULL,'Moderator lägger sig i','Ett svar. '),
- (40,40,4,1,1,1432295280,NULL,'En till testtråd',''),
- (41,41,4,1,1,1432295423,NULL,'Tredje testtråden',''),
- (42,42,4,1,1,1432295491,NULL,'Fjärde testtråden','Ytterligare test. '),
- (48,48,6,1,1,1432645559,NULL,'tst','svar'),
- (50,50,6,1,1,1432645649,NULL,'asrta','asdf'),
- (44,38,6,1,0,1432538300,NULL,'Testtråd','<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&id=39\">Gullan Katt skrev:</a>\nsvar</div>\r\nSvar med citat. '),
- (51,50,5,1,0,1439976262,1439976272,'asrta','Ett svaråäö'),
- (52,50,5,1,0,1440052928,NULL,'asrta','Svar med &amp;quot;'),
- (53,50,5,1,0,1440053117,NULL,'asrta','Svar med &amp;quot;'),
- (54,50,5,1,0,1440053963,NULL,'asrta','Svar med &quot;'),
- (102,102,4,325,1,1441285219,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=2\">Styrelsen</a>.'),
- (56,50,4,1,0,1440937896,NULL,'asrta','asdf'),
- (57,50,4,1,0,1440937902,NULL,'asrta','asdf'),
- (58,50,4,1,0,1440937904,NULL,'asrta','sadf'),
- (59,50,4,1,0,1440937906,NULL,'asrta','asdf'),
- (60,50,4,1,0,1440937909,NULL,'asrta','sdfa'),
- (61,50,4,1,0,1440937911,NULL,'asrta','sdf'),
- (62,50,4,1,0,1440937913,NULL,'asrta','sdfasd'),
- (63,50,4,1,0,1440937916,NULL,'asrta','asdfas'),
- (64,50,4,1,0,1440937918,NULL,'asrta','sadfsa'),
- (65,50,4,1,0,1440937921,NULL,'asrta','asdf'),
- (66,50,4,1,0,1440937923,NULL,'asrta','sadf'),
- (67,50,4,1,0,1440937925,NULL,'asrta','sadf'),
- (68,50,4,1,0,1440937927,NULL,'asrta','asdf'),
- (69,50,4,1,0,1440937929,NULL,'asrta','sadfa'),
- (70,50,4,1,0,1440937931,NULL,'asrta','asdf'),
- (71,50,4,1,0,1440937934,NULL,'asrta','asdf'),
- (72,50,4,1,0,1440937937,NULL,'asrta','sdf'),
- (73,50,4,1,0,1440937938,NULL,'asrta','sadf'),
- (74,50,4,1,0,1440937940,NULL,'asrta','sadf'),
- (75,50,4,1,0,1440937942,NULL,'asrta','sadf'),
- (76,50,4,1,0,1440937944,NULL,'asrta','asdf'),
- (77,50,4,1,0,1440937946,NULL,'asrta','sadf'),
- (78,50,4,1,0,1440937948,NULL,'asrta','sadfa'),
- (79,50,4,1,0,1440937949,NULL,'asrta','asdf'),
- (80,50,4,1,0,1440937951,NULL,'asrta','sadf'),
- (81,50,4,1,0,1440937953,NULL,'asrta','asdf'),
- (82,50,4,1,0,1440937955,NULL,'asrta','asdf'),
- (83,50,4,1,0,1440937957,NULL,'asrta','asdf'),
- (84,50,4,1,0,1440937959,NULL,'asrta','sadf'),
- (85,50,4,1,0,1440937960,NULL,'asrta','asdf'),
- (86,50,4,1,0,1440937962,NULL,'asrta','asdf'),
- (87,50,4,1,0,1440937964,NULL,'asrta','sadf'),
- (88,50,4,1,0,1440937966,NULL,'asrta','asdf'),
- (89,50,4,1,0,1440937970,NULL,'asrta','sadf\r\n'),
- (90,50,4,1,0,1440937971,NULL,'asrta','sadf'),
- (91,50,4,1,0,1440937975,NULL,'asrta','\r\nsadf'),
- (92,50,4,1,0,1440937977,NULL,'asrta','sadf'),
- (93,50,4,1,0,1440937978,NULL,'asrta','asdf'),
- (94,50,4,1,0,1440937980,NULL,'asrta','sdaf'),
- (95,50,4,1,0,1440937982,NULL,'asrta','sadf'),
- (96,50,4,1,0,1440937983,NULL,'asrta','sadf'),
- (97,50,4,1,0,1440937985,NULL,'asrta','sadf'),
- (98,50,4,1,0,1440937987,NULL,'asrta','asdf'),
- (99,50,4,1,0,1440937989,NULL,'asrta','sadf'),
- (100,50,4,1,0,1440937991,NULL,'asrta','sadf'),
- (101,50,4,1,0,1440937996,NULL,'asrta','sadf'),
- (103,103,4,327,1,1441285293,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=3\">Styrelsen</a>.'),
- (104,104,4,329,1,1441285446,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=4\">Styrelsen</a>.'),
- (105,105,4,331,1,1441286282,NULL,'Personval till arbetsgruppen Styrelsen','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=5\">Styrelsen</a>.'),
- (106,106,5,333,1,1441375857,NULL,'Personval till arbetsgruppen Test','Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=6\">Test</a>.'),
- (107,107,5,1,1,1441469576,NULL,'test','test'),
- (108,108,5,175,1,1441541122,NULL,'Nytt test','test\r\n'),
- (109,109,5,175,1,1441566649,NULL,'mediantest','test'),
- (110,110,5,1,1,1441614926,NULL,'fdfgd','hfgdf');
-/*!40000 ALTER TABLE `post` ENABLE KEYS */;
-
---
--- Definition of table `post_report`
---
-
-DROP TABLE IF EXISTS `post_report`;
-CREATE TABLE `post_report` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `post_id` int(10) unsigned NOT NULL default '0',
-  `reporter_id` int(10) unsigned NOT NULL default '0',
-  `time_report_filed` int(10) unsigned NOT NULL default '0',
-  `argument` text NOT NULL,
-  `time_resolved` int(10) unsigned NOT NULL default '0',
-  `resolved_by_id` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Definition of table `proposition`
@@ -1347,13 +1339,6 @@ CREATE TABLE `user_application` (
   `admin_notes` varchar(255) default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_application`
---
-
-/*!40000 ALTER TABLE `user_application` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_application` ENABLE KEYS */;
 
 --
 -- Definition of table `vote`
