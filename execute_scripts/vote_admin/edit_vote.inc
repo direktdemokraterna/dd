@@ -22,12 +22,9 @@ if(isset($_POST['update'])){
 
 						$time_string = (int)$_POST['year'] . "-" . (int)$_POST['month'] . "-" . (int)$_POST['day'] . " " . (int)$_POST['hour'] . ":" . (int)$_POST['minute'] . ":00";
 						$delegate_time_string = (int)$_POST['delegate_year'] . "-" . (int)$_POST['delegate_month'] . "-" . (int)$_POST['delegate_day'] . " " . (int)$_POST['delegate_hour'] . ":" . (int)$_POST['delegate_minute'] . ":00";
-
 						$timestamp_ended = strtotime($time_string);
 						$timestamp_delegate_ended = strtotime($delegate_time_string);
-
 						$ok2 = db_vote_admin::update_time_ended($timestamp_ended, $timestamp_delegate_ended, $_POST['vote_id']);
-
 					}
 
 					if($ok1 || $ok2){

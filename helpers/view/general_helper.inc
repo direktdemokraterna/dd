@@ -2,9 +2,8 @@
 namespace View;
 class general_helper 
 {
-	public static function make_selector($control_name, $control_label, $options, $selected_option = null, $tab_index = null) {
-		self::make_control_label($control_name, $control_label);
-		self::open_select($control_name, $tab_index);
+	public static function make_selector($control_name, $options, $selected_option = null, $attributes = null) {
+		self::open_select($control_name, $attributes);
 		foreach(array_keys($options) as $option_name){
 			self::make_option($option_name, $selected_option, $options[$option_name]);
 		}
@@ -61,9 +60,9 @@ class general_helper
 		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
 	}	
 
-	private static function open_select($control_name, $tab_index) {
-		echo('<select name="' . $control_name . '" id="' . $control_name 
-			. ($tab_index != null ? '" tabindex="' . $tab_index : '') . '">' . PHP_EOL);
+	private static function open_select($control_name, $attributes) {
+		echo('<select name="' . $control_name . '" id="' . $control_name . '"'
+			. ($attributes != null ? ' ' . $attributes : '') . '>' . PHP_EOL);
 	}	
 
 	private static function close_select($control_name, $tab_index) {

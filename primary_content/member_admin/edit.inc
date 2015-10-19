@@ -28,7 +28,8 @@
 <?php
 	$counties = db_constituency::get_counties();
 	$options = db_general::make_hash($counties, 'title', 'title');
-	\View\general_helper::make_selector("county", "Kommun", $options, $result['county']);
+	\View\general_helper::make_control_label("county", "Kommun");
+	\View\general_helper::make_selector("county", $options, $result['county']);
 ?>
 <br><label for "skype_name">Skype användarnamn</label>
 <input type="text" name="skype_name" value="<?php echo $result['skype_name']; ?>"id="skype_name">
