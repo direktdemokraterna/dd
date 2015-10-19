@@ -17,10 +17,10 @@ class general_helpers {
 		return self::is_genitive($string) ? $string : $string . "s";
 	}
 
-	public static function check_report_messages (){
-		$return_message = self::generate_report_message();
+	public static function show_report_messages (){
+		$report_message = self::generate_report_message();
 		self::unset_report_message_flags();
-		return $return_message;
+		echo $report_message;
 	}
 
 	public static function show_date ($time){

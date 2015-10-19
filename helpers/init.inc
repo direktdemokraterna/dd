@@ -16,6 +16,7 @@ include(dirname(__FILE__)."/navigation_helpers.inc");
 include(dirname(__FILE__)."/forum_helpers.inc");
 include(dirname(__FILE__)."/vote_helpers.inc");
 include(dirname(__FILE__)."/crypt_helpers.inc");
+include(dirname(__FILE__)."/class-phpass.php");
 
 include(dirname(__FILE__)."/view/general_helper.inc");
 include(dirname(__FILE__)."/view/vote_helper.inc");

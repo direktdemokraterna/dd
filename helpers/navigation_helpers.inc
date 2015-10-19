@@ -2,12 +2,57 @@
 class navigation_helpers {
 	private static $divisions = null;
 
-	public static function getDivisions() {
+	public static function execute_action_script() {
+		if (empty($_POST)) return;
+
+		$divisionName = $_GET['type'];
+		$division = self::get_division($divisionName);
+		if ($division == null) return;
+
+		$pageInfo = $division->get_page($_GET['action'], Page_info::EXECUTE);
+		if ($pageInfo == null) return;
+
+		$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
+		require($path);
+		if(isset($redirect)){
+			header("Location: $redirect");
+			exit();
+		}
+	}
+
+	public static function get_subpage() {
+		$path = self::get_specific_path();
+		return $path != null 
+			? $path
+			: "primary_content/first_page.inc";
+	}
+
+	private static function get_specific_path() {
+		$divisionName = $_GET['type'];
+		$division = self::get_division($divisionName);
+		if ($division == null) return null;
+		$pageName = $division->get_page_name($_GET['action']);
+		return $pageName != null 
+			? "primary_content/" . $divisionName . "/" . $pageName 
+			: null;
+	}
+
+	private static function get_division($divisionName) {
+		$divisions = self::get_divisions();
+		$division = isset($divisions[$divisionName]) 
+			? $divisions[$divisionName] 
+			: null;
+		return $division != null && $division->user_has_access() 
+			? $division 
+			: null;
+	}
+
+	private static function get_divisions() {
 		if (self::$divisions == null) {
 			self::$divisions = self::create_divisions();
 		}
 		return self::$divisions;
-	}
+	}	
 
 	private static function create_divisions() {
 		return array(
@@ -129,51 +174,6 @@ class navigation_helpers {
 				"edit_admin" => Page_info::create("edit_admin.inc", Page_info::VIEW_AND_EXECUTE))
 			, "memberlist.inc", "is_superadmin")
 		);
-	}
-
-	public static function execute_action_script() {
-		if (empty($_POST)) return;
-
-		$divisionName = $_GET['type'];
-		$division = self::get_division($divisionName);
-		if ($division == null) return;
-
-		$pageInfo = $division->get_page($_GET['action'], Page_info::EXECUTE);
-		if ($pageInfo == null) return;
-
-		$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
-		require($path);
-		if(isset($redirect)){
-			header("Location: $redirect");
-			exit();
-		}
-	}
-
-	public static function get_subpage() {
-		$path = self::get_specific_path();
-		return $path != null 
-			? $path
-			: "primary_content/first_page.inc";
-	}
-
-	private static function get_specific_path() {
-		$divisionName = $_GET['type'];
-		$division = self::get_division($divisionName);
-		if ($division == null) return null;
-		$pageName = $division->get_page_name($_GET['action']);
-		return $pageName != null 
-			? "primary_content/" . $divisionName . "/" . $pageName 
-			: null;
-	}
-
-	private static function get_division($divisionName) {
-		$divisions = self::getDivisions();
-		$division = isset($divisions[$divisionName]) 
-			? $divisions[$divisionName] 
-			: null;
-		return $division != null && $division->user_has_access() 
-			? $division 
-			: null;
 	}
 }
 
