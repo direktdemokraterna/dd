@@ -140,7 +140,7 @@ class forum_post_helper
 	private static function show_topic_link($title, $post_id) 
 	{
 		general_helper::open_div("post_top_row");
-		echo general_helper::make_internal_link($title, "forum", "show_posts", "post_id=" . 
+		general_helper::make_internal_link($title, "forum", "show_posts", "post_id=" . 
 			$post_id, false, "user_name_link");
 		general_helper::close_div();
 	}
