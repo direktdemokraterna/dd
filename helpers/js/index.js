@@ -1,17 +1,21 @@
-function expand_mobile_menu () {
+function toggle_mobile_main_menu () {
+	toggle_mobile_menu("hide_menu");
+	hide_mobile_menu("logout-link");
+}
 
-	var menu = document.getElementById("hide_menu");
-	var menu2 = document.getElementById("logout-link");
+function toggle_mobile_user_menu () {
+	toggle_mobile_menu("logout-link");
+	hide_mobile_menu("hide_menu");
+}
 
-	if(menu.style.display != "block"){
-		menu.style.display = "block";
-		menu2.style.display = "block";
-	}
-	else{
-		menu.style.display = "none";
-		menu2.style.display = "none";
-	}
+function toggle_mobile_menu (id) {
+	var menu = document.getElementById(id);
+	menu.style.display = menu.style.display == "block" ? "none" : "block";
+}
 
+function hide_mobile_menu (id) {
+	var menu = document.getElementById(id);
+	menu.style.display = "none";
 }
 
 function checkAll(ele, class_name) {

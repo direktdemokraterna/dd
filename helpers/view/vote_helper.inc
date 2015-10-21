@@ -43,7 +43,7 @@ class vote_helper
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
 			foreach($vote_group->votes as $row)
-				general_helper::make_internal_link($row['title'], $type, $action, '&id=' . $row['id'], true);
+				general_helper::make_internal_link($row['title'], $type, $action, 'id=' . $row['id'], true);
 		}
 		general_helper::close_div("list_of_links");
 	}
