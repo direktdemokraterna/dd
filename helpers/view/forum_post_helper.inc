@@ -28,6 +28,17 @@ class forum_post_helper
 		self::show_paging_row($url_without_page, $paging_info);
 	}
 
+	public static function show_posts_by_user($url_without_page, $page, $posts, $post_count) 
+	{
+		$paging_info = Paging_info::create($page, $post_count);
+		self::show_paging_row($url_without_page, $paging_info);
+		foreach($posts as $post_info){
+			self::show_topic_link($post_info['title'], $post_info['topic_id']);
+			self::make_post($post_info);			
+		}
+		self::show_paging_row($url_without_page, $paging_info);
+	}
+
 	public static function make_post_reference_link($post_id) 
 	{
 		$post_element_id = self::make_post_element_id($post_id);
@@ -123,6 +134,14 @@ class forum_post_helper
 		if(isset($post_info['last_edited_time']))
 			echo('<span class="post_last_edited">Ändrades senast ' . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			
+		general_helper::close_div();
+	}
+
+	private static function show_topic_link($title, $topic_id) 
+	{
+		general_helper::open_div("post_top_row");
+		echo general_helper::make_internal_link($title, "forum", "show_posts", "id=" . 
+			$topic_id, false, "user_name_link");
 		general_helper::close_div();
 	}
 }
