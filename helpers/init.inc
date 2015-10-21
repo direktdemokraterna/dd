@@ -18,10 +18,6 @@ include(dirname(__FILE__)."/vote_helpers.inc");
 include(dirname(__FILE__)."/crypt_helpers.inc");
 include(dirname(__FILE__)."/class-phpass.php");
 
-include(dirname(__FILE__)."/view/general_helper.inc");
-include(dirname(__FILE__)."/view/vote_helper.inc");
-include(dirname(__FILE__)."/view/forum_post_helper.inc");
-
 include(dirname(__FILE__)."/db/db.inc");
 include(dirname(__FILE__)."/db/db_general.inc");
 include(dirname(__FILE__)."/db/db_user.inc");
@@ -38,6 +34,13 @@ include(dirname(__FILE__)."/db/db_vote.inc");
 include(dirname(__FILE__)."/db/db_prop.inc");
 include(dirname(__FILE__)."/db/db_delegate.inc");
 include(dirname(__FILE__)."/db/db_constituency.inc");
+
+include(dirname(__FILE__)."/logic/vote.inc");
+include(dirname(__FILE__)."/logic/util.inc");
+
+include(dirname(__FILE__)."/view/general_helper.inc");
+include(dirname(__FILE__)."/view/vote_helper.inc");
+include(dirname(__FILE__)."/view/forum_post_helper.inc");
 
 // Defines constants
 define("USERIMG_PATH", "images/userimg/");

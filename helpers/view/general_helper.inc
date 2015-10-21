@@ -56,7 +56,7 @@ class general_helper
 		echo '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>' . ($line_break ? '<br>' : '&nbsp;'); 
 	}	
 
-	private static function make_control_label($control_name, $control_label) {
+	public static function make_control_label($control_name, $control_label) {
 		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
 	}	
 
@@ -65,7 +65,7 @@ class general_helper
 			. ($attributes != null ? ' ' . $attributes : '') . '>' . PHP_EOL);
 	}	
 
-	private static function close_select($control_name, $tab_index) {
+	private static function close_select() {
 		echo('</select>' . PHP_EOL);		
 	}	
 
