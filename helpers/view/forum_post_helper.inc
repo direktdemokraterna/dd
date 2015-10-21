@@ -33,7 +33,7 @@ class forum_post_helper
 		$paging_info = Paging_info::create($page, $post_count);
 		self::show_paging_row($url_without_page, $paging_info);
 		foreach($posts as $post_info){
-			self::show_topic_link($post_info['title'], $post_info['topic_id']);
+			self::show_topic_link($post_info['title'], $post_info['post_id']);
 			self::make_post($post_info);			
 		}
 		self::show_paging_row($url_without_page, $paging_info);
@@ -122,7 +122,7 @@ class forum_post_helper
 		general_helper::open_div("post_user_info");
 		echo '<img src="' . USERIMG_PATH . $post_info['user_image'] . '" class="post_user_image" width="80"><br>';
 		general_helper::make_internal_link($post_info['user_full_name'], "member", "view", "id=" . 
-			$post_info['post_id'], false, "user_name_link");
+			$post_info['user_id'], false, "user_name_link");
 		general_helper::close_div();
 	}
 
@@ -137,11 +137,11 @@ class forum_post_helper
 		general_helper::close_div();
 	}
 
-	private static function show_topic_link($title, $topic_id) 
+	private static function show_topic_link($title, $post_id) 
 	{
 		general_helper::open_div("post_top_row");
-		echo general_helper::make_internal_link($title, "forum", "show_posts", "id=" . 
-			$topic_id, false, "user_name_link");
+		echo general_helper::make_internal_link($title, "forum", "show_posts", "post_id=" . 
+			$post_id, false, "user_name_link");
 		general_helper::close_div();
 	}
 }
