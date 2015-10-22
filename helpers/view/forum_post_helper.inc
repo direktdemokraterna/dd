@@ -67,9 +67,7 @@ class forum_post_helper
 		general_helper::open_div("post_top_row");
 		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']);
 		if($_GET['action'] == "posts_by_user"){
-			echo ' som svar till: ';
-			general_helper::make_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
-			$post_info['topic_id']);
+			self::output_topic_link_for_post($post_info);
 		}
 		echo '</span>';
 		general_helper::open_span("post_alternatives");
@@ -130,6 +128,13 @@ class forum_post_helper
 			echo('<span class="post_last_edited">Ändrades senast ' . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			
 		general_helper::close_div();
+	}
+
+	private static function output_topic_link_for_post($post_info)
+	{
+		echo ' som svar till: ';
+		general_helper::make_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
+			$post_info['topic_id']);
 	}
 }
 

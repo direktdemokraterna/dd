@@ -5,7 +5,7 @@
 		$ok = db_forum::delete_post($_GET['id']);
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har raderats.";
-			$redirect = "index.php?type=forum&action=show_posts&id=" . $post_info['topic_id'] . "&page=last";
+			$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $post_info['topic_id'] . "&page=last";
 		}
 	}
 	elseif($post_info['user_id'] != $_SESSION['id'] && ($post_info['posted_time'] + 10 * 60) > time()){

@@ -22,7 +22,7 @@
 		<span class="forum_last_post">
 			<?php if(isset($row['last_posted_id'])) : ?>
 				<?php $post_info = db_forum::get_post_info($row['last_posted_id']); ?>
-				<a href="index.php?type=forum&action=show_posts&id=<?php echo $post_info['topic_id']; ?>"><?php echo $post_info['title']; ?></a>
+				<a href="index.php?type=forum&action=show_posts&topic_id=<?php echo $post_info['topic_id']; ?>"><?php echo $post_info['title']; ?></a>
 				<br><span class="list_sub_text">av <a href="index.php?type=member&action=view&id=<?php echo $post_info['user_id']; ?>"><?php echo $post_info['full_name']; ?></a> <?php echo general_helpers::show_date($row['last_posted_time']); ?></span>
 			<?php else : ?>
 				Inga inlägg

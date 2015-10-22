@@ -12,7 +12,7 @@
 				$ok = db_forum::add_content_to_post($topic_insert_id, $_POST['new_topic_content']);
 				if($ok){
 					$_SESSION['report_message'] = "Tråden skapad.";
-					$redirect = "index.php?type=forum&action=show_posts&id=" . $topic_insert_id;
+					$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $topic_insert_id;
 				}
 			}
 		}

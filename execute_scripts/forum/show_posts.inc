@@ -13,7 +13,7 @@ if(isset($_POST['new_post_content'])){
 			$ok = db_forum::add_content_to_post($post_insert_id, $_POST['new_post_content']);
 			if($ok){
 				$_SESSION['report_message'] = "Inlägg skapat.";
-				$redirect = "index.php?type=forum&action=show_posts&id=" . $_POST['topic_id'];
+				$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $_POST['topic_id'];
 			}
 		}
 	}

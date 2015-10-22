@@ -961,7 +961,7 @@ INSERT INTO `post` (`id`,`topic_id`,`user_id`,`forum_id`,`is_topic`,`posted_time
  (42,42,4,1,1,1432295491,NULL,'Fjärde testtråden','Ytterligare test. '),
  (48,48,6,1,1,1432645559,NULL,'tst','svar'),
  (50,50,6,1,1,1432645649,NULL,'asrta','asdf'),
- (44,38,6,1,0,1432538300,NULL,'Testtråd','<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&id=39\">Gullan Katt skrev:</a>\nsvar</div>\r\nSvar med citat. '),
+ (44,38,6,1,0,1432538300,NULL,'Testtråd','<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&topic_id=39\">Gullan Katt skrev:</a>\nsvar</div>\r\nSvar med citat. '),
  (51,50,5,1,0,1439976262,1439976272,'asrta','Ett svaråäö'),
  (52,50,5,1,0,1440052928,NULL,'asrta','Svar med &amp;quot;'),
  (53,50,5,1,0,1440053117,NULL,'asrta','Svar med &amp;quot;'),

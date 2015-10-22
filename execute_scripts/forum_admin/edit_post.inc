@@ -4,14 +4,14 @@
 		$ok = db_forum_admin::delete_post($_GET['id']);
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har raderats."; 
-			$redirect = "index.php?type=forum&action=show_posts&id=" . $topic_id;
+			$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $topic_id;
 		}
 	}
 	elseif(isset($_POST['move'])){
 		$ok = db_forum_admin::move_post($_GET['id'], $_POST['topic_id']);
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har flyttats."; 
-			$redirect = "index.php?type=forum&action=show_posts&id=" . $_POST['topic_id'];
+			$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $_POST['topic_id'];
 		}
 	}
 	elseif(isset($_POST['create_new'])){

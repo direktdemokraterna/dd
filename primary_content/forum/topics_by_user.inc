@@ -24,9 +24,9 @@
 		?>
 		<div class="topic_list_row">
 			<span class="subject_column">
-				<a href="index.php?type=forum&action=show_posts&id=<?php echo $row['topic_id']; ?>"><?php echo $row['topic_title']; ?></a>
+				<a href="index.php?type=forum&action=show_posts&topic_id=<?php echo $row['topic_id']; ?>"><?php echo $row['topic_title']; ?></a>
 				<?php if($number_of_pages > 1) : ?>
-					 <a href="index.php?type=forum&action=show_posts&id=<?php echo $row['topic_id']; ?>&page=<?php echo $number_of_pages; ?>">(<?php echo $number_of_pages; ?>)</a>
+					 <a href="index.php?type=forum&action=show_posts&topic_id=<?php echo $row['topic_id']; ?>&page=<?php echo $number_of_pages; ?>">(<?php echo $number_of_pages; ?>)</a>
 				<?php endif; ?>
 				<br><span class="list_sub_text">Startat av: <a href="index.php?type=member&action=view&id=<?php echo $row['topic_user_id']; ?>"><?php echo $row['topic_user_full_name']; ?></a></span>
 			</span>

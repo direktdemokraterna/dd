@@ -42,7 +42,7 @@ class forum_helpers
 			$valid_quote = db_forum::check_quote_validity($post_id, $quote_text);
 			if($valid_quote){
 				$post_info = db_forum::get_post_info($post_id);
-				$new_full_quote_text = "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&id=" . $post_id . "\">" . $post_info['full_name'] . " skrev:</a>\n" . $quote_text . "</div>";
+				$new_full_quote_text = "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&topic_id=" . $post_id . "\">" . $post_info['full_name'] . " skrev:</a>\n" . $quote_text . "</div>";
 				$processed_text = str_replace($old_full_quote_text, $new_full_quote_text, $processed_text);
 			}
 			else{
@@ -160,7 +160,7 @@ class forum_helpers
 	public static function de_process_post_text ($deprocessed_text)
 	{
 		$deprocessed_text = self::replace_format_tags_with_brackets($deprocessed_text);
-		$deprocessed_text = preg_replace("~<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php\?type=forum&action=show_posts&id=([0-9]+)\">.+</a>\n~", "[quote=$1]", $deprocessed_text);
+		$deprocessed_text = preg_replace("~<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php\?type=forum&action=show_posts&topic_id=([0-9]+)\">.+</a>\n~", "[quote=$1]", $deprocessed_text);
 		$deprocessed_text = str_replace("</div>", "[/quote]", $deprocessed_text);
 		$deprocessed_text = str_replace("[/quote]\r\n", "[/quote]\r\n\r\n", $deprocessed_text);
 		$deprocessed_text = strip_tags($deprocessed_text);
@@ -178,8 +178,8 @@ class forum_helpers
 	}
 
 	public static function get_requested_topic() {
-		return isset($_GET['id']) 
-			? $_GET['id']
+		return isset($_GET['topic_id']) 
+			? $_GET['topic_id']
 			: db_forum::get_topic($_GET['post_id']);
 	}
 

@@ -89,7 +89,7 @@
 
 <?php if($user_allowed_to_vote) : ?>
 
-	<p><a href="index.php?type=forum&action=show_posts&id=<?php echo $propinfo['forum_topic_id']; ?>">Länk till denna propositions forumdebatt</a></p>
+	<p><a href="index.php?type=forum&action=show_posts&topic_id=<?php echo $propinfo['forum_topic_id']; ?>">Länk till denna propositions forumdebatt</a></p>
 
 	<div class="vote_box">
 

@@ -11,7 +11,7 @@
 			$report_insert_id = db_forum::new_report($_POST['post_id'], $_SESSION['id'], general_helpers::clean($_POST['report_post_argument']));
 			if($report_insert_id){
 				$_SESSION['report_message'] = "Anmälan är mottagen.";
-				$redirect = "index.php?type=forum&action=show_posts&id=" . $_POST['topic_id'];
+				$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $_POST['topic_id'];
 			}
 		}
 	}

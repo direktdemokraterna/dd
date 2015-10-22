@@ -6,7 +6,7 @@
 		$ok = forum_helpers::update_post_content($_GET['id'], $text, "add");
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har försetts med tillägg.";
-			$redirect = "index.php?type=forum&action=show_posts&id=" . $post_info['topic_id'] . "&page=last";
+			$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $post_info['topic_id'] . "&page=last";
 		}
 	}
 	else{
