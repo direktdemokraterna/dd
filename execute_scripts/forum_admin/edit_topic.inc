@@ -15,7 +15,7 @@
 		}
 	}
 	elseif(isset($_POST['edit'])){
-		$text = $_POST['edit_post_content']) . "\n\nInlägget ändrat av moderator " . date("Y-m-d G:i");
+		$text = $_POST['edit_post_content'] . "\n\nInlägget ändrat av moderator " . date("Y-m-d G:i");
 		$ok = forum_helpers::update_post_content($_GET['id'], $text, "edit"); 
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har redigerats."; 

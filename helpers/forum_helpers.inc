@@ -16,7 +16,7 @@ class forum_helpers
 		$processed_post_content = forum_helpers::process_post_text($post_id, $text);
 		return empty($processed_post_content)
 			? false
-			: db_forum::add_content_to_post($post_id, $edited_post_content, $action);
+			: db_forum::add_content_to_post($post_id, $processed_post_content, $action);
 	}
 
 	public static function process_post_text ($posted_post_id, $text)
