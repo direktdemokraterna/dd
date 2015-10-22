@@ -167,27 +167,40 @@
         width: 300px;
     }
 
-    #alt-header-button {
-        font-size: 40px;
+    .alt-header-button {
         color: #ccc;
-        width: 40px;
-        height: 40px;
     }
     
-    #alt-header-button.left {
+    .alt-header-button.left {
         float: left;
         margin-left: 10px;
     }
 
-    #alt-header-button.right {
+    .alt-header-button.right {
         float: right;
         margin-right: 10px;
     }
 
-    #alt-header-button:hover {
+    .alt-header-button:hover {
         color: #2ea2cc;
     }
 
+    #alt-top-menu {
+        font-size: 40px;
+    }
+
+    #alt-home-button {
+        font-size: 40px;
+    }
+
+    #alt-mail-button {
+        font-size: 40px;
+    }
+
+    #alt-user-menu {
+        font-size: 40px;
+    }
+  
     #logout-link {
         float: right;
         display: none;

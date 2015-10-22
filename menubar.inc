@@ -1,11 +1,11 @@
 <nav id="menubar">
 	<div id="alt-menu-row">
-		<a onClick="toggle_mobile_main_menu()"><span class="fa fa-bars left" id="alt-header-button"></span></a>
-		<a href="index.php"><span class="fa fa-home left" id="alt-header-button"></span></a>
+		<a onClick="toggle_mobile_main_menu()"><span class="fa fa-bars alt-header-button left" id="alt-top-menu"></span></a>
+		<a href="index.php"><span class="fa fa-home alt-header-button left" id="alt-home-button"></span></a>
 		<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>
-			<a href="index.php?type=message&action=inbox"><span class="fa fa-envelope-o left" id ="alt-header-button"></span></a>
+			<a href="index.php?type=message&action=inbox"><span class="fa fa-envelope-o alt-header-button left" id ="alt-mail-button"></span></a>
 		<?php endif; ?>
-		<a onClick="toggle_mobile_user_menu()"><span class="fa fa-user right" id="alt-header-button"></span></a>
+		<a onClick="toggle_mobile_user_menu()"><span class="fa fa-user alt-header-button right" id="alt-user-menu"></span></a>
 	</div>
 	<ul id="hide_menu">
 		<li><a href="index.php?type=member">Användare</a>
