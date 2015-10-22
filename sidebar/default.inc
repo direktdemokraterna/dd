@@ -6,7 +6,7 @@
 		<ul>
 			<?php foreach($last_posts as $row) : ?>
 				<li>
-					<a href="index.php?type=forum&action=show_posts&id=<?php echo $row['topic_id']; ?>"><?php echo $row['post_title']; ?></a><br>
+					<a href="index.php?type=forum&action=show_posts&post_id=<?php echo $row['post_id']; ?>"><?php echo $row['post_title']; ?></a><br>
 					av <a href="index.php?type=member&action=view&id=<?php echo $row['user_id']; ?>"><?php echo $row['user_full_name']; ?></a> <?php echo general_helpers::show_date($row['posted_time']); ?>
 				</li>
 			<?php endforeach; ?>
