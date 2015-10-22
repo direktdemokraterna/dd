@@ -15,7 +15,6 @@ class session
 	}
 
 	private static function restore_session() {
-		die('restore_session');
 		$user_data = db_user::get_user_data($_COOKIE['user_id']);
 		if(self::is_user_suspended($user_data)) {
 			self::destroy_session();

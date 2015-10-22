@@ -7,6 +7,6 @@
 	if(empty($posts))
 		echo '<p>Inga inlägg.</p>';
 	else
-		\View\forum_post_helper::show_posts_by_user("index.php?type=forum&action=posts_by_user&id=" . $_GET['id'], $page, $posts, $post_count);
+		\View\forum_post_helper::show_posts("index.php?type=forum&action=posts_by_user&id=" . $_GET['id'], $page, $posts, $post_count);
 ?>
 
