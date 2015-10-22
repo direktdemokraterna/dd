@@ -29,7 +29,6 @@ class session
 	}
 
 	private static function create_session() {
-		//die('create_session');
 		if (!isset($_POST['username']) || !isset($_POST['password'])) {
 			echo "<div class=\"red_message\">Användarnamn eller lösenord är inte ifyllt.</div>";
 			return;
@@ -63,7 +62,7 @@ class session
 		$_SESSION['last_login_time'] = $user_data['last_login_time'];
 		self::set_delegate_role($user_data);
 		self::set_admin_roles($user_id);
-		crypt_helpers::update_user_codes_on_client($user_id);
+		crypt_helpers::retrieve_user_codes_on_client($user_id);
 		db_user::update_last_login_time($user_id);
 		if(isset($_POST['rememberme']))
 			self::remember_user();
@@ -100,7 +99,6 @@ class session
 
 	private static function destroy_session() 
 	{
-		//die('destroy_session');
 		setcookie('user_id', '', strtotime('-30 days'));
 		setcookie('user_token', '', strtotime('-30 days'));
 		session_unset();

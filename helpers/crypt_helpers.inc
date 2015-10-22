@@ -16,16 +16,20 @@ class crypt_helpers
 		return $reply;
 	}
 
-	public static function update_user_codes_on_client ($user_id)
+	public static function retrieve_user_codes_on_client ($user_id)
 	{
-		$temp_code = general_helpers::GenerateRandomString(20);
-		echo "<script>updateUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $temp_code . "');</script>\n";
+		$_SESSION['temp_code'] = general_helpers::GenerateRandomString(20);
+		$post_vars = Array("user_id" => $user_id, "temp_code" => $_SESSION['temp_code']);
+		$reply = crypt_helpers::curl_to_anon_server("receive_temp_code.php", $post_vars);
+		if($reply != "success") 
+			die($reply);		
+		echo "<script>retrieveUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . 
+			", '" . $_SESSION['temp_code'] . "');</script>\n";
 	}
 
 	public static function ensure_user_codes_on_client ($user_id)
 	{
-		$temp_code = general_helpers::GenerateRandomString(20);
-		echo "<script>ensureUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $temp_code . "');</script>\n";
+		echo "<script>ensureUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $_SESSION['temp_code'] . "');</script>\n";
 	}
 
 	public static function decrypt_ballot ($rsa_message, $aes_message)
