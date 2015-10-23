@@ -33,22 +33,21 @@ class db_vote
 	public static function get_vote_info ($vote_id)
 	{
 		$query = "select v.id as vote_id, v.title as title, v.description as description
-		, (select u.id from user u, proposition p where u.id = p.created_by_user and v.from_proposition_id = p.id) as user_id
-		, (
-				select concat(u.first_name, ' ', u.last_name) from user u, proposition p 
-				where u.id = p.created_by_user and v.from_proposition_id = p.id
-			) as user_full_name, v.type as type, v.timestamp_created as timestamp_created
-		, v.timestamp_delegate_ended as timestamp_delegate_ended, v.timestamp_ended as timestamp_ended
-		, v.forum_topic_id as forum_topic_id, c.id as constituency_id, c.title as constituency_name
-		, c.number_of_voters as number_of_voters, v.number_of_alternatives as number_of_alternatives
-		, v.number_of_ballots as number_of_ballots, v.number_of_direct_ballots as number_of_direct_ballots
-		, v.from_proposition_id as from_proposition_id
-		, (
-			select timestamp_created from proposition p 
-			where v.from_proposition_id = p.id
-			) as proposition_created, v.status as status  
-			from vote v, user u, constituency c 
-			where c.id = v.constituency_id and v.id = ?";
+			, p.created_by_user as user_id
+			, concat(initiator.first_name, ' ', initiator.last_name) as user_full_name
+			, v.type as type, v.timestamp_created as timestamp_created
+			, v.timestamp_delegate_ended as timestamp_delegate_ended, v.timestamp_ended as timestamp_ended
+			, v.forum_topic_id as forum_topic_id, c.id as constituency_id, c.title as constituency_name
+			, c.number_of_voters as number_of_voters, v.number_of_alternatives as number_of_alternatives
+			, v.number_of_ballots as number_of_ballots, v.number_of_direct_ballots as number_of_direct_ballots
+			, v.from_proposition_id as from_proposition_id
+			, p.timestamp_created as proposition_created
+			, v.status as status  
+		from vote v
+			join constituency c on c.id = constituency_id
+			left join proposition p on p.id = v.from_proposition_id
+			left join user initiator on initiator.id = p.created_by_user
+		where c.id = v.constituency_id and v.id = ?";
 		$values = Array($vote_id);
 		return db::select_single_row($query, $values);
 	}

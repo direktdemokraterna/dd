@@ -24,6 +24,7 @@ class general_helpers {
 	}
 
 	public static function show_date ($time){
+		if (!$time) return '';
 		$present_time = getdate(time());
 		$dag = self::get_pretty_day_representation($time, $present_time);
 		$ar = self::get_pretty_year_representation($time, $present_time);
