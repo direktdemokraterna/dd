@@ -66,7 +66,7 @@ class forum_post_helper
 		$post_element_id = self::make_post_element_id($post_id);
 		general_helper::open_div("post_top_row");
 		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']);
-		if($_GET['action'] == "posts_by_user"){
+		if(in_array($_GET['action'], array("posts_by_user", "search"))){
 			self::output_topic_link_for_post($post_info);
 		}
 		echo '</span>';
@@ -132,7 +132,8 @@ class forum_post_helper
 
 	private static function output_topic_link_for_post($post_info)
 	{
-		echo ' som svar till: ';
+		$is_first_post = $post_info['topic_id'] == $post_info['post_id'];
+		echo $is_first_post ? ' trådstart: ' : ' som svar till: ';
 		general_helper::make_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
 			$post_info['topic_id']);
 	}
