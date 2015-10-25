@@ -3,6 +3,20 @@ namespace View;
 
 class forum_post_helper 
 {
+	public static function output_back_link() {
+		echo self::generate_back_link();
+	}
+
+	public static function generate_back_link() {
+		switch ($_GET['from_action']) {
+			case 'search':
+				return \View\general_helper::make_internal_link("Tillbaka till sökresultat",
+					$_GET['type'], $_GET['from_action'], null, true);
+			default:
+				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
+		}
+	}
+
 	public static function show_topic_breadcrumbs($topic_id) 
 	{
 		$forum_info = \db_forum::get_forum_from_post($topic_id);
@@ -26,13 +40,6 @@ class forum_post_helper
 		foreach($posts as $post_info)
 			self::make_post($post_info);			
 		self::show_paging_row($url_without_page, $paging_info);
-	}
-
-	public static function make_post_reference_link($post_id) 
-	{
-		$post_element_id = self::make_post_element_id($post_id);
-		general_helper::make_internal_link('#' . $post_id, "forum", "show_posts", "post_id=" . 
-			$post_id . '#' . $post_element_id);
 	}
 
 	private static function show_paging_row($url_without_page, $paging_info) 
@@ -135,7 +142,18 @@ class forum_post_helper
 		$is_first_post = $post_info['topic_id'] == $post_info['post_id'];
 		echo $is_first_post ? ' trådstart: ' : ' som svar till: ';
 		general_helper::make_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
-			$post_info['topic_id']);
+			$post_info['topic_id'] . self::get_from_action_for_url());
+	}
+
+	public static function make_post_reference_link($post_id) 
+	{
+		$post_element_id = self::make_post_element_id($post_id);
+		general_helper::make_internal_link('#' . $post_id, "forum", "show_posts", "post_id=" . 
+			$post_id  . self::get_from_action_for_url()	. '#' . $post_element_id);
+	}
+
+	private static function get_from_action_for_url() {
+		return ($_GET['action'] == 'search' ? "&from_action=" . $_GET['action'] : '');
 	}
 }
 

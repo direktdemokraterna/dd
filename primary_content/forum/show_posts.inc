@@ -3,8 +3,10 @@
 	$page = forum_helpers::get_requested_page($topic_id);	
 	$posts = db_forum::get_posts($topic_id, $_SESSION['id'], $page);
 	$post_count = db_forum::get_post_count($topic_id);
-
-	\View\forum_post_helper::show_topic_breadcrumbs($topic_id);
+	if (isset($_GET['from_action']))
+		\View\forum_post_helper::output_back_link();
+	else
+		\View\forum_post_helper::show_topic_breadcrumbs($topic_id);		
 	\View\forum_post_helper::show_topic_title($topic_id);
 ?>
 <?php if(empty($posts)) : ?>
