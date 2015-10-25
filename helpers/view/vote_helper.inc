@@ -43,7 +43,8 @@ class vote_helper
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
 			foreach($vote_group->votes as $row)
-				general_helper::make_internal_link($row['title'], $type, $action, 'id=' . $row['id'], true);
+				general_helper::make_internal_link($row['title'], $type, $action, 'id=' . $row['id']
+					. \View\general_helper::get_from_action_for_url(array('search')), true);
 		}
 		general_helper::close_div("list_of_links");
 	}
@@ -84,6 +85,40 @@ class vote_helper
 			$minutes[$i] = str_pad("" . $i, 2, "0", STR_PAD_LEFT);;
 		general_helper::make_selector($control_name_prefix . "minute", $minutes, date("i", $vote_end_time), 
 			'style="width: 60px;"');
+	}
+
+	public static function output_back_link() {
+		echo self::generate_back_link();
+	}
+
+	public static function output_vote_header($voteinfo) {
+		echo '<h1>' . self::get_vote_header_prefix($voteinfo['type']) . $voteinfo['title'] . '</h1>';
+		if($voteinfo['type'] == "workgroup-election") {
+			$workgroup_id = $voteinfo['from_proposition_id'];
+			$workgroup_title = \db_workgroup::get_name_from_id($workgroup_id);
+			echo '<p>Den här omröstningen utser medlemmarna till arbetsgruppen <a href="index.php?type=workgroup&action=view&id=<?php echo $workgroup_id; ?>"><?php echo $workgroup_title; ?></a></p>';
+		}		
+	}
+
+	private static function get_vote_header_prefix($type) {
+		switch($type) {
+			case "yes-no": return 'Votering: ';
+			case "prio-vote": return 'Prioritetsomröstning: ';
+			case "candidate-election": return 'Personval: ';
+			case "median": return 'Medianomröstning: ';
+			case "workgroup-election": return '';
+			default: throw new \Exception("Unknown vote type: " . $type);
+		}		
+	}
+
+	private static function generate_back_link() {
+		switch ($_GET['from_action']) {
+			case 'search':
+				return \View\general_helper::make_internal_link("Tillbaka till sökresultat",
+					$_GET['type'], $_GET['from_action'], null, true);
+			default:
+				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
+		}
 	}
 }
 ?>

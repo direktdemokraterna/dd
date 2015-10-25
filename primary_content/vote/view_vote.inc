@@ -31,22 +31,11 @@
 	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
 </script>
 
-<?php if($voteinfo['type'] == "yes-no") : ?>
-	<h1>Votering: <?php echo $voteinfo['title']; ?></h1>
-<?php elseif($voteinfo['type'] == "prio-vote") : ?>
-	<h1>Prioritetsomröstning: <?php echo $voteinfo['title']; ?></h1>
-<?php elseif($voteinfo['type'] == "candidate-election") : ?>
-	<h1>Personval: <?php echo $voteinfo['title']; ?></h1>
-<?php elseif($voteinfo['type'] == "median") : ?>
-	<h1>Medianomröstning: <?php echo $voteinfo['title']; ?></h1>
-<?php elseif($voteinfo['type'] == "workgroup-election") : ?>
-	<h1><?php echo $voteinfo['title']; ?></h1>
-	<?php
-		$workgroup_id = $voteinfo['from_proposition_id']; // workgroup_id is stored in db column from_proposition_id
-		$workgroup_title = db_workgroup::get_name_from_id($workgroup_id);
-	?>
-	<p>Den här omröstningen utser medlemmarna till arbetsgruppen <a href="index.php?type=workgroup&action=view&id=<?php echo $workgroup_id; ?>"><?php echo $workgroup_title; ?></a></p>
-<?php endif; ?>
+<?php 
+	if (isset($_GET['from_action']))
+		\View\vote_helper::output_back_link();
+	\View\vote_helper::output_vote_header($voteinfo);
+?>
 
 <div class="vote_result_box">
 
@@ -57,7 +46,7 @@
 	<?php elseif($voteinfo['type'] == "candidate-election") : ?>
 		<?php vote_helpers::output_candidate_election_result($_GET['id']); ?>
 	<?php elseif($voteinfo['type'] == "workgroup-election") : ?>
-		<?php vote_helpers::output_workgroup_election_result($_GET['id'], $workgroup_id); ?>
+		<?php vote_helpers::output_workgroup_election_result($_GET['id'], $voteinfo['from_proposition_id']); ?>
 	<?php elseif($voteinfo['type'] == "median") : ?>
 		<?php vote_helpers::output_median_result($list_of_votes); ?>
 	<?php endif; ?>

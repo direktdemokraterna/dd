@@ -60,6 +60,10 @@ class general_helper
 		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
 	}	
 
+	public static function get_from_action_for_url($actions) {
+		return (in_array($_GET['action'], $actions) ? "&from_action=" . $_GET['action'] : '');
+	}
+
 	private static function open_select($control_name, $attributes) {
 		echo('<select name="' . $control_name . '" id="' . $control_name . '"'
 			. ($attributes != null ? ' ' . $attributes : '') . '>' . PHP_EOL);

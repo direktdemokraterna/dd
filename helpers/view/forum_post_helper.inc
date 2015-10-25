@@ -149,11 +149,11 @@ class forum_post_helper
 	{
 		$post_element_id = self::make_post_element_id($post_id);
 		general_helper::make_internal_link('#' . $post_id, "forum", "show_posts", "post_id=" . 
-			$post_id  . self::get_from_action_for_url()	. '#' . $post_element_id);
+			$post_id . self::get_from_action_for_url()	. '#' . $post_element_id);
 	}
 
 	private static function get_from_action_for_url() {
-		return ($_GET['action'] == 'search' ? "&from_action=" . $_GET['action'] : '');
+		return \View\general_helper::get_from_action_for_url(array('search'));
 	}
 }
 
