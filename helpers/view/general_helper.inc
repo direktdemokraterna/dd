@@ -2,6 +2,25 @@
 namespace View;
 class general_helper 
 {
+	public static function make_textfield($control_name, $control_label, $tab_index, $values = null) {
+		$value = self::get_value($control_name, $values);
+		self::make_control_label($control_name, $control_label);
+		echo('<input type="text" name="' . $control_name . '" id="' . $control_name . 
+			'" tabindex="' . $tab_index . '" value="' . $value . '"></input>');
+	}
+
+	public static function make_textarea($control_name, $control_label, $tab_index) {
+		$value = self::get_value($control_name);
+		self::make_control_label($control_name, $control_label);
+		echo('<textarea name="' . $control_name . '" id="' . $control_name . 
+			'" tabindex="' . $tab_index . '"">' . $value . '</textarea>');
+	}
+
+	public static function make_labeled_selector($control_name, $control_label, $options, $selected_option = null, $attributes = null) {
+		self::make_control_label($control_name, $control_label);
+		self::make_selector($control_name, $options, $selected_option, $attributes);
+	}
+
 	public static function make_selector($control_name, $options, $selected_option = null, $attributes = null) {
 		self::open_select($control_name, $attributes);
 		foreach(array_keys($options) as $option_name){
@@ -10,22 +29,9 @@ class general_helper
 		self::close_select();
 	}
 
-	public static function make_textfield($control_name, $control_label, $tab_index) {
-		$value = self::get_posted_value($control_name);
-		self::make_control_label($control_name, $control_label);
-		echo('<input type="text" name="' . $control_name . '" id="' . $control_name . 
-			'" tabindex="' . $tab_index . '" value="' . $value . '"></input>');
-	}
-
-	public static function make_textarea($control_name, $control_label, $tab_index) {
-		$value = self::get_posted_value($control_name);
-		self::make_control_label($control_name, $control_label);
-		echo('<textarea name="' . $control_name . '" id="' . $control_name . 
-			'" tabindex="' . $tab_index . '"">' . $value . '</textarea>');
-	}
-
-	public static function get_posted_value($parameter_name) {
-		return isset($_POST[$parameter_name]) ? $_POST[$parameter_name] : '';
+	public static function get_value($parameter_name, $values = null) {
+		$values = $values ? $values : $_POST;
+		return isset($values[$parameter_name]) ? $values[$parameter_name] : '';
 	}
 
 	public static function open_div($classes, $id = null) {

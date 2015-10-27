@@ -7,6 +7,7 @@
 <script src="helpers/js/libs/responsive-tables.js"></script>
 <script src="helpers/js/session.js"></script>
 <script src="helpers/js/validateForm.js"></script>
+<script src="helpers/js/constituency.js"></script>
 
 <?php if($_GET['type'] == "vote") : ?>
 <script src="helpers/js/vote.js"></script>

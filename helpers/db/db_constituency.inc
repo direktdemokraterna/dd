@@ -254,6 +254,16 @@ class db_constituency
 		return db::select($query, $values);
 	}
 
+	public static function get_counties_with_regions ()
+	{
+		$query = "select c.title county, r.title region from constituency c
+					join constituency r on r.id = c.parent_id
+					where c.constituency_level = 3
+					 order by c.title asc";
+		$values = Array();
+		return db::select($query, $values);
+	}
+
 	public static function get_regions ()
 	{
 		$query = "select title from constituency

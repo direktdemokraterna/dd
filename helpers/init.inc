@@ -41,6 +41,7 @@ include(dirname(__FILE__)."/logic/util.inc");
 include(dirname(__FILE__)."/view/general_helper.inc");
 include(dirname(__FILE__)."/view/vote_helper.inc");
 include(dirname(__FILE__)."/view/forum_post_helper.inc");
+include(dirname(__FILE__)."/view/member.inc");
 
 // Defines constants
 define("USERIMG_PATH", "images/userimg/");
