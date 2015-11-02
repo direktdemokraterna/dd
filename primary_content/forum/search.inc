@@ -7,7 +7,7 @@
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$posts = db_forum::search_posts($search_query, $_SESSION['id'], $page);
 	if(empty($posts)) {
-		echo "<p>Inga inlägg.</p>";
+		echo "<p>Inga inlägg med frasen: <b><i>" . $search_query . "</i></b> i text eller rubrik hittades.</p>";
 	}
 	else {
 		$post_count = db_forum::get_post_count_from_search($search_query, $_SESSION['id']);
