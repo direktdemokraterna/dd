@@ -54,12 +54,12 @@ class general
 		echo('</span>' . PHP_EOL);
 	}
 
-	public static function make_internal_link($label, $type, $action, $params = null, $line_break = false, $class = null, $confirm = null) {
+	public static function output_internal_link($label, $type, $action, $params = null, $class = null, $confirm = null) {
 		$url = 'index.php?type=' . $type . '&action=' . $action . (empty($params) ? '' : '&' . $params);
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
 		$onclick = ($confirm ? " return confirm('" . $confirm . "')" : '');
-		echo '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>' . ($line_break ? '<br>' : '&nbsp;'); 
+		echo '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>'; 
 	}	
 
 	public static function make_control_label($control_name, $control_label) {

@@ -1,7 +1,7 @@
 <?php 
 	$userdata = db_user::get_user_data($_GET['id']);
 	echo "<h1>";
-	\View\general::make_internal_link($userdata['first_name'] . " " . $userdata['last_name'], "member", "view", "id=" . $_GET['id']);
+	\View\general::output_internal_link($userdata['first_name'] . " " . $userdata['last_name'], "member", "view", "id=" . $_GET['id']);
 	echo "</h1>";
 ?>
 <strong>Forumbehörigheter för denna användare</strong><br>

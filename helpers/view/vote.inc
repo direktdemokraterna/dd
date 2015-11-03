@@ -42,9 +42,11 @@ class vote
 		general::open_div("list_of_links");
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
-			foreach($vote_group->votes as $row)
-				general::make_internal_link($row['title'], $type, $action, 'id=' . $row['id']
-					. \View\general::get_from_action_for_url(array('search')), true);
+			foreach($vote_group->votes as $row) {
+				general::output_internal_link($row['title'], $type, $action, 'id=' . $row['id']
+					. \View\general::get_from_action_for_url(array('search')));
+				echo '&nbsp;';
+			}
 		}
 		general::close_div("list_of_links");
 	}
@@ -88,7 +90,14 @@ class vote
 	}
 
 	public static function output_back_link() {
-		echo self::generate_back_link();
+		switch ($_GET['from_action']) {
+			case 'search':
+				\View\general::output_internal_link("Tillbaka till sökresultat",
+					$_GET['type'], $_GET['from_action']);
+				echo '<br>';
+			default:
+				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
+		}
 	}
 
 	public static function output_vote_header($voteinfo) {
@@ -109,16 +118,6 @@ class vote
 			case "workgroup-election": return '';
 			default: throw new \Exception("Unknown vote type: " . $type);
 		}		
-	}
-
-	private static function generate_back_link() {
-		switch ($_GET['from_action']) {
-			case 'search':
-				return \View\general::make_internal_link("Tillbaka till sökresultat",
-					$_GET['type'], $_GET['from_action'], null, true);
-			default:
-				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
-		}
 	}
 }
 ?>

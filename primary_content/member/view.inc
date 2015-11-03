@@ -1,4 +1,6 @@
-<?php $userinfo = db_user::get_user_data($_GET['id']); ?>
+<?php
+	$user_id = isset($_GET['id']) ? $_GET['id'] : $_SESSION['id']; 
+	$userinfo = db_user::get_user_data($user_id); ?>
 
 <h1><?php echo $userinfo['first_name'] . " " . $userinfo['last_name']; ?></h1>
 
@@ -29,7 +31,7 @@
 	<div class="user_presentation_right">
 
 	<?php
-		$admin_roles = db_admin::get_admin_roles_for_user($_GET['id']);
+		$admin_roles = db_admin::get_admin_roles_for_user($user_id);
 		foreach($admin_roles as $row){
 			echo "<p>Är <a href=\"index.php?type=member&action=admin_description&id=" . $row['id'] . "\">" . strtolower($row['title']) . "</a></p>";
 		}
@@ -61,20 +63,29 @@
 
 <br>
 
-<?php if(isset($_SESSION['is_member_admin'])) : ?>
-	<p><a href="index.php?type=member_admin&action=edit&id=<?php echo $_GET['id']; ?>">Ändra uppgifter för denna användare</a></p>
-<?php endif; ?>
+<?php
+	if ($user_id == $_SESSION['id']) {
+		echo "<p>";
+		\View\general::output_internal_link("Ändra mina uppgifter", "member", "settings");
+		echo "</p>";
+	} 
+	elseif(isset($_SESSION['is_member_admin'])) {
+		echo "<p>";
+		\View\general::output_internal_link("Ändra uppgifter för denna användare", "member_admin", "edit");
+		echo "</p>";
+	}
+?>
 
 <?php if(isset($_SESSION['is_forum_admin'])) : ?>
-	<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in forumbehörigheter för denna användare</a></p>
+	<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in forumbehörigheter för denna användare</a></p>
 <?php endif; ?>
 
 <?php if(isset($_SESSION['is_vote_admin'])) : ?>
-	<p><a href="index.php?type=vote_admin&action=edit_user&id=<?php echo $_GET['id']; ?>">Ställ in valkretsbehörigheter för denna användare</a></p>
+	<p><a href="index.php?type=vote_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in valkretsbehörigheter för denna användare</a></p>
 <?php endif; ?>
 
 <?php if(isset($_SESSION['is_superadmin'])) : ?>
-	<p><a href="index.php?type=superadmin&action=edit_admin&id=<?php echo $_GET['id']; ?>">Ställ in administratörsrättigheter för denna användare</a></p>
+	<p><a href="index.php?type=superadmin&action=edit_admin&id=<?php echo $user_id; ?>">Ställ in administratörsrättigheter för denna användare</a></p>
 <?php endif; ?>
 
 </div>
