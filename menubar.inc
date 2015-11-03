@@ -70,7 +70,10 @@
 		<?php endif; ?>
 	</ul>
 	<ul id="logout-link">
-		<li><a href="#">Hej, <?php echo db_user::get_user_full_name($_SESSION['id']); ?></a>
+		<li><?php
+				$welcome_text = "Hej, " . db_user::get_user_full_name($_SESSION['id']);
+				\View\general::output_internal_link($welcome_text, "member", "view");
+			?>
 			<ul>
 				<li><a href="index.php?logout=1">Logga ut</a></li>
 			</ul>
