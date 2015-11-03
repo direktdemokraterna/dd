@@ -9,7 +9,7 @@
 	<div class="post_top_row">
 		<span class="post_date"><?php echo general_helpers::show_date($post_info['posted_time']); ?></span>
 		<span class="post_alternatives">
-			<?php echo \View\forum_post_helper::make_post_reference_link($_GET['id']); ?></a> 
+			<?php echo \View\forum::make_post_reference_link($_GET['id']); ?></a> 
 		</span>
 	</div>
 

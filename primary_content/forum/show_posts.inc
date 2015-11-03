@@ -4,16 +4,16 @@
 	$posts = db_forum::get_posts($topic_id, $_SESSION['id'], $page);
 	$post_count = db_forum::get_post_count($topic_id);
 	if (isset($_GET['from_action']))
-		\View\forum_post_helper::output_back_link();
+		\View\forum::output_back_link();
 	else
-		\View\forum_post_helper::show_topic_breadcrumbs($topic_id);		
-	\View\forum_post_helper::show_topic_title($topic_id);
+		\View\forum::show_topic_breadcrumbs($topic_id);		
+	\View\forum::show_topic_title($topic_id);
 ?>
 <?php if(empty($posts)) : ?>
 	<p>Tråden finns inte eller du saknar behörighet att läsa den.</p>
 <?php else : ?>
 	<?php
-		\View\forum_post_helper::show_posts("index.php?type=forum&action=show_posts&topic_id=" . $topic_id, $page, $posts, $post_count);
+		\View\forum::show_posts("index.php?type=forum&action=show_posts&topic_id=" . $topic_id, $page, $posts, $post_count);
 		if(isset($_SESSION['is_forum_admin']))
 			echo '<p><a href="index.php?type=forum_admin&action=edit_topic&id=' . $topic_id . '" style="float: right; margin-top: 20px;">Moderera ämne</a></p>';
 	?>

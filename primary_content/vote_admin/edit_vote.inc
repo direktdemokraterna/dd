@@ -54,8 +54,8 @@
 	<br><label for "forum_topic_id">Forumtråds-ID</label>
 	<input type="text" name="forum_topic_id" id="forum_topic_id" tabindex="5" value="<?php echo $voteinfo['forum_topic_id']; ?>">
 	<br><label for "year">Omröstningen slutar</label>
-	<?php \View\vote_helper::make_vote_end_time_select($voteinfo['timestamp_ended']); ?>
+	<?php \View\vote::make_vote_end_time_select($voteinfo['timestamp_ended']); ?>
 	<br><label for "delegate_year">Delegatomröstningen slutar</label>
-	<?php \View\vote_helper::make_vote_end_time_select($voteinfo['timestamp_delegate_ended'], 'delegate_'); ?>
+	<?php \View\vote::make_vote_end_time_select($voteinfo['timestamp_delegate_ended'], 'delegate_'); ?>
 	<br><input type="submit" name="update" id="submit" value="Uppdatera" tabindex="7">
 </form>

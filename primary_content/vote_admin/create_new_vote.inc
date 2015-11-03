@@ -27,7 +27,7 @@
 	<textarea name="description" id="description" tabindex="5"></textarea>
 	<br><label for "year">Omröstningen slutar</label>
 	<?php 
-		\View\vote_helper::make_vote_end_time_select(time() + \View\vote_helper::get_two_weeks_in_seconds()); 
+		\View\vote::make_vote_end_time_select(time() + \View\vote::get_two_weeks_in_seconds()); 
 	?>
 	<p>Delegatomröstning avslutas efter halva omröstningstiden. Om detta inte är lämpligt finns möjligheten att gå in och ändra delegatomröstningstiden efter att omröstningen har skapats.</p>
 	<br><input type="submit" name="" id="submit" value="Skapa" tabindex="6">

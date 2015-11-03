@@ -38,9 +38,9 @@ include(dirname(__FILE__)."/db/db_constituency.inc");
 include(dirname(__FILE__)."/logic/vote.inc");
 include(dirname(__FILE__)."/logic/util.inc");
 
-include(dirname(__FILE__)."/view/general_helper.inc");
-include(dirname(__FILE__)."/view/vote_helper.inc");
-include(dirname(__FILE__)."/view/forum_post_helper.inc");
+include(dirname(__FILE__)."/view/general.inc");
+include(dirname(__FILE__)."/view/vote.inc");
+include(dirname(__FILE__)."/view/forum.inc");
 include(dirname(__FILE__)."/view/member.inc");
 
 // Defines constants

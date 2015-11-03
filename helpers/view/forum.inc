@@ -1,7 +1,7 @@
 <?php
 namespace View;
 
-class forum_post_helper 
+class forum 
 {
 	public static function output_back_link() {
 		echo self::generate_back_link();
@@ -10,7 +10,7 @@ class forum_post_helper
 	public static function generate_back_link() {
 		switch ($_GET['from_action']) {
 			case 'search':
-				return \View\general_helper::make_internal_link("Tillbaka till sökresultat",
+				return \View\general::make_internal_link("Tillbaka till sökresultat",
 					$_GET['type'], $_GET['from_action'], null, true);
 			default:
 				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
@@ -20,11 +20,11 @@ class forum_post_helper
 	public static function show_topic_breadcrumbs($topic_id) 
 	{
 		$forum_info = \db_forum::get_forum_from_post($topic_id);
-		general_helper::open_div("forum_info");
-		general_helper::make_internal_link("Forum", "forum", "show_forums");
+		general::open_div("forum_info");
+		general::make_internal_link("Forum", "forum", "show_forums");
 		echo " >&nbsp;";
-		general_helper::make_internal_link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
-		general_helper::close_div();
+		general::make_internal_link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
+		general::close_div();
 	} 
 
 	public static function show_topic_title($topic_id) 
@@ -44,44 +44,44 @@ class forum_post_helper
 
 	private static function show_paging_row($url_without_page, $paging_info) 
 	{
-		general_helper::open_div("post_count_info");
-		general_helper::open_span("post_counter");
+		general::open_div("post_count_info");
+		general::open_span("post_counter");
 		echo "Visar inlägg " . $paging_info->first_showed_post_number . " - " . $paging_info->last_showed_post_number . " av totalt " . $paging_info->post_count;
-		general_helper::close_span();
+		general::close_span();
 		if ($paging_info->post_count > POSTS_PER_PAGE) {
-			general_helper::open_span("post_page_chooser");
+			general::open_span("post_page_chooser");
 			\forum_helpers::output_page_links($paging_info->number_of_pages, $paging_info->page, 
 				$url_without_page . "&page=");
-			general_helper::close_span();
+			general::close_span();
 		}
-		general_helper::close_div();
+		general::close_div();
 	}
 
 	private static function make_post($post_info) 
 	{
 		$post_element_id = self::make_post_element_id($post_info['post_id']);
-		general_helper::open_div("single_post_container anchor", $post_element_id);
+		general::open_div("single_post_container anchor", $post_element_id);
 		self::make_post_header($post_info);
 		self::make_post_body($post_info);
 		echo '<div style="clear: both;"></div>';
-		general_helper::close_div();
+		general::close_div();
 	}
 
 	private static function make_post_header($post_info) 
 	{
 		$post_id = $post_info['post_id'];
 		$post_element_id = self::make_post_element_id($post_id);
-		general_helper::open_div("post_top_row");
+		general::open_div("post_top_row");
 		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']);
 		if(in_array($_GET['action'], array("posts_by_user", "search"))){
 			self::output_topic_link_for_post($post_info);
 		}
 		echo '</span>';
-		general_helper::open_span("post_alternatives");
+		general::open_span("post_alternatives");
 		self::make_post_actions($post_info);
 		self::make_post_reference_link($post_id);
-		general_helper::close_span();
-		general_helper::close_div();
+		general::close_span();
+		general::close_div();
 	}
 
 	private static function make_post_element_id($post_id) 
@@ -94,66 +94,66 @@ class forum_post_helper
 		$post_id = $post_info['post_id'];
 		$user_id = $post_info['user_id'];
 		if(isset($_SESSION['is_forum_admin']))
-			general_helper::make_internal_link("Moderera", "forum_admin", "edit_post", "id=" . $post_id);
+			general::make_internal_link("Moderera", "forum_admin", "edit_post", "id=" . $post_id);
 		if($user_id == $_SESSION['id']) {
 			if($post_info['posted_time'] > (time() - 10*60)) {
-				general_helper::make_internal_link("Radera", "forum", "delete", "id=" . $post_id
+				general::make_internal_link("Radera", "forum", "delete", "id=" . $post_id
 					, false, null, "Vill du verkligen radera inlägget?");
-				general_helper::make_internal_link("Redigera", "forum", "edit", "id=" . $post_id);
+				general::make_internal_link("Redigera", "forum", "edit", "id=" . $post_id);
 			}
 			else{
-				general_helper::make_internal_link("Tillägg", "forum", "add", "id=" . $post_id);
+				general::make_internal_link("Tillägg", "forum", "add", "id=" . $post_id);
 			}
 		}
-		general_helper::make_internal_link("Anmäl", "forum", "report", "id=" . $post_id);
+		general::make_internal_link("Anmäl", "forum", "report", "id=" . $post_id);
 		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">Citera</a>&nbsp;'; 
 	}
 
 	private static function make_post_body($post_info) 
 	{
-		general_helper::open_div("post_bottom_row");
+		general::open_div("post_bottom_row");
 		self::make_post_user_tag($post_info);
 		self::make_post_content($post_info);
-		general_helper::close_div();
+		general::close_div();
 	}
 
 	private static function make_post_user_tag($post_info) 
 	{
-		general_helper::open_div("post_user_info");
+		general::open_div("post_user_info");
 		echo '<img src="' . USERIMG_PATH . $post_info['user_image'] . '" class="post_user_image" width="80"><br>';
-		general_helper::make_internal_link($post_info['user_full_name'], "member", "view", "id=" . 
+		general::make_internal_link($post_info['user_full_name'], "member", "view", "id=" . 
 			$post_info['user_id'], false, "user_name_link");
-		general_helper::close_div();
+		general::close_div();
 	}
 
 	private static function make_post_content($post_info) 
 	{
 		$post_id = $post_info['post_id'];
-		general_helper::open_div("post_content");
+		general::open_div("post_content");
 		echo '<span id="post_content_' . $post_id . '">' . nl2br($post_info['content']) . '</span>';
 		if(isset($post_info['last_edited_time']))
 			echo('<span class="post_last_edited">Ändrades senast ' . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			
-		general_helper::close_div();
+		general::close_div();
 	}
 
 	private static function output_topic_link_for_post($post_info)
 	{
 		$is_first_post = $post_info['topic_id'] == $post_info['post_id'];
 		echo $is_first_post ? ' trådstart: ' : ' som svar till: ';
-		general_helper::make_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
+		general::make_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
 			$post_info['topic_id'] . self::get_from_action_for_url());
 	}
 
 	public static function make_post_reference_link($post_id) 
 	{
 		$post_element_id = self::make_post_element_id($post_id);
-		general_helper::make_internal_link('#' . $post_id, "forum", "show_posts", "post_id=" . 
+		general::make_internal_link('#' . $post_id, "forum", "show_posts", "post_id=" . 
 			$post_id . self::get_from_action_for_url()	. '#' . $post_element_id);
 	}
 
 	private static function get_from_action_for_url() {
-		return \View\general_helper::get_from_action_for_url(array('search'));
+		return \View\general::get_from_action_for_url(array('search'));
 	}
 }
 

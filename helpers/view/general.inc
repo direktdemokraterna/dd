@@ -1,6 +1,6 @@
 <?php
 namespace View;
-class general_helper 
+class general 
 {
 	public static function make_textfield($control_name, $control_label, $tab_index, $values = null) {
 		$value = self::get_value($control_name, $values);
