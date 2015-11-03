@@ -1,3 +1,4 @@
+<h1>Administratörer</h1>
 <?php 
 	$admin_roles = db_admin::get_all_admin_roles();
 ?>

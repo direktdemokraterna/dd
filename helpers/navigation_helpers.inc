@@ -33,8 +33,14 @@ class navigation_helpers {
 		if ($division == null) return null;
 		$pageName = $division->get_page_name($_GET['action']);
 		return $pageName != null 
-			? "primary_content/" . $divisionName . "/" . $pageName 
+			? self::get_page_path($divisionName, $pageName)
 			: null;
+	}
+
+	private static function get_page_path($divisionName, $pageName) {
+		$parts = explode('/', $pageName);
+		$is_qualified_page_name = count($parts) == 2;
+		return "primary_content/" . ($is_qualified_page_name ? '' : $divisionName . "/") . $pageName; 
 	}
 
 	private static function get_division($divisionName) {
@@ -132,14 +138,13 @@ class navigation_helpers {
 			,"member_admin" => Division_info::create(array(
 				"create_new" => Page_info::create("create_new.inc", Page_info::VIEW_AND_EXECUTE)
 				,"edit" => Page_info::create("edit.inc", Page_info::VIEW_AND_EXECUTE)
-				,"memberlist" => Page_info::create("memberlist.inc")
 				,"list_applications" => Page_info::create("list_applications.inc")
 				,"process_application" => Page_info::create("process_application.inc", Page_info::VIEW_AND_EXECUTE)
 				,"view_delegate" => Page_info::create("view_delegate.inc")
 				,"list_delegates" => Page_info::create("list_delegates.inc")
 				,"create_workgroup" => Page_info::create("create_workgroup.inc", Page_info::VIEW_AND_EXECUTE)
 				,"edit_workgroup" => Page_info::create("edit_workgroup.inc", Page_info::VIEW_AND_EXECUTE))
-			, "memberlist.inc", "is_member_admin")
+			, "member/memberlist.inc", "is_member_admin")
 
 			,"forum_admin" => Division_info::create(array(
 				"new_category" => Page_info::create("new_category.inc", Page_info::VIEW_AND_EXECUTE)
@@ -172,7 +177,7 @@ class navigation_helpers {
 
 			,"superadmin" => Division_info::create(array(
 				"edit_admin" => Page_info::create("edit_admin.inc", Page_info::VIEW_AND_EXECUTE))
-			, "memberlist.inc", "is_superadmin")
+			, "member/memberlist.inc", "is_superadmin")
 		);
 	}
 }

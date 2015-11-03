@@ -11,9 +11,9 @@
 		<li><a href="index.php?type=member">Användare</a>
 			<ul>
 				<li><a href="index.php?type=member&action=calendar">Kalender</a></li>
-				<li><a href="index.php?type=member&action=settings">Inställningar</a></li>
-				<li><a href="index.php?type=member&action=memberlist">Medlemslista</a></li>
-				<li><a href="index.php?type=member&action=admin_list">Adminlista</a></li>
+				<li><a href="index.php?type=member&action=settings">Min profil</a></li>
+				<li><a href="index.php?type=member&action=memberlist">Medlemmar</a></li>
+				<li><a href="index.php?type=member&action=admin_list">Administratörer</a></li>
 			</ul>
 		</li>
 		<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>

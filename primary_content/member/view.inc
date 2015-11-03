@@ -71,7 +71,8 @@
 	} 
 	elseif(isset($_SESSION['is_member_admin'])) {
 		echo "<p>";
-		\View\general::output_internal_link("Ändra uppgifter för denna användare", "member_admin", "edit");
+		\View\general::output_internal_link("Ändra uppgifter för denna användare", "member_admin", "edit", 
+			"id=" . $user_id);
 		echo "</p>";
 	}
 ?>
