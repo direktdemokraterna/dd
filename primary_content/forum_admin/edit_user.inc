@@ -1,9 +1,9 @@
 <?php 
 	$userdata = db_user::get_user_data($_GET['id']);
-	\View\general_helper::make_internal_link("<- Tillbaka till " . $userdata['first_name'], "member", "view", "id=" . $_GET['id']);
+	echo "<h1>";
+	\View\general_helper::make_internal_link($userdata['first_name'] . " " . $userdata['last_name'], "member", "view", "id=" . $_GET['id']);
+	echo "</h1>";
 ?>
-<h1><?php echo $userdata['first_name'] . " " . $userdata['last_name']; ?></h1>
-
 <strong>Forumbehörigheter för denna användare</strong><br>
 <form method="post" action=""><ul class="checkbox-grid">
 
