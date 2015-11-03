@@ -54,6 +54,21 @@ class db_delegate
 		return false;
 	}
 
+	public static function delete_delegate ($user_id)
+	{
+		$delegate_id = self::get_delegate_id_from_user_id($user_id);
+		if($delegate_id){
+			$query = "delete from delegate_user where user_id = ?";
+			$values = Array($user_id);
+			if (db::delete($query, $values)) {
+				$query = "delete from delegate where id = ?";
+				$values = Array($delegate_id);
+				return db::delete($query, $values);
+			}
+		}
+		return false;
+	}
+
 	public static function get_delegate_id_from_user_id ($user_id)
 	{
 		$query = "select delegate_id from delegate_user where user_id = ?";
@@ -68,17 +83,10 @@ class db_delegate
 		return db::select_single_value($query, $values);
 	}
 
-	public static function start_acting_as_delegate ($user_id)
+	public static function change_acting_as_delegate ($user_id, $value)
 	{
-		$query = "update user set acting_as_delegate = 1 where id = ?";
-		$values = Array($user_id);
-		return db::update($query, $values);
-	}
-
-	public static function stop_acting_as_delegate ($user_id)
-	{
-		$query = "update user set acting_as_delegate = 0 where id = ?";
-		$values = Array($user_id);
+		$query = "update user set acting_as_delegate = ? where id = ?";
+		$values = Array($value ? 1 : 0, $user_id);
 		return db::update($query, $values);
 	}
 
@@ -300,7 +308,7 @@ class db_delegate
 	{
 		$query = "select b.voter_is_delegate_id as voter_id, b.ballot as ballot, b.delegate_id as delegate_id, (select d.title from delegate d where b.delegate_id = d.id) as delegate_name from ballot b where b.vote_id = ? and b.voter_is_delegate_id = ?";
 		$values = Array($vote_id, $delegate_id);
-		return db::select_single_row_associative($query, $values);
+		return db::select_single_row($query, $values);
 	}
 
 	public static function get_ballot_for_prop ($prop_id, $delegate_id)

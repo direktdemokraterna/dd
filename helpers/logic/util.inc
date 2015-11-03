@@ -9,4 +9,10 @@ class util
 			if (!isset($array[$prop])) return false;
 		return true;
 	}
+
+	public static function report_error($message) 
+	{
+		$_SESSION['report_message'] = $message;
+		$_SESSION['red_report_message'] = 1;
+	}
 }

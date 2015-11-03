@@ -16,10 +16,15 @@
 	</li>
 	<li>
 		<h2>Delegater</h2>
+		<?php
+			$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
+		?>
 		<ul>
 			<li><a href="index.php?type=vote&action=list_delegates">Lista delegater</a></li>
 			<li><a href="index.php?type=vote&action=delegations">Se delegeringar</a></li>
-			<li><a href="index.php?type=vote&action=delegate_settings">Bli delegat</a></li>
+			<li><a href="index.php?type=vote&action=delegate_settings">
+				<?php echo $is_delegate ? "Hantera delegat" : "Bli delegat"; ?>
+			</a></li>
 		</ul>
 	</li>
 	<li>

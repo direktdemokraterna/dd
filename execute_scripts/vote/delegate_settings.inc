@@ -1,51 +1,42 @@
 <?php
-	
 	if(isset($_POST['register_delegate'])){
-
 		$ok = db_delegate::create_delegate($_SESSION['id']);
-
-		if($ok){
+		if($ok)
 			$_SESSION['report_message'] = "Din användare är nu delegat.";
-			}
-		else{
-			$_SESSION['report_message'] = "Något gick fel.";
-			$_SESSION['red_report_message'] = 1;
-		}
-		$redirect = $_SERVER['REQUEST_URI'];
-
+		else
+			\Logic\util::report_error("Något gick fel.");
 	}
-
-	elseif(isset($_POST['set_acting_as_delegate'])){
-
-		if($_SESSION['delegate_id']){
-			if(db_delegate::stop_acting_as_delegate($_SESSION['id'])){
-				$_SESSION['delegate_id'] = 0;
-				$_SESSION['report_message'] = "Nu röstar du som enskild användare.";
-				}
-		}
-		else{
-			if(db_delegate::start_acting_as_delegate($_SESSION['id'])){
+	elseif(isset($_POST['delete'])){
+		$ok = db_delegate::delete_delegate($_SESSION['id']);
+		if($ok)
+			$_SESSION['report_message'] = "Din delegat är borttagen.";
+		else
+			\Logic\util::report_error("Något gick fel.");
+	}
+	elseif(isset($_POST['change_delegate'])){
+		$report_messages = array();
+		if(isset($_POST['acting_as_delegate'])){
+			$delegate_activated = db_delegate::change_acting_as_delegate($_SESSION['id'], true);
+			if ($delegate_activated){
 				$_SESSION['delegate_id'] = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
-				$_SESSION['report_message'] = "Nu röstar du som delegat.";
-				}
+				$report_messages[] = "Nu röstar du som delegat.";
+			}
 		}
-		$redirect = $_SERVER['REQUEST_URI'];
-
+		else if ($_SESSION['delegate_id']){
+			$delegate_unactivated = db_delegate::change_acting_as_delegate($_SESSION['id'], false);
+			if ($delegate_unactivated){
+				$_SESSION['delegate_id'] = 0;
+				$report_messages[] = "Nu röstar du som enskild användare.";
+			}
+		}
+		$constituencies_changed = empty($_POST['constituencies'])
+			? db_delegate::remove_all_delegate_constituencies($_SESSION['id'])
+			: db_delegate::update_delegate_constituencies($_POST['constituencies'], $_SESSION['id']);
+		if($constituencies_changed)
+			$report_messages[] = "Valkretsaktivitet uppdaterad.";
+		if ($report_messages)
+			$_SESSION['report_message'] = implode(" ", $report_messages);
+		else 
+			$_SESSION['report_message'] = "Inga ändringar gjorda.";
 	}
-
-	elseif(isset($_POST['set_constituencies'])){
-
-		if(!empty($_POST['constituencies'])) {
-			$ok = db_delegate::update_delegate_constituencies($_POST['constituencies'], $_SESSION['id']);
-		}
-		else{
-			$ok = db_delegate::remove_all_delegate_constituencies($_SESSION['id']);
-		}
-
-		if($ok>0){
-			$_SESSION['report_message'] = "Valkretsaktivitet uppdaterad.";
-			$redirect = $_SERVER['REQUEST_URI'];
-		}
-
-	}
-
+?>
