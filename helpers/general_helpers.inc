@@ -118,6 +118,7 @@ class general_helpers {
 	}
 
 	public static function check_personnummer ($personnummer) { 
+		if(strlen($personnummer) != 10) return false;
 		$n = 2; 
 		$control_sum = 0;
 		for ($i=0; $i<9; $i++){ 

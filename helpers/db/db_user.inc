@@ -201,24 +201,25 @@ class db_user
 		return db::delete($query, $values);
 	}
 
-	public static function check_if_personnummer_exists ($personnummer)
+	public static function check_if_personnummer_exists ($personnummer, $exclude_user_id = 0)
 	{
-		$query = "select * from user where social_security_number = ?";
-		$values = Array($personnummer);
-		$user_result = db::select($query, $values);
-		$query = "select * from user_application where social_security_number = ?";
-		$values = Array($personnummer);
-		$user_application_result = db::select($query, $values);
-		return $user_result || $user_application_result;
+		return self::check_if_key_property_exists('social_security_number', $personnummer, $exclude_user_id);
 	}
 
-	public static function check_if_email_exists ($email)
+	public static function check_if_email_exists ($email, $exclude_user_id = 0)
 	{
-		$query = "select * from user where email = ?";
-		$values = Array($email);
+		return self::check_if_key_property_exists('email', $email, $exclude_user_id);
+	}
+
+	private static function check_if_key_property_exists ($property_name, $value, $exclude_user_id)
+	{
+		$query = "select * from user where " . $property_name . " = ? 
+		and deletion_time is null
+		and id <> ?";
+		$values = Array($value, $exclude_user_id);
 		$user_result = db::select($query, $values);
-		$query = "select * from user_application where email = ?";
-		$values = Array($email);
+		$query = "select * from user_application where " . $property_name . " = ?";
+		$values = Array($value);
 		$user_application_result = db::select($query, $values);
 		return $user_result || $user_application_result;
 	}

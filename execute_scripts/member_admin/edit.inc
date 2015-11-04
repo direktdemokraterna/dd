@@ -1,9 +1,8 @@
 <?php 
 if(isset($_POST['edit_user'])){
-	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-		$_SESSION['report_message'] = "Mejladressen är inte korrekt."; 
-		$_SESSION['red_report_message'] = 1;
-	}
+	$error = \Logic\user::validate_user($_POST['social_security_number'], $_POST['email'], $_GET['id']);
+	if($error)
+		\Logic\util::report_error($error);
 	else{
 		$region = db_constituency::get_region_from_county($_POST['county']);
 		$ok = db_user::update_user_by_admin($_POST['username'], $_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county'], $region, $_POST['social_security_number'], $_POST['email'], $_POST['skype_name'], $_POST['telephone1'], $_POST['telephone2'], $_GET['id']);
@@ -13,10 +12,8 @@ if(isset($_POST['edit_user'])){
 			$_SESSION['report_message'] = "Användaren uppdaterad";
 			$redirect = $_SERVER['REQUEST_URI'];
 		}
-		else{
-			$_SESSION['report_message'] = "Ingen uppdatering gjord";
-			$_SESSION['red_report_message'] = 1;
-		}
+		else
+			\Logic\util::report_error("Ingen uppdatering gjord");
 	}
 }
 

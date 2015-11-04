@@ -4,36 +4,16 @@ include("../helpers/init.inc");
 
 // Processing data if form has been posted
 if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county']) && isset($_POST['email']) && isset($_POST['social_security_number'])){
-
-	$telephone = str_replace("-", "", $_POST['telephone']);
-	$telephone = str_replace(" ", "", $_POST['telephone']);
-
+	$telephone = str_replace(" ", "", str_replace("-", "", $_POST['telephone']));
 	$personnummer = general_helpers::clean_personnummer($_POST['social_security_number']);
-	
-	if(db_user::check_if_personnummer_exists($personnummer)){
-		die("Det finns redan en användare med det personnumret");
-	}
-
-	if(!general_helpers::check_personnummer($personnummer)){
-		die("Ogiltigt personnummer");
-	}
-
-	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-		die("Ogiltig mejladress");
-	}
-
-	if(db_user::check_if_email_exists($_POST['email'])){
-		die("Det finns redan en användare med den mejladressen");
-	}
-
+	$error = \Logic\user::validate_user($personnummer, $_POST['email']);
+	if ($error)
+		die($error);
 	$region = db_constituency::get_region_from_county($_POST['county']);
-
 	if(!$region){
 		die("Välj din kommun.");
 	}
-
 	$form_data_has_been_processed = db_user::enter_user_application(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region, $personnummer, $_POST['email'], general_helpers::clean($telephone));
-
 }
 
 ?>
