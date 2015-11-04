@@ -17,6 +17,13 @@
 
 	<p>Den här medlemmens medlemskap avslutades <?php echo general_helpers::show_date($userinfo['deletion_time']); ?>.</p>
 
+	<?php if(isset($_SESSION['is_member_admin'])) : ?>
+		<p><form method="post" action="" class="standard-form">
+			<input type="hidden" name="restore_user" value="1">
+			<input type="submit" value="Återställ användare" style="width: auto;">
+		</form></p>
+	<?php endif; ?>
+
 <?php else : ?>
 
 	<div class="user_presentation_left">
@@ -59,34 +66,41 @@
 	<?php echo nl2br($userinfo['description']); ?>
 	</p>
 
-<?php endif; ?>
+	<br>
 
-<br>
+	<?php
+		if ($user_id == $_SESSION['id']) {
+			echo "<p>";
+			\View\general::output_internal_link("Ändra mina uppgifter", "member", "settings");
+			echo "</p>";
+		} 
+		elseif(isset($_SESSION['is_member_admin'])) {
+			echo "<p>";
+			\View\general::output_internal_link("Ändra uppgifter för denna användare", "member_admin", "edit", 
+				"id=" . $user_id);
+			echo "</p>";
+		}
+	?>
 
-<?php
-	if ($user_id == $_SESSION['id']) {
-		echo "<p>";
-		\View\general::output_internal_link("Ändra mina uppgifter", "member", "settings");
-		echo "</p>";
-	} 
-	elseif(isset($_SESSION['is_member_admin'])) {
-		echo "<p>";
-		\View\general::output_internal_link("Ändra uppgifter för denna användare", "member_admin", "edit", 
-			"id=" . $user_id);
-		echo "</p>";
-	}
-?>
+	<?php if(isset($_SESSION['is_forum_admin'])) : ?>
+		<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in forumbehörigheter för denna användare</a></p>
+	<?php endif; ?>
 
-<?php if(isset($_SESSION['is_forum_admin'])) : ?>
-	<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in forumbehörigheter för denna användare</a></p>
-<?php endif; ?>
+	<?php if(isset($_SESSION['is_vote_admin'])) : ?>
+		<p><a href="index.php?type=vote_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in valkretsbehörigheter för denna användare</a></p>
+	<?php endif; ?>
 
-<?php if(isset($_SESSION['is_vote_admin'])) : ?>
-	<p><a href="index.php?type=vote_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in valkretsbehörigheter för denna användare</a></p>
-<?php endif; ?>
+	<?php if(isset($_SESSION['is_superadmin'])) : ?>
+		<p><a href="index.php?type=superadmin&action=edit_admin&id=<?php echo $user_id; ?>">Ställ in administratörsrättigheter för denna användare</a></p>
+	<?php endif; ?>
 
-<?php if(isset($_SESSION['is_superadmin'])) : ?>
-	<p><a href="index.php?type=superadmin&action=edit_admin&id=<?php echo $user_id; ?>">Ställ in administratörsrättigheter för denna användare</a></p>
+	<?php if(isset($_SESSION['is_member_admin'])) : ?>
+		<form method="post" action="" class="standard-form" onsubmit="confirm('Vill du verkligen ta bort denna användare?');">
+			<input type="hidden" name="delete_user" value="1">
+			<input type="submit" value="Ta bort användare" style="width: auto;">
+		</form>
+	<?php endif; ?>
+
 <?php endif; ?>
 
 </div>

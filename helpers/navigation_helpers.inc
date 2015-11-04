@@ -66,7 +66,7 @@ class navigation_helpers {
 				"view" => Page_info::create("description.inc", Page_info::VIEW_AND_EXECUTE)))
 			,"member" => Division_info::create(array(
 				"list" => Page_info::create("memberlist.inc")
-				,"view" => Page_info::create("view.inc")
+				,"view" => Page_info::create("view.inc", Page_info::VIEW_AND_EXECUTE)
 				,"notices" => Page_info::create("notices.inc")
 				,"settings" => Page_info::create("settings.inc", Page_info::VIEW_AND_EXECUTE)
 				,"calendar" => Page_info::create("calendar.inc", Page_info::VIEW_AND_EXECUTE)
