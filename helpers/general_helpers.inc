@@ -62,7 +62,8 @@ class general_helpers {
 		$mail->Host = 'smtp-mail.outlook.com';
 		$mail->Username = 'direktdemokraterna@hotmail.com';
 		$mail->Password = '475954952T13bwy';
-		return $mail->send() 
+		$ok = $mail->send();
+		return $ok 
 			? "success" 
 			: $mail->ErrorInfo;
 	}

@@ -44,9 +44,9 @@
 		<?php 
 			$counties = db_constituency::get_counties();
 			foreach($counties as $row){
-				echo "<option value=\"" . $row['kommun'] . "\"";
-				if($row['kommun'] == $application_data['county']) echo " selected";
-				echo ">" . $row['kommun'] . "</option>";
+				echo "<option value=\"" . $row['title'] . "\"";
+				if($row['title'] == $application_data['county']) echo " selected";
+				echo ">" . $row['title'] . "</option>";
 			}
 		?>
 	</select>

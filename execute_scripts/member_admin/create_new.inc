@@ -7,7 +7,6 @@ if($_POST){
 	else{
 		$region = db_constituency::get_region_from_county($_POST['county']);
 		
-		require("helpers/class-phpass.php");
 		$random_password = general_helpers::GenerateRandomString(12);
 		$hasher = new PasswordHash(8, FALSE);
 		$password = $hasher->HashPassword($random_password);

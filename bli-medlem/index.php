@@ -92,7 +92,7 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['st
 	<?php 
 		$counties = db_constituency::get_counties();
 		foreach($counties as $row){
-			echo "<option value=\"" . $row['kommun'] . "\">" . $row['kommun'] . "</option>";
+			echo "<option value=\"" . $row['title'] . "\">" . $row['title'] . "</option>";
 		}
 	?>
 </select><br><br>

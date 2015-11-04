@@ -21,7 +21,6 @@ if($_POST['accept']){
 			$username = $username_with_number;
 		}
 
-		require("helpers/class-phpass.php");
 		$random_password = general_helpers::GenerateRandomString(12);
 		$hasher = new PasswordHash(8, FALSE);
 		$password = $hasher->HashPassword($random_password);
