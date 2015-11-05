@@ -116,3 +116,9 @@ where constituency_level = 2;
 
 DROP TABLE `kommuner`;
 
+/**************/
+/* 2015-11-05 
+/* Fix error in data
+/**************/
+
+update user set region = 'Blekinge' where region like 'Blekinge%';

@@ -221,7 +221,7 @@ class general_helpers {
 	}
 	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
-	private static function make_list_pagin_and_sorting ($get_parameters, $page, $result_counter, $sort_alternatives = null){
+	public static function make_list_pagin_and_sorting ($get_parameters, $page, $result_counter, $sort_alternatives = null){
 		echo "<div class=\"list_of_link_menu\">";
 		self::make_list_paging($page, $result_counter);
 		self::make_list_sorting($get_parameters, $sort_alternatives);

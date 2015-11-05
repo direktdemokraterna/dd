@@ -29,19 +29,26 @@ class db_user
 		return $user_id;
 	}
 
-	public static function get_all_users ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "last_activity_time desc", $where_filter = "1=1")
+	public static function get_all_users ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "last_activity_time desc", $where_filters)
 	{
+		$where_clause = self::create_where_clause($where_filters);
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select id, concat(first_name, ' ', last_name) as full_name from user where " . $where_filter . " order by " . $order_by . " " . $limit_clause;
+		$query = "select id, concat(first_name, ' ', last_name) as full_name, deletion_time from user" . $where_clause . " order by " . $order_by . " " . $limit_clause;
 		$values = Array();
 		return db::select($query, $values);
 	}
 
-	public static function get_all_users_count ($where_filter = "1=1")
+	public static function get_all_users_count ($where_filters)
 	{
-		$query = "select count(*) from user where " . $where_filter;
+		$where_clause = self::create_where_clause($where_filters);
+		$query = "select count(*) from user" . $where_clause;
 		$values = Array();
 		return db::select_single_value($query, $values);
+	}
+
+	public static function create_where_clause ($where_filters)
+	{
+		return $where_filters ? " where " . implode(" and ", $where_filters) : "";
 	}
 
 	public static function get_user_data ($id)

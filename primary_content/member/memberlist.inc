@@ -5,20 +5,27 @@
 
 	if($_GET['sort'] == "alphabetic") $order_by = "first_name asc";
 	else $order_by = "last_activity_time desc";
-
-	if($_GET['filter'] == "county") $where_filter = "county = '" . $_GET['county'] . "'";
-	elseif($_GET['filter'] == "region") $where_filter = "region = '" . $_GET['region'] . "'";
-	else $where_filter = "1=1";
-	$result = db_user::get_all_users($page, LIST_ITEMS_PER_PAGE, $order_by, $where_filter);
-	$result_counter = db_user::get_all_users_count($where_filter);
+	$where_filters = array();
+	if((isset($_GET['filter']) ? $_GET['filter'] == 'county' : isset($_GET['county'])) && $_GET['county']) 
+		$where_filters[] = "county = '" . $_GET['county'] . "'";
+	else if(isset($_GET['region']) && $_GET['region']) 
+		$where_filters[] = "region = '" . $_GET['region'] . "'";
+	if (!(isset($_GET['show_deleted']) && $_GET['show_deleted']))
+		$where_filters[] = "deletion_time is null";
+	$result = db_user::get_all_users($page, LIST_ITEMS_PER_PAGE, $order_by, $where_filters);
+	$result_counter = db_user::get_all_users_count($where_filters);
 ?>
 
 <?php 
 	$sort_alternatives = Array("Senast inloggad" => "last_login", "Alfabetisk" => "alphabetic");
-	general_helpers::make_list_header_with_region_county_filter($page, $result_counter, $sort_alternatives); 
+	\View\member::output_member_list_header($page, $result_counter, $sort_alternatives); 
 ?>
 <div class="list_of_links">
-	<?php foreach($result as $row) : ?>
-		<a href="index.php?type=member&action=view&id=<?php echo $row['id']; ?>"><?php echo $row['full_name']; ?></a><br>
-	<?php endforeach; ?>
+	<?php 
+		foreach($result as $row) {
+			$deleted_style = $row['deletion_time'] ? ' style="color: grey; font-style: italic"' : '';
+			echo '<a href="index.php?type=member&action=view&id=' . $row['id'] . '"' . $deleted_style . '>' . 
+		$row['full_name'] . '</a><br>';
+		}
+	?>
 </div>
