@@ -84,7 +84,7 @@
 			<input type="hidden" name="prop_id" value="<?php echo $propinfo['prop_id']; ?>">
 			<input type="hidden" name="ballot" id="ballot" value="">
 			<input type="submit" class="vote_button" style="display: none" id="green_vote" value="Stöd" onmousedown="return encrypt_prop_ballot(true)">
-			<input type="submit" class="vote_button" style="display: none" id="yellow_vote" value="Stöder" onmousedown="return encrypt_prop_ballot(false)">
+			<input type="submit" class="vote_button" style="display: none" title="Klicka för att sluta stödja" id="yellow_vote" value="Stöder" onmousedown="return encrypt_prop_ballot(false)">
 		</form>
 
 	<?php endif; ?>
