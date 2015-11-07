@@ -100,6 +100,7 @@
 <?php endif; ?>
 
 <script>
+document.getElementById("user_vote_box").innerHTML = "Klicka på \"Stöd\" om du vill stöda denna proposition";
 list_of_votes.map(function (vote){
 	if(vote.user_code == sessionStorage.active_user_code && !acting_as_delegate) {
 		support = vote.support;
@@ -107,8 +108,9 @@ list_of_votes.map(function (vote){
 			? (vote.delegate_id 
 				? "<br>Du stödjer denna proposition genom din delegat <a href='index.php?type=vote&action=view_delegate&id=" + 
 				vote.delegate_id + "'>" + vote.delegate_name + "</a>." 
-				: "Du stöder denna proposition.")
-			: "Du har valt att inte stödja denna proposition.";
+				: "Du stöder denna proposition.") 
+				+ " Klicka på \"Stöder\" för att sluta stöda propositionen."
+			: "Du har dragit tillbaka ditt stöd för denna proposition.";
 	}
 });
 $("#green_vote").css('display', (support ? 'none' : 'inline'));

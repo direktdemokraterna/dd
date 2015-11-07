@@ -45,7 +45,7 @@ class vote
 			foreach($vote_group->votes as $row) {
 				general::output_internal_link($row['title'], $type, $action, 'id=' . $row['id']
 					. \View\general::get_from_action_for_url(array('search')));
-				echo '&nbsp;';
+				echo '<br/>';
 			}
 		}
 		general::close_div("list_of_links");

@@ -49,6 +49,34 @@ class vote
 		$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;
 	}
 
+	public static function update_proposition_support($prop_id, $ballot) 
+	{
+		$prop_info = \db_prop::get_prop_info($prop_id);
+		if($_SESSION['delegate_id'])
+			$check_delegate_constituency_access = \db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $prop_info['constituency_id']);
+		if(!empty($check_delegate_constituency_access) && $prop_info['status'] == "pending"){
+			$ballot_decoded = \json_decode($ballot, true);
+			$ok = \db_delegate::register_prop_ballot($prop_id, $_SESSION['delegate_id'], $ballot_decoded['support']);
+			if($ok)
+				$_SESSION['report_message'] = "Din delegats röst är registrerad.";
+			else
+				\Logic\util::report_error("Något gick fel. Rösten registrerades inte.");
+		}
+		elseif($prop_info['status'] == "pending"){
+			$check_user_access = \db_constituency::check_user_constituency_access($_SESSION['id'], $prop_info['constituency_id']);
+			if($check_user_access){
+				$post_vars = Array("user_id" => $_SESSION['id'], "prop_id" => $prop_id, "ballot" => $ballot);
+				$reply = \crypt_helpers::curl_to_anon_server("anonymise_prop_ballot.php", $post_vars);
+				if($reply == "success")
+					$_SESSION['report_message'] = "Din röst är registrerad.";
+				else
+					\Logic\util::report_error("Något gick fel. Rösten registrerades inte.");
+			}
+			else
+				die("ingen constituency access");
+		}		
+	}
+
 	private static function admin_create_time_limited_vote() {
 		$forum_topic_id = self::create_vote_topic();
 		$time_string = self::generate_time_string(); 

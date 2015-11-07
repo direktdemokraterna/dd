@@ -119,7 +119,7 @@ class navigation_helpers {
 			,"vote" => Division_info::create(array(
 				"add_prop" => Page_info::create("add_prop.inc", Page_info::VIEW_AND_EXECUTE)
 				,"list_props" => Page_info::create("list_props.inc")
-				,"list_old_props" => Page_info::create("list_old_props.inc")
+				,"list_affirmed_props" => Page_info::create("list_affirmed_props.inc")
 				,"view_prop" => Page_info::create("view_prop.inc", Page_info::VIEW_AND_EXECUTE)
 				,"delegate_settings" => Page_info::create("delegate_settings.inc", Page_info::VIEW_AND_EXECUTE)
 				,"view_delegate" => Page_info::create("view_delegate.inc", Page_info::VIEW_AND_EXECUTE)

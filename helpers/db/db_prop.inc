@@ -70,9 +70,9 @@ class db_prop
 		return db::select($query, $values);
 	}
 
-	public static function list_props ($statuses, $user_id, $sort, $page)
+	public static function list_props ($status, $user_id, $sort, $page)
 	{
-		$where_clause = self::get_props_where_clause($statuses);
+		$where_clause = self::get_props_where_clause($status);
 		$from_clause = self::get_props_from_clause($user_id);
 		$order_by = self::get_props_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
@@ -85,30 +85,14 @@ class db_prop
 		return db::select($query, $values);
 	}
 
-	public static function search_props ($search, $user_id, $page = 1)
-	{
-		$from_clause = self::get_props_from_clause($user_id);
-		$where_clause = self::get_props_where_clause($statuses) . "
-					and match(P.title, P.description) against(? in boolean mode)";
-		$order_by = self::get_props_order_by($sort);
-		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select P.id, P.title, C.title as constituency 
-					" . $from_clause . "
-					" . $where_clause . "
-					order by C.constituency_level asc, C.id, " . $order_by . " 
-					" . $limit_clause;
-		$values = Array($search);
-		return db::select($query, $values);
-	}
-
 	public static function get_props_order_by ($sort)
 	{
 		return $sort === "alphabetic" ? "P.title asc" : "P.timestamp_created desc";
 	}
 
-	public static function list_props_count ($statuses, $user_id)
+	public static function list_props_count ($status, $user_id)
 	{
-		$where_clause = self::get_props_where_clause($statuses);
+		$where_clause = self::get_props_where_clause($status);
 		$from_clause = self::get_props_from_clause($user_id);
 		$query = "select count(*) 
 					" . $from_clause . "
@@ -125,11 +109,9 @@ class db_prop
 						on CU.constituency_id = C.id and CU.user_id = " . $user_id;
 	}
 
-	private static function get_props_where_clause ($statuses)
+	private static function get_props_where_clause ($status)
 	{
-		$where_clause = "where CU.id IS NOT NULL";
-		if (!empty($statuses))
-			$where_clause .= " and P.status in ('" . implode("', '", $statuses) . "')";
+		$where_clause = "where CU.id IS NOT NULL and P.status = '" . $status . "'";
 		return $where_clause;
 	}
 
@@ -139,7 +121,6 @@ class db_prop
 		$values = Array($prop_id, $user_code);
 		$ballot_already_present = db::select_single_value($query, $values);
 		if($ballot_already_present){
-			//die('ballot_already_present: ' . $support);
 			$query = "update proposition_support 
 						set support = ?, delegate_id = null, time_ballot_placed = ? 
 						where proposition_id = ? and user_code = ?";

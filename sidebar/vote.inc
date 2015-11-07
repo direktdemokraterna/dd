@@ -3,7 +3,7 @@
 		<h2>Propositioner</h2>
 		<ul>
 			<li><a href="index.php?type=vote&action=list_props">Lista aktiva propositioner</a></li>
-			<li><a href="index.php?type=vote&action=list_old_props">Lista gamla propositioner</a></li>
+			<li><a href="index.php?type=vote&action=list_affirmed_props">Lista beviljade propositioner</a></li>
 			<li><a href="index.php?type=vote&action=add_prop">Skapa proposition</a></li>
 		</ul>
 	</li>
