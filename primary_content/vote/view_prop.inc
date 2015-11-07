@@ -23,6 +23,11 @@
 	var support = <?php echo isset($delegate_ballot) && $delegate_ballot['support'] ? 'true' : 'false'; ?>;
 </script>
 
+<?php 
+	if (isset($_GET['from_action']))
+		\View\vote::output_back_link();
+?>
+
 <h1>Proposition: <?php echo $propinfo['title']; ?></h1>
 
 <div class="vote_result_box">

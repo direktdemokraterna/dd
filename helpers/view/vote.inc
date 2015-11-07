@@ -38,13 +38,13 @@ class vote
 		general::make_textarea("new_prop_description", "Beskrivning", 4);
 	}
 
-	public static function make_vote_list($vote_groups, $type, $action) {
+	public static function make_vote_list($vote_groups, $type, $action, $from_action) {
 		general::open_div("list_of_links");
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
 			foreach($vote_group->votes as $row) {
 				general::output_internal_link($row['title'], $type, $action, 'id=' . $row['id']
-					. \View\general::get_from_action_for_url(array('search')));
+					. \View\general::get_from_action_for_url(array($from_action)));
 				echo '<br/>';
 			}
 		}
@@ -91,10 +91,12 @@ class vote
 
 	public static function output_back_link() {
 		switch ($_GET['from_action']) {
+			case 'search_prop':
 			case 'search':
 				\View\general::output_internal_link("Tillbaka till sökresultat",
 					$_GET['type'], $_GET['from_action']);
 				echo '<br>';
+				break;
 			default:
 				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
 		}

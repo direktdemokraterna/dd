@@ -8,11 +8,25 @@
 		</ul>
 	</li>
 	<li>
+		<h2>Sök propositioner</h2>
+		<form method="post" class="sidebar_search_form" action="index.php?type=vote&action=search_prop">
+			<input tabindex="101" type="text" value="" name="prop_search_input" class="sidebar_search_input">
+			<input tabindex="102" type="submit" class="sidebar_search_submit" value="Sök">
+		</form>
+	</li>
+	<li>
 		<h2>Omröstningar</h2>
 		<ul>
 			<li><a href="index.php?type=vote&action=list_active_votes">Lista pågående omröstningar</a></li>
 			<li><a href="index.php?type=vote&action=list_old_votes">Lista gamla omröstningar</a></li>
 		</ul>
+	</li>
+	<li>
+		<h2>Sök omröstningar</h2>
+		<form method="post" class="sidebar_search_form" action="index.php?type=vote&action=search">
+			<input tabindex="101" type="text" value="" name="vote_search_input" class="sidebar_search_input">
+			<input tabindex="102" type="submit" class="sidebar_search_submit" value="Sök">
+		</form>
 	</li>
 	<li>
 		<h2>Delegater</h2>
@@ -26,12 +40,5 @@
 				<?php echo $is_delegate ? "Hantera delegat" : "Bli delegat"; ?>
 			</a></li>
 		</ul>
-	</li>
-	<li>
-		<h2>Sök propositioner och omröstningar</h2>
-		<form method="post" class="sidebar_search_form" action="index.php?type=vote&action=search">
-			<input tabindex="101" type="text" value="" name="vote_search_input" class="sidebar_search_input">
-			<input tabindex="102" type="submit" class="sidebar_search_submit" value="Sök">
-		</form>
 	</li>
 </ul>

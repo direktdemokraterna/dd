@@ -91,6 +91,8 @@ class db_prop
 	public static function get_props_order_by ($sort)
 	{
 		switch ($sort) {
+			case null :
+			case '' :
 			case 'alphabetic' : return ", title asc";
 			case 'created' : return ", timestamp_created desc";
 			case 'priority' : return "";
@@ -107,6 +109,34 @@ class db_prop
 					" . $where_clause;
 		$values = Array();
 		return min(db::select_single_value($query, $values), MAX_ACTIVE_PROPOSITION_COUNT);
+	}
+
+	public static function search_props ($search, $user_id, $sort, $page = 1)
+	{
+		$from_clause = self::get_props_from_clause($user_id);
+		$where_clause = self::get_props_where_clause('pending') . "
+					and match(P.title, P.description) against(? in boolean mode)";
+		$order_by = self::get_props_order_by($sort);
+		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
+		$query = "select P.id, P.title, C.title as constituency 
+					" . $from_clause . "
+					" . $where_clause . "
+					order by C.constituency_level asc, C.id" . $order_by . " 
+					" . $limit_clause;
+		$values = Array($search);
+		return db::select($query, $values);
+	}
+
+	public static function search_props_count ($search, $user_id, $page = 1)
+	{
+		$from_clause = self::get_props_from_clause($user_id);
+		$where_clause = self::get_props_where_clause('pending') . "
+					and match(P.title, P.description) against(? in boolean mode)";
+		$query = "select count(*) 
+					" . $from_clause . "
+					" . $where_clause;
+		$values = Array($search);
+		return db::select_single_value($query, $values);
 	}
 
 	private static function get_props_from_clause ($user_id)

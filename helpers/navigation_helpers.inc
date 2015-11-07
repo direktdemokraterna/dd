@@ -132,7 +132,8 @@ class navigation_helpers {
 				,"add_alternative" => Page_info::create("add_alternative.inc", Page_info::VIEW_AND_EXECUTE)
 				,"view_ballots" => Page_info::create("view_ballots.inc")
 				,"view_prop_ballots" => Page_info::create("view_prop_ballots.inc")
-				,"search" => Page_info::create("search.inc"))
+				,"search" => Page_info::create("search.inc")
+				,"search_prop" => Page_info::create("search_prop.inc"))
 			, "list_active_votes.inc")
 
 			,"member_admin" => Division_info::create(array(

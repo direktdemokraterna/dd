@@ -7,8 +7,8 @@
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$votes = db_vote::search_votes($search_query, $_SESSION['id'], $sort, $page);
-	if(empty($votes) && empty($props)) {
-		echo "<p>Inga omröstningar eller propositioner med frasen: <b><i>" . $search_query . 
+	if(empty($votes)) {
+		echo "<p>Inga omröstningar med frasen: <b><i>" . $search_query . 
 		"</i></b> i text eller rubrik hittades.</p>";
 	}
 	else {
