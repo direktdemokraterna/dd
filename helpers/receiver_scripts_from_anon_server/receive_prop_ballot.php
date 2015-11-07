@@ -9,18 +9,13 @@ if(isset($_POST['user_code']) && isset($_POST['prop_id']) && isset($_POST['rsa']
 	// Check that prop_id from anon server matches prop_id from client (check that anon server doesn't manipulate ballot info)
 	if($ballot_decoded['prop_id'] == $_POST['prop_id']){
 		// Check that ballot is valid
-		if($ballot_decoded['support_type'] == "support" || $ballot_decoded['support_type'] == "reject" || $ballot_decoded['support_type'] == "abstain"){
-			$ok = db_prop::register_prop_ballot($_POST['prop_id'], $_POST['user_code'], $ballot_decoded['support_type']);
-			if($ok){
-				echo "success";
-			}
+		if($ballot_decoded['support'] === true || $ballot_decoded['support'] === false){
+			$ok = db_prop::register_prop_ballot($_POST['prop_id'], $_POST['user_code'], $ballot_decoded['support']);
+			echo $ok
+				? "success"
+				: "fail - something went wrong when registering the vote";
 		}
-		elseif($ballot_decoded['support_type'] == "cancel"){
-			$ok = db_prop::cancel_ballot($_POST['prop_id'], $_POST['user_code']);
-		}
-		else{
-			echo "fail - invalid ballot";
-		}
+		else
+			echo "fail - invalid ballot: " . $ballot_decoded['support'];
 	}
-
 }

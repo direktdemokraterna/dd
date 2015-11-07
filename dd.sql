@@ -1198,7 +1198,6 @@ CREATE TABLE `proposition` (
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `status` varchar(12) NOT NULL default 'pending',
   `number_of_supporters` int(10) unsigned NOT NULL default '0',
-  `number_of_abstains` int(10) unsigned NOT NULL default '0',
   `title` varchar(90) NOT NULL default '',
   `description` text NOT NULL,
   `forum_topic_id` int(10) unsigned default NULL,
@@ -1211,16 +1210,16 @@ CREATE TABLE `proposition` (
 --
 
 /*!40000 ALTER TABLE `proposition` DISABLE KEYS */;
-INSERT INTO `proposition` (`id`,`type`,`created_by_user`,`created_by_delegate`,`timestamp_created`,`timestamp_ended`,`constituency_id`,`status`,`number_of_supporters`,`number_of_abstains`,`title`,`description`,`forum_topic_id`) VALUES 
- (1,'yes-no',5,NULL,1426586078,NULL,165,'rejected',0,1,'Testvotering','Bara ett test. ',31),
- (2,'yes-no',5,NULL,1428388195,NULL,165,'affirmed',1,0,'Testvotering2','Ett test till. ',32),
- (3,'median',4,NULL,1428506873,1428506887,165,'affirmed',1,0,'Mediantest','Test av medianomröstningar.',33),
- (4,'prio-vote',6,NULL,1430116507,1430117564,165,'affirmed',1,0,'Prio-test','Det är dags att testa prioritetsomröstningar. ',34),
- (5,'candidate-election',6,NULL,1430808243,1430850944,165,'affirmed',1,0,'Personvalstest','Test av personvalsfunktionen. ',35),
- (6,'yes-no',5,NULL,1441469576,1441469588,313,'affirmed',1,0,'test','test',107),
- (7,'yes-no',5,NULL,1441541122,NULL,165,'pending',2,0,'Nytt test','test\r\n',108),
- (8,'median',5,NULL,1441566650,1441566655,165,'affirmed',1,0,'mediantest','test',109),
- (9,'yes-no',5,NULL,1441614927,1441614937,313,'affirmed',1,0,'fdfgd','hfgdf',110);
+INSERT INTO `proposition` (`id`,`type`,`created_by_user`,`created_by_delegate`,`timestamp_created`,`timestamp_ended`,`constituency_id`,`status`,`number_of_supporters`,`title`,`description`,`forum_topic_id`) VALUES 
+ (1,'yes-no',5,NULL,1426586078,NULL,165,'pending',0,'Testvotering','Bara ett test. ',31),
+ (2,'yes-no',5,NULL,1428388195,NULL,165,'affirmed',2,'Testvotering2','Ett test till. ',32),
+ (3,'median',4,NULL,1428506873,1428506887,165,'affirmed',2,'Mediantest','Test av medianomröstningar.',33),
+ (4,'prio-vote',6,NULL,1430116507,1430117564,165,'affirmed',2,'Prio-test','Det är dags att testa prioritetsomröstningar. ',34),
+ (5,'candidate-election',6,NULL,1430808243,1430850944,165,'affirmed',2,'Personvalstest','Test av personvalsfunktionen. ',35),
+ (6,'yes-no',5,NULL,1441469576,1441469588,313,'affirmed',2,'test','test',107),
+ (7,'yes-no',5,NULL,1441541122,NULL,165,'pending',1,'Nytt test','test\r\n',108),
+ (8,'median',5,NULL,1441566650,1441566655,165,'affirmed',2,'mediantest','test',109),
+ (9,'yes-no',5,NULL,1441614927,1441614937,313,'affirmed',2,'fdfgd','hfgdf',110);
 /*!40000 ALTER TABLE `proposition` ENABLE KEYS */;
 
 --
@@ -1237,7 +1236,7 @@ CREATE TABLE `proposition_support` (
   `delegate_id` int(10) unsigned default NULL,
   `delegation_level` int(10) unsigned default NULL,
   `delegate_priority` int(10) unsigned default NULL,
-  `support_type` varchar(7) NOT NULL default 'support',
+  `support` bit NULL,
   `time_ballot_placed` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
@@ -1247,18 +1246,18 @@ CREATE TABLE `proposition_support` (
 --
 
 /*!40000 ALTER TABLE `proposition_support` DISABLE KEYS */;
-INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`support_type`,`time_ballot_placed`) VALUES 
- (6,1,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'reject',0),
- (7,2,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1428388208),
- (8,3,0,'OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,'support',1428506887),
- (9,4,0,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,'support',1430117564),
- (10,5,0,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,'support',1430850943),
- (11,6,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1441469588),
- (12,8,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1441566655),
- (13,9,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1441614937),
- (31,7,165,'nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,'support',1443615670),
- (30,7,165,NULL,7,NULL,NULL,NULL,'support',1443615670),
- (27,7,165,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,'support',1443515050);
+INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`support`,`time_ballot_placed`) VALUES 
+ (6,1,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,0,0),
+ (7,2,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1428388208),
+ (8,3,0,'OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1,1428506887),
+ (9,4,0,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1,1430117564),
+ (10,5,0,'nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1,1430850943),
+ (11,6,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441469588),
+ (12,8,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441566655),
+ (13,9,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441614937),
+ (31,7,165,'nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1,1443615670),
+ (30,7,165,NULL,7,NULL,NULL,NULL,1,1443615670),
+ (27,7,165,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1443515050);
 /*!40000 ALTER TABLE `proposition_support` ENABLE KEYS */;
 
 --

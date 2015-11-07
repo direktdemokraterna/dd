@@ -21,11 +21,9 @@
 			<?php endif; ?>
 			</td>
 			<td>
-			<?php if($ballot['support_type'] == "support") : ?>
-				Stöder
-			<?php elseif($ballot['support_type'] == "abstain") : ?>
-				Avstår
-			<?php endif; ?>
+			<?php 
+				echo $ballot['support'] ? 'Stöder' : 'Stöder ej';
+			?>
 			</td>
 			<td>
 			<?php if($ballot['delegate_id']) : ?>

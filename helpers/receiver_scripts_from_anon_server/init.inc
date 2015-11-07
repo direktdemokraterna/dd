@@ -12,7 +12,7 @@ define("WORKGRUOP_PRIVATE_FORUMS_CATEGORY", 8);
 //define("POSTS_PER_PAGE", 10);
 define("LIST_ITEMS_PER_PAGE", 50);
 
-define("PROP_TO_VOTE_SUPPORT", 0.05);
+define("PROP_TO_VOTE_SUPPORT", 0.2);
 define("STANDARD_VOTE_LENGTH", 14*24*60*60);
 define("ANON_SERVER_URL", "http://localhost/dd_anon/");
 define("RSA_PRIVATE_KEY", file_get_contents("../keys/dd_priv_key.txt"));

@@ -169,16 +169,16 @@ class db_delegate
 		}
 	}
 
-	public static function register_prop_ballot ($prop_id, $delegate_id, $support_type)
+	public static function register_prop_ballot ($prop_id, $delegate_id, $support)
 	{
 		$query = "delete from proposition_support where proposition_id = ? and voter_is_delegate_id = ?";
 		$values = Array($prop_id, $delegate_id);
 		db::delete($query, $values);
 		$constituency_id = db_constituency::get_prop_constituency_id($prop_id);
-		$query = "insert into proposition_support (proposition_id, constituency_id, voter_is_delegate_id, support_type, time_ballot_placed) values (?, ?, ?, ?, ?)";
-		$values = Array($prop_id, $constituency_id, $delegate_id, $support_type, time());
+		$query = "insert into proposition_support (proposition_id, constituency_id, voter_is_delegate_id, support, time_ballot_placed) values (?, ?, ?, ?, ?)";
+		$values = Array($prop_id, $constituency_id, $delegate_id, $support, time());
 		$ok = db::insert($query, $values);
-		self::register_prop_ballot_for_delegands($delegate_id, $constituency_id, $prop_id, $support_type, $delegate_id, 0);
+		self::register_prop_ballot_for_delegands($delegate_id, $constituency_id, $prop_id, $support, $delegate_id, 0);
 		db_prop::count_prop_support($prop_id);
 		return $ok;
 	}
@@ -196,26 +196,47 @@ class db_delegate
 		return $return;
 	}
 
-	public static function register_prop_ballot_for_delegands ($delegate_id, $constituency_id, $prop_id, $support_type, $actual_delegate_voter_id, $delegation_level)
+	public static function register_prop_ballot_for_delegands ($delegate_id, $constituency_id, $prop_id, $support, $actual_delegate_voter_id, $delegation_level)
 	{
 		$delegands = self::get_delegands_for_delegate($delegate_id, $constituency_id);
-		foreach($delegands as $delegand){
-			$ballot = db_prop::get_prop_ballot_from_delegate_or_user($prop_id, $delegand['user_code'], $delegand['voter_is_delegate_id']);
-			if(empty($ballot)){
-				$query = "insert into proposition_support (proposition_id, constituency_id, support_type, user_code, voter_is_delegate_id, delegate_id, delegation_level, delegate_priority, time_ballot_placed) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$values = Array($prop_id, $constituency_id, $support_type, $delegand['user_code'], $delegand['voter_is_delegate_id'], $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time());
-				db::insert($query, $values);
-				if($delegand['voter_is_delegate_id']) // Delegand is another delegate.
-					self::register_prop_ballot_for_delegands($delegand['voter_is_delegate_id'], $constituency_id, $prop_id, $support_type, $actual_delegate_voter_id, $delegation_level+1);
-			}
-			elseif(isset($ballot['delegate_id']) && ($ballot['delegation_level'] > $delegation_level || $ballot['delegate_id'] == $actual_delegate_voter_id)){
-				$query = "update proposition_support set support_type = ?, delegate_id = ?, delegation_level = ?, delegate_priority = ?, time_ballot_placed = ? where proposition_id = ? and (user_code = ? or voter_is_delegate_id = ?)";
-				$values = Array($support_type, $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time(), $prop_id, $delegand['user_code'], $delegand['voter_is_delegate_id']);
-				db::update($query, $values);
-				if($delegand['voter_is_delegate_id']){ // Delegand is another delegate.
-					self::register_prop_ballot_for_delegands($delegand['voter_is_delegate_id'], $constituency_id, $prop_id, $support_type, $actual_delegate_voter_id, $delegation_level+1);
-				}
-			}
+		foreach($delegands as $delegand)
+			self::update_votes_for_delegand($delegand, $constituency_id, $prop_id, $support, $actual_delegate_voter_id, $delegation_level);
+	}
+
+	private static function update_votes_for_delegand($delegand, $constituency_id, $prop_id, $support, $actual_delegate_voter_id, $delegation_level) 
+	{
+		$ballot = db_prop::get_prop_ballot_from_delegate_or_user($prop_id, $delegand['user_code'], $delegand['voter_is_delegate_id']);
+		if(empty($ballot))
+			self::insert_vote_for_delegand($prop_id, $constituency_id, $support, $delegand, $actual_delegate_voter_id, $delegation_level);
+		elseif(self::this_delegate_is_same_or_higher_priority_than_current($ballot, $delegation_level, $actual_delegate_voter_id))
+			self::replace_vote_for_delegand($support, $actual_delegate_voter_id, $delegation_level, $delegand, $prop_id);
+		else return;	
+		self::propagate_vote_to_delegands_delegands($delegand, $constituency_id, $prop_id, $support, $actual_delegate_voter_id, $delegation_level);
+	}
+
+	private static function this_delegate_is_same_or_higher_priority_than_current($ballot, $delegation_level, $actual_delegate_voter_id) 
+	{
+		return isset($ballot['delegate_id']) && ($ballot['delegation_level'] > $delegation_level 
+			|| $ballot['delegate_id'] == $actual_delegate_voter_id);
+	}
+
+	private static function insert_vote_for_delegand($prop_id, $constituency_id, $support, $delegand, $actual_delegate_voter_id, $delegation_level) 
+	{
+		$query = "insert into proposition_support (proposition_id, constituency_id, support, user_code, voter_is_delegate_id, delegate_id, delegation_level, delegate_priority, time_ballot_placed) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($prop_id, $constituency_id, $support, $delegand['user_code'], $delegand['voter_is_delegate_id'], $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time());
+		db::insert($query, $values);
+	}
+
+	private static function replace_vote_for_delegand($support, $actual_delegate_voter_id, $delegation_level, $delegand, $prop_id) 
+	{
+		$query = "update proposition_support set support = ?, delegate_id = ?, delegation_level = ?, delegate_priority = ?, time_ballot_placed = ? where proposition_id = ? and (user_code = ? or voter_is_delegate_id = ?)";
+		$values = Array($support, $actual_delegate_voter_id, $delegation_level, $delegand['priority'], time(), $prop_id, $delegand['user_code'], $delegand['voter_is_delegate_id']);
+		db::update($query, $values);
+	}
+
+	private static function propagate_vote_to_delegands_delegands($delegand, $constituency_id, $prop_id, $support, $actual_delegate_voter_id, $delegation_level) {
+		if($delegand['voter_is_delegate_id']){ // Delegand is another delegate.
+			self::register_prop_ballot_for_delegands($delegand['voter_is_delegate_id'], $constituency_id, $prop_id, $support, $actual_delegate_voter_id, $delegation_level+1);
 		}
 	}
 
@@ -313,7 +334,8 @@ class db_delegate
 
 	public static function get_ballot_for_prop ($prop_id, $delegate_id)
 	{
-		$query = "select ps.voter_is_delegate_id as voter_id, ps.support_type as support_type, ps.delegate_id as delegate_id, (select d.title from delegate d where ps.delegate_id = d.id) as delegate_name from proposition_support ps where ps.proposition_id = ? and ps.voter_is_delegate_id = ?";
+		$query = "select ps.voter_is_delegate_id as voter_id, ps.support, ps.delegate_id, (select d.title from delegate d where ps.delegate_id = d.id) as delegate_name 
+		from proposition_support ps where ps.proposition_id = ? and ps.voter_is_delegate_id = ?";
 		$values = Array($prop_id, $delegate_id);
 		return db::select_single_row($query, $values);
 	}
@@ -447,7 +469,7 @@ class db_delegate
 				return false;
 			$delegate_vote = self::get_delegate_prop_ballot_for_prop($prop_id, $delegate_id);
 			if(!empty($delegate_vote)){
-				db_vote::insert_prop_ballot($prop_id, $delegate_vote['support_type'], $user_code, $voter_is_delegate_id, $delegate_id, $delegation_level, 1);
+				db_vote::insert_prop_ballot($prop_id, $delegate_vote['support'], $user_code, $voter_is_delegate_id, $delegate_id, $delegation_level, 1);
 				return true;
 			}
 			$processed_delegates[] = $delegate_id;

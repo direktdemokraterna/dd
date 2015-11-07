@@ -122,3 +122,22 @@ DROP TABLE `kommuner`;
 /**************/
 
 update user set region = 'Blekinge' where region like 'Blekinge%';
+
+/**************/
+/* 2015-11-05 
+/* Remove abstain proposition option
+/**************/
+
+alter table proposition drop column number_of_abstains;
+
+alter table proposition_support
+add column support bit null;
+
+update proposition_support
+set support = 1 where support_type = 'support';
+
+update proposition_support
+set support = 0 where support_type <> 'support';
+
+alter table proposition_support
+drop column support_type;

@@ -17,11 +17,11 @@ class db_prop
 
 	public static function get_prop_info ($prop_id)
 	{
-		$query = "select p.id as prop_id, p.title as title, p.description as description, u.id as user_id
-		, concat(u.first_name, ' ', u.last_name) as user_full_name, p.type as type, p.timestamp_created as timestamp_created
-		, p.number_of_supporters as number_of_supporters, p.number_of_abstains as number_of_abstains, p.status as status
-		, p.forum_topic_id as forum_topic_id, c.id as constituency_id, c.title as constituency_name
-		, c.number_of_voters as number_of_voters 
+		$query = "select p.id as prop_id, p.title, p.description, u.id as user_id
+		, concat(u.first_name, ' ', u.last_name) as user_full_name, p.type, p.timestamp_created
+		, p.number_of_supporters, p.status
+		, p.forum_topic_id, c.id as constituency_id, c.title as constituency_name
+		, c.number_of_voters 
 			from proposition p, user u, constituency c 
 			where u.id = p.created_by_user and c.id = p.constituency_id and p.id = ?";
 		$values = Array($prop_id);
@@ -59,11 +59,11 @@ class db_prop
 
 	public static function get_prop_supporters ($prop_id)
 	{
-		$query = "select ps.user_code as user_code, ps.voter_is_delegate_id as voter_is_delegate_id
-			, (	select d1.title from delegate d1 where ps.voter_is_delegate_id = d1.id ) as voter_is_delegate_name
-			, ps.support_type as support_type, ps.delegate_id as delegate_id
-			, ( select d2.title from delegate d2 where ps.delegate_id = d2.id ) as delegate_name
-			, time_ballot_placed as time_ballot_placed 
+		$query = "select ps.user_code, ps.voter_is_delegate_id
+			, (select d1.title from delegate d1 where ps.voter_is_delegate_id = d1.id) as voter_is_delegate_name
+			, ps.support, ps.delegate_id
+			, (select d2.title from delegate d2 where ps.delegate_id = d2.id) as delegate_name
+			, time_ballot_placed 
 		from proposition_support ps 
 		where ps.proposition_id = ?";
 		$values = Array($prop_id);
@@ -133,24 +133,25 @@ class db_prop
 		return $where_clause;
 	}
 
-	public static function register_prop_ballot ($prop_id, $user_code, $support_type)
+	public static function register_prop_ballot ($prop_id, $user_code, $support)
 	{
 		$query = "select count(*) from proposition_support where proposition_id = ? and user_code = ?";
 		$values = Array($prop_id, $user_code);
 		$ballot_already_present = db::select_single_value($query, $values);
 		if($ballot_already_present){
+			//die('ballot_already_present: ' . $support);
 			$query = "update proposition_support 
-						set support_type = ?, delegate_id = null, time_ballot_placed = ? 
+						set support = ?, delegate_id = null, time_ballot_placed = ? 
 						where proposition_id = ? and user_code = ?";
-			$values = Array($support_type, time(), $prop_id, $user_code);
+			$values = Array($support, time(), $prop_id, $user_code);
 			$ok = db::update($query, $values);
 		}
 		else{
 			$constituency_id = db_constituency::get_prop_constituency_id($prop_id);
 			$query = "insert into proposition_support 
-						(proposition_id, constituency_id, user_code, support_type, time_ballot_placed) 
+						(proposition_id, constituency_id, user_code, support, time_ballot_placed) 
 						values (?, ?, ?, ?, ?)";
-			$values = Array($prop_id, $constituency_id, $user_code, $support_type, time());
+			$values = Array($prop_id, $constituency_id, $user_code, $support, time());
 			$ok = db::insert($query, $values);
 		}
 		self::count_prop_support($prop_id);
@@ -172,28 +173,15 @@ class db_prop
 				(
 					select count(*) 
 					from proposition_support 
-					where proposition_id = ? and support_type = 'support' and user_code is not null
+					where proposition_id = ? and support = 1 and user_code is not null
 				)
-				, number_of_abstains = 
-				(
-					select count(*) 
-					from proposition_support 
-					where proposition_id = ? and support_type = 'abstain' and user_code is not null
-				) 
 				where id = ?";
-		$values = Array($prop_id, $prop_id, $prop_id);
+		$values = Array($prop_id, $prop_id);
 		$ok = db::update($query, $values);
 		$prop_info = self::get_prop_info($prop_id);
 		if($prop_info['number_of_supporters'] >= ceil($prop_info['number_of_voters'] * PROP_TO_VOTE_SUPPORT))
 			db_vote::make_vote_from_prop($prop_id);
 		return $ok;
-	}
-
-	public static function reject_prop ($prop_id)
-	{
-		$query = "update proposition set status = 'rejected', timestamp_ended = ? where id = ?";
-		$values = Array(time(), $prop_id);
-		return db::update($query, $values);
 	}
 
 	public static function get_old_props ()
@@ -205,7 +193,7 @@ class db_prop
 
 	public static function get_prop_ballot_from_delegate_or_user ($prop_id, $user_code, $delegand_id)
 	{
-		$query = "select id, support_type, delegate_id, time_ballot_placed, delegation_level, delegate_priority from proposition_support where proposition_id = ? and (user_code = ? or voter_is_delegate_id = ?)";
+		$query = "select id, support, delegate_id, time_ballot_placed, delegation_level, delegate_priority from proposition_support where proposition_id = ? and (user_code = ? or voter_is_delegate_id = ?)";
 		$values = Array($prop_id, $user_code, $delegand_id);
 		return db::select_single_row($query, $values);
 	}
