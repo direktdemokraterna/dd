@@ -76,10 +76,13 @@ class db_prop
 		$from_clause = self::get_props_from_clause($user_id);
 		$order_by = self::get_props_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select P.id, P.title, C.title as constituency 
-					" . $from_clause . "
+		$query = "select id, title, constituency
+					from (select P.*, C.title as constituency, C.constituency_level " 
+						. $from_clause . "
 					" . $where_clause . "
-					order by C.constituency_level asc, C.id, " . $order_by . " 
+					order by (now() - timestamp_created)/(1+ln(1 + number_of_supporters))
+					limit " . MAX_ACTIVE_PROPOSITION_COUNT . ") T
+					order by constituency_level asc, constituency_id" . $order_by . " 
 					" . $limit_clause;
 		$values = Array();
 		return db::select($query, $values);
@@ -87,7 +90,12 @@ class db_prop
 
 	public static function get_props_order_by ($sort)
 	{
-		return $sort === "alphabetic" ? "P.title asc" : "P.timestamp_created desc";
+		switch ($sort) {
+			case 'alphabetic' : return ", title asc";
+			case 'created' : return ", timestamp_created desc";
+			case 'priority' : return "";
+			default: die('unknown sort: ' . $sort);
+		}
 	}
 
 	public static function list_props_count ($status, $user_id)
@@ -98,7 +106,7 @@ class db_prop
 					" . $from_clause . "
 					" . $where_clause;
 		$values = Array();
-		return db::select_single_value($query, $values);
+		return min(db::select_single_value($query, $values), MAX_ACTIVE_PROPOSITION_COUNT);
 	}
 
 	private static function get_props_from_clause ($user_id)

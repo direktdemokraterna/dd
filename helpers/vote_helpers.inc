@@ -562,7 +562,7 @@ private static function &get_vote_group(&$vote_groups, $constituency)
 private static function make_list_header($res_count) 
 {
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
-	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic");
+	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic", "Prioritet" => "priority");
 	general_helpers::make_list_of_links_header($page, $res_count, $sort_alternatives); 
 }
 
