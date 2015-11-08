@@ -38,7 +38,7 @@ class vote
 		general::make_textarea("new_prop_description", "Beskrivning", 4);
 	}
 
-	public static function make_vote_list($vote_groups, $type, $action, $from_action) {
+	public static function make_vote_list($vote_groups, $type, $action, $from_action = null) {
 		general::open_div("list_of_links");
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
