@@ -20,15 +20,10 @@ if(isset($_POST['title']) && isset($_POST['is_restricted'])){
 
 	$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['description']), general_helpers::clean($_POST['title']), $number_of_members);
 
-	if($ok){
+	if($ok)
 		$_SESSION['report_message'] = "Arbetsgruppen ändrad";
-		$redirect = $_SERVER['REQUEST_URI'];
-	}
-	else{
-		$_SESSION['report_message'] = "Inga ändringar gjorda";
-		$_SESSION['red_report_message'] = 1;
-	}
-
+	else
+		\Logic\general::report_error("Inga ändringar gjorda");
 }
 
 elseif(isset($_POST['delete'])){

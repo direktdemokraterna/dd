@@ -10,7 +10,6 @@ if(isset($_POST['edit_user'])){
 			forum_helpers::update_county_region_forum_access($_GET['id'], $_POST['county']);
 			vote_helpers::update_county_region_constituencies($_SESSION['id'], $_POST['county']);
 			$_SESSION['report_message'] = "Användaren uppdaterad";
-			$redirect = $_SERVER['REQUEST_URI'];
 		}
 		else
 			\Logic\util::report_error("Ingen uppdatering gjord");

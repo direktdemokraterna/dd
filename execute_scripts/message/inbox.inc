@@ -2,13 +2,10 @@
 	if(isset($_POST['delete'])){
 		$deleted = db_message::delete_inbox($_POST['check_list'], $_SESSION['id']);
 		if($deleted>0){
-			if($deleted>1){
+			if($deleted>1)
 				$message = $deleted . " meddelanden raderade.";
-			}
-			else{
+			else
 				$_SESSION['report_message'] = "1 meddelande raderat.";
-			}
-			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}
 
@@ -16,13 +13,10 @@
 		$message_array = Array($_GET['recipient_delete']);
 		$deleted = db_message::delete_inbox($message_array, $_SESSION['id']);
 		if($deleted>0){
-			if($deleted>1){
+			if($deleted>1)
 				$message = $deleted . " meddelanden raderade.";
-			}
-			else{
+			else
 				$_SESSION['report_message'] = "1 meddelande raderat.";
-			}
-			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}
 
@@ -30,21 +24,16 @@
 		$message_array = Array($_GET['sender_delete']);
 		$deleted = db_message::delete_outbox($message_array, $_SESSION['id']);
 		if($deleted>0){
-			if($deleted>1){
+			if($deleted>1)
 				$message = $deleted . " meddelanden raderade.";
-			}
-			else{
+			else
 				$_SESSION['report_message'] = "1 meddelande raderat.";
-			}
-			$redirect = $_SERVER['REQUEST_URI'];
 		}
 	}
 
 	if(isset($_GET['cancel'])){
 		$cancelled = db_message::cancel($_GET['cancel'], $_SESSION['id']);
-		if($cancelled>0){
+		if($cancelled>0)
 			$_SESSION['report_message'] = "Meddelandet har ångrats och mottagaren hann aldrig läsa det.";
-			$redirect = $_SERVER['REQUEST_URI'];
-		}
 	}
 ?>

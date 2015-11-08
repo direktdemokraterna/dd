@@ -2,15 +2,10 @@
 	if(isset($_POST['delete'])){
 		if($_POST['vote_id'] == $_GET['id']){
 			$deleted = db_vote_admin::delete_alternatives($_POST['check_list'], $_POST['vote_id']);
-			if($deleted>1){
+			if($deleted>1)
 				$message = $deleted . " omröstningsalternativ raderade.";
-			}
-			else{
+			else
 				$_SESSION['report_message'] = "1 omröstningsalternativ raderat.";
-			}
-
-			$redirect = $_SERVER['REQUEST_URI'];
-			
 		}
 	}
 
@@ -28,31 +23,17 @@
 					else{
 						$_SESSION['report_message'] = "Användaren har inte valkretsbehörighet. Inget omröstningsalternativ skapat.";
 						$_SESSION['red_report_message'] = 1;
-						$redirect = $_SERVER['REQUEST_URI'];
 					}
 				}
-				else{
-					$_SESSION['report_message'] = "Fel användarnamn. Inget omröstningsalternativ skapat.";
-					$_SESSION['red_report_message'] = 1;
-					$redirect = $_SERVER['REQUEST_URI'];
-				}
-
+				else
+					\Logic\general::report_error("Fel användarnamn. Inget omröstningsalternativ skapat.");
 			}
 
-			elseif(isset($_POST['title'])){
+			elseif(isset($_POST['title']))
 				$ok = db_vote_admin::add_alternative_by_admin($_POST['vote_id'], $_POST['title'], $_POST['description']);
-			}
-
-			if($ok){
+			if($ok)
 				$_SESSION['report_message'] = "Omröstningsalternativ skapat.";
-				$redirect = $_SERVER['REQUEST_URI'];
-			}
-			else{
-				$_SESSION['report_message'] = "Något gick fel. Inget omröstningsalternativ skapat.";
-				$_SESSION['red_report_message'] = 1;
-				$redirect = $_SERVER['REQUEST_URI'];
-			}
-
+			else
+				\Logic\general::report_error("Något gick fel. Inget omröstningsalternativ skapat.");
 		}
-
 	}

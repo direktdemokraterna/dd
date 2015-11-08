@@ -13,15 +13,10 @@ if(isset($_POST['ballot'])){
 
 		$ok = db_delegate::register_delegation_ballot(null, $delegand_id, $delegate_id, $constituency_id);
 
-		if($ok){
+		if($ok)
 			$_SESSION['report_message'] = "Din delegats delegering är registrerad.";
-			$redirect = $_SERVER['REQUEST_URI'];
-		}
-		else{
-			$_SESSION['report_message'] = "Något gick fel. Ingen delegering registrerad.";
-			$_SESSION['red_report_message'] = 1;
-		}
-
+		else
+			\Logic\general::report_error("Något gick fel. Ingen delegering registrerad.");
 	}
 
 	else{

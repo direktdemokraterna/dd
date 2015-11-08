@@ -66,11 +66,6 @@ if(isset($_POST['type'])){
 		$ok = db_workgroup::drop_member($_POST['id'], $_SESSION['id']);
 		if($ok) $_SESSION['report_message'] = "Du är inte längre medlem i denna arbetsgrupp.";
 	}
-
-	if(!empty($_SESSION['report_message'])){
-		$redirect = $_SERVER['REQUEST_URI'];
-	}
-
 }
 	
 ?>

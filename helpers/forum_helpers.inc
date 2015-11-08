@@ -48,7 +48,6 @@ class forum_helpers
 			else{
 				$_SESSION['report_message'] = "Ett citat i ditt inlägg är inte korrekt.";
 				db_error::insert_error_message($_SESSION['id'], $message , "red");
-				//$redirect = $_SERVER['REQUEST_URI'];
 				return null;
 			}
 		}

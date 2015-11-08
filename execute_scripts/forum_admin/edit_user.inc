@@ -5,7 +5,5 @@
 		$_SESSION['report_message'] = $list_changed
 			? "Forumbehörigheter uppdaterade."
 			: "Inga ändringar gjorda.";
-		if($list_changed)
-			$redirect = $_SERVER['REQUEST_URI'];
 	}
 ?>

@@ -12,14 +12,10 @@ if($_POST){
 		$password = $hasher->HashPassword($random_password);
 		
 		$ok = db_user::add_user($_POST['username'], $password, $_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county'], $region, $_POST['social_security_number'], $_POST['email'], $_POST['skype_name']);
-		if($ok){
+		if($ok)
 			$_SESSION['report_message'] = "Användaren är skapad. Lösenordet är: " . $random_password;
-			$redirect = $_SERVER['REQUEST_URI'];
-		}
-		else{
-			$_SESSION['report_message'] = "Något gick fel, ingen användare skapad.";
-			$_SESSION['red_report_message'] = 1;
-		}
+		else
+			\Logic\general::report_error("Något gick fel, ingen användare skapad.");
 	}
 }
 

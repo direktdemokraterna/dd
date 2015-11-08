@@ -1,7 +1,5 @@
 <?php
 	$ok = db_forum_admin::add_category(general_helpers::clean($_POST['title']), general_helpers::clean($_POST['description']));
-	if($ok){
+	if($ok)
 		$_SESSION['report_message'] = "Kategorin skapad"; 
-		$redirect = $_SERVER['REQUEST_URI'];
-	}
 ?>

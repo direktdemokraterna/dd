@@ -13,14 +13,10 @@ if(isset($_POST['ballot'])){
 
 		$ok = db_delegate::register_delegation_ballot(null, $delegand_id, $delegate_id, $constituency_id);
 
-		if($ok){
+		if($ok)
 			$_SESSION['report_message'] = "Din delegats delegering är registrerad.";
-			$redirect = $_SERVER['REQUEST_URI'];
-		}
-		else{
-			$_SESSION['report_message'] = "Något gick fel. Ingen delegering registrerad.";
-			$_SESSION['red_report_message'] = 1;
-		}
+		else
+			\Logic\general::report_error("Något gick fel. Ingen delegering registrerad.");
 	}
 
 	else{
@@ -34,15 +30,9 @@ if(isset($_POST['ballot'])){
 		$post_vars = Array("user_id" => $_SESSION['id'], "user_constituencies" => $user_constituencies_serialized, "ballot" => $_POST['ballot']);
 		$reply = crypt_helpers::curl_to_anon_server("anonymise_delegation_ballot.php", $post_vars);
 
-		if($reply == "success"){
+		if($reply == "success")
 			$_SESSION['report_message'] = "Din delegering är registrerad.";
-			$redirect = $_SERVER['REQUEST_URI'];
-		}
-		else{
-			$_SESSION['report_message'] = "Något gick fel. Ingen delegering registrerad.";
-			$_SESSION['red_report_message'] = 1;
-		}
-
+		else
+			\Logic\general::report_error("Något gick fel. Ingen delegering registrerad.");
 	}
-
 }

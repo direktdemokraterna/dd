@@ -2,17 +2,14 @@
 	if(isset($_POST['report_post_argument'])){
 		$forum_id = db_forum::get_forum_from_post_id($_POST['post_id']);
 		$check_access = db_forum::check_access($_SESSION['id'], $forum_id);
-		if(!$check_access){
-			$_SESSION['report_message'] = "Du har inte behörighet till det forumet.";
-			$_SESSION['red_report_message'] = 1;
-			$redirect = $_SERVER['REQUEST_URI'];
-		}
-		else{
+		if($check_access){
 			$report_insert_id = db_forum::new_report($_POST['post_id'], $_SESSION['id'], general_helpers::clean($_POST['report_post_argument']));
 			if($report_insert_id){
 				$_SESSION['report_message'] = "Anmälan är mottagen.";
 				$redirect = "index.php?type=forum&action=show_posts&post_id=" . $_POST['post_id'];
 			}
 		}
+		else
+			\Logic\general::report_error("Du har inte behörighet till det forumet.");
 	}
 ?>

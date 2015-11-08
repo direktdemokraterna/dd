@@ -18,12 +18,7 @@
 				$_SESSION['report_message'] = "Omröstningsalternativ ändrat.";
 				$redirect = "index.php?type=vote_admin&action=edit_alternatives&id=" . $alternative_info['vote_id'];
 			}
-			else{
-				$_SESSION['report_message'] = "Något gick fel. Ingen ändring gjord.";
-				$_SESSION['red_report_message'] = 1;
-				$redirect = $_SERVER['REQUEST_URI'];
-			}
-
+			else
+				\Logic\general::report_error("Något gick fel. Ingen ändring gjord.");
 		}
-
 	}

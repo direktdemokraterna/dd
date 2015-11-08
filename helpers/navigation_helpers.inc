@@ -14,10 +14,10 @@ class navigation_helpers {
 
 		$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
 		require($path);
-		if(isset($redirect)){
-			header("Location: $redirect");
-			exit();
-		}
+		if (empty($redirect))
+			$redirect = $_SERVER['REQUEST_URI'];
+		header("Location: $redirect");
+		exit();
 	}
 
 	public static function get_subpage() {

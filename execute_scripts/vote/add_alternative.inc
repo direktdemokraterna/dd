@@ -25,14 +25,9 @@ if(isset($_POST['vote_id'])){
 					$_SESSION['report_message'] = "Alternativet har skapats.";
 					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
 				}
-				else{
-					$_SESSION['report_message'] = "Något gick fel. Ingenting skapat.";
-					$_SESSION['red_report_message'] = 1;
-					$redirect = $_SERVER['REQUEST_URI'];
-				}
-
+				else
+					\Logic\general::report_error("Något gick fel. Ingenting skapat.");
 			}
-
 		}
 
 		elseif($voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election"){
