@@ -16,6 +16,6 @@
 		$result_count = db_vote::search_votes_count($search_query, $_SESSION['id'], $page);
 		vote_helpers::make_vote_list_header(null, $result_count);
 		$vote_groups = vote_helpers::group_by_constituency($votes);
-		\View\vote::make_vote_list($vote_groups, "vote", "view_vote");
+		\View\vote::make_vote_list($vote_groups, "vote", "view_vote", "search");
 	} 
 ?>
