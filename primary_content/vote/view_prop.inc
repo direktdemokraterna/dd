@@ -73,9 +73,11 @@
 
 <?php if($number_of_ballots['number_of_delegate_ballots'] > 0) : ?>
 	<div class="" id="delegate_votes_box">
-		<a href="#" onclick="show_delegate_votes('prop')">Se delegaters röster för denna proposition</a>
+		<a href="javascript:void(0)" onclick="show_delegate_votes('prop')">Se delegaters stöd-röster för denna proposition</a>
 	</div>
 <?php endif; ?>
+
+<p><a href="index.php?type=vote&action=view_prop_ballots&id=<?php echo $_GET['id']; ?>">Se alla stöd-röster för denna proposition</a></p>
 
 <?php if($user_allowed_to_vote) : ?>
 

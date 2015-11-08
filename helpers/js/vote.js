@@ -128,19 +128,19 @@ function encrypt_delegation_get_delegate_from_form (constituency_id){
 function show_delegate_votes (is_prop)
 {
 	document.getElementById("delegate_votes_box").className = "vote_result_box";
-	var delegate_votes_box_content = "DelegatrÃ¶ster:<table><tr><th>Delegat</th><th>RÃ¶st</th><RÃ¶sten lagd av</th></tr>";
+	var delegate_votes_box_content = "Delegatröster:<table><tr style='color: white'><th>Delegat</th><th>Röst</th><Rösten lagd av</th></tr>";
 	list_of_votes.map(function (vote){
 		if(vote.user_code == null){
-			delegate_votes_box_content += "<tr><td><a href=\"index.php?type=vote&action=view_delegate&id=" + vote.voter_is_delegate_id + "\">" + vote.voter_is_delegate_name + "</a></td><td>";
+			delegate_votes_box_content += "<tr><td><a href=\"index.php?type=vote&action=view_delegate&id=" + vote.voter_is_delegate_id + "\">" + vote.voter_is_delegate_name + "</a></td><td style='color: white'>";
 			if(vote.hasOwnProperty('support'))
-				delegate_votes_box_content += vote.support ? "StÃ¶der" : "StÃ¶djer ej";
+				delegate_votes_box_content += vote.support ? "Stöder" : "Stödjer ej";
 			else if(vote.hasOwnProperty('alternative'))
 				delegate_votes_box_content += vote.alternative == "abstain"
-					? "AvstÃ¥r"
+					? "Avstår"
 					: (vote.alternative == "yes" ? "Ja" : "Nej");
 			else if(vote.hasOwnProperty('value'))
 				delegate_votes_box_content += vote.value == "abstain"
-					? "AvstÃ¥r"
+					? "Avstår"
 					: vote.value;
 			delegate_votes_box_content += "</td><td>";
 			if(vote.delegate_id)
@@ -148,8 +148,10 @@ function show_delegate_votes (is_prop)
 			delegate_votes_box_content += "</td></tr>";
 		}
 	});
+	/*
 	delegate_votes_box_content += is_prop == "prop" 
-		? "</table><p><a href=\"index.php?type=vote&action=view_prop_ballots&id=" + prop_id + "\">Se alla rÃ¶ster fÃ¶r denna proposition</a></p>"
-		: "</table><p><a href=\"index.php?type=vote&action=view_ballots&id=" + vote_id + "\">Se alla rÃ¶ster fÃ¶r denna omrÃ¶stning</a></p>";
+		? "</table><p><a href=\"index.php?type=vote&action=view_prop_ballots&id=" + prop_id + "\">Se alla röster för denna proposition</a></p>"
+		: "</table><p><a href=\"index.php?type=vote&action=view_ballots&id=" + vote_id + "\">Se alla röster för denna omröstning</a></p>";
+		*/
 	document.getElementById("delegate_votes_box").innerHTML = delegate_votes_box_content;
 }

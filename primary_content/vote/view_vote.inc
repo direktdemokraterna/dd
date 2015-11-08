@@ -117,17 +117,14 @@
 <?php echo nl2br($voteinfo['description']); ?>
 </p>
 
-
-<?php if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']) : ?>
-	<?php if($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median") : ?>
-		<div class="" id="delegate_votes_box">
-			<a href="#" onclick="show_delegate_votes()">Se delegaters röster för denna omröstning</a>
-		</div>
-	<?php else : ?>
-		<p><a href="index.php?type=vote&action=view_ballots&id=<?php echo $_GET['id']; ?>">Se alla röster för denna omröstning</a></p>
-	<?php endif; ?>
+<?php 
+	if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
+	&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) : ?>
+	<div class="" id="delegate_votes_box">
+		<a href="javascript:void(0)" onclick="show_delegate_votes()">Se delegaters röster för denna omröstning</a>
+	</div>
 <?php endif; ?>
-
+<p><a href="index.php?type=vote&action=view_ballots&id=<?php echo $_GET['id']; ?>">Se alla röster för denna omröstning</a></p>
 
 <?php if($user_allowed_to_vote) : ?>
 
