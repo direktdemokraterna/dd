@@ -5,7 +5,7 @@
 	}
 ?>
 
-<h1>Administrera arbetsgruppen <?php echo $workgroup['title']; ?></h1>
+<h1>Administrera arbetsgruppen <?php \View\general::output_internal_link($workgroup['title'], 'workgroup', 'view', 'id=' . $_GET['id']); ?></h1>
 
 <form method="post" action="" class="standard-form">
 	<p>

@@ -5,7 +5,7 @@
 
 <?php if($is_member) : ?>
 
-	<h1>Redigera arbetsgruppen <?php echo $workgroup['title']; ?></h1>
+	<h1>Redigera arbetsgruppen <?php \View\general::output_internal_link($workgroup['title'], 'workgroup', 'view', 'id=' . $_GET['id']); ?></h1>
 
 	<form method="post" action="" class="text-editor">
 		<fieldset>
