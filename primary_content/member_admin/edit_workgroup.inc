@@ -27,7 +27,7 @@
 	<input type="submit" value="Ändra" tabindex="7">
 </form>
 <?php
-	\View\forum::output_text_editor('edit_description', 'Beskrivning av arbetsgruppen', $_GET['id'], $workgroup['description'], "Ändra");
+	\View\forum::output_rich_text_editor('edit_description', 'Beskrivning av arbetsgruppen', $_GET['id'], $workgroup['description'], "Ändra");
 ?>
 
 <form method="post" action="" class="standard-form">

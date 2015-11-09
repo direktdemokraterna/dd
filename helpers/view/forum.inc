@@ -133,7 +133,7 @@ class forum
 	{
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
-		echo '<span id="post_content_' . $post_id . '">' . \View\general::make_html_from_wiki_text($post_info['content']) . '</span>';
+		echo '<span id="post_content_' . $post_id . '">' . \forum_helpers::bbcode_to_html($post_info['content']) . '</span>';
 		if(isset($post_info['last_edited_time']))
 			echo('<span class="post_last_edited">Ändrades senast ' . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			
@@ -157,7 +157,7 @@ class forum
 		echo '&nbsp;';
 	}
 
-	public static function output_text_editor($name, $title, $target_id, $content, $submit_text, $tab_index = 1) {
+	public static function output_rich_text_editor($name, $title, $target_id, $content, $submit_text, $tab_index = 1) {
 		$form_name = $name . '_form';
 		$content_name = $name . '_content';
 		$submit_name = $name . '_content';
@@ -165,14 +165,19 @@ class forum
 		echo '<fieldset>';
 		echo '<legend>' . $title . '</legend>';
 		echo '<input type="hidden" name="target_id" value="' . $target_id . '">';
-		echo '<div id="format_buttons_div">';
-		echo '<input type="button" id="format_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline(\'' . $content_name . '\')">';
-		echo '</div>';
+		echo "<script type='text/javascript' src='http://js.nicedit.com/nicEdit-latest.js'></script> 
+		<script type='text/javascript'>
+			//<![CDATA[
+	  		bkLib.onDomLoaded(function() {
+	        new nicEditor({buttonList : ['bold','italic','underline','html']}).panelInstance('" 
+	        	. $submit_name . "');
+			});
+			//]]>
+		</script>";
 		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' . $tab_index . '">' . 
-		 $content . '</textarea><br>';
-		echo '<input type="submit" id="' . $submit_name . '" value="' . $submit_text . '" tabindex="' . ($tab_index + 1) . '">';
+		 \forum_helpers::bbcode_to_html($content) . '</textarea><br>';
+		echo '<input type="submit" id="' . $submit_name . '" value="' . $submit_text . 
+		'" tabindex="' . ($tab_index + 1) . '">';
 		echo '</fieldset>';
 		echo '</form>';
 	}

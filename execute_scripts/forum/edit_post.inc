@@ -2,7 +2,8 @@
 	$post_info = db_forum::get_post_info($_GET['id']);
 
 	if($post_info['user_id'] == $_SESSION['id'] && ($post_info['posted_time'] + 10 * 60) > time()){ // Allowed to edit post
-		$ok = forum_helpers::update_post_content($_GET['id'], $_POST['edit_post_content'], "edit");
+		$processed_text = forum_helpers::html_to_bbcode($_POST['edit_post_content']);
+		$ok = forum_helpers::update_post_content($_GET['id'], $processed_text, "edit");
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har redigerats.";
 			$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $post_info['topic_id'] . "&page=last";

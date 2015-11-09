@@ -20,7 +20,7 @@
 	</div>
 			
 	<div class="post_content">
-		<span id="post_content_<?php echo $post_info['post_id']; ?>"><?php echo \View\general::make_html_from_wiki_text($post_info['content']); ?></span>
+		<span id="post_content_<?php echo $post_info['post_id']; ?>"><?php echo \forum_helpers::bbcode_to_html($post_info['content']); ?></span>
 		<?php if(isset($post_info['last_edited_time'])) : ?>
 			<span class="post_last_edited">Ändrades senast <?php echo strtolower(general_helpers::show_date($post_info['last_edited_time'])); ?>.</span>
 		<?php endif; ?>
@@ -30,5 +30,5 @@
 	<div style="clear: both;"></div>
 </div>
 <?php
-	\View\forum::output_text_editor('edit_post', 'Redigera ovanstående inlägg', $_GET['id'], $post_info['content'], "Ändra");
+	\View\forum::output_rich_text_editor('edit_post', 'Redigera ovanstående inlägg', $_GET['id'], $post_info['content'], "Ändra");
 ?>

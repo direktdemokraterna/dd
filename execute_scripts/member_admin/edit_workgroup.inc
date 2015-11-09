@@ -31,7 +31,8 @@ else if(isset($_POST['title']) && isset($_POST['is_restricted'])){
 		\Logic\util::report_error("Inga ändringar gjorda");
 }
 else if(isset($_POST['edit_description_content'])){
-	$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['edit_description_content']));
+	$processed_text = forum_helpers::html_to_bbcode($_POST['edit_description_content']);
+	$ok = db_workgroup::update($_GET['id'], $processed_text);
 	if($ok)
 		$_SESSION['report_message'] = "Beskrivningen ändrad";
 	else

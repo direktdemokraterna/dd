@@ -114,7 +114,7 @@
 <strong>Antal delegater som röstat: </strong><?php echo $number_of_delegate_ballots; ?><br>
 
 <strong>Beskrivning:</strong><br>
-<?php echo \View\general::make_html_from_wiki_text($voteinfo['description']); ?>
+<?php echo \forum_helpers::bbcode_to_html($voteinfo['description']); ?>
 </p>
 
 <?php 

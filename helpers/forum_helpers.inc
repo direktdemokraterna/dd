@@ -2,6 +2,34 @@
 
 class forum_helpers 
 {
+	public static function html_to_bbcode($html_text) {
+		$bbcode_text = str_replace('&nbsp;', ' ', $html_text);
+		$bbcode_text = str_replace('<b>', '[b]', $bbcode_text);
+		$bbcode_text = str_replace('<i>', '[i]', $bbcode_text);
+		$bbcode_text = str_replace('<u>', '[u]', $bbcode_text);
+		$bbcode_text = str_replace('</b>', '[/b]', $bbcode_text);
+		$bbcode_text = str_replace('</i>', '[/i]', $bbcode_text);
+		$bbcode_text = str_replace('</u>', '[/u]', $bbcode_text);
+		$bbcode_text = str_replace('<br>', '[br]', $bbcode_text);
+		$bbcode_text = str_replace('<div>', '[divblock]', $bbcode_text);
+		$bbcode_text = str_replace('</div>', '[/divblock]', $bbcode_text);
+		return $bbcode_text;
+	}
+
+	public static function bbcode_to_html($bbcode_text) {
+		$html_text = str_replace(' ', '&nbsp;', $bbcode_text);
+		$html_text = str_replace('[b]', '<b>', $html_text);
+		$html_text = str_replace('[i]', '<i>', $html_text);
+		$html_text = str_replace('[u]', '<u>', $html_text);
+		$html_text = str_replace('[/b]', '</b>', $html_text);
+		$html_text = str_replace('[/i]', '</i>', $html_text);
+		$html_text = str_replace('[/u]', '</u>', $html_text);
+		$html_text = str_replace('[br]', '<br>', $html_text);
+		$html_text = str_replace('[divblock]', '<div>', $html_text);
+		$html_text = str_replace('[/divblock]', '</div>', $html_text);
+		return $html_text;
+	}
+
 	public static function process_text ($text)
 	{
 		$processed_text = general_helpers::clean($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);

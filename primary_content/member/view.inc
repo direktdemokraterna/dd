@@ -63,7 +63,7 @@
 	<p>Län: <?php echo $userinfo['region']; ?></p>
 
 	<p>Presentation:<br>
-	<?php echo \View\general::make_html_from_wiki_text($userinfo['description']); ?>
+	<?php echo \forum_helpers::bbcode_to_html($userinfo['description']); ?>
 	</p>
 
 	<br>

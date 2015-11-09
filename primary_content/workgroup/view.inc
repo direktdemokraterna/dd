@@ -31,7 +31,7 @@
 		<strong>Föreslagen: </strong><?php echo general_helpers::show_date($workgroup['propose_time']); ?><br>
 	<?php endif; ?>
 	<strong>Beskrivning:</strong><br>
-	<?php echo \View\general::make_html_from_wiki_text($workgroup['description']); ?>
+	<?php echo \forum_helpers::bbcode_to_html($workgroup['description']); ?>
 	</p>
 	<?php if($is_member) : ?>
 		<a href="index.php?type=workgroup&action=edit&id=<?php echo $_GET['id']; ?>">Redigera beskrivning</a><br>

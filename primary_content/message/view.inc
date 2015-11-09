@@ -45,7 +45,7 @@
 		<?php endif; ?>
 	</td>
 	<td>
-		<?php echo \View\general::make_html_from_wiki_text($message['content']); ?>
+		<?php echo \forum_helpers::bbcode_to_html($message['content']); ?>
 	</td>
 	</tr>
 	</table>

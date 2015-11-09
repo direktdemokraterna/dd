@@ -27,7 +27,7 @@
 	</div>
 			
 	<div class="post_content">
-		<span id="post_content_<?php echo $post_info['post_id']; ?>"><?php echo \View\general::make_html_from_wiki_text($post_info['content']); ?></span>
+		<span id="post_content_<?php echo $post_info['post_id']; ?>"><?php echo \forum_helpers::bbcode_to_html($post_info['content']); ?></span>
 		<?php if(isset($post_info['last_edited_time'])) : ?>
 			<span class="post_last_edited">Ändrades senast <?php echo strtolower(general_helpers::show_date($post_info['last_edited_time'])); ?>.</span>
 		<?php endif; ?>
@@ -65,14 +65,6 @@
 	<br><input type="submit" value="Skapa">
 </form>
 
-
-<form method="post" action="" id="edit_post_form" class="text-editor">
-	<fieldset>
-		<legend class="edit_post">Redigera ovanstående inlägg</legend>
-		<input type="hidden" name="edit" value="1">
-		<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
-		<textarea name="edit_post_content" id="edit_post_content" rows="32" cols="30"><?php echo $post_info['content']; ?></textarea><br>
-		<input type="submit" id="edit_post_submit" value="Redigera">
-	</fieldset>
-</form>
-
+<?php
+	\View\forum::output_rich_text_editor('edit_post', 'Redigera ovanstående inlägg', $_GET['id'], $post_info['content'], "Redigera");
+?>
