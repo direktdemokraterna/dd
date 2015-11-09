@@ -16,7 +16,7 @@ if(isset($_POST['ballot'])){
 		if($ok)
 			$_SESSION['report_message'] = "Din delegats delegering är registrerad.";
 		else
-			\Logic\general::report_error("Något gick fel. Ingen delegering registrerad.");
+			\Logic\util::report_error("Något gick fel. Ingen delegering registrerad.");
 	}
 
 	else{

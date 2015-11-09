@@ -19,6 +19,6 @@
 				$redirect = "index.php?type=vote_admin&action=edit_alternatives&id=" . $alternative_info['vote_id'];
 			}
 			else
-				\Logic\general::report_error("Något gick fel. Ingen ändring gjord.");
+				\Logic\util::report_error("Något gick fel. Ingen ändring gjord.");
 		}
 	}

@@ -1,7 +1,7 @@
 <?php
 	if($_POST['form_type']=="password"){
 		if($_POST['new_password1']!=$_POST['new_password2'])
-			\Logic\general::report_error("De nya lösenorden matchade inte"); 
+			\Logic\util::report_error("De nya lösenorden matchade inte"); 
 		else{
 			$old_password_hash = db_user::get_password($_SESSION['id']);
 			$hasher = new PasswordHash(8, FALSE);
@@ -12,7 +12,7 @@
 					$_SESSION['report_message'] = "Lösenordet har blivit uppdaterat."; 
 			}
 			else
-				\Logic\general::report_error("Lösenordet var inte korrekt");
+				\Logic\util::report_error("Lösenordet var inte korrekt");
 		}
 	}
 
@@ -24,7 +24,7 @@
 		if($ok)
 			$_SESSION['report_message'] = "Dina inställningar har uppdaterats"; 
 		else
-			\Logic\general::report_error("Inga inställningar ändrade"); 
+			\Logic\util::report_error("Inga inställningar ändrade"); 
 	}
 
 	elseif($_POST['form_type']=="description"){
@@ -33,7 +33,7 @@
 		if($ok)
 			$_SESSION['report_message'] = "Presentationen har uppdaterats."; 
 		else
-			\Logic\general::report_error("Ingenting ändrat"); 
+			\Logic\util::report_error("Ingenting ändrat"); 
 	}
 
 	elseif($_POST['form_type']=="image"){
@@ -45,7 +45,7 @@
 		elseif($image_info['2']==3)  // Checks that file is png image
 			$image_filename = general_helpers::GenerateRandomString(20) . ".png";
 		else
-			\Logic\general::report_error("Felaktig filtyp."); 
+			\Logic\util::report_error("Felaktig filtyp."); 
 
 		if(isset($image_filename)){ // Execute file upload and database update
 			move_uploaded_file($_FILES['image']['tmp_name'], USERIMG_PATH . $image_filename);
@@ -57,7 +57,7 @@
 
 	elseif($_POST['form_type']=="profile"){
 		if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-			\Logic\general::report_error("Mejladressen är inte korrekt."); 
+			\Logic\util::report_error("Mejladressen är inte korrekt."); 
 		elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county']) && isset($_POST['email'])){
 		
 			$region = db_constituency::get_region_from_county($_POST['county']);
@@ -68,9 +68,9 @@
 				$_SESSION['report_message'] = "Din profil är uppdaterad";
 			}
 			else
-				\Logic\general::report_error("Ingen uppdatering gjord."); 
+				\Logic\util::report_error("Ingen uppdatering gjord."); 
 		}
 		else
-			\Logic\general::report_error("Något fält som måste vara ifyllt var inte ifyllt."); 
+			\Logic\util::report_error("Något fält som måste vara ifyllt var inte ifyllt."); 
 	}
 ?>

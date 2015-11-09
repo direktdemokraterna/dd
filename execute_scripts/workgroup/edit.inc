@@ -7,8 +7,8 @@ if(isset($_POST['confirm_change'])){
 		if($ok)
 			$_SESSION['report_message'] = "Beskrivningen ändrad";
 		else
-			\Logic\general::report_error("Inga ändringar gjorda");
+			\Logic\util::report_error("Inga ändringar gjorda");
 	}
 	else
-		\Logic\general::report_error("Du är inte medlem i den arbetsgruppen");
+		\Logic\util::report_error("Du är inte medlem i den arbetsgruppen");
 }

@@ -26,7 +26,7 @@
 					}
 				}
 				else
-					\Logic\general::report_error("Fel användarnamn. Inget omröstningsalternativ skapat.");
+					\Logic\util::report_error("Fel användarnamn. Inget omröstningsalternativ skapat.");
 			}
 
 			elseif(isset($_POST['title']))
@@ -34,6 +34,6 @@
 			if($ok)
 				$_SESSION['report_message'] = "Omröstningsalternativ skapat.";
 			else
-				\Logic\general::report_error("Något gick fel. Inget omröstningsalternativ skapat.");
+				\Logic\util::report_error("Något gick fel. Inget omröstningsalternativ skapat.");
 		}
 	}

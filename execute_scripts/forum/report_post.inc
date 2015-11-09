@@ -10,6 +10,6 @@
 			}
 		}
 		else
-			\Logic\general::report_error("Du har inte behörighet till det forumet.");
+			\Logic\util::report_error("Du har inte behörighet till det forumet.");
 	}
 ?>

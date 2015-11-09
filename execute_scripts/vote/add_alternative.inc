@@ -26,7 +26,7 @@ if(isset($_POST['vote_id'])){
 					$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];
 				}
 				else
-					\Logic\general::report_error("Något gick fel. Ingenting skapat.");
+					\Logic\util::report_error("Något gick fel. Ingenting skapat.");
 			}
 		}
 

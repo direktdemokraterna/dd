@@ -17,7 +17,7 @@
 			}
 		}
 		else
-			\Logic\general::report_error("Anmälan är stängd för den här aktiviteten.");
+			\Logic\util::report_error("Anmälan är stängd för den här aktiviteten.");
 	}
 
 ?>	

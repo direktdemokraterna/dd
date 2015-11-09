@@ -15,7 +15,7 @@ if($_POST){
 		if($ok)
 			$_SESSION['report_message'] = "Användaren är skapad. Lösenordet är: " . $random_password;
 		else
-			\Logic\general::report_error("Något gick fel, ingen användare skapad.");
+			\Logic\util::report_error("Något gick fel, ingen användare skapad.");
 	}
 }
 

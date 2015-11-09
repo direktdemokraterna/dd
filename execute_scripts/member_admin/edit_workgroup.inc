@@ -1,29 +1,24 @@
 <?php 
 
 if(isset($_POST['title']) && isset($_POST['is_restricted'])){
-
 	$workgroup_info = db_workgroup::get_info($_GET['id']);
-
-	if($workgroup_info['is_restricted'] > 0 && $_POST['is_restricted'] == 0){ 
-		db_workgroup::make_un_restricted($_GET['id']);
+	if($workgroup_info['is_restricted'] != $_POST['is_restricted']) {
+		if ($_POST['is_restricted'])
+			db_workgroup::make_restricted($_GET['id']);
+		else 
+			db_workgroup::make_un_restricted($_GET['id']);
+		$restricted_changed = true;
+		$number_of_members = null;
 	}
-	elseif($workgroup_info['is_restricted'] == 0 && $_POST['is_restricted'] == 1){ 
-		db_workgroup::make_restricted($_GET['id']);
-	}
-
-	if(isset($_POST['number_of_members'])){
-		$number_of_members = (int)$_POST['number_of_members'];
-	}
-	else{
-		$number_of_members =  db_workgroup::get_member_count($_GET['id']);
-	}
-
-	$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['description']), general_helpers::clean($_POST['title']), $number_of_members);
-
-	if($ok)
+	else $number_of_members = isset($_POST['number_of_members'])
+		? (int)$_POST['number_of_members']
+		: null;
+	$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['description']), 
+		general_helpers::clean($_POST['title']), $number_of_members);
+	if($ok || $restricted_changed)
 		$_SESSION['report_message'] = "Arbetsgruppen ändrad";
 	else
-		\Logic\general::report_error("Inga ändringar gjorda");
+		\Logic\util::report_error("Inga ändringar gjorda");
 }
 
 elseif(isset($_POST['delete'])){
