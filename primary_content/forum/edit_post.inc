@@ -29,14 +29,6 @@
 		
 	<div style="clear: both;"></div>
 </div>
-
-
-<form method="post" action="" id="edit_post_form" class="text-editor">
-	<fieldset>
-		<legend class="edit_post">Redigera ovanstående inlägg</legend>
-		<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
-		<textarea name="edit_post_content" id="edit_post_content" rows="32" cols="30"><?php echo $post_info['content']; ?></textarea><br>
-		<input type="submit" id="edit_post_submit" value="Ändra">
-	</fieldset>
-</form>
-
+<?php
+	\View\forum::output_text_editor('edit_post', 'Redigera ovanstående inlägg', $_GET['id'], $post_info['content'], "Ändra");
+?>

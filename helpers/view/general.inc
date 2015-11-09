@@ -55,11 +55,15 @@ class general
 	}
 
 	public static function output_internal_link($label, $type, $action, $params = null, $class = null, $confirm = null) {
+		echo self::generate_internal_link($label, $type, $action, $params, $class, $confirm);
+	}	
+
+	public static function generate_internal_link($label, $type, $action, $params = null, $class = null, $confirm = null) {
 		$url = 'index.php?type=' . $type . '&action=' . $action . (empty($params) ? '' : '&' . $params);
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
 		$onclick = ($confirm ? " return confirm('" . $confirm . "')" : '');
-		echo '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>'; 
+		return '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>'; 
 	}	
 
 	public static function make_control_label($control_name, $control_label) {

@@ -61,7 +61,7 @@ class db_workgroup
 	{
 		$query = "update workgroup 
 		set	title = IFNULL(?, title)
-		, description = ?
+		, description = IFNULL(?, description)
 		, number_of_members = IFNULL(?, number_of_members)
 		, is_restricted = IFNULL(?, is_restricted) 
 		where id = ?";

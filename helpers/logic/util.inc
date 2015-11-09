@@ -10,6 +10,11 @@ class util
 		return true;
 	}
 
+	public static function has_error() 
+	{
+		return $_SESSION['red_report_message'];
+	}
+
 	public static function report_error($message) 
 	{
 		$_SESSION['report_message'] = $message;

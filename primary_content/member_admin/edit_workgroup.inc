@@ -24,13 +24,11 @@
 		<input type="text" name="number_of_members" id="number_of_members" value="<?php echo $workgroup['number_of_members']; ?>" tabindex="5">
 		<br>
 	<?php endif; ?>
-
-	<label for "description">Beskrivning av arbetsgruppen</label>
-	<textarea name="description" id="description" cols="60" rows="10" tabindex="6"><?php echo forum_helpers::de_process_text($workgroup['description']); ?></textarea>
-	<br>
 	<input type="submit" value="Ändra" tabindex="7">
-
 </form>
+<?php
+	\View\forum::output_text_editor('edit_description', 'Beskrivning av arbetsgruppen', $_GET['id'], $workgroup['description'], "Ändra");
+?>
 
 <form method="post" action="" class="standard-form">
 

@@ -1,9 +1,7 @@
 <?php 
-
-if(isset($_POST['confirm_change'])){
 	$is_member = db_workgroup::is_member($_GET['id'], $_SESSION['id']);
 	if($is_member){
-		$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['description']));
+		$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['edit_description_content']));
 		if($ok)
 			$_SESSION['report_message'] = "Beskrivningen ändrad";
 		else
@@ -11,4 +9,4 @@ if(isset($_POST['confirm_change'])){
 	}
 	else
 		\Logic\util::report_error("Du är inte medlem i den arbetsgruppen");
-}
+?>
