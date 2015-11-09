@@ -17,7 +17,7 @@
 			<a href="index.php?type=member&action=view&id=<?php echo $post_info['user_id']; ?>"><?php echo $post_info['user_full_name']; ?></a>
 		</td>
 		<td class="single_post_bottom_right_cell">
-			<?php echo nl2br($post_info['content']); ?>
+			<?php echo \View\general::make_html_from_wiki_text($post_info['content']); ?>
 			<?php if(isset($post_info['last_edited_time'])) : ?>
 				<br><br>
 				<i>Ändrades senast <?php echo strtolower(general_helpers::show_date($post_info['last_edited_time'])); ?>.</i>

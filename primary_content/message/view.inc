@@ -45,7 +45,7 @@
 		<?php endif; ?>
 	</td>
 	<td>
-		<?php echo nl2br($message['content']); ?>
+		<?php echo \View\general::make_html_from_wiki_text($message['content']); ?>
 	</td>
 	</tr>
 	</table>

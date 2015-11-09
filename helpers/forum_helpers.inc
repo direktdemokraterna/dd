@@ -149,14 +149,14 @@ class forum_helpers
 	}
 	// close opened html tags
 
-	public static function de_process_text ($deprocessed_text)
+	public static function de_process_text ($html_text)
 	{
-		$deprocessed_text = self::replace_format_tags_with_brackets($deprocessed_text);
+		$deprocessed_text = self::replace_format_tags_with_brackets($html_text);
 		$deprocessed_text = strip_tags($deprocessed_text);
 		return $deprocessed_text;
 	}
 
-	public static function de_process_post_text ($deprocessed_text)
+	public static function de_process_post_text ($html_text)
 	{
 		$deprocessed_text = self::replace_format_tags_with_brackets($deprocessed_text);
 		$deprocessed_text = preg_replace("~<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php\?type=forum&action=show_posts&topic_id=([0-9]+)\">.+</a>\n~", "[quote=$1]", $deprocessed_text);
@@ -195,6 +195,17 @@ class forum_helpers
 			return self::get_page_from_post_number($posts_before_this_post+1);
 		}
 		return 1;
+	}
+
+	public static function replace_brackets_with_html_tags($wiki_text)
+	{
+		$html_text = str_replace("[b]", "<b>", $wiki_text);
+		$html_text = str_replace("[/b]", "</b>", $html_text);
+		$html_text = str_replace("[i]", "<i>", $html_text);
+		$html_text = str_replace("[/i]", "</i>", $html_text);
+		$html_text = str_replace("[u]", "<u>", $html_text);
+		$html_text = str_replace("[/u]", "</u>", $html_text);
+		return $html_text;
 	}
 
 	private static function get_page_from_post_number($number) {

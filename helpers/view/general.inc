@@ -70,6 +70,11 @@ class general
 		return (in_array($_GET['action'], $actions) ? "&from_action=" . $_GET['action'] : '');
 	}
 
+	public static function make_html_from_wiki_text($wiki_text) {
+		$html_text = \forum_helpers::replace_brackets_with_html_tags($wiki_text);
+		return nl2br($html_text);
+	}
+
 	private static function open_select($control_name, $attributes) {
 		echo('<select name="' . $control_name . '" id="' . $control_name . '"'
 			. ($attributes != null ? ' ' . $attributes : '') . '>' . PHP_EOL);

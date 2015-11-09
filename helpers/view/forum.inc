@@ -133,7 +133,7 @@ class forum
 	{
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
-		echo '<span id="post_content_' . $post_id . '">' . nl2br($post_info['content']) . '</span>';
+		echo '<span id="post_content_' . $post_id . '">' . \View\general::make_html_from_wiki_text($post_info['content']) . '</span>';
 		if(isset($post_info['last_edited_time']))
 			echo('<span class="post_last_edited">Ändrades senast ' . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			

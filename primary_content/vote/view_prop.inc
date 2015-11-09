@@ -68,7 +68,7 @@
 <strong>Antal delegater som röstat: </strong><?php echo $number_of_ballots['number_of_delegate_ballots']; ?><br>
 
 <strong>Beskrivning:</strong><br>
-<?php echo nl2br($propinfo['description']); ?>
+<?php echo \View\general::make_html_from_wiki_text($propinfo['description']); ?>
 </p>
 
 <?php if($number_of_ballots['number_of_delegate_ballots'] > 0) : ?>
