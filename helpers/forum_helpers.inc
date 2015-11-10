@@ -47,7 +47,6 @@ class forum_helpers
 			}
 			else{
 				$_SESSION['report_message'] = "Ett citat i ditt inlägg är inte korrekt.";
-				db_error::insert_error_message($_SESSION['id'], $message , "red");
 				return null;
 			}
 		}
@@ -199,13 +198,38 @@ class forum_helpers
 
 	public static function replace_brackets_with_html_tags($wiki_text)
 	{
-		$html_text = str_replace("[b]", "<b>", $wiki_text);
+		$html_text = $wiki_text;
+		$html_text = self::replace_quotes($html_text);	
+		$html_text = str_replace("[b]", "<b>", $html_text);
 		$html_text = str_replace("[/b]", "</b>", $html_text);
 		$html_text = str_replace("[i]", "<i>", $html_text);
 		$html_text = str_replace("[/i]", "</i>", $html_text);
 		$html_text = str_replace("[u]", "<u>", $html_text);
 		$html_text = str_replace("[/u]", "</u>", $html_text);
 		return $html_text;
+	}
+
+	public static function replace_quotes($wiki_text)
+	{
+		$html_text = $wiki_text;
+		$html_text = str_replace("[quote]", "<div class='quote_in_post'>", $html_text);	
+		$html_text = self::replace_named_open_quotes($html_text);	
+		$html_text = str_replace("[/quote]", "</div>", $html_text);
+		return $html_text;
+	}
+
+	private static function replace_named_open_quotes($html_text) {
+		$html_text = preg_replace_callback("/\\[quote=(\d+)\\]/i", 
+			function ($matches) {
+				return "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.	php?type=forum&action=show_posts&post_id=$matches[1]#post$matches[1]\">" .
+				self::get_name_of_poster($matches[1]) . " skrev:</a><br><br>";
+			}, $html_text);
+		return $html_text;	
+	}
+
+	private static function get_name_of_poster($post_id) {
+		$post_info = \db_forum::get_post_info($post_id);
+		return $post_info['full_name'];
 	}
 
 	private static function get_page_from_post_number($number) {

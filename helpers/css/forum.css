@@ -166,15 +166,7 @@
     min-height: 0px;
   }
 }
-/*
-.post_buttons_div {
 
-}
-
-#post_buttons {
-
-}
-*/
 .new_post_content {
 
 }
@@ -320,8 +312,8 @@ fieldset input[type="submit"]{
 }
 
 .quote_in_post{
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
+  border-top: 1px dashed #dddddd;
+  border-bottom: 1px dashed #dddddd;
   padding: 10px 5px 10px 15px;
   font-size: 14px;
   font-style: italic;

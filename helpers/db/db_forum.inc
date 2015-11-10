@@ -24,7 +24,7 @@ class db_forum
 
 	public static function get_post_info ($post_id)
 	{
-		$query = "select p.id as post_id, p.title as title, u.id as user_id, concat(u.first_name, ' ', u.last_name) as full_name, p.forum_id as forum_id, p.topic_id as topic_id, p.			posted_time as posted_time
+		$query = "select p.id as post_id, p.title as title, u.id as user_id, concat(u.first_name, ' ', u.last_name) as full_name, p.forum_id as forum_id, p.topic_id as topic_id, p.posted_time as posted_time
 					from post p, user u where u.id = p.user_id and p.id = ?";
 		$values = Array($post_id);
 		return db::select_single_row($query, $values);

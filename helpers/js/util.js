@@ -8,7 +8,8 @@ function replaceAll(search, replacement, str) {
 
 function html_to_bbcode(html_str) {
 	bbcode_str = html_str;
-	bbcode_str = replaceAll('<br>', '\r\n', bbcode_str);
+	bbcode_str = bbcode_str.replace(/\s+/g, ' ');
+	bbcode_str = bbcode_str.replace(/\s*<br>\s*/g, '\n');
 	bbcode_str = replaceAll('<b>', '[b]', bbcode_str);
 	bbcode_str = replaceAll('<i>', '[i]', bbcode_str);
 	bbcode_str = replaceAll('<u>', '[u]', bbcode_str);
