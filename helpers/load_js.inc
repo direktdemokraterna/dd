@@ -8,6 +8,7 @@
 <script src="helpers/js/session.js"></script>
 <script src="helpers/js/validateForm.js"></script>
 <script src="helpers/js/constituency.js"></script>
+<script src="helpers/js/util.js"></script>
 
 <?php if($_GET['type'] == "vote") : ?>
 <script src="helpers/js/vote.js"></script>
