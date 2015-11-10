@@ -75,7 +75,7 @@ class general
 	}
 
 	public static function make_html_from_wiki_text($wiki_text) {
-		$html_text = \forum_helpers::bbcode_to_html($wiki_text);
+		$html_text = \forum_helpers::replace_brackets_with_html_tags($wiki_text);
 		return nl2br($html_text);
 	}
 

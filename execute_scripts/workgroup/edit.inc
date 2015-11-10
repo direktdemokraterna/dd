@@ -1,8 +1,7 @@
 <?php 
 	$is_member = db_workgroup::is_member($_GET['id'], $_SESSION['id']);
 	if($is_member){
-		$processed_text = forum_helpers::html_to_bbcode($_POST['edit_description_content']);
-		$ok = db_workgroup::update($_GET['id'], $processed_text);
+		$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['edit_description_content']));
 		if($ok)
 			$_SESSION['report_message'] = "Beskrivningen ändrad";
 		else

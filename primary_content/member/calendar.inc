@@ -54,7 +54,7 @@
 			<strong>Tidpunkt: </strong><?php echo $row['time']; ?><br>
 			<strong>Plats: </strong><?php echo $row['location']; ?><br>
 			<strong>Upplagd av: </strong><a href="index.php?type=member&action=view&id=<?php echo $row['user_id']; ?>"><?php echo $row['full_name']; ?></a><br>
-			<strong>Beskrivning: </strong><?php echo \forum_helpers::bbcode_to_html($row['content']); ?><br>
+			<strong>Beskrivning: </strong><?php echo \View\general::make_html_from_wiki_text($row['content']); ?><br>
 			<br>
 			<strong>Anmälda deltagare:</strong><br>
 

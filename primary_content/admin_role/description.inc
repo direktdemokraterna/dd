@@ -3,7 +3,7 @@
 <h1><?php echo $admin_role_info['title']; ?></h1>
 
 <p><strong>Beskrivning:</strong><br>
-<?php echo \forum_helpers::bbcode_to_html($admin_role_info['description']); ?>
+<?php echo \View\general::make_html_from_wiki_text($admin_role_info['description']); ?>
 </p>
 <br>
 <br>

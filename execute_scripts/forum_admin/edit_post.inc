@@ -21,10 +21,9 @@
 			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $_GET['id'];
 		}
 	}
-	elseif(isset($_POST['edit_post_content'])){
-		$text = $_POST['edit_post_content'] . "<br><br>Inlägget ändrat av moderator " . date("Y-m-d G:i");
-		$processed_text = \forum_helpers::html_to_bbcode($text);
-		$ok = forum_helpers::update_post_content($_GET['id'], $processed_text, "edit");
+	elseif(isset($_POST['edit'])){
+		$text = $_POST['edit_post_content'] . "\n\nInlägget ändrat av moderator " . date("Y-m-d G:i");
+		$ok = forum_helpers::update_post_content($_GET['id'], $text, "edit");
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har redigerats."; 
 			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $_GET['id'];

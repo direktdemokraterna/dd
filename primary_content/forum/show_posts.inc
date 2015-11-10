@@ -14,6 +14,6 @@
 		\View\forum::show_posts("index.php?type=forum&action=show_posts&topic_id=" . $topic_id, $page, $posts, $post_count);
 		if(isset($_SESSION['is_forum_admin']))
 			echo '<p><a href="index.php?type=forum_admin&action=edit_topic&id=' . $topic_id . '" style="float: right; margin-top: 20px;">Moderera ämne</a></p>';
-		\View\forum::output_rich_text_editor('new_post', 'Skriv svar i tråden', $topic_id, '', 'Skicka');
+		\View\forum::output_text_editor('new_post', 'Skriv svar i tråden', $topic_id, '', 'Skicka');
 	}
 ?>
