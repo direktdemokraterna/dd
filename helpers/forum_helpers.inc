@@ -5,8 +5,8 @@ class forum_helpers
 	public static function process_text ($text)
 	{
 		$processed_text = general_helpers::clean($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
-		$processed_text = forum_helpers::urls_to_links($processed_text);
-		$processed_text = forum_helpers::closetags($processed_text);
+		$processed_text = self::urls_to_links($processed_text);
+		$processed_text = self::closetags($processed_text);
 		$processed_text = self::replace_format_tags_with_brackets($processed_text);
 		return $processed_text;
 	}
@@ -101,20 +101,9 @@ class forum_helpers
 
 		    // Check if the TLD is valid - or that $domain is an IP address.
 	    	$tld = strtolower(strrchr($domain, '.'));
-	    	if (preg_match('{\.[0-9]{1,3}}', $tld) || isset($validTlds[$tld]))
-		    {
-	    	    // Prepend http:// if no protocol specified
-	        	$completeUrl = $match[1][0] ? $url : "http://$url";
-
-	        	// Print the hyperlink.
-		        $return_value .= sprintf('<a href="%s" target="_blank">%s</a>', $completeUrl, "$domain$port$path");
-	    	}
-		    else
-	    	{
-	        	// Not a valid URL.
-	        	$return_value .= $url;
-		    }
-
+	    	$return_value .= preg_match('{\.[0-9]{1,3}}', $tld) || isset($validTlds[$tld])
+	    		? "[link]" . "$domain$port$path" . "[/link]"
+				: $url;
 	    	// Continue text parsing from after the URL.
 	    	$position = $urlPosition + strlen($url);
 		}
@@ -206,7 +195,32 @@ class forum_helpers
 		$html_text = str_replace("[/i]", "</i>", $html_text);
 		$html_text = str_replace("[u]", "<u>", $html_text);
 		$html_text = str_replace("[/u]", "</u>", $html_text);
+		$html_text = self::replace_links_with_a_tags($html_text);
 		return $html_text;
+	}
+
+	private static function replace_links_with_a_tags($text) {
+		$pos = 0;
+		$open_link = "[link]";
+		$close_link = "[/link]";
+		while (true) {
+			$start_link_index = strpos($text, $open_link, $pos);
+			if ($start_link_index === false) break;
+			$end_link_index = strpos($text, $close_link, $pos);
+			if ($end_link_index === false) break;
+			$start_url_index = $start_link_index + strlen($open_link);
+			$link_text = substr($text, $start_url_index, $end_link_index - $start_url_index);
+			$bbcode_link = $open_link . $link_text . $close_link;
+			$html_link = self::create_html_link($link_text);
+			$text = str_replace($bbcode_link, $html_link, $text);
+			$pos = $start_link_index + strlen($html_link);
+		}
+		return $text;
+	}
+
+	private static function create_html_link($url) {
+		$completeUrl = \Logic\util::starts_With($url, "http") ? $url : "http://$url";
+		return "<a href=\"$completeUrl\" target=\"_blank\">$url</a>";
 	}
 
 	public static function replace_quotes($wiki_text)

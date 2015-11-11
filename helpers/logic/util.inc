@@ -20,4 +20,8 @@ class util
 		$_SESSION['report_message'] = $message;
 		$_SESSION['red_report_message'] = 1;
 	}
+
+	public static function starts_With($haystack, $needle) {
+		return strpos($haystack, $needle) === 0;
+	}
 }
