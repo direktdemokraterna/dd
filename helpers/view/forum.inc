@@ -117,6 +117,7 @@ class forum
 		general::open_div("post_bottom_row");
 		self::make_post_user_tag($post_info);
 		self::make_post_content($post_info);
+		self::make_post_content_bbcode($post_info);
 		general::close_div();
 	}
 
@@ -133,11 +134,23 @@ class forum
 	{
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
-		echo '<span id="post_content_' . $post_id . '">' . \View\general::make_html_from_wiki_text($post_info['content']) . '</span>';
+		echo '<span>' . \View\general::make_html_from_wiki_text($post_info['content']) . '</span>';
 		if(isset($post_info['last_edited_time']))
 			echo('<span class="post_last_edited">Ändrades senast ' . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			
 		general::close_div();
+	}
+
+	private static function make_post_content_bbcode($post_info) 
+	{
+		$post_id = $post_info['post_id'];
+		echo '<input type="hidden" id="post_content_' . $post_id . '" value="' . 
+		self::escape_double_quotes($post_info['content']) . '"/>';
+	}
+
+	private static function escape_double_quotes($text) {
+		$text = str_replace("\"", "&quot;", $text);
+		return $text;
 	}
 
 	private static function output_topic_link_for_post($post_info)

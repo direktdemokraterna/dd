@@ -1,0 +1,29 @@
+<?php
+namespace Logic;
+
+class forum 
+{
+	public static function insert_post($topic_id, $post_content) 
+	{
+		$forum_id = \db_forum::get_forum_from_post_id($topic_id);
+		$check_access = \db_forum::check_access($_SESSION['id'], $forum_id);
+		if($check_access){
+			$post_insert_id = \db_forum::new_post($_SESSION['id'], $topic_id);
+			self::insert_post_content($post_insert_id, $post_content);
+		}
+		else
+			\Logic\util::report_error("Du har inte behörighet till det forumet.");
+	}
+
+	private static function insert_post_content($post_id, $post_content) 
+	{
+		$processed_content = \forum_helpers::process_text($post_content);
+		$ok = \db_forum::add_content_to_post($post_id, $processed_content);
+		if($ok){
+			$_SESSION['report_message'] = "Inlägg skapat.";
+			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_insert_id;
+		}
+		else 
+			\Logic\util::report_error("Det gick inte att skapa inlägget");
+	}
+}

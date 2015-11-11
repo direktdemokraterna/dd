@@ -18,14 +18,11 @@
 	<?php if(empty($topics)) : ?>
 		<p>Inga ämnen i detta forum.</p>
 	<?php else : ?>
-
 		<div class="topic_list">
 		<div class="topic_list_top_row">
 			<span class="subject_column">Ämne</span><span class="numerical_column">Deltagare</span><span class="numerical_column">Inlägg</span><span class="last_post_column">Senaste inlägg</span>
 			<div style="clear: both;"></div>
 		</div>
-
-
 		<?php foreach($topics as $row) : ?>
 			<?php 
 				$number_of_pages = ceil( $row['number_of_posts'] / POSTS_PER_PAGE );

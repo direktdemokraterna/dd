@@ -50,18 +50,14 @@ function make_underline (element) {
 }
 
 function get_text_to_quote (post_id) {
-	var selection = document.getSelection();
-	if (!isNullOrWhitespace(selection))
-		return selection;
 	var post_content_post_id = 'post_content_' + post_id;
-	var str = document.getElementById(post_content_post_id).innerHTML;
+	var str = document.getElementById(post_content_post_id).value;
 	return str;
 }
 
 function quote_post (post_id) {
 	var textarea = document.getElementById("new_post_content");
 	var text_to_quote = get_text_to_quote(post_id);
-	text_to_quote = html_to_bbcode(text_to_quote);
 	var newlines = textarea.value.length ? '\n\n' : '';
 	textarea.value += newlines + '[quote=' + post_id + ']' + text_to_quote + '[/quote]\n\n';
 	window.setTimeout(function() { textarea.focus(); },10);

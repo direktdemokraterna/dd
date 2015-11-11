@@ -38,6 +38,7 @@ include(dirname(__FILE__)."/db/db_constituency.inc");
 include(dirname(__FILE__)."/logic/vote.inc");
 include(dirname(__FILE__)."/logic/util.inc");
 include(dirname(__FILE__)."/logic/user.inc");
+include(dirname(__FILE__)."/logic/forum.inc");
 
 include(dirname(__FILE__)."/view/general.inc");
 include(dirname(__FILE__)."/view/vote.inc");
