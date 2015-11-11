@@ -3,6 +3,11 @@ namespace Logic;
 
 class forum 
 {
+	public static function is_recent_post($post_info) 
+	{
+		return $post_info['posted_time'] > (time() - 10*60);
+	}
+
 	public static function insert_post($topic_id, $post_content) 
 	{
 		$forum_id = \db_forum::get_forum_from_post_id($topic_id);

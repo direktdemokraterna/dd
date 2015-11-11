@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<?php
-			navigation_helpers::execute_action_script();
+			navigation_helpers::handle_action_request();
 			session::login_logout();
 			require(isset($_SESSION['id']) ? "index_logged_in.inc" : "index_logged_out.inc");
 		?>

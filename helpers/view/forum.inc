@@ -95,7 +95,7 @@ class forum
 			echo '&nbsp;';
 		}
 		if($user_id == $_SESSION['id']) {
-			if($post_info['posted_time'] > (time() - 10*60)) {
+			if(\Logic\forum::is_recent_post($post_info)) {
 				general::output_internal_link("Radera", "forum", "delete", "id=" . $post_id
 					, null, "Vill du verkligen radera inlägget?");
 				echo '&nbsp;';

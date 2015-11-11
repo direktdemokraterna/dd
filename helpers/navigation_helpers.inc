@@ -2,16 +2,22 @@
 class navigation_helpers {
 	private static $divisions = null;
 
-	public static function execute_action_script() {
-		if (empty($_POST)) return;
-
+	public static function handle_action_request() 
+	{
 		$divisionName = $_GET['type'];
 		$division = self::get_division($divisionName);
 		if ($division == null) return;
-
 		$pageInfo = $division->get_page($_GET['action'], Page_info::EXECUTE);
-		if ($pageInfo == null) return;
+		if ($pageInfo && !self::is_view_request($pageInfo)) 
+			self::execute_action($divisionName, $pageInfo);
+	}
 
+	private static function is_view_request($pageInfo) {
+		return empty($_POST) && $pageInfo->is_applicable(Page_info::VIEW);
+	}
+
+	private static function execute_action($divisionName, $pageInfo) 
+	{
 		$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
 		require($path);
 		if (empty($redirect))
