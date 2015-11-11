@@ -26,7 +26,7 @@ class forum
 		$ok = \db_forum::add_content_to_post($post_id, $processed_content);
 		if($ok){
 			$_SESSION['report_message'] = "Inlägg skapat.";
-			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_insert_id;
+			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id;
 		}
 		else 
 			\Logic\util::report_error("Det gick inte att skapa inlägget");

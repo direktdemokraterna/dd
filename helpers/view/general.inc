@@ -62,7 +62,7 @@ class general
 		$url = 'index.php?type=' . $type . '&action=' . $action . (empty($params) ? '' : '&' . $params);
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
-		$onclick = ($confirm ? " return confirm('" . $confirm . "')" : '');
+		$onclick = ($confirm ? " onclick=\"return confirm('" . $confirm . "')\"" : "");
 		return '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>'; 
 	}	
 
