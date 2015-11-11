@@ -107,7 +107,7 @@ class vote
 		if($voteinfo['type'] == "workgroup-election") {
 			$workgroup_id = $voteinfo['from_proposition_id'];
 			$workgroup_title = \db_workgroup::get_name_from_id($workgroup_id);
-			echo '<p>Den här omröstningen utser medlemmarna till arbetsgruppen <a href="index.php?type=workgroup&action=view&id=<?php echo $workgroup_id; ?>"><?php echo $workgroup_title; ?></a></p>';
+			echo '<p>Den här omröstningen utser medlemmarna till arbetsgruppen <a href="index.php?type=workgroup&action=view&id=" . $workgroup_id . ">' . $workgroup_title . '</a></p>';
 		}		
 	}
 
