@@ -35,7 +35,7 @@ class forum
 		$paging_info = Paging_info::create($page, $post_count);
 		self::show_paging_row($url_without_page, $paging_info);
 		foreach($posts as $post_info)
-			self::make_post($post_info);			
+			self::output_post($post_info);			
 		self::show_paging_row($url_without_page, $paging_info);
 	}
 
@@ -54,17 +54,17 @@ class forum
 		general::close_div();
 	}
 
-	private static function make_post($post_info) 
+	public static function output_post($post_info, $show_action_buttons = true) 
 	{
 		$post_element_id = self::make_post_element_id($post_info['post_id']);
 		general::open_div("single_post_container anchor", $post_element_id);
-		self::make_post_header($post_info);
+		self::make_post_header($post_info, $show_action_buttons);
 		self::make_post_body($post_info);
 		echo '<div style="clear: both;"></div>';
 		general::close_div();
 	}
 
-	private static function make_post_header($post_info) 
+	private static function make_post_header($post_info, $show_action_buttons) 
 	{
 		$post_id = $post_info['post_id'];
 		$post_element_id = self::make_post_element_id($post_id);
@@ -75,7 +75,8 @@ class forum
 		}
 		echo '</span>';
 		general::open_span("post_alternatives");
-		self::make_post_actions($post_info);
+		if ($show_action_buttons)
+			self::make_post_actions($post_info);
 		self::make_post_reference_link($post_id);
 		general::close_span();
 		general::close_div();

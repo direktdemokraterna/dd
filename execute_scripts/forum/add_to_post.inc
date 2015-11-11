@@ -1,16 +1,14 @@
 <?php
-	$post_info = db_forum::get_post_info($_GET['id']);
-
+	$post_id = $_GET['id'];
+	$post_info = db_forum::get_post_info($post_id);
 	if($post_info['user_id'] == $_SESSION['id']){ // Allowed to add to post
-		$text = "\n\nTILLÄGG:\n" . $_POST['edit_post_content'];
-		$ok = forum_helpers::update_post_content($_GET['id'], $text, "add");
+		$text = "\n\nTILLÄGG:\n" . $_POST['add_to_post_content'];
+		$ok = forum_helpers::update_post_content($post_id, $text, "add");
 		if($ok){
 			$_SESSION['report_message'] = "Inlägget har försetts med tillägg.";
-			$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $post_info['topic_id'] . "&page=last";
+			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id;
 		}
 	}
-	else{
-		$_SESSION['report_message'] = "Du har inte behörighet till det inlägget.";
-		db_error::insert_error_message($_SESSION['id'], $message , "red");
-	}
+	else
+		\Logic\util::report_error("Du har inte behörighet till det inlägget.");
 ?>
