@@ -15,6 +15,10 @@
 					"sv" => "Kalender"
 					,"en" => "Calendar"
 					)
+				,"Create new workgroup" => array(
+					"sv" => "Skapa ny arbetsgrupp"
+					,"en" => "Create new workgroup"
+					)
 				,"Delegates" => array(
 					"sv" => "Delegater"
 					,"en" => "Delegates"
@@ -79,6 +83,22 @@
 					"sv" => "Kom ihåg mig"
 					,"en" => "Remember me"
 					)
+				,"Search" => array(
+					"sv" => "Sök"
+					,"en" => "Search"
+					)
+				,"Search workgroup" => array(
+					"sv" => "Sök arbetsgrupp"
+					,"en" => "Search workgroup"
+					)
+				,"See proposed workgroups" => array(
+					"sv" => "Se föreslagna arbetsgrupper"
+					,"en" => "See proposed workgroups"
+					)
+				,"See workgroups" => array(
+					"sv" => "Se arbetsgrupper"
+					,"en" => "See workgroups"
+					)
 				,"Superadmin" => array(
 					"sv" => "Superadmin"
 					,"en" => "Superadmin"
@@ -102,6 +122,10 @@
 				,"Votes" => array(
 					"sv" => "Omröstningar"
 					,"en" => "Votes"
+					)
+				,"Workgroups" => array(
+					"sv" => "Arbetsgrupper"
+					,"en" => "Workgroups"
 					)
 			);
 		}	
