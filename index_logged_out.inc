@@ -9,12 +9,12 @@
 <form method="post" id="login-form" action="index.php?login=1">
 <input type="hidden" name="login" value="1">
 <p>
-<label for "username">Användarnamn</label>
+<label for "username"><?php __("Username"); ?></label>
 <input type="text" name="username" id="username" tabindex="1">
-<br><label for "password">Lösenord</label>
+<br><label for "password"><?php __("Password"); ?></label>
 <input type="password" name="password" id="password" tabindex="2"></p>
-<p><label for "rememberme">Kom ihåg mig<input type="checkbox" name="rememberme" id="rememberme"></label>
-<span><input type="submit" value="Logga in"></span>
+<p><label for "rememberme"><?php __("Remember me"); ?><input type="checkbox" name="rememberme" id="rememberme"></label>
+<span><input type="submit" value="<?php __("Login"); ?>"></span>
 </p>
 </form>
 

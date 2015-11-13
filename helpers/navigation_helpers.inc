@@ -2,6 +2,11 @@
 class navigation_helpers {
 	private static $divisions = null;
 
+	public static function get_sidebar_page() {
+		$page = self::get_sidebar_page_name();
+		return "sidebar/$page.inc";
+	}
+
 	public static function handle_action_request() 
 	{
 		$divisionName = $_GET['type'];
@@ -10,6 +15,12 @@ class navigation_helpers {
 		$pageInfo = $division->get_page($_GET['action'], Page_info::EXECUTE);
 		if ($pageInfo && !self::is_view_request($pageInfo)) 
 			self::execute_action($divisionName, $pageInfo);
+	}
+
+	public static function get_sidebar_page_name() {
+		$divisionName = $_GET['type'];
+		$division = self::get_division($divisionName);
+		return $division ? $divisionName : "default";
 	}
 
 	private static function is_view_request($pageInfo) {
@@ -28,7 +39,7 @@ class navigation_helpers {
 
 	public static function get_subpage() {
 		$path = self::get_specific_path();
-		return $path != null 
+		return $path
 			? $path
 			: "primary_content/first_page.inc";
 	}
