@@ -8,23 +8,23 @@
 		<a onClick="toggle_mobile_user_menu()"><span class="fa fa-user alt-header-button right" id="alt-user-menu"></span></a>
 	</div>
 	<ul id="hide_menu">
-		<li><a href="index.php?type=member">Användare</a>
+		<li><?php \View\general::output_internal_link("User", "member"); ?>
 			<ul>
-				<li><a href="index.php?type=member&action=calendar">Kalender</a></li>
-				<li><a href="index.php?type=member&action=settings">Min profil</a></li>
-				<li><a href="index.php?type=member&action=memberlist">Medlemmar</a></li>
-				<li><a href="index.php?type=member&action=admin_list">Administratörer</a></li>
+				<li><?php \View\general::output_internal_link("Calendar", "member", "calendar"); ?></li>
+				<li><?php \View\general::output_internal_link("My profile", "member", "settings"); ?></li>
+				<li><?php \View\general::output_internal_link("Members", "member", "memberlist"); ?></li>
+				<li><?php \View\general::output_internal_link("Administrators", "member", "admin_list"); ?></li>
 			</ul>
 		</li>
 		<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>
 			<li id="unread-mail"><a href="index.php?type=message&action=inbox" style="min-width: 10px; padding: 0 0 0 0;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-envelope-o" id="fa-envelope-o"></span></a>
 			</li>
 		<?php endif; ?>
-		<li><a href="index.php?type=message">Meddelanden</a>
+		<li><?php \View\general::output_internal_link("Messages", "message"); ?>
 			<ul>
-				<li><a href="index.php?type=message&action=inbox">Inbox</a></li>
-				<li><a href="index.php?type=message&action=outbox">Skickade</a></li>
-				<li><a href="index.php?type=message&action=write">Skriv meddelande</a></li>
+				<li><?php \View\general::output_internal_link("Inbox", "message", "inbox"); ?></li>
+				<li><?php \View\general::output_internal_link("Outbox", "message", "outbox"); ?></li>
+				<li><?php \View\general::output_internal_link("New message", "message", "write"); ?></li>
 			</ul>
 		</li>
 		<li><a href="index.php?type=workgroup">Arbetsgrupper</a>
@@ -35,47 +35,49 @@
 				<?php endforeach; ?>
 			</ul>
 		</li>
-		<li><a href="index.php?type=vote">Omröstningar</a>
+		<li><?php \View\general::output_internal_link("Votes", "vote"); ?>
 			<ul>
-				<li><a href="index.php?type=vote&action=list_props">Propositioner</a></li>
-				<li><a href="index.php?type=vote&action=list_active_votes">Omröstningar</a></li>
-				<li><a href="index.php?type=vote&action=delegations">Delegater</a></li>
+				<li><?php \View\general::output_internal_link("Propositions", "vote", "list_props"); ?></li>
+				<li><?php \View\general::output_internal_link("Votes", "vote", "list_active_votes"); ?></li>
+				<li><?php \View\general::output_internal_link("Delegates", "vote", "delegations"); ?></li>
 			</ul>
 		</li>
-		<li><a href="index.php?type=forum">Forum</a>
+		<li><?php \View\general::output_internal_link("Forum", "forum"); ?>
 			<ul>
 				<li></li>
 			</ul>
 		</li>
 		<?php if(isset($_SESSION['admin'])) : ?>
-		<li><a href="#">Admin</a>
+		<li><a href="#"><?php __("Admin"); ?></a>
 			<ul>
-				<?php if(isset($_SESSION['is_member_admin'])) : ?>
-				<li><a href="index.php?type=member_admin">Medlemsansvarig</a></li>
-				<?php endif; ?>
-				<?php if(isset($_SESSION['is_forum_admin'])) : ?>
-				<li><a href="index.php?type=forum_admin">Forumadministratör</a></li>
-				<?php endif; ?>
-				<?php if(isset($_SESSION['is_vote_admin'])) : ?>
-				<li><a href="index.php?type=vote_admin">Valadministratör</a></li>
-				<?php endif; ?>
-				<?php if(isset($_SESSION['is_treasurer'])) : ?>
-				<li><a href="index.php?type=treasurer">Kassör</a></li>
-				<?php endif; ?>
-				<?php if(isset($_SESSION['is_superadmin'])) : ?>
-				<li><a href="index.php?type=superadmin">Superadmin</a></li>
-				<?php endif; ?>
+				<?php 
+					if(isset($_SESSION['is_member_admin']))
+						echo '<li>' . \View\general::generate_internal_link("Member admin", "member_admin") . 
+					'</li>';
+					if(isset($_SESSION['is_forum_admin']))
+						echo '<li>' . \View\general::generate_internal_link("Forum admin", "forum_admin") . 
+					'</li>';
+					if(isset($_SESSION['is_vote_admin']))
+						echo '<li>' . \View\general::generate_internal_link("Vote admin", "vote_admin") . 
+					'</li>';
+					if(isset($_SESSION['is_treasurer']))
+						echo '<li>' . \View\general::generate_internal_link("Treasurer", "treasurer") . 
+					'</li>';
+					if(isset($_SESSION['is_superadmin']))
+						echo '<li>' . \View\general::generate_internal_link("Superadmin", "superadmin") . 
+					'</li>';
+				?>
 			</ul>
 		</li>
 		<?php endif; ?>
 	</ul>
 	<ul id="logout-link">
 		<li><?php
-				$welcome_text = "Hej, " . db_user::get_user_full_name($_SESSION['id']);
+				$welcome_text = _t("Hello") . ", " . db_user::get_user_full_name($_SESSION['id']);
 				\View\general::output_internal_link($welcome_text, "member", "view");
 			?>
 			<ul>
-				<li><a href="index.php?logout=1">Logga ut</a></li>
+				<li><a href="index.php?logout=1"><?php __("Logout"); ?></a></li>
 			</ul>
 		</li>
 	</ul>

@@ -54,20 +54,21 @@ class general
 		echo('</span>' . PHP_EOL);
 	}
 
-	public static function output_internal_link($label, $type, $action, $params = null, $class = null, $confirm = null) {
+	public static function output_internal_link($label, $type, $action = null, $params = null, $class = null, $confirm = null) {
 		echo self::generate_internal_link($label, $type, $action, $params, $class, $confirm);
 	}	
 
-	public static function generate_internal_link($label, $type, $action, $params = null, $class = null, $confirm = null) {
-		$url = 'index.php?type=' . $type . '&action=' . $action . (empty($params) ? '' : '&' . $params);
+	public static function generate_internal_link($label, $type, $action = null, $params = null, $class = null, $confirm = null) {
+		$url = 'index.php?type=' . $type . ($action ? '&action=' . $action : '') 
+		. (empty($params) ? '' : '&' . $params);
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
-		$onclick = ($confirm ? " onclick=\"return confirm('" . $confirm . "')\"" : "");
-		return '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>'; 
+		$onclick = ($confirm ? " onclick=\"return confirm('" . _t($confirm) . "')\"" : "");
+		return '<a ' . $classAttr . $href . $onclick . '>' . _t($label) . '</a>'; 
 	}	
 
 	public static function make_control_label($control_name, $control_label) {
-		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
+		echo('<br><label for "' . $control_name . '">' . _t($control_label) . '</label>');
 	}	
 
 	public static function get_from_action_for_url($actions) {
