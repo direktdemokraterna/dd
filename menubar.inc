@@ -8,24 +8,28 @@
 		<a onClick="toggle_mobile_user_menu()"><span class="fa fa-user alt-header-button right" id="alt-user-menu"></span></a>
 	</div>
 	<ul id="hide_menu">
-		<li><?php \View\general::output_internal_link("User", "member"); ?>
-			<ul>
-				<li><?php \View\general::output_internal_link("Calendar", "member", "calendar"); ?></li>
-				<li><?php \View\general::output_internal_link("My profile", "member", "settings"); ?></li>
-				<li><?php \View\general::output_internal_link("Members", "member", "memberlist"); ?></li>
-				<li><?php \View\general::output_internal_link("Administrators", "member", "admin_list"); ?></li>
-			</ul>
+		<li><?php 
+			\View\general::output_internal_link("User", "member"); 
+			\View\general::output_link_list("member", array(
+				"calendar" => "Calendar"
+				,"settings" => "My profile"
+				,"memberlist" => "Members"
+				,"admin_list" => "Administrators"
+				)); 
+			?>
 		</li>
 		<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>
 			<li id="unread-mail"><a href="index.php?type=message&action=inbox" style="min-width: 10px; padding: 0 0 0 0;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-envelope-o" id="fa-envelope-o"></span></a>
 			</li>
 		<?php endif; ?>
-		<li><?php \View\general::output_internal_link("Messages", "message"); ?>
-			<ul>
-				<li><?php \View\general::output_internal_link("Inbox", "message", "inbox"); ?></li>
-				<li><?php \View\general::output_internal_link("Outbox", "message", "outbox"); ?></li>
-				<li><?php \View\general::output_internal_link("New message", "message", "write"); ?></li>
-			</ul>
+		<li><?php 
+			\View\general::output_internal_link("Messages", "message"); 
+			\View\general::output_link_list("message", array(
+				"inbox" => "Inbox"
+				,"outbox" => "Outbox"
+				,"write" => "New message"
+				)); 
+			?>
 		</li>
 		<li><a href="index.php?type=workgroup">Arbetsgrupper</a>
 			<ul>
@@ -35,12 +39,14 @@
 				<?php endforeach; ?>
 			</ul>
 		</li>
-		<li><?php \View\general::output_internal_link("Votes", "vote"); ?>
-			<ul>
-				<li><?php \View\general::output_internal_link("Propositions", "vote", "list_props"); ?></li>
-				<li><?php \View\general::output_internal_link("Votes", "vote", "list_active_votes"); ?></li>
-				<li><?php \View\general::output_internal_link("Delegates", "vote", "delegations"); ?></li>
-			</ul>
+		<li><?php 
+			\View\general::output_internal_link("Votes", "vote");
+			\View\general::output_link_list("vote", array(
+				"list_props" => "Propositions"
+				,"list_active_votes" => "Votes"
+				,"delegations" => "Delegates"
+				)); 
+			?>
 		</li>
 		<li><?php \View\general::output_internal_link("Forum", "forum"); ?>
 			<ul>

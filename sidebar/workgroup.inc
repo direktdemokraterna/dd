@@ -1,11 +1,11 @@
 <ul>
 	<li>
 		<h2><?php __("Workgroups"); ?></h2>
-		<ul>
-			<li><?php \View\general::output_internal_link("See workgroups", "workgroup", "listall"); ?></li>
-			<li><?php \View\general::output_internal_link("See proposed workgroups", "workgroup", "listproposed"); ?></li>
-			<li><?php \View\general::output_internal_link("Create new workgroup", "workgroup", "create"); ?></li>
-		</ul>
+		<?php \View\general::output_link_list("workgroup", array(
+			"listall" => "See workgroups"
+			,"listproposed" => "See proposed workgroups"
+			,"create" => "Create new workgroup"
+			));
 	</li>
 	<li>
 		<h2><?php __("Search workgroup"); ?></h2>

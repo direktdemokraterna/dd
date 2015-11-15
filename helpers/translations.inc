@@ -15,6 +15,14 @@
 					"sv" => "Kalender"
 					,"en" => "Calendar"
 					)
+				,"Create new constituency" => array(
+					"sv" => "Skapa ny valkrets"
+					,"en" => "Create new constituency"
+					)
+				,"Create new vote" => array(
+					"sv" => "Skapa ny omröstning"
+					,"en" => "Create new vote"
+					)
 				,"Create new workgroup" => array(
 					"sv" => "Skapa ny arbetsgrupp"
 					,"en" => "Create new workgroup"
@@ -38,6 +46,14 @@
 				,"Inbox" => array(
 					"sv" => "Inbox"
 					,"en" => "Inbox"
+					)
+				,"List constituencies" => array(
+					"sv" => "Lista valkretsar"
+					,"en" => "List constituencies"
+					)
+				,"List votes" => array(
+					"sv" => "Lista omröstningar"
+					,"en" => "List votes"
 					)
 				,"Login" => array(
 					"sv" => "Logga in"

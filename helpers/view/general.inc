@@ -80,6 +80,13 @@ class general
 		return nl2br($html_text);
 	}
 
+	public static function output_link_list($type, $links) {
+		echo '<ul>';
+		foreach (array_keys($links) as $action)
+			echo '<li>' . self::generate_internal_link($links[$action], $type, $action) . '</li>';
+		echo '</ul>';
+	}
+
 	private static function open_select($control_name, $attributes) {
 		echo('<select name="' . $control_name . '" id="' . $control_name . '"'
 			. ($attributes != null ? ' ' . $attributes : '') . '>' . PHP_EOL);
