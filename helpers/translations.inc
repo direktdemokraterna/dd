@@ -3,189 +3,189 @@
 	{
 		public static function create_translations() {
 			return array(
-				"Admin" => array(
-					"sv" => "Admin"
-					,"en" => "Admin"
+				"active propositions" => array(
+					"sv" => "aktiva propositioner"
+					,"en" => "active propositions"
 					)
-				,"Administrators" => array(
-					"sv" => "Administratörer"
-					,"en" => "Administrators"
+				,"active votes" => array(
+					"sv" => "pågående omröstningar"
+					,"en" => "active votes"
 					)
-				,"Become a delegate" => array(
-					"sv" => "Bli delegat"
-					,"en" => "Become a delegate"
+				,"admin" => array(
+					"sv" => "admin"
+					,"en" => "admin"
 					)
-				,"Calendar" => array(
-					"sv" => "Kalender"
-					,"en" => "Calendar"
+				,"administrators" => array(
+					"sv" => "administratörer"
+					,"en" => "administrators"
 					)
-				,"Create new constituency" => array(
-					"sv" => "Skapa ny valkrets"
-					,"en" => "Create new constituency"
+				,"affirmed" => array(
+					"sv" => "beviljade"
+					,"en" => "affirmed"
 					)
-				,"Create new vote" => array(
-					"sv" => "Skapa ny omröstning"
-					,"en" => "Create new vote"
+				,"become a" => array(
+					"sv" => "bli"
+					,"en" => "become a"
 					)
-				,"Create new workgroup" => array(
-					"sv" => "Skapa ny arbetsgrupp"
-					,"en" => "Create new workgroup"
+				,"calendar" => array(
+					"sv" => "kalender"
+					,"en" => "calendar"
 					)
-				,"Create proposition" => array(
-					"sv" => "Skapa proposition"
-					,"en" => "Create proposition"
+				,"create" => array(
+					"sv" => "skapa"
+					,"en" => "create"
 					)
-				,"Delegates" => array(
-					"sv" => "Delegater"
-					,"en" => "Delegates"
+				,"constituency" => array(
+					"sv" => "valkrets"
+					,"en" => "constituency"
 					)
-				,"Forum" => array(
-					"sv" => "Forum"
-					,"en" => "Forum"
+				,"constituencies" => array(
+					"sv" => "valkretsar"
+					,"en" => "constituencies"
 					)
-				,"Forum admin" => array(
-					"sv" => "Forumadministratör"
-					,"en" => "Forum admin"
+				,"delegate" => array(
+					"sv" => "delegat"
+					,"en" => "delegate"
 					)
-				,"Handle delegate" => array(
-					"sv" => "Hantera delegat"
-					,"en" => "Handle delegate"
+				,"delegates" => array(
+					"sv" => "delegater"
+					,"en" => "delegates"
 					)
-				,"Handle delegations" => array(
-					"sv" => "Se delegeringar"
-					,"en" => "Handle delegations"
+				,"delegations" => array(
+					"sv" => "delegeringar"
+					,"en" => "delegations"
 					)
-				,"Hello" => array(
-					"sv" => "Hej"
-					,"en" => "Hello"
+				,"forum" => array(
+					"sv" => "forum"
+					,"en" => "forum"
 					)
-				,"Inbox" => array(
-					"sv" => "Inbox"
-					,"en" => "Inbox"
+				,"forum admin" => array(
+					"sv" => "forumadministratör"
+					,"en" => "forum admin"
 					)
-				,"List active propositions" => array(
-					"sv" => "Lista aktiva propositioner"
-					,"en" => "List active propositions"
+				,"handle" => array(
+					"sv" => "hantera"
+					,"en" => "handle"
 					)
-				,"List active votes" => array(
-					"sv" => "Lista pågående omröstningar"
-					,"en" => "List active votes"
+				,"hello" => array(
+					"sv" => "hej"
+					,"en" => "hello"
 					)
-				,"List affirmed propositions" => array(
-					"sv" => "Lista beviljade propositioner"
-					,"en" => "List affirmed propositions"
+				,"inbox" => array(
+					"sv" => "inbox"
+					,"en" => "inbox"
 					)
-				,"List constituencies" => array(
-					"sv" => "Lista valkretsar"
-					,"en" => "List constituencies"
+				,"list" => array(
+					"sv" => "lista"
+					,"en" => "list"
 					)
-				,"List delegates" => array(
-					"sv" => "Lista delegater"
-					,"en" => "List delegates"
+				,"login" => array(
+					"sv" => "logga in"
+					,"en" => "login"
 					)
-				,"List old votes" => array(
-					"sv" => "Lista gamla omröstningar"
-					,"en" => "List old votes"
+				,"logout" => array(
+					"sv" => "logga ut"
+					,"en" => "logout"
 					)
-				,"List votes" => array(
-					"sv" => "Lista omröstningar"
-					,"en" => "List votes"
+				,"member admin" => array(
+					"sv" => "medlemsansvarig"
+					,"en" => "member admin"
 					)
-				,"Login" => array(
-					"sv" => "Logga in"
-					,"en" => "Login"
+				,"members" => array(
+					"sv" => "medlemmar"
+					,"en" => "members"
 					)
-				,"Logout" => array(
-					"sv" => "Logga ut"
-					,"en" => "Logout"
+				,"messages" => array(
+					"sv" => "meddelanden"
+					,"en" => "messages"
 					)
-				,"Member admin" => array(
-					"sv" => "Medlemsansvarig"
-					,"en" => "Member admin"
+				,"my profile" => array(
+					"sv" => "min profil"
+					,"en" => "my profile"
 					)
-				,"Members" => array(
-					"sv" => "Medlemmar"
-					,"en" => "Members"
+				,"new message" => array(
+					"sv" => "skriv meddelande"
+					,"en" => "new message"
 					)
-				,"Messages" => array(
-					"sv" => "Meddelanden"
-					,"en" => "Messages"
+				,"new workgroup" => array(
+					"sv" => "Ny arbetsgrupp"
+					,"en" => "new workgroup"
 					)
-				,"My profile" => array(
-					"sv" => "Min profil"
-					,"en" => "My profile"
+				,"old votes" => array(
+					"sv" => "gamla omröstningar"
+					,"en" => "old votes"
 					)
-				,"New message" => array(
-					"sv" => "Skriv meddelande"
-					,"en" => "New message"
+				,"outbox" => array(
+					"sv" => "skickade"
+					,"en" => "outbox"
 					)
-				,"Outbox" => array(
-					"sv" => "Skickade"
-					,"en" => "Outbox"
+				,"password" => array(
+					"sv" => "lösenord"
+					,"en" => "password"
 					)
-				,"Password" => array(
-					"sv" => "Lösenord"
-					,"en" => "Password"
+				,"proposed workgroups" => array(
+					"sv" => "föreslagna arbetsgrupper"
+					,"en" => "proposed workgroups"
 					)
-				,"Propositions" => array(
-					"sv" => "Propositioner"
-					,"en" => "Propositions"
+				,"proposition" => array(
+					"sv" => "proposition"
+					,"en" => "proposition"
 					)
-				,"Remember me" => array(
-					"sv" => "Kom ihåg mig"
-					,"en" => "Remember me"
+				,"propositions" => array(
+					"sv" => "propositioner"
+					,"en" => "propositions"
 					)
-				,"Search" => array(
-					"sv" => "Sök"
-					,"en" => "Search"
+				,"remember me" => array(
+					"sv" => "kom ihåg mig"
+					,"en" => "remember me"
 					)
-				,"Search propositions" => array(
-					"sv" => "Sök propositioner"
-					,"en" => "Search propositions"
+				,"search" => array(
+					"sv" => "sök"
+					,"en" => "search"
 					)
-				,"Search votes" => array(
-					"sv" => "Sök omröstningar"
-					,"en" => "Search votes"
+				,"see" => array(
+					"sv" => "se"
+					,"en" => "see"
 					)
-				,"Search workgroup" => array(
-					"sv" => "Sök arbetsgrupp"
-					,"en" => "Search workgroup"
+				,"superadmin" => array(
+					"sv" => "superadmin"
+					,"en" => "superadmin"
 					)
-				,"See proposed workgroups" => array(
-					"sv" => "Se föreslagna arbetsgrupper"
-					,"en" => "See proposed workgroups"
+				,"treasurer" => array(
+					"sv" => "kassör"
+					,"en" => "treasurer"
 					)
-				,"See workgroups" => array(
-					"sv" => "Se arbetsgrupper"
-					,"en" => "See workgroups"
+				,"user" => array(
+					"sv" => "användare"
+					,"en" => "user"
 					)
-				,"Superadmin" => array(
-					"sv" => "Superadmin"
-					,"en" => "Superadmin"
+				,"username" => array(
+					"sv" => "användarnamn"
+					,"en" => "username"
 					)
-				,"Treasurer" => array(
-					"sv" => "Kassör"
-					,"en" => "Treasurer"
+				,"vote" => array(
+					"sv" => "omröstning"
+					,"en" => "vote"
 					)
-				,"User" => array(
-					"sv" => "Användare"
-					,"en" => "User"
+				,"votes" => array(
+					"sv" => "omröstningar"
+					,"en" => "votes"
 					)
-				,"Username" => array(
-					"sv" => "Användarnamn"
-					,"en" => "Username"
+				,"vote admin" => array(
+					"sv" => "valadministratör"
+					,"en" => "vote admin"
 					)
-				,"Vote admin" => array(
-					"sv" => "Valadministratör"
-					,"en" => "Vote admin"
+				,"votes" => array(
+					"sv" => "omröstningar"
+					,"en" => "votes"
 					)
-				,"Votes" => array(
-					"sv" => "Omröstningar"
-					,"en" => "Votes"
+				,"workgroup" => array(
+					"sv" => "arbetsgrupp"
+					,"en" => "workgroup"
 					)
-				,"Workgroups" => array(
-					"sv" => "Arbetsgrupper"
-					,"en" => "Workgroups"
+				,"workgroups" => array(
+					"sv" => "arbetsgrupper"
+					,"en" => "workgroups"
 					)
 			);
 		}	
