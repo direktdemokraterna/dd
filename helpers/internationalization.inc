@@ -3,6 +3,14 @@
 		echo _t($phrase);
 	}
 
+	function _h1($phrase) {
+		echo '<h1>' . _t($phrase) . '</h1>';
+	}
+
+	function _h2($phrase) {
+		echo '<h2>' . _t($phrase) . '</h2>';
+	}
+
 	function _t($phrase) {
 		return internationalization::translate_phrase($phrase);
 	}

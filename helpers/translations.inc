@@ -11,6 +11,10 @@
 					"sv" => "Administratörer"
 					,"en" => "Administrators"
 					)
+				,"Become a delegate" => array(
+					"sv" => "Bli delegat"
+					,"en" => "Become a delegate"
+					)
 				,"Calendar" => array(
 					"sv" => "Kalender"
 					,"en" => "Calendar"
@@ -27,6 +31,10 @@
 					"sv" => "Skapa ny arbetsgrupp"
 					,"en" => "Create new workgroup"
 					)
+				,"Create proposition" => array(
+					"sv" => "Skapa proposition"
+					,"en" => "Create proposition"
+					)
 				,"Delegates" => array(
 					"sv" => "Delegater"
 					,"en" => "Delegates"
@@ -39,6 +47,14 @@
 					"sv" => "Forumadministratör"
 					,"en" => "Forum admin"
 					)
+				,"Handle delegate" => array(
+					"sv" => "Hantera delegat"
+					,"en" => "Handle delegate"
+					)
+				,"Handle delegations" => array(
+					"sv" => "Se delegeringar"
+					,"en" => "Handle delegations"
+					)
 				,"Hello" => array(
 					"sv" => "Hej"
 					,"en" => "Hello"
@@ -47,9 +63,29 @@
 					"sv" => "Inbox"
 					,"en" => "Inbox"
 					)
+				,"List active propositions" => array(
+					"sv" => "Lista aktiva propositioner"
+					,"en" => "List active propositions"
+					)
+				,"List active votes" => array(
+					"sv" => "Lista pågående omröstningar"
+					,"en" => "List active votes"
+					)
+				,"List affirmed propositions" => array(
+					"sv" => "Lista beviljade propositioner"
+					,"en" => "List affirmed propositions"
+					)
 				,"List constituencies" => array(
 					"sv" => "Lista valkretsar"
 					,"en" => "List constituencies"
+					)
+				,"List delegates" => array(
+					"sv" => "Lista delegater"
+					,"en" => "List delegates"
+					)
+				,"List old votes" => array(
+					"sv" => "Lista gamla omröstningar"
+					,"en" => "List old votes"
 					)
 				,"List votes" => array(
 					"sv" => "Lista omröstningar"
@@ -102,6 +138,14 @@
 				,"Search" => array(
 					"sv" => "Sök"
 					,"en" => "Search"
+					)
+				,"Search propositions" => array(
+					"sv" => "Sök propositioner"
+					,"en" => "Search propositions"
+					)
+				,"Search votes" => array(
+					"sv" => "Sök omröstningar"
+					,"en" => "Search votes"
 					)
 				,"Search workgroup" => array(
 					"sv" => "Sök arbetsgrupp"
