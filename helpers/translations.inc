@@ -43,6 +43,10 @@
 					"sv" => "kalender"
 					,"en" => "calendar"
 					)
+				,"change" => array(
+					"sv" => "ändra"
+					,"en" => "change"
+					)
 				,"create" => array(
 					"sv" => "skapa"
 					,"en" => "create"
@@ -83,6 +87,10 @@
 					"sv" => "hej"
 					,"en" => "hello"
 					)
+				,"in" => array(
+					"sv" => "i"
+					,"en" => "in"
+					)
 				,"inbox" => array(
 					"sv" => "inbox"
 					,"en" => "inbox"
@@ -103,6 +111,10 @@
 					"sv" => "medlemsansvarig"
 					,"en" => "member admin"
 					)
+				,"member" => array(
+					"sv" => "medlem"
+					,"en" => "member"
+					)
 				,"members" => array(
 					"sv" => "medlemmar"
 					,"en" => "members"
@@ -119,6 +131,10 @@
 					"sv" => "ny medlem"
 					,"en" => "new member"
 					)
+				// ,"new" => array(
+				// 	"sv" => array("n1" => "ny", "n2" => "nytt", "pl*" => "nya")
+				// 	,"en" => "new"
+				// 	)
 				,"new workgroup" => array(
 					"sv" => "ny arbetsgrupp"
 					,"en" => "new workgroup"
@@ -162,6 +178,10 @@
 				,"sent" => array(
 					"sv" => "skickat"
 					,"en" => "sent"
+					)
+				,"settings" => array(
+					"sv" => "inställningar"
+					,"en" => "settings"
 					)
 				,"superadmin" => array(
 					"sv" => "superadmin"

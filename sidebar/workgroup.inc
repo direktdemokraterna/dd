@@ -10,10 +10,8 @@
 		?>
 	</li>
 	<li>
-		<?php _h2(":Search workgroup"); ?>
-		<form method="post" class="sidebar_search_form" action="index.php?type=workgroup&action=search">
-			<input tabindex="101" type="text" value="" name="workgroup_search_input" class="sidebar_search_input">
-			<input tabindex="102" type="submit" class="sidebar_search_submit" value="<?php __("Search"); ?>">
-		</form>
+		<?php 
+			\View\general::output_search_box("workgroup", "workgroup", "search", 101);
+		?>
 	</li>
 </ul>

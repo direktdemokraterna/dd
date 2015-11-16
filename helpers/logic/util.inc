@@ -24,4 +24,17 @@ class util
 	public static function starts_With($haystack, $needle) {
 		return strpos($haystack, $needle) === 0;
 	}
+
+	public static function update_search_query($type, $action = "search") {
+		$search_input_name = self::get_search_input_name($type, $action);
+		$search_query = isset($_POST[$search_input_name]) 
+			? $_POST[$search_input_name]
+			: (isset($_SESSION[$search_input_name]) ? $_SESSION[$search_input_name] : '');
+		$_SESSION[$search_input_name] = $search_query;
+		return $search_query;
+	}
+
+	public static function get_search_input_name($type, $action = "search") {
+		return "$type_$action_input";
+	}
 }

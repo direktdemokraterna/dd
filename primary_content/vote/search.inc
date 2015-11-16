@@ -1,11 +1,7 @@
 <?php 
-	$search_query = isset($_POST['vote_search_input']) 
-		? $_POST['vote_search_input']
-		: (isset($_SESSION['vote_search_input']) ? $_SESSION['vote_search_input'] : '');
-	$_SESSION['vote_search_input'] = $search_query;
-
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$search_query = \Logic\util::update_search_query("vote");
 	$votes = db_vote::search_votes($search_query, $_SESSION['id'], $sort, $page);
 	if(empty($votes)) {
 		echo "<p>Inga omröstningar med frasen: <b><i>" . $search_query . 

@@ -1,9 +1,5 @@
 <?php 
-	$search_query = isset($_POST['forum_search_input']) 
-		? $_POST['forum_search_input']
-		: (isset($_SESSION['forum_search_input']) ? $_SESSION['forum_search_input'] : '');
-	$_SESSION['forum_search_input'] = $search_query;
-	
+	$search_query = \Logic\util::update_search_query("forum");	
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$posts = db_forum::search_posts($search_query, $_SESSION['id'], $page);
 	if(empty($posts)) {

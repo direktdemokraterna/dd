@@ -1,9 +1,5 @@
 <?php 
-	$search_query = isset($_POST['prop_search_input']) 
-		? $_POST['prop_search_input']
-		: (isset($_SESSION['prop_search_input']) ? $_SESSION['prop_search_input'] : '');
-	$_SESSION['prop_search_input'] = $search_query;
-
+	$search_query = \Logic\util::update_search_query("vote", "prop_search");
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$props = db_prop::search_props($search_query, $_SESSION['id'], $sort, $page);

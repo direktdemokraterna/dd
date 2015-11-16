@@ -13,10 +13,8 @@
 		</ul>
 	</li>
 	<li>
-		<h2>Sök i forum</h2>
-		<form method="post" class="sidebar_search_form" action="index.php?type=forum&action=search">
-			<input tabindex="111" type="text" value="" name="forum_search_input" class="sidebar_search_input">
-			<input tabindex="112" type="submit" class="sidebar_search_submit" value="Sök">
-		</form>
+		<?php 
+			\View\general::output_search_box(":in forum", "forum", "search", 111);
+		?>
 	</li>
 </ul>

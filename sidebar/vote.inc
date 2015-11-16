@@ -10,11 +10,9 @@
 		?>
 	</li>
 	<li>
-		<?php _h2(":Search :propositions"); ?>
-		<form method="post" class="sidebar_search_form" action="index.php?type=vote&action=search_prop">
-			<input tabindex="101" type="text" value="" name="prop_search_input" class="sidebar_search_input">
-			<input tabindex="102" type="submit" class="sidebar_search_submit" value="<?php __('Search'); ?>">
-		</form>
+		<?php 
+			\View\general::output_search_box("propositions", "proposition", "search_prop", 101);
+		?>
 	</li>
 	<li>
 		<?php 
@@ -26,11 +24,9 @@
 		?>
 	</li>
 	<li>
-		<?php _h2(":Search :votes"); ?>
-		<form method="post" class="sidebar_search_form" action="index.php?type=vote&action=search">
-			<input tabindex="101" type="text" value="" name="vote_search_input" class="sidebar_search_input">
-			<input tabindex="102" type="submit" class="sidebar_search_submit" value="<?php __('Search'); ?>">
-		</form>
+		<?php 
+			\View\general::output_search_box("votes", "vote", "search", 103);
+		?>
 	</li>
 	<li>
 		<?php

@@ -87,6 +87,19 @@ class general
 		echo '</ul>';
 	}
 
+	public static function output_search_box($label, $type, $action, $tab_index = 1) {
+		_h2(":Search " . $label);
+		$search_input_name = \Logic\util::get_search_input_name($type, $action);
+		$value = isset($_SESSION[$search_input_name]) ? $_SESSION[$search_input_name] : '';
+		echo '<form method="post" class="sidebar_search_form" action="index.php?type=' 
+		. $type . '&action=' . $action . '">';
+		echo '<input tabindex="' . $tab_index++ . '" type="text" value="' . 
+		$value . '" name="' . $search_input_name . '" class="sidebar_search_input">';
+		echo '<input tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="' 
+		. _t('Search') . '">';
+		echo '</form>';
+	}
+
 	private static function open_select($control_name, $attributes) {
 		echo('<select name="' . $control_name . '" id="' . $control_name . '"'
 			. ($attributes != null ? ' ' . $attributes : '') . '>' . PHP_EOL);
