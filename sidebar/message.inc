@@ -1,10 +1,12 @@
 <ul>
 	<li>
-		<h2>Meddelanden</h2>
-		<ul>
-			<li><a href="index.php?type=message&action=inbox">Inbox</li>
-			<li><a href="index.php?type=message&action=outbox">Skickade</li>
-			<li><a href="index.php?type=message&action=write">Skriv meddelande</li>
-		</ul>
+		<?php
+			_h2("Messages");
+			\View\general::output_link_list("message", array(
+				"inbox" => "Inbox"
+				,"outbox" => "Sent"
+				,"write" => "Write message"
+				));
+		?>
 	</li>
 </ul>

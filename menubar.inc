@@ -27,7 +27,7 @@
 			\View\general::output_link_list("message", array(
 				"inbox" => "Inbox"
 				,"outbox" => "Outbox"
-				,"write" => "New message"
+				,"write" => "Write message"
 				)); 
 			?>
 		</li>

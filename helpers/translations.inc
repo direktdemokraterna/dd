@@ -23,6 +23,18 @@
 					"sv" => "beviljade"
 					,"en" => "affirmed"
 					)
+				,"all" => array(
+					"sv" => "alla"
+					,"en" => "all"
+					)
+				,"alternatives" => array(
+					"sv" => "alternativ"
+					,"en" => "alternatives"
+					)
+				,"applications" => array(
+					"sv" => "ansökningar"
+					,"en" => "applications"
+					)
 				,"become a" => array(
 					"sv" => "bli"
 					,"en" => "become a"
@@ -103,12 +115,12 @@
 					"sv" => "min profil"
 					,"en" => "my profile"
 					)
-				,"new message" => array(
-					"sv" => "skriv meddelande"
-					,"en" => "new message"
+				,"new member" => array(
+					"sv" => "ny medlem"
+					,"en" => "new member"
 					)
 				,"new workgroup" => array(
-					"sv" => "Ny arbetsgrupp"
+					"sv" => "ny arbetsgrupp"
 					,"en" => "new workgroup"
 					)
 				,"old votes" => array(
@@ -147,6 +159,10 @@
 					"sv" => "se"
 					,"en" => "see"
 					)
+				,"sent" => array(
+					"sv" => "skickat"
+					,"en" => "sent"
+					)
 				,"superadmin" => array(
 					"sv" => "superadmin"
 					,"en" => "superadmin"
@@ -163,6 +179,10 @@
 					"sv" => "användarnamn"
 					,"en" => "username"
 					)
+				,"view" => array(
+					"sv" => "visa"
+					,"en" => "view"
+					)
 				,"vote" => array(
 					"sv" => "omröstning"
 					,"en" => "vote"
@@ -178,6 +198,10 @@
 				,"votes" => array(
 					"sv" => "omröstningar"
 					,"en" => "votes"
+					)
+				,"write message" => array(
+					"sv" => "skriv meddelande"
+					,"en" => "write message"
 					)
 				,"workgroup" => array(
 					"sv" => "arbetsgrupp"
