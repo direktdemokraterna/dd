@@ -1,11 +1,13 @@
 <ul>
 	<li>
-		<h2>Alternativ</h2>
-		<ul>
-			<li><a href="index.php?type=forum_admin&action=list_categories">Lista kategorier</li>
-			<li><a href="index.php?type=forum_admin&action=new_category">Skapa ny kategori</li>
-			<li><a href="index.php?type=forum_admin&action=list_forums">Lista forum</li>
-			<li><a href="index.php?type=forum_admin&action=new_forum">Skapa nytt forum</li>
-		</ul>
+		<?php
+			_h2("Alternatives");
+			\View\general::output_link_list("forum_admin", array(
+				"list_categories" => ":List categories"
+				,"new_category" => ":Create new category"
+				,"list_forums" => ":List forums"
+				,"new_forum" => ":Create new forum"
+				));
+		?>
 	</li>
 </ul>

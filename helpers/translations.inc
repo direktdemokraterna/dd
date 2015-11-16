@@ -43,6 +43,10 @@
 					"sv" => "kalender"
 					,"en" => "calendar"
 					)
+				,"categories" => array(
+					"sv" => "kategorier"
+					,"en" => "categories"
+					)
 				,"change" => array(
 					"sv" => "ändra"
 					,"en" => "change"
@@ -78,6 +82,10 @@
 				,"forum admin" => array(
 					"sv" => "forumadministratör"
 					,"en" => "forum admin"
+					)
+				,"forums" => array(
+					"sv" => "forum"
+					,"en" => "forums"
 					)
 				,"handle" => array(
 					"sv" => "hantera"
@@ -135,6 +143,14 @@
 				// 	"sv" => array("n1" => "ny", "n2" => "nytt", "pl*" => "nya")
 				// 	,"en" => "new"
 				// 	)
+				,"new category" => array(
+					"sv" => "ny kategori"
+					,"en" => "new category"
+					)
+				,"new forum" => array(
+					"sv" => "nytt forum"
+					,"en" => "new forum"
+					)
 				,"new workgroup" => array(
 					"sv" => "ny arbetsgrupp"
 					,"en" => "new workgroup"
