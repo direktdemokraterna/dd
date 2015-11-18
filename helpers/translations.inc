@@ -23,6 +23,10 @@
 					"sv" => "i"
 					,"en" => "in"
 					)
+				,"its content has not yet been decided" => array(
+					"sv" => "beslut om dess innehåll är ännu inte fattat"
+					,"en" => "its content has not yet been decided"
+					)
 				,"me" => array(
 					"sv" => "mig"
 					,"en" => "me"
@@ -39,9 +43,17 @@
 					"sv" => "superadmin"
 					,"en" => "superadmin"
 					)
+				,"this is just a front page" => array(
+					"sv" => "det här är bara en första-sida"
+					,"en" => "this is just a front page"
+					)
 				,"treasurer" => array(
 					"sv" => "kassör"
 					,"en" => "treasurer"
+					)
+				,"welcome" => array(
+					"sv" => "välkommen"
+					,"en" => "welcome"
 					)
 
 				,"active:adj" => array(

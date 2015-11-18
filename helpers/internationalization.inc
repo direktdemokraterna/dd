@@ -1,29 +1,42 @@
 <?php
-	function __($phrase) {
-		echo _t($phrase);
-	}
-
-	function _h1($phrase) {
-		echo '<h1>' . _t($phrase) . '</h1>';
-	}
-
-	function _h2($phrase) {
-		echo '<h2>' . _t($phrase) . '</h2>';
-	}
-
 	function _li($content) {
 		echo '<li>' . $content . '</li>';
 	}
 
-	function _t($phrase) {
-		return internationalization::translate_phrase($phrase);
+	function _p($text) {
+		echo '<p>' . $text . '</>';
+	}
+
+	function __($text) {
+		echo _t($text);
+	}
+
+	function _h1($text) {
+		echo '<h1>' . _t($text) . '</h1>';
+	}
+
+	function _h2($text) {
+		echo '<h2>' . _t($text) . '</h2>';
+	}
+
+	function _t($text) {
+		return internationalization::translate($text);
 	}
 
 	class internationalization 
 	{
 		private static $translations = null;
 
-		public static function translate_phrase($phrase) 
+		public static function translate($text) 
+		{
+			$phrases = preg_split('/\s*[[:punct:]]+\s*/', $text, -1, PREG_SPLIT_NO_EMPTY);
+			$translations = array_map('self::translate_phrase', $phrases);
+			for ($i = 0; $i < count($phrases); $i++)
+				$text = str_replace($phrases[$i], $translations[$i], $text);
+			return $text;
+		}
+
+		private static function translate_phrase($phrase) 
 		{
 			$translation_matches = self::get_translation_matches($phrase);
 			if (count($translation_matches) == 1)

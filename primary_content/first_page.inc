@@ -1,3 +1,4 @@
-<h1>Välkommen</h1>
-
-<p>Det här är bara en första-sida. Beslut om dess innehåll är ännu inte fattat.</p>
+<?php 
+	_h1("Welcome");
+	_p(_t("This is just a front page. Its content has not yet been decided."));
+?>
