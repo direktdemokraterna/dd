@@ -27,6 +27,10 @@
 					"sv" => "i"
 					,"en" => "in"
 					)
+				,"is" => array(
+					"sv" => "är"
+					,"en" => "is"
+					)
 				,"it needs at least three members to be activated" => array(
 					"sv" => "för att bli aktiv måste den ha minst tre medlemmar"
 					,"en" => "it needs at least three members to be activated"
@@ -55,13 +59,17 @@
 					"sv" => "superadmin"
 					,"en" => "superadmin"
 					)
-				,"this is just a front page" => array(
-					"sv" => "det här är bara en första-sida"
-					,"en" => "this is just a front page"
+				,"just a front page" => array(
+					"sv" => "bara en första-sida"
+					,"en" => "just a front page"
 					)
-				,"this workgroup is proposed" => array(
-					"sv" => "denna arbetsgrupp är föreslagen"
-					,"en" => "this workgroup is proposed"
+				,"this" => array(
+					"sv" => "denna"
+					,"en" => "this"
+					)
+				,"this is" => array(
+					"sv" => "det här är"
+					,"en" => "this is"
 					)
 				,"treasurer" => array(
 					"sv" => "kassör"
@@ -71,13 +79,13 @@
 					"sv" => "välkommen"
 					,"en" => "welcome"
 					)
-				,"you are a member of this" => array(
-					"sv" => "du är medlem i denna"
-					,"en" => "you are a member of this"
+				,"you are a member of" => array(
+					"sv" => "du är medlem i"
+					,"en" => "you are a member of"
 					)
-				,"you have applied for membership in this" => array(
-					"sv" => "du har ansökt om medlemskap i denna"
-					,"en" => "you have applied for membership in this"
+				,"you have applied for membership" => array(
+					"sv" => "du har ansökt om medlemskap"
+					,"en" => "you have applied for membership"
 					)
 
 				,"active:adj" => array(

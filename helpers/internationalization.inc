@@ -226,11 +226,38 @@
 		}
 	}
 
-	class phrase 
-	{
-		public $key;
+	class translator {
+		public $key;		
 		public $translation;
 
+		public function translate($lower_phrase, $remaining_translation_matches) 
+		{
+			if ($lower_phrase != $this->key)
+				throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
+			return self::do_translate($lower_phrase, $remaining_translation_matches);
+		}
+
+		protected function do_translate($lower_phrase, $remaining_translation_matches) 
+		{
+			return $this->translation;
+		}
+
+		protected static function create_word_form($base_form, $ending) 
+		{
+			$suffix = str_replace('_', '', $ending);
+			$del_char_count = strlen($ending) - strlen($suffix);
+			$word_stem = substr($base_form, 0, strlen($base_form) - $del_char_count);
+			return $word_stem . $suffix;
+		}
+
+		protected static function strip_parenthesis($text_in_parenthesis) 
+		{
+			return substr($text_in_parenthesis, 1, strlen($text_in_parenthesis) - 2);
+		}
+	}
+
+	class phrase extends translator
+	{
 		public static function create($key, $translation) 
 		{
 			$phrase = new phrase();
@@ -238,18 +265,10 @@
 			$phrase->translation = $translation;
 			return $phrase;
 		}
-
-		public function translate($lower_phrase, $remaining_translation_matches) 
-		{
-			if ($lower_phrase == $this->key) return $this->translation;
-			throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
-		}
 	}
 
-	class adjective 
+	class adjective extends translator
 	{
-		public $key;
-		public $translation_noun1;
 		public $translation_noun2;
 		public $translation_plural;
 
@@ -262,17 +281,15 @@
 			$singular = $singular_parts[0];
 			$alt_singular_ending = $singular_parts[1];
 			$plural_ending = $parts[1];
-			$adjective->translation_noun1 = $singular;
-			$adjective->translation_noun2 = word_helper::create_word_form($singular
+			$adjective->translation = $singular;
+			$adjective->translation_noun2 = parent::create_word_form($singular
 				, $alt_singular_ending);
-			$adjective->translation_plural = word_helper::create_word_form($singular, $plural_ending);
+			$adjective->translation_plural = parent::create_word_form($singular, $plural_ending);
 			return $adjective;
 		}
 
-		public function translate($lower_phrase, $remaining_translation_matches) 
+		protected function do_translate($lower_phrase, $remaining_translation_matches) 
 		{
-			if ($lower_phrase != $this->key)
-			throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
 			$significant_noun = self::get_significant_noun($remaining_translation_matches);
 			if ($significant_noun == null)
 				return $this->translation_noun1;
@@ -306,10 +323,8 @@
 		}
 	}
 
-	class noun_singular 
+	class noun_singular extends translator 
 	{
-		public $key;
-		public $translation;
 		public $type;
 
 		public static function create($key, $compact_translation, $type) 
@@ -321,12 +336,6 @@
 			return $noun_singular;
 		}
 
-		public function translate($lower_phrase, $remaining_translation_matches) 
-		{
-			if ($lower_phrase == $this->key) return $this->translation;
-			throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
-		}
-
 		private static function get_singular($compact_translation) 
 		{
 			$parts = explode(':', $compact_translation);
@@ -334,11 +343,8 @@
 		}
 	}
 
-	class noun_plural 
+	class noun_plural extends translator 
 	{
-		public $key;
-		public $translation;
-
 		public static function create($key, $compact_translation) 
 		{
 			$noun_plural = new noun_plural();
@@ -347,38 +353,23 @@
 			return $noun_plural;
 		}
 
-		public function translate($lower_phrase, $remaining_translation_matches) 
-		{
-			if ($lower_phrase == $this->key) return $this->translation;
-			throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
-		}
-
 		private static function get_plural($compact_translation) 
 		{
 			$parts = explode(':', $compact_translation);
 			if (count($parts) == 1)
 				return $compact_translation;
-			return word_helper::create_word_form($parts[0], $parts[1]);
+			return parent::create_word_form($parts[0], $parts[1]);
 		}
 	}
 
-	class verb_infinitive 
+	class verb_infinitive extends translator 
 	{
-		public $key;
-		public $translation;
-
 		public static function create($key, $compact_translation) 
 		{
 			$verb_infinitive = new verb_infinitive();
 			$verb_infinitive->key = self::get_infinitive($compact_translation[BASE_LANG]);
 			$verb_infinitive->translation = self::get_infinitive($compact_translation[LANG]);
 			return $verb_infinitive;
-		}
-
-		public function translate($lower_phrase, $remaining_translation_matches) 
-		{
-			if ($lower_phrase == $this->key) return $this->translation;
-			throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
 		}
 
 		private static function get_infinitive($compact_translation) 
@@ -388,16 +379,13 @@
 		}
 	}
 
-	class verb_perfect_participle
+	class verb_perfect_participle extends translator
 	{
-		public $key;
-		public $translation;
-
 		public static function create($key, $compact_translation) 
 		{
 			$base_parts = explode(':', $compact_translation[BASE_LANG]);
 			if (count($base_parts) == 1) return null;
-			$adjective_key = word_helper::create_word_form($base_parts[0], $base_parts[1]);
+			$adjective_key = parent::create_word_form($base_parts[0], $base_parts[1]);
 			$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation);
 			return adjective::create($adjective_key, $adjective_compact_translation);
 		}
@@ -405,35 +393,19 @@
 		private static function make_adjective_compact_translation($verb_compact_translation) {
 			$verb_base_form_and_endings = explode(':', $verb_compact_translation[LANG], 2);
 			$verb_base_form = $verb_base_form_and_endings[0];
-			$perfect_participle_endings = word_helper::strip_parenthesis($verb_base_form_and_endings[1]);
+			$perfect_participle_endings = parent::strip_parenthesis($verb_base_form_and_endings[1]);
 			$adjective_compact_translation = self::replace_adjective_suffix_with_base_form($verb_base_form, $perfect_participle_endings);
 			return $adjective_compact_translation;
 		}
 
 		private static function replace_adjective_suffix_with_base_form($verb_base_form, 
 			$perfect_participle_endings) {
-			$adjective_suffix_and_endings = explode('|', $verb_endings);
+			$adjective_suffix_and_endings = explode('|', $perfect_participle_endings);
 			$adjective_suffix = $adjective_suffix_and_endings[0];
 			$adjective_endings = $adjective_suffix_and_endings[1];
-			$adjective_base_form = word_helper::create_word_form($verb_base_form, $adjective_suffix);
+			$adjective_base_form = parent::create_word_form($verb_base_form, $adjective_suffix);
 			$adjective_compact_translation = implode('|', array($adjective_base_form, $adjective_endings));
 			return $adjective_compact_translation;
-		}
-	}
-
-	class word_helper 
-	{
-		public static function create_word_form($base_form, $ending) 
-		{
-			$suffix = str_replace('_', '', $ending);
-			$del_char_count = strlen($ending) - strlen($suffix);
-			$word_stem = substr($base_form, 0, strlen($base_form) - $del_char_count);
-			return $word_stem . $suffix;
-		}
-
-		public static function strip_parenthesis($text_in_parenthesis) 
-		{
-			return substr($text_in_parenthesis, 1, strlen($text_in_parenthesis) - 2);
 		}
 	}
 ?>
