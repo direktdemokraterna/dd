@@ -14,7 +14,7 @@
 	</li>
 	<li>
 		<?php 
-			\View\general::output_search_box(":in forum", "forum", "search", 111);
+			\View\general::output_search_box("in forum", "forum", "search", 111);
 		?>
 	</li>
 </ul>

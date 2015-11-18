@@ -3,8 +3,8 @@
 		<?php
 			_h2("Members");
 			\View\general::output_link_list("member", array(
-				"list" => ":See :all members"
-				,"settings" => ":Change settings"
+				"list" => "See all members"
+				,"settings" => "Change settings"
 				,"calendar" => "Calendar"
 				));
 		?>

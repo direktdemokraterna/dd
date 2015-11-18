@@ -3,9 +3,9 @@
 		<?php 
 			_h2("Propositions");
 			\View\general::output_link_list("vote", array(
-			"list_props" => ":List active propositions"
-			,"list_affirmed_props" => ":List :affirmed propositions"
-			,"add_prop" => ":Create proposition"
+			"list_props" => "List active propositions"
+			,"list_affirmed_props" => "List affirmed propositions"
+			,"add_prop" => "Create proposition"
 			));
 		?>
 	</li>
@@ -18,8 +18,8 @@
 		<?php 
 			_h2("Votes");
 			\View\general::output_link_list("vote", array(
-			"list_active_votes" => ":List active votes"
-			,"list_old_votes" => ":List old votes"
+			"list_active_votes" => "List active votes"
+			,"list_old_votes" => "List old votes"
 			));
 		?>
 	</li>
@@ -33,9 +33,9 @@
 			_h2("Delegates");
 			$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
 			\View\general::output_link_list("vote", array(
-			"list_delegates" => ":List delegates"
-			,"delegations" => ":Handle delegations"
-			,"delegate_settings" => ($is_delegate ? "Handle" : "Become a") . " :delegate"
+			"list_delegates" => "List delegates"
+			,"delegations" => "Handle delegations"
+			,"delegate_settings" => ($is_delegate ? "Handle" : "Become a") . " delegate"
 			));
 		?>
 	</li>
