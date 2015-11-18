@@ -6,36 +6,34 @@
 
 	<h1><?php echo $workgroup['title']; ?></h1>
 
-	<?php if($workgroup['is_active']==0) : ?>
-
-		<p>Denna arbetsgrupp är föreslagen. För att bli aktiv måste den ha minst tre medlemmar. Just nu är antalet medlemmar <?php echo $workgroup['number_of_members']; ?> st.</p>
-
-	<?php endif; ?>
-
-	<?php
+	<?php 
+		if($workgroup['is_active']==0)
+			_p(_t("This workgroup is proposed. It needs at least three members to be activated. Currently the number of members is " . $workgroup['number_of_members'] . "."));
 		$is_member = db_workgroup::is_member($workgroup['id'], $_SESSION['id']);
 		$is_candidate = db_workgroup::is_candidate($workgroup['id'], $_SESSION['id']);
+		if($is_member)
+			_p(_t("You are a member of this workgroup."));
+		else if($is_candidate)
+			_p(_t("You have applied for membership in this worgroup."));
 	?>
 
-	<?php if($is_member) : ?>
-		<p>Du är medlem i denna arbetsgrupp.</p>
-	<?php elseif($is_candidate) : ?>
-		<p>Du har ansökt om medlemskap i denna arbetsgrupp.</p>
-	<?php endif; ?>
-
-	<p>
-	<strong>Antal medlemmar: </strong><?php echo $workgroup['number_of_members']; ?><br>
-	<?php if($workgroup['is_active']) : ?>
-		<strong>Skapad: </strong><?php echo general_helpers::show_date($workgroup['create_time']); ?><br>
-	<?php else : ?>
-		<strong>Föreslagen: </strong><?php echo general_helpers::show_date($workgroup['propose_time']); ?><br>
-	<?php endif; ?>
-	<strong>Beskrivning:</strong><br>
-	<?php echo \View\general::make_html_from_wiki_text($workgroup['description']); ?>
-	</p>
-	<?php if($is_member) : ?>
-		<a href="index.php?type=workgroup&action=edit&id=<?php echo $_GET['id']; ?>">Redigera beskrivning</a><br>
-	<?php endif; ?>
+	<?php
+		echo '<p>';
+		_strong(_t("Number of members: "));
+		echo $workgroup['number_of_members'];
+		_br();
+		$is_active = $workgroup['is_active'];
+		_strong(_t($is_active ? "Created: " : "Proposed: "));
+		echo general_helpers::show_date($workgroup[$is_active ? 'create_time' : 'propose_time']);
+		_br();				
+		_strong(_t("Description: "));
+		echo \View\general::make_html_from_wiki_text($workgroup['description']);
+		echo '</p>';
+		if($is_member) {
+			\View\general::output_internal_link(_t("Edit description"), 'workgroup', 'edit', 'id=' . $_GET['id']);
+			_br();
+		}
+	?>
 
 	<?php if($workgroup['is_active']==1) : ?>
 

@@ -83,7 +83,7 @@ class general
 	public static function output_link_list($type, $links) {
 		echo '<ul>';
 		foreach (array_keys($links) as $action)
-			echo '<li>' . self::generate_internal_link($links[$action], $type, $action) . '</li>';
+			echo '<li>' . self::generate_internal_link(_t($links[$action]), $type, $action) . '</li>';
 		echo '</ul>';
 	}
 

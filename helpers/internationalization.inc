@@ -4,7 +4,15 @@
 	}
 
 	function _p($text) {
-		echo '<p>' . $text . '</>';
+		echo '<p>' . $text . '</p>';
+	}
+
+	function _strong($text) {
+		echo '<strong>' . $text . '</strong>';
+	}
+
+	function _br() {
+		echo '<br>';
 	}
 
 	function __($text) {
@@ -30,10 +38,22 @@
 		public static function translate($text) 
 		{
 			$phrases = preg_split('/\s*[[:punct:]]+\s*/', $text, -1, PREG_SPLIT_NO_EMPTY);
-			$translations = array_map('self::translate_phrase', $phrases);
+			$translations = array_map('self::translate_original_phrase', $phrases);
 			for ($i = 0; $i < count($phrases); $i++)
 				$text = str_replace($phrases[$i], $translations[$i], $text);
 			return $text;
+		}
+
+		private static function translate_original_phrase($original_phrase) 
+		{
+			preg_match_all('/\d+/', $original_phrase, $matches);
+			if (!$matches[0]) 
+				return self::translate_phrase($original_phrase);
+			$phrase = preg_replace('/\d+/', '%d', $original_phrase);
+			$translated_phrase = self::translate_phrase($phrase);
+			foreach ($matches[0] as $number)
+				$translated_phrase = str_replace('%d', $number, $translated_phrase);
+			return $translated_phrase;
 		}
 
 		private static function translate_phrase($phrase) 
@@ -136,7 +156,6 @@
 		{
 			switch ($word_type) {
 				case 'phrase':
-				case 'verb':
 					yield phrase::create($key, $compact_translation[LANG]);
 					break;
 				case 'adj':
@@ -150,8 +169,14 @@
 					yield noun_singular::create($key, $compact_translation, 2);
 					yield noun_plural::create($key, $compact_translation);
 					break;
+				case 'verb':
+					yield verb_infinitive::create($key, $compact_translation);
+					$verb_perfect_participle = verb_perfect_participle::create($key, $compact_translation);
+					if ($verb_perfect_participle) 
+						yield $verb_perfect_participle;
+					break;
 				default:
-					throw new Exception("Unknown word class: " . $parts[1]);
+					throw new Exception("Unknown word class: " . $word_type);
 			}
 		}
 	}
@@ -337,6 +362,65 @@
 		}
 	}
 
+	class verb_infinitive 
+	{
+		public $key;
+		public $translation;
+
+		public static function create($key, $compact_translation) 
+		{
+			$verb_infinitive = new verb_infinitive();
+			$verb_infinitive->key = self::get_infinitive($compact_translation[BASE_LANG]);
+			$verb_infinitive->translation = self::get_infinitive($compact_translation[LANG]);
+			return $verb_infinitive;
+		}
+
+		public function translate($lower_phrase, $remaining_translation_matches) 
+		{
+			if ($lower_phrase == $this->key) return $this->translation;
+			throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
+		}
+
+		private static function get_infinitive($compact_translation) 
+		{
+			$parts = explode(':', $compact_translation);
+			return $parts[0];
+		}
+	}
+
+	class verb_perfect_participle
+	{
+		public $key;
+		public $translation;
+
+		public static function create($key, $compact_translation) 
+		{
+			$base_parts = explode(':', $compact_translation[BASE_LANG]);
+			if (count($base_parts) == 1) return null;
+			$adjective_key = word_helper::create_word_form($base_parts[0], $base_parts[1]);
+			$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation);
+			return adjective::create($adjective_key, $adjective_compact_translation);
+		}
+
+		private static function make_adjective_compact_translation($verb_compact_translation) {
+			$verb_base_form_and_endings = explode(':', $verb_compact_translation[LANG], 2);
+			$verb_base_form = $verb_base_form_and_endings[0];
+			$perfect_participle_endings = word_helper::strip_parenthesis($verb_base_form_and_endings[1]);
+			$adjective_compact_translation = self::replace_adjective_suffix_with_base_form($verb_base_form, $perfect_participle_endings);
+			return $adjective_compact_translation;
+		}
+
+		private static function replace_adjective_suffix_with_base_form($verb_base_form, 
+			$perfect_participle_endings) {
+			$adjective_suffix_and_endings = explode('|', $verb_endings);
+			$adjective_suffix = $adjective_suffix_and_endings[0];
+			$adjective_endings = $adjective_suffix_and_endings[1];
+			$adjective_base_form = word_helper::create_word_form($verb_base_form, $adjective_suffix);
+			$adjective_compact_translation = implode('|', array($adjective_base_form, $adjective_endings));
+			return $adjective_compact_translation;
+		}
+	}
+
 	class word_helper 
 	{
 		public static function create_word_form($base_form, $ending) 
@@ -345,6 +429,11 @@
 			$del_char_count = strlen($ending) - strlen($suffix);
 			$word_stem = substr($base_form, 0, strlen($base_form) - $del_char_count);
 			return $word_stem . $suffix;
+		}
+
+		public static function strip_parenthesis($text_in_parenthesis) 
+		{
+			return substr($text_in_parenthesis, 1, strlen($text_in_parenthesis) - 2);
 		}
 	}
 ?>

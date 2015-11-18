@@ -15,6 +15,10 @@
 					"sv" => "av"
 					,"en" => "by"
 					)
+				,"currently the number of members is %d" => array(
+					"sv" => "just nu är antalet medlemmar %d st"
+					,"en" => "currently the number of members is"
+					)
 				,"hello" => array(
 					"sv" => "hej"
 					,"en" => "hello"
@@ -23,17 +27,25 @@
 					"sv" => "i"
 					,"en" => "in"
 					)
+				,"it needs at least three members to be activated" => array(
+					"sv" => "för att bli aktiv måste den ha minst tre medlemmar"
+					,"en" => "it needs at least three members to be activated"
+					)
 				,"its content has not yet been decided" => array(
 					"sv" => "beslut om dess innehåll är ännu inte fattat"
 					,"en" => "its content has not yet been decided"
+					)
+				,"last posts" => array(
+					"sv" => "senaste inläggen"
+					,"en" => "last posts"
 					)
 				,"me" => array(
 					"sv" => "mig"
 					,"en" => "me"
 					)
-				,"last posts" => array(
-					"sv" => "senaste inläggen"
-					,"en" => "last posts"
+				,"number of" => array(
+					"sv" => "antal"
+					,"en" => "number of"
 					)
 				,"sent" => array(
 					"sv" => "skickat"
@@ -47,6 +59,10 @@
 					"sv" => "det här är bara en första-sida"
 					,"en" => "this is just a front page"
 					)
+				,"this workgroup is proposed" => array(
+					"sv" => "denna arbetsgrupp är föreslagen"
+					,"en" => "this workgroup is proposed"
+					)
 				,"treasurer" => array(
 					"sv" => "kassör"
 					,"en" => "treasurer"
@@ -54,6 +70,14 @@
 				,"welcome" => array(
 					"sv" => "välkommen"
 					,"en" => "welcome"
+					)
+				,"you are a member of this" => array(
+					"sv" => "du är medlem i denna"
+					,"en" => "you are a member of this"
+					)
+				,"you have applied for membership in this" => array(
+					"sv" => "du har ansökt om medlemskap i denna"
+					,"en" => "you have applied for membership in this"
 					)
 
 				,"active:adj" => array(
@@ -75,10 +99,6 @@
 				,"old:adj" => array(
 					"sv" => "gammal|t:___la"
 					,"en" => "old"
-					)
-				,"proposed:adj" => array(
-					"sv" => "föreslagen|_t:__na"
-					,"en" => "proposed"
 					)
 
 				,"active vote:noun1" => array(
@@ -116,6 +136,10 @@
 				,"delegation:noun1" => array(
 					"sv" => "delegering:ar"
 					,"en" => "delegation:s"
+					)
+				,"description:noun1" => array(
+					"sv" => "beskrivning:ar"
+					,"en" => "description:s"
 					)
 				,"forum admin:noun1" => array(
 					"sv" => "forumadministratör:er"
@@ -192,8 +216,12 @@
 					,"en" => "change"
 					)
 				,"create:verb" => array(
-					"sv" => "skapa"
-					,"en" => "create"
+					"sv" => "skapa:(d|t:e)"
+					,"en" => "create:d"
+					)
+				,"edit:verb" => array(
+					"sv" => "redigera:(d|t:e)"
+					,"en" => "edit:ed"
 					)
 				,"handle:verb" => array(
 					"sv" => "hantera"
@@ -211,6 +239,10 @@
 					"sv" => "logga ut"
 					,"en" => "logout"
 					)
+				,"propose:verb" => array(
+					"sv" => "föreslå:(_agen|_t:__na)"
+					,"en" => "propose:d"
+					)				
 				,"remember:verb" => array(
 					"sv" => "kom ihåg"
 					,"en" => "remember"
