@@ -18,7 +18,7 @@ class forum
 	{
 		$forum_info = \db_forum::get_forum_from_post($topic_id);
 		general::open_div("forum_info");
-		general::output_internal_link("Forum", "forum", "show_forums");
+		general::output_internal_link(-t("Forum"), "forum", "show_forums");
 		echo "&nbsp;>&nbsp;";
 		general::output_internal_link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
 		general::close_div();

@@ -9,7 +9,7 @@
 	</div>
 	<ul id="hide_menu">
 		<li><?php 
-			\View\general::output_internal_link("User", "member"); 
+			\View\general::output_internal_link(_t("User"), "member"); 
 			\View\general::output_link_list("member", array(
 				"calendar" => "Calendar"
 				,"settings" => "My profile"
@@ -23,7 +23,7 @@
 			</li>
 		<?php endif; ?>
 		<li><?php 
-			\View\general::output_internal_link("Messages", "message"); 
+			\View\general::output_internal_link(_t("Messages"), "message"); 
 			\View\general::output_link_list("message", array(
 				"inbox" => "Inbox"
 				,"outbox" => "Outbox"
@@ -31,16 +31,18 @@
 				)); 
 			?>
 		</li>
-		<li><a href="index.php?type=workgroup">Arbetsgrupper</a>
-			<ul>
-				<?php $workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']); ?>
-				<?php foreach($workgroups as $row) : ?>
-					<li><a href="index.php?type=workgroup&action=view&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></li>
-				<?php endforeach; ?>
-			</ul>
+		<li><?php 
+			\View\general::output_internal_link(_t("Workgroups"), "workgroup");
+			echo '<ul>';
+				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
+				foreach($workgroups as $row)
+					_li(\View\general::generate_internal_link($row['title'], "workgroup", "view", "id=" . 
+						$row['id']));
+			echo '</ul>';
+			?>
 		</li>
 		<li><?php 
-			\View\general::output_internal_link("Votes", "vote");
+			\View\general::output_internal_link(_t("Votes"), "vote");
 			\View\general::output_link_list("vote", array(
 				"list_props" => "Propositions"
 				,"list_active_votes" => "Votes"
@@ -48,7 +50,7 @@
 				)); 
 			?>
 		</li>
-		<li><?php \View\general::output_internal_link("Forum", "forum"); ?>
+		<li><?php \View\general::output_internal_link(_t("Forum"), "forum"); ?>
 			<ul>
 				<li></li>
 			</ul>
@@ -58,19 +60,19 @@
 			<ul>
 				<?php 
 					if(isset($_SESSION['is_member_admin']))
-						echo '<li>' . \View\general::generate_internal_link("Member admin", "member_admin") . 
+						echo '<li>' . \View\general::generate_internal_link(_t("Member admin"), "member_admin") . 
 					'</li>';
 					if(isset($_SESSION['is_forum_admin']))
-						echo '<li>' . \View\general::generate_internal_link("Forum admin", "forum_admin") . 
+						echo '<li>' . \View\general::generate_internal_link(_t("Forum admin"), "forum_admin") . 
 					'</li>';
 					if(isset($_SESSION['is_vote_admin']))
-						echo '<li>' . \View\general::generate_internal_link("Vote admin", "vote_admin") . 
+						echo '<li>' . \View\general::generate_internal_link(_t("Vote admin"), "vote_admin") . 
 					'</li>';
 					if(isset($_SESSION['is_treasurer']))
-						echo '<li>' . \View\general::generate_internal_link("Treasurer", "treasurer") . 
+						echo '<li>' . \View\general::generate_internal_link(_t("Treasurer"), "treasurer") . 
 					'</li>';
 					if(isset($_SESSION['is_superadmin']))
-						echo '<li>' . \View\general::generate_internal_link("Superadmin", "superadmin") . 
+						echo '<li>' . \View\general::generate_internal_link(_t("Superadmin"), "superadmin") . 
 					'</li>';
 				?>
 			</ul>

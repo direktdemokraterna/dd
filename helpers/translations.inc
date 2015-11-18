@@ -11,6 +11,10 @@
 					"sv" => "bli"
 					,"en" => "become a"
 					)
+				,"by" => array(
+					"sv" => "av"
+					,"en" => "by"
+					)
 				,"hello" => array(
 					"sv" => "hej"
 					,"en" => "hello"
@@ -22,6 +26,10 @@
 				,"me" => array(
 					"sv" => "mig"
 					,"en" => "me"
+					)
+				,"last posts" => array(
+					"sv" => "senaste inläggen"
+					,"en" => "last posts"
 					)
 				,"sent" => array(
 					"sv" => "skickat"

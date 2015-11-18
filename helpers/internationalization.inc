@@ -11,6 +11,10 @@
 		echo '<h2>' . _t($phrase) . '</h2>';
 	}
 
+	function _li($content) {
+		echo '<li>' . $content . '</li>';
+	}
+
 	function _t($phrase) {
 		return internationalization::translate_phrase($phrase);
 	}

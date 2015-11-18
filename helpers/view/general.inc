@@ -64,7 +64,7 @@ class general
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
 		$onclick = ($confirm ? " onclick=\"return confirm('" . _t($confirm) . "')\"" : "");
-		return '<a ' . $classAttr . $href . $onclick . '>' . _t($label) . '</a>'; 
+		return '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>'; 
 	}	
 
 	public static function make_control_label($control_name, $control_label) {
