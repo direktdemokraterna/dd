@@ -14,7 +14,7 @@
 		if($is_member)
 			_p(_t("You are a member of this workgroup."));
 		else if($is_candidate)
-			_p(_t("You have applied for membership in this worgroup."));
+			_p(_t("You have applied for membership in this workgroup."));
 	?>
 
 	<?php

@@ -209,10 +209,12 @@
 					yield new noun_plural($identifier, $compact_translation);
 					break;
 				case 'verb':
-					$verb_infinitive = new verb_infinitive($identifier, $compact_translation);
+					$verb_infinitive = new verb_infinitive($identifier, $compact_translation[LANG]);
 					yield $verb_infinitive;
 					if ($verb_infinitive->has_perfect_participle)
 						yield new verb_perfect_participle($identifier, $compact_translation);
+					if ($verb_infinitive->has_perfect)
+						yield new verb_perfect($identifier, $compact_translation);
 					break;
 				default:
 					throw new Exception("Unknown word class: " . $word_type);
@@ -465,19 +467,25 @@
 
 	class verb_infinitive extends translator 
 	{
+		public $has_perfect;
 		public $has_perfect_participle;
 
 		function __construct($identifier, $compact_translation) 
 		{
-			$translation = self::get_infinitive($compact_translation[LANG]);
-			$this->has_perfect_participle = ($translation != $compact_translation[LANG]);
-			parent::__construct($identifier, $translation);
-		}
-
-		private static function get_infinitive($compact_translation) 
-		{
 			$parts = explode(':', $compact_translation);
-			return $parts[0];
+			parent::__construct($identifier, $parts[0]);
+			$this->has_perfect = (count($parts) > 1);
+			$this->has_perfect_participle = (count($parts) > 2);
+		}
+	}
+
+	class verb_perfect extends translator 
+	{
+		function __construct($identifier, $compact_translation) 
+		{
+			$perfect_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 1);
+			$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[LANG]), 1);
+			parent::__construct($identifier->copy($perfect_key), $perfect_translation);
 		}
 	}
 
@@ -486,16 +494,16 @@
 		function __construct($identifier, $compact_translation) 
 		{
 			$base_parts = explode(':', $compact_translation[BASE_LANG]);
-			$adjective_key = parent::create_word_form($base_parts[0], $base_parts[1]);
+			$adjective_key = parent::assemble_word_form($base_parts, 2);
 			$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation);
 			parent::__construct(new translation_identifier($adjective_key, 'adj'),
 				$adjective_compact_translation);
 		}
 
 		private static function make_adjective_compact_translation($verb_compact_translation) {
-			$verb_base_form_and_endings = explode(':', $verb_compact_translation[LANG], 2);
+			$verb_base_form_and_endings = explode(':', $verb_compact_translation[LANG], 3);
 			$verb_base_form = $verb_base_form_and_endings[0];
-			$perfect_participle_endings = parent::strip_parenthesis($verb_base_form_and_endings[1]);
+			$perfect_participle_endings = parent::strip_parenthesis($verb_base_form_and_endings[2]);
 			$adjective_compact_translation = self::replace_adjective_suffix_with_base_form($verb_base_form, $perfect_participle_endings);
 			return $adjective_compact_translation;
 		}

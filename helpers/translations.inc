@@ -3,9 +3,17 @@
 	{
 		public static function create_translations() {
 			return array(
-				"all" => array(
+				"a" => array(
+					"sv" => "en"
+					,"en" => "a"
+					)
+				,"all" => array(
 					"sv" => "alla"
 					,"en" => "all"
+					)
+				,"are" => array(
+					"sv" => "är"
+					,"en" => "are"
 					)
 				,"become a" => array(
 					"sv" => "bli"
@@ -18,6 +26,14 @@
 				,"currently the number of members is %d" => array(
 					"sv" => "just nu är antalet medlemmar %d st"
 					,"en" => "currently the number of members is"
+					)
+				,"[apply]for" => array(
+					"sv" => "om"
+					,"en" => "for"
+					)
+				,"have" => array(
+					"sv" => "har"
+					,"en" => "have"
 					)
 				,"hello" => array(
 					"sv" => "hej"
@@ -39,9 +55,9 @@
 					"sv" => "beslut om dess innehåll är ännu inte fattat"
 					,"en" => "its content has not yet been decided"
 					)
-				,"just a front page" => array(
-					"sv" => "bara en första-sida"
-					,"en" => "just a front page"
+				,"just" => array(
+					"sv" => "bara"
+					,"en" => "just"
 					)
 				,"me" => array(
 					"sv" => "mig"
@@ -79,13 +95,9 @@
 					"sv" => "välkommen"
 					,"en" => "welcome"
 					)
-				,"you are" => array(
-					"sv" => "du är"
-					,"en" => "you are"
-					)
-				,"you have applied for" => array(
-					"sv" => "du har ansökt om"
-					,"en" => "you have applied for"
+				,"you" => array(
+					"sv" => "du"
+					,"en" => "you"
 					)
 
 				,"active:adj" => array(
@@ -156,6 +168,10 @@
 				,"forum admin:noun1" => array(
 					"sv" => "forumadministratör:er"
 					,"en" => "forum admin:s"
+					)
+				,"front page:noun1" => array(
+					"sv" => "första-sida"
+					,"en" => "front page"
 					)
 				,"inbox:noun1" => array(
 					"sv" => "inbox:ar"
@@ -231,17 +247,21 @@
 					,"en" => "username:s"
 					)
 
+				,"apply:verb" => array(
+					"sv" => "ansöka:_t"
+					,"en" => "apply:_ied"
+					)
 				,"change:verb" => array(
 					"sv" => "ändra"
 					,"en" => "change"
 					)
 				,"create:verb" => array(
-					"sv" => "skapa:(d|_t:e)"
-					,"en" => "create:d"
+					"sv" => "skapa:t:(d|_t:e)"
+					,"en" => "create:d:d"
 					)
 				,"edit:verb" => array(
-					"sv" => "redigera:(d|_t:e)"
-					,"en" => "edit:ed"
+					"sv" => "redigera:t:(d|_t:e)"
+					,"en" => "edit:ed:ed"
 					)
 				,"handle:verb" => array(
 					"sv" => "hantera"
@@ -260,8 +280,8 @@
 					,"en" => "logout"
 					)
 				,"propose:verb" => array(
-					"sv" => "föreslå:(_agen|_t:__na)"
-					,"en" => "propose:d"
+					"sv" => "föreslå:_agit:(_agen|_t:__na)"
+					,"en" => "propose:d:d"
 					)				
 				,"remember:verb" => array(
 					"sv" => "kom ihåg"
