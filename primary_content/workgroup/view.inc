@@ -39,11 +39,8 @@
 
 		<?php 
 			$workgroup_members = db_workgroup::list_members($workgroup['id']); 
-			_p(_strong(_t("Members of this workgroup")));
+			_p(_strong(_t("Members of this workgroup:")));
 		?>
-		<p>
-		<strong>Medlemmar i denna arbetsgrupp: </strong><br>
-		</p>
 		<?php foreach($workgroup_members as $row) : ?>
 			<a href="index.php?type=member&action=view&id=<?php echo $row['user_id']; ?>"><?php echo $row['full_name']; ?></a>
 			<?php if($is_member && $workgroup['is_restricted']==0) : ?>

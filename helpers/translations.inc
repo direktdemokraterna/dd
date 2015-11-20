@@ -43,10 +43,6 @@
 					"sv" => "bara en första-sida"
 					,"en" => "just a front page"
 					)
-				,"latest posts" => array(
-					"sv" => "senaste inläggen"
-					,"en" => "latest posts"
-					)
 				,"me" => array(
 					"sv" => "mig"
 					,"en" => "me"
@@ -83,9 +79,9 @@
 					"sv" => "välkommen"
 					,"en" => "welcome"
 					)
-				,"you are a member of" => array(
-					"sv" => "du är medlem i"
-					,"en" => "you are a member of"
+				,"you are" => array(
+					"sv" => "du är"
+					,"en" => "you are"
 					)
 				,"you have applied for" => array(
 					"sv" => "du har ansökt om"
@@ -99,6 +95,10 @@
 				,"affirmed:adj" => array(
 					"sv" => "beviljad|_t:e"
 					,"en" => "affirmed"
+					)
+				,"late:adj" => array(
+					"sv" => "sen|t:a:aste"
+					,"en" => "late:st"
 					)
 				,"my:adj" => array(
 					"sv" => "min|_tt:a"
@@ -221,6 +221,10 @@
 				,"password:noun2" => array(
 					"sv" => "lösenord"
 					,"en" => "password:s"
+					)
+				,"post:noun2" => array(
+					"sv" => "inlägg::et:en"
+					,"en" => "post:s"
 					)
 				,"username:noun2" => array(
 					"sv" => "användarnamn"
