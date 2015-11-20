@@ -37,7 +37,10 @@
 
 	<?php if($workgroup['is_active']==1) : ?>
 
-		<?php $workgroup_members = db_workgroup::list_members($workgroup['id']); ?>
+		<?php 
+			$workgroup_members = db_workgroup::list_members($workgroup['id']); 
+			_p(_strong(_t("Members of this workgroup")));
+		?>
 		<p>
 		<strong>Medlemmar i denna arbetsgrupp: </strong><br>
 		</p>

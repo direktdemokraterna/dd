@@ -39,9 +39,13 @@
 					"sv" => "beslut om dess innehåll är ännu inte fattat"
 					,"en" => "its content has not yet been decided"
 					)
-				,"last posts" => array(
+				,"just a front page" => array(
+					"sv" => "bara en första-sida"
+					,"en" => "just a front page"
+					)
+				,"latest posts" => array(
 					"sv" => "senaste inläggen"
-					,"en" => "last posts"
+					,"en" => "latest posts"
 					)
 				,"me" => array(
 					"sv" => "mig"
@@ -51,6 +55,10 @@
 					"sv" => "antal"
 					,"en" => "number of"
 					)
+				,"[member]of" => array(
+					"sv" => "i"
+					,"en" => "of"
+					)
 				,"sent" => array(
 					"sv" => "skickat"
 					,"en" => "sent"
@@ -58,10 +66,6 @@
 				,"superadmin" => array(
 					"sv" => "superadmin"
 					,"en" => "superadmin"
-					)
-				,"just a front page" => array(
-					"sv" => "bara en första-sida"
-					,"en" => "just a front page"
 					)
 				,"this" => array(
 					"sv" => "denna"
@@ -83,9 +87,9 @@
 					"sv" => "du är medlem i"
 					,"en" => "you are a member of"
 					)
-				,"you have applied for membership" => array(
-					"sv" => "du har ansökt om medlemskap"
-					,"en" => "you have applied for membership"
+				,"you have applied for" => array(
+					"sv" => "du har ansökt om"
+					,"en" => "you have applied for"
 					)
 
 				,"active:adj" => array(
@@ -206,6 +210,10 @@
 					"sv" => "forum"
 					,"en" => "forum:s"
 					)
+				,"membership:noun2" => array(
+					"sv" => "medlemskap"
+					,"en" => "membership"
+					)
 				,"message:noun2" => array(
 					"sv" => "meddelande:n"
 					,"en" => "message:s"
@@ -224,11 +232,11 @@
 					,"en" => "change"
 					)
 				,"create:verb" => array(
-					"sv" => "skapa:(d|t:e)"
+					"sv" => "skapa:(d|_t:e)"
 					,"en" => "create:d"
 					)
 				,"edit:verb" => array(
-					"sv" => "redigera:(d|t:e)"
+					"sv" => "redigera:(d|_t:e)"
 					,"en" => "edit:ed"
 					)
 				,"handle:verb" => array(

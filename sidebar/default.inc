@@ -2,7 +2,7 @@
 
 <ul>
 	<li>
-		<?php _h2("Last posts"); ?>
+		<?php _h2("Latest posts"); ?>
 		<ul>
 			<?php foreach($last_posts as $row) : ?>
 				<li>

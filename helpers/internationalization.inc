@@ -76,7 +76,8 @@
 		{
 			$key = strtolower($phrase);
 			$translation = strtolower($translated_phrase);
-			self::$translations[$key] = phrase::create($key, $translation);
+			$identifier = translation_identifier::create($key);
+			self::$translations[$identifier->key] = new translator($identifier, $translation);
 		}
 
 		private static function get_translation_matches($phrase) 
@@ -103,11 +104,11 @@
 					throw new Exception($translation);
 				}
 				if (get_class($translation) != 'untranslated') 
-					return translation_match::create($phrase, $translation);
+					return new translation_match($phrase, $translation);
 				if ($words == null)
 					$words = preg_split('/\s+/', $phrase, 0, PREG_SPLIT_NO_EMPTY);
 				if (count($words) == 1)
-					return translation_match::create($phrase, $translation);
+					return new translation_match($phrase, $translation);
 				$remaining_words[] = array_shift($words);
 			}
 		}
@@ -115,9 +116,7 @@
 		private static function match_phrase($phrase) 
 		{
 			$translation = self::get_translation(strtolower($phrase));
-			return $translation 
-				? $translation
-				: untranslated::create($phrase);
+			return $translation ? $translation : new untranslated($phrase);
 		}
 
 		private static function get_translation($phrase_lower) 
@@ -137,47 +136,72 @@
 		private static function expand_translations($compact_translations) 
 		{
 			$translations = array();
-			foreach (array_keys($compact_translations) as $key) {
-				$parts = explode(':', $key);
-				self::expand_translation($translations, count($parts) == 2 ? $parts[1] : 'phrase'
-					, $parts[0], $compact_translations[$key]);
-			}
+			foreach (array_keys($compact_translations) as $key)
+				self::expand_translation($translations, $key, $compact_translations[$key]);
 			return $translations;
 		}
 
-		private static function expand_translation(&$translations, $word_type, $key, $compact_translation) 
+		private static function expand_translation(&$translations, $identifier_str, $compact_translation) 
 		{
-			$new_translations = self::get_expanded_translations($word_type, $key, $compact_translation);
+			$identifier = translation_identifier::create($identifier_str);
+			$new_translations = self::get_expanded_translations($identifier, $compact_translation);
 			foreach ($new_translations as $translation)
-				$translations[$translation->key] = $translation;
+				$translations[$translation->identifier->key] = $translation;
 		}
 
-		private static function get_expanded_translations($word_type, $key, $compact_translation) 
+		private static function get_expanded_translations($identifier, $compact_translation) 
 		{
-			switch ($word_type) {
+			switch ($identifier->class) {
 				case 'phrase':
-					yield phrase::create($key, $compact_translation[LANG]);
+					yield new translator($identifier, $compact_translation[LANG]);
 					break;
 				case 'adj':
-					yield adjective::create($key, $compact_translation[LANG]);
+					yield new adjective($identifier, $compact_translation[LANG]);
 					break;
-				case 'noun1':
-					yield noun_singular::create($key, $compact_translation, 1);
-					yield noun_plural::create($key, $compact_translation);
-					break;
-				case 'noun2':
-					yield noun_singular::create($key, $compact_translation, 2);
-					yield noun_plural::create($key, $compact_translation);
+				case 'noun':
+					yield new noun_singular($identifier, $compact_translation);
+					yield new noun_plural($identifier, $compact_translation);
 					break;
 				case 'verb':
-					yield verb_infinitive::create($key, $compact_translation);
-					$verb_perfect_participle = verb_perfect_participle::create($key, $compact_translation);
-					if ($verb_perfect_participle) 
-						yield $verb_perfect_participle;
+					$verb_infinitive = new verb_infinitive($identifier, $compact_translation);
+					yield $verb_infinitive;
+					if ($verb_infinitive->has_perfect_participle)
+						yield new verb_perfect_participle($identifier, $compact_translation);
 					break;
 				default:
 					throw new Exception("Unknown word class: " . $word_type);
 			}
+		}
+	}
+
+	class translation_identifier 
+	{
+		public $key;
+		public $class;
+		public $type;
+
+		public static function create($identifier_str) 
+		{
+
+			$parts = explode(':', $identifier_str);
+			$category = count($parts) == 2 ? $parts[1] : 'phrase';
+			$key = $parts[0];
+			preg_match('/\d+/', $category, $matches);
+			return $matches
+				? new translation_identifier($key, str_replace($matches[0], '', $category), (int)$matches[0])
+				: new translation_identifier($key, $category, 1);
+		}
+
+		public function copy($new_key) 
+		{
+			return new translation_identifier($new_key, $this->class, $this->type);
+		}
+
+		function __construct($key, $class, $type = 1) 
+		{
+			$this->key = $key;
+			$this->class = $class;
+			$this->type = $type;	
 		}
 	}
 
@@ -186,12 +210,10 @@
 		public $phrase;
 		public $translation;
 
-		public static function create($phrase, $translation) 
+		function __construct($phrase, $translation) 
 		{
-			$translation_match = new translation_match();
-			$translation_match->phrase = $phrase;
-			$translation_match->translation = $translation;
-			return $translation_match;
+			$this->phrase = $phrase;
+			$this->translation = $translation;
 		}
 
 		public function translate($remaining_translation_matches) 
@@ -213,11 +235,9 @@
 	{
 		public $phrase;
 
-		public static function create($phrase) 
+		function construct($phrase) 
 		{
-			$untranslated = new untranslated();
-			$untranslated->phrase = $phrase;
-			return $untranslated;
+			$this->phrase = $phrase;
 		}
 
 		public function translate($lower_phrase, $remaining_translation_matches) 
@@ -227,14 +247,19 @@
 	}
 
 	class translator {
-		public $key;		
+		public $identifier;		
 		public $translation;
+
+		function __construct($identifier, $translation) {
+			$this->identifier = $identifier;
+			$this->translation = $translation;
+		}
 
 		public function translate($lower_phrase, $remaining_translation_matches) 
 		{
-			if ($lower_phrase != $this->key)
-				throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->key);
-			return self::do_translate($lower_phrase, $remaining_translation_matches);
+			if ($lower_phrase != $this->identifier->key)
+				throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->identifier->key);
+			return $this->do_translate($lower_phrase, $remaining_translation_matches);
 		}
 
 		protected function do_translate($lower_phrase, $remaining_translation_matches) 
@@ -256,49 +281,35 @@
 		}
 	}
 
-	class phrase extends translator
-	{
-		public static function create($key, $translation) 
-		{
-			$phrase = new phrase();
-			$phrase->key = $key;
-			$phrase->translation = $translation;
-			return $phrase;
-		}
-	}
-
 	class adjective extends translator
 	{
 		public $translation_noun2;
 		public $translation_plural;
 
-		public static function create($key, $compact_translation) 
+		function __construct($identifier, $compact_translation) 
 		{
-			$adjective = new adjective();
-			$adjective->key = $key;
 			$parts = explode(':', $compact_translation);
 			$singular_parts = explode('|', $parts[0]);
 			$singular = $singular_parts[0];
 			$alt_singular_ending = $singular_parts[1];
 			$plural_ending = $parts[1];
-			$adjective->translation = $singular;
-			$adjective->translation_noun2 = parent::create_word_form($singular
+			parent::__construct($identifier, $singular);
+			$this->translation_noun2 = parent::create_word_form($singular
 				, $alt_singular_ending);
-			$adjective->translation_plural = parent::create_word_form($singular, $plural_ending);
-			return $adjective;
+			$this->translation_plural = parent::create_word_form($singular, $plural_ending);
 		}
 
 		protected function do_translate($lower_phrase, $remaining_translation_matches) 
 		{
 			$significant_noun = self::get_significant_noun($remaining_translation_matches);
 			if ($significant_noun == null)
-				return $this->translation_noun1;
+				return $this->translation;
 			if (get_class($significant_noun) == 'noun_plural')
 				return $this->translation_plural;
 			if (get_class($significant_noun) == 'noun_singular') {
-				if ($significant_noun->type == 1)
-					return $this->translation_noun1;
-				if ($significant_noun->type == 2)
+				if ($significant_noun->identifier->type == 1)
+					return $this->translation;
+				if ($significant_noun->identifier->type == 2)
 					return $this->translation_noun2;
 				throw new Exception('Invalid noun type: ' . $significant_noun->type);
 			}
@@ -325,32 +336,25 @@
 
 	class noun_singular extends translator 
 	{
-		public $type;
-
-		public static function create($key, $compact_translation, $type) 
+		function __construct($identifier, $compact_translation) 
 		{
-			$noun_singular = new noun_singular();
-			$noun_singular->type = $type;
-			$noun_singular->key = self::get_singular($compact_translation[BASE_LANG]);
-			$noun_singular->translation = self::get_singular($compact_translation[LANG]);
-			return $noun_singular;
+			$translation = self::get_singular($compact_translation[LANG]);
+			parent::__construct($identifier, $translation);
 		}
 
 		private static function get_singular($compact_translation) 
 		{
-			$parts = explode(':', $compact_translation);
-			return $parts[0];
+			return explode(':', $compact_translation)[0];
 		}
 	}
 
 	class noun_plural extends translator 
 	{
-		public static function create($key, $compact_translation) 
+		function __construct($identifier, $compact_translation) 
 		{
-			$noun_plural = new noun_plural();
-			$noun_plural->key = self::get_plural($compact_translation[BASE_LANG]);
-			$noun_plural->translation = self::get_plural($compact_translation[LANG]);
-			return $noun_plural;
+			$translation = self::get_plural($compact_translation[LANG]);
+			$plural_key = self::get_plural($compact_translation[BASE_LANG]);
+			parent::__construct($identifier->copy($plural_key), $translation);
 		}
 
 		private static function get_plural($compact_translation) 
@@ -364,12 +368,13 @@
 
 	class verb_infinitive extends translator 
 	{
-		public static function create($key, $compact_translation) 
+		public $has_perfect_participle;
+
+		function __construct($identifier, $compact_translation) 
 		{
-			$verb_infinitive = new verb_infinitive();
-			$verb_infinitive->key = self::get_infinitive($compact_translation[BASE_LANG]);
-			$verb_infinitive->translation = self::get_infinitive($compact_translation[LANG]);
-			return $verb_infinitive;
+			$translation = self::get_infinitive($compact_translation[LANG]);
+			$this->has_perfect_participle = ($translation != $compact_translation[LANG]);
+			parent::__construct($identifier, $translation);
 		}
 
 		private static function get_infinitive($compact_translation) 
@@ -379,15 +384,15 @@
 		}
 	}
 
-	class verb_perfect_participle extends translator
+	class verb_perfect_participle extends adjective
 	{
-		public static function create($key, $compact_translation) 
+		function __construct($identifier, $compact_translation) 
 		{
 			$base_parts = explode(':', $compact_translation[BASE_LANG]);
-			if (count($base_parts) == 1) return null;
 			$adjective_key = parent::create_word_form($base_parts[0], $base_parts[1]);
 			$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation);
-			return adjective::create($adjective_key, $adjective_compact_translation);
+			parent::__construct(new translation_identifier($adjective_key, 'adj'),
+				$adjective_compact_translation);
 		}
 
 		private static function make_adjective_compact_translation($verb_compact_translation) {
