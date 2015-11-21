@@ -17,8 +17,6 @@ include(dirname(__FILE__)."/forum_helpers.inc");
 include(dirname(__FILE__)."/vote_helpers.inc");
 include(dirname(__FILE__)."/crypt_helpers.inc");
 include(dirname(__FILE__)."/class-phpass.php");
-include(dirname(__FILE__)."/internationalization.inc");
-include(dirname(__FILE__)."/translations.inc");
 
 include(dirname(__FILE__)."/db/db.inc");
 include(dirname(__FILE__)."/db/db_general.inc");
@@ -37,15 +35,20 @@ include(dirname(__FILE__)."/db/db_prop.inc");
 include(dirname(__FILE__)."/db/db_delegate.inc");
 include(dirname(__FILE__)."/db/db_constituency.inc");
 
-include(dirname(__FILE__)."/logic/vote.inc");
-include(dirname(__FILE__)."/logic/util.inc");
-include(dirname(__FILE__)."/logic/user.inc");
-include(dirname(__FILE__)."/logic/forum.inc");
+include(dirname(__FILE__)."/i18n/engine.inc");
+include(dirname(__FILE__)."/i18n/translations.inc");
+include(dirname(__FILE__)."/i18n/translators.inc");
 
-include(dirname(__FILE__)."/view/general.inc");
-include(dirname(__FILE__)."/view/vote.inc");
+include(dirname(__FILE__)."/logic/forum.inc");
+include(dirname(__FILE__)."/logic/user.inc");
+include(dirname(__FILE__)."/logic/util.inc");
+include(dirname(__FILE__)."/logic/vote.inc");
+
 include(dirname(__FILE__)."/view/forum.inc");
+include(dirname(__FILE__)."/view/general.inc");
+include(dirname(__FILE__)."/view/generators.inc");
 include(dirname(__FILE__)."/view/member.inc");
+include(dirname(__FILE__)."/view/vote.inc");
 
 // Defines constants
 define("USERIMG_PATH", "images/userimg/");
