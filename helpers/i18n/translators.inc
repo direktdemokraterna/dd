@@ -6,6 +6,7 @@ class translation_identifier
 	public $key;
 	public $class;
 	public $type;
+	public $form;
 	public $selector;
 
 	public static function create($identifier_str) 
@@ -34,11 +35,12 @@ class translation_identifier
 		return new translation_identifier($new_key, $this->class, $this->type);
 	}
 
-	function __construct($key, $class, $type = 1) 
+	function __construct($key, $class, $type = 1, $form = null) 
 	{
 		$this->key = $key;
 		$this->class = $class;
 		$this->type = $type;	
+		$this->form = $form;	
 	}
 }
 
@@ -55,10 +57,17 @@ class translator {
 	{
 		if ($lower_phrase != $this->identifier->key)
 			throw new Exception("mismatched translation: " . $lower_phrase . " != " . $this->identifier->key);
-		return $this->do_translate($lower_phrase, $translations_before, $translations_after);
+		$connector = $translations_after ? ' ' : '';
+		return $this->do_translate($lower_phrase, $translations_before, $translations_after, $connector) 
+		. $connector;
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after) 
+	public function is_noun() 
+	{
+		return $this->identifier->class == 'noun';
+	}
+
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
 	{
 		return $this->translation;
 	}
@@ -106,38 +115,38 @@ class adjective extends translator
 		$this->translation_plural = parent::create_word_form($singular, $plural_ending);
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after) 
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
 	{
 		$significant_noun = self::get_significant_noun($translations_after);
-		if ($significant_noun == null)
-			return $this->translation;
-		if (get_class($significant_noun) == 'noun_plural')
+		return $significant_noun
+			? self::get_translation_for_noun($significant_noun->identifier)
+			: $this->translation;
+	}
+
+	protected function get_translation_for_noun($noun_identifier) 
+	{
+		if ($noun_identifier->form == 'plural')
 			return $this->translation_plural;
-		if (get_class($significant_noun) == 'noun_singular') {
-			if ($significant_noun->identifier->type == 1)
+		if ($noun_identifier->form == 'singular') {
+			if ($noun_identifier->type == 1)
 				return $this->translation;
-			if ($significant_noun->identifier->type == 2)
+			if ($noun_identifier->type == 2)
 				return $this->translation_noun2;
-			throw new Exception('Invalid noun type: ' . $significant_noun->type);
+			throw new \Exception('Invalid noun type: ' . $noun_identifier->type);
 		}
-		throw new Exception('Invalid word class: ' . get_class($significant_noun));
+		throw new \Exception('Invalid noun form: ' . $noun_identifier->form);
 	}
 
 	private static function get_significant_noun($translations_after) 
 	{
 		$found_noun = null;
 		foreach ($translations_after as $next_translation) {
-			if (self::is_noun($next_translation))
-				$found_noun = $next_translation;
+			if ($next_translation->is_noun())
+				$found_noun = $next_translation;				
 			else if ($found_noun)
 				return $found_noun; 
 		}
 		return $found_noun;
-	}
-
-	private static function is_noun($translation) 
-	{
-		return in_array(get_class($translation), array('noun_singular', 'noun_plural'));
 	}
 }
 
@@ -157,13 +166,14 @@ class noun extends translator
 {
 	private $definite_translation;
 
-	function __construct($identifier, $indefinite_translation, $definite_translation) 
+	function __construct($identifier, $indefinite_translation, $definite_translation, $form) 
 	{
+		$identifier->form = $form;
 		parent::__construct($identifier, $indefinite_translation);
 		$this->definite_translation = $definite_translation;
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after) 
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
 	{
 		return self::is_definite($translations_before)
 			? $this->definite_translation
@@ -178,14 +188,34 @@ class noun extends translator
 
 class noun_singular extends noun 
 {
+	private $connector;
+
 	function __construct($identifier, $compact_translation) 
 	{
-		$parts = explode(':', $compact_translation);
+		$parts = explode(':-', $compact_translation);
+		$inflections = $parts[0];
+		$connector = count($parts) == 2 ? $parts[1] : null;
+		$parts = explode(':', $inflections);
 		$indefinite_translation = $parts[0];
 		$definite_translation = count($parts) > 2 
 			? parent::create_word_form($indefinite_translation, $parts[2])
 			: $indefinite_translation;
-		parent::__construct($identifier, $indefinite_translation, $definite_translation);
+		parent::__construct($identifier, $indefinite_translation, $definite_translation, 'singular');
+		$this->connector = $connector;
+	}
+
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
+	{
+		if ($this->is_compound($translations_after)) {
+			$connector = '';
+			return parent::create_word_form($this->translation, $this->connector);
+		}
+		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector);
+	}
+
+	protected function is_compound($translations_after) 
+	{
+		return $this->connector !== null && $translations_after && $translations_after[0]->is_noun();
 	}
 }
 
@@ -198,7 +228,8 @@ class noun_plural extends noun
 		$translation_parts = explode(':', $compact_translation[LANG]);
 		$indefinite_translation = self::assemble_word_form($translation_parts, 1);
 		$definite_translation = self::assemble_word_form($translation_parts, 3, $indefinite_translation);
-		parent::__construct($identifier->copy($plural_key), $indefinite_translation, $definite_translation);
+		parent::__construct($identifier->copy($plural_key), $indefinite_translation, 
+			$definite_translation, 'plural');
 	}
 }
 

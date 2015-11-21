@@ -5,7 +5,11 @@ class translations
 {
 	public static function create_translations() {
 		return array(
-			"a" => array(
+			"%d" => array(
+				"sv" => "%d"
+				,"en" => "%d"
+				)
+			,"a" => array(
 				"sv" => "en"
 				,"en" => "a"
 				)
@@ -175,6 +179,10 @@ class translations
 				"sv" => "första-sida"
 				,"en" => "front page"
 				)
+			,"group:noun1" => array(
+				"sv" => "grupp:er:-"
+				,"en" => "group:s"
+				)
 			,"inbox:noun1" => array(
 				"sv" => "inbox:ar"
 				,"en" => "inbox:es"
@@ -265,6 +273,10 @@ class translations
 				"sv" => "redigera:t:(d|_t:e)"
 				,"en" => "edit:ed:ed"
 				)
+			,"exclude:verb" => array(
+				"sv" => "utesluta"
+				,"en" => "exclude"
+				)
 			,"handle:verb" => array(
 				"sv" => "hantera"
 				,"en" => "handle"
@@ -304,6 +316,10 @@ class translations
 			,"write:verb" => array(
 				"sv" => "skriv"
 				,"en" => "write"
+				)
+			,"want to:verb" => array(
+				"sv" => "vill"
+				,"en" => "want to"
 				)
 		);
 	}	

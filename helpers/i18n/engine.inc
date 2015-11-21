@@ -33,7 +33,7 @@ class engine
 		if (count($translation_matches) == 1)
 			return $translation_matches[0]->translate(self::$empty_array, self::$empty_array);
 		$localized_strings = self::get_translated_parts($translation_matches);
-		$translated_phrase = implode(' ', $localized_strings);
+		$translated_phrase = implode('', $localized_strings);
 		self::store_new_translation($phrase, $translated_phrase);
 		return $translated_phrase;
 	}
