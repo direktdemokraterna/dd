@@ -325,14 +325,53 @@ class noun_plural extends noun
 class verb_infinitive extends translator 
 {
 	public $has_perfect;
+	public $singular_translation;
 	public $has_perfect_participle;
 
 	function __construct($identifier, $compact_translation) 
 	{
 		$parts = explode(':', $compact_translation);
-		parent::__construct($identifier, $parts[0]);
+		$translation = $parts[0];
+		$singular_translation = self::extract_singular_translation($translation);
+		parent::__construct($identifier, $translation);
+		$this->singular_translation = $singular_translation;
 		$this->has_perfect = (count($parts) > 1);
 		$this->has_perfect_participle = (count($parts) > 2);
+	}
+
+	private function extract_singular_translation(&$translation) 
+	{
+		$variation_parts = explode('|', $translation, 2);
+		if (count($variation_parts) == 1) 
+			return null;
+		$variation = $variation_parts[1];
+		$word_parts = explode(' ', $variation, 2);
+		$singular_ending = $word_parts[0];
+		$translation = str_replace('|' . $singular_ending, '', $translation);
+		$singular_translation = self::create_word_form($variation_parts[0], $singular_ending);
+		if (count($word_parts) > 1)
+			$singular_translation .= ' ' . $word_parts[1];
+		return $singular_translation;
+	}
+
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
+	{
+		if ($this->singular_translation) {
+			$significant_noun = self::get_significant_noun($translations_before);
+			if ($significant_noun && $significant_noun->identifier->form == 'singular')
+				return $this->singular_translation;			
+		}
+		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector);
+	}
+
+	private static function get_significant_noun($translations_before) 
+	{
+		if ($translations_before) {
+			$previous_translation = end($translations_before);
+			if ($previous_translation->is_noun())
+				return $previous_translation;
+		}
+		return null;
 	}
 }
 

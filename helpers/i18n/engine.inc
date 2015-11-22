@@ -4,7 +4,6 @@ namespace I18n;
 class engine 
 {
 	private static $translations = null;
-	private static $empty_array = array();
 
 	public static function translate($text) 
 	{
@@ -27,12 +26,18 @@ class engine
 	private static function translate_phrase($phrase, $numbers) 
 	{
 		$translation_matches = self::get_translation_matches($phrase, $numbers);
-		if (count($translation_matches) == 1)
-			return $translation_matches[0]->translate(self::$empty_array, self::$empty_array);
+		$translated_phrase = count($translation_matches) == 1
+			? $translation_matches[0]->translate(array(), array())
+			: self::translate_new_phrase($phrase, $translation_matches);
+		$translated_phrase = self::restore_numbers($translated_phrase, $numbers);
+		return $translated_phrase;
+	}
+
+	private static function translate_new_phrase($phrase, $translation_matches) 
+	{
 		$localized_strings = self::get_translated_parts($translation_matches);
 		$translated_phrase = implode('', $localized_strings);
-		self::store_new_translation($phrase, $translated_phrase);
-		$translated_phrase = self::restore_numbers($translated_phrase, $numbers);
+		self::store_new_translation($phrase, $translated_phrase);			
 		return $translated_phrase;
 	}
 

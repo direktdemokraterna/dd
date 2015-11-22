@@ -319,7 +319,7 @@ class translations
 				)
 			,"want to:verb" => array(
 				"sv" => "vill"
-				,"en" => "want to"
+				,"en" => "want|s to"
 				)
 		);
 	}	
