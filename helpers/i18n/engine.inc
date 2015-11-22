@@ -15,27 +15,60 @@ class engine
 		return $text;
 	}
 
-	private static function translate_original_phrase($original_phrase) 
+	private static function translate_original_phrase($phrase) 
 	{
-		preg_match_all('/\d+/', $original_phrase, $matches);
-		if (!$matches[0]) 
-			return self::translate_phrase($original_phrase);
-		$phrase = preg_replace('/\d+/', '%d', $original_phrase);
-		$translated_phrase = self::translate_phrase($phrase);
-		foreach ($matches[0] as $number)
-			$translated_phrase = str_replace('%d', $number, $translated_phrase);
-		return $translated_phrase;
+		preg_match_all('/\d+/', $phrase, $matches);
+		$numbers = $matches[0];
+		if ($numbers) 
+			$phrase = preg_replace('/\d+/', '%d', $phrase);
+		return self::translate_phrase($phrase, $numbers);
 	}
 
-	private static function translate_phrase($phrase) 
+	private static function translate_phrase($phrase, $numbers) 
 	{
-		$translation_matches = self::get_translation_matches($phrase);
+		$translation_matches = self::get_translation_matches($phrase, $numbers);
 		if (count($translation_matches) == 1)
 			return $translation_matches[0]->translate(self::$empty_array, self::$empty_array);
 		$localized_strings = self::get_translated_parts($translation_matches);
 		$translated_phrase = implode('', $localized_strings);
 		self::store_new_translation($phrase, $translated_phrase);
+		$translated_phrase = self::restore_numbers($translated_phrase, $numbers);
 		return $translated_phrase;
+	}
+
+	private static function get_translation_matches($phrase, $numbers) 
+	{
+		$translation_matches = self::get_candidates_matches($phrase);
+		self::select_matches($translation_matches, $numbers);
+		return $translation_matches;
+	}
+
+	private static function select_matches(&$candidates_matches, $numbers) {
+		$previous_matches = array();
+		foreach (array_keys($candidates_matches) as $key) {
+			$match = $candidates_matches[$key];
+			$candidates = $match->translation;
+			if (is_array($candidates)) {
+				$match->translation = count($candidates) > 1
+					? self::select_translation($candidates, $previous_matches)
+					: $candidates[0];
+				if ($numbers) 
+					$match->phrase = self::restore_numbers($match->phrase, $numbers);
+				$previous_matches[] = $match;
+			}
+		}
+	}
+
+	private static function restore_numbers($phrase, &$numbers) {
+		$old_phrase = null;
+		while ($numbers) {
+			$old_phrase = $phrase;
+			$replace_count;
+			$phrase = preg_replace('/%d/', $numbers[0], $phrase, 1, $replace_count);
+			if ($replace_count == 0) break;
+			array_shift($numbers);
+		}
+		return $phrase;
 	}
 
 	private static function get_translated_parts($translation_matches) 
@@ -51,13 +84,6 @@ class engine
 		return $localized_strings;
 	}
 
-	private static function select_translation($candidates, $previous) {
-		foreach ($candidates as $candidate)
-			if ($candidate->identifier->match($previous))
-				return $candidate;
-		return null;
-	}
-
 	private static function store_new_translation($phrase, $translated_phrase) 
 	{
 		$key = strtolower($phrase);
@@ -66,26 +92,11 @@ class engine
 		self::add_translation(self::$translations, new translator($identifier, $translation));
 	}
 
-	private static function get_translation_matches($phrase) 
-	{
-		$translation_matches = self::get_candidates_matches($phrase);
-		self::select_matches($translation_matches);
-		return $translation_matches;
-	}
-
-	private static function select_matches(&$candidates_matches) {
-		$translation = null;
-		foreach (array_keys($candidates_matches) as $key) {
-			$match = $candidates_matches[$key];
-			$candidates = $match->translation;
-			if (is_array($candidates)) {
-				$translation = count($candidates) > 1
-					? self::select_translation($candidates, $translation)
-					: $candidates[0];
-				$match->translation = $translation;
-			}
-			else $translation = null;
-		}
+	private static function select_translation($candidates, $previous_matches) {
+		foreach ($candidates as $candidate)
+			if ($candidate->identifier->match($previous_matches))
+				return $candidate;
+		return null;
 	}
 
 	private static function get_candidates_matches($phrase) 
@@ -175,8 +186,12 @@ class engine
 					yield new adjective_definite($identifier, $compact_translation, $adjective_indefinite);
 				break;
 			case 'noun':
+				yield new noun_singular($identifier->copy($identifier->key, new singular_noun_selector()), 
+					$compact_translation[LANG]);
+				yield new noun_plural($identifier->copy($identifier->key, new plural_noun_selector()), 
+					$compact_translation);
 				yield new noun_singular($identifier, $compact_translation[LANG]);
-				yield new noun_plural($identifier, $compact_translation);
+				yield new noun_plural($identifier->copy(null), $compact_translation);
 				break;
 			case 'verb':
 				$verb_infinitive = new verb_infinitive($identifier, $compact_translation[LANG]);
@@ -189,6 +204,12 @@ class engine
 			default:
 				throw new Exception("Unknown word class: " . $word_type);
 		}
+	}
+
+	private function add_singular_noun_selector($identifier, $key) {
+		$identifier->key = $key;
+		$identifier->selector = new singular_noun_selector();
+		return $identifier;
 	}
 }
 
@@ -205,32 +226,5 @@ class untranslated
 	{
 		return $this->phrase;
 	}
-}
-
-class translation_match
-{
-	public $phrase;
-	public $translation;
-
-	function __construct($phrase, $translation) 
-	{
-		$this->phrase = $phrase;
-		$this->translation = $translation;
-	}
-
-	public function translate($translations_before, $translations_after) 
-	{
-		$lower_translation = $this->translation->translate(strtolower($this->phrase), 
-			$translations_before, $translations_after);
-		return self::match_case($lower_translation, $this->phrase);
-	}
-
-	private static function match_case($target, $template) 
-	{
-		return (ctype_upper($template[0]) 
-				? strtoupper($target[0]) 
-				: strtolower($target[0]))
-		. substr($target, 1);
-	}		
 }
 ?>

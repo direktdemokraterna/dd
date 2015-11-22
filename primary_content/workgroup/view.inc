@@ -44,10 +44,11 @@
 		<?php foreach($workgroup_members as $row) : ?>
 			<a href="index.php?type=member&action=view&id=<?php echo $row['user_id']; ?>"><?php echo $row['full_name']; ?></a>
 			<?php if($is_member && $workgroup['is_restricted']==0) : ?>
-				<?php $exclude_info = db_workgroup::exclude_info($workgroup['id'], $row['user_id'], $_SESSION['id']); ?>
-				<?php if($exclude_info['number_of_excluders'] > 0) : ?>
-					(<?php echo $exclude_info['number_of_excluders']; ?> gruppmedlem<?php if($exclude_info['number_of_excluders'] != 1) echo "mar"; ?> vill utesluta denna medlem) 
-				<?php endif; ?>
+				<?php 
+					$exclude_info = db_workgroup::exclude_info($workgroup['id'], $row['user_id'], $_SESSION['id']);
+					if($exclude_info['number_of_excluders'] > 0)
+						__($exclude_info['number_of_excluders'] . " group member want to exclude this member.");
+				?>
 				<?php if($exclude_info['is_excluder'] > 0) : ?>
 					 (Du stödjer en uteslutning av denna gruppmedlem.)
 					 &nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="cancel_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Ångra"></form>

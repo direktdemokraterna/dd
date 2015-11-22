@@ -116,7 +116,7 @@ class translations
 				)
 			,"late:adj" => array(
 				"sv" => "sen|t:a:aste"
-				,"en" => "late:st"
+				,"en" => "late::st"
 				)
 			,"my:adj" => array(
 				"sv" => "min|_tt:a"
@@ -267,11 +267,11 @@ class translations
 				)
 			,"create:verb" => array(
 				"sv" => "skapa:t:(d|_t:e)"
-				,"en" => "create:d:d"
+				,"en" => "create:d:(d)"
 				)
 			,"edit:verb" => array(
 				"sv" => "redigera:t:(d|_t:e)"
-				,"en" => "edit:ed:ed"
+				,"en" => "edit:ed:(ed)"
 				)
 			,"exclude:verb" => array(
 				"sv" => "utesluta"
@@ -295,7 +295,7 @@ class translations
 				)
 			,"propose:verb" => array(
 				"sv" => "föreslå:_agit:(_agen|_t:__na)"
-				,"en" => "propose:d:d"
+				,"en" => "propose:d:(d)"
 				)				
 			,"remember:verb" => array(
 				"sv" => "kom ihåg"
