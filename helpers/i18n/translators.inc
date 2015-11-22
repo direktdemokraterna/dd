@@ -4,18 +4,18 @@ namespace I18n;
 class translation_match
 {
 	public $phrase;
-	public $translation;
+	public $translator;
 
-	function __construct($phrase, $translation) 
+	function __construct($phrase, $translator) 
 	{
 		$this->phrase = $phrase;
-		$this->translation = $translation;
+		$this->translator = $translator;
 	}
 
-	public function translate($translations_before, $translations_after) 
+	public function translate($translators_before, $translators_after) 
 	{
-		$lower_translation = $this->translation->translate(strtolower($this->phrase), 
-			$translations_before, $translations_after);
+		$lower_translation = $this->translator->translate(strtolower($this->phrase), 
+			$translators_before, $translators_after);
 		return self::match_case($lower_translation, $this->phrase);
 	}
 
@@ -38,18 +38,18 @@ class translation_identifier
 
 	public static function create($identifier_str) 
 	{
-		preg_match('/\[\w+\]/', $identifier_str, $matches);
-		if ($matches) {
-			$identifier_str = str_replace($matches[0], '', $identifier_str);
-			$selector = new previous_word_selector($matches[0]);
+		preg_match('/\[\w+\]/', $identifier_str, $selector_matches);
+		if ($selector_matches) {
+			$identifier_str = str_replace($selector_matches[0], '', $identifier_str);
+			$selector = new previous_word_selector(translator::strip_parenthesis($selector_matches[0]));
 		}
 		else $selector = null;
 		$parts = explode(':', $identifier_str);
 		$category = count($parts) == 2 ? $parts[1] : 'phrase';
 		$key = $parts[0];
-		preg_match('/\d+/', $category, $matches);
-		$identifier = $matches
-			? new translation_identifier($key, str_replace($matches[0], '', $category), (int)$matches[0])
+		preg_match('/\d+/', $category, $type_matches);
+		$identifier = $type_matches
+			? new translation_identifier($key, str_replace($type_matches[0], '', $category), (int)$type_matches[0])
 			: new translation_identifier($key, $category, 1);
 		$identifier->selector = $selector;
 		return $identifier;
@@ -62,7 +62,8 @@ class translation_identifier
 
 	public function copy($new_key, $new_selector = null) 
 	{
-		return new translation_identifier($new_key, $this->class, $this->type, $this->form, $new_selector);
+		return new translation_identifier($new_key, $this->class, $this->type, $this->form, 
+			$new_selector ? $new_selector : $this->selector);
 	}
 
 	function __construct($key, $class, $type = 1, $form = null, $selector = null) 
@@ -86,7 +87,7 @@ class previous_word_selector
 
 	public function match($previous_matches) 
 	{
-		return $previous_matches && end($previous_matches)->translation->identifier->key == $this->word;
+		return $previous_matches && end($previous_matches)->translator->identifier->key == $this->word;
 	}
 }
 
@@ -96,12 +97,12 @@ class noun_numerus_selector
 	{
 		$current_is_noun = true;
 		foreach (array_reverse($previous_matches) as $previous_match) {
-			$previous_translation = $previous_match->translation;
-			if ($previous_translation->is_quantifier())
+			$previous_translator = $previous_match->translator;
+			if ($previous_translator->is_quantifier())
 				return (int)$previous_match->phrase;
-			if ($previous_translation->is_adjective())
+			if ($previous_translator->is_adjective())
 				$current_is_noun = false; 
-			else if (!($previous_translation->is_noun() && $current_is_noun))
+			else if (!($previous_translator->is_noun() && $current_is_noun))
 				break; 
 		}
 		return null; 
@@ -126,11 +127,13 @@ class plural_noun_selector extends noun_numerus_selector
 	}
 }
 
-class translator {
+class translator 
+{
 	public $identifier;		
 	public $translation;
 
-	function __construct($identifier, $translation = null) {
+	function __construct($identifier, $translation = null) 
+	{
 		$this->identifier = $identifier;
 		$this->translation = $translation;
 	}
@@ -142,14 +145,29 @@ class translator {
 		. $connector;
 	}
 
+	public function match($previous_matches) 
+	{
+		return true;
+	}	
+
+	public function is_adjective() 
+	{
+		return $this->identifier->class == 'adj';
+	}
+
 	public function is_noun() 
 	{
 		return $this->identifier->class == 'noun';
 	}
 
-	public function is_adjective() 
+	public function is_verb() 
 	{
-		return $this->identifier->class == 'adj';
+		return $this->identifier->class == 'verb';
+	}
+
+	public function is_pronoun() 
+	{
+		return $this->identifier->class == 'pron';
 	}
 
 	public function is_quantifier() 
@@ -173,13 +191,13 @@ class translator {
 
 	protected static function create_word_form($base_form, $ending) 
 	{
-		$suffix = str_replace('_', '', $ending);
+		$suffix = ltrim($ending, '_');
 		$del_char_count = strlen($ending) - strlen($suffix);
 		$word_stem = substr($base_form, 0, strlen($base_form) - $del_char_count);
 		return $word_stem . $suffix;
 	}
 
-	protected static function strip_parenthesis($text_in_parenthesis) 
+	public static function strip_parenthesis($text_in_parenthesis) 
 	{
 		return substr($text_in_parenthesis, 1, strlen($text_in_parenthesis) - 2);
 	}
@@ -322,36 +340,78 @@ class noun_plural extends noun
 	}
 }
 
-class verb_infinitive extends translator 
+class verb_imperative extends translator 
 {
+	public $has_infinitive;
+	public $has_present;
 	public $has_perfect;
-	public $singular_translation;
 	public $has_perfect_participle;
 
 	function __construct($identifier, $compact_translation) 
 	{
-		$parts = explode(':', $compact_translation);
+		$words = explode(' ', $compact_translation, 2);
+		$parts = explode(':', $words[0]);
 		$translation = $parts[0];
-		$singular_translation = self::extract_singular_translation($translation);
+		if (count($words) == 2)
+			$translation .= ' ' . $words[1];
 		parent::__construct($identifier, $translation);
-		$this->singular_translation = $singular_translation;
-		$this->has_perfect = (count($parts) > 1);
-		$this->has_perfect_participle = (count($parts) > 2);
+		self::set_form_availability(count($parts));
+	}
+	
+	private function set_form_availability($part_count) 
+	{
+		$this->has_infinitive = $part_count > 1;
+		$this->has_present = $part_count > 2;
+		$this->has_perfect = $part_count > 3;
+		$this->has_perfect_participle = $part_count > 4;
+	}
+}
+
+class verb_infinitive extends translator 
+{
+	function __construct($identifier, $compact_translation) 
+	{
+		$words = explode(' ', $compact_translation, 2);
+		$parts = explode(':', $words[0]);
+		$translation = parent::assemble_word_form($parts, 1);
+		if (count($words) == 2)
+			$translation .= ' ' . $words[1];
+		parent::__construct($identifier, $translation);
 	}
 
-	private function extract_singular_translation(&$translation) 
+	public function match($previous_matches) 
 	{
-		$variation_parts = explode('|', $translation, 2);
-		if (count($variation_parts) == 1) 
-			return null;
-		$variation = $variation_parts[1];
-		$word_parts = explode(' ', $variation, 2);
-		$singular_ending = $word_parts[0];
-		$translation = str_replace('|' . $singular_ending, '', $translation);
-		$singular_translation = self::create_word_form($variation_parts[0], $singular_ending);
-		if (count($word_parts) > 1)
-			$singular_translation .= ' ' . $word_parts[1];
-		return $singular_translation;
+		return $previous_matches && end($previous_matches)->translator->is_verb();
+	}
+}
+
+class verb_present extends translator 
+{
+	public $singular_translation;
+
+	function __construct($identifier, $compact_translation) 
+	{
+		$words = explode(' ', $compact_translation, 2);
+		$parts = explode(':', $words[0]);
+		$translation = parent::assemble_word_form($parts, 2);
+		$singular_translation = self::extract_singular_translation($translation);
+		if (count($words) == 2) {
+			$translation .= ' ' . $words[1];
+			if ($singular_translation)
+				$singular_translation .= ' ' . $word;
+		}
+		parent::__construct($identifier, $translation);
+		$this->singular_translation = $singular_translation;
+	}
+
+	public function match($previous_matches) 
+	{
+		return $previous_matches && self::is_subject(end($previous_matches)->translator);
+	}
+
+	private function is_subject($translator) 
+	{
+		return $translator->is_noun() || $translator->is_pronoun();
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
@@ -362,6 +422,16 @@ class verb_infinitive extends translator
 				return $this->singular_translation;			
 		}
 		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector);
+	}
+
+	private function extract_singular_translation(&$translation) 
+	{
+		$parts = explode('|', $translation, 2);
+		if (count($parts) == 1) 
+			return null;
+		$translation = $parts[0];
+		$singular_translation = self::assemble_word_form($parts, 1);
+		return $singular_translation;
 	}
 
 	private static function get_significant_noun($translations_before) 
@@ -379,28 +449,28 @@ class verb_perfect extends translator
 {
 	function __construct($identifier, $compact_translation) 
 	{
-		$perfect_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 1);
-		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[LANG]), 1);
+		$perfect_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 3);
+		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[LANG]), 3);
 		parent::__construct($identifier->copy($perfect_key), $perfect_translation);
 	}
 }
 
 class verb_perfect_participle extends adjective
 {
-	function __construct($identifier, $compact_translation) 
+	function __construct($identifier, $compact_translation_pair) 
 	{
-		$base_parts = explode(':', $compact_translation[BASE_LANG]);
-		$adjective_key = parent::assemble_word_form($base_parts, 2);
-		$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation);
+		$base_parts = explode(':', $compact_translation_pair[BASE_LANG]);
+		$adjective_key = parent::create_word_form($base_parts[0], self::strip_parenthesis($base_parts[4]));
+		$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation_pair[LANG]);
 		parent::__construct(new translation_identifier($adjective_key, 'adj'),
 			$adjective_compact_translation);
 	}
 
 	private static function make_adjective_compact_translation($verb_compact_translation) 
 	{
-		$verb_base_form_and_endings = explode(':', $verb_compact_translation[LANG], 3);
+		$verb_base_form_and_endings = explode(':', $verb_compact_translation, 5);
 		$verb_base_form = $verb_base_form_and_endings[0];
-		$perfect_participle_endings = parent::strip_parenthesis($verb_base_form_and_endings[2]);
+		$perfect_participle_endings = parent::strip_parenthesis($verb_base_form_and_endings[4]);
 		$adjective_compact_translation = parent::create_word_form($verb_base_form, $perfect_participle_endings);
 		return $adjective_compact_translation;
 	}

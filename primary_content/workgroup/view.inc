@@ -50,7 +50,7 @@
 						__($exclude_info['number_of_excluders'] . " group member want to exclude this member.");
 				?>
 				<?php if($exclude_info['is_excluder'] > 0) : ?>
-					 (Du stödjer en uteslutning av denna gruppmedlem.)
+					 <?php __("(You support the exclusion of this group member)"); ?>
 					 &nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="cancel_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Ångra"></form>
 				<?php else : ?>
 					&nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="support_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Rösta för uteslutning av denna gruppmedlem"></form>

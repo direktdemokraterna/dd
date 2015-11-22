@@ -77,6 +77,10 @@ class translations
 				"sv" => "i"
 				,"en" => "of"
 				)
+			,"of" => array(
+				"sv" => "av"
+				,"en" => "of"
+				)
 			,"sent" => array(
 				"sv" => "skickat"
 				,"en" => "sent"
@@ -101,7 +105,8 @@ class translations
 				"sv" => "välkommen"
 				,"en" => "welcome"
 				)
-			,"you" => array(
+
+			,"you:pron" => array(
 				"sv" => "du"
 				,"en" => "you"
 				)
@@ -170,6 +175,10 @@ class translations
 			,"description:noun1" => array(
 				"sv" => "beskrivning:ar"
 				,"en" => "description:s"
+				)
+			,"exclusion:noun1" => array(
+				"sv" => "uteslutning"
+				,"en" => "exclusion"
 				)
 			,"forum admin:noun1" => array(
 				"sv" => "forumadministratör:er"
@@ -257,25 +266,26 @@ class translations
 				,"en" => "username:s"
 				)
 
+			//imperative:infinitive:present:perfect:perfect particip
 			,"apply:verb" => array(
-				"sv" => "ansöka:_t"
-				,"en" => "apply:_ied"
+				"sv" => "ansök:a:er:t"
+				,"en" => "apply::|_ies:_ied"
 				)
 			,"change:verb" => array(
 				"sv" => "ändra"
 				,"en" => "change"
 				)
 			,"create:verb" => array(
-				"sv" => "skapa:t:(d|_t:e)"
-				,"en" => "create:d:(d)"
+				"sv" => "skapa::r:t:(d|_t:e)"
+				,"en" => "create::|s:d:(d)"
 				)
 			,"edit:verb" => array(
-				"sv" => "redigera:t:(d|_t:e)"
-				,"en" => "edit:ed:(ed)"
+				"sv" => "redigera::r:t:(d|_t:e)"
+				,"en" => "edit::|s:ed:(ed)"
 				)
 			,"exclude:verb" => array(
-				"sv" => "utesluta"
-				,"en" => "exclude"
+				"sv" => "uteslut:a:er:it:(en|_t:__na)"
+				,"en" => "exclude::|s:d:(d)"
 				)
 			,"handle:verb" => array(
 				"sv" => "hantera"
@@ -294,8 +304,8 @@ class translations
 				,"en" => "logout"
 				)
 			,"propose:verb" => array(
-				"sv" => "föreslå:_agit:(_agen|_t:__na)"
-				,"en" => "propose:d:(d)"
+				"sv" => "föreslå::r:_agit:(_agen|_t:__na)"
+				,"en" => "propose::|s:d:(d)"
 				)				
 			,"remember:verb" => array(
 				"sv" => "kom ihåg"
@@ -309,6 +319,10 @@ class translations
 				"sv" => "se"
 				,"en" => "see"
 				)
+			,"support:verb" => array(
+				"sv" => "stöd:ja:jer"
+				,"en" => "support::|s"
+				)
 			,"view:verb" => array(
 				"sv" => "visa"
 				,"en" => "view"
@@ -319,7 +333,7 @@ class translations
 				)
 			,"want to:verb" => array(
 				"sv" => "vill"
-				,"en" => "want|s to"
+				,"en" => "want::|s to"
 				)
 		);
 	}	
