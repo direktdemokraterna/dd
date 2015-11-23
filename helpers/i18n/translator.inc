@@ -16,7 +16,9 @@ class translation_match
 	{
 		$lower_translation = $this->translator->translate(strtolower($this->phrase), 
 			$translators_before, $translators_after);
-		return self::match_case($lower_translation, $this->phrase);
+		return $lower_translation 
+			? self::match_case($lower_translation, $this->phrase)
+			: $lower_translation;
 	}
 
 	private static function match_case($target, $template) 
@@ -142,8 +144,8 @@ class translator
 	public function translate($lower_phrase, $translations_before, $translations_after) 
 	{
 		$connector = $translations_after ? ' ' : '';
-		return $this->do_translate($lower_phrase, $translations_before, $translations_after, $connector) 
-		. $connector;
+		$translation = $this->do_translate($lower_phrase, $translations_before, $translations_after, $connector);
+		return $translation ? $translation . $connector : '';
 	}
 
 	public function match($previous_matches)

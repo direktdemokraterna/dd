@@ -25,17 +25,9 @@ class translations
 				"sv" => "bli"
 				,"en" => "become a"
 				)
-			,"by" => array(
-				"sv" => "av"
-				,"en" => "by"
-				)
 			,"currently the number of members is %d" => array(
 				"sv" => "just nu är antalet medlemmar %d st"
 				,"en" => "currently the number of members is"
-				)
-			,"[apply]for" => array(
-				"sv" => "om"
-				,"en" => "for"
 				)
 			,"have" => array(
 				"sv" => "har"
@@ -44,10 +36,6 @@ class translations
 			,"hello" => array(
 				"sv" => "hej"
 				,"en" => "hello"
-				)
-			,"in" => array(
-				"sv" => "i"
-				,"en" => "in"
 				)
 			,"is" => array(
 				"sv" => "är"
@@ -72,14 +60,6 @@ class translations
 			,"number of" => array(
 				"sv" => "antal"
 				,"en" => "number of"
-				)
-			,"[member]of" => array(
-				"sv" => "i"
-				,"en" => "of"
-				)
-			,"of" => array(
-				"sv" => "av"
-				,"en" => "of"
 				)
 			,"sent" => array(
 				"sv" => "skickat"
@@ -108,6 +88,31 @@ class translations
 			,"welcome" => array(
 				"sv" => "välkommen"
 				,"en" => "welcome"
+				)
+
+			,"by:prep" => array(
+				"sv" => "av"
+				,"en" => "by"
+				)
+			,"[apply]for:prep" => array(
+				"sv" => "om"
+				,"en" => "for"
+				)
+			,"for:prep" => array(
+				"sv" => "för"
+				,"en" => "for"
+				)
+			,"in:prep" => array(
+				"sv" => "i"
+				,"en" => "in"
+				)
+			,"[member]of:prep" => array(
+				"sv" => "i"
+				,"en" => "of"
+				)
+			,"of:prep" => array(
+				"sv" => "av"
+				,"en" => "of"
 				)
 
 			,"you:pron" => array(
@@ -338,6 +343,10 @@ class translations
 			,"view:verb" => array(
 				"sv" => "visa"
 				,"en" => "view"
+				)
+			,"vote for:verb" => array(
+				"sv" => "rösta för"
+				,"en" => "vote for"
 				)
 			,"write:verb" => array(
 				"sv" => "skriv"

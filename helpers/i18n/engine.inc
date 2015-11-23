@@ -187,6 +187,9 @@ class engine
 			case 'pron':
 				yield new translator($identifier, $compact_translation[LANG]);
 				break;
+			case 'prep':
+				yield new translator($identifier, $compact_translation[LANG]);
+				break;
 			case 'adj':
 				$adjective_indefinite = new adjective($identifier, $compact_translation[LANG]);
 				yield $adjective_indefinite;

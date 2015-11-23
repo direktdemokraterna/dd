@@ -3,10 +3,8 @@
 ?>
 
 <?php if(!empty($workgroup)) : ?>
-
-	<h1><?php echo $workgroup['title']; ?></h1>
-
 	<?php 
+		_h1($workgroup['title']);
 		if($workgroup['is_active']==0)
 			_p(_t("This workgroup is proposed. It needs at least three members to be activated. Currently the number of members is " . $workgroup['number_of_members'] . "."));
 		$is_member = db_workgroup::is_member($workgroup['id'], $_SESSION['id']);
@@ -15,9 +13,6 @@
 			_p(_t("You are a member of this workgroup."));
 		else if($is_candidate)
 			_p(_t("You have applied for membership in this workgroup."));
-	?>
-
-	<?php
 		echo '<p>';
 		_strong(_t("Number of members: "));
 		echo $workgroup['number_of_members'];
@@ -32,35 +27,34 @@
 		if($is_member) {
 			\View\general::output_internal_link(_t("Edit description"), 'workgroup', 'edit', 'id=' . $_GET['id']);
 			_br();
+			_br();
 		}
 	?>
-
 	<?php if($workgroup['is_active']==1) : ?>
-
 		<?php 
 			$workgroup_members = db_workgroup::list_members($workgroup['id']); 
 			_p(_strong(_t("Members of this workgroup:")));
-		?>
-		<?php foreach($workgroup_members as $row) : ?>
-			<a href="index.php?type=member&action=view&id=<?php echo $row['user_id']; ?>"><?php echo $row['full_name']; ?></a>
-			<?php if($is_member && $workgroup['is_restricted']==0) : ?>
-				<?php 
+			foreach($workgroup_members as $row) {
+				$user_id = $row['user_id'];
+				\View\general::output_internal_link($row['full_name'], 'member', 'view', 'id=' . $user_id);
+					echo '&nbsp;&nbsp;&nbsp;';				
+				if($is_member && $workgroup['is_restricted']==0) {
 					$exclude_info = db_workgroup::exclude_info($workgroup['id'], $row['user_id'], $_SESSION['id']);
-					if($exclude_info['number_of_excluders'] > 0)
+					if($exclude_info['number_of_excluders']) {
+						_space(3);
 						__($exclude_info['number_of_excluders'] . " group member want to exclude this member.");
-				?>
-				<?php if($exclude_info['is_excluder'] > 0) : ?>
-					 <?php 
-					 	__("(You support the exclusion of this group member)"); 
-					 ?>
-					 &nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="cancel_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="<?php __("Undo"); ?>"></form>
-				<?php else : ?>
-					&nbsp;&nbsp;&nbsp;<form method="post" action="" class="standard-form" style="display: inline;"><input type="hidden" name="type" value="support_exclude"><input type="hidden" name="id" value="<?php echo $workgroup['id']; ?>"><input type="hidden" name="user" value="<?php echo $row['user_id']; ?>"><input type="submit" style="width: auto;" value="Rösta för uteslutning av denna gruppmedlem"></form>
-				<?php endif; ?>
-			<?php endif; ?>
-			<br>
-		<?php endforeach; ?>
-
+					}
+					$is_excluder = $exclude_info['is_excluder'] > 0;
+					if($is_excluder)
+					 	__(" (You support the exclusion of this group member)");
+				 	_space(3);						
+					\View\workgroup::output_workgroup_membership_vote_button(
+						$is_excluder ? "Undo" : "Vote for the exclusion of this group member"
+						,$is_excluder ? "cancel_exclude" : "support_exclude", $workgroup['id'], $row['user_id']);
+				}
+				_br();
+			}
+		?>
 		<?php if($workgroup['is_restricted']>0) : ?>
 			<br><p>Den här arbetsgruppen är stängd och medlemmarna väljs via personval. Det går inte att ansöka om medlemskap på samma sätt som i öppna grupper. Omröstningen där medlemmarna i denna arbetsgrupp utses finns <a href="index.php?type=vote&action=view_vote&id=<?php echo $workgroup['is_restricted']; ?>">här</a>.</p>
 
