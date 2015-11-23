@@ -275,6 +275,10 @@ class translations
 				"sv" => "ansök:a:er:t"
 				,"en" => "apply::|_ies:_ied"
 				)
+			,"cancel:verb" => array(
+				"sv" => "avbryt"
+				,"en" => "cancel"
+				)
 			,"change:verb" => array(
 				"sv" => "ändra"
 				,"en" => "change"
@@ -326,6 +330,10 @@ class translations
 			,"support:verb" => array(
 				"sv" => "stöd:ja:jer"
 				,"en" => "support::|s"
+				)
+			,"undo:verb" => array(
+				"sv" => "ångra"
+				,"en" => "undo"
 				)
 			,"view:verb" => array(
 				"sv" => "visa"

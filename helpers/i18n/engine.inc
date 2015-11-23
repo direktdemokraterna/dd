@@ -5,13 +5,14 @@ class engine
 {
 	private static $translators = null;
 
-	public static function translate($text) 
+	public static function translate($original) 
 	{
-		$phrases = preg_split('/\s*[[:punct:]]+\s*/', $text, -1, PREG_SPLIT_NO_EMPTY);
+		$phrases = preg_split('/\s*[[:punct:]]+\s*/', $original, -1, PREG_SPLIT_NO_EMPTY);
 		$translations = array_map('self::translate_original_phrase', $phrases);
+		$translation = $original;
 		for ($i = 0; $i < count($phrases); $i++)
-			$text = str_replace($phrases[$i], $translations[$i], $text);
-		return $text;
+			$translation = str_replace($phrases[$i], $translations[$i], $translation);
+		return $translation;
 	}
 
 	private static function translate_original_phrase($phrase) 

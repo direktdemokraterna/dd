@@ -21,10 +21,11 @@ class translation_match
 
 	private static function match_case($target, $template) 
 	{
-		return (ctype_upper($template[0]) 
+		$ret_val = (ctype_upper($template[0]) 
 				? strtoupper($target[0]) 
 				: strtolower($target[0]))
 		. substr($target, 1);
+		return $ret_val;
 	}		
 }
 
