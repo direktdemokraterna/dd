@@ -89,6 +89,10 @@ class translations
 				"sv" => "superadmin"
 				,"en" => "superadmin"
 				)
+			,"the" => array(
+				"sv" => ""
+				,"en" => "the"
+				)
 			,"this" => array(
 				"sv" => "denna"
 				,"en" => "this"

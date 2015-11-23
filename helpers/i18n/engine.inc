@@ -98,7 +98,7 @@ class engine
 
 	private static function select_translation($candidates, $previous_matches) {
 		foreach ($candidates as $candidate)
-			if ($candidate->match($previous_matches) && $candidate->identifier->match($previous_matches))
+			if ($candidate->match($previous_matches))
 				return $candidate;
 		return null;
 	}
