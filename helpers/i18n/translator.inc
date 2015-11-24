@@ -34,6 +34,7 @@ class translation_match
 class translation_identifier 
 {
 	public $key;
+	public $base_form;
 	public $class;
 	public $type;
 	public $form;
@@ -41,12 +42,7 @@ class translation_identifier
 
 	public static function create($identifier_str) 
 	{
-		preg_match('/\[\w+\]/', $identifier_str, $selector_matches);
-		if ($selector_matches) {
-			$identifier_str = str_replace($selector_matches[0], '', $identifier_str);
-			$selector = new previous_word_selector(translator::strip_parenthesis($selector_matches[0]));
-		}
-		else $selector = null;
+		$selector = self::extract_selector($identifier_str);
 		$parts = explode(':', $identifier_str);
 		$category = count($parts) == 2 ? $parts[1] : 'phrase';
 		$key = $parts[0];
@@ -58,6 +54,16 @@ class translation_identifier
 		return $identifier;
 	}
 
+	private static function extract_selector(&$identifier_str) 
+	{
+		preg_match('/^\[\w*\]/', $identifier_str, $selector_matches);
+		if ($selector_matches) {
+			$identifier_str = str_replace($selector_matches[0], '', $identifier_str);
+			return new previous_word_selector(translator::strip_parenthesis($selector_matches[0]));
+		}
+		return null;
+	}
+
 	public function match($previous_matches) 
 	{
 		return !$this->selector || $this->selector->match($previous_matches);
@@ -66,12 +72,13 @@ class translation_identifier
 	public function copy($new_key, $new_selector = null) 
 	{
 		return new translation_identifier($new_key, $this->class, $this->type, $this->form, 
-			$new_selector ? $new_selector : $this->selector);
+			$new_selector ? $new_selector : $this->selector, $this->base_form);
 	}
 
-	function __construct($key, $class, $type = 1, $form = null, $selector = null) 
+	function __construct($key, $class, $type = 1, $form = null, $selector = null, $base_form = null) 
 	{
 		$this->key = $key;
+		$this->base_form = $base_form ? $base_form : $key;
 		$this->class = $class;
 		$this->type = $type;	
 		$this->form = $form;
@@ -90,7 +97,9 @@ class previous_word_selector
 
 	public function match($previous_matches) 
 	{
-		return $previous_matches && end($previous_matches)->translator->identifier->key == $this->word;
+		return $this->word 
+			? $previous_matches && end($previous_matches)->translator->identifier->base_form == $this->word
+			: !$previous_matches;
 	}
 }
 
@@ -114,18 +123,18 @@ class noun_numerus_selector
 
 class singular_noun_selector extends noun_numerus_selector
 {
-	public function match($translations_before) 
+	public function match($previous_matches) 
 	{
-		$quantifier = parent::get_quantifier($translations_before);
+		$quantifier = parent::get_quantifier($previous_matches);
 		return $quantifier == 1;
 	}
 }
 
 class plural_noun_selector extends noun_numerus_selector
 {
-	public function match($translations_before) 
+	public function match($previous_matches) 
 	{
-		$quantifier = parent::get_quantifier($translations_before);
+		$quantifier = parent::get_quantifier($previous_matches);
 		return $quantifier === 0 || $quantifier > 1;
 	}
 }
@@ -208,6 +217,14 @@ class translator
 	public static function strip_parenthesis($text_in_parenthesis) 
 	{
 		return substr($text_in_parenthesis, 1, strlen($text_in_parenthesis) - 2);
+	}
+}
+
+class untranslated extends translator
+{
+	function __construct($phrase) 
+	{
+		parent::__construct(new translation_identifier('', 'untranslated'), $phrase);
 	}
 }
 ?>

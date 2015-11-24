@@ -7,11 +7,28 @@ class engine
 
 	public static function translate($original) 
 	{
-		$phrases = preg_split('/\s*[[:punct:]]+\s*/', $original, -1, PREG_SPLIT_NO_EMPTY);
+		$trimmed_original = trim($original);
+		$phrases = preg_split('/\s*[[:punct:]]+\s*/', $trimmed_original, -1, PREG_SPLIT_NO_EMPTY);
 		$translations = array_map('self::translate_original_phrase', $phrases);
+		$translation = self::apply_translations($trimmed_original, $phrases, $translations);
+		$translation = self::preserve_space($original, $translation);
+		return $translation;
+	}
+
+	public static function apply_translations($original, $phrases, $translations) 
+	{
 		$translation = $original;
 		for ($i = 0; $i < count($phrases); $i++)
 			$translation = str_replace($phrases[$i], $translations[$i], $translation);
+		return $translation;
+	}
+
+	private static function preserve_space($original, $translation) {
+		preg_match('/^\s+/', $original, $leading_space_matches);
+		preg_match('/\s+$/', $original, $trailing_space_mathes);
+		$translation = ($leading_space_matches ? $leading_space_matches[0] : '') 
+			. $translation 
+			. ($trailing_space_mathes ? $trailing_space_mathes[0] : '');
 		return $translation;
 	}
 
@@ -55,7 +72,7 @@ class engine
 			$match = $candidates_matches[$key];
 			$candidates = $match->translator;
 			if (is_array($candidates)) {
-				$translator = self::select_translation($candidates, $previous_matches);
+				$translator = self::select_translator($candidates, $previous_matches);
 				if ($numbers) 
 					$match->phrase = self::restore_numbers($match->phrase, $numbers);
 				$match->translator = $translator ? $translator : new untranslated($match->phrase);
@@ -97,8 +114,17 @@ class engine
 		self::add_translator(self::$translators, new translator($identifier, $translation));
 	}
 
-	private static function select_translation($candidates, $previous_matches) {
+	private static function select_translator($candidates, $previous_matches) {
+		$with_selector = array();
+		$without_selector = array();
 		foreach ($candidates as $candidate)
+			if ($candidate->identifier->selector)
+				$with_selector[] = $candidate;
+			else $without_selector[] = $candidate;
+		foreach ($with_selector as $candidate)
+			if ($candidate->match($previous_matches))
+				return $candidate;
+		foreach ($without_selector as $candidate)
 			if ($candidate->match($previous_matches))
 				return $candidate;
 		return null;
@@ -181,12 +207,10 @@ class engine
 	private static function get_expanded_translations($identifier, $compact_translation) 
 	{
 		switch ($identifier->class) {
+			case 'definite':
 			case 'phrase':
-				yield new translator($identifier, $compact_translation[LANG]);
-				break;
+			case 'conj':
 			case 'pron':
-				yield new translator($identifier, $compact_translation[LANG]);
-				break;
 			case 'prep':
 				yield new translator($identifier, $compact_translation[LANG]);
 				break;
@@ -217,7 +241,7 @@ class engine
 				yield $verb_imperative;
 				break;
 			default:
-				throw new Exception("Unknown word class: " . $word_type);
+				throw new \Exception("Unknown word class: " . $identifier->class);
 		}
 	}
 
@@ -225,21 +249,6 @@ class engine
 		$identifier->key = $key;
 		$identifier->selector = new singular_noun_selector();
 		return $identifier;
-	}
-}
-
-class untranslated 
-{
-	public $phrase;
-
-	function construct($phrase) 
-	{
-		$this->phrase = $phrase;
-	}
-
-	public function translate($lower_phrase, $translations_before, $translations_after) 
-	{
-		return $this->phrase;
 	}
 }
 ?>

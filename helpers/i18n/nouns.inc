@@ -11,10 +11,15 @@ class noun extends translator
 	{
 		$identifier->form = $form;
 		parent::__construct($identifier);
+		$this->connector = self::extract_connector($compact_translation);
+		self::set_inflections($compact_translation, $indef_index, $def_index);
+	}
+	
+	private static function extract_connector(&$compact_translation) 
+	{
 		$parts = explode(':-', $compact_translation);
-		$inflections = $parts[0];
-		$this->connector = count($parts) == 2 ? $parts[1] : null;
-		self::set_inflections($inflections, $indef_index, $def_index);
+		$compact_translation = $parts[0];
+		return count($parts) == 2 ? $parts[1] : null;
 	}
 
 	private function set_inflections($inflections, $indef_index, $def_index) {
@@ -41,7 +46,24 @@ class noun extends translator
 
 	private static function is_definite($translations_before) 
 	{
-		return $translations_before && get_class(end($translations_before)) == 'adjective_definite';
+		return $translations_before && (self::is_definite_adjective(end($translations_before)->identifier)
+			|| self::has_definite_marker($translations_before));
+	}
+
+	private static function is_definite_adjective($identifier) 
+	{
+		return $identifier->class == 'adj' && $identifier->form == 'definite';
+	}
+
+	private static function has_definite_marker($translations_before) 
+	{
+		foreach (array_reverse($translations_before) as $previous_translation) {
+			if ($previous_translation->identifier->class == 'definite')
+				return true;
+			if (!$previous_translation->is_adjective())
+				return false;
+		}
+		return false;
 	}
 
 	protected function is_compound($translations_after) 

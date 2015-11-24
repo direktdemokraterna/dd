@@ -14,7 +14,7 @@
 		else if($is_candidate)
 			_p(_t("You have applied for membership in this workgroup."));
 		echo '<p>';
-		_strong(_t("Number of members: "));
+		_strong(_t("Number of members:   "));
 		echo $workgroup['number_of_members'];
 		_br();
 		$is_active = $workgroup['is_active'];
@@ -56,9 +56,13 @@
 			}
 		?>
 		<?php if($workgroup['is_restricted']>0) : ?>
-			<br><p>Den här arbetsgruppen är stängd och medlemmarna väljs via personval. Det går inte att ansöka om medlemskap på samma sätt som i öppna grupper. Omröstningen där medlemmarna i denna arbetsgrupp utses finns <a href="index.php?type=vote&action=view_vote&id=<?php echo $workgroup['is_restricted']; ?>">här</a>.</p>
-
 			<?php
+				_br();
+				_p(_t("This workgroup is closed and the members are appointed through election. It is not possible to apply for membership in the same way as to open groups. Election of the members of this work group can be found ") . 
+					\View\general::generate_internal_link(_t("här"), 'vote','view_vote', 'id=' . $workgroup['is_restricted']));
+				_p("Den här arbetsgruppen är stängd och medlemmarna väljs via personval. Det går inte att ansöka om medlemskap på samma sätt som i öppna grupper. Omröstningen där medlemmarna i denna arbetsgrupp utses finns " . 
+					\View\general::generate_internal_link("här", 'vote','view_vote', 'id=' . $workgroup['is_restricted']));
+
 				$workgroup_membership_changes = db_workgroup::get_workgroup_election_changes($_GET['id']);
 			?>
 			<?php if(!empty($workgroup_membership_changes)) : ?>
