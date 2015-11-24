@@ -42,7 +42,12 @@ class verb_infinitive extends translator
 
 	protected function match_static($previous_matches) 
 	{
-		return $previous_matches && end($previous_matches)->translator->is_verb();
+		return $previous_matches && self::is_indefinite_marker(end($previous_matches));
+	}
+
+	private static function is_indefinite_marker($previous_match) 
+	{
+		return $previous_match->translator->is_verb() || $previous_match->translator->identifier->class == 'indefinite';
 	}
 }
 

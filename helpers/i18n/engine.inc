@@ -4,6 +4,7 @@ namespace I18n;
 class engine 
 {
 	private static $translators = null;
+	private static $stored_translators = array();
 
 	public static function translate($original) 
 	{
@@ -38,17 +39,44 @@ class engine
 		$numbers = $matches[0];
 		if ($numbers) 
 			$phrase = preg_replace('/\d+/', '%d', $phrase);
-		return self::translate_phrase($phrase, $numbers);
+		$translation = self::translate_phrase($phrase, $numbers);
+		$translation = self::preserve_case($translation, $phrase);
+		return $translation;
 	}
+
+	private static function preserve_case($target, $template) 
+	{
+		$ret_val = (ctype_upper($template[0]) 
+				? strtoupper($target[0]) 
+				: strtolower($target[0]))
+		. substr($target, 1);
+		return $ret_val;
+	}		
 
 	private static function translate_phrase($phrase, $numbers) 
 	{
-		$translation_matches = self::get_translation_matches($phrase, $numbers);
-		$translated_phrase = count($translation_matches) == 1
-			? $translation_matches[0]->translate(array(), array())
-			: self::translate_new_phrase($phrase, $translation_matches);
+		$stored_translation = self::match_with_stored_translations($phrase);
+		$translated_phrase = $stored_translation 
+			? $stored_translation->translate(array(), array())
+			: self::translate_unknown_phrase($phrase, $numbers);
 		$translated_phrase = self::restore_numbers($translated_phrase, $numbers);
 		return $translated_phrase;
+	}
+
+	private static function match_with_stored_translations($phrase) 
+	{
+		$phrase_lower = strtolower($phrase);
+		return isset(self::$stored_translators[$phrase_lower]) 
+			? self::$translators[$phrase_lower]
+			: null;
+	}
+
+	private static function translate_unknown_phrase($phrase, $numbers) 
+	{
+		$translation_matches = self::get_translation_matches($phrase, $numbers);
+		return count($translation_matches) == 1
+			? $translation_matches[0]->translate(array(), array())
+			: self::translate_new_phrase($phrase, $translation_matches);
 	}
 
 	private static function translate_new_phrase($phrase, $translation_matches) 
@@ -111,7 +139,7 @@ class engine
 		$key = strtolower($phrase);
 		$translation = strtolower($translated_phrase);
 		$identifier = translation_identifier::create($key);
-		self::add_translator(self::$translators, new translator($identifier, $translation));
+		self::add_translator(self::$stored_translators, new translator($identifier, $translation));
 	}
 
 	private static function select_translator($candidates, $previous_matches) {
@@ -208,6 +236,7 @@ class engine
 	{
 		switch ($identifier->class) {
 			case 'definite':
+			case 'indefinite':
 			case 'phrase':
 			case 'conj':
 			case 'pron':

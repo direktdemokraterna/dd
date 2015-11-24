@@ -25,9 +25,17 @@ class translations
 				"sv" => "väljs"
 				,"en" => "are appointed"
 				)
+			,"as" => array(
+				"sv" => "som"
+				,"en" => "as"
+				)
 			,"become a" => array(
 				"sv" => "bli"
 				,"en" => "become a"
+				)
+			,"can be found" => array(
+				"sv" => "finns"
+				,"en" => "can be found"
 				)
 			,"currently the number of members is %d" => array(
 				"sv" => "just nu är antalet medlemmar %d st"
@@ -40,6 +48,10 @@ class translations
 			,"hello" => array(
 				"sv" => "hej"
 				,"en" => "hello"
+				)
+			,"in the same way" => array(
+				"sv" => "på samma sätt"
+				,"en" => "in the same way"
 				)
 			,"it" => array(
 				"sv" => "det"
@@ -103,7 +115,7 @@ class translations
 				,"en" => "this"
 				)
 
-			,"to" => array(
+			,"to:indefinite" => array(
 				"sv" => "att"
 				,"en" => "to"
 				)
@@ -166,6 +178,10 @@ class translations
 			,"old:adj" => array(
 				"sv" => "gammal|t:___la"
 				,"en" => "old"
+				)
+			,"open:adj" => array(
+				"sv" => "öppen|_t:__na"
+				,"en" => "open"
 				)
 
 			//singular_indefinite:plural_indefinite:singular_definite:plural_definite
@@ -230,7 +246,7 @@ class translations
 				,"en" => "inbox:es"
 				)
 			,"member:noun1" => array(
-				"sv" => "medlem:mar:men:marna"
+				"sv" => "medlem:mar:men:na"
 				,"en" => "member:s"
 				)
 			,"member admin:noun1" => array(
@@ -266,7 +282,7 @@ class translations
 				,"en" => "vote admin:s"
 				)
 			,"workgroup:noun1" => array(
-				"sv" => "arbetsgrupp:er:en:erna"
+				"sv" => "arbetsgrupp:er:en:na"
 				,"en" => "workgroup:s"
 				)
 
@@ -275,8 +291,8 @@ class translations
 				,"en" => "alternative:s"
 				)
 			,"election:noun2" => array(
-				"sv" => "personval"
-				,"en" => "election"
+				"sv" => "personval::et:en"
+				,"en" => "election:s"
 				)
 			,"forum:noun2" => array(
 				"sv" => "forum"

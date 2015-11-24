@@ -58,11 +58,8 @@
 		<?php if($workgroup['is_restricted']>0) : ?>
 			<?php
 				_br();
-				_p(_t("This workgroup is closed and the members are appointed through election. It is not possible to apply for membership in the same way as to open groups. Election of the members of this work group can be found ") . 
+				_p(_t("This workgroup is closed and the members are appointed through election. It is not possible to apply for membership in the same way as in open groups. The election of the members of this workgroup can be found ") . 
 					\View\general::generate_internal_link(_t("här"), 'vote','view_vote', 'id=' . $workgroup['is_restricted']));
-				_p("Den här arbetsgruppen är stängd och medlemmarna väljs via personval. Det går inte att ansöka om medlemskap på samma sätt som i öppna grupper. Omröstningen där medlemmarna i denna arbetsgrupp utses finns " . 
-					\View\general::generate_internal_link("här", 'vote','view_vote', 'id=' . $workgroup['is_restricted']));
-
 				$workgroup_membership_changes = db_workgroup::get_workgroup_election_changes($_GET['id']);
 			?>
 			<?php if(!empty($workgroup_membership_changes)) : ?>

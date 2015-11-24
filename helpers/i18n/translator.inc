@@ -14,21 +14,8 @@ class translation_match
 
 	public function translate($translators_before, $translators_after) 
 	{
-		$lower_translation = $this->translator->translate(strtolower($this->phrase), 
-			$translators_before, $translators_after);
-		return $lower_translation 
-			? self::match_case($lower_translation, $this->phrase)
-			: $lower_translation;
+		return $this->translator->translate(strtolower($this->phrase), $translators_before, $translators_after);
 	}
-
-	private static function match_case($target, $template) 
-	{
-		$ret_val = (ctype_upper($template[0]) 
-				? strtoupper($target[0]) 
-				: strtolower($target[0]))
-		. substr($target, 1);
-		return $ret_val;
-	}		
 }
 
 class translation_identifier 
