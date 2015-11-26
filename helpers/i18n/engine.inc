@@ -55,19 +55,18 @@ class engine
 
 	private static function translate_phrase($phrase, $numbers) 
 	{
-		$stored_translation = self::match_with_stored_translations($phrase);
+		$stored_translation = self::get_stored_translation(strtolower($phrase));
 		$translated_phrase = $stored_translation 
-			? $stored_translation->translate(array(), array())
+			? $stored_translation
 			: self::translate_unknown_phrase($phrase, $numbers);
 		$translated_phrase = self::restore_numbers($translated_phrase, $numbers);
 		return $translated_phrase;
 	}
 
-	private static function match_with_stored_translations($phrase) 
+	private static function get_stored_translation($phrase_lower) 
 	{
-		$phrase_lower = strtolower($phrase);
 		return isset(self::$stored_translators[$phrase_lower]) 
-			? self::$translators[$phrase_lower]
+			? self::$stored_translators[$phrase_lower]->translation
 			: null;
 	}
 
@@ -96,11 +95,12 @@ class engine
 
 	private static function select_matches(&$candidates_matches, $numbers) {
 		$previous_matches = array();
-		foreach (array_keys($candidates_matches) as $key) {
-			$match = $candidates_matches[$key];
+		$remaining_mathes = array_values($candidates_matches);
+		while ($remaining_mathes) {
+			$match = array_shift($remaining_mathes);
 			$candidates = $match->translator;
 			if (is_array($candidates)) {
-				$translator = self::select_translator($candidates, $previous_matches);
+				$translator = self::select_translator($candidates, $previous_matches, $remaining_mathes);
 				if ($numbers) 
 					$match->phrase = self::restore_numbers($match->phrase, $numbers);
 				$match->translator = $translator ? $translator : new untranslated($match->phrase);
@@ -139,10 +139,10 @@ class engine
 		$key = strtolower($phrase);
 		$translation = strtolower($translated_phrase);
 		$identifier = translation_identifier::create($key);
-		self::add_translator(self::$stored_translators, new translator($identifier, $translation));
+		self::$stored_translators[$phrase] = new translator($identifier, $translation);
 	}
 
-	private static function select_translator($candidates, $previous_matches) {
+	private static function select_translator($candidates, $previous_matches, $following_matches) {
 		$with_selector = array();
 		$without_selector = array();
 		foreach ($candidates as $candidate)
@@ -150,10 +150,10 @@ class engine
 				$with_selector[] = $candidate;
 			else $without_selector[] = $candidate;
 		foreach ($with_selector as $candidate)
-			if ($candidate->match($previous_matches))
+			if ($candidate->match($previous_matches, $following_matches))
 				return $candidate;
 		foreach ($without_selector as $candidate)
-			if ($candidate->match($previous_matches))
+			if ($candidate->match($previous_matches, $following_matches))
 				return $candidate;
 		return null;
 	}
@@ -235,13 +235,21 @@ class engine
 	private static function get_expanded_translations($identifier, $compact_translation) 
 	{
 		switch ($identifier->class) {
-			case 'definite':
 			case 'indefinite':
 			case 'phrase':
 			case 'conj':
 			case 'pron':
 			case 'prep':
 				yield new translator($identifier, $compact_translation[LANG]);
+				break;
+			case 'quant':
+				yield new quantifier($identifier, $compact_translation[LANG]);
+				break;
+			case 'pron-it':
+				yield new pronoun_it($identifier, $compact_translation[LANG]);
+				break;
+			case 'definite':
+				yield new definite_marker($identifier, $compact_translation[LANG]);
 				break;
 			case 'adj':
 				$adjective_indefinite = new adjective($identifier, $compact_translation[LANG]);

@@ -43,17 +43,22 @@ class translation_identifier
 
 	private static function extract_selector(&$identifier_str) 
 	{
-		preg_match('/^\[\w*\]/', $identifier_str, $selector_matches);
-		if ($selector_matches) {
-			$identifier_str = str_replace($selector_matches[0], '', $identifier_str);
-			return new previous_word_selector(translator::strip_parenthesis($selector_matches[0]));
+		preg_match('/^\[\w*\]/', $identifier_str, $pre_matches);
+		if ($pre_matches) {
+			$identifier_str = str_replace($pre_matches[0], '', $identifier_str);
+			return new previous_word_selector(translator::strip_parenthesis($pre_matches[0]));
+		}
+		preg_match('/\[\w+[\w\|]+\w+\]|\[\w+\]$/', $identifier_str, $post_matches);
+		if ($post_matches) {
+			$identifier_str = str_replace($post_matches[0], '', $identifier_str);
+			return new next_class_selector(translator::strip_parenthesis($post_matches[0]));
 		}
 		return null;
 	}
 
-	public function match($previous_matches) 
+	public function match($previous_matches, $following_matches) 
 	{
-		return !$this->selector || $this->selector->match($previous_matches);
+		return !$this->selector || $this->selector->match($previous_matches, $following_matches);
 	}
 
 	public function copy($new_key, $new_selector = null) 
@@ -82,11 +87,33 @@ class previous_word_selector
 		$this->word = $word;
 	}
 
-	public function match($previous_matches) 
+	public function match($previous_matches, $following_matches) 
 	{
 		return $this->word 
 			? $previous_matches && end($previous_matches)->translator->identifier->base_form == $this->word
 			: !$previous_matches;
+	}
+}
+
+class next_class_selector 
+{
+	public $classes;
+
+	function __construct($classes_str) 
+	{
+		$this->classes = explode('|', $classes_str);
+	}
+
+	public function match($previous_matches, $following_matches) 
+	{
+		return $following_matches && $this->match_classes($following_matches[0]->translator);
+	}
+
+	public function match_classes($translator) 
+	{
+		return is_array($translator)
+			? $this->match_classes($translator[0])
+			: in_array($translator->identifier->class, $this->classes);
 	}
 }
 
@@ -110,7 +137,7 @@ class noun_numerus_selector
 
 class singular_noun_selector extends noun_numerus_selector
 {
-	public function match($previous_matches) 
+	public function match($previous_matches, $following_matches) 
 	{
 		$quantifier = parent::get_quantifier($previous_matches);
 		return $quantifier == 1;
@@ -119,7 +146,7 @@ class singular_noun_selector extends noun_numerus_selector
 
 class plural_noun_selector extends noun_numerus_selector
 {
-	public function match($previous_matches) 
+	public function match($previous_matches, $following_matches) 
 	{
 		$quantifier = parent::get_quantifier($previous_matches);
 		return $quantifier === 0 || $quantifier > 1;
@@ -144,12 +171,13 @@ class translator
 		return $translation ? $translation . $connector : '';
 	}
 
-	public function match($previous_matches)
+	public function match($previous_matches, $following_matches)
 	{
-		return $this->match_static($previous_matches) && $this->identifier->match($previous_matches);
+		return $this->match_static($previous_matches, $following_matches) 
+		&& $this->identifier->match($previous_matches, $following_matches);
 	}	
 
-	protected function match_static($previous_matches) 
+	protected function match_static($previous_matches, $following_matches) 
 	{
 		return true;
 	}	
@@ -176,7 +204,11 @@ class translator
 
 	public function is_quantifier() 
 	{
-		return $this->identifier->key == '%d';
+		return $this->identifier->class == 'quant';
+	}
+
+	public function is_noun_modifier() {
+		return $this->is_adjective() || $this->is_quantifier();
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 

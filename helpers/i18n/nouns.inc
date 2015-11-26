@@ -3,6 +3,8 @@ namespace I18n;
 
 class noun extends translator 
 {
+	public  $is_definite;
+
 	private $base_translation;
 	private $definite_translation;
 	private $connector;
@@ -39,12 +41,11 @@ class noun extends translator
 			$connector = '';
 			return parent::create_word_form($this->base_translation, $this->connector);
 		}
-		return self::is_definite($translations_before)
-			? $this->definite_translation
-			: $this->translation; 
+		$this->is_definite = self::check_is_definite($translations_before);
+		return $this->is_definite ? $this->definite_translation	: $this->translation; 
 	}
 
-	private static function is_definite($translations_before) 
+	private static function check_is_definite($translations_before) 
 	{
 		return $translations_before && (self::is_definite_adjective(end($translations_before)->identifier)
 			|| self::has_definite_marker($translations_before));
@@ -60,8 +61,8 @@ class noun extends translator
 		foreach (array_reverse($translations_before) as $previous_translation) {
 			if ($previous_translation->identifier->class == 'definite')
 				return true;
-			if (!$previous_translation->is_adjective())
-				return false;
+			if (!$previous_translation->is_noun_modifier())
+				break;
 		}
 		return false;
 	}

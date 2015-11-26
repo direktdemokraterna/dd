@@ -40,7 +40,7 @@ class verb_infinitive extends translator
 		parent::__construct($identifier, $translation);
 	}
 
-	protected function match_static($previous_matches) 
+	protected function match_static($previous_matches, $following_matches) 
 	{
 		return $previous_matches && self::is_indefinite_marker(end($previous_matches));
 	}
@@ -70,7 +70,7 @@ class verb_present extends translator
 		$this->singular_translation = $singular_translation;
 	}
 
-	protected function match_static($previous_matches) 
+	protected function match_static($previous_matches, $following_matches) 
 	{
 		return $previous_matches && self::is_subject(end($previous_matches)->translator);
 	}

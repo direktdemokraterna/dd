@@ -5,17 +5,18 @@ class translations
 {
 	public static function create_translations() {
 		return array(
-			"%d" => array(
-				"sv" => "%d"
-				,"en" => "%d"
-				)
-			,"a" => array(
+			// UNCLASSIFIED
+			"a" => array(
 				"sv" => "en"
 				,"en" => "a"
 				)
 			,"all" => array(
 				"sv" => "alla"
 				,"en" => "all"
+				)
+			,"the admittance of this candidate" => array(
+				"sv" => "att denna kandidat upptas"
+				,"en" => "the admittance of this candidate"
 				)
 			,"are" => array(
 				"sv" => "är"
@@ -29,6 +30,14 @@ class translations
 				"sv" => "som"
 				,"en" => "as"
 				)
+			,"automatically" => array(
+				"sv" => "automatiskt"
+				,"en" => "automatically"
+				)
+			,"be given" => array(
+				"sv" => "ges"
+				,"en" => "be given"
+				)
 			,"become a" => array(
 				"sv" => "bli"
 				,"en" => "become a"
@@ -37,9 +46,17 @@ class translations
 				"sv" => "finns"
 				,"en" => "can be found"
 				)
+			,"candidate in" => array(
+				"sv" => "kandidat in"
+				,"en" => "candidate in"
+				)
 			,"currently the number of members is %d" => array(
 				"sv" => "just nu är antalet medlemmar %d st"
 				,"en" => "currently the number of members is"
+				)
+			,"do you really want to" => array(
+				"sv" => "vill du verkligen"
+				,"en" => "do you really want to"
 				)
 			,"have" => array(
 				"sv" => "har"
@@ -49,13 +66,17 @@ class translations
 				"sv" => "hej"
 				,"en" => "hello"
 				)
+			,"here" => array(
+				"sv" => "här"
+				,"en" => "here"
+				)
 			,"in the same way" => array(
 				"sv" => "på samma sätt"
 				,"en" => "in the same way"
 				)
-			,"it" => array(
-				"sv" => "det"
-				,"en" => "it"
+			,"is activated" => array(
+				"sv" => "aktiveras"
+				,"en" => "is activated"
 				)
 			,"is not possible" => array(
 				"sv" => "går inte"
@@ -77,6 +98,10 @@ class translations
 				"sv" => "mig"
 				,"en" => "me"
 				)
+			,"no" => array(
+				"sv" => "inga"
+				,"en" => "no"
+				)
 			,"number of" => array(
 				"sv" => "antal"
 				,"en" => "number of"
@@ -84,6 +109,14 @@ class translations
 			,"superadmin" => array(
 				"sv" => "superadmin"
 				,"en" => "superadmin"
+				)
+			,"out" => array(
+				"sv" => "ut"
+				,"en" => "out"
+				)
+			,"that" => array(
+				"sv" => "att"
+				,"en" => "that"
 				)
 			,"this" => array(
 				"sv" => "denna"
@@ -101,36 +134,64 @@ class translations
 				"sv" => "kassör"
 				,"en" => "treasurer"
 				)
+			,"upcoming" => array(
+				"sv" => "kommande"
+				,"en" => "upcoming"
+				)
+			,"your" => array(
+				"sv" => "ditt"
+				,"en" => "your"
+				)
 			,"welcome" => array(
 				"sv" => "välkommen"
 				,"en" => "welcome"
 				)
+			,"will be activated" => array(
+				"sv" => "kommer aktiveras"
+				,"en" => "will be activated"
+				)
+			,"when" => array(
+				"sv" => "när"
+				,"en" => "when"
+				)
 
+			// DEFINITE MARKERS
 			,"the:definite" => array(
 				"sv" => ""
 				,"en" => "the"
 				)
+			,"the[adj|quant]:definite" => array(
+				"sv" => "den|_t:_"
+				,"en" => "the"
+				)
 			,"[]this:definite" => array(
-				"sv" => "den här"
-				,"en" => "this"
+				"sv" => "den|_t:_ här"
+				,"en" => "this:__ese"
 				)
 
+			//INDEFINITE MODIFIERS
 			,"to:indefinite" => array(
 				"sv" => "att"
 				,"en" => "to"
 				)
 
+			//CONJUNCTIONS
 			,"and:conj" => array(
 				"sv" => "och"
 				,"en" => "and"
 				)
 
+			//PREPOSITIONS
 			,"by:prep" => array(
 				"sv" => "av"
 				,"en" => "by"
 				)
 			,"[apply]for:prep" => array(
 				"sv" => "om"
+				,"en" => "for"
+				)
+			,"[candidate]for:prep" => array(
+				"sv" => "till"
 				,"en" => "for"
 				)
 			,"for:prep" => array(
@@ -150,11 +211,29 @@ class translations
 				,"en" => "of"
 				)
 
+			//PRONOUN: it
+			,"it:pron-it" => array(
+				"sv" => "den|det"
+				,"en" => "it"
+				)
+
+			//PRONOUN
 			,"you:pron" => array(
 				"sv" => "du"
 				,"en" => "you"
 				)
 
+			//QUANTIFIER
+			,"%d:quant" => array(
+				"sv" => "%d"
+				,"en" => "%d"
+				)
+			,"three:quant" => array(
+				"sv" => "tre"
+				,"en" => "three"
+				)
+
+			//ADJECTIVES
 			,"active:adj" => array(
 				"sv" => "aktiv|t:a"
 				,"en" => "active"
@@ -184,6 +263,7 @@ class translations
 				,"en" => "open"
 				)
 
+			//NOUNS
 			//singular_indefinite:plural_indefinite:singular_definite:plural_definite
 			,"active vote:noun1" => array(
 				"sv" => "pågående omröstning:ar"
@@ -205,9 +285,17 @@ class translations
 				"sv" => "kalender:__rar"
 				,"en" => "calendar:s"
 				)
+			,"candidate:noun1" => array(
+				"sv" => "kandidat:er"
+				,"en" => "candidate:s"
+				)
 			,"category:noun1" => array(
 				"sv" => "kategori:er"
 				,"en" => "category:_ies"
+				)
+			,"change:noun1" => array(
+				"sv" => "förändring:ar"
+				,"en" => "change:s"
 				)
 			,"constituency:noun1" => array(
 				"sv" => "valkrets:ar"
@@ -269,9 +357,17 @@ class translations
 				"sv" => "inställning:ar"
 				,"en" => "setting:s"
 				)
+			,"supporter:noun1" => array(
+				"sv" => "stödjare::n:_na"
+				,"en" => "supporter:s"
+				)
 			,"user:noun1" => array(
 				"sv" => "användare"
 				,"en" => "user:s"
+				)
+			,"time:noun1" => array(
+				"sv" => "tidpunkt:er"
+				,"en" => "time:s"
 				)
 			,"vote:noun1" => array(
 				"sv" => "omröstning:ar"
@@ -286,6 +382,7 @@ class translations
 				,"en" => "workgroup:s"
 				)
 
+			//NOUNS, variation 2
 			,"alternative:noun2" => array(
 				"sv" => "alternativ"
 				,"en" => "alternative:s"
@@ -319,7 +416,12 @@ class translations
 				,"en" => "username:s"
 				)
 
+			//VERBS
 			//imperative:infinitive:present:perfect:perfect particip
+			,"administrate:verb" => array(
+				"sv" => "administrera::r:t:(d|_t:e)"
+				,"en" => "administrate::|s:d:(d)"
+				)
 			,"apply:verb" => array(
 				"sv" => "ansök:a:er:t"
 				,"en" => "apply::|_ies:_ied"
@@ -340,6 +442,10 @@ class translations
 				"sv" => "skapa::r:t:(d|_t:e)"
 				,"en" => "create::|s:d:(d)"
 				)
+			,"discontinue:verb" => array(
+				"sv" => "avsluta"
+				,"en" => "discontinue"
+				)
 			,"edit:verb" => array(
 				"sv" => "redigera::r:t:(d|_t:e)"
 				,"en" => "edit::|s:ed:(ed)"
@@ -355,6 +461,10 @@ class translations
 			,"is:verb" => array(
 				"sv" => "var:a:___är:it:(ande)"
 				,"en" => "be::__is:en:(ing)"
+				)
+			,"leave:verb" => array(
+				"sv" => "lämna"
+				,"en" => "leave"
 				)
 			,"list:verb" => array(
 				"sv" => "lista"
@@ -376,6 +486,10 @@ class translations
 				"sv" => "kom ihåg"
 				,"en" => "remember"
 				)				
+			,"revoke:verb" => array(
+				"sv" => "återta"
+				,"en" => "revoke"
+				)				
 			,"search:verb" => array(
 				"sv" => "sök"
 				,"en" => "search"
@@ -384,13 +498,17 @@ class translations
 				"sv" => "se"
 				,"en" => "see"
 				)
-			,"send" => array(
+			,"send:verb" => array(
 				"sv" => "skicka::r:t:(d|_t:e)"
 				,"en" => "send::|s:_t:(_t)"
 				)
 			,"support:verb" => array(
 				"sv" => "stöd:ja:jer"
 				,"en" => "support::|s"
+				)
+			,"stop supporting:verb" => array(
+				"sv" => "sluta stödja"
+				,"en" => "stop supporting"
 				)
 			,"undo:verb" => array(
 				"sv" => "ångra"
@@ -404,13 +522,17 @@ class translations
 				"sv" => "rösta för"
 				,"en" => "vote for"
 				)
-			,"write:verb" => array(
-				"sv" => "skriv"
-				,"en" => "write"
-				)
 			,"want to:verb" => array(
 				"sv" => "vill"
 				,"en" => "want::|s to"
+				)
+			,"will:verb" => array(
+				"sv" => "kommer"
+				,"en" => "will"
+				)
+			,"write:verb" => array(
+				"sv" => "skriv"
+				,"en" => "write"
 				)
 		);
 	}	
