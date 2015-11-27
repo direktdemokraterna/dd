@@ -1,7 +1,7 @@
 <ul>
 	<li>
 		<?php 
-			_h2("Workgroups");
+			_h2(_t("Workgroups"));
 			\View\general::output_link_list("workgroup", array(
 			"listall" => "See workgroups"
 			,"listproposed" => "See proposed workgroups"

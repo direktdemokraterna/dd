@@ -1,7 +1,7 @@
 <ul>
 	<li>
 		<?php
-			_h2("Alternatives");
+			_h2(_t("Alternatives"));
 			$links = array(
 				"list" => "See all members"
 				,"create_new" => "Create new member"

@@ -6,9 +6,9 @@ class translations
 	public static function create_translations() {
 		return array(
 			// UNCLASSIFIED
-			"a" => array(
-				"sv" => "en"
-				,"en" => "a"
+			"above" => array(
+				"sv" => "ovan"
+				,"en" => "above"
 				)
 			,"all" => array(
 				"sv" => "alla"
@@ -41,6 +41,14 @@ class translations
 			,"become a" => array(
 				"sv" => "bli"
 				,"en" => "become a"
+				)
+			,"by filling the form" => array(
+				"sv" => "genom att fylla i formuläret"
+				,"en" => "by filling the form"
+				)
+			,"can be created" => array(
+				"sv" => "kan skapas"
+				,"en" => "can be created"
 				)
 			,"can be found" => array(
 				"sv" => "finns"
@@ -86,6 +94,10 @@ class translations
 				"sv" => "för att bli aktiv måste den ha minst tre medlemmar"
 				,"en" => "it needs at least three members to be activated"
 				)
+			,"it will be transformed" => array(
+				"sv" => "kommer den att omvandlas"
+				,"en" => "it will be transformed"
+				)
 			,"its content has not yet been decided" => array(
 				"sv" => "beslut om dess innehåll är ännu inte fattat"
 				,"en" => "its content has not yet been decided"
@@ -97,6 +109,10 @@ class translations
 			,"me" => array(
 				"sv" => "mig"
 				,"en" => "me"
+				)
+			,"name of" => array(
+				"sv" => "namn på"
+				,"en" => "name of"
 				)
 			,"no" => array(
 				"sv" => "inga"
@@ -130,6 +146,10 @@ class translations
 				"sv" => "via"
 				,"en" => "through"
 				)
+			,"together" => array(
+				"sv" => "tillsammans"
+				,"en" => "together"
+				)
 			,"treasurer" => array(
 				"sv" => "kassör"
 				,"en" => "treasurer"
@@ -137,6 +157,10 @@ class translations
 			,"upcoming" => array(
 				"sv" => "kommande"
 				,"en" => "upcoming"
+				)
+			,"you create" => array(
+				"sv" => "skapar du"
+				,"en" => "you create"
 				)
 			,"your" => array(
 				"sv" => "ditt"
@@ -170,7 +194,7 @@ class translations
 				)
 
 			//INDEFINITE MODIFIERS
-			,"to:indefinite" => array(
+			,"to[verb]:indefinite" => array(
 				"sv" => "att"
 				,"en" => "to"
 				)
@@ -198,6 +222,10 @@ class translations
 				"sv" => "för"
 				,"en" => "for"
 				)
+			,"[proposal]for:prep" => array(
+				"sv" => "till"
+				,"en" => "for"
+				)
 			,"in:prep" => array(
 				"sv" => "i"
 				,"en" => "in"
@@ -209,6 +237,10 @@ class translations
 			,"of:prep" => array(
 				"sv" => "av"
 				,"en" => "of"
+				)
+			,"to:prep" => array(
+				"sv" => "till"
+				,"en" => "to"
 				)
 
 			//PRONOUN: it
@@ -231,6 +263,14 @@ class translations
 			,"three:quant" => array(
 				"sv" => "tre"
 				,"en" => "three"
+				)
+			,"a:quant" => array(
+				"sv" => "en|_tt"
+				,"en" => "a"
+				)
+			,"an:quant" => array(
+				"sv" => "en|_tt"
+				,"en" => "an"
 				)
 
 			//ADJECTIVES
@@ -410,6 +450,10 @@ class translations
 			,"post:noun2" => array(
 				"sv" => "inlägg::et:en"
 				,"en" => "post:s"
+				)
+			,"proposal:noun2" => array(
+				"sv" => "förslag::et:en"
+				,"en" => "proposal:s"
 				)
 			,"username:noun2" => array(
 				"sv" => "användarnamn"

@@ -16,7 +16,7 @@
 	</li>
 	<li>
 		<?php 
-			_h2("Votes");
+			_h2(_t("Votes"));
 			\View\general::output_link_list("vote", array(
 			"list_active_votes" => "List active votes"
 			,"list_old_votes" => "List old votes"
@@ -30,7 +30,7 @@
 	</li>
 	<li>
 		<?php
-			_h2("Delegates");
+			_h2(_t("Delegates"));
 			$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
 			\View\general::output_link_list("vote", array(
 			"list_delegates" => "List delegates"

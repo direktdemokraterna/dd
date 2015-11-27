@@ -62,12 +62,12 @@
 
 	function _h1($text) 
 	{
-		echo '<h1>' . _t($text) . '</h1>';
+		echo '<h1>' . $text . '</h1>';
 	}
 
 	function _h2($text) 
 	{
-		echo '<h2>' . _t($text) . '</h2>';
+		echo '<h2>' . $text . '</h2>';
 	}
 
 	function _t($text) 

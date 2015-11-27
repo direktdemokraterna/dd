@@ -1,7 +1,7 @@
 <ul>
 	<li>
 		<?php
-			_h2("Messages");
+			_h2(_t("Messages"));
 			\View\general::output_link_list("message", array(
 				"inbox" => "Inbox"
 				,"outbox" => "Sent"

@@ -1,7 +1,7 @@
 <ul>
 	<li>
 		<?php
-			_h2("Members");
+			_h2(_t("Members"));
 			\View\general::output_link_list("member", array(
 				"list" => "See all members"
 				,"settings" => "Change settings"

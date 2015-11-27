@@ -1,6 +1,6 @@
-<h1>Föreslagna arbetsgrupper</h1>
 
 <?php 
+	_h1(_t("Proposed workgroups");
 	if(isset($_GET['page'])) $page = $_GET['page']; else $page = 1;
 	$workgroups = db_workgroup::list_proposed($page);
 ?>

@@ -1,58 +1,27 @@
 <?php
 namespace I18n;
 
-class adjective extends translator
+class adjective extends noun_modifier
 {
-	public $translation_noun2;
-	public $translation_plural;
 	public $has_definite_form;
 
 	function __construct($identifier, $compact_translation, $form = 'infinite') 
 	{
 		$identifier->form = $form;
+		parent::__construct($identifier, $compact_translation);
 		$parts = explode(':', $compact_translation);
-		$singular_parts = explode('|', $parts[0]);
-		$singular = $singular_parts[0];
-		parent::__construct($identifier, $singular);
-		$this->translation_plural = count($parts) > 1
-			? parent::create_word_form($singular, $parts[1])
-			: $singular;
 		$this->has_definite_form = (count($parts) > 2);
-		$this->translation_noun2 = count($singular_parts) > 1
-			? parent::create_word_form($singular, $singular_parts[1])
-			: $singular;
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
-	{
-		$significant_noun = self::get_significant_noun($translations_before, $translations_after);
-		return $significant_noun
-			? self::get_translation_for_noun($significant_noun->identifier)
-			: $this->translation;
-	}
-
-	protected function get_translation_for_noun($noun_identifier) 
-	{
-		if ($noun_identifier->form == 'plural')
-			return $this->translation_plural;
-		if ($noun_identifier->form == 'singular') {
-			if ($noun_identifier->type == 1)
-				return $this->translation;
-			if ($noun_identifier->type == 2)
-				return $this->translation_noun2;
-			throw new \Exception('Invalid noun type: ' . $noun_identifier->type);
-		}
-		throw new \Exception('Invalid noun form: ' . $noun_identifier->form);
-	}
-
-	private static function get_significant_noun($translations_before, $translations_after) 
+	protected function get_significant_noun($translations_before, $translations_after) 
 	{
 		$parting_words_left = array();
 		$parting_words_right = array();
 		$left_noun = self::search_left($translations_before, $parting_words_left);
 		$right_noun = self::search_right($translations_after, $parting_words_right);
 		if ($left_noun && $right_noun)
-			return self::select_significant_noun($left_noun, $parting_words_left, $right_noun, $parting_words_right);
+			return self::select_significant_noun($left_noun, $parting_words_left
+				, $right_noun, $parting_words_right);
 		return $left_noun ? $left_noun : $right_noun;
 	}
 
@@ -102,7 +71,7 @@ class adjective extends translator
 	}
 	
 	private static function get_word_distance($word) {
-		switch ($word->class) {
+		switch ($word->identifier->class) {
 			case 'verb':
 				return 1;
 			case 'adj':
