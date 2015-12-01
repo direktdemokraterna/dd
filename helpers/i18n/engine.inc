@@ -6,14 +6,33 @@ class engine
 	private static $translators = null;
 	private static $stored_translators = array();
 
-	public static function translate($original) 
+	public static function translate($original, $translation_hints = null) 
 	{
 		$trimmed_original = trim($original);
-		$phrases = preg_split('/\s*[[:punct:]]+\s*/', $trimmed_original, -1, PREG_SPLIT_NO_EMPTY);
-		$translations = array_map('self::translate_original_phrase', $phrases);
-		$translation = self::apply_translations($trimmed_original, $phrases, $translations);
+		$translation = self::translate_whole_phrase($original, $translation_hints);
+		if (!$translation) {
+			$phrases = preg_split('/\s*[[:punct:]]+\s*/', $trimmed_original, -1, PREG_SPLIT_NO_EMPTY);
+			$translations = array_map('self::translate_original_phrase', $phrases);
+			$translation = self::apply_translations($trimmed_original, $phrases, $translations);			
+		}
 		$translation = self::preserve_space($original, $translation);
 		return $translation;
+	}
+
+	private static function translate_whole_phrase($original, $translation_hints) {
+		$lower_phrase = strtolower($original);
+		$translation = self::get_predefined_translation($lower_phrase, $translation_hints);
+		if (!$translation)
+			$translation = self::get_stored_translation($lower_phrase);
+		return $translation ? self::preserve_case($translation, $original) : null;
+	}
+
+	private static function get_predefined_translation($lower_phrase, $translation_hints) 
+	{
+		$candidates = self::get_translator_candidates($lower_phrase);
+		return $candidates 
+			? $candidates[0]->translate($lower_phrase, array(), array(), $translation_hints)
+			: null;
 	}
 
 	public static function apply_translations($original, $phrases, $translations) 
@@ -33,7 +52,7 @@ class engine
 		return $translation;
 	}
 
-	private static function translate_original_phrase($phrase) 
+	private static function translate_original_phrase($phrase)
 	{
 		preg_match_all('/\d+/', $phrase, $matches);
 		$numbers = $matches[0];
@@ -257,14 +276,6 @@ class engine
 				if ($adjective_indefinite->has_definite_form)
 					yield new adjective_definite($identifier, $compact_translation, $adjective_indefinite);
 				break;
-			case 'noun':
-				yield new noun_singular($identifier->copy($identifier->key, new singular_noun_selector()), 
-					$compact_translation[LANG]);
-				yield new noun_plural($identifier->copy($identifier->key, new plural_noun_selector()), 
-					$compact_translation);
-				yield new noun_singular($identifier, $compact_translation[LANG]);
-				yield new noun_plural($identifier->copy(null), $compact_translation);
-				break;
 			case 'verb':
 				$verb_imperative = new verb_imperative($identifier, $compact_translation[LANG]);
 				if ($verb_imperative->has_perfect_participle)
@@ -276,6 +287,14 @@ class engine
 				if ($verb_imperative->has_infinitive)
 					yield new verb_infinitive($identifier, $compact_translation[LANG]);
 				yield $verb_imperative;
+				break;
+			case 'noun':
+				yield new noun_singular($identifier->copy($identifier->key, new singular_noun_selector()), 
+					$compact_translation[LANG]);
+				yield new noun_plural($identifier->copy($identifier->key, new plural_noun_selector()), 
+					$compact_translation);
+				yield new noun_singular($identifier, $compact_translation[LANG]);
+				yield new noun_plural($identifier->copy(null), $compact_translation);
 				break;
 			default:
 				throw new \Exception("Unknown word class: " . $identifier->class);

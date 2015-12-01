@@ -3,9 +3,9 @@
 		<?php
 			_h2(_t("Members"));
 			\View\general::output_link_list("member", array(
-				"list" => "See all members"
-				,"settings" => "Change settings"
-				,"calendar" => "Calendar"
+				"list" => _t("See all members")
+				,"settings" => _t("Change settings")
+				,"calendar" => _t("Calendar")
 				));
 		?>
 	</li>

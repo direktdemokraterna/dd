@@ -42,7 +42,9 @@ class adjective extends noun_modifier
 			if ($next_translation->is_noun())
 				$found_noun = $next_translation;				
 			else if ($found_noun)
-				return $found_noun; 
+				return $found_noun;
+			else if ($next_translation->is_preposition())
+				return null;
 			else $parting_words[] = $next_translation;
 		}
 		return $found_noun;
@@ -88,11 +90,12 @@ class adjective_definite extends translator
 {
 	function __construct($identifier, $compact_translation, $indefinite_translator) 
 	{
-		$definite_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 1, 
+		$definite_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 2, 
 			$identifier->key);
 		$definite_translation = self::assemble_word_form(explode(':', $compact_translation[LANG]), 2,
 			$indefinite_translator->translation);
-		parent::__construct($identifier->copy($definite_key), $definite_translation, 'definite');
+		$definite_identifier = $identifier->copy($definite_key, null, 'definite');
+		parent::__construct($definite_identifier, $definite_translation);
 	}
 }
 ?>

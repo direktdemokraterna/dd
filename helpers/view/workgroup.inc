@@ -97,7 +97,7 @@ class workgroup
 	private static function output_membship_changes($workgroup)
 	{
 		_br();
-		_p(_t("This workgroup is closed and the members are appointed through election. It is not possible to apply for membership in the same way as in open groups. The election of the members of this workgroup can be found ") . 
+		_p(_t("This workgroup is closed and the members are appointed through candidate election. It is not possible to apply for membership in the same way as in open groups. The election of the members of this workgroup can be found ") . 
 			\View\general::generate_internal_link(_t("here"), 'vote','view_vote', 'id=' . $workgroup['is_restricted']));
 		$workgroup_membership_changes = \db_workgroup::get_workgroup_election_changes($_GET['id']);
 		if(!empty($workgroup_membership_changes)) {

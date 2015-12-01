@@ -20,7 +20,7 @@ class vote
 		$constituency_changed = $current_constituency != $_POST['constituency_id']
 			&& \db_vote_admin::change_constituency($_POST['constituency_id'], $_POST['vote_id']);
 		$vote_changed = \db_vote_admin::update_vote($_POST['type_of_vote'], $_POST['title'], $_POST['description'], $_POST['forum_topic_id'], $_POST['vote_id']);
-		$vote_time_changed = self::is_all_vote_time_properties_set() && self::change_vote_end_time();
+		$vote_time_changed = util::is_all_set(self::$time_properties, $_POST) && self::change_vote_end_time();
 		if(!($constituency_changed || $vote_changed || $vote_time_changed))
 			throw new \Exception("Databasfel. Ingen uppdatering gjord.");
 		$_SESSION['report_message'] = "Omröstningen är uppdaterad.";

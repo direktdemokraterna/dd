@@ -11,10 +11,10 @@
 		<li><?php 
 			\View\general::output_internal_link(_t("User"), "member"); 
 			\View\general::output_link_list("member", array(
-				"calendar" => "Calendar"
-				,"settings" => "My profile"
-				,"memberlist" => "Members"
-				,"admin_list" => "Administrators"
+				"calendar" => _t("Calendar")
+				,"settings" => _t("My profile")
+				,"memberlist" => _t("Members")
+				,"admin_list" => _t("Administrators")
 				)); 
 			?>
 		</li>
@@ -25,9 +25,9 @@
 		<li><?php 
 			\View\general::output_internal_link(_t("Messages"), "message"); 
 			\View\general::output_link_list("message", array(
-				"inbox" => "Inbox"
-				,"outbox" => "Outbox"
-				,"write" => "Write message"
+				"inbox" => _t("Inbox")
+				,"outbox" => _t("Outbox")
+				,"write" => _t("Write message")
 				)); 
 			?>
 		</li>
@@ -44,9 +44,9 @@
 		<li><?php 
 			\View\general::output_internal_link(_t("Votes"), "vote");
 			\View\general::output_link_list("vote", array(
-				"list_props" => "Propositions"
-				,"list_active_votes" => "Votes"
-				,"delegations" => "Delegates"
+				"list_props" => _t("Propositions")
+				,"list_active_votes" => _t("Votes")
+				,"delegations" => _t("Delegates")
 				)); 
 			?>
 		</li>

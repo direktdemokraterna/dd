@@ -7,28 +7,72 @@ class vote
 		return 14*24*3600;
 	}
 
-	public static function make_vote_type_selector() {
+	public static function make_vote_type_selector($selected_option, $tab_index = 1) {
 		$options = array(
-			"yes-no" => "Votering (ja/nej)"
-			,"prio-vote" => "Prioritetsomröstning"
-			,"candidate-election" => "Personval"
-			,"median" => "Medianomröstning"
-			,"budget" => "Budgetomröstning"
-			);
-		$selected_option = isset($_POST["type_of_vote"]) ? $_POST["type_of_vote"] : null;
-		general::make_control_label("type_of_vote", "Typ av omröstning");
-		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "1"');
+			"yes-no" => _t("Vote (yes/no)")
+			, "prio-vote" => _t("Priority vote")
+			, "candidate-election" => _t("Candidate election")
+			, "median" => _t("Median vote")
+			, "budget" => _t("Budget vote")
+			); 
+		general::make_control_label("type_of_vote", _t("Type of vote"));
+		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
-	public static function make_constituency_selector() {
+	public static function make_constituency_selector($selected_option, $user_id = null, $tab_index = 1) {
 		$options = array();
-		$constituencies = \db_constituency::get_constituencies_for_user($_SESSION['id']);
+		$constituencies = $user_id 
+			? \db_constituency::get_constituencies_for_user($user_id)
+			: \db_constituency::get_all_constituencies(1, PHP_INT_MAX);
 		foreach($constituencies as $row)
 			$options[$row['id']] = $row['name'];
-		$selected_option = isset($_POST["constituency_id"]) ? $_POST["constituency_id"] : null;
 		general::make_control_label("constituency_id", "Valkrets");
-		general::make_selector("constituency_id", $options, $selected_option, 'tabindex = "1"');
-	}	
+		general::make_selector("constituency_id", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
+	}
+
+	public static function output_vote_status($status) 
+	{
+		_br();
+		_label(_t("Vote status: "), "vote_status");
+		$status_text = self::get_vote_status_text($status);
+		__($status_text);
+		_br();
+		$buttons = self::get_vote_status_buttons($status);
+		foreach ($buttons as $key => $value)
+			echo '<button type="submit" name="action" value="' . $key . '">' . _t($value) . '</button>';
+	}
+
+	private static function get_vote_status_text($status) {
+		switch ($status) {
+			case "active": return "Ongoing";
+			case "del_ended": return "Closed for delegates";
+			case "ended": return "Finished";
+			case "continuous": return "Continous";
+			case "finished": return "Finished continous";
+			default: throw new \Exception("unknown status: " . $status);
+		} 
+	}
+
+	private static function get_vote_status_buttons($status) 
+	{
+		switch ($status) {
+			case "active": return array(
+				"end_vote" => "Finish the vote"
+				, "end_delegate_vote" => "Finish the delegate vote"
+				, "make_continuous" => "Transform to continous");
+			case "del_ended": return array(
+				"end_vote" => "Finish the vote"
+				, "restore_delegate_vote" => "Resume the delegate vote");
+			case "ended": return array(
+				"restore_vote" => "Resume the vote");
+			case "continuous": return array(
+				"end_vote" => "Finish the vote"
+				, "restore_delegate_vote" => "Transform to time limited");
+			case "finished": return array(
+				"restore_finished_vote" => "Resume the vote");
+			default: throw new \Exception("unknown status: " . $status);
+		} 
+	}
 
 	public static function make_title_input() {
 		general::make_textfield("new_prop_title", "Titel", 3);

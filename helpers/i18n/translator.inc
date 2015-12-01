@@ -61,9 +61,10 @@ class translation_identifier
 		return !$this->selector || $this->selector->match($previous_matches, $following_matches);
 	}
 
-	public function copy($new_key, $new_selector = null) 
+	public function copy($new_key, $new_selector = null, $new_form = null) 
 	{
-		return new translation_identifier($new_key, $this->class, $this->type, $this->form, 
+		return new translation_identifier($new_key, $this->class, $this->type
+			, $new_form ? $new_form : $this->form, 
 			$new_selector ? $new_selector : $this->selector, $this->base_form);
 	}
 
@@ -167,10 +168,10 @@ class translator
 		$this->translation = $translation;
 	}
 
-	public function translate($lower_phrase, $translations_before, $translations_after) 
+	public function translate($lower_phrase, $translations_before, $translations_after, $translation_hints = null) 
 	{
 		$connector = $translations_after ? ' ' : '';
-		$translation = $this->do_translate($lower_phrase, $translations_before, $translations_after, $connector);
+		$translation = $this->do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
 		return $translation ? $translation . $connector : '';
 	}
 
@@ -205,6 +206,11 @@ class translator
 		return $this->identifier->class == 'pron';
 	}
 
+	public function is_preposition() 
+	{
+		return $this->identifier->class == 'prep';
+	}
+
 	public function is_quantifier() 
 	{
 		return $this->identifier->class == 'quant';
@@ -214,7 +220,7 @@ class translator
 		return $this->is_adjective() || $this->is_quantifier();
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
 	{
 		return $this->translation;
 	}
@@ -277,15 +283,18 @@ class noun_modifier extends translator
 		$this->translation_noun2 = $translation_noun2;
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector
+		, $translation_hints = null) 
 	{
+		if ($translation_hints && isset($translation_hints['form']) && $translation_hints['form'] == 'plural')
+			return $this->translation_plural;
 		$has_plurifying_pronoun = $this->has_plurifying_pronoun($translations_before);
 		if ($has_plurifying_pronoun)
 			return $this->translation_plural;
 		$significant_noun = $this->get_significant_noun($translations_before, $translations_after);
 		return $significant_noun
 			? self::get_translation_for_noun($significant_noun->identifier)
-			: $this->translation_noun2;
+			: $this->translation;
 	}
 
 	private function has_plurifying_pronoun($translations_before) 

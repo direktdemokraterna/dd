@@ -80,14 +80,14 @@ class verb_present extends translator
 		return $translator->is_noun() || $translator->is_pronoun();
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
 	{
 		if ($this->singular_translation) {
 			$significant_noun = self::get_significant_noun($translations_before);
 			if ($significant_noun && $significant_noun->identifier->form == 'singular')
 				return $this->singular_translation;			
 		}
-		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector);
+		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
 	}
 
 	private function extract_singular_translation(&$translation) 

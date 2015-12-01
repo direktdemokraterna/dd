@@ -44,6 +44,15 @@
 			($confirm ? '" onclick="return confirm(\'' . $confirm . '\');' : '') . '">';
 	}
 
+	function _label($text, $for) {
+		echo '<label for"' . $for . '">' . $text . '</labe>';
+	}
+
+	function _text_field($title, $value, $tab_index = 1) {
+		echo '<input type="text" name="' . $title . '" id="' . $title 
+		. '" tabindex="' . $tab_index . '" value="' . $value . '">';
+	}
+
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
 	{
 		\View\general::output_internal_link($label, $type, $action, $params, $class, $confirm);
@@ -55,9 +64,9 @@
 			echo '&nbsp;';
 	}
 
-	function __($text) 
+	function __($text, $hints = null) 
 	{
-		echo _t($text);
+		echo _t($text, $hints);
 	}
 
 	function _h1($text) 
@@ -70,8 +79,8 @@
 		echo '<h2>' . $text . '</h2>';
 	}
 
-	function _t($text) 
+	function _t($text, $hints = null) 
 	{
-		return \i18n\engine::translate($text);
+		return \i18n\engine::translate($text, $hints);
 	}
 ?>

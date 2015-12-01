@@ -12,7 +12,7 @@ class pronoun_it extends translator
 		$this->translation_noun2 = $parts[1];
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
 	{
 		$significant_noun = self::get_significant_noun($translations_before);
 		return $significant_noun

@@ -66,6 +66,10 @@ class translations
 				"sv" => "vill du verkligen"
 				,"en" => "do you really want to"
 				)
+			,"forum topic-id" => array(
+				"sv" => "forumtråds-ID"
+				,"en" => "forum topic-ID"
+				)
 			,"have" => array(
 				"sv" => "har"
 				,"en" => "have"
@@ -165,6 +169,14 @@ class translations
 			,"your" => array(
 				"sv" => "ditt"
 				,"en" => "your"
+				)
+			,"vote (yes/no)" => array(
+				"sv" => "votering (ja/nej)"
+				,"en" => "vote (yes/no)"
+				)
+			,"vote status" => array(
+				"sv" => "Omröstningens status"
+				,"en" => "vote status"
 				)
 			,"welcome" => array(
 				"sv" => "välkommen"
@@ -274,6 +286,7 @@ class translations
 				)
 
 			//ADJECTIVES
+			//singular_indefinite|non_type2:plural_indefinite:definite
 			,"active:adj" => array(
 				"sv" => "aktiv|t:a"
 				,"en" => "active"
@@ -281,6 +294,14 @@ class translations
 			,"affirmed:adj" => array(
 				"sv" => "beviljad|_t:e"
 				,"en" => "affirmed"
+				)
+			,"continous:adj" => array(
+				"sv" => "kontinuerlig|t:a"
+				,"en" => "continous"
+				)
+			,"finished:adj" => array(
+				"sv" => "avslutad|_t:e"
+				,"en" => "finished"
 				)
 			,"late:adj" => array(
 				"sv" => "sen|t:a:aste"
@@ -298,9 +319,17 @@ class translations
 				"sv" => "gammal|t:___la"
 				,"en" => "old"
 				)
+			,"ongoing:adj" => array(
+				"sv" => "pågående"
+				,"en" => "ongoing"
+				)
 			,"open:adj" => array(
 				"sv" => "öppen|_t:__na"
 				,"en" => "open"
+				)
+			,"time limited:adj" => array(
+				"sv" => "tidsbegränsad|_t:e"
+				,"en" => "time limited"
 				)
 
 			//NOUNS
@@ -320,6 +349,10 @@ class translations
 			,"application:noun1" => array(
 				"sv" => "ansökning:ar"
 				,"en" => "application:s"
+				)
+			,"budget:noun1" => array(
+				"sv" => "budget:ar:-"
+				,"en" => "budget:s"
 				)
 			,"calendar:noun1" => array(
 				"sv" => "kalender:__rar"
@@ -342,7 +375,7 @@ class translations
 				,"en" => "constituency:_ies"
 				)
 			,"delegate:noun1" => array(
-				"sv" => "delegat:er"
+				"sv" => "delegat:er:-"
 				,"en" => "delegate:s"
 				)
 			,"delegation:noun1" => array(
@@ -373,6 +406,10 @@ class translations
 				"sv" => "inbox:ar"
 				,"en" => "inbox:es"
 				)
+			,"median:noun1" => array(
+				"sv" => "median:er:-"
+				,"en" => "median:s"
+				)
 			,"member:noun1" => array(
 				"sv" => "medlem:mar:men:na"
 				,"en" => "member:s"
@@ -388,6 +425,10 @@ class translations
 			,"outbox:noun1" => array(
 				"sv" => "skickade"
 				,"en" => "outbox"
+				)
+			,"priority:noun1" => array(
+				"sv" => "prioritet:er:-s"
+				,"en" => "priority:_ies"
 				)
 			,"proposition:noun1" => array(
 				"sv" => "proposition:er"
@@ -410,7 +451,7 @@ class translations
 				,"en" => "time:s"
 				)
 			,"vote:noun1" => array(
-				"sv" => "omröstning:ar"
+				"sv" => "omröstning:ar:en:arna"
 				,"en" => "vote:s"
 				)
 			,"vote admin:noun1" => array(
@@ -426,6 +467,10 @@ class translations
 			,"alternative:noun2" => array(
 				"sv" => "alternativ"
 				,"en" => "alternative:s"
+				)
+			,"candidate election:noun2" => array(
+				"sv" => "personval::et:en"
+				,"en" => "candidate election:s"
 				)
 			,"election:noun2" => array(
 				"sv" => "personval::et:en"
@@ -498,6 +543,14 @@ class translations
 				"sv" => "uteslut:a:er:it:(en|_t:__na)"
 				,"en" => "exclude::|s:d:(d)"
 				)
+			,"finish:verb" => array(
+				"sv" => "avsluta"
+				,"en" => "finish"
+				)
+			,"finishes:verb" => array(
+				"sv" => "slutar"
+				,"en" => "finishes"
+				)
 			,"handle:verb" => array(
 				"sv" => "hantera"
 				,"en" => "handle"
@@ -530,6 +583,10 @@ class translations
 				"sv" => "kom ihåg"
 				,"en" => "remember"
 				)				
+			,"resume:verb" => array(
+				"sv" => "återuppta"
+				,"en" => "resume"
+				)				
 			,"revoke:verb" => array(
 				"sv" => "återta"
 				,"en" => "revoke"
@@ -553,6 +610,10 @@ class translations
 			,"stop supporting:verb" => array(
 				"sv" => "sluta stödja"
 				,"en" => "stop supporting"
+				)
+			,"transform:verb" => array(
+				"sv" => "gör om"
+				,"en" => "transform"
 				)
 			,"undo:verb" => array(
 				"sv" => "ångra"

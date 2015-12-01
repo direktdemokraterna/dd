@@ -9,8 +9,8 @@ class general
 			'" tabindex="' . $tab_index . '" value="' . $value . '"></input>');
 	}
 
-	public static function make_textarea($control_name, $control_label, $tab_index) {
-		$value = self::get_value($control_name);
+	public static function make_textarea($control_name, $control_label, $tab_index, $values = null) {
+		$value = self::get_value($control_name, $values);
 		self::make_control_label($control_name, $control_label);
 		echo('<textarea name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '"">' . $value . '</textarea>');
@@ -83,12 +83,12 @@ class general
 	public static function output_link_list($type, $links) {
 		echo '<ul>';
 		foreach (array_keys($links) as $action)
-			echo '<li>' . self::generate_internal_link(_t($links[$action]), $type, $action) . '</li>';
+			echo '<li>' . self::generate_internal_link($links[$action], $type, $action) . '</li>';
 		echo '</ul>';
 	}
 
 	public static function output_search_box($label, $type, $action, $tab_index = 1) {
-		_h2(_t("Search ") . $label);
+		_h2(_t("Search " . $label));
 		$search_input_name = \Logic\util::get_search_input_name($type, $action);
 		$value = isset($_SESSION[$search_input_name]) ? $_SESSION[$search_input_name] : '';
 		echo '<form method="post" class="sidebar_search_form" action="index.php?type=' 

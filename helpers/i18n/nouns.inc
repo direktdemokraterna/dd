@@ -35,7 +35,7 @@ class noun extends translator
 			: $this->translation;
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector) 
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
 	{
 		if ($this->is_compound($translations_after)) {
 			$connector = '';
@@ -47,8 +47,11 @@ class noun extends translator
 
 	private static function check_is_definite($translations_before) 
 	{
-		return $translations_before && (self::is_definite_adjective(end($translations_before)->identifier)
-			|| self::has_definite_marker($translations_before));
+		return $translations_before && 
+		(
+			self::is_definite_adjective(end($translations_before)->identifier)
+			|| self::has_definite_marker($translations_before)
+		);
 	}
 
 	private static function is_definite_adjective($identifier) 
@@ -61,7 +64,7 @@ class noun extends translator
 		foreach (array_reverse($translations_before) as $previous_translation) {
 			if ($previous_translation->identifier->class == 'definite')
 				return true;
-			if (!$previous_translation->is_noun_modifier())
+			if (!($previous_translation->is_noun_modifier() || $previous_translation->is_noun()))
 				break;
 		}
 		return false;
