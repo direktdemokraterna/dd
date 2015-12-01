@@ -1,1 +1,3 @@
-<h1>Redigera Valkrets</h1>
+<?php 
+	_h1(_t("Edit constituency"));
+?>

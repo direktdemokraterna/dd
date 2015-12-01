@@ -101,7 +101,8 @@ class engine
 	{
 		$localized_strings = self::get_translated_parts($translation_matches);
 		$translated_phrase = implode('', $localized_strings);
-		self::store_new_translation($phrase, $translated_phrase);			
+		if (count($localized_strings) > 1)
+			self::store_new_translation($phrase, $translated_phrase);			
 		return $translated_phrase;
 	}
 

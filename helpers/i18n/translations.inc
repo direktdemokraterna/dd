@@ -332,179 +332,6 @@ class translations
 				,"en" => "time limited"
 				)
 
-			//NOUNS
-			//singular_indefinite:plural_indefinite:singular_definite:plural_definite
-			,"active vote:noun1" => array(
-				"sv" => "pågående omröstning:ar"
-				,"en" => "active vote:s"
-				)
-			,"admin:noun1" => array(
-				"sv" => "admin:istratörer"
-				,"en" => "admin:istrators"
-				)
-			,"administrator:noun1" => array(
-				"sv" => "administratör:er"
-				,"en" => "administrator:s"
-				)
-			,"application:noun1" => array(
-				"sv" => "ansökning:ar"
-				,"en" => "application:s"
-				)
-			,"budget:noun1" => array(
-				"sv" => "budget:ar:-"
-				,"en" => "budget:s"
-				)
-			,"calendar:noun1" => array(
-				"sv" => "kalender:__rar"
-				,"en" => "calendar:s"
-				)
-			,"candidate:noun1" => array(
-				"sv" => "kandidat:er"
-				,"en" => "candidate:s"
-				)
-			,"category:noun1" => array(
-				"sv" => "kategori:er"
-				,"en" => "category:_ies"
-				)
-			,"change:noun1" => array(
-				"sv" => "förändring:ar"
-				,"en" => "change:s"
-				)
-			,"constituency:noun1" => array(
-				"sv" => "valkrets:ar"
-				,"en" => "constituency:_ies"
-				)
-			,"delegate:noun1" => array(
-				"sv" => "delegat:er:-"
-				,"en" => "delegate:s"
-				)
-			,"delegation:noun1" => array(
-				"sv" => "delegering:ar"
-				,"en" => "delegation:s"
-				)
-			,"description:noun1" => array(
-				"sv" => "beskrivning:ar"
-				,"en" => "description:s"
-				)
-			,"exclusion:noun1" => array(
-				"sv" => "uteslutning"
-				,"en" => "exclusion"
-				)
-			,"forum admin:noun1" => array(
-				"sv" => "forumadministratör:er"
-				,"en" => "forum admin:s"
-				)
-			,"front page:noun1" => array(
-				"sv" => "första-sida"
-				,"en" => "front page"
-				)
-			,"group:noun1" => array(
-				"sv" => "grupp:er:-"
-				,"en" => "group:s"
-				)
-			,"inbox:noun1" => array(
-				"sv" => "inbox:ar"
-				,"en" => "inbox:es"
-				)
-			,"median:noun1" => array(
-				"sv" => "median:er:-"
-				,"en" => "median:s"
-				)
-			,"member:noun1" => array(
-				"sv" => "medlem:mar:men:na"
-				,"en" => "member:s"
-				)
-			,"member admin:noun1" => array(
-				"sv" => "medlemsansvarig:a"
-				,"en" => "member admin:s"
-				)
-			,"profile:noun1" => array(
-				"sv" => "profil:er"
-				,"en" => "profile:s"
-				)
-			,"outbox:noun1" => array(
-				"sv" => "skickade"
-				,"en" => "outbox"
-				)
-			,"priority:noun1" => array(
-				"sv" => "prioritet:er:-s"
-				,"en" => "priority:_ies"
-				)
-			,"proposition:noun1" => array(
-				"sv" => "proposition:er"
-				,"en" => "proposition:s"
-				)
-			,"setting:noun1" => array(
-				"sv" => "inställning:ar"
-				,"en" => "setting:s"
-				)
-			,"supporter:noun1" => array(
-				"sv" => "stödjare::n:_na"
-				,"en" => "supporter:s"
-				)
-			,"user:noun1" => array(
-				"sv" => "användare"
-				,"en" => "user:s"
-				)
-			,"time:noun1" => array(
-				"sv" => "tidpunkt:er"
-				,"en" => "time:s"
-				)
-			,"vote:noun1" => array(
-				"sv" => "omröstning:ar:en:arna"
-				,"en" => "vote:s"
-				)
-			,"vote admin:noun1" => array(
-				"sv" => "valadministratör:er"
-				,"en" => "vote admin:s"
-				)
-			,"workgroup:noun1" => array(
-				"sv" => "arbetsgrupp:er:en:na"
-				,"en" => "workgroup:s"
-				)
-
-			//NOUNS, variation 2
-			,"alternative:noun2" => array(
-				"sv" => "alternativ"
-				,"en" => "alternative:s"
-				)
-			,"candidate election:noun2" => array(
-				"sv" => "personval::et:en"
-				,"en" => "candidate election:s"
-				)
-			,"election:noun2" => array(
-				"sv" => "personval::et:en"
-				,"en" => "election:s"
-				)
-			,"forum:noun2" => array(
-				"sv" => "forum"
-				,"en" => "forum:s"
-				)
-			,"membership:noun2" => array(
-				"sv" => "medlemskap"
-				,"en" => "membership"
-				)
-			,"message:noun2" => array(
-				"sv" => "meddelande:n"
-				,"en" => "message:s"
-				)
-			,"password:noun2" => array(
-				"sv" => "lösenord"
-				,"en" => "password:s"
-				)
-			,"post:noun2" => array(
-				"sv" => "inlägg::et:en"
-				,"en" => "post:s"
-				)
-			,"proposal:noun2" => array(
-				"sv" => "förslag::et:en"
-				,"en" => "proposal:s"
-				)
-			,"username:noun2" => array(
-				"sv" => "användarnamn"
-				,"en" => "username:s"
-				)
-
 			//VERBS
 			//imperative:infinitive:present:perfect:perfect particip
 			,"administrate:verb" => array(
@@ -638,6 +465,183 @@ class translations
 			,"write:verb" => array(
 				"sv" => "skriv"
 				,"en" => "write"
+				)
+			
+			//NOUNS
+			//singular_indefinite:plural_indefinite:singular_definite:plural_definite
+			,"active vote:noun1" => array(
+				"sv" => "pågående omröstning:ar"
+				,"en" => "active vote:s"
+				)
+			,"admin:noun1" => array(
+				"sv" => "admin:istratörer"
+				,"en" => "admin:istrators"
+				)
+			,"administrator:noun1" => array(
+				"sv" => "administratör:er"
+				,"en" => "administrator:s"
+				)
+			,"application:noun1" => array(
+				"sv" => "ansökning:ar"
+				,"en" => "application:s"
+				)
+			,"authorisation:noun1" => array(
+				"sv" => "behörighet:er"
+				,"en" => "authorisation:s"
+				)
+			,"budget:noun1" => array(
+				"sv" => "budget:ar:-"
+				,"en" => "budget:s"
+				)
+			,"calendar:noun1" => array(
+				"sv" => "kalender:__rar"
+				,"en" => "calendar:s"
+				)
+			,"candidate:noun1" => array(
+				"sv" => "kandidat:er"
+				,"en" => "candidate:s"
+				)
+			,"category:noun1" => array(
+				"sv" => "kategori:er"
+				,"en" => "category:_ies"
+				)
+			,"change:noun1" => array(
+				"sv" => "förändring:ar"
+				,"en" => "change:s"
+				)
+			,"constituency:noun1" => array(
+				"sv" => "valkrets:ar:-"
+				,"en" => "constituency:_ies"
+				)
+			,"delegate:noun1" => array(
+				"sv" => "delegat:er:-"
+				,"en" => "delegate:s"
+				)
+			,"delegation:noun1" => array(
+				"sv" => "delegering:ar"
+				,"en" => "delegation:s"
+				)
+			,"description:noun1" => array(
+				"sv" => "beskrivning:ar"
+				,"en" => "description:s"
+				)
+			,"exclusion:noun1" => array(
+				"sv" => "uteslutning"
+				,"en" => "exclusion"
+				)
+			,"forum admin:noun1" => array(
+				"sv" => "forumadministratör:er"
+				,"en" => "forum admin:s"
+				)
+			,"front page:noun1" => array(
+				"sv" => "första-sida"
+				,"en" => "front page"
+				)
+			,"group:noun1" => array(
+				"sv" => "grupp:er:-"
+				,"en" => "group:s"
+				)
+			,"inbox:noun1" => array(
+				"sv" => "inbox:ar"
+				,"en" => "inbox:es"
+				)
+			,"median:noun1" => array(
+				"sv" => "median:er:-"
+				,"en" => "median:s"
+				)
+			,"member:noun1" => array(
+				"sv" => "medlem:mar:men:na"
+				,"en" => "member:s"
+				)
+			,"member admin:noun1" => array(
+				"sv" => "medlemsansvarig:a"
+				,"en" => "member admin:s"
+				)
+			,"profile:noun1" => array(
+				"sv" => "profil:er"
+				,"en" => "profile:s"
+				)
+			,"outbox:noun1" => array(
+				"sv" => "skickade"
+				,"en" => "outbox"
+				)
+			,"priority:noun1" => array(
+				"sv" => "prioritet:er:-s"
+				,"en" => "priority:_ies"
+				)
+			,"proposition:noun1" => array(
+				"sv" => "proposition:er"
+				,"en" => "proposition:s"
+				)
+			,"setting:noun1" => array(
+				"sv" => "inställning:ar"
+				,"en" => "setting:s"
+				)
+			,"supporter:noun1" => array(
+				"sv" => "stödjare::n:_na"
+				,"en" => "supporter:s"
+				)
+			,"user:noun1" => array(
+				"sv" => "användare"
+				,"en" => "user:s"
+				)
+			,"time:noun1" => array(
+				"sv" => "tidpunkt:er"
+				,"en" => "time:s"
+				)
+			,"vote:noun1" => array(
+				"sv" => "omröstning:ar:en:arna"
+				,"en" => "vote:s"
+				)
+			,"vote admin:noun1" => array(
+				"sv" => "valadministratör:er"
+				,"en" => "vote admin:s"
+				)
+			,"workgroup:noun1" => array(
+				"sv" => "arbetsgrupp:er:en:na"
+				,"en" => "workgroup:s"
+				)
+
+			//NOUNS, variation 2
+			,"alternative:noun2" => array(
+				"sv" => "alternativ"
+				,"en" => "alternative:s"
+				)
+			,"candidate election:noun2" => array(
+				"sv" => "personval::et:en"
+				,"en" => "candidate election:s"
+				)
+			,"election:noun2" => array(
+				"sv" => "personval::et:en"
+				,"en" => "election:s"
+				)
+			,"forum:noun2" => array(
+				"sv" => "forum"
+				,"en" => "forum:s"
+				)
+			,"membership:noun2" => array(
+				"sv" => "medlemskap"
+				,"en" => "membership"
+				)
+			,"message:noun2" => array(
+				"sv" => "meddelande:n"
+				,"en" => "message:s"
+				)
+			,"password:noun2" => array(
+				"sv" => "lösenord"
+				,"en" => "password:s"
+				)
+			,"post:noun2" => array(
+				"sv" => "inlägg::et:en"
+				,"en" => "post:s"
+				)
+			,"proposal:noun2" => array(
+				"sv" => "förslag::et:en"
+				,"en" => "proposal:s"
+				)
+			,"username:noun2" => array(
+				"sv" => "användarnamn"
+				,"en" => "username:s"
 				)
 		);
 	}	
