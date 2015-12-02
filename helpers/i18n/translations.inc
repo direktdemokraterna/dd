@@ -22,9 +22,9 @@ class translations
 				"sv" => "alla"
 				,"en" => "all"
 				)
-			,"the admittance of this candidate" => array(
-				"sv" => "att denna kandidat upptas"
-				,"en" => "the admittance of this candidate"
+			,"alphabetic" => array(
+				"sv" => "alfabetisk"
+				,"en" => "alphabetic"
 				)
 			,"are" => array(
 				"sv" => "är"
@@ -153,6 +153,10 @@ class translations
 			,"out" => array(
 				"sv" => "ut"
 				,"en" => "out"
+				)
+			,"the admittance of this candidate" => array(
+				"sv" => "att denna kandidat upptas"
+				,"en" => "the admittance of this candidate"
 				)
 			,"that" => array(
 				"sv" => "att"

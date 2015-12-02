@@ -1,1 +1,1 @@
-<h1>Skapa Valkrets</h1>
+<?php _h1(_t("Create constituency")); ?>

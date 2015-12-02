@@ -1,27 +1,17 @@
-<h1>Valkretsar</h1>
-
-<?php 
+<?php
+	_h1(_t("Constituencies"));
 	if(isset($_GET['page'])) $page = $_GET['page']; else $page = 1;
-	if(isset($_GET['sort']) && $_GET['sort'] == "alphabetic"){
+	if(isset($_GET['sort']) && $_GET['sort'] == "alphabetic")
 		$result = db_constituency::get_all_constituencies($page, LIST_ITEMS_PER_PAGE, "title asc");
-	}
-	else{
+	else
 		$result = db_constituency::get_all_constituencies($page);
-	}
 	$result_counter = db_constituency::get_all_constituencies_count();
+	$sort_alternatives = Array(_t("Created") => "created", _t("Alphabetic") => "alphabetic");
+	general_helpers::make_list_of_links_header($page, $result_counter, $sort_alternatives);
+	echo '<div class="list_of_links">';
+	foreach($result as $row) {
+		_link($row['name'], 'vote_admin', 'edit_constituency', 'id=' . $row['id']);
+		_br();
+	}
+	echo '</div>';
 ?>
-
-<?php 
-	$sort_alternatives = Array("Skapad" => "created", "Alfabetisk" => "alphabetic");
-	general_helpers::make_list_of_links_header($page, $result_counter); 
-?>
-
-
-
-<div class="list_of_links">
-
-<?php foreach($result as $row) : ?>
-	<a href="index.php?type=vote_admin&action=edit_constituency&id=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></a><br>
-<?php endforeach; ?>
-
-</div>
