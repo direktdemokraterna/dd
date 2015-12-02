@@ -12,9 +12,9 @@ class translation_match
 		$this->translator = $translator;
 	}
 
-	public function translate($translators_before, $translators_after) 
+	public function translate($translators_before, $translators_after, $translation_hints) 
 	{
-		return $this->translator->translate(strtolower($this->phrase), $translators_before, $translators_after);
+		return $this->translator->translate(strtolower($this->phrase), $translators_before, $translators_after, $translation_hints);
 	}
 }
 

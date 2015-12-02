@@ -334,6 +334,10 @@ class translations
 
 			//VERBS
 			//imperative:infinitive:present:perfect:perfect particip
+			,"add:verb" => array(
+				"sv" => "lägg till"
+				,"en" => "add"
+				)
 			,"administrate:verb" => array(
 				"sv" => "administrera::r:t:(d|_t:e)"
 				,"en" => "administrate::|s:d:(d)"
@@ -350,6 +354,10 @@ class translations
 				"sv" => "ändra"
 				,"en" => "change"
 				)
+			,"check:verb" => array(
+				"sv" => "markera::r:t:(d|_t:e)"
+				,"en" => "check::|s:ed:(ed)"
+				)
 			,"close:verb" => array(
 				"sv" => "stäng:a:er:t:(d|_t:a)"
 				,"en" => "close::|s:d:(d)"
@@ -357,6 +365,10 @@ class translations
 			,"create:verb" => array(
 				"sv" => "skapa::r:t:(d|_t:e)"
 				,"en" => "create::|s:d:(d)"
+				)
+			,"delete:verb" => array(
+				"sv" => "radera::r:t:(d|_t:e)"
+				,"en" => "delete::|s:d:(d)"
 				)
 			,"discontinue:verb" => array(
 				"sv" => "avsluta"
@@ -446,6 +458,10 @@ class translations
 				"sv" => "ångra"
 				,"en" => "undo"
 				)
+			,"update:verb" => array(
+				"sv" => "uppdatera"
+				,"en" => "update"
+				)
 			,"view:verb" => array(
 				"sv" => "visa"
 				,"en" => "view"
@@ -466,7 +482,7 @@ class translations
 				"sv" => "skriv"
 				,"en" => "write"
 				)
-			
+
 			//NOUNS
 			//singular_indefinite:plural_indefinite:singular_definite:plural_definite
 			,"active vote:noun1" => array(
@@ -589,8 +605,12 @@ class translations
 				"sv" => "tidpunkt:er"
 				,"en" => "time:s"
 				)
+			,"title:noun1" => array(
+				"sv" => "titel"
+				,"en" => "title"
+				)
 			,"vote:noun1" => array(
-				"sv" => "omröstning:ar:en:arna"
+				"sv" => "omröstning:ar:en:arna:-s"
 				,"en" => "vote:s"
 				)
 			,"vote admin:noun1" => array(

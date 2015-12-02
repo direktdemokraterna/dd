@@ -1,51 +1,37 @@
 <?php 
 	$voteinfo = db_vote::get_vote_info($_GET['id']); 
+	$votes_alternatives = $voteinfo['type'] == "prio-vote" 
+		? db_vote::get_alternatives_for_vote($voteinfo['vote_id'])
+		: db_vote::get_candidates_for_vote($voteinfo['vote_id']);
+	_h1(_t("Edit vote alternatives for the vote: " . $voteinfo['title']));
 
-	if($voteinfo['type'] == "prio-vote"){
-		$votes_alternatives = db_vote::get_alternatives_for_vote($voteinfo['vote_id']);
+	_open_form();
+	_hidden("delete", 1);
+	_hidden("vote_id", $_GET['id']);
+	foreach($votes_alternatives as $row) {
+		echo '<input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $row['id'] . '">';
+		echo $row['title'];
+		_space(1);
+		echo '[';
+		_link(_t("Edit"), 'vote_admin', 'edit_alternative', 'id=' . $row['id']);
+		echo ']';
+		_br();
 	}
-	else{
-		$votes_alternatives = db_vote::get_candidates_for_vote($voteinfo['vote_id']);
-	}
+	_br();
+	echo '<input type="checkbox" name="checkall" onclick="checkAll(this, \'delete_checkbox\')">';
+	__("Check all");
+	_br();
+	_submit_and_close(_t("Delete checked", array("form" => "plural")));
+
+	_h2(_t("Add alternative to this vote"));
+
+	_open_form();
+	_hidden("new_alternative", 1);
+	_hidden("vote_id", $_GET['id']);
+	if($voteinfo['type'] == "prio-vote")
+		\View\general::make_textfield("title", _t("Title"));
+	else 
+		\View\general::make_textfield("username", _t("Username"));
+	\View\general::make_textarea("description", _t("Description"));
+	_submit_and_close(_t("Add"));
 ?>
-
-<h1>Redigera omröstningsalternativ för omröstningen: <?php echo $voteinfo['title']; ?></h1>
-
-<form method="post" action="" class="standard-form">
-
-	<input type="hidden" name="delete" value="1">
-	<input type="hidden" name="vote_id" value="<?php echo $_GET['id']; ?>">
-
-	<?php foreach($votes_alternatives as $row) : ?>
-		<input type="checkbox" name="check_list[]" class="delete_checkbox" value="<?php echo $row['id']; ?>">
-		<?php echo $row['title']; ?>
-		[<a href="index.php?type=vote_admin&action=edit_alternative&id=<?php echo $row['id']; ?>">Redigera</a>]<br>
-	<?php endforeach; ?>
-
-	<br><input type="checkbox" name="checkall" onclick="checkAll(this, 'delete_checkbox');">Markera alla<br>
-
-	<input type="submit" value="Radera markerade">
-
-</form>
-
-<h2>Lägg till alternativ till denna omröstning</h2>
-
-<form method="post" action="" class="standard-form">
-
-	<input type="hidden" name="new_alternative" value="1">
-	<input type="hidden" name="vote_id" value="<?php echo $_GET['id']; ?>">
-
-	<?php if($voteinfo['type'] == "prio-vote") : ?>
-		<label for "title">Titel</label>
-		<input type="text" name="title" id="title"><br>
-	<?php else : ?>
-		<label for "username">Användarnamn</label>
-		<input type="text" name="username" id="username"><br>
-	<?php endif; ?>
-
-	<label for "description">Beskrivning</label>
-	<textarea name="description" id="description"></textarea>
-
-	<input type="submit" value="Lägg till">
-
-</form>

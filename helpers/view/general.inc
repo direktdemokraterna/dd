@@ -2,15 +2,19 @@
 namespace View;
 class general 
 {
-	public static function make_textfield($control_name, $control_label, $tab_index, $values = null) {
-		$value = self::get_value($control_name, $values);
+	public static function make_textfield($control_name, $control_label, $tab_index = 1, $values = null) {
+		$value = is_array($values) 
+			? self::get_value($control_name, $values) 
+			: $values;
 		self::make_control_label($control_name, $control_label);
 		echo('<input type="text" name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '" value="' . $value . '"></input>');
 	}
 
-	public static function make_textarea($control_name, $control_label, $tab_index, $values = null) {
-		$value = self::get_value($control_name, $values);
+	public static function make_textarea($control_name, $control_label, $tab_index = 1, $values = null) {
+		$value = is_array($values) 
+			? self::get_value($control_name, $values) 
+			: $values;
 		self::make_control_label($control_name, $control_label);
 		echo('<textarea name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '"">' . $value . '</textarea>');

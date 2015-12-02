@@ -12,7 +12,9 @@ class engine
 		$translation = self::translate_whole_phrase($original, $translation_hints);
 		if (!$translation) {
 			$phrases = preg_split('/\s*[[:punct:]]+\s*/', $trimmed_original, -1, PREG_SPLIT_NO_EMPTY);
-			$translations = array_map('self::translate_original_phrase', $phrases);
+			$translations = array_map(function($phrase) use ($translation_hints){
+				return self::translate_original_phrase($phrase, $translation_hints);
+			}, $phrases);
 			$translation = self::apply_translations($trimmed_original, $phrases, $translations);			
 		}
 		$translation = self::preserve_space($original, $translation);
@@ -30,8 +32,11 @@ class engine
 	private static function get_predefined_translation($lower_phrase, $translation_hints) 
 	{
 		$candidates = self::get_translator_candidates($lower_phrase);
-		return $candidates 
-			? $candidates[0]->translate($lower_phrase, array(), array(), $translation_hints)
+		$translation = $candidates 
+			? self::select_translator($candidates, array(), array()) 
+			: null;
+		return $translation 
+			?  $translation->translate($lower_phrase, array(), array(), $translation_hints)
 			: null;
 	}
 
@@ -52,13 +57,13 @@ class engine
 		return $translation;
 	}
 
-	private static function translate_original_phrase($phrase)
+	private static function translate_original_phrase($phrase, $translation_hints)
 	{
 		preg_match_all('/\d+/', $phrase, $matches);
 		$numbers = $matches[0];
 		if ($numbers) 
 			$phrase = preg_replace('/\d+/', '%d', $phrase);
-		$translation = self::translate_phrase($phrase, $numbers);
+		$translation = self::translate_phrase($phrase, $numbers, $translation_hints);
 		$translation = self::preserve_case($translation, $phrase);
 		return $translation;
 	}
@@ -72,12 +77,12 @@ class engine
 		return $ret_val;
 	}		
 
-	private static function translate_phrase($phrase, $numbers) 
+	private static function translate_phrase($phrase, $numbers, $translation_hints) 
 	{
 		$stored_translation = self::get_stored_translation(strtolower($phrase));
 		$translated_phrase = $stored_translation 
 			? $stored_translation
-			: self::translate_unknown_phrase($phrase, $numbers);
+			: self::translate_unknown_phrase($phrase, $numbers, $translation_hints);
 		$translated_phrase = self::restore_numbers($translated_phrase, $numbers);
 		return $translated_phrase;
 	}
@@ -89,17 +94,17 @@ class engine
 			: null;
 	}
 
-	private static function translate_unknown_phrase($phrase, $numbers) 
+	private static function translate_unknown_phrase($phrase, $numbers, $translation_hints) 
 	{
 		$translation_matches = self::get_translation_matches($phrase, $numbers);
 		return count($translation_matches) == 1
-			? $translation_matches[0]->translate(array(), array())
-			: self::translate_new_phrase($phrase, $translation_matches);
+			? $translation_matches[0]->translate(array(), array(), $translation_hints)
+			: self::translate_new_phrase($phrase, $translation_matches, $translation_hints);
 	}
 
-	private static function translate_new_phrase($phrase, $translation_matches) 
+	private static function translate_new_phrase($phrase, $translation_matches, $translation_hints) 
 	{
-		$localized_strings = self::get_translated_parts($translation_matches);
+		$localized_strings = self::get_translated_parts($translation_matches, $translation_hints);
 		$translated_phrase = implode('', $localized_strings);
 		if (count($localized_strings) > 1)
 			self::store_new_translation($phrase, $translated_phrase);			
@@ -141,14 +146,14 @@ class engine
 		return $phrase;
 	}
 
-	private static function get_translated_parts($translation_matches) 
+	private static function get_translated_parts($translation_matches, $translation_hints) 
 	{
 		$translators_after = array_map(function($match) {return $match->translator;}, $translation_matches);
 		$translators_before = array();
 		$localized_strings = array();
 		foreach ($translation_matches as $match) {
 			$translator = array_shift($translators_after);
-			$localized_strings[] = $match->translate($translators_before, $translators_after);
+			$localized_strings[] = $match->translate($translators_before, $translators_after, $translation_hints);
 			$translators_before[] = $translator;
 		}
 		return $localized_strings;
