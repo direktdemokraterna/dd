@@ -53,21 +53,40 @@ class verb_infinitive extends translator
 
 class verb_present extends translator 
 {
+	public $singular_key;
 	public $singular_translation;
 
 	function __construct($identifier, $compact_translation) 
 	{
+		$keys = iterator_to_array(self::get_word_forms($compact_translation[BASE_LANG]));
+		$translations = iterator_to_array(self::get_word_forms($compact_translation[LANG]));
+		parent::__construct($identifier, $translations[0]);
+		$this->singular_translation = $translations[1];
+		$this->singular_key = $keys[1];
+	}
+
+	private function get_word_forms($compact_translation) 
+	{
 		$words = explode(' ', $compact_translation, 2);
 		$parts = explode(':', $words[0]);
-		$translation = parent::assemble_word_form($parts, 2);
-		$singular_translation = self::extract_singular_translation($translation);
+		$word = parent::assemble_word_form($parts, 2);
+		$singular = self::extract_singular($word);
 		if (count($words) == 2) {
-			$translation .= ' ' . $words[1];
-			if ($singular_translation)
-				$singular_translation .= ' ' . $words[1];
+			$word .= ' ' . $words[1];
+			if ($singular)
+				$singular .= ' ' . $words[1];
 		}
-		parent::__construct($identifier, $translation);
-		$this->singular_translation = $singular_translation;
+		yield $word;
+		yield $singular;
+	}
+
+	private function extract_singular(&$compact_forms) 
+	{
+		$parts = explode('|', $compact_forms, 2);
+		if (count($parts) == 1) 
+			return $compact_forms;
+		$compact_forms = $parts[0];
+		return self::assemble_word_form($parts, 1);
 	}
 
 	protected function match_static($previous_matches, $following_matches) 
@@ -85,19 +104,9 @@ class verb_present extends translator
 		if ($this->singular_translation) {
 			$significant_noun = self::get_significant_noun($translations_before);
 			if ($significant_noun && $significant_noun->identifier->form == 'singular')
-				return $this->singular_translation;			
+				return $this->singular_translation;
 		}
 		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
-	}
-
-	private function extract_singular_translation(&$translation) 
-	{
-		$parts = explode('|', $translation, 2);
-		if (count($parts) == 1) 
-			return null;
-		$translation = $parts[0];
-		$singular_translation = self::assemble_word_form($parts, 1);
-		return $singular_translation;
 	}
 
 	private static function get_significant_noun($translations_before) 
@@ -108,6 +117,24 @@ class verb_present extends translator
 				return $previous_translation;
 		}
 		return null;
+	}
+}
+
+class verb_present_singular extends translator 
+{
+	function __construct($identifier, $translation) 
+	{
+		parent::__construct($identifier, $translation);
+	}
+
+	protected function match_static($previous_matches, $following_matches) 
+	{
+		return $previous_matches && self::is_subject(end($previous_matches)->translator);
+	}
+
+	private function is_subject($translator) 
+	{
+		return $translator->is_noun() || $translator->is_pronoun();
 	}
 }
 

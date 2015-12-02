@@ -34,18 +34,18 @@
 		 echo '<input type="hidden" name=" ' . $name . '" value="' . $value . '">';
 	}
 
-	function _submit_and_close($label, $confirm = null) {
-		_submit($label, $confirm);
+	function _submit_and_close($label, $confirm = null, $tab_index = 1) {
+		_submit($label, $confirm, $tab_index);
 		echo '</form>';
 	}
 
-	function _submit($label, $confirm) {
-		echo '<input type="submit" style="width: auto;" value="' . $label . 
+	function _submit($label, $confirm,  $tab_index) {
+		echo '<input type="submit" style="width: auto;" value="' . $label . '" tabindex="' . $tab_index .
 			($confirm ? '" onclick="return confirm(\'' . $confirm . '\');' : '') . '">';
 	}
 
 	function _label($text, $for) {
-		echo '<label for"' . $for . '">' . $text . '</labe>';
+		echo '<label for"' . $for . '">' . $text . '</label>';
 	}
 
 	function _text_field($title, $value, $tab_index = 1) {

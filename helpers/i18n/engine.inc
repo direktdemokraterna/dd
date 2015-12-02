@@ -288,8 +288,12 @@ class engine
 					yield new verb_perfect_participle($identifier, $compact_translation);
 				if ($verb_imperative->has_perfect)
 					yield new verb_perfect($identifier, $compact_translation);
-				if ($verb_imperative->has_present)
-					yield new verb_present($identifier, $compact_translation[LANG]);
+				if ($verb_imperative->has_present) {
+					$present = new verb_present($identifier, $compact_translation);
+					yield $present;
+					if ($present->singular_key != $present->identifier->key)
+						yield new verb_present_singular($identifier->copy($present->singular_key), $present->singular_translation);
+				}
 				if ($verb_imperative->has_infinitive)
 					yield new verb_infinitive($identifier, $compact_translation[LANG]);
 				yield $verb_imperative;

@@ -7,7 +7,7 @@ class vote
 		return 14*24*3600;
 	}
 
-	public static function make_vote_type_selector($selected_option, $tab_index = 1) {
+	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
 		$options = array(
 			"yes-no" => _t("Vote (yes/no)")
 			, "prio-vote" => _t("Priority vote")
@@ -19,7 +19,16 @@ class vote
 		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
-	public static function make_constituency_selector($selected_option, $user_id = null, $tab_index = 1) {
+	public static function make_vote_time_type_selector($selected_option = null, $tab_index = 1) {
+		$options = array(
+			"active" => _t("Time limited")
+			, "continuous" => _t("Continuous")
+			); 
+		general::make_control_label("vote_status", _t("Vote time"));
+		general::make_selector("vote_status", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
+	}	
+
+	public static function make_constituency_selector($selected_option = null, $user_id = null, $tab_index = 1) {
 		$options = array();
 		$constituencies = $user_id 
 			? \db_constituency::get_constituencies_for_user($user_id)

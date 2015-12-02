@@ -10,6 +10,14 @@ class translations
 				"sv" => "ovan"
 				,"en" => "above"
 				)
+			,"after" => array(
+				"sv" => "efter att"
+				,"en" => "after"
+				)
+			,"after the vote has been created" => array(
+				"sv" => "efter att omröstningen har skapats"
+				,"en" => "after the vote has been created"
+				)
 			,"all" => array(
 				"sv" => "alla"
 				,"en" => "all"
@@ -70,6 +78,10 @@ class translations
 				"sv" => "forumtråds-ID"
 				,"en" => "forum topic-ID"
 				)
+			,"half" => array(
+				"sv" => "halva"
+				,"en" => "half"
+				)
 			,"have" => array(
 				"sv" => "har"
 				,"en" => "have"
@@ -82,6 +94,10 @@ class translations
 				"sv" => "här"
 				,"en" => "here"
 				)
+			,"in case" => array(
+				"sv" => "om"
+				,"en" => "in case"
+				)
 			,"in the same way" => array(
 				"sv" => "på samma sätt"
 				,"en" => "in the same way"
@@ -93,6 +109,10 @@ class translations
 			,"is not possible" => array(
 				"sv" => "går inte"
 				,"en" => "is not possible"
+				)
+			,"it is possible" => array(
+				"sv" => "finns möjligheten"
+				,"en" => "it is possible"
 				)
 			,"it needs at least three members to be activated" => array(
 				"sv" => "för att bli aktiv måste den ha minst tre medlemmar"
@@ -145,6 +165,10 @@ class translations
 			,"this is" => array(
 				"sv" => "det här är"
 				,"en" => "this is"
+				)
+			,"this is not appropriate" => array(
+				"sv" => "detta inte är lämpligt"
+				,"en" => "this is not appropriate"
 				)
 			,"through" => array(
 				"sv" => "via"
@@ -612,6 +636,10 @@ class translations
 			,"vote:noun1" => array(
 				"sv" => "omröstning:ar:en:arna:-s"
 				,"en" => "vote:s"
+				)
+			,"vote time:noun1" => array(
+				"sv" => "omröstningstid:er:en:erna"
+				,"en" => "vote time:s"
 				)
 			,"vote admin:noun1" => array(
 				"sv" => "valadministratör:er"
