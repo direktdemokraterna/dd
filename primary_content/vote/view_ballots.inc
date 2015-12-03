@@ -21,19 +21,9 @@
 			<?php endif; ?>
 			</td>
 			<td>
-			<?php if($ballot['ballot'] == "abstain") : ?>
-				Avstår
-			<?php elseif($voteinfo['type'] == "yes-no") : ?>
-				<?php if($ballot['ballot'] == "yes") : ?>
-					Ja
-				<?php elseif($ballot['ballot'] == "no") : ?>
-					Nej
-				<?php endif; ?>
-			<?php elseif($voteinfo['type'] == "median") : ?>
-				<?php echo $ballot['ballot']; ?>
-			<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
-				<?php vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], json_decode($ballot['ballot'], true)); ?>
-			<?php endif; ?>
+			<?php 
+				echo \View\vote::get_ballot_content($voteinfo['type'], $ballot['ballot']);
+			?>
 			</td>
 			<td>
 			<?php if($ballot['delegate_id']) : ?>

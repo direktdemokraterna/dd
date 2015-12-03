@@ -145,50 +145,66 @@ public static function calculate_prio_vote_result ($vote_id){
 
 }
 
-public static function calculate_and_output_prio_vote_result ($result_array){
+public static function calculate_and_output_prio_vote_result ($result_array)
+{
+	echo self::get_formatted_prio_vote_result($result_array);
+}
 
+public static function calculate_and_output_candidate_election_result ($result_array)
+{
+	echo self::get_formatted_candidate_election_result($result_array);
+}
+
+public static function calculate_and_output_workgroup_election_result ($result_array, $workgroup_id)
+{
+	echo self::get_formatted_workgroup_election_result($result_array);
+}
+
+public static function get_formatted_prio_vote_result ($result_array)
+{
+	$ret_val = '';
 	$rank = 1;
 	$previous_rank = 1;
 	$previous_score = PHP_INT_MAX;
 	foreach($result_array as $row){
 		$alternative_title = db_vote::get_alternative_title($row['alternative_id']);
 		if($row['score'] < $previous_score){
-			echo $rank;
+			$ret_val .= $rank;
 			$previous_rank = $rank;
 		}
-		else{
-			echo $previous_rank;
-		}
-		echo ". " . $alternative_title . "<br>";
+		else
+			$ret_val .= $previous_rank;
+		$ret_val .= ". " . $alternative_title . "<br>";
 		$previous_score = $row['score'];
 		$rank++;
 	}
-
+	return $ret_val;
 }
 
-public static function calculate_and_output_candidate_election_result ($result_array){
-
+public static function get_formatted_candidate_election_result ($result_array)
+{
+	$ret_val = '';
 	$rank = 1;
 	$previous_rank = 1;
 	$previous_score = PHP_INT_MAX;
 	foreach($result_array as $row){
 		$alternative_candidate_info = db_vote::get_alternative_candidate_info($row['alternative_id']);
 		if($row['score'] < $previous_score){
-			echo $rank;
+			$ret_val .= $rank;
 			$previous_rank = $rank;
 		}
-		else{
-			echo $previous_rank;
-		}
-		echo ". <a href=\"index.php?type=member&action=view&id=" . $alternative_candidate_info['user_id'] . "\" class=\"invisible-link\">" . $alternative_candidate_info['user_name'] . "</a><br>";
+		else
+			$ret_val .= $previous_rank;
+		$ret_val .= ". <a href=\"index.php?type=member&action=view&id=" . $alternative_candidate_info['user_id'] . "\" class=\"invisible-link\">" . $alternative_candidate_info['user_name'] . "</a><br>";
 		$previous_score = $row['score'];
 		$rank++;
 	}
-
+	return $ret_val;
 }
 
-public static function calculate_and_output_workgroup_election_result ($result_array, $workgroup_id){
-
+public static function get_formatted_workgroup_election_result ($result_array, $workgroup_id)
+{
+	$ret_val = '';
 	$rank = 1;
 	$previous_rank = 1;
 	$previous_score = PHP_INT_MAX;
@@ -196,27 +212,23 @@ public static function calculate_and_output_workgroup_election_result ($result_a
 	foreach($result_array as $row){
 		$alternative_candidate_info = db_vote::get_alternative_candidate_info($row['alternative_id']);
 		if($row['score'] < $previous_score){
-			echo $rank;
+			$ret_val .= $rank;
 			$previous_rank = $rank;
 		}
-		else{
-			echo $previous_rank;
-		}
-		echo ". <a href=\"index.php?type=member&action=view&id=" . $alternative_candidate_info['user_id'] . "\" class=\"invisible-link\">";
-		if(db_workgroup::is_member($workgroup_id, $alternative_candidate_info['user_id'])){
-			echo "<strong>" . $alternative_candidate_info['user_name'] . "</strong>";
-		}
-		else{
-			echo $alternative_candidate_info['user_name'];
-		}
-		echo "</a><br>";
-		if($rank == $number_of_winners){
-			echo "<hr><br>";
-		}
+		else
+			$ret_val .= $previous_rank;
+		$ret_val .= ". <a href=\"index.php?type=member&action=view&id=" . $alternative_candidate_info['user_id'] . "\" class=\"invisible-link\">";
+		if(db_workgroup::is_member($workgroup_id, $alternative_candidate_info['user_id']))
+			$ret_val .= "<strong>" . $alternative_candidate_info['user_name'] . "</strong>";
+		else
+			$ret_val .= $alternative_candidate_info['user_name'];
+		$ret_val .= "</a><br>";
+		if($rank == $number_of_winners)
+			$ret_val .= "<hr><br>";
 		$previous_score = $row['score'];
 		$rank++;
 	}
-
+	return $ret_val;
 }
 
 public static function make_result_array_of_json_prio_ranking ($prio_ranking){
@@ -457,25 +469,18 @@ public static function workgroup_election_compare_result ($vote_id){
 	return;
 }
 
-public static function get_prio_vote_result_for_single_voter ($vote_id, $prio_ranking){
-
+public static function get_prio_vote_result_for_single_voter ($vote_id, $prio_ranking)
+{
 	$vote_type = db_vote::get_vote_type_from_id($vote_id);
-
 	$alternatives = db_vote::get_alternative_ids_from_vote_id($vote_id);
-
 	$result_array = Array();
-
 	foreach($alternatives as $row){
 		$alternative_id = $row[0];
-		if(isset($prio_ranking[$alternative_id])){
-			$score = $prio_ranking[$alternative_id];
-		}
-		else{
-			$score = 0;
-		}
+		$score = isset($prio_ranking[$alternative_id]) 
+			? $prio_ranking[$alternative_id]
+			: 0;
 		$result_array[] = Array("alternative_id" => $row[0], "score" => $score, "created" => 0);
 	}
-
 	usort($result_array, function($a, $b) 
 	{ 
 		$score_compare = $b["score"] - $a["score"];
@@ -484,18 +489,16 @@ public static function get_prio_vote_result_for_single_voter ($vote_id, $prio_ra
 		}
 		return $score_compare; 
 	});
-
-	if($vote_type == "prio-vote"){
-		vote_helpers::calculate_and_output_prio_vote_result($result_array);
+	switch ($vote_type) {
+		case "prio-vote": 
+			return vote_helpers::get_formatted_prio_vote_result($result_array);
+		case "candidate-election":
+			return vote_helpers::get_formatted_candidate_election_result($result_array);
+		case "workgroup-election":
+			$voteinfo = db_vote::get_vote_info($vote_id);
+			return vote_helpers::get_formatted_workgroup_election_result($result_array, $voteinfo['from_proposition_id']);
+		default: throw new Exception("Unknown vote_type: " . $vote_type);
 	}
-	elseif($vote_type == "candidate-election"){
-		vote_helpers::calculate_and_output_candidate_election_result($result_array);
-	}
-	elseif($vote_type == "workgroup-election"){
-		$voteinfo = db_vote::get_vote_info($vote_id);
-		vote_helpers::calculate_and_output_workgroup_election_result($result_array, $voteinfo['from_proposition_id']);
-	}
-
 }
 
 public static function sort_prio_ranking ($prio_ranking){

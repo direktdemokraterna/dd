@@ -51,6 +51,24 @@ class vote
 			echo '<button type="submit" name="action" value="' . $key . '">' . _t($value) . '</button>';
 	}
 
+	public static function get_ballot_content($vote_type, $ballot) {
+		if($ballot == "abstain")
+			return _t("Abstain");
+		switch ($vote_type) {
+			case 'yes-no':
+				return _t($ballot == "yes" ? "Yes" : "No");
+			case 'prio-vote':
+			case 'candidate-election':
+			case 'workgroup-election':
+				return vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], 
+					json_decode($ballot, true));
+			case 'median':
+				return $ballot;
+			default:
+				return '';
+		}
+	}
+
 	private static function get_vote_status_text($status) {
 		switch ($status) {
 			case "active": return "Ongoing";
@@ -81,6 +99,37 @@ class vote
 				"restore_finished_vote" => "Resume the vote");
 			default: throw new \Exception("unknown status: " . $status);
 		} 
+	}
+
+	public static function get_vote_form_include($vote_type) {
+		switch ($vote_type) {
+			case "yes-no":
+				return "/vote_types/yes-no.inc";
+			case "prio-vote":
+				return "/vote_types/prio-vote.inc";
+			case "candidate-election":
+			case "workgroup-election":
+				return "/vote_types/candidate-election.inc";
+			case "median":
+				return "/vote_types/median.inc";
+			default:
+				throw new \Exception("Unknown vote type: " . $vote_type);
+		}
+	}
+
+	public static function get_vote_script_include($vote_type) {
+		switch ($vote_type) {
+			case "yes-no":
+				return "/vote_types/yes-no_js.inc";
+			case "prio-vote":
+			case "candidate-election":
+			case "workgroup-election":
+				return "/vote_types/prio-vote_js.inc";
+			case "median":
+				return "/vote_types/median_js.inc";
+			default:
+				return null;
+		}
 	}
 
 	public static function make_title_input() {

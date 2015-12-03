@@ -35,129 +35,113 @@
 	if (isset($_GET['from_action']))
 		\View\vote::output_back_link();
 	\View\vote::output_vote_header($voteinfo);
-?>
 
-<div class="vote_result_box">
+	\View\general::open_div("vote_result_box");
+	if($voteinfo['type'] == "yes-no")
+		vote_helpers::output_yes_no_result($list_of_votes);
+	elseif($voteinfo['type'] == "prio-vote")
+		vote_helpers::output_prio_vote_result($_GET['id']);
+	elseif($voteinfo['type'] == "candidate-election")
+		vote_helpers::output_candidate_election_result($_GET['id']);
+	elseif($voteinfo['type'] == "workgroup-election")
+		vote_helpers::output_workgroup_election_result($_GET['id'], $voteinfo['from_proposition_id']);
+	elseif($voteinfo['type'] == "median")
+		vote_helpers::output_median_result($list_of_votes);
 
-	<?php if($voteinfo['type'] == "yes-no") : ?>
-		<?php vote_helpers::output_yes_no_result($list_of_votes); ?>
-	<?php elseif($voteinfo['type'] == "prio-vote") : ?>
-		<?php vote_helpers::output_prio_vote_result($_GET['id']); ?>
-	<?php elseif($voteinfo['type'] == "candidate-election") : ?>
-		<?php vote_helpers::output_candidate_election_result($_GET['id']); ?>
-	<?php elseif($voteinfo['type'] == "workgroup-election") : ?>
-		<?php vote_helpers::output_workgroup_election_result($_GET['id'], $voteinfo['from_proposition_id']); ?>
-	<?php elseif($voteinfo['type'] == "median") : ?>
-		<?php vote_helpers::output_median_result($list_of_votes); ?>
-	<?php endif; ?>
+	if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished")
+		echo _t("The vote is finished. It finished ") 
+		. general_helpers::show_date($voteinfo['timestamp_ended']) . '.';
+	elseif($voteinfo['status'] == "del_ended")
+		echo _t("The vote finishes ") . general_helpers::show_date($voteinfo['timestamp_ended']) 
+			. _t('. For delegates the possibility to vote closed ') 
+			. general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . '.';
+	elseif($voteinfo['status'] == "continuous")
+		__("This is a continous vote and it continues until it is ended through a new yes/no vote.");
+	else
+		echo _t("The vote finishes ") . general_helpers::show_date($voteinfo['timestamp_ended'])
+			. _t(". For delegates the possibility to vote closes ") . general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . ".";
+	\View\general::close_div();
 
-
-	<?php if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished") : ?>
-		Omröstningen är avslutad. Den avslutades <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>.
-	<?php elseif($voteinfo['status'] == "del_ended") : ?>
-		Omröstningen avslutas <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>. För delegater stängdes röstningsmöjligheten <?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?>.
-	<?php elseif($voteinfo['status'] == "continuous") : ?>
-		Det här är en kontinuerlig omröstning och fortsätter tills en votering bestämmer att den ska avslutas.
-	<?php else : ?>
-		Omröstningen avslutas <?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?>. För delegater stänger röstningsmöjligheten <?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?>.
-	<?php endif; ?>
-
-</div>
-
-<div class="vote_result_box" id="user_vote_box">
-	<?php if($_SESSION['delegate_id']) : ?>
-		<?php if(empty($delegate_ballot)) : ?>
-			Du som delegat har inte röstat i denna omröstning.
-		<?php else : ?>
-			<?php if(isset($delegate_ballot['delegate_id'])) : ?>
-				Du som delegat har låtit din delegat rösta i denna omröstning.
-			<?php else : ?>
-				Du som delegat har röstat själv i denna omröstning.
-			<?php endif; ?>
-			<br>
-			Din röst:<br>
-			<?php if($delegate_ballot['ballot'] == "abstain") : ?>
-				Avstår
-			<?php elseif($voteinfo['type'] == "yes-no" && $delegate_ballot['ballot'] == "yes") : ?>
-				Ja
-			<?php elseif($voteinfo['type'] == "yes-no" && $delegate_ballot['ballot'] == "no") : ?>
-				Nej
-			<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election" && $delegate_ballot['ballot'] != "abstain") : ?>
-				<?php vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], json_decode($delegate_ballot['ballot'], true)); ?>
-			<?php elseif($voteinfo['type'] == "median" && is_numeric($delegate_ballot['ballot'])) : ?>
-				<?php echo $delegate_ballot['ballot']; ?>
-			<?php endif; ?>
-		<?php endif; ?>
-	<?php else : ?>
-		Ingen röst är lagd i ditt namn i denna omröstning.
-	<?php endif; ?>
-</div>
-
-
-<p>
-<strong>Valkrets: </strong><?php echo $voteinfo['constituency_name']; ?><br>
-<?php if($voteinfo['status'] != "continuous" && $voteinfo['status'] != "finished") : ?>
-  <strong>Propositionen skapad: </strong><?php echo general_helpers::show_date($voteinfo['proposition_created']); ?><br>
-  <strong>Propositionen skapad av: </strong><a href="index.php?type=member&action=view&id=<?php echo $voteinfo['user_id']; ?>"><?php echo $voteinfo['user_full_name']; ?></a><br>
-<?php else : ?>
-  <strong>Omröstningen skapad av administratör</strong><br>
-<?php endif; ?>
-<strong>Omröstningen startad: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_created']); ?><br>
-<?php if($voteinfo['status'] == "continuous") : ?>
-  <strong>Omröstningen är kontinuerlig.</strong><br>
-<?php else : ?>
-  <strong>Delegatröstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']); ?><br>
-  <strong>Personlig röstning avslutas: </strong><?php echo general_helpers::show_date($voteinfo['timestamp_ended']); ?><br>
-<?php endif; ?>
-<strong>Antal lagda röster: </strong><?php echo $voteinfo['number_of_ballots']; ?><br>
-<strong>Varav personligt lagda röster: </strong><?php echo $voteinfo['number_of_direct_ballots']; ?><br>
-<strong>Antal delegater som röstat: </strong><?php echo $number_of_delegate_ballots; ?><br>
-
-<strong>Beskrivning:</strong><br>
-<?php echo \View\general::make_html_from_wiki_text($voteinfo['description']); ?>
-</p>
-
-<?php 
+	\View\general::open_div("vote_result_box", "user_vote_box");
+	if($_SESSION['delegate_id']) {
+		if(empty($delegate_ballot))
+			__("You have not yet voted in this vote as delegate.");
+		else {
+			if(isset($delegate_ballot['delegate_id']))
+				__("You as delegate have let your delegate vote in this vote.");
+			else
+				__("You as delegate have cast your own ballot in this vote.");
+			_br();
+			__("Your ballot:");
+			_br();
+			echo \View\vote::get_ballot_content($voteinfo['type'], $delegate_ballot['ballot']);
+		}
+	}
+	else __("No ballot has been cast in your name in this vote.");
+	\View\general::close_div();
+	echo '<p>';
+	_strong(_t("Constituency: ") . $voteinfo['constituency_name']);
+	_br();
+	if($voteinfo['status'] != "continuous" && $voteinfo['status'] != "finished") {
+		_strong(_t("Proposition created: "));
+		echo general_helpers::show_date($voteinfo['proposition_created']);
+		_br();
+		_strong(_t("Proposition created by: "));
+		_link($voteinfo['user_full_name'], 'member', 'view', 'id=' . $voteinfo['user_id']);
+	}
+  	else 
+		_strong(_t("Vote created by administrator"));
+	_br();
+	_strong(_t("Vote started: "));
+	echo general_helpers::show_date($voteinfo['timestamp_created']);
+	_br();	
+	if($voteinfo['status'] == "continuous")
+		_strong(_t("The vote is continous."));
+	else {
+		_strong("Delegate voting closes: ");
+		echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']);
+		_br();
+		_strong("Vote closes: ");
+		echo general_helpers::show_date($voteinfo['timestamp_ended']);
+  	}
+	_br();
+	_strong(_t("Number of cast ballots: "));
+	echo $voteinfo['number_of_ballots'];
+	_br();
+	_strong(_t("Whereof personally cast ballots: "));
+	echo $voteinfo['number_of_direct_ballots'];
+	_br();
+	_strong(_t("Number of delegates who has voted: "));
+	echo $number_of_delegate_ballots;
+	_br();
+	_br();
+	_strong(_t("Description: "));
+	echo \View\general::make_html_from_wiki_text($voteinfo['description']);
+	_br();
+	echo '</p>';
 	if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
-	&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) : ?>
-	<div class="" id="delegate_votes_box">
-		<a href="javascript:void(0)" onclick="show_delegate_votes()">Se delegaters röster för denna omröstning</a>
-	</div>
-<?php endif; ?>
-<p><a href="index.php?type=vote&action=view_ballots&id=<?php echo $_GET['id']; ?>">Se alla röster för denna omröstning</a></p>
-
-<?php if($user_allowed_to_vote) : ?>
-
-	<p><a href="index.php?type=forum&action=show_posts&topic_id=<?php echo $voteinfo['forum_topic_id']; ?>">Länk till denna omröstnings forumdebatt</a></p>
-
-	<div class="vote_box">
-
-		<?php if($voteinfo['type'] == "yes-no") : ?>
-			<?php include(dirname(__FILE__)."/vote_types/yes-no.inc"); ?>
-		<?php elseif($voteinfo['type'] == "prio-vote") : ?>
-			<?php include(dirname(__FILE__)."/vote_types/prio-vote.inc"); ?>
-		<?php elseif($voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
-			<?php include(dirname(__FILE__)."/vote_types/candidate-election.inc"); ?>
-		<?php elseif($voteinfo['type'] == "median") : ?>
-			<?php include(dirname(__FILE__)."/vote_types/median.inc"); ?>
-		<?php endif; ?>
-
-	</div>
-
-	<?php if($_SESSION['delegate_id']) : ?>
-		Du röstar som delegat.
-	<?php else : ?>
-		Du röstar som enskild användare.
-	<?php endif; ?>
-
-<?php endif; ?>
-
-
-<?php if($voteinfo['type'] == "yes-no") : ?>
-	<?php include(dirname(__FILE__)."/vote_types/yes-no_js.inc"); ?>
-<?php elseif($voteinfo['type'] == "prio-vote" || $voteinfo['type'] == "candidate-election" || $voteinfo['type'] == "workgroup-election") : ?>
-	<?php include(dirname(__FILE__)."/vote_types/prio-vote_js.inc"); ?>
-<?php elseif($voteinfo['type'] == "median") : ?>
-	<?php include(dirname(__FILE__)."/vote_types/median_js.inc"); ?>
-<?php endif; ?>
+		&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {
+		echo '<div class="" id="delegate_votes_box">';
+		echo '<a href="javascript:void(0)" onclick="show_delegate_votes()">' . _t("See delegate ballots for this vote") . '</a>';
+		echo '</div>';
+	}
+	echo '<p>';
+	_link(_t("See all ballots for this vote"), 'vote', 'view_ballots', 'id=' . $_GET['id']);
+	echo '</p>';
+	if($user_allowed_to_vote) {
+		echo '<p>';
+		_link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id']);
+		echo '</p>';
+		echo '<div class="vote_box">';
+		include(dirname(__FILE__) . \View\vote::get_vote_form_include($voteinfo['type']));
+		echo '</div>';
+		if($_SESSION['delegate_id'])
+			__("You vote as delegate.");
+		else 
+			__("You vote as individual.");
+	}
+	$vote_script_include = \View\vote::get_vote_script_include($voteinfo['type']);
+	if ($vote_script_include)
+		include(dirname(__FILE__) . $vote_script_include);
+?>
 

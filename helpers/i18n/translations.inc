@@ -70,6 +70,10 @@ class translations
 				"sv" => "just nu är antalet medlemmar %d st"
 				,"en" => "currently the number of members is"
 				)
+			,"delegate voting closes" => array(
+				"sv" => "delegatröstning avslutas"
+				,"en" => "delegate voting closes"
+				)
 			,"do you really want to" => array(
 				"sv" => "vill du verkligen"
 				,"en" => "do you really want to"
@@ -82,9 +86,21 @@ class translations
 				"sv" => "halva"
 				,"en" => "half"
 				)
+			,"has been cast" => array(
+				"sv" => "är lagd"
+				,"en" => "has been cast"
+				)
 			,"have" => array(
 				"sv" => "har"
 				,"en" => "have"
+				)
+			,"have cast your own ballot" => array(
+				"sv" => "har lagt din egen röst"
+				,"en" => "have cast your own ballot"
+				)
+			,"have let your delegate vote" => array(
+				"sv" => "har låtit din delegat rösta"
+				,"en" => "have let your delegate vote"
 				)
 			,"hello" => array(
 				"sv" => "hej"
@@ -109,6 +125,14 @@ class translations
 			,"is not possible" => array(
 				"sv" => "går inte"
 				,"en" => "is not possible"
+				)
+			,"it continues until it is ended through a new yes/no vote" => array(
+				"sv" => "den fortsätter tills en votering bestämmer att den ska avslutas"
+				,"en" => "it continues until it is ended through a new yes/no vote"
+				)
+			,"it finished" => array(
+				"sv" => "den avslutades"
+				,"en" => "it finished"
 				)
 			,"it is possible" => array(
 				"sv" => "finns möjligheten"
@@ -142,25 +166,49 @@ class translations
 				"sv" => "inga"
 				,"en" => "no"
 				)
+			,"no ballot" => array(
+				"sv" => "ingen röst"
+				,"en" => "no ballot"
+				)
+			,"not yet" => array(
+				"sv" => "ännu inte"
+				,"en" => "not yet"
+				)
 			,"number of" => array(
 				"sv" => "antal"
 				,"en" => "number of"
-				)
-			,"superadmin" => array(
-				"sv" => "superadmin"
-				,"en" => "superadmin"
 				)
 			,"out" => array(
 				"sv" => "ut"
 				,"en" => "out"
 				)
-			,"the admittance of this candidate" => array(
-				"sv" => "att denna kandidat upptas"
-				,"en" => "the admittance of this candidate"
+			,"personally" => array(
+				"sv" => "personligt"
+				,"en" => "personally"
+				)
+			,"proposition created" => array(
+				"sv" => "propositionen skapad"
+				,"en" => "proposition created"
+				)
+			,"superadmin" => array(
+				"sv" => "superadmin"
+				,"en" => "superadmin"
 				)
 			,"that" => array(
 				"sv" => "att"
 				,"en" => "that"
+				)
+			,"the admittance of this candidate" => array(
+				"sv" => "att denna kandidat upptas"
+				,"en" => "the admittance of this candidate"
+				)
+			,"the possibility to vote closed" => array(
+				"sv" => "stängdes möjligheten att rösta"
+				,"en" => "the possibility to vote closed"
+				)
+			,"the possibility to vote closes" => array(
+				"sv" => "stänger möjligheten att rösta"
+				,"en" => "the possibility to vote closes"
 				)
 			,"this" => array(
 				"sv" => "denna"
@@ -198,9 +246,21 @@ class translations
 				"sv" => "ditt"
 				,"en" => "your"
 				)
+			,"your ballot" => array(
+				"sv" => "din röst"
+				,"en" => "your ballot"
+				)
 			,"vote (yes/no)" => array(
 				"sv" => "votering (ja/nej)"
 				,"en" => "vote (yes/no)"
+				)
+			,"vote closes" => array(
+				"sv" => "omröstningen avslutas"
+				,"en" => "vote closes"
+				)
+			,"vote started" => array(
+				"sv" => "Omröstningen startad"
+				,"en" => "vote started"
 				)
 			,"vote status" => array(
 				"sv" => "Omröstningens status"
@@ -217,6 +277,18 @@ class translations
 			,"when" => array(
 				"sv" => "när"
 				,"en" => "when"
+				)
+			,"whereof" => array(
+				"sv" => "varav"
+				,"en" => "whereof"
+				)
+			,"who has voted" => array(
+				"sv" => "som röstat"
+				,"en" => "who has voted"
+				)
+			,"you vote" => array(
+				"sv" => "du röstar"
+				,"en" => "you vote"
 				)
 
 			// DEFINITE MARKERS
@@ -362,6 +434,10 @@ class translations
 
 			//VERBS
 			//imperative:infinitive:present:perfect:perfect particip
+			,"abstain:verb" => array(
+				"sv" => "avstår"
+				,"en" => "abstain"
+				)
 			,"add:verb" => array(
 				"sv" => "lägg till"
 				,"en" => "add"
@@ -377,6 +453,10 @@ class translations
 			,"cancel:verb" => array(
 				"sv" => "avbryt"
 				,"en" => "cancel"
+				)
+			,"cast:verb" => array(
+				"sv" => "lagda"
+				,"en" => "cast"
 				)
 			,"change:verb" => array(
 				"sv" => "ändra"
@@ -498,6 +578,10 @@ class translations
 				"sv" => "rösta för"
 				,"en" => "vote for"
 				)
+			,"voted:verb" => array(
+				"sv" => "röstat"
+				,"en" => "voted"
+				)
 			,"want to:verb" => array(
 				"sv" => "vill"
 				,"en" => "want::|s to"
@@ -533,6 +617,10 @@ class translations
 				"sv" => "behörighet:er"
 				,"en" => "authorisation:s"
 				)
+			,"ballot:noun1" => array(
+				"sv" => "röst:er:en:erna"
+				,"en" => "ballot:s"
+				)
 			,"budget:noun1" => array(
 				"sv" => "budget:ar:-"
 				,"en" => "budget:s"
@@ -556,6 +644,10 @@ class translations
 			,"constituency:noun1" => array(
 				"sv" => "valkrets:ar:-"
 				,"en" => "constituency:_ies"
+				)
+			,"debate:noun1" => array(
+				"sv" => "debatt:er"
+				,"en" => "debate:s"
 				)
 			,"delegate:noun1" => array(
 				"sv" => "delegat:er:-"
@@ -588,6 +680,14 @@ class translations
 			,"inbox:noun1" => array(
 				"sv" => "inbox:ar"
 				,"en" => "inbox:es"
+				)
+			,"individual:noun1" => array(
+				"sv" => "privatperson"
+				,"en" => "individual"
+				)
+			,"link:noun1" => array(
+				"sv" => "länk:ar"
+				,"en" => "link:es"
 				)
 			,"median:noun1" => array(
 				"sv" => "median:er:-"
@@ -649,6 +749,10 @@ class translations
 				"sv" => "valadministratör:er"
 				,"en" => "vote admin:s"
 				)
+			,"vote's:noun1" => array(
+				"sv" => "omröstnings"
+				,"en" => "vote's"
+				)
 			,"workgroup:noun1" => array(
 				"sv" => "arbetsgrupp:er:en:na"
 				,"en" => "workgroup:s"
@@ -668,7 +772,7 @@ class translations
 				,"en" => "election:s"
 				)
 			,"forum:noun2" => array(
-				"sv" => "forum"
+				"sv" => "forum::-"
 				,"en" => "forum:s"
 				)
 			,"membership:noun2" => array(
@@ -678,6 +782,10 @@ class translations
 			,"message:noun2" => array(
 				"sv" => "meddelande:n"
 				,"en" => "message:s"
+				)
+			,"name:noun2" => array(
+				"sv" => "namn::et:en"
+				,"en" => "name:s"
 				)
 			,"password:noun2" => array(
 				"sv" => "lösenord"
