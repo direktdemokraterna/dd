@@ -60,7 +60,7 @@ class vote
 			case 'prio-vote':
 			case 'candidate-election':
 			case 'workgroup-election':
-				return vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], 
+				return \vote_helpers::get_prio_vote_result_for_single_voter($_GET['id'], 
 					json_decode($ballot, true));
 			case 'median':
 				return $ballot;

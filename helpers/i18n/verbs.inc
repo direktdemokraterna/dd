@@ -91,7 +91,9 @@ class verb_present extends translator
 
 	protected function match_static($previous_matches, $following_matches) 
 	{
-		return $previous_matches && self::is_subject(end($previous_matches)->translator);
+		return $previous_matches 
+			? self::is_subject(end($previous_matches)->translator)
+			: !$following_matches;
 	}
 
 	private function is_subject($translator) 
@@ -129,7 +131,9 @@ class verb_present_singular extends translator
 
 	protected function match_static($previous_matches, $following_matches) 
 	{
-		return $previous_matches && self::is_subject(end($previous_matches)->translator);
+		return $previous_matches 
+			? self::is_subject(end($previous_matches)->translator)
+			: !$following_matches;
 	}
 
 	private function is_subject($translator) 

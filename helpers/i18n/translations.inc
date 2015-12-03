@@ -78,6 +78,10 @@ class translations
 				"sv" => "vill du verkligen"
 				,"en" => "do you really want to"
 				)
+			,"doesn't support" => array(
+				"sv" => "stöder ej"
+				,"en" => "doesn't support"
+				)
 			,"forum topic-id" => array(
 				"sv" => "forumtråds-ID"
 				,"en" => "forum topic-ID"
@@ -177,6 +181,10 @@ class translations
 			,"number of" => array(
 				"sv" => "antal"
 				,"en" => "number of"
+				)
+			,"on proposition" => array(
+				"sv" => "på propositionen"
+				,"en" => "on proposition"
 				)
 			,"out" => array(
 				"sv" => "ut"
@@ -733,6 +741,11 @@ class translations
 				"sv" => "tidpunkt:er"
 				,"en" => "time:s"
 				)
+			,"time of vote:noun1" => array(
+				"sv" => "Röstningstidpunkt"
+				,"en" => "Time of vote"
+				)
+
 			,"title:noun1" => array(
 				"sv" => "titel"
 				,"en" => "title"
@@ -752,6 +765,10 @@ class translations
 			,"vote's:noun1" => array(
 				"sv" => "omröstnings"
 				,"en" => "vote's"
+				)
+			,"voter:noun1" => array(
+				"sv" => "röstande"
+				,"en" => "voter"
 				)
 			,"workgroup:noun1" => array(
 				"sv" => "arbetsgrupp:er:en:na"
