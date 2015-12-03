@@ -123,21 +123,21 @@ class noun_numerus_selector
 	protected function get_quantifier($previous_matches) 
 	{
 		$current_is_noun = true;
-		foreach (array_reverse($previous_matches) as $previous_match) {
-			$previous_translator = $previous_match->translator;
-			if ($previous_translator->is_quantifier())
-				return (int)$previous_match->phrase;
-			if ($previous_translator->is_adjective())
+		foreach (array_reverse($previous_matches) as $match) {
+			$translator = $match->translator;
+			if ($translator->is_quantifier())
+				return (int)$match->phrase;
+			if ($translator->is_adjective())
 				$current_is_noun = false; 
-			else if (!($previous_translator->is_noun() && $current_is_noun))
+			else if (!($translator->is_noun() && $current_is_noun))
 				break; 
 		}
 		return null; 
 	}
 
-	protected static function is_one($phrase) 
+	protected static function is_one($quantifier) 
 	{
-		return in_array($phrase, array("1", "a", "an", "one"));
+		return in_array($quantifier, array("1", "a", "an", "one"));
 	}
 }
 
@@ -145,7 +145,8 @@ class singular_noun_selector extends noun_numerus_selector
 {
 	public function match($previous_matches, $following_matches) 
 	{
-		self::is_one(parent::get_quantifier($previous_matches));
+		$quantifier = parent::get_quantifier($previous_matches);
+		return $quantifier && self::is_one($quantifier);
 	}
 }
 
@@ -153,7 +154,8 @@ class plural_noun_selector extends noun_numerus_selector
 {
 	public function match($previous_matches, $following_matches) 
 	{
-		!self::is_one(parent::get_quantifier($previous_matches));
+		$quantifier = parent::get_quantifier($previous_matches);
+		return $quantifier && !self::is_one($quantifier);
 	}
 }
 
@@ -203,7 +205,7 @@ class translator
 
 	public function is_pronoun() 
 	{
-		return $this->identifier->class == 'pron';
+		return in_array($this->identifier->class, array('pron', 'pron-it'));
 	}
 
 	public function is_preposition() 

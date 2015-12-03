@@ -31,13 +31,18 @@
 <h1>Proposition: <?php echo $propinfo['title']; ?></h1>
 
 <div class="vote_result_box">
-	<?php if($propinfo['status'] == "pending") : ?>
-		Det är <?php echo $propinfo['number_of_supporters']; ?> medlem<?php if($propinfo['number_of_supporters'] != 1) echo "mar"; ?> som stöder denna proposition.<br>
-		Nödvändigt antal stödjare för att den ska godkännas och gå vidare till omröstning är <?php echo ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT); ?>.
-	<?php elseif($propinfo['status'] == "affirmed") : ?>
-		<?php $vote_id = db_vote::get_vote_id_from_prop_id($propinfo['prop_id']); ?>
-		Den här propositionen har uppnått tillräckligt stöd för att gå vidare och bli omröstning. Omröstningen finns <a href="index.php?type=vote&action=view_vote&id=<?php echo $vote_id; ?>">här</a>.
-	<?php endif; ?>
+<?php 
+	if($propinfo['status'] == "pending") {
+		__("It is " . $propinfo['number_of_supporters'] . " member who support this proposition.");
+		_br();
+		__("The necessary number of supporters for it to be subject for vote is " . (ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT)) . ".");
+	}
+	elseif($propinfo['status'] == "affirmed"){
+		$vote_id = db_vote::get_vote_id_from_prop_id($propinfo['prop_id']);
+		__("This proposition has reached sufficient support to be subject for vote. The vote can be found ");
+		_link(_t("here"), 'vote', 'view_vote', 'id=' . $vote_id);
+	}
+?>
 </div>
 
 <div class="vote_result_box" id="user_vote_box">

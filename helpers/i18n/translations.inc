@@ -146,6 +146,10 @@ class translations
 				"sv" => "för att bli aktiv måste den ha minst tre medlemmar"
 				,"en" => "it needs at least three members to be activated"
 				)
+			,"it to be subject for vote is" => array(
+				"sv" => "att den ska godkännas och gå vidare till omröstning är"
+				,"en" => "it to be subject for vote is"
+				)
 			,"it will be transformed" => array(
 				"sv" => "kommer den att omvandlas"
 				,"en" => "it will be transformed"
@@ -165,6 +169,10 @@ class translations
 			,"name of" => array(
 				"sv" => "namn på"
 				,"en" => "name of"
+				)
+			,"necessary" => array(
+				"sv" => "nödvändigt"
+				,"en" => "necessary"
 				)
 			,"no" => array(
 				"sv" => "inga"
@@ -234,6 +242,10 @@ class translations
 				"sv" => "via"
 				,"en" => "through"
 				)
+			,"to be subject for" => array(
+				"sv" => "för att gå vidare och bli"
+				,"en" => "to be subject for"
+				)
 			,"together" => array(
 				"sv" => "tillsammans"
 				,"en" => "together"
@@ -290,9 +302,13 @@ class translations
 				"sv" => "varav"
 				,"en" => "whereof"
 				)
-			,"who has voted" => array(
-				"sv" => "som röstat"
-				,"en" => "who has voted"
+			,"who" => array(
+				"sv" => "som"
+				,"en" => "who"
+				)
+			,"has voted" => array(
+				"sv" => "röstat"
+				,"en" => "has voted"
 				)
 			,"you vote" => array(
 				"sv" => "du röstar"
@@ -435,6 +451,10 @@ class translations
 				"sv" => "öppen|_t:__na"
 				,"en" => "open"
 				)
+			,"sufficient:adj" => array(
+				"sv" => "tillräcklig|t:a"
+				,"en" => "sufficient"
+				)
 			,"time limited:adj" => array(
 				"sv" => "tidsbegränsad|_t:e"
 				,"en" => "time limited"
@@ -457,6 +477,10 @@ class translations
 			,"apply:verb" => array(
 				"sv" => "ansök:a:er:t"
 				,"en" => "apply::|_ies:_ied"
+				)
+			,"be:verb" => array(
+				"sv" => "var:a:___är:it:(ande)"
+				,"en" => "be::__are|___is:en:(ing)"
 				)
 			,"cancel:verb" => array(
 				"sv" => "avbryt"
@@ -510,13 +534,13 @@ class translations
 				"sv" => "hantera"
 				,"en" => "handle"
 				)
-			,"is:verb" => array(
-				"sv" => "var:a:___är:it:(ande)"
-				,"en" => "be::__is:en:(ing)"
-				)
 			,"leave:verb" => array(
 				"sv" => "lämna"
 				,"en" => "leave"
+				)
+			,"have:verb" => array(
+				"sv" => "ha::r:ft"
+				,"en" => "have::|__s:d"
 				)
 			,"list:verb" => array(
 				"sv" => "lista"
@@ -533,6 +557,10 @@ class translations
 			,"propose:verb" => array(
 				"sv" => "föreslå::r:_agit:(_agen|_t:__na)"
 				,"en" => "propose::|s:d:(d)"
+				)				
+			,"reach:verb" => array(
+				"sv" => "uppnå::r:tt"
+				,"en" => "reach::|es:ed"
 				)				
 			,"remember:verb" => array(
 				"sv" => "kom ihåg"
@@ -722,7 +750,7 @@ class translations
 				,"en" => "priority:_ies"
 				)
 			,"proposition:noun1" => array(
-				"sv" => "proposition:er"
+				"sv" => "proposition:er:en:erna"
 				,"en" => "proposition:s"
 				)
 			,"setting:noun1" => array(
@@ -815,6 +843,10 @@ class translations
 			,"proposal:noun2" => array(
 				"sv" => "förslag::et:en"
 				,"en" => "proposal:s"
+				)
+			,"support:noun2" => array(
+				"sv" => "stöd"
+				,"en" => "support"
 				)
 			,"username:noun2" => array(
 				"sv" => "användarnamn"

@@ -18,6 +18,11 @@ class verb_imperative extends translator
 		parent::__construct($identifier, $translation);
 		self::set_form_availability(count($parts));
 	}
+
+	protected function match_static($previous_matches, $following_matches) 
+	{
+		return !($previous_matches && end($previous_matches)->translator->is_adjective());
+	}
 	
 	private function set_form_availability($part_count) 
 	{
@@ -92,33 +97,34 @@ class verb_present extends translator
 	protected function match_static($previous_matches, $following_matches) 
 	{
 		return $previous_matches 
-			? self::is_subject(end($previous_matches)->translator)
+			? self::get_subject(array_map(function($match) {return $match->translator;}, $previous_matches))
 			: !$following_matches;
-	}
-
-	private function is_subject($translator) 
-	{
-		return $translator->is_noun() || $translator->is_pronoun();
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
 	{
 		if ($this->singular_translation) {
-			$significant_noun = self::get_significant_noun($translations_before);
-			if ($significant_noun && $significant_noun->identifier->form == 'singular')
+			$subject = self::get_subject($translations_before);
+			if ($subject && $subject->identifier->form == 'singular')
 				return $this->singular_translation;
 		}
 		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
 	}
 
-	private static function get_significant_noun($translations_before) 
+	private static function get_subject($translators_before) 
 	{
-		if ($translations_before) {
-			$previous_translation = end($translations_before);
-			if ($previous_translation->is_noun())
-				return $previous_translation;
+		foreach (array_reverse($translators_before) as $translator) {
+			if (self::is_subject($translator)) 
+				return $translator;
+			if ($translator->identifier->key != 'who')
+				break;			
 		}
 		return null;
+	}
+
+	private static function is_subject($translator) 
+	{
+		return $translator->is_noun() || $translator->is_pronoun();
 	}
 }
 
