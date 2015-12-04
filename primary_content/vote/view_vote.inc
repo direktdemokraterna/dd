@@ -95,29 +95,18 @@
 	_strong(_t("Vote started: "));
 	echo general_helpers::show_date($voteinfo['timestamp_created']);
 	_br();	
-	if($voteinfo['status'] == "continuous")
+	if($voteinfo['status'] == "continuous"){
 		_strong(_t("The vote is continous."));
-	else {
-		_strong("Delegate voting closes: ");
-		echo general_helpers::show_date($voteinfo['timestamp_delegate_ended']);
 		_br();
-		_strong("Vote closes: ");
-		echo general_helpers::show_date($voteinfo['timestamp_ended']);
+	}
+	else {
+		_info("Delegate voting closes", general_helpers::show_date($voteinfo['timestamp_delegate_ended']));
+		_info("Vote closes", general_helpers::show_date($voteinfo['timestamp_ended']));
   	}
-	_br();
-	_strong(_t("Number of cast ballots: "));
-	echo $voteinfo['number_of_ballots'];
-	_br();
-	_strong(_t("Whereof personally cast ballots: "));
-	echo $voteinfo['number_of_direct_ballots'];
-	_br();
-	_strong(_t("Number of delegates who has voted: "));
-	echo $number_of_delegate_ballots;
-	_br();
-	_br();
-	_strong(_t("Description: "));
-	echo \View\general::make_html_from_wiki_text($voteinfo['description']);
-	_br();
+	_info("Number of cast ballots", $voteinfo['number_of_ballots']);
+	_info("Whereof personally cast ballots", $voteinfo['number_of_direct_ballots']);
+	_info("Number of delegates who has voted", $number_of_delegate_ballots);
+	_info("Description", '<br>' . \View\general::make_html_from_wiki_text($voteinfo['description']));
 	echo '</p>';
 	if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
 		&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {
@@ -135,10 +124,7 @@
 		echo '<div class="vote_box">';
 		include(dirname(__FILE__) . \View\vote::get_vote_form_include($voteinfo['type']));
 		echo '</div>';
-		if($_SESSION['delegate_id'])
-			__("You vote as delegate.");
-		else 
-			__("You vote as individual.");
+		__($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
 	}
 	$vote_script_include = \View\vote::get_vote_script_include($voteinfo['type']);
 	if ($vote_script_include)

@@ -125,7 +125,9 @@ class engine
 			$match = array_shift($remaining_mathes);
 			$candidates = $match->translator;
 			if (is_array($candidates)) {
-				$translator = self::select_translator($candidates, $previous_matches, $remaining_mathes);
+				$translator = self::select_translator($candidates, $previous_matches, $remaining_mathes, true);
+				if ($translator)
+					$translator = self::select_translator($candidates, $previous_matches, $remaining_mathes, false);
 				if ($numbers) 
 					$match->phrase = self::restore_numbers($match->phrase, $numbers);
 				$match->translator = $translator ? $translator : new untranslated($match->phrase);
@@ -167,7 +169,7 @@ class engine
 		self::$stored_translators[$phrase] = new translator($identifier, $translation);
 	}
 
-	private static function select_translator($candidates, $previous_matches, $following_matches) {
+	private static function select_translator($candidates, $previous_matches, $following_matches, $match_restrictive = true) {
 		$with_selector = array();
 		$without_selector = array();
 		foreach ($candidates as $candidate)
@@ -175,10 +177,10 @@ class engine
 				$with_selector[] = $candidate;
 			else $without_selector[] = $candidate;
 		foreach ($with_selector as $candidate)
-			if ($candidate->match($previous_matches, $following_matches))
+			if ($candidate->match($previous_matches, $following_matches, $match_restrictive))
 				return $candidate;
 		foreach ($without_selector as $candidate)
-			if ($candidate->match($previous_matches, $following_matches))
+			if ($candidate->match($previous_matches, $following_matches, $match_restrictive))
 				return $candidate;
 		return null;
 	}

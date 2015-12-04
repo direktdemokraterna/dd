@@ -8,15 +8,19 @@ class vote
 	}
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
-		$options = array(
+		$options = self::get_vote_type_descriptions();
+		general::make_control_label("type_of_vote", _t("Type of vote"));
+		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
+	}	
+
+	public static function get_vote_type_descriptions() {
+		return array(
 			"yes-no" => _t("Vote (yes/no)")
 			, "prio-vote" => _t("Priority vote")
 			, "candidate-election" => _t("Candidate election")
 			, "median" => _t("Median vote")
 			, "budget" => _t("Budget vote")
 			); 
-		general::make_control_label("type_of_vote", _t("Type of vote"));
-		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
 	public static function make_vote_time_type_selector($selected_option = null, $tab_index = 1) {

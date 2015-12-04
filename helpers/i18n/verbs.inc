@@ -19,7 +19,7 @@ class verb_imperative extends translator
 		self::set_form_availability(count($parts));
 	}
 
-	protected function match_static($previous_matches, $following_matches) 
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return !($previous_matches && end($previous_matches)->translator->is_adjective());
 	}
@@ -45,7 +45,7 @@ class verb_infinitive extends translator
 		parent::__construct($identifier, $translation);
 	}
 
-	protected function match_static($previous_matches, $following_matches) 
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return $previous_matches && self::is_indefinite_marker(end($previous_matches));
 	}
@@ -94,11 +94,11 @@ class verb_present extends translator
 		return self::assemble_word_form($parts, 1);
 	}
 
-	protected function match_static($previous_matches, $following_matches) 
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return $previous_matches 
 			? self::get_subject(array_map(function($match) {return $match->translator;}, $previous_matches))
-			: !$following_matches;
+			: !$restrictive && !$following_matches;
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
@@ -135,11 +135,11 @@ class verb_present_singular extends translator
 		parent::__construct($identifier, $translation);
 	}
 
-	protected function match_static($previous_matches, $following_matches) 
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return $previous_matches 
 			? self::is_subject(end($previous_matches)->translator)
-			: !$following_matches;
+			: !$restrictive && !$following_matches;
 	}
 
 	private function is_subject($translator) 

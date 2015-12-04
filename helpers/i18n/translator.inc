@@ -56,9 +56,9 @@ class translation_identifier
 		return null;
 	}
 
-	public function match($previous_matches, $following_matches) 
+	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return !$this->selector || $this->selector->match($previous_matches, $following_matches);
+		return !$this->selector || $this->selector->match($previous_matches, $following_matches, $restrictive);
 	}
 
 	public function copy($new_key, $new_selector = null, $new_form = null) 
@@ -88,7 +88,7 @@ class previous_word_selector
 		$this->word = $word;
 	}
 
-	public function match($previous_matches, $following_matches) 
+	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return $this->word 
 			? $previous_matches && end($previous_matches)->translator->identifier->base_form == $this->word
@@ -105,7 +105,7 @@ class next_class_selector
 		$this->classes = explode('|', $classes_str);
 	}
 
-	public function match($previous_matches, $following_matches) 
+	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return $following_matches && $this->match_classes($following_matches[0]->translator);
 	}
@@ -143,7 +143,7 @@ class noun_numerus_selector
 
 class singular_noun_selector extends noun_numerus_selector
 {
-	public function match($previous_matches, $following_matches) 
+	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
 		$quantifier = parent::get_quantifier($previous_matches);
 		return $quantifier && self::is_one($quantifier);
@@ -152,7 +152,7 @@ class singular_noun_selector extends noun_numerus_selector
 
 class plural_noun_selector extends noun_numerus_selector
 {
-	public function match($previous_matches, $following_matches) 
+	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
 		$quantifier = parent::get_quantifier($previous_matches);
 		return $quantifier && !self::is_one($quantifier);
@@ -177,13 +177,13 @@ class translator
 		return $translation ? $translation . $connector : '';
 	}
 
-	public function match($previous_matches, $following_matches)
+	public function match($previous_matches, $following_matches, $restrictive = true)
 	{
-		return $this->match_static($previous_matches, $following_matches) 
-		&& $this->identifier->match($previous_matches, $following_matches);
+		return $this->match_static($previous_matches, $following_matches, $restrictive) 
+		&& $this->identifier->match($previous_matches, $following_matches, $restrictive);
 	}	
 
-	protected function match_static($previous_matches, $following_matches) 
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return true;
 	}	

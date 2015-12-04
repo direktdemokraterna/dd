@@ -74,6 +74,10 @@ class translations
 				"sv" => "delegatröstning avslutas"
 				,"en" => "delegate voting closes"
 				)
+			,"directly" => array(
+				"sv" => "direkt"
+				,"en" => "directly"
+				)
 			,"do you really want to" => array(
 				"sv" => "vill du verkligen"
 				,"en" => "do you really want to"
@@ -114,8 +118,12 @@ class translations
 				"sv" => "här"
 				,"en" => "here"
 				)
-			,"in case" => array(
+			,"if" => array(
 				"sv" => "om"
+				,"en" => "if"
+				)
+			,"in case" => array(
+				"sv" => "ifall"
 				,"en" => "in case"
 				)
 			,"in the same way" => array(
@@ -206,9 +214,21 @@ class translations
 				"sv" => "propositionen skapad"
 				,"en" => "proposition created"
 				)
+			,"proposition's" => array(
+				"sv" => "propositions"
+				,"en" => "proposition's"
+				)
+			,"stop supporting" => array(
+				"sv" => "sluta stödja"
+				,"en" => "stop supporting"
+				)
 			,"superadmin" => array(
 				"sv" => "superadmin"
 				,"en" => "superadmin"
+				)
+			,"supporting" => array(
+				"sv" => "stöder"
+				,"en" => "supporting"
 				)
 			,"that" => array(
 				"sv" => "att"
@@ -246,6 +266,10 @@ class translations
 				"sv" => "för att gå vidare och bli"
 				,"en" => "to be subject for"
 				)
+			,"to stop supporting" => array(
+				"sv" => "för att sluta stödja"
+				,"en" => "to stop supporting"
+				)
 			,"together" => array(
 				"sv" => "tillsammans"
 				,"en" => "together"
@@ -269,6 +293,10 @@ class translations
 			,"your ballot" => array(
 				"sv" => "din röst"
 				,"en" => "your ballot"
+				)
+			,"your delegate" => array(
+				"sv" => "din delegat"
+				,"en" => "your delegate"
 				)
 			,"vote (yes/no)" => array(
 				"sv" => "votering (ja/nej)"
@@ -373,6 +401,10 @@ class translations
 			,"of:prep" => array(
 				"sv" => "av"
 				,"en" => "of"
+				)
+			,"on:prep" => array(
+				"sv" => "på"
+				,"en" => "on"
 				)
 			,"to:prep" => array(
 				"sv" => "till"
@@ -498,6 +530,10 @@ class translations
 				"sv" => "markera::r:t:(d|_t:e)"
 				,"en" => "check::|s:ed:(ed)"
 				)
+			,"click:verb" => array(
+				"sv" => "klicka::r:t"
+				,"en" => "click::|s:ed"
+				)
 			,"close:verb" => array(
 				"sv" => "stäng:a:er:t:(d|_t:a)"
 				,"en" => "close::|s:d:(d)"
@@ -590,10 +626,6 @@ class translations
 				"sv" => "stöd:ja:jer"
 				,"en" => "support::|s"
 				)
-			,"stop supporting:verb" => array(
-				"sv" => "sluta stödja"
-				,"en" => "stop supporting"
-				)
 			,"transform:verb" => array(
 				"sv" => "gör om"
 				,"en" => "transform"
@@ -625,6 +657,10 @@ class translations
 			,"will:verb" => array(
 				"sv" => "kommer"
 				,"en" => "will"
+				)
+			,"withdraw:verb" => array(
+				"sv" => "dra::r:git tillbaka"
+				,"en" => "withdraw::|s:n"
 				)
 			,"write:verb" => array(
 				"sv" => "skriv"
@@ -773,10 +809,13 @@ class translations
 				"sv" => "Röstningstidpunkt"
 				,"en" => "Time of vote"
 				)
-
 			,"title:noun1" => array(
 				"sv" => "titel"
 				,"en" => "title"
+				)
+			,"type:noun1" => array(
+				"sv" => "typ"
+				,"en" => "type"
 				)
 			,"vote:noun1" => array(
 				"sv" => "omröstning:ar:en:arna:-s"

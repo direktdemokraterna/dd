@@ -25,13 +25,13 @@
 			echo '<br>';
 	}
 
-	function _open_form() {
-		echo '<form method="post" action="" class="standard-form">';
+	function _open_form($class = "standard-form") {
+		echo '<form method="post" action="" class="' . $class . '">';
 	}
 
 	function _hidden($name, $value) 
 	{
-		 echo '<input type="hidden" name=" ' . $name . '" value="' . $value . '">';
+		 echo '<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '">';
 	}
 
 	function _submit_and_close($label, $confirm = null, $tab_index = 1) {
@@ -56,6 +56,12 @@
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
 	{
 		\View\general::output_internal_link($label, $type, $action, $params, $class, $confirm);
+	}
+
+	function _info($label, $data) {
+		_strong(_t($label) . ": ");
+		echo $data;
+		_br();		
 	}
 
 	function _space($count) 
