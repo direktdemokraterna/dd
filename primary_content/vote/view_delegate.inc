@@ -61,20 +61,20 @@
 			echo _t(" in constituency ") . $row['constituency_title'] . '<br>'; 
 		}		
 	}
+	echo '<script>';
+	echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+	echo '</script>';
 	_h2(_t("Delegate your vote to ") . $delegate_info['title']);
 	_open_form("prio-vote");
 	_hidden("ballot");
-	foreach($constituencies as $row)
-	{
+
+	foreach($constituencies as $row) {
 		echo '<div class="delegation_box">';
 		echo _t("Constituency: ");
 		_strong($row['name']);
 		_br();
-		if($_SESSION['delegate_id'])
-			$delegates_delegate = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);			
-		else
-			echo '<span id="constituency' . $row['id'] . '>' . _t("You have no delegate in this constituency") . '</span><br>';
-		_br();
+		echo '<span id="constituency' . $row['id'] . '">' . _t("You have no delegate in this constituency") . '</span>';
+		_br(2);
 		echo '<input type="submit" value="' . _t("Delegate your vote in the constituency ") . $row['name'] 
 			. _t(" to ") . $delegate_info['title'] 
 			. '" onmousedown="return encrypt_single_delegation(' . $row['id'] . ')">';
@@ -85,7 +85,6 @@
 	echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
 	echo '</script>';
 ?>
-
 <script>
 list_of_delegations.map(function (vote){
 	if(vote.user_code == sessionStorage.active_user_code){
