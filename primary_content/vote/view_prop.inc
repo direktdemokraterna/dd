@@ -47,7 +47,7 @@
 		}
 	echo '</div>';
 	echo '<p>';
-	_info("Type of proposed vote", \View\vote::get_vote_type_descriptions()[$propinfo['type']]);
+	_info("Type of proposed vote", \View\vote::get_vote_type_description($propinfo['type']));
 	_info("Constituency", $propinfo['constituency_name']);
 	_info("Created", general_helpers::show_date($propinfo['timestamp_created']));
 	_info("Proposed by", \View\general::generate_internal_link($propinfo['user_full_name'],

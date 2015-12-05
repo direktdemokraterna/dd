@@ -43,12 +43,12 @@ class translation_identifier
 
 	private static function extract_selector(&$identifier_str) 
 	{
-		preg_match('/^\[\w*\]/', $identifier_str, $pre_matches);
+		preg_match(previous_word_selector::$pattern, $identifier_str, $pre_matches);
 		if ($pre_matches) {
 			$identifier_str = str_replace($pre_matches[0], '', $identifier_str);
 			return new previous_word_selector(translator::strip_parenthesis($pre_matches[0]));
 		}
-		preg_match('/\[\w+[\w\|]+\w+\]|\[\w+\]$/', $identifier_str, $post_matches);
+		preg_match(next_class_selector::$pattern, $identifier_str, $post_matches);
 		if ($post_matches) {
 			$identifier_str = str_replace($post_matches[0], '', $identifier_str);
 			return new next_class_selector(translator::strip_parenthesis($post_matches[0]));
@@ -76,86 +76,6 @@ class translation_identifier
 		$this->type = $type;	
 		$this->form = $form;
 		$this->selector = $selector;
-	}
-}
-
-class previous_word_selector 
-{
-	public $word;
-
-	function __construct($word) 
-	{
-		$this->word = $word;
-	}
-
-	public function match($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return $this->word 
-			? $previous_matches && end($previous_matches)->translator->identifier->base_form == $this->word
-			: !$previous_matches;
-	}
-}
-
-class next_class_selector 
-{
-	public $classes;
-
-	function __construct($classes_str) 
-	{
-		$this->classes = explode('|', $classes_str);
-	}
-
-	public function match($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return $following_matches && $this->match_classes($following_matches[0]->translator);
-	}
-
-	public function match_classes($translator) 
-	{
-		return is_array($translator)
-			? $this->match_classes($translator[0])
-			: in_array($translator->identifier->class, $this->classes);
-	}
-}
-
-class noun_numerus_selector 
-{
-	protected function get_quantifier($previous_matches) 
-	{
-		$current_is_noun = true;
-		foreach (array_reverse($previous_matches) as $match) {
-			$translator = $match->translator;
-			if ($translator->is_quantifier())
-				return (int)$match->phrase;
-			if ($translator->is_adjective())
-				$current_is_noun = false; 
-			else if (!($translator->is_noun() && $current_is_noun))
-				break; 
-		}
-		return null; 
-	}
-
-	protected static function is_one($quantifier) 
-	{
-		return in_array($quantifier, array("1", "a", "an", "one"));
-	}
-}
-
-class singular_noun_selector extends noun_numerus_selector
-{
-	public function match($previous_matches, $following_matches, $restrictive = true) 
-	{
-		$quantifier = parent::get_quantifier($previous_matches);
-		return $quantifier && self::is_one($quantifier);
-	}
-}
-
-class plural_noun_selector extends noun_numerus_selector
-{
-	public function match($previous_matches, $following_matches, $restrictive = true) 
-	{
-		$quantifier = parent::get_quantifier($previous_matches);
-		return $quantifier && !self::is_one($quantifier);
 	}
 }
 

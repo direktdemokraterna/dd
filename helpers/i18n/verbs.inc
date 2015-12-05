@@ -21,7 +21,7 @@ class verb_imperative extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return !($previous_matches && end($previous_matches)->translator->is_adjective());
+		return !($previous_matches && end($previous_matches)->translator->is_noun_modifier());
 	}
 	
 	private function set_form_availability($part_count) 
@@ -139,7 +139,7 @@ class verb_present_singular extends translator
 	{
 		return $previous_matches 
 			? self::is_subject(end($previous_matches)->translator)
-			: !$restrictive && !$following_matches;
+			: !$restrictive;
 	}
 
 	private function is_subject($translator) 

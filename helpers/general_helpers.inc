@@ -14,7 +14,7 @@ class general_helpers {
 	}
 
 	public static function make_genitive ($string){
-		return self::is_genitive($string) ? $string : $string . "s";
+		return $string . _t(self::is_genitive($string) ? "'" : "'s");
 	}
 
 	public static function show_report_messages (){

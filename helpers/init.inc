@@ -37,6 +37,7 @@ include(dirname(__FILE__)."/db/db_constituency.inc");
 
 include(dirname(__FILE__)."/i18n/engine.inc");
 include(dirname(__FILE__)."/i18n/translations.inc");
+include(dirname(__FILE__)."/i18n/selectors.inc");
 include(dirname(__FILE__)."/i18n/translator.inc");
 include(dirname(__FILE__)."/i18n/adjectives.inc");
 include(dirname(__FILE__)."/i18n/nouns.inc");

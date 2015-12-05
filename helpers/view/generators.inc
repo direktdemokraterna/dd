@@ -29,7 +29,7 @@
 		echo '<form method="post" action="" class="' . $class . '">';
 	}
 
-	function _hidden($name, $value) 
+	function _hidden($name, $value = "") 
 	{
 		 echo '<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '">';
 	}

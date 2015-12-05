@@ -33,7 +33,7 @@ class engine
 	{
 		$candidates = self::get_translator_candidates($lower_phrase);
 		$translation = $candidates 
-			? self::select_translator($candidates, array(), array()) 
+			? self::try_select_translator($candidates, array(), array()) 
 			: null;
 		return $translation 
 			?  $translation->translate($lower_phrase, array(), array(), $translation_hints)
@@ -125,9 +125,7 @@ class engine
 			$match = array_shift($remaining_mathes);
 			$candidates = $match->translator;
 			if (is_array($candidates)) {
-				$translator = self::select_translator($candidates, $previous_matches, $remaining_mathes, true);
-				if ($translator)
-					$translator = self::select_translator($candidates, $previous_matches, $remaining_mathes, false);
+				$translator = self::try_select_translator($candidates, $previous_matches, $remaining_mathes);
 				if ($numbers) 
 					$match->phrase = self::restore_numbers($match->phrase, $numbers);
 				$match->translator = $translator ? $translator : new untranslated($match->phrase);
@@ -167,6 +165,13 @@ class engine
 		$translation = strtolower($translated_phrase);
 		$identifier = translation_identifier::create($key);
 		self::$stored_translators[$phrase] = new translator($identifier, $translation);
+	}
+
+	private static function try_select_translator($candidates, $previous_matches, $following_matches) {
+		$translator = self::select_translator($candidates, $previous_matches, $following_matches, true);
+		if (!$translator)
+			$translator = self::select_translator($candidates, $previous_matches, $following_matches, false);
+		return $translator;
 	}
 
 	private static function select_translator($candidates, $previous_matches, $following_matches, $match_restrictive = true) {
@@ -262,6 +267,7 @@ class engine
 	private static function get_expanded_translations($identifier, $compact_translation) 
 	{
 		switch ($identifier->class) {
+			case 'genitive':
 			case 'indefinite':
 			case 'phrase':
 			case 'conj':
@@ -286,8 +292,6 @@ class engine
 				break;
 			case 'verb':
 				$verb_imperative = new verb_imperative($identifier, $compact_translation[LANG]);
-				if ($verb_imperative->has_perfect_participle)
-					yield new verb_perfect_participle($identifier, $compact_translation);
 				if ($verb_imperative->has_perfect)
 					yield new verb_perfect($identifier, $compact_translation);
 				if ($verb_imperative->has_present) {
@@ -296,6 +300,8 @@ class engine
 					if ($present->singular_key != $present->identifier->key)
 						yield new verb_present_singular($identifier->copy($present->singular_key), $present->singular_translation);
 				}
+				if ($verb_imperative->has_perfect_participle)
+					yield new verb_perfect_participle($identifier, $compact_translation);
 				if ($verb_imperative->has_infinitive)
 					yield new verb_infinitive($identifier, $compact_translation[LANG]);
 				yield $verb_imperative;

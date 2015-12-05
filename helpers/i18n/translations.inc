@@ -183,12 +183,8 @@ class translations
 				,"en" => "necessary"
 				)
 			,"no" => array(
-				"sv" => "inga"
+				"sv" => "nej"
 				,"en" => "no"
-				)
-			,"no ballot" => array(
-				"sv" => "ingen röst"
-				,"en" => "no ballot"
 				)
 			,"not yet" => array(
 				"sv" => "ännu inte"
@@ -282,6 +278,10 @@ class translations
 				"sv" => "kommande"
 				,"en" => "upcoming"
 				)
+			,"yes" => array(
+				"sv" => "ja"
+				,"en" => "yes"
+				)
 			,"you create" => array(
 				"sv" => "skapar du"
 				,"en" => "you create"
@@ -341,6 +341,16 @@ class translations
 			,"you vote" => array(
 				"sv" => "du röstar"
 				,"en" => "you vote"
+				)
+
+			// GENITIVE
+			,"'s:genitive" => array(
+				"sv" => "s"
+				,"en" => "'s"
+				)
+			,"':genitive" => array(
+				"sv" => ""
+				,"en" => "'"
 				)
 
 			// DEFINITE MARKERS
@@ -427,6 +437,14 @@ class translations
 			,"%d:quant" => array(
 				"sv" => "%d"
 				,"en" => "%d"
+				)
+			,"no[noun-singular]:quant" => array(
+				"sv" => "ingen"
+				,"en" => "no"
+				)
+			,"no[noun-plural]:quant" => array(
+				"sv" => "inga"
+				,"en" => "no"
 				)
 			,"three:quant" => array(
 				"sv" => "tre"
@@ -542,6 +560,14 @@ class translations
 				"sv" => "skapa::r:t:(d|_t:e)"
 				,"en" => "create::|s:d:(d)"
 				)
+			,"delegate:verb" => array(
+				"sv" => "delegera::r:t:(d|_t:e)"
+				,"en" => "delegate::|s:d:(d)"
+				)
+			,"delegate your vote:verb" => array(
+				"sv" => "delegera::r:t din röst"
+				,"en" => "delegate:::d your vote"
+				)
 			,"delete:verb" => array(
 				"sv" => "radera::r:t:(d|_t:e)"
 				,"en" => "delete::|s:d:(d)"
@@ -570,13 +596,13 @@ class translations
 				"sv" => "hantera"
 				,"en" => "handle"
 				)
+			,"have:verb" => array(
+				"sv" => "ha::r:ft"
+				,"en" => "have::|__s:__d"
+				)
 			,"leave:verb" => array(
 				"sv" => "lämna"
 				,"en" => "leave"
-				)
-			,"have:verb" => array(
-				"sv" => "ha::r:ft"
-				,"en" => "have::|__s:d"
 				)
 			,"list:verb" => array(
 				"sv" => "lista"
@@ -714,7 +740,7 @@ class translations
 				,"en" => "change:s"
 				)
 			,"constituency:noun1" => array(
-				"sv" => "valkrets:ar:-"
+				"sv" => "valkrets:ar:en:arna:-"
 				,"en" => "constituency:_ies"
 				)
 			,"debate:noun1" => array(

@@ -8,9 +8,19 @@ class vote
 	}
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
-		$options = self::get_vote_type_descriptions();
+		$options = self::get_selectable_vote_type_descriptions();
 		general::make_control_label("type_of_vote", _t("Type of vote"));
 		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
+	}	
+
+	public static function get_vote_type_description($type) {
+		return self::get_vote_type_descriptions()[$type];
+	}	
+
+	public static function get_selectable_vote_type_descriptions() {
+		$descriptions = self::get_vote_type_descriptions();
+		unset($descriptions['workgroup-election']);
+		return $descriptions;
 	}	
 
 	public static function get_vote_type_descriptions() {
@@ -18,6 +28,7 @@ class vote
 			"yes-no" => _t("Vote (yes/no)")
 			, "prio-vote" => _t("Priority vote")
 			, "candidate-election" => _t("Candidate election")
+			, "workgroup-election" => _t("Workgroup election")
 			, "median" => _t("Median vote")
 			, "budget" => _t("Budget vote")
 			); 

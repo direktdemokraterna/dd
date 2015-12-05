@@ -1,24 +1,19 @@
 <?php
 	$delegate_info = db_delegate::get_delegate_info($_GET['id']);
-
-	if(empty($delegate_info['description'])) $delegate_info['description'] = "Ingen beskrivning";
-
-	if(isset($_GET['page'])) $page = $_GET['page']; else $page = 1;
-
-	if(isset($_GET['filter'])) $where_filter = "constituency_id = " . (int)$_GET['filter'];
-	else $where_filter = "1=1";
-
-	$delegate_ballots = db_delegate::list_delegate_ballots($_GET['id'], $page, LIST_ITEMS_PER_PAGE_SHORT, $where_filter);
+	if(empty($delegate_info['description'])) 
+		$delegate_info['description'] = _t("No description");
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$where_filter = isset($_GET['filter']) 
+		? "constituency_id = " . (int)$_GET['filter'] 
+		: "1=1";
+	$delegate_ballots = db_delegate::list_delegate_ballots($_GET['id'], $page
+		, LIST_ITEMS_PER_PAGE_SHORT, $where_filter);
 	$result_counter = db_delegate::list_delegate_ballots_count($_GET['id'], $where_filter);
-
 	$constituencies = vote_helpers::find_user_delegate_matching_constituencies($_SESSION['id'], $_GET['id']);
-
 	$list_of_delegations_from_db = db_delegate::get_delegations_for_multiple_constituencies($constituencies);
 	$list_of_delegations = Array();
-	foreach($list_of_delegations_from_db as $row){
+	foreach($list_of_delegations_from_db as $row)
 		$list_of_delegations[] = Array("user_code" => $row['user_code'], "constituency_id" => $row['constituency_id'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
-	}
-
 ?>
 
 <script>
@@ -32,90 +27,70 @@
 	?>
 	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
 </script>
-
-<h1>Delegat: <?php echo $delegate_info['title']; ?></h1>
-
-<h2>Beskrivning</h2>
-
-<p><?php echo $delegate_info['description']; ?></p>
-
-<h2>Röstningshistorik</h2>
-
-<table class="responsive">
-<tr><th>Omröstning</th><th>Typ</th><th>Röst</th></tr>
-
-<?php foreach($delegate_ballots as $row) : ?>
-	<tr>
-		<td><a href="index.php?type=vote&action=view_vote&id=<?php echo $row['vote_id']; ?>"><?php echo $row['title']; ?></a></td>
-		<td><?php
-			if($row['type'] == "yes-no") echo "Votering";
-			elseif($row['type'] == "median") echo "Medianomröstning";
-			elseif($row['type'] == "prio-vote") echo "Prioritetsomröstning";
-			elseif($row['type'] == "candidate-election") echo "Personval";
-			elseif($row['type'] == "budget") echo "Budgetomröstning";
-		?></td>
-		<td><?php
-			if($row['type'] == "yes-no"){
-				if($row['ballot'] == "yes") echo "Ja";
-				elseif($row['ballot'] == "no") echo "Nej";
-				elseif($row['ballot'] == "abstain") echo "Avstår";
-			}
-			elseif($row['type'] == "median") echo $row['ballot'];
-			elseif($row['type'] == "prio-vote") vote_helpers::calculate_and_output_prio_vote_result(vote_helpers::make_result_array_of_json_prio_ranking($row['ballot']));
-			elseif($row['type'] == "candidate-election") vote_helpers::calculate_and_output_candidate_election_result(vote_helpers::make_result_array_of_json_prio_ranking($row['ballot']));
-			elseif($row['type'] == "budget") echo "";
-		?></td>
-	</tr>
-<?php endforeach; ?>
-
-</table>
-
-<h2><?php echo general_helpers::make_genitive($delegate_info['title']); ?> delegeringar</h2>
-
 <?php
-	$delegate_delegations = db_delegate::get_delegate_delegates($_GET['id']);
+	_h1(_t("Delegate: ") . $delegate_info['title']);
+	_h2(_t("Description"));
+	_p($delegate_info['description']);
+	_h2(_t("Vote history"));
 ?>
 
-<?php if(empty($delegate_delegations)) : ?>
-	Inga delegeringar<br>
-<?php else : ?>
-	<?php foreach($delegate_delegations as $row) : ?>
-		Valkrets <?php echo $row['constituency_title']; ?>: <?php echo $delegate_info['title']; ?> har delegerat till <a href="index.php?type=vote&action=view_delegate&id=<?php echo $row['delegate_id']; ?>"><?php echo $row['delegate_title']; ?></a><br>
-	<?php endforeach; ?>
-<?php endif; ?>
-
-<h2>Delegera din röst till <?php echo $delegate_info['title']; ?></h2>
-
-<form method="post" action="" class="prio-vote">
-	<input type="hidden" name="ballot" id="ballot" value="">
-
-<?php foreach($constituencies as $row) : ?>
-
-	<div class="delegation_box">
-		Valkrets: <strong><?php echo $row['name']; ?></strong><br>
-		<?php if($_SESSION['delegate_id']) : ?>
-			<?php
-				$delegates_delegate = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);
-			?>
-		<?php else : ?>
-			<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span><br>
-		<?php endif; ?>
-		<br>
-		<input type="submit" value="Delegera din röst i valkretsen <?php echo $row['name']; ?> till <?php echo $delegate_info['title']; ?>" onmousedown="return encrypt_single_delegation(<?php echo $row['id']; ?>)">
-	</div>
-
+<table class="responsive">
+<tr><th><?php __("Vote"); ?></th><th><?php __("Type"); ?></th><th><?php __("Ballot"); ?></th></tr>
+<?php foreach($delegate_ballots as $row) : ?>
+	<tr>
+		<td><a href="index.php?type=vote&action=view_vote&id=<?php echo $row['vote_id']; ?>">
+			<?php echo $row['title']; ?></a></td>
+		<td><?php echo \View\vote::get_vote_type_description($row['type']); ?></td>
+		<td><?php echo \View\vote::get_ballot_content($row['type'], $row['ballot']); ?></td>
+	</tr>
 <?php endforeach; ?>
+</table>
 
-</form>
-
-
-
+<?php
+	_h2(general_helpers::make_genitive($delegate_info['title']) . _t(" delegations"));
+	$delegate_delegations = db_delegate::get_delegate_delegates($_GET['id']);
+	if(empty($delegate_delegations)) {
+		__("No delegations");
+		_br();		
+	}
+	else {
+		echo $delegate_info['title'] . _t(" has delegated to:") . '<br>'; 
+		foreach($delegate_delegations as $row)
+		{
+			_link($row['delegate_title'], 'vote', 'view_delegate', 'id=' . $row['delegate_id']); 
+			echo _t(" in constituency ") . $row['constituency_title'] . '<br>'; 
+		}		
+	}
+	_h2(_t("Delegate your vote to ") . $delegate_info['title']);
+	_open_form("prio-vote");
+	_hidden("ballot");
+	foreach($constituencies as $row)
+	{
+		echo '<div class="delegation_box">';
+		echo _t("Constituency: ");
+		_strong($row['name']);
+		_br();
+		if($_SESSION['delegate_id'])
+			$delegates_delegate = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);			
+		else
+			echo '<span id="constituency' . $row['id'] . '>' . _t("You have no delegate in this constituency") . '</span><br>';
+		_br();
+		echo '<input type="submit" value="' . _t("Delegate your vote in the constituency ") . $row['name'] 
+			. _t(" to ") . $delegate_info['title'] 
+			. '" onmousedown="return encrypt_single_delegation(' . $row['id'] . ')">';
+		echo '</div>';
+	}
+	echo '</form>';
+	echo '<script>';
+	echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+	echo '</script>';
+?>
 
 <script>
 list_of_delegations.map(function (vote){
 	if(vote.user_code == sessionStorage.active_user_code){
 		var constituency_element = "constituency" + vote.constituency_id;
-		document.getElementById(constituency_element).innerHTML = "Du har delegerat din röst i denna valkrets till <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
+		document.getElementById(constituency_element).innerHTML = dynamic_delegation_info_text + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
 	}
 });
 </script>
