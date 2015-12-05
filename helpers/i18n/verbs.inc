@@ -156,6 +156,21 @@ class verb_perfect extends translator
 		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[LANG]), 3);
 		parent::__construct($identifier->copy($perfect_key), $perfect_translation);
 	}
+
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
+	{
+		return !$restrictive || !self::has_indefinite_object($following_matches);  
+	}
+
+	private static function has_indefinite_object($following_matches) {
+		return $following_matches && self::is_indefinite_noun($following_matches[0]->translator);
+	}
+
+	private static function is_indefinite_noun($translator) {
+		if (is_array($translator))
+			return self::is_indefinite_noun($translator[0]);
+		return $translator->is_noun() && !$translator->is_definite;
+	}
 }
 
 class verb_perfect_participle extends adjective

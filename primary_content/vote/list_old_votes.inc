@@ -1,5 +1,5 @@
-<h1>Avslutade omröstningar</h1>
 <?php 
+	_h1(_t("Closed votes"));
 	$statuses = array('ended', 'finished');
 	vote_helpers::make_vote_list_header($statuses);
 	$vote_groups = vote_helpers::get_vote_groups($statuses);
