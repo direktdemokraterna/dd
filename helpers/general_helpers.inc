@@ -244,8 +244,8 @@ class general_helpers {
 			echo "<span class=\"list_sort_alternative\">Sortering: </span>";
 			foreach($sort_alternatives as $key => $value){
 				echo "<span class=\"list_sort_alternative\">";
-				$get_parameters['sort'] = $value;
-				self::makeLink($get_parameters, $key);
+				$get_parameters['sort'] = $key;
+				self::makeLink($get_parameters, $value);
 			}
 		}
 	}
@@ -273,8 +273,8 @@ class general_helpers {
 			: db_constituency::get_counties();
 	}
 	
-	private static function makeLink($get_parameters, $key) {
-		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $key . "</a>";
+	private static function makeLink($get_parameters, $label) {
+		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $label . "</a>";
 	}
 
 } //End of class

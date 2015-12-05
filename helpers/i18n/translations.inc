@@ -831,6 +831,10 @@ class translations
 				"sv" => "skickade"
 				,"en" => "outbox"
 				)
+			,"popularity:noun1" => array(
+				"sv" => "populäritet"
+				,"en" => "popularity"
+				)
 			,"priority:noun1" => array(
 				"sv" => "prioritet:er:-s"
 				,"en" => "priority:_ies"

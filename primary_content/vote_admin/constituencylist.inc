@@ -6,7 +6,7 @@
 	else
 		$result = db_constituency::get_all_constituencies($page);
 	$result_counter = db_constituency::get_all_constituencies_count();
-	$sort_alternatives = Array(_t("Created") => "created", _t("Alphabetic") => "alphabetic");
+	$sort_alternatives = Array("created" => _t("Created"), "alphabetic" => _t("Alphabetic"));
 	general_helpers::make_list_of_links_header($page, $result_counter, $sort_alternatives);
 	echo '<div class="list_of_links">';
 	foreach($result as $row) {

@@ -17,7 +17,7 @@
 ?>
 
 <?php 
-	$sort_alternatives = Array("Senast inloggad" => "last_login", "Alfabetisk" => "alphabetic");
+	$sort_alternatives = Array("last_login" => "Senast inloggad", "alphabetic" => "Alfabetisk");
 	\View\member::output_member_list_header($page, $result_counter, $sort_alternatives); 
 ?>
 <div class="list_of_links">
