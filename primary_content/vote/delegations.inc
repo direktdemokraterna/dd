@@ -1,34 +1,23 @@
 <?php
-	if($_SESSION['delegate_id']){
-		$constituencies = db_constituency::get_constituencies_for_delegate($_SESSION['delegate_id']);
-	}
-	else{
-		$constituencies = db_constituency::get_constituencies_for_user($_SESSION['id']);
-	}
-
+	$constituencies = $_SESSION['delegate_id']
+		? db_constituency::get_constituencies_for_delegate($_SESSION['delegate_id'])
+		: db_constituency::get_constituencies_for_user($_SESSION['id']);
 	$list_of_delegations_from_db = db_delegate::get_delegations_for_multiple_constituencies($constituencies);
 	$list_of_delegations = Array();
-	foreach($list_of_delegations_from_db as $row){
+	foreach($list_of_delegations_from_db as $row)
 		$list_of_delegations[] = Array("user_code" => $row['user_code'], "constituency_id" => $row['constituency_id'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
-	}
 ?>
-
-
 <script>
 	var user_id = <?php echo json_encode($_SESSION['id']); ?>;
 	var list_of_delegations = <?php echo json_encode($list_of_delegations); ?>;
 	var acting_as_delegate = <?php if($_SESSION['delegate_id']) echo "true"; else echo "false"; ?>;
 </script>
 
-<?php if($_SESSION['delegate_id']) : ?>
-	<h1>Dina nuvarande delegeringar som delegat</h1>
-<?php else : ?>
-	<h1>Dina nuvarande delegeringar</h1>	
-<?php endif; ?>
-
-
-<form method="post" action="" class="prio-vote">
-	<input type="hidden" name="ballot" id="ballot" value="">
+<?php 
+	_h1(_t("Your current delegations" . ($_SESSION['delegate_id'] ? " as delegate" : '')));
+	_open_form("prio-vote");
+	_hidden("ballot");
+?>
 
 <?php foreach($constituencies as $row) : ?>
 
