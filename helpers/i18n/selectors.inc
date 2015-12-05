@@ -60,8 +60,9 @@ class next_class_selector
 			foreach ($translator as $candidate)
 				if ($this->match_classes_and_forms($candidate))
 					return true;
+			return false;
 		}
-		else for ($i = 0; $i < count($this->classes); $i++)
+		for ($i = 0; $i < count($this->classes); $i++)
 			if (self::match_class($translator, $this->classes[$i]) 
 				&& self::match_form($translator, $this->forms[$i]))
 				return true;
@@ -75,7 +76,7 @@ class next_class_selector
 
 	public function match_form($translator, $form) 
 	{
-		return $form || $translator->identifier->class == $form; 
+		return !$form || $translator->identifier->form == $form; 
 	}
 }
 

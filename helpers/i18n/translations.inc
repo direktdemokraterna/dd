@@ -90,6 +90,10 @@ class translations
 				"sv" => "forumtråds-ID"
 				,"en" => "forum topic-ID"
 				)
+			,"found" => array(
+				"sv" => "funna"
+				,"en" => "found"
+				)
 			,"half" => array(
 				"sv" => "halva"
 				,"en" => "half"
@@ -314,6 +318,10 @@ class translations
 				"sv" => "Omröstningens status"
 				,"en" => "vote status"
 				)
+			,"was found" => array(
+				"sv" => "hittades"
+				,"en" => "was found"
+				)
 			,"welcome" => array(
 				"sv" => "välkommen"
 				,"en" => "welcome"
@@ -378,6 +386,10 @@ class translations
 				"sv" => "och"
 				,"en" => "and"
 				)
+			,"or:conj" => array(
+				"sv" => "eller"
+				,"en" => "or"
+				)
 
 			//PREPOSITIONS
 			,"by:prep" => array(
@@ -419,6 +431,10 @@ class translations
 			,"to:prep" => array(
 				"sv" => "till"
 				,"en" => "to"
+				)
+			,"with:prep" => array(
+				"sv" => "med"
+				,"en" => "with"
 				)
 
 			//PRONOUN: it
@@ -731,6 +747,10 @@ class translations
 				"sv" => "kandidat:er"
 				,"en" => "candidate:s"
 				)
+			,"caption:noun1" => array(
+				"sv" => "rubrik:er:en:erna"
+				,"en" => "caption:s"
+				)
 			,"category:noun1" => array(
 				"sv" => "kategori:er"
 				,"en" => "category:_ies"
@@ -798,6 +818,10 @@ class translations
 			,"member admin:noun1" => array(
 				"sv" => "medlemsansvarig:a"
 				,"en" => "member admin:s"
+				)
+			,"phrase:noun1" => array(
+				"sv" => "fras:er:en:erna"
+				,"en" => "phrase:s"
 				)
 			,"profile:noun1" => array(
 				"sv" => "profil:er"

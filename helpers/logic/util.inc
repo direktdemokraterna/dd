@@ -35,6 +35,6 @@ class util
 	}
 
 	public static function get_search_input_name($type, $action = "search") {
-		return "$type" . "_" . $action . "_input";
+		return $type . "_" . $action . "_input";
 	}
 }

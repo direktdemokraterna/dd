@@ -11,7 +11,7 @@
 	</li>
 	<li>
 		<?php 
-			\View\general::output_search_box("propositions", "proposition", "search_prop", 101);
+			\View\general::output_search_box("propositions", "vote", "search_prop", 101);
 		?>
 	</li>
 	<li>
