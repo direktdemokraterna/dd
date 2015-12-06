@@ -21,6 +21,8 @@ class verb_imperative extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
+		if ($previous_matches && end($previous_matches)->translator->identifier->key == 'as')
+			return false;
 		return !($previous_matches && self::is_invalid_imperative_modifier(end($previous_matches)->translator));
 	}
 
@@ -52,12 +54,20 @@ class verb_infinitive extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return $previous_matches && self::is_indefinite_marker(end($previous_matches)->translator);
+		return $previous_matches && 
+		self::has_indefinite_marker($previous_matches);
 	}
 
-	private static function is_indefinite_marker($translator) 
+	private static function has_indefinite_marker($previous_matches) 
 	{
-		return $translator->identifier->class == 'indefinite';
+		if (end($previous_matches)->translator->identifier->class == 'indefinite') return true;
+		foreach (array_reverse($previous_matches) as $match) {
+			if ($match->translator->identifier->class == 'verb-aux')
+				return true;
+			else if ($match->translator->is_verb())
+				break;
+		}
+		return false;
 	}
 }
 
@@ -70,6 +80,7 @@ class verb_present extends translator
 	{
 		$keys = iterator_to_array(self::get_word_forms($compact_translation[BASE_LANG]));
 		$translations = iterator_to_array(self::get_word_forms($compact_translation[LANG]));
+		$identifier->form = 'present';
 		parent::__construct($identifier, $translations[0]);
 		$this->singular_translation = $translations[1];
 		$this->singular_key = $keys[1];
@@ -137,19 +148,25 @@ class verb_present_singular extends translator
 {
 	function __construct($identifier, $translation) 
 	{
+		$identifier->form = 'present';
 		parent::__construct($identifier, $translation);
 	}
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
 		return $previous_matches 
-			? self::is_subject(end($previous_matches)->translator)
+			? self::has_subject($previous_matches)
 			: !$restrictive;
 	}
 
-	private function is_subject($translator) 
-	{
-		return $translator->is_noun() || $translator->is_pronoun();
+	private static function has_subject($previous_matches) {
+		foreach (array_reverse($previous_matches) as $match) {
+			if ($match->translator->is_noun() || $match->translator->is_pronoun())
+				return true;
+			if ($match->translator->identifier->class != 'prep')
+				break;
+		}
+		return false;
 	}
 }
 
@@ -164,7 +181,13 @@ class verb_perfect extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
+		if ($previous_matches && self::is_present_marker(end($previous_matches)->translator))
+			return false;
 		return !$restrictive || !self::has_indefinite_object($following_matches);  
+	}
+
+	private static function is_present_marker($translator) {
+		return $translator->is_verb() && $translator->identifier->form == 'present';
 	}
 
 	private static function has_indefinite_object($following_matches) {

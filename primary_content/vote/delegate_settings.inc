@@ -1,45 +1,38 @@
 <?php
 	$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
-	if($is_delegate){
+	if($is_delegate)
 		$delegate_settings = db_delegate::get_delegate_settings($_SESSION['id']);
+	_h1(_t("Delegate settings"));
+	_open_form();
+	if(!$is_delegate) {
+		_p(_t("You are not yet registred as a delegate. If you want to create a delegate profile you press the button below. Even if you have created a delegate profile you don't have to vote as delegate (so your ballots become public) or let other users delegate to you."));
+		echo '<input type="submit" name="register_delegate" value="' . _t("Create delegate") . '">';
 	}
+	else {
+		_h2(_t("Vote as delegate"));
+		_label(_t("Vote as delegate"), "acting_as_delegate");
+		echo '<input type="checkbox" id="acting_as_delegate" name="acting_as_delegate"' 
+			. ($_SESSION['delegate_id'] ? ' checked>' : '>');
+		_br();
+		_p(_t("If the box above is checked you vote and support propositions as delegate instead of as individual. This means that you vote for all those who have delegated their vote to you for the particular issue. It also means that your ballot is public and can be seen by others. You can only vote as delegate in those constituencies for which you have registerered your delegacy below. In all other constituencies you vote as individual even if the box above is checked."));
+		_h2(_t("constituencies for your delegate"));
+		$constituencies = db_delegate::get_constituencies_for_user_and_delegate_activity($_SESSION['id'], $delegate_settings['delegate_id']);
+		_p(_t("Here you can choose in which constituencies other users shall be able to delegate to you."));
+		echo '<ul class="checkbox-grid">';
+		foreach($constituencies as $row) {
+			echo '<li><input type="checkbox" name="constituencies[]" id="' . $row['constituency_title'] 
+			. '" value="' . $row['constituency_id'] . '" ' . ($row['delegate_active'] ? ' checked>' : '>');
+			_label($row['constituency_title'], $row['constituency_title']);
+			echo '</li>';			
+		}
+		echo '</ul><div class="clear">';
+		echo '</div><br><input type="submit" name="change_delegate" value="' 
+			. _t("Update") . '">';
+		echo '</form>';
+		echo '<form method="post" action="" class="standard-form" onsubmit="return confirm(\''
+			. _t("Your delegate will be completely deleted. You may also choose to temporarily deactivate your delegate. Do you still want to continue?") . '">';
+		_h2(_t("Remove delegate"));
+		echo '<input type="submit" name="delete" value="' . _t("Remove delegate") . '">';
+	}
+	echo '</form>';
 ?>
-
-<h1>Delegatinställningar</h1>
-
-<?php if(!$is_delegate) : ?>
-	<p>Du är ännu inte registrerad som delegat. Vill du skapa en delegatprofil i databasen trycker du på knappen nedan. Även om du skapar en delegat i anslutning till din användare behöver du inte rösta med den (så att din röstning syns offentligt) eller låta andra användare delegera till den.</p>
-	<form method="post" action="" class="standard-form">
-	<input type="submit" name="register_delegate" value="Skapa delegat"></form>
-<?php else : ?>
-	<form method="post" action="" class="standard-form">
-		<h2>Rösta som delegat</h2>
-		<label for "acting_as_delegate">Rösta som delegat: </label>
-		<input type="checkbox" id="acting_as_delegate" name="acting_as_delegate" <?php if($_SESSION['delegate_id']) echo "checked"; ?>>
-
-		<p>Om ovanstående ruta är ikryssad röstar du i alla omröstningar och propositioner som delegat istället för som enskild användare. Det innebär att du röstar för alla som har delegerat sin röst till dig i den frågan. Den innebär också att din röst blir offentlig och kan ses av andra. Du kan bara rösta som delegat inom de valkretsar som du angivit för din delegat här under. Röstar du inom någon annan valkrets kommer du rösta som enskild användare även om rutan ovan är ikryssad. </p>
-
-		<h2>Valkretsar för din delegat</h2>
-
-		<?php
-			$constituencies = db_delegate::get_constituencies_for_user_and_delegate_activity($_SESSION['id'], $delegate_settings['delegate_id']);
-		?>
-
-		<p>Här kan du välja inom vilka valkretsar andra användare ska kunna delegera till dig som delegat. Du väljer med andra ord inom vilka valkretsar du är aktiv som delegat. Har du inte kryssat för några valkretsar är du inte aktiv som delegat alls.</p>
-
-		<ul class="checkbox-grid">
-
-		<?php foreach($constituencies as $row) : ?>
-			<li><input type="checkbox" name="constituencies[]" id="<?php echo $row['constituency_title']; ?>" value="<?php echo $row['constituency_id']; ?>" <?php if($row['delegate_active']>0) echo " checked"; ?>>
-			<label for "<?php echo $row['constituency_title']; ?>"><?php echo $row['constituency_title']; ?></label></li>
-		<?php endforeach; ?>
-
-		</ul><div class="clear">
-		</div><br><input type="submit" name="change_delegate" style="margin-left: 10%;" id="submit" value="Uppdatera">
-	</form>
-	<form method="post" action="" class="standard-form" onsubmit="return confirm('Din delegat kommer att raderas fullständigt. Du kan också välja att tillfälligt avaktivera din delegat. Vill du fortsätta ändå?');">
-		<h2>Ta bort delegat</h2>
-		<input type="submit" style="margin-left: 10%;" name="delete" id="delete" value="Ta bort delegat">
-	</form>
-
-<?php endif; ?>

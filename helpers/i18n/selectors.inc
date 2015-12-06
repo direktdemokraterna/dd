@@ -42,8 +42,7 @@ class next_class_selector
 		foreach ($matches as $match) {
 			$parts = explode('-', $match);
 			$this->classes[] = $parts[0];
-			if (count($parts) > 1)
-				$this->forms[] = count($parts) > 1 ? $parts[1] : null;
+			$this->forms[] = count($parts) > 1 ? $parts[1] : null;
 		}
 	}
 

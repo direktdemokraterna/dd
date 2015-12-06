@@ -139,7 +139,7 @@ class translator
 	}
 
 	public function is_noun_modifier() {
-		return $this->is_adjective() || $this->is_quantifier();
+		return $this->is_adjective() || $this->is_quantifier() || $this->identifier->class == 'pron-poss';
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 

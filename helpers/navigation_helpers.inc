@@ -145,7 +145,6 @@ class navigation_helpers {
 				,"list_active_votes" => Page_info::create("list_active_votes.inc")
 				,"list_old_votes" => Page_info::create("list_old_votes.inc")
 				,"view_vote" => Page_info::create("view_vote.inc", Page_info::VIEW_AND_EXECUTE)
-				,"delegate_votes" => Page_info::create("delegate_votes.inc")
 				,"add_alternative" => Page_info::create("add_alternative.inc", Page_info::VIEW_AND_EXECUTE)
 				,"view_ballots" => Page_info::create("view_ballots.inc")
 				,"view_prop_ballots" => Page_info::create("view_prop_ballots.inc")

@@ -39,7 +39,7 @@
 		echo '</form>';
 	}
 
-	function _submit($label, $confirm,  $tab_index) {
+	function _submit($label, $confirm, $tab_index) {
 		echo '<input type="submit" style="width: auto;" value="' . $label . '" tabindex="' . $tab_index .
 			($confirm ? '" onclick="return confirm(\'' . $confirm . '\');' : '') . '">';
 	}

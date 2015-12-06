@@ -6,11 +6,7 @@ class translations
 	public static function create_translations() {
 		return array(
 			// UNCLASSIFIED
-			"above" => array(
-				"sv" => "ovan"
-				,"en" => "above"
-				)
-			,"after" => array(
+			"after" => array(
 				"sv" => "efter att"
 				,"en" => "after"
 				)
@@ -22,9 +18,21 @@ class translations
 				"sv" => "alla"
 				,"en" => "all"
 				)
+			,"all those" => array(
+				"sv" => "alla"
+				,"en" => "all those"
+				)
 			,"alphabetic" => array(
 				"sv" => "alfabetisk"
 				,"en" => "alphabetic"
+				)
+			,"also" => array(
+				"sv" => "också"
+				,"en" => "also"
+				)
+			,"also means" => array(
+				"sv" => "innebär också"
+				,"en" => "also means"
 				)
 			,"are" => array(
 				"sv" => "är"
@@ -45,6 +53,10 @@ class translations
 			,"be given" => array(
 				"sv" => "ges"
 				,"en" => "be given"
+				)
+			,"be seen" => array(
+				"sv" => "ses"
+				,"en" => "be seen"
 				)
 			,"become a" => array(
 				"sv" => "bli"
@@ -82,9 +94,21 @@ class translations
 				"sv" => "vill du verkligen"
 				,"en" => "do you really want to"
 				)
+			,"do you still want to continue" => array(
+				"sv" => "vill du fortsätta ändå"
+				,"en" => "do you still want to continue"
+				)
 			,"doesn't support" => array(
 				"sv" => "stöder ej"
 				,"en" => "doesn't support"
+				)
+			,"even" => array(
+				"sv" => "även"
+				,"en" => "even"
+				)
+			,"for which you have registerered your delegacy" => array(
+				"sv" => "som du angivit för din delegat"
+				,"en" => "for which you have registerered your delegacy"
 				)
 			,"forum topic-id" => array(
 				"sv" => "forumtråds-ID"
@@ -130,6 +154,10 @@ class translations
 				"sv" => "om"
 				,"en" => "if"
 				)
+			,"if you want to" => array(
+				"sv" => "vill du"
+				,"en" => "if you want to"
+				)
 			,"in case" => array(
 				"sv" => "ifall"
 				,"en" => "in case"
@@ -137,6 +165,14 @@ class translations
 			,"in the same way" => array(
 				"sv" => "på samma sätt"
 				,"en" => "in the same way"
+				)
+			,"in which" => array(
+				"sv" => "inom vilka"
+				,"en" => "in which"
+				)
+			,"instead of" => array(
+				"sv" => "istället för"
+				,"en" => "instead of"
 				)
 			,"is activated" => array(
 				"sv" => "aktiveras"
@@ -206,6 +242,10 @@ class translations
 				"sv" => "på propositionen"
 				,"en" => "on proposition"
 				)
+			,"only" => array(
+				"sv" => "bara"
+				,"en" => "only"
+				)
 			,"out" => array(
 				"sv" => "ut"
 				,"en" => "out"
@@ -221,6 +261,14 @@ class translations
 			,"proposition's" => array(
 				"sv" => "propositions"
 				,"en" => "proposition's"
+				)
+			,"registered as a delegate" => array(
+				"sv" => "registrerad som delegat"
+				,"en" => "registered as a delegate"
+				)
+			,"so" => array(
+				"sv" => "så"
+				,"en" => "so"
 				)
 			,"stop supporting" => array(
 				"sv" => "sluta stödja"
@@ -242,6 +290,10 @@ class translations
 				"sv" => "att denna kandidat upptas"
 				,"en" => "the admittance of this candidate"
 				)
+			,"for the particular issue" => array(
+				"sv" => "i den frågan"
+				,"en" => "från the particular issue"
+				)
 			,"the possibility to vote closed" => array(
 				"sv" => "stängdes möjligheten att rösta"
 				,"en" => "the possibility to vote closed"
@@ -249,6 +301,10 @@ class translations
 			,"the possibility to vote closes" => array(
 				"sv" => "stänger möjligheten att rösta"
 				,"en" => "the possibility to vote closes"
+				)
+			,"their vote" => array(
+				"sv" => "sin röst"
+				,"en" => "their vote"
 				)
 			,"this" => array(
 				"sv" => "denna"
@@ -261,6 +317,14 @@ class translations
 			,"this is not appropriate" => array(
 				"sv" => "detta inte är lämpligt"
 				,"en" => "this is not appropriate"
+				)
+			,"this means" => array(
+				"sv" => "det innebär"
+				,"en" => "this means"
+				)
+			,"those" => array(
+				"sv" => "de"
+				,"en" => "those"
 				)
 			,"through" => array(
 				"sv" => "via"
@@ -290,6 +354,10 @@ class translations
 				"sv" => "votering (ja/nej)"
 				,"en" => "vote (yes/no)"
 				)
+			,"vote as delegate" => array(
+				"sv" => "rösta som delegat"
+				,"en" => "vote as delegate"
+				)
 			,"vote closes" => array(
 				"sv" => "omröstningen avslutas"
 				,"en" => "vote closes"
@@ -314,6 +382,10 @@ class translations
 				"sv" => "kommer aktiveras"
 				,"en" => "will be activated"
 				)
+			,"will be completely deleted" => array(
+				"sv" => "kommer att raderas fullständigt"
+				,"en" => "will be completely deleted"
+				)
 			,"when" => array(
 				"sv" => "när"
 				,"en" => "when"
@@ -334,9 +406,29 @@ class translations
 				"sv" => "skapar du"
 				,"en" => "you create"
 				)
-			,"you vote" => array(
+			,"you don't have to vote as delegate" => array(
+				"sv" => "behöver du inte rösta som delegat"
+				,"en" => "you don't have to vote as delegate"
+				)
+			,"you press" => array(
+				"sv" => "trycker du på"
+				,"en" => "you press"
+				)
+			,"[]you vote" => array(
 				"sv" => "du röstar"
 				,"en" => "you vote"
+				)
+			,"you vote" => array(
+				"sv" => "röstar du"
+				,"en" => "you vote"
+				)
+			,"you vote for" => array(
+				"sv" => "du röstar för"
+				,"en" => "you vote for"
+				)
+			,"you vote and support propositions" => array(
+				"sv" => "röstar du och stödjer propositioner"
+				,"en" => "you vote and support propositions"
 				)
 
 			// GENITIVE
@@ -364,7 +456,11 @@ class translations
 				)
 
 			//INDEFINITE MODIFIERS
-			,"to[verb]:indefinite" => array(
+			,"[]to:indefinite" => array(
+				"sv" => "för att"
+				,"en" => "to"
+				)
+			,"to[verb|adverb]:indefinite" => array(
 				"sv" => "att"
 				,"en" => "to"
 				)
@@ -380,6 +476,14 @@ class translations
 				)
 
 			//PREPOSITIONS
+			,"above:prep" => array(
+				"sv" => "ovan"
+				,"en" => "above"
+				)
+			,"below:prep" => array(
+				"sv" => "nedan"
+				,"en" => "below"
+				)
 			,"by:prep" => array(
 				"sv" => "av"
 				,"en" => "by"
@@ -426,6 +530,10 @@ class translations
 				)
 
 			//PRONOUN
+			,"[to]you:pron" => array(
+				"sv" => "dig"
+				,"en" => "you"
+				)
 			,"you:pron" => array(
 				"sv" => "du"
 				,"en" => "you"
@@ -456,6 +564,10 @@ class translations
 				"sv" => "inga"
 				,"en" => "no"
 				)
+			,"other[noun-plural]:quant" => array(
+				"sv" => "andra"
+				,"en" => "other"
+				)
 			,"three:quant" => array(
 				"sv" => "tre"
 				,"en" => "three"
@@ -467,6 +579,12 @@ class translations
 			,"an:quant" => array(
 				"sv" => "en|_tt"
 				,"en" => "an"
+				)
+
+			//ADVERBS
+			,"temporarily:adverb" => array(
+				"sv" => "tillfälligt"
+				,"en" => "temporarily"
 				)
 
 			//ADJECTIVES
@@ -515,6 +633,10 @@ class translations
 				"sv" => "öppen|_t:__na"
 				,"en" => "open"
 				)
+			,"public:adj" => array(
+				"sv" => "offentlig|t:a"
+				,"en" => "public"
+				)
 			,"sufficient:adj" => array(
 				"sv" => "tillräcklig|t:a"
 				,"en" => "sufficient"
@@ -546,6 +668,10 @@ class translations
 				"sv" => "var:a:___är:it:(ande)"
 				,"en" => "be::__are|___is:en:(ing)"
 				)
+			,"become:verb" => array(
+				"sv" => "bli::r:vit"
+				,"en" => "become::|s:___ame"
+				)
 			,"cancel:verb" => array(
 				"sv" => "avbryt"
 				,"en" => "cancel"
@@ -562,6 +688,10 @@ class translations
 				"sv" => "markera::r:t:(d|_t:e)"
 				,"en" => "check::|s:ed:(ed)"
 				)
+			,"choose:verb" => array(
+				"sv" => "välj:a:er:___alt:(___ald|_t:a)"
+				,"en" => "choose::|s:d:(n)"
+				)
 			,"click:verb" => array(
 				"sv" => "klicka::r:t"
 				,"en" => "click::|s:ed"
@@ -573,6 +703,10 @@ class translations
 			,"create:verb" => array(
 				"sv" => "skapa::r:t:(d|_t:e)"
 				,"en" => "create::|s:d:(d)"
+				)
+			,"deactivate:verb" => array(
+				"sv" => "avaktivera::r:t:(d|_t:e)"
+				,"en" => "deactivate::|s:d:(d)"
 				)
 			,"delegate:verb" => array(
 				"sv" => "delegera::r:t:(d|_t:e)"
@@ -630,6 +764,10 @@ class translations
 				"sv" => "logga ut"
 				,"en" => "logout"
 				)
+			,"press:verb" => array(
+				"sv" => "tryck på"
+				,"en" => "press"
+				)
 			,"propose:verb" => array(
 				"sv" => "föreslå::r:_agit:(_agen|_t:__na)"
 				,"en" => "propose::|s:d:(d)"
@@ -637,6 +775,10 @@ class translations
 			,"reach:verb" => array(
 				"sv" => "uppnå::r:tt"
 				,"en" => "reach::|es:ed"
+				)				
+			,"register:verb" => array(
+				"sv" => "registrera::r:t:(d|_t:e)"
+				,"en" => "register::|s:ed:(ed)"
 				)				
 			,"remember:verb" => array(
 				"sv" => "kom ihåg"
@@ -686,17 +828,13 @@ class translations
 				"sv" => "visa"
 				,"en" => "view"
 				)
-			,"vote for:verb" => array(
+			,"[]vote for:verb" => array(
 				"sv" => "rösta för"
 				,"en" => "vote for"
 				)
 			,"voted:verb" => array(
 				"sv" => "röstat"
 				,"en" => "voted"
-				)
-			,"want to:verb" => array(
-				"sv" => "vill"
-				,"en" => "want::|s to"
 				)
 			,"will:verb" => array(
 				"sv" => "kommer"
@@ -709,6 +847,41 @@ class translations
 			,"write:verb" => array(
 				"sv" => "skriv"
 				,"en" => "write"
+				)
+
+			//AUXILIARY VERBS
+			//imperative:infinitive:present:perfect
+			,"be able to:verb-aux" => array(
+				"sv" => "kunna"
+				,"en" => "be able to"
+				)
+			,"can:verb-aux" => array(
+				"sv" => "kan"
+				,"en" => "can"
+				)
+			,"let:verb-aux" => array(
+				"sv" => "låta"
+				,"en" => "let"
+				)
+			,"may:verb-aux" => array(
+				"sv" => "kan"
+				,"en" => "may"
+				)
+			,"want to:verb-aux" => array(
+				"sv" => "vill"
+				,"en" => "want::|s to"
+				)
+			,"shall:verb-aux" => array(
+				"sv" => "ska"
+				,"en" => "shall"
+				)
+			,"[]you can:verb-aux" => array(
+				"sv" => "du kan"
+				,"en" => "you can"
+				)
+			,"you can:verb-aux" => array(
+				"sv" => "kan du"
+				,"en" => "you can"
 				)
 
 			//NOUNS
@@ -737,9 +910,17 @@ class translations
 				"sv" => "röst:er:en:erna"
 				,"en" => "ballot:s"
 				)
+			,"box:noun1" => array(
+				"sv" => "ruta:_or:n:_orna"
+				,"en" => "box:es"
+				)
 			,"budget:noun1" => array(
 				"sv" => "budget:ar:-"
 				,"en" => "budget:s"
+				)
+			,"button:noun1" => array(
+				"sv" => "knapp:ar:en:arna"
+				,"en" => "button:s"
 				)
 			,"calendar:noun1" => array(
 				"sv" => "kalender:__rar"
@@ -772,6 +953,10 @@ class translations
 			,"delegate:noun1" => array(
 				"sv" => "delegat:er:-"
 				,"en" => "delegate:s"
+				)
+			,"delegate setting:noun1" => array(
+				"sv" => "delegatinställning:ar"
+				,"en" => "delegate setting:s"
 				)
 			,"delegation:noun1" => array(
 				"sv" => "delegering:ar"
@@ -832,6 +1017,10 @@ class translations
 			,"outbox:noun1" => array(
 				"sv" => "skickade"
 				,"en" => "outbox"
+				)
+			,"other:noun1" => array(
+				"sv" => "annan:___dra"
+				,"en" => "other:s"
 				)
 			,"popularity:noun1" => array(
 				"sv" => "populäritet"

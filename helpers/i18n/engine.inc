@@ -285,6 +285,7 @@ class engine
 			case 'conj':
 			case 'pron':
 			case 'prep':
+			case 'adverb':
 				yield new translator($identifier, $compact_translation[LANG]);
 				break;
 			case 'quant':
@@ -306,7 +307,10 @@ class engine
 					yield new adjective_definite($identifier, $compact_translation, $adjective_indefinite);
 				break;
 			case 'verb':
+			case 'verb-aux':
 				$verb_imperative = new verb_imperative($identifier, $compact_translation[LANG]);
+				if ($verb_imperative->has_infinitive)
+					yield new verb_infinitive($identifier, $compact_translation[LANG]);
 				if ($verb_imperative->has_perfect)
 					yield new verb_perfect($identifier, $compact_translation);
 				if ($verb_imperative->has_present) {
@@ -317,8 +321,6 @@ class engine
 				}
 				if ($verb_imperative->has_perfect_participle)
 					yield new verb_perfect_participle($identifier, $compact_translation);
-				if ($verb_imperative->has_infinitive)
-					yield new verb_infinitive($identifier, $compact_translation[LANG]);
 				yield $verb_imperative;
 				break;
 			case 'noun':
