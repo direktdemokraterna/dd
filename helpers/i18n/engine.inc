@@ -293,6 +293,9 @@ class engine
 			case 'pron-it':
 				yield new pronoun_it($identifier, $compact_translation[LANG]);
 				break;
+			case 'pron-poss':
+				yield new pronoun_possessive($identifier, $compact_translation[LANG]);
+				break;
 			case 'definite':
 				yield new definite_marker($identifier, $compact_translation[LANG]);
 				break;

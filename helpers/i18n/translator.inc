@@ -245,12 +245,13 @@ class noun_modifier extends translator
 	
 	protected function get_significant_noun($translations_before, $translations_after) 
 	{
-		foreach ($translations_after as $next_translation) {
-			if ($next_translation->is_noun())
-				return $next_translation;
-			if (!$next_translation->is_noun_modifier()) break;
+		$found_noun = null;
+		foreach ($translations_after as $translation) {
+			if ($translation->is_noun())
+				$found_noun = $translation;				
+			else if ($found_noun || !$translation->is_noun_modifier()) break;
 		}
-		return null;
+		return $found_noun;
 	}
 }
 ?>

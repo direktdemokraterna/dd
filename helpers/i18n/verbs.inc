@@ -21,9 +21,14 @@ class verb_imperative extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return !($previous_matches && end($previous_matches)->translator->is_noun_modifier());
+		return !($previous_matches && self::is_invalid_imperative_modifier(end($previous_matches)->translator));
 	}
-	
+
+	protected function is_invalid_imperative_modifier($translator) 
+	{
+		return $translator->is_noun_modifier() || $translator->is_verb();
+	}
+
 	private function set_form_availability($part_count) 
 	{
 		$this->has_infinitive = $part_count > 1;
@@ -47,12 +52,12 @@ class verb_infinitive extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return $previous_matches && self::is_indefinite_marker(end($previous_matches));
+		return $previous_matches && self::is_indefinite_marker(end($previous_matches)->translator);
 	}
 
-	private static function is_indefinite_marker($previous_match) 
+	private static function is_indefinite_marker($translator) 
 	{
-		return $previous_match->translator->is_verb() || $previous_match->translator->identifier->class == 'indefinite';
+		return $translator->identifier->class == 'indefinite';
 	}
 }
 

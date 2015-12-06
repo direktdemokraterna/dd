@@ -102,6 +102,10 @@ class translations
 				"sv" => "är lagd"
 				,"en" => "has been cast"
 				)
+			,"has voted" => array(
+				"sv" => "röstat"
+				,"en" => "has voted"
+				)
 			,"have" => array(
 				"sv" => "har"
 				,"en" => "have"
@@ -282,26 +286,6 @@ class translations
 				"sv" => "kommande"
 				,"en" => "upcoming"
 				)
-			,"yes" => array(
-				"sv" => "ja"
-				,"en" => "yes"
-				)
-			,"you create" => array(
-				"sv" => "skapar du"
-				,"en" => "you create"
-				)
-			,"your" => array(
-				"sv" => "ditt"
-				,"en" => "your"
-				)
-			,"your ballot" => array(
-				"sv" => "din röst"
-				,"en" => "your ballot"
-				)
-			,"your delegate" => array(
-				"sv" => "din delegat"
-				,"en" => "your delegate"
-				)
 			,"vote (yes/no)" => array(
 				"sv" => "votering (ja/nej)"
 				,"en" => "vote (yes/no)"
@@ -342,9 +326,13 @@ class translations
 				"sv" => "som"
 				,"en" => "who"
 				)
-			,"has voted" => array(
-				"sv" => "röstat"
-				,"en" => "has voted"
+			,"yes" => array(
+				"sv" => "ja"
+				,"en" => "yes"
+				)
+			,"you create" => array(
+				"sv" => "skapar du"
+				,"en" => "you create"
 				)
 			,"you vote" => array(
 				"sv" => "du röstar"
@@ -437,16 +425,22 @@ class translations
 				,"en" => "with"
 				)
 
+			//PRONOUN
+			,"you:pron" => array(
+				"sv" => "du"
+				,"en" => "you"
+				)
+
 			//PRONOUN: it
 			,"it:pron-it" => array(
 				"sv" => "den|det"
 				,"en" => "it"
 				)
 
-			//PRONOUN
-			,"you:pron" => array(
-				"sv" => "du"
-				,"en" => "you"
+			//POSSESSIVE PRONOUN
+			,"your:pron-poss" => array(
+				"sv" => "din|_tt:a"
+				,"en" => "your"
 				)
 
 			//QUANTIFIER
@@ -488,6 +482,10 @@ class translations
 			,"continous:adj" => array(
 				"sv" => "kontinuerlig|t:a"
 				,"en" => "continous"
+				)
+			,"current:adj" => array(
+				"sv" => "aktuell|t:a"
+				,"en" => "current"
 				)
 			,"finished:adj" => array(
 				"sv" => "avslutad|_t:e"
@@ -643,6 +641,10 @@ class translations
 			,"remember:verb" => array(
 				"sv" => "kom ihåg"
 				,"en" => "remember"
+				)				
+			,"remove:verb" => array(
+				"sv" => "ta::r:git bort"
+				,"en" => "remove::|s:d"
 				)				
 			,"resume:verb" => array(
 				"sv" => "återuppta"
