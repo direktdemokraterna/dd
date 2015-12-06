@@ -50,6 +50,10 @@ class translations
 				"sv" => "automatiskt"
 				,"en" => "automatically"
 				)
+			,"back" => array(
+				"sv" => "tillbaka"
+				,"en" => "back"
+				)
 			,"be given" => array(
 				"sv" => "ges"
 				,"en" => "be given"
@@ -182,6 +186,10 @@ class translations
 				"sv" => "går inte"
 				,"en" => "is not possible"
 				)
+			,"it cannot be removed" => array(
+				"sv" => "kan det inte tas bort"
+				,"en" => "it cannot be removed"
+				)
 			,"it continues until it is ended through a new yes/no vote" => array(
 				"sv" => "den fortsätter tills en votering bestämmer att den ska avslutas"
 				,"en" => "it continues until it is ended through a new yes/no vote"
@@ -250,6 +258,10 @@ class translations
 				"sv" => "ut"
 				,"en" => "out"
 				)
+			,"other than" => array(
+				"sv" => "annat än"
+				,"en" => "other than"
+				)
 			,"personally" => array(
 				"sv" => "personligt"
 				,"en" => "personally"
@@ -261,6 +273,10 @@ class translations
 			,"proposition's" => array(
 				"sv" => "propositions"
 				,"en" => "proposition's"
+				)
+			,"register as candidate for" => array(
+				"sv" => "anmäl dig som kandidat i"
+				,"en" => "register as candidate for"
 				)
 			,"registered as a delegate" => array(
 				"sv" => "registrerad som delegat"
@@ -556,6 +572,10 @@ class translations
 				"sv" => "%d"
 				,"en" => "%d"
 				)
+			,"more:quant" => array(
+				"sv" => "fler"
+				,"en" => "more"
+				)
 			,"no[noun-singular]:quant" => array(
 				"sv" => "ingen"
 				,"en" => "no"
@@ -676,6 +696,10 @@ class translations
 				"sv" => "avbryt"
 				,"en" => "cancel"
 				)
+			,"candidate:verb" => array(
+				"sv" => "kandidera"
+				,"en" => "candidate"
+				)
 			,"cast:verb" => array(
 				"sv" => "lagda"
 				,"en" => "cast"
@@ -763,6 +787,10 @@ class translations
 			,"logout:verb" => array(
 				"sv" => "logga ut"
 				,"en" => "logout"
+				)
+			,"note:verb" => array(
+				"sv" => "notera"
+				,"en" => "note"
 				)
 			,"press:verb" => array(
 				"sv" => "tryck på"
@@ -926,8 +954,12 @@ class translations
 				"sv" => "kalender:__rar"
 				,"en" => "calendar:s"
 				)
+			,"candidacy:noun1" => array(
+				"sv" => "kandidatur:er:en:erna:-"
+				,"en" => "candidacy:_ies"
+				)
 			,"candidate:noun1" => array(
-				"sv" => "kandidat:er"
+				"sv" => "kandidat:er:-"
 				,"en" => "candidate:s"
 				)
 			,"caption:noun1" => array(

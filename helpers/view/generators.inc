@@ -48,11 +48,6 @@
 		echo '<label for"' . $for . '">' . $text . '</label>';
 	}
 
-	function _text_field($title, $value, $tab_index = 1) {
-		echo '<input type="text" name="' . $title . '" id="' . $title 
-		. '" tabindex="' . $tab_index . '" value="' . $value . '">';
-	}
-
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
 	{
 		\View\general::output_internal_link($label, $type, $action, $params, $class, $confirm);

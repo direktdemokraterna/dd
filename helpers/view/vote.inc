@@ -7,6 +7,37 @@ class vote
 		return 14*24*3600;
 	}
 
+	public static function make_add_alternative_form($voteinfo) {
+		if($voteinfo['type'] == "prio-vote") {
+			self::open_add_alternative_form("Add alternative to", $voteinfo);
+			_p(_t("Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin."));
+			\View\general::make_textfield("alternative_title", _t("Title"), 1);
+			\View\general::make_textarea("alternative_description", _t("Description"), 2);
+			self::close_add_alternative_form(_t("Create alternative"), 3);
+		}
+		elseif(db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['vote_id'])){
+			self::open_add_alternative_form("Remove your candidacy in", $voteinfo);
+			self::close_add_alternative_form(_t("Remove candidacy"));
+		}
+		else {
+			self::open_add_alternative_form("Register as candidate for", $voteinfo);
+			\View\general::make_textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
+			self::close_add_alternative_form(_t("Candidate", array('class' => 'verb')), 2);
+		}
+	}
+
+	private static function open_add_alternative_form($caption_prefix, $voteinfo) {
+		_h1(_t($caption_prefix) . _t(" the vote: ") . $voteinfo['title']);
+		_p(\View\general::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['vote_id']));
+		_open_form();
+		_hidden("vote_id", $voteinfo['vote_id']);
+	}
+
+	private static function close_add_alternative_form($submit_text, $submit_tab_index = 1) 
+	{
+		_submit_and_close($submit_text, $submit_tab_index);
+	}
+
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
 		$options = self::get_selectable_vote_type_descriptions();
 		general::make_control_label("type_of_vote", _t("Type of vote"));
