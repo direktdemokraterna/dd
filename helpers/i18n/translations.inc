@@ -134,6 +134,10 @@ class translations
 				"sv" => "röstat"
 				,"en" => "has voted"
 				)
+			,"has voted for you" => array(
+				"sv" => "har röstat åt dig"
+				,"en" => "has voted for you"
+				)
 			,"have" => array(
 				"sv" => "har"
 				,"en" => "have"
@@ -425,6 +429,10 @@ class translations
 			,"you don't have to vote as delegate" => array(
 				"sv" => "behöver du inte rösta som delegat"
 				,"en" => "you don't have to vote as delegate"
+				)
+			,"you have cast" => array(
+				"sv" => "du har själv lagt"
+				,"en" => "you have cast"
 				)
 			,"you press" => array(
 				"sv" => "trycker du på"

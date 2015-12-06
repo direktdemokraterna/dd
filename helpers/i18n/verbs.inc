@@ -21,6 +21,7 @@ class verb_imperative extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
+		if (!$restrictive) return true;
 		if ($previous_matches && end($previous_matches)->translator->identifier->key == 'as')
 			return false;
 		return !($previous_matches && self::is_invalid_imperative_modifier(end($previous_matches)->translator));
