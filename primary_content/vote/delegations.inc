@@ -17,53 +17,46 @@
 	_h1(_t("Your current delegations" . ($_SESSION['delegate_id'] ? " as delegate" : '')));
 	_open_form("prio-vote");
 	_hidden("ballot");
+	foreach($constituencies as $row) {
+		echo '<div class="delegation_box">';
+		echo _t("Constituency: ");
+		_strong($row['name']);
+		_br();
+		if($_SESSION['delegate_id']) {
+			echo '<span>';
+			$delegate_delegate_for_constituency = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);
+			if($delegate_delegate_for_constituency) {
+				__("You have delegated your vote in this constituency to ");
+				_link($delegate_delegate_for_constituency['delegate_title'], 'vote', 'view_delegate', 'id=' 
+					. $delegate_delegate_for_constituency['delegate_id']);
+			}
+			else
+				__("You have no delegate in this constituency");
+			echo '</span>';
+		}
+		else 
+			echo '<span id="constituency' . $row['id'] . '">' . _t("You have no delegate in this constituency") . '</span>';
+		_br(2);
+		$delegates_for_constituency = db_delegate::get_available_delegates_for_constituency($row['id'], 
+			$_SESSION['delegate_id']);
+		$delegate_options = array("null" => _t("Remove delegate"));
+		foreach ($delegates_for_constituency as $delegate)
+			$delegate_options[$delegate['id']] = $delegate['title'];
+		\View\general::make_selector('select' . $row['id'], $delegate_options);
+		echo '<input type="submit" value="Delegera" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
+			. $row['id'] . ')">';
+		echo '</div>';
+	}
+	echo '</form>';
+	echo '<script>';
+	echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+	echo '</script>';
 ?>
-
-<?php foreach($constituencies as $row) : ?>
-
-	<div class="delegation_box">
-		<h2>Valkrets: <?php echo $row['name']; ?></h2>
-
-		<?php if($_SESSION['delegate_id']) : ?>
-			<span>
-				<?php
-					$delegate_delegate_for_constituency = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);
-				?>
-				<?php if($delegate_delegate_for_constituency) : ?>
-					Du har delegerat din röst i denna valkrets till <a href="index.php?type=vote&action=view_delegate&id=<?php echo $delegate_delegate_for_constituency['delegate_id']; ?>"><?php echo $delegate_delegate_for_constituency['delegate_title']; ?></a>
-				<?php else : ?>
-					Du har ingen delegat i denna valkrets
-				<?php endif; ?>
-			</span><br>
-		<?php else : ?>
-			<span id="constituency<?php echo $row['id']; ?>">Du har ingen delegat i denna valkrets</span><br>
-		<?php endif; ?>
-
-		<br>
-		<?php
-			$delegates_for_constituency = db_delegate::get_available_delegates_for_constituency($row['id'], 
-				$_SESSION['delegate_id']);
-		?>
-		<select id="select<?php echo $row['id']; ?>">
-			<option value="null">Ta bort delegat</option>
-			<?php foreach ($delegates_for_constituency as $delegate): ?>
-				<option value="<?php echo $delegate['id']; ?>"><?php echo $delegate['title']; ?></option>
-			<?php endforeach ?>
-		</select>
-		<input type="submit" value="Delegera" onmousedown="return encrypt_delegation_get_delegate_from_form(<?php echo $row['id']; ?>)">
-	</div>
-
-<?php endforeach; ?>
-
-</form>
-
-
-
 <script>
 list_of_delegations.map(function (vote){
 	if(vote.user_code == sessionStorage.active_user_code){
 		var constituency_element = "constituency" + vote.constituency_id;
-		document.getElementById(constituency_element).innerHTML = "Du har delegerat din röst i denna valkrets till <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
+		document.getElementById(constituency_element).innerHTML = dynamic_delegation_info_text + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
 	}
 });
 </script>
