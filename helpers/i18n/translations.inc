@@ -804,6 +804,14 @@ class translations
 				"sv" => "tryck på"
 				,"en" => "press"
 				)
+			,"demote:verb" => array(
+				"sv" => "mota::r:t:(d|_t:e)"
+				,"en" => "demote::|s:d:(d)"
+				)				
+			,"promote:verb" => array(
+				"sv" => "främja::r:t:(d|_t:e)"
+				,"en" => "promote::|s:d:(d)"
+				)				
 			,"propose:verb" => array(
 				"sv" => "föreslå::r:_agit:(_agen|_t:__na)"
 				,"en" => "propose::|s:d:(d)"

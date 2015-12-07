@@ -1,17 +1,21 @@
 <script>
+  var you_promoted = "<?php __('You have promoted: '); ?>";
+  var you_demoted = "<?php __('You have demoted: '); ?>";
+  var you_voted_abstain = "<?php __('You have voted abstain.'); ?>";
+  var you_voted_yourself = "<?php __('You have cast this ballot.'); ?>";
+  var your_delegate = "<?php __('Your delegate'); ?>";
+  var voted_for_you = "<?php __('has voted for you.'); ?>";
 
 <?php if($_SESSION['delegate_id']) : ?>
   <?php if(!empty($delegate_ballot) && $delegate_ballot['ballot'] != "abstain") : ?>
     var vote = <?php echo json_encode($delegate_ballot); ?>;
     var prio_ranking_object = JSON.parse(vote.ballot);
-
     var ul_support = document.getElementById("support-list");
     var ul_reject = document.getElementById("reject-list");
-
-   var sorted_prio_ranking=[];
+    var sorted_prio_ranking=[];
     for(var key in prio_ranking_object)
         if(prio_ranking_object.hasOwnProperty(key))
-            sorted_prio_ranking.push([key, prio_ranking_object[key]]); // each item is an array in format [key, value]
+            sorted_prio_ranking.push([key, prio_ranking_object[key]]); 
 
     // sort items by value
     sorted_prio_ranking.sort(function(a, b)
@@ -20,90 +24,76 @@
     });
 
       for(var i = 0; i < sorted_prio_ranking.length; i++) {
-
         var key = sorted_prio_ranking[i][0];
         var value = sorted_prio_ranking[i][1];
- 
         var li_element = document.getElementById(key);
         if(li_element != null){
           var li_content = li_element.innerHTML;
           li_element.parentNode.removeChild(li_element);
-
           var li = document.createElement("li");
           li.setAttribute("id", key);
           li.className = "sortable";
-
-          if(value > 0){
+          if(value)
             ul_support.appendChild(li);
-          }
-          else{
+          else
             ul_reject.appendChild(li);
-          }
-
           document.getElementById(key).innerHTML = li_content;
         }
     }
 
-    if(vote.delegate_id != null){
-      document.getElementById("if_delegate_vote").innerHTML += "<br>Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig.";
-    }
+    if(vote.delegate_id != null)
+      document.getElementById("if_delegate_vote").innerHTML += "<br>" + your_delegate + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> " + voted_for_you;
   <?php endif; ?>
 
 <?php else : ?>
+  var user_vote_box = document.getElementById("user_vote_box");
   list_of_votes.map(function (vote){
     if(vote.user_code == sessionStorage.active_user_code){
-      if(vote.delegate_id == null){
-        document.getElementById("user_vote_box").innerHTML = "Du har röstat själv i denna fråga.";
-        document.getElementById("white_vote").style.display = "inline-block";
-      }
+      user_vote_box.innerHTML = "";
+      if(vote.prio_ranking == "abstain")
+        user_vote_box.innerHTML += you_voted_abstain + "<br>";        
       else{
-        document.getElementById("user_vote_box").innerHTML = "Din delegat <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> har röstat åt dig i denna fråga.";
-      }
-
-      if(vote.prio_ranking == "abstain"){
-        document.getElementById("user_vote_box").innerHTML += "<br>Din röst:<br>Avstår";
-      }
-
-      else{
+        var promoting = [];
+        var demoting = [];
         var prio_ranking_object = JSON.parse(vote.prio_ranking);
-
         var ul_support = document.getElementById("support-list");
         var ul_reject = document.getElementById("reject-list");
-
-        for (var key in prio_ranking_object) {
+        for (var key in prio_ranking_object)
           if (prio_ranking_object.hasOwnProperty(key)) {
- 
             var li_element = document.getElementById(key);
             if(li_element != null){
               var li_content = li_element.innerHTML;
               li_element.parentNode.removeChild(li_element);
-
               var li = document.createElement("li");
               li.setAttribute("id", key);
               li.className = "sortable";
-
-              if(prio_ranking_object[key] > 0){
-                ul_support.appendChild(li);
+              if(prio_ranking_object[key]) {
+                promoting.push(li_content);
+                ul_support.appendChild(li);                
               }
-              else{
-                ul_reject.appendChild(li);
+              else {
+                demoting.push(li_content);
+                ul_reject.appendChild(li);                
               }
-
               document.getElementById(key).innerHTML = li_content;
             }
           }
-        }
+        if (promoting.length) 
+          user_vote_box.innerHTML += you_promoted + promoting.join() + '<br>';
+        if (demoting.length) 
+          user_vote_box.innerHTML += you_demoted + demoting.join() + '<br>';
       }
+      if(vote.delegate_id == null){
+        user_vote_box.innerHTML += you_voted_yourself;
+        document.getElementById("white_vote").style.display = "inline-block";
+      }
+      else
+        user_vote_box.innerHTML = your_delegate + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> " + voted_for_you;
     }
   });
 <?php endif; ?>
-
-
-
-
 var numberOfAlternatives = <?php echo $voteinfo['number_of_alternatives']; ?>;
 var prio_type = "";
-
 var lists = {
     unsorted: $('.unsorted-box'),
     support: $('.support-box'),
@@ -134,7 +124,6 @@ function getElementsWithoutDragged(list) {
 
 function updateNumbersSupport() {
     var els = getElementsWithoutDragged(lists.support);
-    
     els.each(function() {
         setNumber(this, els.index(this) + 1);
     });
@@ -142,7 +131,6 @@ function updateNumbersSupport() {
 
 function updateNumbersReject() {
     var els = getElementsWithoutDragged(lists.reject);
-        
     els.each(function() {
         setNumber(this, numberOfNonRejected + els.index(this) + 1);
     });
@@ -162,9 +150,7 @@ $('.support-box, .unsorted-box, .reject-box').sortable({
     connectWith: '.prio-vote-box',
     sort: function(event, ui) {
         var list = $(ui.placeholder).parent()[0], num;
-        
         numberOfNonRejected = getElementsWithoutDragged(lists.support.add(lists.unsorted)).length;
-        
         switch (list) {
             case lists.support[0]:
                 num = getElementsWithoutDragged(lists.support).index(ui.placeholder) + 1;
@@ -173,7 +159,6 @@ $('.support-box, .unsorted-box, .reject-box').sortable({
                 num = numberOfNonRejected + getElementsWithoutDragged(lists.reject).index(ui.placeholder) + 1;
             break;
         }
-        
         setNumber(ui.helper, num);
         updateNumbersSupport();
         updateNumbersReject();
@@ -181,30 +166,23 @@ $('.support-box, .unsorted-box, .reject-box').sortable({
 });
 
 $('form').submit(function() {
-
     if(prio_type === "abstain"){
       var data = {};
       encrypt_prio_ballot(data);
     }
-    else if(prio_type === "cancel"){
+    else if(prio_type === "cancel")
       encrypt_prio_ballot("cancel");
-    }
     else{
       var data = {};
-    
       lists.support.find('li').each(function() {
         data[$(this).data('option-id')] = numberOfAlternatives - $(this).index();
       });
-    
       lists.reject.find('li').each(function() {
         data[$(this).data('option-id')] = -1 * ($(this).index() + 1);
       });
-    
       encrypt_prio_ballot(data);
     }
-
     return true;
-
 });
 
 numberOfNonRejected = getElementsWithoutDragged(lists.support.add(lists.unsorted)).length;
