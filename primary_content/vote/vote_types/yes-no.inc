@@ -1,5 +1,5 @@
 <?php 
-	if(!$_SESSION['delegate_id'] && in_array($voteinfo['status'], array("active", "continuous", "del_ended")))
+	if (\Logic\vote::is_active_private_vote($voteinfo['status'])
 	{
 		__("Cast your vote:");
 		_br();

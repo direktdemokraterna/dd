@@ -77,6 +77,11 @@ class vote
 		}		
 	}
 
+	public static function is_active_private_vote($vote_status) {
+		return !$_SESSION['delegate_id'] 
+			&& in_array($vote_status, array("active", "continuous", "del_ended"));
+	}
+
 	private static function admin_create_time_limited_vote() {
 		$forum_topic_id = self::create_vote_topic();
 		$time_string = self::generate_time_string(); 

@@ -752,6 +752,10 @@ class translations
 				"sv" => "radera::r:t:(d|_t:e)"
 				,"en" => "delete::|s:d:(d)"
 				)
+			,"demote:verb" => array(
+				"sv" => "mota::r:t:(d|_t:e)"
+				,"en" => "demote::|s:d:(d)"
+				)				
 			,"discontinue:verb" => array(
 				"sv" => "avsluta"
 				,"en" => "discontinue"
@@ -800,14 +804,14 @@ class translations
 				"sv" => "notera"
 				,"en" => "note"
 				)
+			,"order:verb" => array(
+				"sv" => "rangordna"
+				,"en" => "order"
+				)
 			,"press:verb" => array(
 				"sv" => "tryck på"
 				,"en" => "press"
 				)
-			,"demote:verb" => array(
-				"sv" => "mota::r:t:(d|_t:e)"
-				,"en" => "demote::|s:d:(d)"
-				)				
 			,"promote:verb" => array(
 				"sv" => "främja::r:t:(d|_t:e)"
 				,"en" => "promote::|s:d:(d)"
@@ -871,6 +875,10 @@ class translations
 			,"view:verb" => array(
 				"sv" => "visa"
 				,"en" => "view"
+				)
+			,"vote:verb" => array(
+				"sv" => "rösta"
+				,"en" => "vote"
 				)
 			,"[]vote for:verb" => array(
 				"sv" => "rösta för"
@@ -1141,7 +1149,7 @@ class translations
 
 			//NOUNS, variation 2
 			,"alternative:noun2" => array(
-				"sv" => "alternativ"
+				"sv" => "alternativ::et:en"
 				,"en" => "alternative:s"
 				)
 			,"candidate election:noun2" => array(

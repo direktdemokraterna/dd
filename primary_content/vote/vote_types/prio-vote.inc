@@ -1,44 +1,30 @@
-<?php if($voteinfo['status'] == "active" || $voteinfo['status'] == "continuous" || ($voteinfo['status'] == "del_ended" && !$_SESSION['delegate_id'])) : ?>
-
-  Rangordna alternativen:<br>
-  
-  <form method="post" action="" class="prio-vote">
-    <input type="hidden" name="vote_id" value="<?php echo $voteinfo['vote_id']; ?>">
-    <input type="hidden" name="ballot" id="ballot" value="">
-
-    <ul class="prio-vote-box support-box" id="support-list"></ul>
-
-    <ul class="prio-vote-box unsorted-box">
-
-    <?php
-      $votes_alternatives = db_vote::get_alternatives_for_vote($voteinfo['vote_id']);
-    ?>
-
-    <?php foreach($votes_alternatives as $row) : ?>
-      <li class="sortable" id="<?php echo $row['id']; ?>"><span title="<?php echo $row['description']; ?>"><?php echo $row['title']; ?></span></li>
-    <?php endforeach; ?>
-
-    </ul>
-
-    <ul class="prio-vote-box reject-box" id="reject-list"></ul>
-
-    <input type="submit" value="Rösta"><br>
-    <input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return prio_abstain()">
-    <input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: <?php if($_SESSION['delegate_id'] && !empty($delegate_ballot)) echo "inline-block"; else echo "none"; ?>;" onmousedown="return prio_cancel()">
-    <br><span id="if_delegate_vote" class="p"></span>
-  </form>
-
-  </div>
-
-  <div>
-  <p>
-  <a href="index.php?type=vote&action=add_alternative&id=<?php echo $voteinfo['vote_id']; ?>">Lägg till ett alternativ till denna omröstning</a>
-  </p>
-
-  <p>
-  <?php if(isset($_SESSION['is_vote_admin'])) : ?>
-    <a href="index.php?type=vote_admin&action=edit_alternatives&id=<?php echo $voteinfo['vote_id']; ?>">Valadministratör: Redigera alternativ för denna omröstning</a>
-  <?php endif; ?>
-  </p>
-
-<?php endif; ?>
+<?php 
+  if (\Logic\vote::is_active_private_vote($voteinfo['status'])) {
+    __("Order the alternatives");
+    _br();
+    _open_form("prio-vote");
+    _hidden("vote_id", $voteinfo['vote_id']);
+    _hidden("ballot");
+    echo '<ul class="prio-vote-box support-box" id="support-list"></ul>';
+    echo '<ul class="prio-vote-box unsorted-box">';
+    $votes_alternatives = db_vote::get_alternatives_for_vote($voteinfo['vote_id']);
+    foreach($votes_alternatives as $row)
+      echo '<li class="sortable" id="' . $row['id'] . '"><span title="' 
+        . $row['description'] . '">' . $row['title'] . '</span></li>';
+    echo '</ul>';
+    echo '<ul class="prio-vote-box reject-box" id="reject-list"></ul>';
+    echo '<input type="submit" class="vote_button" id="green_vote" value="' . _t('Vote') . '"><br>';
+    echo '<input type="submit" class="vote_button" id="yellow_vote" value="' . _t('Abstain') 
+      . '" onmousedown="return prio_abstain()">';
+    echo '<input type="submit" class="vote_button" id="white_vote" value="' . _t('Revoke ballot') 
+      . '" style="display: ' . ($_SESSION['delegate_id'] && !empty($delegate_ballot) ? "inline-block" : "none") 
+      . ';" onmousedown="return prio_cancel()">';
+    echo '<br><span id="if_delegate_vote" class="p"></span>';
+    echo '</form>';
+    echo '</div>';
+    echo '<div>';
+    _p(\View\general::generate_internal_link(_t("Add alternative to this vote"), 'vote', 'add_alternative', 'id=' . $voteinfo['vote_id']));
+    if(isset($_SESSION['is_vote_admin']))
+      _p(\View\general::generate_internal_link(_t("Vote admin: Edit alternatives for this vote"), 'vote_admin', 'edit_alternatives', 'id=' . $voteinfo['vote_id']));
+  }
+?>
