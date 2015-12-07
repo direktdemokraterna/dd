@@ -182,9 +182,11 @@ class verb_perfect extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
+		if ($restrictive && (!$previous_matches || self::has_indefinite_object($following_matches)))
+			return false;
 		if ($previous_matches && self::is_present_marker(end($previous_matches)->translator))
 			return false;
-		return !$restrictive || !self::has_indefinite_object($following_matches);  
+		return true;
 	}
 
 	private static function is_present_marker($translator) {
@@ -207,7 +209,9 @@ class verb_perfect_participle extends adjective
 	function __construct($identifier, $compact_translation_pair) 
 	{
 		$base_parts = explode(':', $compact_translation_pair[BASE_LANG]);
-		$adjective_key = parent::create_word_form($base_parts[0], self::strip_parenthesis($base_parts[4]));
+		$adjective_key = count($base_parts) > 4 
+			? parent::create_word_form($base_parts[0], self::strip_parenthesis($base_parts[4]))
+			: $base_parts[0];
 		$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation_pair[LANG]);
 		parent::__construct(new translation_identifier($adjective_key, 'adj'),
 			$adjective_compact_translation);

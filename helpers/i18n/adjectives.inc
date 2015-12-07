@@ -13,6 +13,11 @@ class adjective extends noun_modifier
 		$this->has_definite_form = (count($parts) > 2);
 	}
 
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
+	{
+		return !$restrictive ||  $previous_matches;
+	}	
+
 	protected function get_significant_noun($translations_before, $translations_after) 
 	{
 		$parting_words_left = array();
@@ -97,5 +102,10 @@ class adjective_definite extends translator
 		$definite_identifier = $identifier->copy($definite_key, null, 'definite');
 		parent::__construct($definite_identifier, $definite_translation);
 	}
+
+	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
+	{
+		return !$restrictive ||  $previous_matches;
+	}	
 }
 ?>

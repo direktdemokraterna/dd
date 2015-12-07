@@ -1,15 +1,15 @@
-<?php if($voteinfo['status'] == "active" || $voteinfo['status'] == "continuous" || ($voteinfo['status'] == "del_ended" && !$_SESSION['delegate_id'])) : ?>
-
-	Lägg din röst:<br>
-	
-	<form method="post" action="" class="yes-no">
-		<input type="hidden" name="vote_id" value="<?php echo $voteinfo['vote_id']; ?>">
-		<input type="hidden" name="ballot" id="ballot" value="">
-
-		<input type="submit" class="vote_button" id="green_vote" value="Ja" onmousedown="return encrypt_yes_no_ballot('yes')">
-		<input type="submit" class="vote_button" id="red_vote" value="Nej" onmousedown="return encrypt_yes_no_ballot('no')">
-		<input type="submit" class="vote_button" id="yellow_vote" value="Avstår" onmousedown="return encrypt_yes_no_ballot('abstain')">
-		<input type="submit" class="vote_button" id="white_vote" value="Ångra röst" style="display: <?php if(!empty($delegate_ballot)) echo "inline-block"; else echo "none"; ?>;" onmousedown="return encrypt_yes_no_ballot('cancel')">
-	</form>
-
-<?php endif; ?>
+<?php 
+	if(!$_SESSION['delegate_id'] && in_array($voteinfo['status'], array("active", "continuous", "del_ended")))
+	{
+		__("Cast your vote:");
+		_br();
+		_open_form("yes-no");
+		_hidden("vote_id", $voteinfo['vote_id']);
+		_hidden("ballot");
+		echo '<input type="submit" class="vote_button" id="green_vote" value="' . _t("Yes") . '"" onmousedown="return encrypt_yes_no_ballot(\'yes\')">';
+		echo '<input type="submit" class="vote_button" id="red_vote" value="' . _t("No") . '" onmousedown="return encrypt_yes_no_ballot(\'no\')">';
+		echo '<input type="submit" class="vote_button" id="yellow_vote" value="' . _t("Abstain") . '" onmousedown="return encrypt_yes_no_ballot(\'abstain\')">';
+		echo '<input type="submit" class="vote_button" id="white_vote" value="' . _t("Revoke ballot") . '" style="display: ' . (empty($delegate_ballot) ? 'none' : 'inline-block') . '" onmousedown="return encrypt_yes_no_ballot(\'cancel\')">';
+		echo '</form>';
+	}
+?>

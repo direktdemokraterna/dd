@@ -286,6 +286,10 @@ class translations
 				"sv" => "registrerad som delegat"
 				,"en" => "registered as a delegate"
 				)
+			,"revoke ballot" => array(
+				"sv" => "ångra röst"
+				,"en" => "revoke ballot"
+				)
 			,"so" => array(
 				"sv" => "så"
 				,"en" => "so"
@@ -709,8 +713,8 @@ class translations
 				,"en" => "candidate"
 				)
 			,"cast:verb" => array(
-				"sv" => "lagda"
-				,"en" => "cast"
+				"sv" => "lägg::er:___agt:(___agd|_t:a)"
+				,"en" => "cast::|s"
 				)
 			,"change:verb" => array(
 				"sv" => "ändra"
@@ -743,10 +747,6 @@ class translations
 			,"delegate:verb" => array(
 				"sv" => "delegera::r:t:(d|_t:e)"
 				,"en" => "delegate::|s:d:(d)"
-				)
-			,"delegate your vote:verb" => array(
-				"sv" => "delegera::r:t din röst"
-				,"en" => "delegate:::d your vote"
 				)
 			,"delete:verb" => array(
 				"sv" => "radera::r:t:(d|_t:e)"
@@ -1101,6 +1101,10 @@ class translations
 			,"type:noun1" => array(
 				"sv" => "typ"
 				,"en" => "type"
+				)
+			,"[your]vote:noun1" => array(
+				"sv" => "röst:er:en:erna"
+				,"en" => "vote:s"
 				)
 			,"vote:noun1" => array(
 				"sv" => "omröstning:ar:en:arna:-s"
