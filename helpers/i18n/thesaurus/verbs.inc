@@ -193,7 +193,11 @@ class verbs
 				)
 			,"send:verb" => array(
 				"sv" => "skicka::r:t:(d|_t:e)"
-				,"en" => "send::|s:_t:(_t)"
+				,"en" => "send::|s|ing:_t:(_t)"
+				)
+			,"show:verb" => array(
+				"sv" => "visa::r:t:(d|_t:e)"
+				,"en" => "show::|s|ing:n:(n)"
 				)
 			,"support:verb" => array(
 				"sv" => "stöd:ja:jer"

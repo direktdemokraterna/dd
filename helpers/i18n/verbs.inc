@@ -73,39 +73,38 @@ class verb_present extends translator
 {
 	public $singular_key;
 	public $singular_translation;
+	public $participle_key;
+	public $participle_translation;
 
 	function __construct($identifier, $compact_translation) 
 	{
-		$keys = iterator_to_array(self::get_word_forms($compact_translation[BASE_LANG]));
-		$translations = iterator_to_array(self::get_word_forms($compact_translation[LANG]));
+		$keys = self::get_word_forms($compact_translation[BASE_LANG]);
+		$translations = self::get_word_forms($compact_translation[LANG]);
 		$identifier->form = 'present';
 		parent::__construct($identifier, $translations[0]);
-		$this->singular_translation = $translations[1];
 		$this->singular_key = $keys[1];
+		$this->singular_translation = $translations[1];
+		$this->participle_key = $keys[2];
+		$this->participle_translation = $translations[2];
 	}
 
-	private function get_word_forms($compact_translation) 
+	protected static function get_word_forms($compact_translation) 
 	{
 		$words = explode(' ', $compact_translation, 2);
 		$parts = explode(':', $words[0]);
 		$word = parent::assemble_word_form($parts, 2);
-		$singular = self::extract_singular($word);
-		if (count($words) == 2) {
-			$word .= ' ' . $words[1];
-			if ($singular)
-				$singular .= ' ' . $words[1];
-		}
-		yield $word;
-		yield $singular;
+		$alternatives = iterator_to_array(self::extract_alternatives($word));
+		return count($words) == 2
+			? array_map(function ($alt) use ($words) {return $alt . ' ' . $words[1];}, $alternatives)
+			: $alternatives;
 	}
 
-	private function extract_singular(&$compact_forms) 
+	private static function extract_alternatives($compact_forms) 
 	{
-		$parts = explode('|', $compact_forms, 2);
-		if (count($parts) == 1) 
-			return $compact_forms;
-		$compact_forms = $parts[0];
-		return self::assemble_word_form($parts, 1);
+		$parts = explode('|', $compact_forms, 3);
+		yield $parts[0];
+		for ($i = 1; $i < 3; $i++)
+			yield ($i < count($parts) ? self::assemble_word_form($parts, $i) : $parts[0]);
 	}
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
@@ -165,6 +164,15 @@ class verb_present_singular extends translator
 				break;
 		}
 		return false;
+	}
+}
+
+class verb_present_participle extends translator 
+{
+	function __construct($identifier, $translation) 
+	{
+		$identifier->form = 'present';
+		parent::__construct($identifier, $translation);
 	}
 }
 

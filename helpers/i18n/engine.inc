@@ -33,7 +33,7 @@ class engine
 	{
 		$candidates = self::get_translator_candidates($lower_phrase, $translation_hints);
 		$translation = $candidates 
-			? self::try_select_translator($candidates, array(), array()) 
+			? self::try_select_translator($candidates, array(), array(), $translation_hints) 
 			: null;
 		return $translation 
 			?  $translation->translate($lower_phrase, array(), array(), $translation_hints)
@@ -113,19 +113,19 @@ class engine
 
 	private static function get_translation_matches($phrase, $numbers, $translation_hints) 
 	{
-		$translation_matches = self::get_candidates_matches($phrase, $translation_hints);
-		self::select_matches($translation_matches, $numbers);
+		$translation_matches = self::get_candidates_matches($phrase);
+		self::select_matches($translation_matches, $numbers, $translation_hints);
 		return $translation_matches;
 	}
 
-	private static function select_matches(&$candidates_matches, $numbers) {
+	private static function select_matches(&$candidates_matches, $numbers, $translation_hints) {
 		$previous_matches = array();
 		$remaining_mathes = array_values($candidates_matches);
 		while ($remaining_mathes) {
 			$match = array_shift($remaining_mathes);
 			$candidates = $match->translator;
 			if (is_array($candidates)) {
-				$translator = self::try_select_translator($candidates, $previous_matches, $remaining_mathes);
+				$translator = self::try_select_translator($candidates, $previous_matches, $remaining_mathes, $translation_hints);
 				if ($numbers) 
 					$match->phrase = self::restore_numbers($match->phrase, $numbers);
 				$match->translator = $translator ? $translator : new untranslated($match->phrase);
@@ -167,16 +167,18 @@ class engine
 		self::$stored_translators[$phrase] = new translator($identifier, $translation);
 	}
 
-	private static function try_select_translator($candidates, $previous_matches, $following_matches) {
-		$translator = self::select_translator($candidates, $previous_matches, $following_matches, true);
+	private static function try_select_translator($candidates, $previous_matches, $following_matches, $translation_hints) {
+		$translator = self::select_translator($candidates, $previous_matches, $following_matches, true, $translation_hints);
 		if (!$translator)
 			$translator = self::select_translator($candidates, $previous_matches, $following_matches, false);
 		return $translator;
 	}
 
-	private static function select_translator($candidates, $previous_matches, $following_matches, $match_restrictive = true) {
+	private static function select_translator($candidates, $previous_matches, $following_matches, $match_restrictive = true, $translation_hints = null) {
 		$with_selector = array();
 		$without_selector = array();
+		if ($match_restrictive && $translation_hints)
+			$candidates = self::filter_translator_candidates($candidates, $translation_hints);
 		foreach ($candidates as $candidate)
 			if ($candidate->identifier->selector)
 				$with_selector[] = $candidate;
@@ -190,50 +192,6 @@ class engine
 		return null;
 	}
 
-	private static function get_candidates_matches($phrase, $translation_hints) 
-	{
-		$candidates_matches = array();
-		$remaining_words = null;
-		do {
-			$words = $remaining_words;
-			$remaining_words = array();
-			$candidates_match = self::get_candidates_match($phrase, $words, $remaining_words, $translation_hints);
-			array_unshift($candidates_matches, $candidates_match);
-		}
-		while (count($remaining_words));
-		return $candidates_matches; 
-	}
-
-	private static function get_candidates_match($phrase, &$words, &$remaining_words, $translation_hints) 
-	{
-		while (true) {
-			if ($words)
-				$phrase = implode(' ', $words);
-			$candidates = self::match_phrase($phrase, $translation_hints);
-			if (is_array($candidates)) 
-				return new translation_match($phrase, $candidates);
-			if ($words == null)
-				$words = preg_split('/\s+/', $phrase, 0, PREG_SPLIT_NO_EMPTY);
-			if (count($words) == 1)
-				return new translation_match($phrase, $candidates);
-			$remaining_words[] = array_shift($words);
-		}
-	}
-
-	private static function match_phrase($phrase, $translation_hints) 
-	{
-		$candidates = self::get_translator_candidates(strtolower($phrase), $translation_hints);
-		return $candidates ? $candidates : new untranslated($phrase);
-	}
-
-	private static function get_translator_candidates($phrase_lower, $translation_hints) 
-	{
-		self::init_translations();
-		return isset(self::$translators[$phrase_lower]) 
-			? self::filter_translator_candidates(self::$translators[$phrase_lower], $translation_hints)
-			: array();
-	}
-
 	private static function filter_translator_candidates($candidates, $translation_hints) {
 		if (isset($translation_hints['class']))
 			$candidates = array_filter($candidates, function ($translator) use ($translation_hints) {
@@ -244,6 +202,50 @@ class engine
 				return $translator->identifier->form == $translation_hints['form'];
 			});
 		return $candidates;
+	}
+
+	private static function get_candidates_matches($phrase) 
+	{
+		$candidates_matches = array();
+		$remaining_words = null;
+		do {
+			$words = $remaining_words;
+			$remaining_words = array();
+			$candidates_match = self::get_candidates_match($phrase, $words, $remaining_words);
+			array_unshift($candidates_matches, $candidates_match);
+		}
+		while (count($remaining_words));
+		return $candidates_matches; 
+	}
+
+	private static function get_candidates_match($phrase, &$words, &$remaining_words) 
+	{
+		while (true) {
+			if ($words)
+				$phrase = implode(' ', $words);
+			$candidates = self::match_phrase($phrase);
+			if (is_array($candidates)) 
+				return new translation_match($phrase, $candidates);
+			if ($words == null)
+				$words = preg_split('/\s+/', $phrase, 0, PREG_SPLIT_NO_EMPTY);
+			if (count($words) == 1)
+				return new translation_match($phrase, $candidates);
+			$remaining_words[] = array_shift($words);
+		}
+	}
+
+	private static function match_phrase($phrase) 
+	{
+		$candidates = self::get_translator_candidates(strtolower($phrase));
+		return $candidates ? $candidates : new untranslated($phrase);
+	}
+
+	private static function get_translator_candidates($phrase_lower) 
+	{
+		self::init_translations();
+		return isset(self::$translators[$phrase_lower]) 
+			? self::$translators[$phrase_lower]
+			: array();
 	}
 
 	private static function init_translations() 
@@ -331,6 +333,8 @@ class engine
 					yield $present;
 					if ($present->singular_key != $present->identifier->key)
 						yield new verb_present_singular($identifier->copy($present->singular_key), $present->singular_translation);
+					if ($present->participle_key != $present->identifier->key)
+						yield new verb_present_participle($identifier->copy($present->participle_key), $present->participle_translation);
 				}
 				if ($verb_imperative->has_perfect_participle)
 					yield new verb_perfect_participle($identifier, $compact_translation);

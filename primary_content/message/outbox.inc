@@ -1,9 +1,6 @@
-<h1>Utkorgen</h1>
-
 <?php 
-	if(isset($_GET['page'])) $page = $_GET['page'];
-	else $page = 1;
-
+	_h1(_t("Outbox"));
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$outbox = db_message::get_outbox($_SESSION['id'], $page);
 	$number_of_messages = count($outbox);
 	$start_message = ($page - 1) * 20 + 1;
@@ -12,10 +9,12 @@
 ?>
 
 <?php if($number_of_messages>0) : ?>
-	<form method="post" action="">
-	<input type="hidden" name="delete" value="1">
-	Visar meddelanden <?php echo $start_message; ?> - <?php echo $stop_message; ?>
-	<table class="message"><tr><td></td><td>Mottagare</td><td>Ämne</td><td>Datum</td></tr>
+	<?php
+		_open_form("");
+		_hidden("delete", 1);
+		echo _t("Showing messages ") . "$start_message - $stop_message";
+	?>
+	<table class="message"><tr><td></td><td><?php __("Recipient"); ?></td><td><?php __("Subject"); ?></td><td><?php __("Date"); ?></td></tr>
 
 	<?php foreach($outbox as $row) : ?>
 		<tr class="<?php if($i++ % 2) echo "even_row"; else echo "odd_row"; ?>">
@@ -28,9 +27,12 @@
 
 	</table>
 	<br><input type="checkbox" name="checkall" onclick="checkAll(this, 'delete_checkbox');">Markera alla
-	<br><input type="submit" value="Radera markerade">
+	<br>
+	<?php
+		_submit_and_close(_t("Delete checked", array('form' => 'plural')));
+	?>
 	</form>
 
 <?php else : ?>
-	Inga meddelanden
+	<?php __("No messages."); ?>
 <?php endif; ?>

@@ -236,6 +236,10 @@ class nouns
 				"sv" => "personval::et:en"
 				,"en" => "candidate election:s"
 				)
+			,"date:noun2" => array(
+				"sv" => "datum::et:en"
+				,"en" => "date:s"
+				)
 			,"election:noun2" => array(
 				"sv" => "personval::et:en"
 				,"en" => "election:s"
@@ -267,6 +271,10 @@ class nouns
 			,"proposal:noun2" => array(
 				"sv" => "förslag::et:en"
 				,"en" => "proposal:s"
+				)
+			,"subject:noun2" => array(
+				"sv" => "ämne"
+				,"en" => "subject"
 				)
 			,"support:noun2" => array(
 				"sv" => "stöd"
