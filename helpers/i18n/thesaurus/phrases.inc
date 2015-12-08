@@ -126,6 +126,10 @@ class phrases
 				"sv" => "halva"
 				,"en" => "half"
 				)
+			,"given name" => array(
+				"sv" => "förnamn"
+				,"en" => "given name"
+				)
 			,"has been cast" => array(
 				"sv" => "är lagd"
 				,"en" => "has been cast"
@@ -226,6 +230,10 @@ class phrases
 				"sv" => "bara"
 				,"en" => "just"
 				)
+			,"last name" => array(
+				"sv" => "efternamn"
+				,"en" => "last name"
+				)
 			,"me" => array(
 				"sv" => "mig"
 				,"en" => "me"
@@ -270,6 +278,10 @@ class phrases
 				"sv" => "annat än"
 				,"en" => "other than"
 				)
+			,"process application" => array(
+				"sv" => "hantera ansökan"
+				,"en" => "process application"
+				)
 			,"personally" => array(
 				"sv" => "personligt"
 				,"en" => "personally"
@@ -293,6 +305,10 @@ class phrases
 			,"registered as a delegate" => array(
 				"sv" => "registrerad som delegat"
 				,"en" => "registered as a delegate"
+				)
+			,"reject application" => array(
+				"sv" => "avslå ansökan"
+				,"en" => "reject application"
 				)
 			,"revoke ballot" => array(
 				"sv" => "ångra röst"

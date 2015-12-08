@@ -33,6 +33,10 @@ class prepositions
 				"sv" => "till"
 				,"en" => "for"
 				)
+			,"from:prep" => array(
+				"sv" => "från"
+				,"en" => "from"
+				)
 			,"in:prep" => array(
 				"sv" => "i"
 				,"en" => "in"

@@ -7,9 +7,9 @@
 				,"create_new" => _t("Create new member")
 				);
 			if (db_user::get_all_user_applications())
-				$links['list_applications'] = "Handle applications";
-			$links['create_workgroup'] = "Create workgroup";
-			\View\general::output_link_list("member", $links);
+				$links['list_applications'] = _t("Handle applications");
+			$links['create_workgroup'] = _t("Create workgroup");
+			\View\general::output_link_list("member_admin", $links);
 		?>
 	</li>
 </ul>

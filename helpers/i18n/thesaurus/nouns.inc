@@ -10,6 +10,10 @@ class nouns
 				"sv" => "pågående omröstning:ar"
 				,"en" => "active vote:s"
 				)
+			,"address:noun1" => array(
+				"sv" => "adress"
+				,"en" => "address"
+				)
 			,"admin:noun1" => array(
 				"sv" => "admin:istratörer"
 				,"en" => "admin:istrators"
@@ -66,6 +70,10 @@ class nouns
 				"sv" => "förändring:ar"
 				,"en" => "change:s"
 				)
+			,"city:noun1" => array(
+				"sv" => "postort"
+				,"en" => "city"
+				)
 			,"constituency:noun1" => array(
 				"sv" => "valkrets:ar:en:na:-"
 				,"en" => "constituency:_ies"
@@ -89,6 +97,10 @@ class nouns
 			,"description:noun1" => array(
 				"sv" => "beskrivning:ar"
 				,"en" => "description:s"
+				)
+			,"email:noun1" => array(
+				"sv" => "e-post"
+				,"en" => "email"
 				)
 			,"exclusion:noun1" => array(
 				"sv" => "uteslutning"
@@ -129,6 +141,10 @@ class nouns
 			,"member admin:noun1" => array(
 				"sv" => "medlemsansvarig:a"
 				,"en" => "member admin:s"
+				)
+			,"municipality:noun1" => array(
+				"sv" => "kommun"
+				,"en" => "municipality"
 				)
 			,"phrase:noun1" => array(
 				"sv" => "fras:er:en:na"
@@ -174,13 +190,21 @@ class nouns
 				"sv" => "inställning:ar"
 				,"en" => "setting:s"
 				)
+			,"social security number:noun1" => array(
+				"sv" => "personnummer"
+				,"en" => "social security number"
+				)
+			,"street:noun1" => array(
+				"sv" => "gata:or:-_u"
+				,"en" => "street:s"
+				)
 			,"supporter:noun1" => array(
 				"sv" => "stödjare::n:_na"
 				,"en" => "supporter:s"
 				)
-			,"user:noun1" => array(
-				"sv" => "användare"
-				,"en" => "user:s"
+			,"telephone:noun1" => array(
+				"sv" => "telefon"
+				,"en" => "telephone"
 				)
 			,"time:noun1" => array(
 				"sv" => "tidpunkt:er"
@@ -197,6 +221,10 @@ class nouns
 			,"type:noun1" => array(
 				"sv" => "typ"
 				,"en" => "type"
+				)
+			,"user:noun1" => array(
+				"sv" => "användare"
+				,"en" => "user:s"
 				)
 			,"[your]vote:noun1" => array(
 				"sv" => "röst:er:en:erna"
@@ -287,6 +315,10 @@ class nouns
 			,"value:noun2" => array(
 				"sv" => "värde"
 				,"en" => "value"
+				)
+			,"zip code:noun2" => array(
+				"sv" => "postnummer"
+				,"en" => "zip code"
 				)
 		);
 	}	

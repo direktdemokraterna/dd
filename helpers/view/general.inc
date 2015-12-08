@@ -27,8 +27,8 @@ class general
 
 	public static function make_selector($control_name, $options, $selected_option = null, $attributes = null) {
 		self::open_select($control_name, $attributes);
-		foreach(array_keys($options) as $option_name){
-			self::make_option($option_name, $selected_option, $options[$option_name]);
+		foreach($options as $key => $value){
+			self::make_option($key, $selected_option, $value);
 		}
 		self::close_select();
 	}
@@ -72,7 +72,7 @@ class general
 	}	
 
 	public static function make_control_label($control_name, $control_label) {
-		echo('<br><label for "' . $control_name . '">' . _t($control_label) . '</label>');
+		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
 	}	
 
 	public static function get_from_action_for_url($actions) {
