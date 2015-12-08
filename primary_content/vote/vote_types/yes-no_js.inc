@@ -17,9 +17,8 @@
 				document.getElementById("user_vote_box").innerHTML += "<br>" + you_voted;
 				document.getElementById("white_vote").style.display = "inline-block";
 			}
-			else{
+			else
 				document.getElementById("user_vote_box").innerHTML += "<br>" + your_delegate + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> " + voted_for_you;
-			}
 		}
 	});
 </script>

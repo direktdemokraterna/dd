@@ -959,11 +959,11 @@ class translations
 				,"en" => "authorisation:s"
 				)
 			,"ballot:noun1" => array(
-				"sv" => "röst:er:en:erna"
+				"sv" => "röst:er:en:na"
 				,"en" => "ballot:s"
 				)
 			,"box:noun1" => array(
-				"sv" => "ruta:_or:n:_orna"
+				"sv" => "ruta:_or:n:na"
 				,"en" => "box:es"
 				)
 			,"budget:noun1" => array(
@@ -971,7 +971,7 @@ class translations
 				,"en" => "budget:s"
 				)
 			,"button:noun1" => array(
-				"sv" => "knapp:ar:en:arna"
+				"sv" => "knapp:ar:en:na"
 				,"en" => "button:s"
 				)
 			,"calendar:noun1" => array(
@@ -979,15 +979,15 @@ class translations
 				,"en" => "calendar:s"
 				)
 			,"candidacy:noun1" => array(
-				"sv" => "kandidatur:er:en:erna:-"
+				"sv" => "kandidatur:er:en:na:-"
 				,"en" => "candidacy:_ies"
 				)
 			,"candidate:noun1" => array(
-				"sv" => "kandidat:er:-"
+				"sv" => "kandidat:er:en:na:-"
 				,"en" => "candidate:s"
 				)
 			,"caption:noun1" => array(
-				"sv" => "rubrik:er:en:erna"
+				"sv" => "rubrik:er:en:na"
 				,"en" => "caption:s"
 				)
 			,"category:noun1" => array(
@@ -999,7 +999,7 @@ class translations
 				,"en" => "change:s"
 				)
 			,"constituency:noun1" => array(
-				"sv" => "valkrets:ar:en:arna:-"
+				"sv" => "valkrets:ar:en:na:-"
 				,"en" => "constituency:_ies"
 				)
 			,"debate:noun1" => array(
@@ -1063,7 +1063,7 @@ class translations
 				,"en" => "member admin:s"
 				)
 			,"phrase:noun1" => array(
-				"sv" => "fras:er:en:erna"
+				"sv" => "fras:er:en:na"
 				,"en" => "phrase:s"
 				)
 			,"profile:noun1" => array(
@@ -1195,6 +1195,10 @@ class translations
 			,"username:noun2" => array(
 				"sv" => "användarnamn"
 				,"en" => "username:s"
+				)
+			,"value:noun2" => array(
+				"sv" => "värde"
+				,"en" => "value"
 				)
 		);
 	}	

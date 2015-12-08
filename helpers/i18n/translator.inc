@@ -222,10 +222,10 @@ class noun_modifier extends translator
 
 	private function has_plurifying_pronoun($translations_before) 
 	{
-		foreach (array_reverse($translations_before) as $previous_translation) {
-			if ($previous_translation->identifier->key == 'this')
+		foreach (array_reverse($translations_before) as $translation) {
+			if ($translation->identifier->key == 'this' || $translation->identifier->class == 'pron-poss')
 				return true;
-			if (!$previous_translation->is_noun_modifier()) break;
+			if (!$translation->is_noun_modifier()) break;
 		}
 		return false;
 	}

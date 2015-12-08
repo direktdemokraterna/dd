@@ -105,7 +105,7 @@ class adjective_definite extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return !$restrictive ||  $previous_matches;
+		return !$restrictive || $previous_matches;
 	}	
 }
 ?>
