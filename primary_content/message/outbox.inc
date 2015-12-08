@@ -6,33 +6,27 @@
 	$start_message = ($page - 1) * 20 + 1;
 	$stop_message = $start_message + $number_of_messages - 1;
 	$i = 0;
-?>
-
-<?php if($number_of_messages>0) : ?>
-	<?php
-		_open_form("");
+	if($number_of_messages) {
+		_open_form();
 		_hidden("delete", 1);
 		echo _t("Showing messages ") . "$start_message - $stop_message";
-	?>
-	<table class="message"><tr><td></td><td><?php __("Recipient"); ?></td><td><?php __("Subject"); ?></td><td><?php __("Date"); ?></td></tr>
-
-	<?php foreach($outbox as $row) : ?>
-		<tr class="<?php if($i++ % 2) echo "even_row"; else echo "odd_row"; ?>">
-		<td><input type="checkbox" name="check_list[]" class="delete_checkbox" value="<?php echo $row['id']; ?>"></td>
-		<td><a href="index.php?type=member&action=view&id=<?php echo $row['sender_id']; ?>"><?php echo $row['full_name']; ?></a></td>
-		<td><a href="index.php?type=message&action=view&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
-		<td><?php echo general_helpers::show_date($row['sent_time']); ?></td>
-		</tr>
-	<?php endforeach; ?>
-
-	</table>
-	<br><input type="checkbox" name="checkall" onclick="checkAll(this, 'delete_checkbox');">Markera alla
-	<br>
-	<?php
+		echo '<table class="message"><tr><td></td><td>' . _t("Recipient") . '</td><td>' . _t("Subject") . '</td><td>' . _t("Date") . '</td></tr>';
+		foreach($outbox as $row) {
+			echo '<tr class="' . ($i++ % 2 ? "even_row" : "odd_row") . '">';
+			echo '<td><input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $row['id'] . '"></td>';
+			echo '<td>';
+			_link($row['full_name'], 'member', 'view', 'id=' . $row['sender_id']);
+			echo '</td><td>';
+			_link($row['title'], 'message', 'view', 'id=' . $row['id']);
+			echo '</td><td>' . general_helpers::show_date($row['sent_time']) . '</td>';
+			echo '</tr>';			
+		}
+		echo '</table>';
+		_br();
+		echo '<input type="checkbox" name="checkall" onclick="checkAll(this, \'delete_checkbox\');">' . _t("Check all");
+		_br();
 		_submit_and_close(_t("Delete checked", array('form' => 'plural')));
-	?>
-	</form>
-
-<?php else : ?>
-	<?php __("No messages."); ?>
-<?php endif; ?>
+	}
+	else
+		__("No messages.");
+?>
