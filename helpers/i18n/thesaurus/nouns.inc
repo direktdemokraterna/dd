@@ -166,6 +166,10 @@ class nouns
 				"sv" => "roll:er:en:erna"
 				,"en" => "role:s"
 				)
+			,"sender:noun1" => array(
+				"sv" => "avsändare::n:_na"
+				,"en" => "sender:s"
+				)
 			,"setting:noun1" => array(
 				"sv" => "inställning:ar"
 				,"en" => "setting:s"

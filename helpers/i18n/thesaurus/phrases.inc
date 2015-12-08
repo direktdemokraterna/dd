@@ -230,6 +230,10 @@ class phrases
 				"sv" => "mig"
 				,"en" => "me"
 				)
+			,"message not found" => array(
+				"sv" => "kan inte hitta meddelandet"
+				,"en" => "message not found"
+				)
 			,"name of" => array(
 				"sv" => "namn på"
 				,"en" => "name of"

@@ -7,7 +7,11 @@ class verbs
 		return array(
 			//VERBS
 			//imperative:infinitive:present:perfect:perfect particip
-			"abstain:verb" => array(
+			"abort:verb" => array(
+				"sv" => "avbryt"
+				,"en" => "abort"
+				)
+			,"abstain:verb" => array(
 				"sv" => "avstår"
 				,"en" => "abstain"
 				)
@@ -147,6 +151,10 @@ class verbs
 				"sv" => "föreslå::r:_agit:(_agen|_t:__na)"
 				,"en" => "propose::|s:d:(d)"
 				)				
+			,"read:verb" => array(
+				"sv" => "läs:a:er:t:(t:a)"
+				,"en" => "read::|s:::()"
+				)				
 			,"reach:verb" => array(
 				"sv" => "uppnå::r:tt"
 				,"en" => "reach::|es:ed"
@@ -162,6 +170,10 @@ class verbs
 			,"remove:verb" => array(
 				"sv" => "ta::r:git bort"
 				,"en" => "remove::|s:d"
+				)				
+			,"reply:verb" => array(
+				"sv" => "svara::r:t"
+				,"en" => "reply::|_ies:_ied"
 				)				
 			,"resume:verb" => array(
 				"sv" => "återuppta"
