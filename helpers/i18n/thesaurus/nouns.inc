@@ -107,8 +107,8 @@ class nouns
 				,"en" => "group:s"
 				)
 			,"inbox:noun1" => array(
-				"sv" => "inbox:ar"
-				,"en" => "inbox:es"
+				"sv" => "inkorgen"
+				,"en" => "inbox"
 				)
 			,"individual:noun1" => array(
 				"sv" => "privatperson"

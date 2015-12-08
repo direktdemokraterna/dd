@@ -1,42 +1,32 @@
-<h1>Inkorgen</h1>
-
 <?php 
-	if(isset($_GET['page'])) $page = $_GET['page'];
-	else $page = 1;
-
+	_h1(_t("Inbox"));
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$inbox = db_message::get_inbox($_SESSION['id'], $page);
 	$number_of_messages = count($inbox);
 	$start_message = ($page - 1) * 20 + 1;
 	$stop_message = $start_message + $number_of_messages - 1;
 	$i = 0;
+	if($number_of_messages) {
+		_open_form();
+		_hidden("delete", 1);
+		echo _t("Showing messages ") . "$start_message - $stop_message";
+		echo '<table class="message"><tr><td></td><td>' . _t("Sender") . '</td><td>' . _t("Subject") . '</td><td>' . _t("Date") . '</td></tr>';
+		foreach($inbox as $row) {
+			echo '<tr class="' . ($i++ % 2 ? "even_row" : "odd_row") . '">';
+			echo '<td><input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $row['id'] . '"></td>';
+			echo '<td>';
+			_link($row['full_name'], 'member', 'view', 'id=' . $row['sender_id']);
+			echo '</td><td>';
+			_link($row['title'], 'message', 'view', 'id=' . $row['id']);
+			echo '</td><td>' . general_helpers::show_date($row['sent_time']) . '</td>';
+			echo '</tr>';			
+		}
+		echo '</table>';
+		_br();
+		echo '<input type="checkbox" name="checkall" onclick="checkAll(this, \'delete_checkbox\');">' . _t("Check all");
+		_br();
+		_submit_and_close(_t("Delete checked", array('form' => 'plural')));
+	}
+	else
+		__("No messages.");
 ?>
-
-<?php if($number_of_messages>0) : ?>
-	<form method="post" action="" class="standard-form">
-	<input type="hidden" name="delete" value="1">
-	Visar meddelanden <?php echo $start_message; ?> - <?php echo $stop_message; ?>
-	<table class="message"><tr><td></td><td>Avsändare</td><td>Ämne</td><td>Datum</td></tr>
-
-	<?php foreach($inbox as $row) : ?>
-		<?php
-			if($row['read_time']==0){
-				$row['full_name'] = "<strong>" . $row['full_name'] . "</strong>";
-				$row['title'] = "<strong>" . $row['title'] . "</strong>";
-			}
-		?>
-		<tr class="<?php if($i++ % 2) echo "even_row"; else echo "odd_row"; ?>">
-		<td><input type="checkbox" name="check_list[]" class="delete_checkbox" value="<?php echo $row['id']; ?>"></td>
-		<td><a href="index.php?type=member&action=view&id=<?php echo $row['sender_id']; ?>"><?php echo $row['full_name']; ?></a></td>
-		<td><a href="index.php?type=message&action=view&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
-		<td><?php echo general_helpers::show_date($row['sent_time']); ?></td>
-		</tr>
-	<?php endforeach; ?>
-
-	</table>
-	<br><input type="checkbox" name="checkall" onclick="checkAll(this, 'delete_checkbox');">Markera alla
-	<br><input type="submit" value="Radera markerade">
-	</form>
-
-<?php else : ?>
-	Inga meddelanden
-<?php endif; ?>
