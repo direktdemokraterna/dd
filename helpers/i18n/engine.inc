@@ -249,15 +249,28 @@ class engine
 	private static function init_translations() 
 	{
 		if (self::$translators == null)
-			self::$translators = self::expand_translations(translations::create_translations());
+			self::$translators = self::expand_all_translations();
 	}
 
-	private static function expand_translations($compact_translations) 
+	private static function expand_all_translations() 
 	{
 		$translators = array();
+		self::expand_translations($translators, \Thesaurus\phrases::create_translations());
+		self::expand_translations($translators, \Thesaurus\modifiers::create_translations());
+		self::expand_translations($translators, \Thesaurus\conjunctions::create_translations());
+		self::expand_translations($translators, \Thesaurus\prepositions::create_translations());
+		self::expand_translations($translators, \Thesaurus\pronouns::create_translations());
+		self::expand_translations($translators, \Thesaurus\quantifiers::create_translations());
+		self::expand_translations($translators, \Thesaurus\adjectives::create_translations());
+		self::expand_translations($translators, \Thesaurus\verbs::create_translations());
+		self::expand_translations($translators, \Thesaurus\nouns::create_translations());
+		return $translators;
+	}
+
+	private static function expand_translations(&$translators, $compact_translations) 
+	{
 		foreach (array_keys($compact_translations) as $key)
 			self::expand_translation($translators, $key, $compact_translations[$key]);
-		return $translators;
 	}
 
 	private static function expand_translation(&$translators, $identifier_str, $compact_translation) 

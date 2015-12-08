@@ -141,3 +141,24 @@ set support = 0 where support_type <> 'support';
 
 alter table proposition_support
 drop column support_type;
+
+/**************/
+/* 2015-12-08 
+/* Translate admin roles
+/**************/
+
+update admin_role
+set title = 'Superadmin'
+where id = 1;
+update admin_role
+set title = 'Member admin'
+where id = 2;
+update admin_role
+set title = 'Forum admin'
+where id = 3;
+update admin_role
+set title = 'Vote admin'
+where id = 4;
+update admin_role
+set title = 'Treasurer'
+where id = 5;

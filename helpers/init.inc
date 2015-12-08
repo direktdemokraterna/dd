@@ -36,7 +36,15 @@ include(dirname(__FILE__)."/db/db_delegate.inc");
 include(dirname(__FILE__)."/db/db_constituency.inc");
 
 include(dirname(__FILE__)."/i18n/engine.inc");
-include(dirname(__FILE__)."/i18n/translations.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/adjectives.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/conjunctions.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/modifiers.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/nouns.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/phrases.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/prepositions.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/pronouns.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/quantifiers.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/verbs.inc");
 include(dirname(__FILE__)."/i18n/selectors.inc");
 include(dirname(__FILE__)."/i18n/translator.inc");
 include(dirname(__FILE__)."/i18n/adjectives.inc");

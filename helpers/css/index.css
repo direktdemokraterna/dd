@@ -141,6 +141,10 @@ strong {
     font-size: 14px
 }
 
+.checkbox-form label {
+    display: inline;
+}
+
 .standard-form input{
     max-width: 400px;
     width: 95%;
