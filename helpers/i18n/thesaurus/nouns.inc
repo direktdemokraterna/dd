@@ -158,6 +158,10 @@ class nouns
 				"sv" => "proposition:er:en:erna"
 				,"en" => "proposition:s"
 				)
+			,"recipient:noun1" => array(
+				"sv" => "mottagare::n:_na"
+				,"en" => "recipient:s"
+				)
 			,"role:noun1" => array(
 				"sv" => "roll:er:en:erna"
 				,"en" => "role:s"

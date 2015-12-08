@@ -1,8 +1,14 @@
 <?php
+
 namespace Logic;
 
 class util 
-{	
+{
+	public static function starts_with($str, $suffix)
+	{
+	     return (substr($str, 0, strlen($suffix)) === $suffix);
+	}
+
 	public static function is_all_set($properties, $array) 
 	{
 		foreach($properties as $prop)
@@ -19,10 +25,6 @@ class util
 	{
 		$_SESSION['report_message'] = $message;
 		$_SESSION['red_report_message'] = 1;
-	}
-
-	public static function starts_With($haystack, $needle) {
-		return strpos($haystack, $needle) === 0;
 	}
 
 	public static function update_search_query($type, $action = "search") {

@@ -278,6 +278,10 @@ class phrases
 				"sv" => "propositions"
 				,"en" => "proposition's"
 				)
+			,"re" => array(
+				"sv" => "sv"
+				,"en" => "re"
+				)
 			,"register as candidate for" => array(
 				"sv" => "anmäl dig som kandidat i"
 				,"en" => "register as candidate for"

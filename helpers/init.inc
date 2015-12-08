@@ -53,6 +53,7 @@ include(dirname(__FILE__)."/i18n/pronouns.inc");
 include(dirname(__FILE__)."/i18n/verbs.inc");
 
 include(dirname(__FILE__)."/logic/forum.inc");
+include(dirname(__FILE__)."/logic/global.inc");
 include(dirname(__FILE__)."/logic/user.inc");
 include(dirname(__FILE__)."/logic/util.inc");
 include(dirname(__FILE__)."/logic/vote.inc");

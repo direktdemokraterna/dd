@@ -1,14 +1,13 @@
 <?php
+	$recipient = ""; 
+	$title = ""; 
+	$content = ""; 
 	if(isset($_GET['reply']) && !isset($_POST['recipient']) && !isset($_POST['title']) && !isset($_POST['message_text'])){
 		$reply_info = db_message::get_reply_message($_GET['reply']);
-		$recipient = $reply_info['username']; 
-		if(substr($reply_info['title'], 0, 3) == "Sv:"){
-			$title = $reply_info['title']; 
-		}
-		else{
-			$title = "Sv:" . $reply_info['title']; 
-		}
-		$content = ""; 
+		$recipient = $reply_info['username'];
+		$title = $reply_info['title'];
+		$reply_short = _t("Re: ");
+		$title = (starts_with($title, $reply_short) ? '' : $reply_short) . $title; 
 	}
 	elseif(isset($_POST['recipient']) && isset($_POST['title']) && isset($_POST['message_text'])){
 		$recipient = $_POST['recipient']; 
@@ -17,38 +16,16 @@
 	}
 	elseif(isset($_GET['id'])){
 		$recipient = db_user::get_username($_GET['id']); 
-		$title = ""; 
-		$content = ""; 
 	}
-	else{
-		$recipient = ""; 
-		$title = ""; 
-		$content = ""; 
-	}
+	_h1(_t("Write message"));
+	_open_form();
+	_hidden("send", 1);
+	$options = array("none" => _("Select recipient"));
+	$recipients = db_user::get_all_usernames_and_full_names();
+	foreach($recipients as $row)
+		$options[$row['username']] = $row['full_name'];
+	\View\general::make_labeled_selector("recipient", _t("Recipient"), $options, $recipient, 'tabindex="1"');
+	\View\general::make_textfield("title", _t("Caption"), 2, $title);
+	\View\general::make_textarea("message_text", _t("Message"), 3, $content);
+	_submit_and_close(_t("Send"), 4);
 ?>
-
-<h1>Skriv meddelande</h1>
-<form method="post" action="" class="standard-form">
-	<input type="hidden" name="send" value="1">
-	<label for "recipient">Mottagare</label>
-	<select name="recipient" id="recipient" tabindex="1">
-		<option value="">Välj mottagare</option>
-		<?php 
-			$recipients = db_user::get_all_usernames_and_full_names();
-			foreach($recipients as $row){
-				echo "<option value=\"" . $row['username'] . "\"";
-				if($recipient == $row['username']) echo " selected";
-				echo ">" . $row['full_name'] . "</option>";
-			}
-		?>
-	</select>
-
-	<br>
-	<label for "title">Rubrik</label>
-	<input type="text" name="title" id="title" value="<?php echo $title; ?>" tabindex="2">
-	<br>
-	<label for "message_text">Meddelande</label>
-	<textarea name="message_text" id="message_text" cols="60" rows="5" tabindex="3"><?php echo $content; ?></textarea>
-	<br>
-	<input type="submit" value="Skicka" tabindex="4">
-</form>
