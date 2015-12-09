@@ -3,7 +3,7 @@ namespace View;
 
 class member 
 {
-	public static function output_edit_fields($result) {
+	public static function output_edit_fields($result = null) {
 		$tab_index = 1;
 		\View\general::make_textfield("email", "Mejladress", $tab_index++, $result);
 		\View\general::make_textfield("social_security_number", "Personnummer", $tab_index++, $result);
