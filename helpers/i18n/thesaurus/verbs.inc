@@ -175,6 +175,10 @@ class verbs
 				"sv" => "ta::r:git bort"
 				,"en" => "remove::|s:d"
 				)				
+			,"replace:verb" => array(
+				"sv" => "ersätta::_er:____att"
+				,"en" => "replace::|s:d"
+				)				
 			,"reply:verb" => array(
 				"sv" => "svara::r:t"
 				,"en" => "reply::|_ies:_ied"

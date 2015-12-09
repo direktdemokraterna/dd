@@ -21,6 +21,10 @@ class adjectives
 				"sv" => "beviljad|_t:e"
 				,"en" => "affirmed"
 				)
+			,"auto-generated:adj" => array(
+				"sv" => "automatgenererad|_t:e"
+				,"en" => "auto-generated"
+				)
 			,"continous:adj" => array(
 				"sv" => "kontinuerlig|t:a"
 				,"en" => "continous"

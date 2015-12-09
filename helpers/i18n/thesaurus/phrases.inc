@@ -66,6 +66,10 @@ class phrases
 				"sv" => "bli"
 				,"en" => "become a"
 				)
+			,"been removed" => array(
+				"sv" => "tagits bort"
+				,"en" => "been removed"
+				)
 			,"by filling the form" => array(
 				"sv" => "genom att fylla i formuläret"
 				,"en" => "by filling the form"

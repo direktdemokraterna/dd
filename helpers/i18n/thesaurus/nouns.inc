@@ -130,12 +130,16 @@ class nouns
 				"sv" => "länk:ar"
 				,"en" => "link:es"
 				)
+			,"list of members:noun1" => array(
+				"sv" => "medlemslista:_or:n:na"
+				,"en" => "list of members:s"
+				)
 			,"median:noun1" => array(
 				"sv" => "median:er:-"
 				,"en" => "median:s"
 				)
 			,"member:noun1" => array(
-				"sv" => "medlem:mar:men:na"
+				"sv" => "medlem:mar:men:na:-s"
 				,"en" => "member:s"
 				)
 			,"member admin:noun1" => array(
@@ -161,6 +165,10 @@ class nouns
 			,"other:noun1" => array(
 				"sv" => "annan:___dra"
 				,"en" => "other:s"
+				)
+			,"page:noun1" => array(
+				"sv" => "sida:_or:n:na"
+				,"en" => "page:s"
 				)
 			,"popularity:noun1" => array(
 				"sv" => "populäritet"
@@ -293,7 +301,7 @@ class nouns
 				,"en" => "name:s"
 				)
 			,"password:noun2" => array(
-				"sv" => "lösenord"
+				"sv" => "lösenord::et:en"
 				,"en" => "password:s"
 				)
 			,"post:noun2" => array(
