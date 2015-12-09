@@ -259,7 +259,7 @@ class phrases
 				,"en" => "just"
 				)
 			,"last login" => array(
-				"sv" => "senaste inloggning"
+				"sv" => "senast inloggad"
 				,"en" => "last login"
 				)
 			,"last name" => array(
