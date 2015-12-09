@@ -107,6 +107,10 @@ class verbs
 				"sv" => "slutar"
 				,"en" => "finishes"
 				)
+			,"give:verb" => array(
+				"sv" => "ge::r:_av"
+				,"en" => "give::|s:___ave"
+				)
 			,"handle:verb" => array(
 				"sv" => "hantera"
 				,"en" => "handle"
@@ -174,6 +178,10 @@ class verbs
 			,"remove:verb" => array(
 				"sv" => "ta::r:git bort"
 				,"en" => "remove::|s:d"
+				)				
+			,"repeat:verb" => array(
+				"sv" => "upprepa::r:t:de:(d|_t:e)"
+				,"en" => "repeat::|s:ed:(ed)"
 				)				
 			,"replace:verb" => array(
 				"sv" => "ersätta::_er:____att"

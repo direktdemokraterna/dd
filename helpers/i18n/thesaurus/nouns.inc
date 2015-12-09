@@ -118,6 +118,10 @@ class nouns
 				"sv" => "grupp:er:-"
 				,"en" => "group:s"
 				)
+			,"hit:noun1" => array(
+				"sv" => "träff:ar"
+				,"en" => "hit:s"
+				)
 			,"image:noun1" => array(
 				"sv" => "bild:er:en:na"
 				,"en" => "image:s"
@@ -206,6 +210,10 @@ class nouns
 				"sv" => "roll:er:en:erna"
 				,"en" => "role:s"
 				)
+			,"search:noun1" => array(
+				"sv" => "sök:ningar:ningen:ningarna"
+				,"en" => "search:es"
+				)
 			,"sender:noun1" => array(
 				"sv" => "avsändare::n:_na"
 				,"en" => "sender:s"
@@ -231,8 +239,8 @@ class nouns
 				,"en" => "supporter:s"
 				)
 			,"telephone:noun1" => array(
-				"sv" => "telefon"
-				,"en" => "telephone"
+				"sv" => "telefon:er:en:na:-"
+				,"en" => "telephone:s"
 				)
 			,"thread:noun1" => array(
 				"sv" => "tråd:ar:en:na:-"
@@ -323,6 +331,10 @@ class nouns
 			,"name:noun2" => array(
 				"sv" => "namn::et:en"
 				,"en" => "name:s"
+				)
+			,"number:noun2" => array(
+				"sv" => "nummer::___ret:___en"
+				,"en" => "number:s"
 				)
 			,"password:noun2" => array(
 				"sv" => "lösenord::et:en"

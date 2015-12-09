@@ -139,7 +139,10 @@ class translator
 	}
 
 	public function is_noun_modifier() {
-		return $this->is_adjective() || $this->is_quantifier() || $this->identifier->class == 'pron-poss'
+		return $this->is_adjective() 
+		|| $this->is_quantifier() 
+		|| $this->identifier->class == 'pron-poss'
+		|| $this->identifier->class == 'definite'
 		|| in_array($this->identifier->key, array('as', 'this'));
 	}
 
