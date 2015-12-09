@@ -178,6 +178,10 @@ class nouns
 				"sv" => "mottagare::n:_na"
 				,"en" => "recipient:s"
 				)
+			,"removal:noun1" => array(
+				"sv" => "borttagning"
+				,"en" => "removal"
+				)				
 			,"role:noun1" => array(
 				"sv" => "roll:er:en:erna"
 				,"en" => "role:s"

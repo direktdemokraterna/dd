@@ -82,6 +82,10 @@ class phrases
 				"sv" => "kandidat in"
 				,"en" => "candidate in"
 				)
+			,"cannot be undone" => array(
+				"sv" => "kan inte ångras"
+				,"en" => "cannot be undone"
+				)
 			,"currently the number of members is %d" => array(
 				"sv" => "just nu är antalet medlemmar %d st"
 				,"en" => "currently the number of members is"
