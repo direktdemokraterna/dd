@@ -430,6 +430,10 @@ class phrases
 				"sv" => "kommande"
 				,"en" => "upcoming"
 				)
+			,"visible to" => array(
+				"sv" => "synlig för"
+				,"en" => "visible to"
+				)
 			,"vote (yes/no)" => array(
 				"sv" => "votering (ja/nej)"
 				,"en" => "vote (yes/no)"

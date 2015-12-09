@@ -61,6 +61,10 @@ class adjectives
 				"sv" => "öppen|_t:__na"
 				,"en" => "open"
 				)
+			,"personal:adj" => array(
+				"sv" => "personlig|t:a"
+				,"en" => "personal"
+				)
 			,"public:adj" => array(
 				"sv" => "offentlig|t:a"
 				,"en" => "public"
@@ -80,6 +84,10 @@ class adjectives
 			,"time limited:adj" => array(
 				"sv" => "tidsbegränsad|_t:e"
 				,"en" => "time limited"
+				)
+			,"visible:adj" => array(
+				"sv" => "synlig|_t:a"
+				,"en" => "visible"
 				)
 		);
 	}	

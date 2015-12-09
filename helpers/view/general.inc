@@ -2,6 +2,12 @@
 namespace View;
 class general 
 {
+	public static function make_password($control_name, $control_label, $tab_index = 1) {
+		self::make_control_label($control_name, $control_label);
+		echo('<input type="password" name="' . $control_name . '" id="' . $control_name . 
+			'" tabindex="' . $tab_index . '"></input>');
+	}
+
 	public static function make_textfield($control_name, $control_label, $tab_index = 1, $values = null) {
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
@@ -18,6 +24,15 @@ class general
 		self::make_control_label($control_name, $control_label);
 		echo('<textarea name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '"">' . $value . '</textarea>');
+	}
+
+	public static function make_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {
+		$checked_value = is_array($checked_values) 
+			? self::get_value($control_name, $checked_values) 
+			: $checked_values;
+		self::make_control_label($control_name, $control_label);
+		echo '<input type="checkbox" name="' . $control_name . '" value="' . $value 
+			. '" id="' . $control_name . '"' . ($checked_value ? " checked>" : ">");
 	}
 
 	public static function make_labeled_selector($control_name, $control_label, $options, $selected_option = null, $attributes = null) {

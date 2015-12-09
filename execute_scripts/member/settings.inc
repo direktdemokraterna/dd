@@ -17,9 +17,10 @@
 	}
 
 	elseif($_POST['form_type']=="settings"){
-		if($_POST['show_email']!=1) $_POST['show_email']=0;
-		if($_POST['show_telephone']!=1) $_POST['show_telephone']=0;
-		if($_POST['show_skype']!=1) $_POST['show_skype']=0;
+		var_dump($_POST);
+		if(!isset($_POST['show_email'])) $_POST['show_email']=0;
+		if(!isset($_POST['show_telephone'])) $_POST['show_telephone']=0;
+		if(!isset($_POST['show_skype'])) $_POST['show_skype']=0;
 		$ok = db_user::update_settings($_POST['show_email'], $_POST['show_telephone'], $_POST['show_skype'], $_SESSION['id']);
 		if($ok)
 			$_SESSION['report_message'] = "Dina inställningar har uppdaterats"; 

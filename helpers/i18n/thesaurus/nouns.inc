@@ -118,6 +118,10 @@ class nouns
 				"sv" => "grupp:er:-"
 				,"en" => "group:s"
 				)
+			,"image:noun1" => array(
+				"sv" => "bild:er:en:na"
+				,"en" => "image:s"
+				)
 			,"inbox:noun1" => array(
 				"sv" => "inkorgen"
 				,"en" => "inbox"
@@ -154,18 +158,6 @@ class nouns
 				"sv" => "kommun"
 				,"en" => "municipality"
 				)
-			,"permission:noun1" => array(
-				"sv" => "behörighet:er:en:na"
-				,"en" => "permission:s"
-				)
-			,"phrase:noun1" => array(
-				"sv" => "fras:er:en:na"
-				,"en" => "phrase:s"
-				)
-			,"profile:noun1" => array(
-				"sv" => "profil:er"
-				,"en" => "profile:s"
-				)
 			,"outbox:noun1" => array(
 				"sv" => "skickade"
 				,"en" => "outbox"
@@ -178,6 +170,14 @@ class nouns
 				"sv" => "sida:_or:n:na"
 				,"en" => "page:s"
 				)
+			,"permission:noun1" => array(
+				"sv" => "behörighet:er:en:na"
+				,"en" => "permission:s"
+				)
+			,"phrase:noun1" => array(
+				"sv" => "fras:er:en:na"
+				,"en" => "phrase:s"
+				)
 			,"popularity:noun1" => array(
 				"sv" => "populäritet"
 				,"en" => "popularity"
@@ -185,6 +185,10 @@ class nouns
 			,"priority:noun1" => array(
 				"sv" => "prioritet:er:-s"
 				,"en" => "priority:_ies"
+				)
+			,"profile:noun1" => array(
+				"sv" => "profil:er:en:erna:-"
+				,"en" => "profile:s"
 				)
 			,"proposition:noun1" => array(
 				"sv" => "proposition:er:en:erna"
@@ -253,6 +257,10 @@ class nouns
 			,"user:noun1" => array(
 				"sv" => "användare"
 				,"en" => "user:s"
+				)
+			,"user information:noun1" => array(
+				"sv" => "uppgifter"
+				,"en" => "user information"
 				)
 			,"[your]vote:noun1" => array(
 				"sv" => "röst:er:en:erna"

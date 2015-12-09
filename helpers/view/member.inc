@@ -3,13 +3,14 @@ namespace View;
 
 class member 
 {
-	public static function output_edit_fields($result = null) {
-		$tab_index = 1;
-		\View\general::make_textfield("email", "Mejladress", $tab_index++, $result);
-		\View\general::make_textfield("social_security_number", "Personnummer", $tab_index++, $result);
+	public static function output_edit_fields($result = null, $include_social_security_number = true, &$tab_index = 1) {
 		\View\general::make_textfield("username", "Användarnamn", $tab_index++, $result);
 		\View\general::make_textfield("first_name", "Förnamn", $tab_index++, $result);
 		\View\general::make_textfield("last_name", "Efternamn", $tab_index++, $result);
+		if ($include_social_security_number)
+			\View\general::make_textfield("social_security_number", "Personnummer", 
+				$tab_index++, $result);			
+		\View\general::make_textfield("email", "Mejladress", $tab_index++, $result);
 		\View\general::make_textfield("street_address", "Gatuadress", $tab_index++, $result);
 		\View\general::make_textfield("zip_code", "Postnummer", $tab_index++, $result);
 		\View\general::make_textfield("city_address", "Postort", $tab_index++, $result);
