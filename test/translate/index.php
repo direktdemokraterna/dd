@@ -1,9 +1,16 @@
 <?php 
 	include("../../helpers/init.inc");
 	$phrase = isset($_POST['phrase']) ? $_POST['phrase'] : '';
+	$hints = isset($_POST['hints']) ? $_POST['hints'] : '';
+	$translation_hints = $hints ? get_translation_hints($hints) : null;
 	$expected = isset($_POST['expected']) ? $_POST['expected'] : '';
-	$actual = _t($phrase);
+	$actual = _t($phrase, $translation_hints);
 	$output_class = $expected ? ($expected == $actual ? "correct" : "incorrect") : '';
+
+	function get_translation_hints($hints) {
+		$parts = explode('=>', $hints);
+		return array($parts[0] => $parts[1]);
+	}
 ?>
 <html>
 <head>
@@ -25,11 +32,14 @@
 			<label for "phrase">Fras</label>
 			<input type="text" name="phrase" id="phrase" tabindex="1" value="<?php echo $phrase; ?>">
 			<br>
+			<label for "hints">Direktiv</label>
+			<input type="text" name="hints" id="hints" tabindex="2" value="<?php echo $hints; ?>">
+			<br>
 			<label for "expected">Förväntad översättning</label>
-			<input type="text" name="expected" id="expected" tabindex="2" value="<?php echo $expected; ?>">
+			<input type="text" name="expected" id="expected" tabindex="3" value="<?php echo $expected; ?>">
 			<br>
 			<label for "actual">Översättning</label>
-			<input type="text" class="<?php echo $output_class; ?>" name="actual" id="actual" tabindex="3" readonly value="<?php echo $actual; ?>">
+			<input type="text" class="<?php echo $output_class; ?>" name="actual" id="actual" tabindex="4" readonly value="<?php echo $actual; ?>">
 			<br>
 			<input type="submit" value="Översätt">
 		</p></form>

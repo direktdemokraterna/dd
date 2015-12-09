@@ -168,26 +168,26 @@ class engine
 	}
 
 	private static function try_select_translator($candidates, $previous_matches, $following_matches, $translation_hints) {
-		$translator = self::select_translator($candidates, $previous_matches, $following_matches, true, $translation_hints);
-		if (!$translator)
-			$translator = self::select_translator($candidates, $previous_matches, $following_matches, false);
+		$strictness = 2;
+		do $translator = self::select_translator($candidates, $previous_matches, $following_matches, $strictness, $translation_hints);
+		while (!$translator && --$strictness);
 		return $translator;
 	}
 
-	private static function select_translator($candidates, $previous_matches, $following_matches, $match_restrictive = true, $translation_hints = null) {
+	private static function select_translator($candidates, $previous_matches, $following_matches, $strictness, $translation_hints = null) {
 		$with_selector = array();
 		$without_selector = array();
-		if ($match_restrictive && $translation_hints)
+		if ($strictness > 0 && $translation_hints)
 			$candidates = self::filter_translator_candidates($candidates, $translation_hints);
 		foreach ($candidates as $candidate)
 			if ($candidate->identifier->selector)
 				$with_selector[] = $candidate;
 			else $without_selector[] = $candidate;
 		foreach ($with_selector as $candidate)
-			if ($candidate->match($previous_matches, $following_matches, $match_restrictive))
+			if ($candidate->match($previous_matches, $following_matches, $strictness > 1))
 				return $candidate;
 		foreach ($without_selector as $candidate)
-			if ($candidate->match($previous_matches, $following_matches, $match_restrictive))
+			if ($candidate->match($previous_matches, $following_matches, $strictness > 1))
 				return $candidate;
 		return null;
 	}

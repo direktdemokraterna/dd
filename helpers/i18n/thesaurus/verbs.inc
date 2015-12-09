@@ -151,6 +151,10 @@ class verbs
 				"sv" => "föreslå::r:_agit:(_agen|_t:__na)"
 				,"en" => "propose::|s:d:(d)"
 				)				
+			,"receive:verb" => array(
+				"sv" => "motta::r:git:(gen|_t:__na)"
+				,"en" => "receive::|s:d:(d)"
+				)				
 			,"read:verb" => array(
 				"sv" => "läs:a:er:t:(t:a)"
 				,"en" => "read::|s:::()"
@@ -198,6 +202,10 @@ class verbs
 			,"show:verb" => array(
 				"sv" => "visa::r:t:(d|_t:e)"
 				,"en" => "show::|s|ing:n:(n)"
+				)
+			,"submit:verb" => array(
+				"sv" => "skicka in::r:t"
+				,"en" => "submit::|s:ted"
 				)
 			,"support:verb" => array(
 				"sv" => "stöd:ja:jer"

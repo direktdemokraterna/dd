@@ -61,6 +61,10 @@ class adjectives
 				"sv" => "offentlig|t:a"
 				,"en" => "public"
 				)
+			,"submitted:adj" => array(
+				"sv" => "inskickad|_t:e"
+				,"en" => "submitted"
+				)
 			,"sufficient:adj" => array(
 				"sv" => "tillräcklig|t:a"
 				,"en" => "sufficient"
