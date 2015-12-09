@@ -1,18 +1,9 @@
-<h1>Skapa en ny arbetsgrupp</h1>
-
-<form method="post" action="" class="standard-form">
-	<p>
-	<label for "title">Namn</label>
-	<input type="text" name="title" id="title" tabindex="2"><br>
-
-	<label for "number_of_members">Antal medlemmar</label>
-	<input type="text" name="number_of_members" id="number_of_members" tabindex="4"><br>
-
-	<label for "description">Beskrivning</label>
-	<textarea name="description" id="description" tabindex="5"></textarea>
-
-	<input type="submit" value="Skapa" tabindex="6">
-	</p>
-</form>
-
-<p>	Här skapar man statiska arbetsgrupper, arbetsgrupper vars medlemskap inte är öppet och vars medlemsantal är begränsat. I samband med att arbetsgruppen skapas kommer det också att skapas en kontinuerlig omröstning där medlemmarna i denna arbetsgrupp utses. </p>
+<?php
+	_h1(_t("Create a new workgroup"));
+	_open_form();
+	\View\general::make_textfield("title", _t("Name"), 1);
+	\View\general::make_textfield("number_of_members", _t("Number of members"), 2);
+	\View\general::make_textarea("description", _t("Description"), 3);
+	_submit_and_close(_t("Create"), null, 4);
+	_p(_t("Here you create restricted workgroups, workgroups whose membership is not free and with a restricted number of members. In association with the creation of this workgroup a continous vote will also be created where the members of this workgroup are appointed."));
+?>

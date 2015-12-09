@@ -65,6 +65,10 @@ class adjectives
 				"sv" => "offentlig|t:a"
 				,"en" => "public"
 				)
+			,"restricted:adj" => array(
+				"sv" => "stängd|_t:a"
+				,"en" => "restricted"
+				)
 			,"submitted:adj" => array(
 				"sv" => "inskickad|_t:e"
 				,"en" => "submitted"

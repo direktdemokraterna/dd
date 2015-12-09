@@ -6,7 +6,11 @@ class phrases
 	public static function create_translations() {
 		return array(
 			// UNCLASSIFIED
-			"after" => array(
+			"a continous vote will also be created" => array(
+				"sv" => "kommer det också att skapas en kontinuerlig omröstning"
+				,"en" => "a continous vote will also be created"
+				)
+			,"after" => array(
 				"sv" => "efter att"
 				,"en" => "after"
 				)
@@ -39,7 +43,7 @@ class phrases
 				,"en" => "are"
 				)
 			,"are appointed" => array(
-				"sv" => "väljs"
+				"sv" => "utses"
 				,"en" => "are appointed"
 				)
 			,"as" => array(
@@ -118,6 +122,10 @@ class phrases
 				"sv" => "även"
 				,"en" => "even"
 				)
+			,"for the particular issue" => array(
+				"sv" => "i den frågan"
+				,"en" => "från the particular issue"
+				)
 			,"for which you have registerered your delegacy" => array(
 				"sv" => "som du angivit för din delegat"
 				,"en" => "for which you have registerered your delegacy"
@@ -130,13 +138,13 @@ class phrases
 				"sv" => "funna"
 				,"en" => "found"
 				)
-			,"half" => array(
-				"sv" => "halva"
-				,"en" => "half"
-				)
 			,"given name" => array(
 				"sv" => "förnamn"
 				,"en" => "given name"
+				)
+			,"half" => array(
+				"sv" => "halva"
+				,"en" => "half"
 				)
 			,"has been cast" => array(
 				"sv" => "är lagd"
@@ -170,6 +178,10 @@ class phrases
 				"sv" => "här"
 				,"en" => "here"
 				)
+			,"here you create" => array(
+				"sv" => "här skapar man"
+				,"en" => "here you create"
+				)
 			,"if" => array(
 				"sv" => "om"
 				,"en" => "if"
@@ -177,6 +189,10 @@ class phrases
 			,"if you want to" => array(
 				"sv" => "vill du"
 				,"en" => "if you want to"
+				)
+			,"in association with" => array(
+				"sv" => "i samband med"
+				,"en" => "in association with"
 				)
 			,"in case" => array(
 				"sv" => "ifall"
@@ -197,6 +213,10 @@ class phrases
 			,"is activated" => array(
 				"sv" => "aktiveras"
 				,"en" => "is activated"
+				)
+			,"is not free" => array(
+				"sv" => "inte är öppet"
+				,"en" => "is not free"
 				)
 			,"is not possible" => array(
 				"sv" => "går inte"
@@ -346,9 +366,9 @@ class phrases
 				"sv" => "att denna kandidat upptas"
 				,"en" => "the admittance of this candidate"
 				)
-			,"for the particular issue" => array(
-				"sv" => "i den frågan"
-				,"en" => "från the particular issue"
+			,"the creation of this workgroup" => array(
+				"sv" => "att arbetsgruppen skapas"
+				,"en" => "the creation of this workgroup"
 				)
 			,"the possibility to vote closed" => array(
 				"sv" => "stängdes möjligheten att rösta"
@@ -442,9 +462,17 @@ class phrases
 				"sv" => "kommer att raderas fullständigt"
 				,"en" => "will be completely deleted"
 				)
+			,"with a restricted number of members" => array(
+				"sv" => "vars medlemsantal är begränsat"
+				,"en" => "with a restricted number of members"
+				)
 			,"when" => array(
 				"sv" => "när"
 				,"en" => "when"
+				)
+			,"where" => array(
+				"sv" => "där"
+				,"en" => "where"
 				)
 			,"whereof" => array(
 				"sv" => "varav"
