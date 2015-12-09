@@ -10,6 +10,7 @@
 .user_presentation_left p a.active{background: #eee}
 
 .user_presentation_right {
+	margin: 0px 0px 0px 20px;
     float: left;
     text-align: left;
 }

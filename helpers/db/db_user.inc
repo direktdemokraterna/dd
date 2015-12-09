@@ -53,9 +53,7 @@ class db_user
 
 	public static function get_user_data ($id)
 	{
-		$query = "select *, concat(first_name, ' ', last_name) as full_name from user where id = ?";
-		$values = Array($id);
-		return db::select_single_row($query, $values);
+		return self::get_user_data_from("id = ?", array($id));
 	}
 
 	public static function get_password ($id)
@@ -67,8 +65,13 @@ class db_user
 
 	public static function get_user_data_from_username ($username)
 	{
-		$query = "select * from user where username = ?";
-		$values = Array($username);
+		return self::get_user_data_from("username = ?", array($username));
+	}
+	
+	private static function get_user_data_from ($condition, $values)
+	{
+		$query = "select *, concat(first_name, ' ', last_name) as full_name
+		 from user where " . $condition;
 		return db::select_single_row($query, $values);
 	}
 

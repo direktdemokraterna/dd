@@ -1,106 +1,67 @@
 <?php
 	$user_id = isset($_GET['id']) ? $_GET['id'] : $_SESSION['id']; 
-	$userinfo = db_user::get_user_data($user_id); ?>
-
-<h1><?php echo $userinfo['first_name'] . " " . $userinfo['last_name']; ?></h1>
-
-<?php if($userinfo['deletion_time']) : ?>
-
-	<div class="user_presentation_left">
-
-	<p><a href="index.php?type=forum&action=topics_by_user&id=<?php echo $userinfo['id']; ?>">Trådstarter (<?php echo $userinfo['number_of_topics']; ?>)</a></p>
-	<p><a href="index.php?type=forum&action=posts_by_user&id=<?php echo $userinfo['id']; ?>">Postade inlägg (<?php echo $userinfo['number_of_posts']; ?>)</a></p>
-
-	</div>
-
-	<div class="user_presentation_right">
-
-	<p>Den här medlemmens medlemskap avslutades <?php echo general_helpers::show_date($userinfo['deletion_time']); ?>.</p>
-
-	<?php if(isset($_SESSION['is_member_admin'])) : ?>
-		<p><form method="post" action="" class="standard-form">
-			<input type="hidden" name="restore_user" value="1">
-			<input type="submit" value="Återställ användare" style="width: auto;">
-		</form></p>
-	<?php endif; ?>
-
-<?php else : ?>
-
-	<div class="user_presentation_left">
-	<img class="image150" src="<?php echo USERIMG_PATH . $userinfo['image']; ?>">
-
-	<p><a href="index.php?type=message&action=write&id=<?php echo $userinfo['id']; ?>">Skicka meddelande</a></p>
-	<p><a href="index.php?type=forum&action=topics_by_user&id=<?php echo $userinfo['id']; ?>">Trådstarter (<?php echo $userinfo['number_of_topics']; ?>)</a></p>
-	<p><a href="index.php?type=forum&action=posts_by_user&id=<?php echo $userinfo['id']; ?>">Postade inlägg (<?php echo $userinfo['number_of_posts']; ?>)</a></p>
-
-	</div>
-
-	<div class="user_presentation_right">
-
-	<?php
+	$userinfo = db_user::get_user_data($user_id); 
+	_h1($userinfo['full_name']);
+	echo '<div class="user_presentation_left">';
+	echo '<img class="image150" src="' . USERIMG_PATH . $userinfo['image'] . '">';
+	_br();
+	_p(\View\general::generate_internal_link(_t("Thread starts (") 
+		. $userinfo['number_of_topics'] . ")", 'forum', 'topics_by_user', 'id=' 
+		. $userinfo['id']));
+	_p(\View\general::generate_internal_link(_t("Posts (") 
+		. $userinfo['number_of_posts'] . ")", 'forum', 'posts_by_user', 'id=' 
+		. $userinfo['id']));
+	if(!$userinfo['deletion_time'])
+		_p(\View\general::generate_internal_link(_t("Send message"), 'message', 'write', 'id=' . $userinfo['id']));
+	echo '</div>';
+	echo '<div class="user_presentation_right">';
+	if($userinfo['deletion_time']) {
+		_p(_t("This member's membership was terminated ") . strtolower(general_helpers::show_date($user_data['deletion_time'])) . '.');
+		if(isset($_SESSION['is_member_admin'])) {
+			_open_form();
+			_hidden("restore_user", 1);
+			_submit_and_close("Restore member");
+		}
+	}
+	else {
 		$admin_roles = db_admin::get_admin_roles_for_user($user_id);
-		foreach($admin_roles as $row){
-			echo "<p>Är <a href=\"index.php?type=member&action=admin_description&id=" . $row['id'] . "\">" . strtolower($row['title']) . "</a></p>";
+		foreach($admin_roles as $row)
+			_p(_t("Is ") . \View\general::generate_internal_link(_t(strtolower($row['title'])), 'member', 'admin_description', 'id=' . $row['id']));
+		_p(_t("Last login: ") . general_helpers::show_date($userinfo['last_activity_time']));
+		if($userinfo['show_email'])
+			_p(_t("Email address: ") . $userinfo['email']);
+		if($userinfo['show_telephone']) {
+			if(!empty($userinfo['telephone1']))
+				_p(_t("Telephone number: ") . $userinfo['telephone1']);
+			if(!empty($userinfo['telephone2']))
+				_p(_t("Telephone number: ") . $userinfo['telephone2']);
 		}
-	?>
-
-	<p>Senast inloggad: <?php echo general_helpers::show_date($userinfo['last_activity_time']); ?></p>
-	<?php if($userinfo['show_email']==1) : ?>
-		<p>Mejladress: <?php echo $userinfo['email']; ?></p>
-	<?php endif; ?>
-	<?php if($userinfo['show_telephone']==1) : ?>
-		<?php if(!empty($userinfo['telephone1'])) : ?>
-			<p>Telefonnummer: <?php echo $userinfo['telephone1']; ?></p>
-		<?php endif; ?>
-		<?php if(!empty($userinfo['telephone2'])) : ?>
-			<p>Telefonnummer: <?php echo $userinfo['telephone2']; ?></p>
-		<?php endif; ?>
-	<?php endif; ?>
-	<?php if($userinfo['show_skype']==1 && !empty($userinfo['skype_name'])) : ?>
-		<p>Skype användarnamn: <?php echo $userinfo['skype_name']; ?></p>
-	<?php endif; ?>
-	<p>Kommun: <?php echo $userinfo['county']; ?></p>
-	<p>Län: <?php echo $userinfo['region']; ?></p>
-
-	<p>Presentation:<br>
-	<?php echo \View\general::make_html_from_wiki_text($userinfo['description']); ?>
-	</p>
-
-	<br>
-
-	<?php
-		if ($user_id == $_SESSION['id']) {
-			echo "<p>";
-			\View\general::output_internal_link("Ändra mina uppgifter", "member", "settings");
-			echo "</p>";
-		} 
-		elseif(isset($_SESSION['is_member_admin'])) {
-			echo "<p>";
-			\View\general::output_internal_link("Ändra uppgifter för denna användare", "member_admin", "edit", 
-				"id=" . $user_id);
-			echo "</p>";
+		if($userinfo['show_skype'] && !empty($userinfo['skype_name']))
+			_p(_t("Skype username: ") . $userinfo['skype_name']);
+		_p(_t("Municipality: ") . $userinfo['county']);
+		_p(_t("Region: ") . $userinfo['region']);
+		_p(_t("Presentation:") . '<br>' . \View\general::make_html_from_wiki_text($userinfo['description']));
+		_br();
+		if ($user_id == $_SESSION['id'])
+			_p(\View\general::generate_internal_link(_t("Change my information"), 
+				"member", "settings"));
+		elseif(isset($_SESSION['is_member_admin']))
+			_p(\View\general::generate_internal_link(_t("Change information for this user"), 
+				"member_admin", "edit", "id=" . $user_id));
+		if(isset($_SESSION['is_forum_admin']))
+			_p(\View\general::generate_internal_link(_t("Set forum permissions for this user"), 
+				"forum_admin", "edit_user", "id=" . $user_id));
+		if(isset($_SESSION['is_vote_admin']))
+			_p(\View\general::generate_internal_link(_t("Set constituency permissions for this user"), 
+				"vote_admin", "edit_user", "id=" . $user_id));
+		if(isset($_SESSION['is_superadmin']))
+			_p(\View\general::generate_internal_link(_t("Set administrator roles for this user"), 
+				"superadmin", "edit_admin", "id=" . $user_id));
+		if(isset($_SESSION['is_member_admin'])) {
+			_open_form();
+			_hidden("delete_user", 1);
+			_submit_and_close(_t("Remove this user"), _t("Do you realy want to remove this user?"));
 		}
-	?>
-
-	<?php if(isset($_SESSION['is_forum_admin'])) : ?>
-		<p><a href="index.php?type=forum_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in forumbehörigheter för denna användare</a></p>
-	<?php endif; ?>
-
-	<?php if(isset($_SESSION['is_vote_admin'])) : ?>
-		<p><a href="index.php?type=vote_admin&action=edit_user&id=<?php echo $user_id; ?>">Ställ in valkretsbehörigheter för denna användare</a></p>
-	<?php endif; ?>
-
-	<?php if(isset($_SESSION['is_superadmin'])) : ?>
-		<p><a href="index.php?type=superadmin&action=edit_admin&id=<?php echo $user_id; ?>">Ställ in administratörsrättigheter för denna användare</a></p>
-	<?php endif; ?>
-
-	<?php if(isset($_SESSION['is_member_admin'])) : ?>
-		<form method="post" action="" class="standard-form" onsubmit="confirm('Vill du verkligen ta bort denna användare?');">
-			<input type="hidden" name="delete_user" value="1">
-			<input type="submit" value="Ta bort användare" style="width: auto;">
-		</form>
-	<?php endif; ?>
-
-<?php endif; ?>
-
-</div>
+	}
+	echo '</div>';
+?>

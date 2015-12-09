@@ -258,6 +258,10 @@ class phrases
 				"sv" => "bara"
 				,"en" => "just"
 				)
+			,"last login" => array(
+				"sv" => "senaste inloggning"
+				,"en" => "last login"
+				)
 			,"last name" => array(
 				"sv" => "efternamn"
 				,"en" => "last name"
@@ -449,6 +453,10 @@ class phrases
 			,"was found" => array(
 				"sv" => "hittades"
 				,"en" => "was found"
+				)
+			,"was terminated" => array(
+				"sv" => "avslutades"
+				,"en" => "was terminated"
 				)
 			,"welcome" => array(
 				"sv" => "välkommen"

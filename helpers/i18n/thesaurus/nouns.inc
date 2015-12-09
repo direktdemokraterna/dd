@@ -99,7 +99,7 @@ class nouns
 				,"en" => "description:s"
 				)
 			,"email:noun1" => array(
-				"sv" => "e-post"
+				"sv" => "e-post:-"
 				,"en" => "email"
 				)
 			,"exclusion:noun1" => array(
@@ -142,6 +142,10 @@ class nouns
 				"sv" => "medlem:mar:men:na:-s"
 				,"en" => "member:s"
 				)
+			,"member's:noun1" => array(
+				"sv" => "medlemmens"
+				,"en" => "member's"
+				)
 			,"member admin:noun1" => array(
 				"sv" => "medlemsansvarig:a"
 				,"en" => "member admin:s"
@@ -149,6 +153,10 @@ class nouns
 			,"municipality:noun1" => array(
 				"sv" => "kommun"
 				,"en" => "municipality"
+				)
+			,"permission:noun1" => array(
+				"sv" => "behörighet:er:en:na"
+				,"en" => "permission:s"
 				)
 			,"phrase:noun1" => array(
 				"sv" => "fras:er:en:na"
@@ -206,6 +214,10 @@ class nouns
 				"sv" => "personnummer"
 				,"en" => "social security number"
 				)
+			,"start:noun1" => array(
+				"sv" => "start:er:en:na"
+				,"en" => "start:s"
+				)
 			,"street:noun1" => array(
 				"sv" => "gata:or:-_u"
 				,"en" => "street:s"
@@ -217,6 +229,10 @@ class nouns
 			,"telephone:noun1" => array(
 				"sv" => "telefon"
 				,"en" => "telephone"
+				)
+			,"thread:noun1" => array(
+				"sv" => "tråd:ar:en:na:-"
+				,"en" => "thread:s"
 				)
 			,"time:noun1" => array(
 				"sv" => "tidpunkt:er"

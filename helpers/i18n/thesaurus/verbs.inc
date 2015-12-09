@@ -203,6 +203,10 @@ class verbs
 				"sv" => "skicka::r:t:(d|_t:e)"
 				,"en" => "send::|s|ing:_t:(_t)"
 				)
+			,"set:verb" => array(
+				"sv" => "ställ in"
+				,"en" => "set"
+				)
 			,"show:verb" => array(
 				"sv" => "visa::r:t:(d|_t:e)"
 				,"en" => "show::|s|ing:n:(n)"

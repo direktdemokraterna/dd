@@ -3,7 +3,7 @@
 	_link('<- ' . _t("Back to the member page"), 'member', 'view', 'id=' . $_GET['id']);
 	_h1(_t("Edit member"));
 	if($user_data['deletion_time'])
-		_p(_t("This member has been removed from the list of members ") . strtolower(general_helpers::show_date($user_data['deletion_time'])) . '.');
+		_p(_t("This member's membership was terminated ") . strtolower(general_helpers::show_date($user_data['deletion_time'])) . '.');
 	_open_form();
 	_hidden("edit_user", 1);
 	\View\member::output_edit_fields($user_data);
