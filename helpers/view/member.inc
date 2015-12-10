@@ -29,8 +29,9 @@ class member
 		self::make_region_county_list_filter();
 	}
 
-	public static function generate_member_link($user_id, $user_name) {
-		return \View\general::generate_internal_link($user_name, 'member', 'view', 'id=' . $user_id);
+	public static function link($user, $id_prop = 'id', $name_prop = 'full_name') {
+		return \View\general::generate_internal_link($user[$name_prop]
+			, 'member', 'view', 'id=' . $user[$id_prop]);
 	}
 
 	// makes the top links for choosing page and sorting alternatives for a list_of_links

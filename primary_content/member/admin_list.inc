@@ -5,7 +5,7 @@
 		_h2($admin_role['title']);
 			$admins_for_this_role = db_admin::get_admin_role_users($admin_role['id']);
 		foreach($admins_for_this_role as $admin){
-			_link($admin['full_name'], 'member', 'view', 'id=' . $admin['id']);
+			echo \View\member::link($admin);
 			_br();			
 		}
 	}

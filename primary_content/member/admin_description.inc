@@ -1,23 +1,19 @@
 <?php 
 	$admin_role_info = db_admin::get_admin_role_info($_GET['id']);
-?>
-
-<h1><?php echo $admin_role_info['title']; ?></h1>
-
-<p>
-<strong>Beskrivning:</strong><br>
-<?php if(!empty($admin_role_info['description'])) : ?>
-	<?php echo $admin_role_info['description']; ?>
-<?php else : ?>
-	Ingen beskrivning
-<?php endif; ?>
-</p>
-
-<?php 
+	_h1($admin_role_info['title']);
+	echo '<p>';
+	_strong(_t("Description:"));
+	_br();
+	echo empty($admin_role_info['description']) 
+		? _t("No description.")
+		: $admin_role_info['description'];
+	echo '</p>';
 	$list_of_admins = db_admin::get_admin_role_users($_GET['id']);
+	echo '<p>';
+	_strong(_t("Members who has this role:"));
+	_br();
+	foreach($list_of_admins as $row) {
+		echo \View\member::link($row);
+		_br();
+	}
 ?>
-<p>
-<strong>Medlemmar som innehar denna befattning:</strong><br>
-<?php foreach($list_of_admins as $row) : ?>
-	<a href="index.php?type=member&action=view&id=<?php echo $row['id']; ?>"><?php echo $row['full_name']; ?></a><br>
-<?php endforeach; ?>

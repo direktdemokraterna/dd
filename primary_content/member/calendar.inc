@@ -12,7 +12,7 @@
 			_h2($row['title']);
 			_info(_t("Time"), $row['time']);
 			_info(_t("Location"), $row['location']);
-			_info(_t("Added by"), \View\member::generate_member_link($row['user_id'], $row['full_name']));
+			_info(_t("Added by"), \View\member::link($row, 'user_id'));
 			_info(_t("Description"), \View\general::make_html_from_wiki_text($row['content']));
 			_br();
 			_strong(_t("Subscribed participants:", array('class' => 'adj')));
@@ -25,7 +25,7 @@
 			}
 			else 
 				foreach($participants as $p_row) {
-					echo \View\member::generate_member_link($p_row['user_id'], $p_row['full_name']);
+					echo \View\member::link($p_row, 'user_id');
 					_br();
 				}
 			if(($timestamp + ONE_DAY_IN_SECONDS) > time()) {
