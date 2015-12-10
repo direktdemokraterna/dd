@@ -8,22 +8,34 @@ class general
 			'" tabindex="' . $tab_index . '"></input>');
 	}
 
-	public static function make_textfield($control_name, $control_label, $tab_index = 1, $values = null) {
+	public static function make_textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
 		self::make_control_label($control_name, $control_label);
-		echo('<input type="text" name="' . $control_name . '" id="' . $control_name . 
-			'" tabindex="' . $tab_index . '" value="' . $value . '"></input>');
+		$element = '<input type="text" name="' . $control_name . '" id="' . $control_name . 
+			'" tabindex="' . $tab_index . '" value="' . $value . '"';
+		self::add_attributes($element, $attributes);
+		$element .= '></input>';
+		echo $element;
 	}
 
-	public static function make_textarea($control_name, $control_label, $tab_index = 1, $values = null) {
+	public static function make_textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
 		self::make_control_label($control_name, $control_label);
-		echo('<textarea name="' . $control_name . '" id="' . $control_name . 
-			'" tabindex="' . $tab_index . '"">' . $value . '</textarea>');
+		$element = '<textarea name="' . $control_name . '" id="' . $control_name . 
+			'" tabindex="' . $tab_index . '"';
+		self::add_attributes($element, $attributes);
+		$element .= '>' . $value . '</textarea>';
+		echo $element;
+	}
+
+	private static function add_attributes(&$element, $attributes) {
+		if ($attributes)
+			foreach ($attributes as $key => $value)
+				$element .= ' ' . $key . '="' . $value . '"';
 	}
 
 	public static function make_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {

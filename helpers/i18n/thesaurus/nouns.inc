@@ -10,6 +10,10 @@ class nouns
 				"sv" => "pågående omröstning:ar"
 				,"en" => "active vote:s"
 				)
+			,"activity:noun1" => array(
+				"sv" => "aktivitet"
+				,"en" => "activity"
+				)
 			,"address:noun1" => array(
 				"sv" => "adress"
 				,"en" => "address"
