@@ -266,6 +266,7 @@ class engine
 		self::expand_translations($translators, \Thesaurus\adjectives::create_translations());
 		self::expand_translations($translators, \Thesaurus\verbs::create_translations());
 		self::expand_translations($translators, \Thesaurus\nouns::create_translations());
+		self::expand_translations($translators, \Thesaurus\time_and_date::create_translations());
 		return $translators;
 	}
 

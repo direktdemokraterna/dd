@@ -44,6 +44,7 @@ include(dirname(__FILE__)."/i18n/thesaurus/phrases.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/prepositions.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/pronouns.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/quantifiers.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/time_and_date.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/verbs.inc");
 include(dirname(__FILE__)."/i18n/selectors.inc");
 include(dirname(__FILE__)."/i18n/translator.inc");
