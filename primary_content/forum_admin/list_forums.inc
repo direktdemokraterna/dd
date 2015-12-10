@@ -1,11 +1,12 @@
-<?php $forums = db_forum_admin::list_forums(); ?>
+<?php 
+	$forums = db_forum_admin::list_forums(); 
+	_h1(_t("Forums"));
+	echo '<div class="list_of_links">';
+	foreach($forums as $row) {
+		_link($row['title'], 'forum_admin', 'edit_forum', 'id=' . $row['id']);
+		_br();
+	}
+	echo '</div>';
+?>
 
-<h1>Forum</h1>
 
-<div class="list_of_links">
-
-<?php foreach($forums as $row) : ?>
-	<a href="index.php?type=forum_admin&action=edit_forum&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a><br>
-<?php endforeach; ?>
-
-</div>
