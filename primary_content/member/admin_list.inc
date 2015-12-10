@@ -1,14 +1,13 @@
-<h1>Administratörer</h1>
-<?php 
+<?php
+	_h1(_t("Administrators"));
 	$admin_roles = db_admin::get_all_admin_roles();
+	foreach($admin_roles as $admin_role) {
+		_h2($admin_role['title']);
+			$admins_for_this_role = db_admin::get_admin_role_users($admin_role['id']);
+		foreach($admins_for_this_role as $admin){
+			_link($admin['full_name'], 'member', 'view', 'id=' . $admin['id']);
+			_br();			
+		}
+	}
 ?>
 
-<?php foreach($admin_roles as $admin_role) : ?>
-	<h2><?php echo $admin_role['title']; ?></h2>
-	<?php 
-		$admins_for_this_role = db_admin::get_admin_role_users($admin_role['id']);
-	?>
-	<?php foreach($admins_for_this_role as $admin) : ?>
-		<a href="index.php?type=member&action=view&id=<?php echo $admin['id']; ?>"><?php echo $admin['full_name']; ?></a><br>
-	<?php endforeach; ?>
-<?php endforeach; ?>
