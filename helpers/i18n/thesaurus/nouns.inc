@@ -6,7 +6,11 @@ class nouns
 	public static function create_translations() {
 		return array(
 			//singular_indefinite:plural_indefinite:singular_definite:plural_definite
-			"active vote:noun1" => array(
+			"access:noun1" => array(
+				"sv" => "tillgång"
+				,"en" => "access"
+				)
+			,"active vote:noun1" => array(
 				"sv" => "pågående omröstning:ar"
 				,"en" => "active vote:s"
 				)

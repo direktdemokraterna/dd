@@ -29,6 +29,10 @@ class adjectives
 				"sv" => "automatgenererad|_t:e"
 				,"en" => "auto-generated"
 				)
+			,"available:adj" => array(
+				"sv" => "tillgänglig|t:a"
+				,"en" => "available"
+				)
 			,"continous:adj" => array(
 				"sv" => "kontinuerlig|t:a"
 				,"en" => "continous"
@@ -44,6 +48,10 @@ class adjectives
 			,"late:adj" => array(
 				"sv" => "sen|t:a:aste"
 				,"en" => "late::st"
+				)
+			,"limited:adj" => array(
+				"sv" => "begränsad"
+				,"en" => "limited"
 				)
 			,"my:adj" => array(
 				"sv" => "min|_tt:a"

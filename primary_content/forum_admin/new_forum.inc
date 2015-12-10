@@ -1,23 +1,13 @@
-<h1>Skapa nytt forum</h1>
-
-<form method="post" action="" class="standard-form">
-<p>
-<label for "title">Namn</label>
-<input type="text" name="title" id="title" tabindex="1">
-<br><label for "description">Beskrivning</label>
-<textarea name="description" id="description" cols="60" rows="5" tabindex="3"></textarea>
-<br><label for"category">Kategori</label>
-<select name="category" id="category">
-	<?php 
-		$categories = db_forum_admin::list_categories();
-		foreach($categories as $row){
-			echo "<option value=\"" . $row['id'] . "\">" . $row['title'] . "</option>";
-		}
-	?>
-</select>
-<br><label for"access_type">Forumtillgång</label>
-<select name="access_type" id="access_type">
-	<option value="1">Tillgängligt för alla</option>
-	<option value="2">Begränsad tillgång</option>
-</select>
-<br><input type="submit" value="Skapa" tabindex="4">
+<?php
+	_h1(_t("Create new forum"));
+	_open_form();
+	\View\general::make_textfield("title", _t("Name"), 1);
+	\View\general::make_textarea("description", _t("Description"), 2, null
+		, array('cols'=>60, 'rows'=>5));
+	$category_options = \db_general::make_hash(db_forum_admin::list_categories(), 'id', 'title');
+	\View\general::make_labeled_selector("category", _t("Category"), $category_options);
+	$access_options = array(1 => _t("Available for all"), 2 => _t("Limited access"));
+	\View\general::make_labeled_selector("access_type", _t("Forum access"), $access_options);
+	_br();
+	_submit_and_close(_t("Create"));
+?>
