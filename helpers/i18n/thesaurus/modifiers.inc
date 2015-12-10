@@ -16,6 +16,10 @@ class modifiers
 				)
 
 			// DEFINITE MARKERS
+			,"once every:definite" => array(
+				"sv" => "en gång i"
+				,"en" => "once every"
+				)
 			,"the:definite" => array(
 				"sv" => ""
 				,"en" => "the"

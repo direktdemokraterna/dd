@@ -82,6 +82,10 @@ class nouns
 				"sv" => "valkrets:ar:en:na:-"
 				,"en" => "constituency:_ies"
 				)
+			,"day:noun1" => array(
+				"sv" => "dag:ar:en:na"
+				,"en" => "day:s"
+				)
 			,"debate:noun1" => array(
 				"sv" => "debatt:er"
 				,"en" => "debate:s"
@@ -161,6 +165,10 @@ class nouns
 			,"member admin:noun1" => array(
 				"sv" => "medlemsansvarig:a"
 				,"en" => "member admin:s"
+				)
+			,"month:noun1" => array(
+				"sv" => "månad:er:en:na"
+				,"en" => "month:s"
 				)
 			,"municipality:noun1" => array(
 				"sv" => "kommun"
@@ -297,6 +305,10 @@ class nouns
 			,"voter:noun1" => array(
 				"sv" => "röstande"
 				,"en" => "voter"
+				)
+			,"week:noun1" => array(
+				"sv" => "vecka:_or:n:na"
+				,"en" => "week:s"
 				)
 			,"workgroup:noun1" => array(
 				"sv" => "arbetsgrupp:er:en:na"

@@ -190,6 +190,10 @@ class phrases
 				"sv" => "vill du"
 				,"en" => "if you want to"
 				)
+			,"in a row" => array(
+				"sv" => "i rad"
+				,"en" => "in a row"
+				)
 			,"in association with" => array(
 				"sv" => "i samband med"
 				,"en" => "in association with"
@@ -453,6 +457,10 @@ class phrases
 			,"vote status" => array(
 				"sv" => "Omröstningens status"
 				,"en" => "vote status"
+				)
+			,"want the activity to be repeated" => array(
+				"sv" => "vill att aktiviteten ska upprepas"
+				,"en" => "want the activity to be repeated"
 				)
 			,"was found" => array(
 				"sv" => "hittades"

@@ -59,6 +59,7 @@ include(dirname(__FILE__)."/logic/user.inc");
 include(dirname(__FILE__)."/logic/util.inc");
 include(dirname(__FILE__)."/logic/vote.inc");
 
+include(dirname(__FILE__)."/view/calendar.inc");
 include(dirname(__FILE__)."/view/forum.inc");
 include(dirname(__FILE__)."/view/general.inc");
 include(dirname(__FILE__)."/view/generators.inc");

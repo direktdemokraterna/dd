@@ -29,6 +29,10 @@ class prepositions
 				"sv" => "för"
 				,"en" => "for"
 				)
+			,"for[quant]:prep" => array(
+				"sv" => "under"
+				,"en" => "for"
+				)
 			,"[proposal]for:prep" => array(
 				"sv" => "till"
 				,"en" => "for"

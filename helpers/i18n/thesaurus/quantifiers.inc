@@ -29,6 +29,10 @@ class quantifiers
 				"sv" => "tre"
 				,"en" => "three"
 				)
+			,"several:quant" => array(
+				"sv" => "flera"
+				,"en" => "several"
+				)
 			,"a:quant" => array(
 				"sv" => "en|_tt"
 				,"en" => "a"

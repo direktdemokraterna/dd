@@ -47,12 +47,15 @@ class general
 			. '" id="' . $control_name . '"' . ($checked_value ? " checked>" : ">");
 	}
 
-	public static function make_labeled_selector($control_name, $control_label, $options, $selected_option = null, $attributes = null) {
+	public static function make_labeled_selector($control_name, $control_label, $options, $values = null, $attributes = null) {
 		self::make_control_label($control_name, $control_label);
-		self::make_selector($control_name, $options, $selected_option, $attributes);
+		self::make_selector($control_name, $options, $values, $attributes);
 	}
 
-	public static function make_selector($control_name, $options, $selected_option = null, $attributes = null) {
+	public static function make_selector($control_name, $options, $values = null, $attributes = null) {
+		$selected_option = is_array($values) 
+			? self::get_value($control_name, $values) 
+			: $values;
 		self::open_select($control_name, $attributes);
 		foreach($options as $key => $value){
 			self::make_option($key, $selected_option, $value);
