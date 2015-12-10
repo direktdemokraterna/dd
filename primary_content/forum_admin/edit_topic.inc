@@ -1,26 +1,16 @@
 <?php 
 	$post_info = db_forum::get_full_post_info($_GET['id'], $_SESSION['id']);
+	_h1(_t("Moderate topic: ") . $post_info['title']);
+	_h2(_t("Move topic to another forum"));
+	_open_form();
+	_hidden("move_topic", 1);
+	$move_options = db_general::make_hash(db_forum_admin::get_all_forums(), 'id', 'title');
+	\View\general::make_selector("forum_id", $move_options);
+	_br();
+	_submit_and_close(_t("Move"));
+	_h2(_t("Delete topic and all its posts"));
+	_open_form();
+	_hidden("delete_topic", 1);
+	_submit_and_close(_t("Delete"));
 ?>
-
-<h1>Modereringsalternativ för ämne: <?php echo $post_info['title']; ?></h1>
-
-<h2>Flytta ämnet till annat forum</h2>
-<form method="post" action="" class="standard-form">
-	<input type="hidden" name="move_topic" value="1">
-	<select name="forum_id" id="forum_id">
-		<?php 
-			$forums = db_forum_admin::get_all_forums();
-			foreach($forums as $row){
-				echo "<option value=\"" . $row['id'] . "\">" . $row['title'] . "</option>";
-			}
-		?>
-	</select>
-	<br><input type="submit" value="Flytta">
-</form>
-
-<h2>Radera ämnet och alla dess inlägg</h2>
-<form method="post" action="" class="standard-form">
-	<input type="hidden" name="delete_topic" value="1">
-	<input type="submit" value="Radera">
-</form>
 

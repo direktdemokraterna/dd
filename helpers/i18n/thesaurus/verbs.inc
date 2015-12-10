@@ -135,6 +135,14 @@ class verbs
 				"sv" => "logga ut"
 				,"en" => "logout"
 				)
+			,"moderate:verb" => array(
+				"sv" => "moderera"
+				,"en" => "moderate"
+				)
+			,"move:verb" => array(
+				"sv" => "flytta"
+				,"en" => "move"
+				)
 			,"note:verb" => array(
 				"sv" => "notera"
 				,"en" => "note"

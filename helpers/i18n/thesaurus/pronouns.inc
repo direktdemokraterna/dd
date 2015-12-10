@@ -22,6 +22,10 @@ class pronouns
 				)
 
 			//POSSESSIVE PRONOUN
+			,"its:pron-poss" => array(
+				"sv" => "dess"
+				,"en" => "its"
+				)
 			,"whose:pron-poss" => array(
 				"sv" => "vars"
 				,"en" => "whose"

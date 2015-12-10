@@ -38,6 +38,10 @@ class phrases
 				"sv" => "innebär också"
 				,"en" => "also means"
 				)
+			,"another" => array(
+				"sv" => "ett annat"
+				,"en" => "another"
+				)
 			,"are" => array(
 				"sv" => "är"
 				,"en" => "are"

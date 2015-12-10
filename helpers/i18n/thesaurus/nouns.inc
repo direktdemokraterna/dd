@@ -282,6 +282,10 @@ class nouns
 				"sv" => "titel"
 				,"en" => "title"
 				)
+			,"topic:noun1" => array(
+				"sv" => "ämne"
+				,"en" => "topic"
+				)
 			,"type:noun1" => array(
 				"sv" => "typ"
 				,"en" => "type"
