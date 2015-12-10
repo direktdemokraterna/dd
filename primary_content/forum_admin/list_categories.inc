@@ -1,11 +1,10 @@
-<?php $categories = db_forum_admin::list_categories(); ?>
-
-<h1>Kategorier</h1>
-
-<div class="list_of_links">
-
-<?php foreach($categories as $row) : ?>
-	<a href="index.php?type=forum_admin&action=edit_category&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a><br>
-<?php endforeach; ?>
-
-</div>
+<?php 
+	$categories = db_forum_admin::list_categories(); 
+	_h1(_t("Categories"));
+	echo '<div class="list_of_links">';
+	foreach($categories as $row) {
+		_link($row['title'], 'forum_admin', 'edit_category', 'id=' . $row['id']);
+		_br();
+	}
+	echo '</div>';
+?>
