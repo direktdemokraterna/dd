@@ -1,18 +1,18 @@
 <?php 
 	$userdata = db_user::get_user_data($_GET['id']);
-	echo "<h1>";
-	\View\general::output_internal_link($userdata['first_name'] . " " . $userdata['last_name'], "member", "view", "id=" . $_GET['id']);
-	echo "</h1>";
+	_h1(\View\member::link($userdata));
+	_strong(_t('Forum permissions for this user'));
+	_br();
+	_open_form("");
+	echo '<ul class="checkbox-grid">';
+	$forum_access = db_forum_admin::get_all_forums_and_if_user_belongs($_GET['id']);
+	foreach($forum_access as $row) {
+		echo '<li><input type="checkbox" name="check_list[]" id="' . $row['forum_name'] 
+			. '" value="' . $row['forum_id'] . '"' . ($row['user_access'] ? " checked>" : '>');
+		_label($row['forum_name'], $row['forum_name']);
+		echo '</li>';
+	}
+	echo '</ul><div class="clear"></div>';
+	_br();
+	_submit_and_close(_t("Change"));
 ?>
-<strong>Forumbehörigheter för denna användare</strong><br>
-<form method="post" action=""><ul class="checkbox-grid">
-
-<?php $forum_access = db_forum_admin::get_all_forums_and_if_user_belongs($_GET['id']); ?>
-
-<?php foreach($forum_access as $row) : ?>
-	<li><input type="checkbox" name="check_list[]" id="<?php echo $row['forum_name']; ?>" value="<?php echo $row['forum_id']; ?>" <?php if($row['user_access']==1) echo " checked"; ?>>
-	<label for "<?php echo $row['forum_name']; ?>"><?php echo $row['forum_name']; ?></label></li>
-<?php endforeach; ?>
-
-</ul><div class="clear"></div><br><input type="submit" style="margin-left: 10%;" id="submit" value="Ändra">
-</form>
