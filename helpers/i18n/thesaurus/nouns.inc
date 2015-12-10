@@ -150,6 +150,10 @@ class nouns
 				"sv" => "medlemslista:_or:n:na"
 				,"en" => "list of members:s"
 				)
+			,"location:noun1" => array(
+				"sv" => "plats:er:en:na"
+				,"en" => "location:s"
+				)
 			,"median:noun1" => array(
 				"sv" => "median:er:-"
 				,"en" => "median:s"
@@ -185,6 +189,10 @@ class nouns
 			,"page:noun1" => array(
 				"sv" => "sida:_or:n:na"
 				,"en" => "page:s"
+				)
+			,"participant:noun1" => array(
+				"sv" => "deltagare::n:_na"
+				,"en" => "participant:s"
 				)
 			,"permission:noun1" => array(
 				"sv" => "behörighet:er:en:na"

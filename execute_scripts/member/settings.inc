@@ -17,7 +17,6 @@
 	}
 
 	elseif($_POST['form_type']=="settings"){
-		var_dump($_POST);
 		if(!isset($_POST['show_email'])) $_POST['show_email']=0;
 		if(!isset($_POST['show_telephone'])) $_POST['show_telephone']=0;
 		if(!isset($_POST['show_skype'])) $_POST['show_skype']=0;

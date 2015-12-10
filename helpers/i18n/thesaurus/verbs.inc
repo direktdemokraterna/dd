@@ -223,6 +223,10 @@ class verbs
 				"sv" => "skicka in::r:t"
 				,"en" => "submit::|s:ted"
 				)
+			,"subscribe:verb" => array(
+				"sv" => "anmäl:a:er:t:(d|_t:a)"
+				,"en" => "subscribe::|s:d:(d)"
+				)
 			,"support:verb" => array(
 				"sv" => "stöd:ja:jer"
 				,"en" => "support::|s"

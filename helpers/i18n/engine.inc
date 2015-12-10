@@ -170,7 +170,7 @@ class engine
 	private static function try_select_translator($candidates, $previous_matches, $following_matches, $translation_hints) {
 		$strictness = 2;
 		do $translator = self::select_translator($candidates, $previous_matches, $following_matches, $strictness, $translation_hints);
-		while (!$translator && --$strictness);
+		while (!$translator && $strictness--);
 		return $translator;
 	}
 

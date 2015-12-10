@@ -1,102 +1,54 @@
 <?php
-	if(!isset($_GET['day']) && isset($_GET['month'])){
-		$show_this_date = false;
-	}
-	else{
-		$show_this_date = true;
-	}
-	
-	if(isset($_GET['day'])){
-		$day = $_GET['day'];
-	}
-	else{
-		$day = date("j");
-	}
-
-	if(isset($_GET['month'])){
-		$month = $_GET['month'];
-	}
-	else{
-		$month = date("n");
-	}
-
-	if(isset($_GET['year'])){
-		$year = $_GET['year'];
-	}
-	else{
-		$year = date("Y");
-	}
-
+	$show_this_date = (isset($_GET['day']) || !isset($_GET['month']));
+	$day = isset($_GET['day']) ? $_GET['day'] : date("j");
+	$month = isset($_GET['month']) ? $_GET['month'] : date("n");
+	$year = isset($_GET['year']) ? $_GET['year'] : date("Y");
 	$timestamp = strtotime($year . "-" . $month . "-" . $day);
-?>
-
-
-<?php if($show_this_date) : ?>
-
-	<?php if($year == date("Y")) : ?>
-
-		<h1><?php echo general_helpers::veckodag($timestamp); ?> <?php echo $day; ?> <?php echo strtolower(general_helpers::manad($timestamp)); ?></h1>
-
-	<?php else : ?>
-
-		<h1><?php echo general_helpers::veckodag($timestamp); ?> <?php echo $day; ?> <?php echo strtolower(general_helpers::manad($timestamp)); ?> <?php echo $year; ?></h1>
-
-	<?php endif; ?>	
-
-	<?php
+	if($show_this_date) {
+		_h1(general_helpers::veckodag($timestamp) . ' ' . $day . ' ' . strtolower(general_helpers::manad($timestamp)) . ($year == date("Y") ? '' : ' ' . $year));
 		$events = db_calendar::get_events($year, $month, $day);
-	?>
-
-	<?php foreach($events as $row) : ?>
-		<div class="event">
-			<h2 style="margin-top: 10px;"><?php echo $row['title']; ?></h2>
-
-			<strong>Tidpunkt: </strong><?php echo $row['time']; ?><br>
-			<strong>Plats: </strong><?php echo $row['location']; ?><br>
-			<strong>Upplagd av: </strong><a href="index.php?type=member&action=view&id=<?php echo $row['user_id']; ?>"><?php echo $row['full_name']; ?></a><br>
-			<strong>Beskrivning: </strong><?php echo \View\general::make_html_from_wiki_text($row['content']); ?><br>
-			<br>
-			<strong>Anmälda deltagare:</strong><br>
-
-			<?php
-				$participants = db_calendar::get_participants($row['event_id']);
-				$is_participant = db_calendar::is_participant($row['event_id'], $_SESSION['id']);
-			?>
-
-			<?php if(empty($participants)) : ?>
-				Inga anmälda deltagare.<br>
-			<?php else : ?>
-				<?php foreach($participants as $p_row) : ?>
-					<a href="index.php?type=member&action=view&id=<?php echo $p_row['user_id']; ?>"><?php echo $p_row['full_name']; ?></a><br>
-				<?php endforeach; ?>
-			<?php endif; ?>
-
-			<?php if(($timestamp + 24*3600) > time()) : ?>
-				<br>
-				<?php if($is_participant) : ?>
-					<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="cancel_participate"><input type="hidden" name="id" value="<?php echo $row['event_id']; ?>"><input type="submit" value="Avanmäl dig till denna händelse"></form>
-				<?php else : ?>
-					<form method="post" action="" class="single_submit_button"><input type="hidden" name="type" value="participate"><input type="hidden" name="id" value="<?php echo $row['event_id']; ?>"><input type="submit" value="Anmäl dig till denna händelse"></form>
-				<?php endif; ?>
-			<?php endif; ?>
-			
-			<?php if($row['user_id'] == $_SESSION['id'] && $row['timestamp'] > time()) : ?>
-				<a href="index.php?type=member&action=calendar_edit&id=<?php echo $row['event_id']; ?>">Redigera denna händelse</a>
-			<?php endif; ?>
-
-		</div>
-	<?php endforeach; ?>
-
-
-
-<?php else : ?>
-
-	<h1><?php echo strtolower(general_helpers::manad($timestamp)); ?> <?php echo $year; ?></h1>
-
-<?php endif; ?>
-
-
-<?php
+		foreach($events as $row) {
+			echo '<div class="event">';
+			_h2($row['title']);
+			_info(_t("Time"), $row['time']);
+			_info(_t("Location"), $row['location']);
+			_info(_t("Added by"), \View\member::generate_member_link($row['user_id'], $row['full_name']));
+			_info(_t("Description"), \View\general::make_html_from_wiki_text($row['content']));
+			_br();
+			_strong(_t("Subscribed participants:", array('class' => 'adj')));
+			_br();
+			$participants = db_calendar::get_participants($row['event_id']);
+			$is_participant = db_calendar::is_participant($row['event_id'], $_SESSION['id']);
+			if(empty($participants)) {
+				__("No subscribed participants");
+				_br();
+			}
+			else 
+				foreach($participants as $p_row) {
+					echo \View\member::generate_member_link($p_row['user_id'], $p_row['full_name']);
+					_br();
+				}
+			if(($timestamp + ONE_DAY_IN_SECONDS) > time()) {
+				_br();
+				_open_form("single_submit_button");
+				_hidden("id", $row['event_id']);
+				if($is_participant) {
+					_hidden("type", "cancel_participate");
+					_submit_and_close(_t("Unsubscribe for this activity"));
+				}
+				else {
+					_hidden("type", "participate");
+					_submit_and_close(_t("Subscribe for this activity"));
+				}
+			}
+			if($row['user_id'] == $_SESSION['id'] && $row['timestamp'] > time()) 
+				_link(_t("Edit activity"), 'member', 'calendar_edit', 'id=' . $row['event_id']);
+			echo '</div>';
+		}
+	}
+	else 
+		_h1(strtolower(general_helpers::manad($timestamp)) . ' ' . $year);
+	
 	if($month == 1){
 		$previous_month = 12;
 		$previous_year = $year - 1;

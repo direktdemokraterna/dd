@@ -17,6 +17,10 @@ class adjectives
 				"sv" => "aktiv|t:a"
 				,"en" => "active"
 				)
+			,"added:verb" => array(
+				"sv" => "inlagd"
+				,"en" => "added"
+				)
 			,"affirmed:adj" => array(
 				"sv" => "beviljad|_t:e"
 				,"en" => "affirmed"

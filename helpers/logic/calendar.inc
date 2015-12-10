@@ -1,5 +1,8 @@
 <?php
+
 namespace Logic;
+
+define("ONE_DAY_IN_SECONDS", 24*3600);
 
 class calendar 
 {

@@ -286,7 +286,7 @@ class phrases
 				"sv" => "nödvändigt"
 				,"en" => "necessary"
 				)
-			,"no" => array(
+			,"no[]" => array(
 				"sv" => "nej"
 				,"en" => "no"
 				)
@@ -357,6 +357,10 @@ class phrases
 			,"stop supporting" => array(
 				"sv" => "sluta stödja"
 				,"en" => "stop supporting"
+				)
+			,"subscribe for" => array(
+				"sv" => "anmäl dig till"
+				,"en" => "subscribe for"
 				)
 			,"superadmin" => array(
 				"sv" => "superadmin"
@@ -429,6 +433,10 @@ class phrases
 			,"treasurer" => array(
 				"sv" => "kassör"
 				,"en" => "treasurer"
+				)
+			,"unsubscribe for" => array(
+				"sv" => "avanmäl dig till"
+				,"en" => "unsubscribe for"
 				)
 			,"upcoming" => array(
 				"sv" => "kommande"

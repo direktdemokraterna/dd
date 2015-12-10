@@ -29,6 +29,10 @@ class member
 		self::make_region_county_list_filter();
 	}
 
+	public static function generate_member_link($user_id, $user_name) {
+		return \View\general::generate_internal_link($user_name, 'member', 'view', 'id=' . $user_id);
+	}
+
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
 	private static function make_region_county_list_filter (){
 		echo '<form id="filter_list" name="filter_list" method="get" action="">';

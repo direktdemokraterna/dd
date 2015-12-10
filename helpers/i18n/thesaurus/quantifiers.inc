@@ -13,12 +13,8 @@ class quantifiers
 				"sv" => "fler"
 				,"en" => "more"
 				)
-			,"no[noun-singular]:quant" => array(
-				"sv" => "ingen"
-				,"en" => "no"
-				)
-			,"no[noun-plural]:quant" => array(
-				"sv" => "inga"
+			,"no:quant" => array(
+				"sv" => "ingen|_t:__a"
 				,"en" => "no"
 				)
 			,"other[noun-plural]:quant" => array(
