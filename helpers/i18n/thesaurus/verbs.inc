@@ -27,6 +27,10 @@ class verbs
 				"sv" => "ansök:a:er:t"
 				,"en" => "apply::|_ies:_ied"
 				)
+			,"appoint:verb" => array(
+				"sv" => "utse::r:tt"
+				,"en" => "appoint::|s:ed"
+				)
 			,"be:verb" => array(
 				"sv" => "var:a:___är:it:(ande)"
 				,"en" => "be::__are|___is:en:(ing)"

@@ -243,7 +243,7 @@ class nouns
 				,"en" => "role:s"
 				)
 			,"search:noun1" => array(
-				"sv" => "sök:ningar:ningen:ningarna"
+				"sv" => "sök:ningar:ningen:ningarna:-"
 				,"en" => "search:es"
 				)
 			,"sender:noun1" => array(
@@ -407,6 +407,10 @@ class nouns
 			,"region:noun2" => array(
 				"sv" => "län::et:en"
 				,"en" => "region:s"
+				)
+			,"result:noun2" => array(
+				"sv" => "resultat::et:en"
+				,"en" => "result:s"
 				)
 			,"subject:noun2" => array(
 				"sv" => "ämne"

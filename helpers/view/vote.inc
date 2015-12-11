@@ -54,17 +54,6 @@ class vote
 		return $descriptions;
 	}	
 
-	public static function get_vote_type_descriptions() {
-		return array(
-			"yes-no" => _t("Vote (yes/no)")
-			, "prio-vote" => _t("Priority vote")
-			, "candidate-election" => _t("Candidate election")
-			, "workgroup-election" => _t("Workgroup election")
-			, "median" => _t("Median vote")
-			, "budget" => _t("Budget vote")
-			); 
-	}	
-
 	public static function make_vote_time_type_selector($selected_option = null, $tab_index = 1) {
 		$options = array(
 			"active" => _t("Time limited")
@@ -209,11 +198,11 @@ class vote
 	}
 
 	public static function make_title_input() {
-		general::make_textfield("new_prop_title", "Titel", 3);
+		general::make_textfield("new_prop_title", _t("Title"), 3);
 	}	
 
 	public static function make_description_input() {
-		general::make_textarea("new_prop_description", "Beskrivning", 4);
+		general::make_textarea("new_prop_description", _t("Description"), 4);
 	}
 
 	public static function make_vote_list($vote_groups, $type, $action, $from_action = null) {
@@ -232,20 +221,9 @@ class vote
 	public static function make_vote_end_time_select($vote_end_time, $control_name_prefix = "") {
 		echo('<input type="text" value="' . date("Y", $vote_end_time) . '" name="' . 
 			$control_name_prefix . 'year" id="year" style="width: 50px;">');
-		$month_options = array(
-			"1" => "Januari",
-			"2" => "Februari",
-			"3" => "Mars",
-			"4" => "April",
-			"5" => "Maj",
-			"6" => "Juni",
-			"7" => "Juli",
-			"8" => "Augusti",
-			"9" => "September",
-			"10" => "Oktober",
-			"11" => "November",
-			"12" => "December",
-		);
+		$month_options = array();
+		foreach (\Logic\calendar::$months as $index => $name)
+			$month_options["" . (index + 1)] = $name;
 		general::make_selector($control_name_prefix . "month", $month_options, date("n", $vote_end_time), 
 			'style="width: 100px;"');
 		$days = array();
@@ -271,7 +249,7 @@ class vote
 		switch ($_GET['from_action']) {
 			case 'search_prop':
 			case 'search':
-				\View\general::output_internal_link("Tillbaka till sökresultat",
+				\View\general::output_internal_link(_t("Back to the search result"),
 					$_GET['type'], $_GET['from_action']);
 				echo '<br>';
 				break;
@@ -281,23 +259,32 @@ class vote
 	}
 
 	public static function output_vote_header($voteinfo) {
-		echo '<h1>' . self::get_vote_header_prefix($voteinfo['type']) . $voteinfo['title'] . '</h1>';
+		echo '<h1>' . self::get_vote_type_descriptions($voteinfo['type']) . $voteinfo['title'] . '</h1>';
 		if($voteinfo['type'] == "workgroup-election") {
 			$workgroup_id = $voteinfo['from_proposition_id'];
 			$workgroup_title = \db_workgroup::get_name_from_id($workgroup_id);
-			echo '<p>Den här omröstningen utser medlemmarna till arbetsgruppen <a href="index.php?type=workgroup&action=view&id=" . $workgroup_id . ">' . $workgroup_title . '</a></p>';
+			echo '<p>';
+			__("This vote appoints members to the workgroup ");
+			_link($workgroup_title, 'workgroup', 'view', 'id=' . $workgroup_id);
+			echo '</p>';
 		}		
 	}
 
 	private static function get_vote_header_prefix($type) {
-		switch($type) {
-			case "yes-no": return 'Votering: ';
-			case "prio-vote": return 'Prioritetsomröstning: ';
-			case "candidate-election": return 'Personval: ';
-			case "median": return 'Medianomröstning: ';
-			case "workgroup-election": return '';
-			default: throw new \Exception("Unknown vote type: " . $type);
-		}		
+		if ($type == "yes-no") return _t("Vote: ");
+		if ($type == "workgroup-election") return '';
+		return self::get_vote_type_descriptions()[$type] . ": ";
 	}
+	
+	public static function get_vote_type_descriptions() {
+		return array(
+			"yes-no" => _t("Vote (yes/no)")
+			, "prio-vote" => _t("Priority vote")
+			, "candidate-election" => _t("Candidate election")
+			, "workgroup-election" => _t("Workgroup election")
+			, "median" => _t("Median vote")
+			, "budget" => _t("Budget vote")
+			); 
+	}	
 }
 ?>
