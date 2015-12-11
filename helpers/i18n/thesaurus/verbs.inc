@@ -143,6 +143,10 @@ class verbs
 				"sv" => "flytta"
 				,"en" => "move"
 				)
+			,"motivate:verb" => array(
+				"sv" => "motivera"
+				,"en" => "motivate"
+				)
 			,"note:verb" => array(
 				"sv" => "notera"
 				,"en" => "note"
@@ -178,6 +182,10 @@ class verbs
 			,"register:verb" => array(
 				"sv" => "registrera::r:t:(d|_t:e)"
 				,"en" => "register::|s:ed:(ed)"
+				)				
+			,"report:verb" => array(
+				"sv" => "rapportera::r:t:(d|_t:e)"
+				,"en" => "report::|s:ed:(ed)"
 				)				
 			,"remember:verb" => array(
 				"sv" => "kom ihåg"

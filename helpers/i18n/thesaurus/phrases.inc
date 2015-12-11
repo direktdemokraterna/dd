@@ -362,6 +362,10 @@ class phrases
 				"sv" => "ångra röst"
 				,"en" => "revoke ballot"
 				)
+			,"should be reported" => array(
+				"sv" => "ska anmälas"
+				,"en" => "should be reported"
+				)
 			,"so" => array(
 				"sv" => "så"
 				,"en" => "so"
@@ -517,6 +521,10 @@ class phrases
 			,"who" => array(
 				"sv" => "som"
 				,"en" => "who"
+				)
+			,"why" => array(
+				"sv" => "varför"
+				,"en" => "why"
 				)
 			,"yes" => array(
 				"sv" => "ja"
