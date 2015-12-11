@@ -4,8 +4,7 @@
 	\View\general::make_textfield("title", _t("Name"), 1);
 	\View\general::make_textarea("description", _t("Description"), 2, null
 		, array('cols'=>60, 'rows'=>5));
-	$category_options = \db_general::make_hash(db_forum_admin::list_categories(), 'id', 'title');
-	\View\general::make_labeled_selector("category", _t("Category"), $category_options);
+	\View\forum::output_category_selector();
 	$access_options = array(1 => _t("Available for all"), 2 => _t("Limited access"));
 	\View\general::make_labeled_selector("access_type", _t("Forum access"), $access_options);
 	_br();

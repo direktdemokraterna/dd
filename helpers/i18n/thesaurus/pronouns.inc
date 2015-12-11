@@ -26,6 +26,10 @@ class pronouns
 				"sv" => "dess"
 				,"en" => "its"
 				)
+			,"this:pron-poss" => array(
+				"sv" => "denna|___tta"
+				,"en" => "this"
+				)
 			,"whose:pron-poss" => array(
 				"sv" => "vars"
 				,"en" => "whose"

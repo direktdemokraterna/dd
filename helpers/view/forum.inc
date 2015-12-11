@@ -14,14 +14,32 @@ class forum
 		}
 	}
 
-	public static function show_topic_breadcrumbs($topic_id) 
+	public static function show_post_breadcrumbs($post_info) 
 	{
-		$forum_info = \db_forum::get_forum_from_post($topic_id);
-		general::open_div("forum_info");
-		general::output_internal_link(_t("Forum"), "forum", "show_forums");
+		self::start_topic_breadcrumbs($post_info['post_id']);
 		echo "&nbsp;>&nbsp;";
-		general::output_internal_link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
-		general::close_div();
+		_link($post_info['title'], "forum", "show_posts", "post_id=" . $_GET['id']);
+		echo '</div>';
+	} 
+
+	public static function show_topic_breadcrumbs($post_id) 
+	{
+		self::start_topic_breadcrumbs($post_id);
+		echo '</div>';
+	} 
+
+	public static function output_category_selector($selected_category = null) {
+		$category_options = \db_general::make_hash(\db_forum_admin::list_categories(), 'id', 'title');
+		\View\general::make_labeled_selector("category", _t("Category"), $category_options, $selected_category);
+	}	
+
+	private static function start_topic_breadcrumbs($post_id) 
+	{
+		$forum_info = \db_forum::get_forum_from_post($post_id);
+		general::open_div("forum_info");
+		_link(_t("Forums"), "forum", "show_forums");
+		echo "&nbsp;>&nbsp;";
+		_link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
 	} 
 
 	public static function show_topic_title($topic_id) 

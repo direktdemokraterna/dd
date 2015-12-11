@@ -258,6 +258,10 @@ class nouns
 				"sv" => "gata:or:-_u"
 				,"en" => "street:s"
 				)
+			,"subforum:noun1" => array(
+				"sv" => "underforum::et:en"
+				,"en" => "subforum:s"
+				)
 			,"supporter:noun1" => array(
 				"sv" => "stödjare::n:_na"
 				,"en" => "supporter:s"

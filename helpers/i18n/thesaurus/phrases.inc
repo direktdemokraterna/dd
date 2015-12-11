@@ -398,10 +398,6 @@ class phrases
 				"sv" => "sin röst"
 				,"en" => "their vote"
 				)
-			,"this" => array(
-				"sv" => "denna"
-				,"en" => "this"
-				)
 			,"this is" => array(
 				"sv" => "det här är"
 				,"en" => "this is"
