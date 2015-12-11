@@ -42,6 +42,10 @@ class nouns
 				"sv" => "röst:er:en:na"
 				,"en" => "ballot:s"
 				)
+			,"bold:noun1" => array(
+				"sv" => "fetstil"
+				,"en" => "bold"
+				)
 			,"box:noun1" => array(
 				"sv" => "ruta:_or:n:na"
 				,"en" => "box:es"
@@ -314,6 +318,10 @@ class nouns
 				"sv" => "valadministratör:er"
 				,"en" => "vote admin:s"
 				)
+			,"vote count:noun1" => array(
+				"sv" => "ställningen i denna omröstning"
+				,"en" => "vote count:s"
+				)
 			,"vote's:noun1" => array(
 				"sv" => "omröstnings"
 				,"en" => "vote's"
@@ -355,6 +363,10 @@ class nouns
 			,"forum:noun2" => array(
 				"sv" => "forum::-"
 				,"en" => "forum:s"
+				)
+			,"line:noun2" => array(
+				"sv" => "streck::et:en"
+				,"en" => "line:s"
 				)
 			,"membership:noun2" => array(
 				"sv" => "medlemskap"

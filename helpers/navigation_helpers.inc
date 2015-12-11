@@ -79,9 +79,7 @@ class navigation_helpers {
 
 	private static function create_divisions() {
 		return array(
-			"admin_role" => Division_info::create(array(
-				"view" => Page_info::create("description.inc", Page_info::VIEW_AND_EXECUTE)))
-			,"member" => Division_info::create(array(
+			"member" => Division_info::create(array(
 				"list" => Page_info::create("memberlist.inc")
 				,"view" => Page_info::create("view.inc", Page_info::VIEW_AND_EXECUTE)
 				,"notices" => Page_info::create("notices.inc")

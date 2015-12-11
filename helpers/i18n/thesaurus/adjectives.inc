@@ -77,6 +77,10 @@ class adjectives
 				"sv" => "personlig|t:a"
 				,"en" => "personal"
 				)
+			,"preliminary:adj" => array(
+				"sv" => "nuvarande"
+				,"en" => "preiminary"
+				)
 			,"public:adj" => array(
 				"sv" => "offentlig|t:a"
 				,"en" => "public"

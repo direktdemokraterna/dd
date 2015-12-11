@@ -9,6 +9,10 @@ class prepositions
 				"sv" => "ovan"
 				,"en" => "above"
 				)
+			,"above[definite]:prep" => array(
+				"sv" => "ovanför"
+				,"en" => "above"
+				)
 			,"below:prep" => array(
 				"sv" => "nedan"
 				,"en" => "below"

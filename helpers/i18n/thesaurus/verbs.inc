@@ -95,6 +95,10 @@ class verbs
 				"sv" => "redigera::r:t:(d|_t:e)"
 				,"en" => "edit::|s:ed:(ed)"
 				)
+			,"elect:verb" => array(
+				"sv" => "välj:a:er:___alt:(___ald|_t:a)"
+				,"en" => "elect::|s:ed:(ed)"
+				)
 			,"exclude:verb" => array(
 				"sv" => "uteslut:a:er:it:(en|_t:__na)"
 				,"en" => "exclude::|s:d:(d)"

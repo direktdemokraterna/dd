@@ -42,13 +42,13 @@ class phrases
 				"sv" => "ett annat"
 				,"en" => "another"
 				)
-			,"are" => array(
-				"sv" => "är"
-				,"en" => "are"
-				)
 			,"are appointed" => array(
 				"sv" => "utses"
 				,"en" => "are appointed"
+				)
+			,"are elected" => array(
+				"sv" => "är valda"
+				,"en" => "are elected"
 				)
 			,"as" => array(
 				"sv" => "som"
@@ -97,6 +97,10 @@ class phrases
 			,"cannot be undone" => array(
 				"sv" => "kan inte ångras"
 				,"en" => "cannot be undone"
+				)
+			,"currently members" => array(
+				"sv" => "medlemmar för närvarande"
+				,"en" => "currently members"
 				)
 			,"currently the number of members is %d" => array(
 				"sv" => "just nu är antalet medlemmar %d st"
