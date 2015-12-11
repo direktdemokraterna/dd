@@ -9,11 +9,15 @@
 		\View\forum::show_topic_breadcrumbs($topic_id);		
 	\View\forum::show_topic_title($topic_id);
 	if(empty($posts))
-		echo '<p>Tråden finns inte eller du saknar behörighet att läsa den.</p>';
+		echo _p(_t("The thread doesn't exist or you don't have permission to read it."));
 	else {
 		\View\forum::show_posts("index.php?type=forum&action=show_posts&topic_id=" . $topic_id, $page, $posts, $post_count);
 		if(isset($_SESSION['is_forum_admin']))
-			echo '<p><a href="index.php?type=forum_admin&action=edit_topic&id=' . $topic_id . '" style="float: right; margin-top: 20px;">Moderera ämne</a></p>';
-		\View\forum::output_text_editor('new_post', 'Skriv svar i tråden', $topic_id, '', 'Skicka');
+			echo '<p><a href="index.php?type=forum_admin&action=edit_topic&id=' . $topic_id . '" style="float: right; margin-top: 20px;">' . _t("Moderate topic") . '</a></p>';
+		\View\forum::output_text_editor(array(
+			'name' => 'new_post'
+			,'legend' => _t('Reply in the thread')
+			,'target_id' => $topic_id
+			,'submit_text' => _t("Send")));
 	}
 ?>

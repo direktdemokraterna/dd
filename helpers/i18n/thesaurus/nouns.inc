@@ -286,10 +286,6 @@ class nouns
 				"sv" => "titel"
 				,"en" => "title"
 				)
-			,"topic:noun1" => array(
-				"sv" => "ämne"
-				,"en" => "topic"
-				)
 			,"type:noun1" => array(
 				"sv" => "typ"
 				,"en" => "type"
@@ -391,6 +387,10 @@ class nouns
 			,"support:noun2" => array(
 				"sv" => "stöd"
 				,"en" => "support"
+				)
+			,"topic:noun2" => array(
+				"sv" => "ämne:n:t:a:-s"
+				,"en" => "topic:s"
 				)
 			,"username:noun2" => array(
 				"sv" => "användarnamn"

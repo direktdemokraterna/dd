@@ -110,6 +110,10 @@ class phrases
 				"sv" => "direkt"
 				,"en" => "directly"
 				)
+			,"don't have" => array(
+				"sv" => "har inte"
+				,"en" => "do no have"
+				)
 			,"do you really want to" => array(
 				"sv" => "vill du verkligen"
 				,"en" => "do you really want to"
@@ -117,6 +121,10 @@ class phrases
 			,"do you still want to continue" => array(
 				"sv" => "vill du fortsätta ändå"
 				,"en" => "do you still want to continue"
+				)
+			,"doesn't exist" => array(
+				"sv" => "finns inte"
+				,"en" => "doesn't exist"
 				)
 			,"doesn't support" => array(
 				"sv" => "stöder ej"

@@ -33,6 +33,50 @@ class forum
 		\View\general::make_labeled_selector("category", _t("Category"), $category_options, $selected_category);
 	}	
 
+	public static function output_topic_list($topics) {
+		echo '<div class="topic_list">';
+		self::output_topic_list_top_row();
+		foreach($topics as $row) 
+			self::output_topic_list_row($row);
+		echo '</div>';
+	}
+
+	private static function output_topic_list_top_row() {
+		echo '<div class="topic_list_top_row">';
+		echo '<span class="subject_column">' 
+			. _t("Topic") . '</span><span class="numerical_column">' 
+			. _t("Participants") . '</span><span class="numerical_column">' 
+			. _t("Posts") . '</span><span class="last_post_column">' 
+			. _t("Latest post") . '</span>';
+		echo '<div style="clear: both;"></div>';
+		echo '</div>';
+	}
+
+	private static function output_topic_list_row($row) {
+		$number_of_pages = ceil($row['number_of_posts'] / POSTS_PER_PAGE);
+		echo '<div class="topic_list_row">';
+		echo '<span class="subject_column">';
+		_link($row['topic_title'], 'forum', 'show_posts', 'topic_id=' . $row['topic_id']);
+		if($number_of_pages > 1) 
+			_link("($number_of_pages)", 'forum', 'sho_posts', 'id=' . $row['topic_id'] 
+				. '&page=' . $number_of_pages);
+		_br();
+		echo '<span class="list_sub_text">' . _t("Started by: ");
+		echo \View\member::link($row, 'topic_user_id', 'topic_user_full_name');
+		echo '</span>';
+		echo '</span>';
+		echo '<span class="numerical_column">' . $row['number_of_participants'] . '</span>';
+		echo '<span class="numerical_column">' . $row['number_of_posts'] . '</span>';
+		echo '<span class="last_post_column">';
+		echo \general_helpers::show_date($row['last_posted_time']);
+		_br();
+		echo '<span class="list_sub_text">' . _t("By: ") . \View\member::link($row, 'last_user_id', 'last_user_full_name');
+		echo '</span>';
+		echo '</span>';
+		echo '<div style="clear: both;"></div>';
+		echo '</div>';		
+	}
+
 	private static function start_topic_breadcrumbs($post_id) 
 	{
 		$forum_info = \db_forum::get_forum_from_post($post_id);
@@ -189,22 +233,37 @@ class forum
 		echo '&nbsp;';
 	}
 
-	public static function output_text_editor($name, $title, $target_id, $content, $submit_text, $tab_index = 1) {
+	public static function output_text_editor($options)
+	{
+		$name = $options['name'];
+		$legend = $options['legend'];
+		$target_id = $options['target_id'];
+		$submit_text = $options['submit_text'];
+		$content = isset($options['content']) ? $options['content'] : '';
+		$title_label = isset($options['title_label']) ? $options['title_label'] : null;
+		$tab_index = isset($options['tab_index']) ? $options['tab_index'] : 1;
+
 		$form_name = $name . '_form';
 		$content_name = $name . '_content';
-		$submit_name = $name . '_content';
+		$submit_name = $name . '_submit';
+
 		echo '<form method="post" action="" id="' . $form_name . '" class="text-editor">';
 		echo '<fieldset>';
-		echo '<legend>' . $title . '</legend>';
+		echo '<legend>' . $legend . '</legend>';
 		echo '<input type="hidden" name="target_id" value="' . $target_id . '">';
+		if ($title_label) {
+			$title_name = $name . '_title';
+			\View\general::make_textfield($title_name, $title_label, $tab_index++);
+		}
 		echo '<div id="format_buttons_div">';
 		echo '<input type="button" id="format_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold(\'' . $content_name . '\')">';
 		echo '<input type="button" id="format_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic(\'' . $content_name . '\')">';
 		echo '<input type="button" id="format_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline(\'' . $content_name . '\')">';
 		echo '</div>';
-		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' . $tab_index . '">' . 
-		 $content . '</textarea><br>';
-		echo '<input type="submit" id="' . $submit_name . '" value="' . $submit_text . '" tabindex="' . ($tab_index + 1) . '">';
+		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
+			. $tab_index . '">' . $content . '</textarea><br>';
+		echo '<input type="submit" id="' . $submit_name . '" value="' . $submit_text 
+			. '" tabindex="' . ($tab_index + 1) . '">';
 		echo '</fieldset>';
 		echo '</form>';
 	}

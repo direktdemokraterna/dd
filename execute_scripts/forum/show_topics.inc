@@ -1,17 +1,17 @@
 <?php
 	if(isset($_POST['new_topic_title']) && isset($_POST['new_topic_content'])){
-		$check_access = db_forum::check_access($_SESSION['id'], $_POST['forum_id']);
-		if(!$check_access){
-			$topic_insert_id = db_forum::new_topic($_SESSION['id'], $_POST['forum_id'], $_POST['new_topic_title']);
+		$check_access = db_forum::check_access($_SESSION['id'], $_POST['target_id']);
+		if($check_access){
+			$topic_insert_id = db_forum::new_topic($_SESSION['id'], $_POST['target_id'], $_POST['new_topic_title']);
 			if($topic_insert_id){
 				$ok = db_forum::add_content_to_post($topic_insert_id, $_POST['new_topic_content']);
 				if($ok){
-					$_SESSION['report_message'] = "Tråden skapad.";
+					$_SESSION['report_message'] = _t("The thread is created.");
 					$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $topic_insert_id;
 				}
 			}
 		}
 		else
-			\Logic\util::report_error("Du har inte behörighet till det forumet.");
+			\Logic\util::report_error(_t("You don't have permission to write in this forum."));
 	}
 ?>

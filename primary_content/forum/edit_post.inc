@@ -30,5 +30,10 @@
 	<div style="clear: both;"></div>
 </div>
 <?php
-	\View\forum::output_text_editor('edit_post', 'Redigera ovanstående inlägg', $_GET['id'], $post_info['content'], "Ändra");
+	\View\forum::output_text_editor(array(
+		'name' => 'edit_post'
+		,'legend' => _t('Edit post')
+		,'target_id' => $_GET['id']
+		,'submit_text' => _t("Change")
+		,'content' => $post_info['content']));
 ?>

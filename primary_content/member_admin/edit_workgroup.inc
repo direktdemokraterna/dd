@@ -13,7 +13,12 @@
 		\View\general::make_textfield("number_of_members", _t('Number of members'), 5, $workgroup);
 	_br();
 	_submit_and_close(_t("Change"), 7);
-	\View\forum::output_text_editor('edit_description', 'Beskrivning av arbetsgruppen', $_GET['id'], $workgroup['description'], "Ändra");
+	\View\forum::output_text_editor(array(
+		'name' => 'edit_description'
+		,'legend' => _t('Description of the workgroup')
+		,'target_id' => $_GET['id']
+		,'submit_text' => _t("Change")
+		,'content' => $workgroup['description']));
 	_open_form();
 	_hidden("delete", 1);
 	_p(_t("Removal of the workgroup cannot be undone."));
