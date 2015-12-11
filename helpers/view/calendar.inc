@@ -50,15 +50,15 @@ class calendar
 
 		echo '<caption class="month_table_caption">';
 		echo '<div class="previous_month">';
-		_link(\general_helpers::manad(null, $previous_month) . $show_previous_year
+		_link(\general_helpers::get_month(null, $previous_month) . $show_previous_year
 			, 'member', 'calendar', "year=$previous_year&month=$previous_month");
 		echo '</div>';
 		echo '<div class="next_month">';
-		_link(\general_helpers::manad(null, $next_month) . $show_next_year
+		_link(\general_helpers::get_month(null, $next_month) . $show_next_year
 			, 'member', 'calendar', "year=$next_year&month=$next_month");
 		echo '</div>';
 		echo '<div class="this_month">';
-		echo strtolower(\general_helpers::manad($timestamp)) . ' ' . $year;
+		echo strtolower(\general_helpers::get_month($timestamp)) . ' ' . $year;
 		echo '</div>';		
 		echo '</caption>';		
 	}

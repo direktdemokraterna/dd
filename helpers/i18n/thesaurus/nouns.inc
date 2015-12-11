@@ -122,6 +122,10 @@ class nouns
 				"sv" => "uteslutning"
 				,"en" => "exclusion"
 				)
+			,"filtering:noun1" => array(
+				"sv" => "filtrering"
+				,"en" => "filtering"
+				)
 			,"forum admin:noun1" => array(
 				"sv" => "forumadministratör:er"
 				,"en" => "forum admin:s"
@@ -183,8 +187,8 @@ class nouns
 				,"en" => "month:s"
 				)
 			,"municipality:noun1" => array(
-				"sv" => "kommun"
-				,"en" => "municipality"
+				"sv" => "kommun:er:en:na"
+				,"en" => "municipality:_ies"
 				)
 			,"outbox:noun1" => array(
 				"sv" => "skickade"
@@ -395,6 +399,10 @@ class nouns
 			,"proposal:noun2" => array(
 				"sv" => "förslag::et:en"
 				,"en" => "proposal:s"
+				)
+			,"region:noun2" => array(
+				"sv" => "län::et:en"
+				,"en" => "region:s"
 				)
 			,"subject:noun2" => array(
 				"sv" => "ämne"

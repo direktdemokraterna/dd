@@ -5,7 +5,7 @@ class time_and_date
 {
 	public static function create_translations() {
 		return array(
-			//DAYS
+			//DAYS SHORT
 			"mon" => array(
 				"sv" => "mån"
 				,"en" => "mon"
@@ -33,6 +33,36 @@ class time_and_date
 			,"sun" => array(
 				"sv" => "sön"
 				,"en" => "sun"
+				)
+
+			//DAYS
+			,"monday" => array(
+				"sv" => "måndag"
+				,"en" => "monday"
+				)
+			,"tuesday" => array(
+				"sv" => "tisdag"
+				,"en" => "tuesday"
+				)
+			,"wednesday" => array(
+				"sv" => "onsdag"
+				,"en" => "wednesday"
+				)
+			,"thursday" => array(
+				"sv" => "torsdag"
+				,"en" => "thursday"
+				)
+			,"friday" => array(
+				"sv" => "fredag"
+				,"en" => "friday"
+				)
+			,"saturday" => array(
+				"sv" => "lördag"
+				,"en" => "saturday"
+				)
+			,"sunday" => array(
+				"sv" => "söndag"
+				,"en" => "sunday"
 				)
 
 			//Month
@@ -84,6 +114,21 @@ class time_and_date
 				"sv" => "december"
 				,"en" => "december"
 				)
+
+			//WORDS
+			,"today" => array(
+				"sv" => "idag"
+				,"en" => "today"
+				)
+			,"yesterday" => array(
+				"sv" => "igår"
+				,"en" => "yesterday"
+				)
+			,"tomorrow" => array(
+				"sv" => "imorgon"
+				,"en" => "tomorrow"
+				)
+
 		);
 	}	
 } 

@@ -5,7 +5,7 @@
 	$year = isset($_GET['year']) ? $_GET['year'] : date("Y");
 	$timestamp = strtotime($year . "-" . $month . "-" . $day);
 	if($show_this_date) {
-		_h1(general_helpers::veckodag($timestamp) . ' ' . $day . ' ' . strtolower(general_helpers::manad($timestamp)) . ($year == date("Y") ? '' : ' ' . $year));
+		_h1(general_helpers::get_weekday($timestamp) . ' ' . $day . ' ' . strtolower(general_helpers::get_month($timestamp)) . ($year == date("Y") ? '' : ' ' . $year));
 		$events = db_calendar::get_events($year, $month, $day);
 		foreach($events as $row) {
 			echo '<div class="event">';
@@ -47,7 +47,7 @@
 		}
 	}
 	else 
-		_h1(strtolower(general_helpers::manad($timestamp)) . ' ' . $year);
+		_h1(strtolower(general_helpers::get_month($timestamp)) . ' ' . $year);
 	
 	$weekday_of_first_in_this_month = date("w", strtotime($year . "-" . $month . "-" . 1));
 	if($weekday_of_first_in_this_month == 0) $weekday_of_first_in_this_month = 7; // Make Sunday day 7

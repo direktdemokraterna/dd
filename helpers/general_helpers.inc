@@ -2,8 +2,8 @@
 
 class general_helpers {
 	private static $ALPHANUMERIC_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	private static $WEEK_DAY_NAMES = array("Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag");
-	private static $MONTH_NAMES = array("NO_MONTH", "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December");
+	private static $WEEK_DAY_NAMES = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+	private static $MONTH_NAMES = array("NO_MONTH", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 	private static $DAY_IN_SECONDS = 86400;
 
 	public static function GenerateRandomString ($length){
@@ -32,18 +32,18 @@ class general_helpers {
 		return $dag . $ar . $time_of_day;
 	}
 
-	public static function veckodag ($timestamp, $weekday = 0){
+	public static function get_weekday ($timestamp, $weekday = 0){
 		$weekday = $timestamp > 0 
 			? date("w", $timestamp) 
 			: $weekday;
-		return self::$WEEK_DAY_NAMES[$weekday];
+		return _t(self::$WEEK_DAY_NAMES[$weekday]);
 	}
 
-	public static function manad ($timestamp, $month = 0){
+	public static function get_month($timestamp, $month = 0){
 		$month = $timestamp > 0 
 			? date("n", $timestamp) 
 			: $month;
-		return self::$MONTH_NAMES[$month];
+		return _t(self::$MONTH_NAMES[$month]);
 	}
 
 	public static function admin_mail ($receiver, $title, $text) {
@@ -69,7 +69,9 @@ class general_helpers {
 	}
 	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
-	public static function make_list_of_links_header ($page, $result_counter, $sort_alternatives = null, $filter_title = "Filtrering:", $filter_alternatives = null){
+	public static function make_list_of_links_header ($page, $result_counter, $sort_alternatives = null, $filter_title = null, $filter_alternatives = null){
+		if (!$filter_title)
+			$filter_title = _t("Filtrering:");
 		$get_parameters = $_GET;
 		self::make_list_pagin_and_sorting($get_parameters, $page, $result_counter, $sort_alternatives);
 		self::make_generic_list_filter($get_parameters, $filter_title, $filter_alternatives);
@@ -167,11 +169,11 @@ class general_helpers {
 		$tested_time_next_day = getdate($time+self::$DAY_IN_SECONDS);
 		$tested_time_previous_day = getdate($time-self::$DAY_IN_SECONDS);
 		if(self::is_same_day($tested_time, $present_time))
-		return "Idag";
+		return _t("Today");
 		if(self::is_same_day($tested_time_next_day, $present_time))
-		return "Igår";
+		return _("Yesterday");
 		if(self::is_same_day($tested_time_previous_day, $present_time))
-		return "Imorgon";
+		return _t("Tomorrow");
 		return date("j/n", $time);
 	}
 	
@@ -187,7 +189,9 @@ class general_helpers {
 	}
 	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
-	private static function make_generic_list_filter ($get_parameters, $filter_title = "Filtrering:", $filter_alternatives = null){
+	private static function make_generic_list_filter ($get_parameters, $filter_title = null, $filter_alternatives = null){
+		if (!$filter_title)
+			$filter_title = _t("Filtering:");
 		if($filter_alternatives){
 			echo "<div class=\"list_of_link_menu\">";
 			echo "<span class=\"list_sort_alternative\">" . $filter_title . "</span>";
@@ -209,12 +213,12 @@ class general_helpers {
 		$get_parameters['county'] = null;
 		$get_parameters['filter'] = null;
 		$regions = db_constituency::get_regions();
-		self::makeSelecBox($get_parameters, 'region', $regions, 'lan', "Alla län");
+		self::makeSelecBox($get_parameters, 'region', $regions, 'lan', _t("All regions"));
 		if(isset($_GET['region']))
 		$get_parameters['region'] = $_GET['region'];
 		echo "<span class=\"list_sort_alternative\">Kommun: ";
 		$get_parameters['filter'] = isset($_GET['region']) ? "region" : null;
-		self::makeSelecBox($get_parameters, 'county', self::getCounties(), 'kommun', "Alla kommuner");
+		self::makeSelecBox($get_parameters, 'county', self::getCounties(), 'kommun', _t("All municipalities"));
 		echo "</span>";
 		$get_parameters['county'] = null;
 		echo "</span></div>";
