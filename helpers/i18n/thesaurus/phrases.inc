@@ -278,6 +278,10 @@ class phrases
 				"sv" => "bara"
 				,"en" => "just"
 				)
+			,"last changed" => array(
+				"sv" => "ändrades senast"
+				,"en" => "last changed"
+				)
 			,"last login" => array(
 				"sv" => "senast inloggad"
 				,"en" => "last login"
@@ -365,6 +369,10 @@ class phrases
 			,"reject application" => array(
 				"sv" => "avslå ansökan"
 				,"en" => "reject application"
+				)
+			,"reply to" => array(
+				"sv" => "svar till"
+				,"en" => "reply to"
 				)
 			,"revoke ballot" => array(
 				"sv" => "ångra röst"

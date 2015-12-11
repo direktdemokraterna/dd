@@ -196,7 +196,7 @@ class verbs
 				,"en" => "register::|s:ed:(ed)"
 				)				
 			,"report:verb" => array(
-				"sv" => "rapportera::r:t:(d|_t:e)"
+				"sv" => "anmäl::er:t:(d|t:e)"
 				,"en" => "report::|s:ed:(ed)"
 				)				
 			,"remember:verb" => array(

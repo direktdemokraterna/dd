@@ -46,6 +46,10 @@ class nouns
 				"sv" => "fetstil"
 				,"en" => "bold"
 				)
+			,"[]bold:noun1" => array(
+				"sv" => "fet"
+				,"en" => "bold"
+				)
 			,"box:noun1" => array(
 				"sv" => "ruta:_or:n:na"
 				,"en" => "box:es"
@@ -153,6 +157,10 @@ class nouns
 			,"individual:noun1" => array(
 				"sv" => "privatperson"
 				,"en" => "individual"
+				)
+			,"italic:noun1" => array(
+				"sv" => "kursiv"
+				,"en" => "italic"
 				)
 			,"link:noun1" => array(
 				"sv" => "länk:ar"
@@ -297,6 +305,10 @@ class nouns
 			,"type:noun1" => array(
 				"sv" => "typ"
 				,"en" => "type"
+				)
+			,"underline:noun1" => array(
+				"sv" => "understruken"
+				,"en" => "underline"
 				)
 			,"user:noun1" => array(
 				"sv" => "användare::n:_na"

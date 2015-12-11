@@ -6,7 +6,7 @@ class forum
 	public static function output_back_link() {
 		switch ($_GET['from_action']) {
 			case 'search':
-				\View\general::output_internal_link("Tillbaka till sökresultat",
+				\View\general::output_internal_link(_t("Back to the search result"),
 					$_GET['type'], $_GET['from_action']);
 				echo '<br>';
 			default:
@@ -159,18 +159,18 @@ class forum
 		}
 		if($user_id == $_SESSION['id']) {
 			if(\Logic\forum::is_recent_post($post_info)) {
-				general::output_internal_link("Radera", "forum", "delete", "id=" . $post_id
-					, null, "Vill du verkligen radera inlägget?");
+				general::output_internal_link(_("Delete"), "forum", "delete", "id=" . $post_id
+					, null, _t("Do you really want to delete the post?"));
 				echo '&nbsp;';
-				general::output_internal_link("Redigera", "forum", "edit", "id=" . $post_id);
+				general::output_internal_link(_t("Edit"), "forum", "edit", "id=" . $post_id);
 				echo '&nbsp;';
 			}
 			else{
-				general::output_internal_link("Tillägg", "forum", "add", "id=" . $post_id);
+				general::output_internal_link(_t("Addition"), "forum", "add", "id=" . $post_id);
 				echo '&nbsp;';
 			}
 		}
-		general::output_internal_link("Anmäl", "forum", "report", "id=" . $post_id);
+		general::output_internal_link(_t("Report"), "forum", "report", "id=" . $post_id);
 		echo '&nbsp;';
 		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">Citera</a>&nbsp;'; 
 	}
@@ -199,7 +199,7 @@ class forum
 		general::open_div("post_content");
 		echo '<span>' . \View\general::make_html_from_wiki_text($post_info['content']) . '</span>';
 		if(isset($post_info['last_edited_time']))
-			echo('<span class="post_last_edited">Ändrades senast ' . 
+			echo('<span class="post_last_edited">' . _t('Last changed ') . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			
 		general::close_div();
 	}
@@ -219,7 +219,7 @@ class forum
 	private static function output_topic_link_for_post($post_info)
 	{
 		$is_first_post = $post_info['topic_id'] == $post_info['post_id'];
-		echo $is_first_post ? ' trådstart: ' : ' som svar till: ';
+		echo $is_first_post ? _t(' thread start: ') : ' ' . _t('as reply to: ');
 		general::output_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
 			$post_info['topic_id'] . self::get_from_action_for_url());
 		echo '&nbsp;';
@@ -256,9 +256,9 @@ class forum
 			\View\general::make_textfield($title_name, $title_label, $tab_index++);
 		}
 		echo '<div id="format_buttons_div">';
-		echo '<input type="button" id="format_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline(\'' . $content_name . '\')">';
+		echo '<input type="button" id="format_buttons_b" accesskey="b" title="'. _t("Bold") .'" value="b" onClick="make_bold(\'' . $content_name . '\')">';
+		echo '<input type="button" id="format_buttons_i" accesskey="i" title="'. _t("Italic") .'" value="i" onClick="make_italic(\'' . $content_name . '\')">';
+		echo '<input type="button" id="format_buttons_u" accesskey="u" title="'. _t("Underline") .'" value="u" onClick="make_underline(\'' . $content_name . '\')">';
 		echo '</div>';
 		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
 			. $tab_index . '">' . $content . '</textarea><br>';
