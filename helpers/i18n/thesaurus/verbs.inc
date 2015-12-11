@@ -135,6 +135,10 @@ class verbs
 				"sv" => "logga ut"
 				,"en" => "logout"
 				)
+			,"make:verb" => array(
+				"sv" => "gör"
+				,"en" => "make"
+				)
 			,"moderate:verb" => array(
 				"sv" => "moderera"
 				,"en" => "moderate"

@@ -332,6 +332,10 @@ class nouns
 				)
 
 			//NOUNS, variation 2
+			,"addition:noun2" => array(
+				"sv" => "tillägg"
+				,"en" => "addition"
+				)
 			,"alternative:noun2" => array(
 				"sv" => "alternativ::et:en"
 				,"en" => "alternative:s"
