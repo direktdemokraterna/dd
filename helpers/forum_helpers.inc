@@ -46,7 +46,7 @@ class forum_helpers
 				$processed_text = str_replace($old_full_quote_text, $new_full_quote_text, $processed_text);
 			}
 			else{
-				$_SESSION['report_message'] = "Ett citat i ditt inlägg är inte korrekt.";
+				$_SESSION['report_message'] = _t("A quote in your post is not well formed.");
 				return null;
 			}
 		}

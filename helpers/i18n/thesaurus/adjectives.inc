@@ -117,6 +117,10 @@ class adjectives
 				"sv" => "synlig|_t:a"
 				,"en" => "visible"
 				)
+			,"well formed:adj" => array(
+				"sv" => "korrekt"
+				,"en" => "well formed"
+				)
 		);
 	}	
 } 

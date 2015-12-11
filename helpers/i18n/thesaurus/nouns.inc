@@ -400,6 +400,10 @@ class nouns
 				"sv" => "förslag::et:en"
 				,"en" => "proposal:s"
 				)
+			,"quote:noun2" => array(
+				"sv" => "citat::et:en"
+				,"en" => "quote:s"
+				)
 			,"region:noun2" => array(
 				"sv" => "län::et:en"
 				,"en" => "region:s"

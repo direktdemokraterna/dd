@@ -306,6 +306,10 @@ class phrases
 				"sv" => "nej"
 				,"en" => "no"
 				)
+			,"not" => array(
+				"sv" => "inte"
+				,"en" => "not"
+				)
 			,"not yet" => array(
 				"sv" => "ännu inte"
 				,"en" => "not yet"
