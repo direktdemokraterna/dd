@@ -4,23 +4,23 @@ namespace View;
 class member 
 {
 	public static function output_edit_fields($result = null, $include_social_security_number = true, &$tab_index = 1) {
-		\View\general::make_textfield("username", "Användarnamn", $tab_index++, $result);
-		\View\general::make_textfield("first_name", "Förnamn", $tab_index++, $result);
-		\View\general::make_textfield("last_name", "Efternamn", $tab_index++, $result);
+		\View\general::make_textfield("username", _t("Username"), $tab_index++, $result);
+		\View\general::make_textfield("first_name", _t("Given name"), $tab_index++, $result);
+		\View\general::make_textfield("last_name", _t("Last name"), $tab_index++, $result);
 		if ($include_social_security_number)
-			\View\general::make_textfield("social_security_number", "Personnummer", 
+			\View\general::make_textfield("social_security_number", _t("Social security number"), 
 				$tab_index++, $result);			
-		\View\general::make_textfield("email", "Mejladress", $tab_index++, $result);
-		\View\general::make_textfield("street_address", "Gatuadress", $tab_index++, $result);
-		\View\general::make_textfield("zip_code", "Postnummer", $tab_index++, $result);
-		\View\general::make_textfield("city_address", "Postort", $tab_index++, $result);
+		\View\general::make_textfield("email", _t("Email address"), $tab_index++, $result);
+		\View\general::make_textfield("street_address", _t("Street address"), $tab_index++, $result);
+		\View\general::make_textfield("zip_code", _t("Zip code"), $tab_index++, $result);
+		\View\general::make_textfield("city_address", _t("City"), $tab_index++, $result);
 		$counties = \db_constituency::get_counties_with_regions();
 		self::set_regions_by_county_in_javascript($counties);
 		self::output_county_selector($result, $counties);
 		self::output_region_selector($result);
-		\View\general::make_textfield("skype_name", "Skype användarnamn", $tab_index++, $result);
-		\View\general::make_textfield("telephone1", "Primärt telefonnummer", $tab_index++, $result);
-		\View\general::make_textfield("telephone2", "Sekundärt telefonnummer", $tab_index++, $result);
+		\View\general::make_textfield("telephone", _t("Telephone"), $tab_index++, $result);
+		\View\general::make_textfield("email", _t("Email"), $tab_index++, $result);
+		\View\general::make_textfield("social_security_number", _t("Social security number"), $tab_index++, $result);
 	}
 	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
@@ -40,18 +40,18 @@ class member
 		echo '<input type="hidden" name="type" value="member"/>';
 		echo '<input type="hidden" name="action" value="list"/>';
 		echo '<input type="hidden" name="filter" value="county"/>';
-		echo "<div class=\"list_of_link_menu\">";
-		echo "<span class=\"list_sort_alternative\">Län: ";
-		self::makeSelecBox('region', \db_constituency::get_regions(), "Alla län");
-		echo "</span>";
-		echo "<span class=\"list_sort_alternative\">Kommun: ";
-		self::makeSelecBox('county', self::getCounties(), "Alla kommuner");
+		echo '<div class="list_of_link_menu">';
+		echo '<span class="list_sort_alternative">' . _t("RegionL: ");
+		self::makeSelecBox('region', \db_constituency::get_regions(), _t("All regions"));
+		echo '</span>';
+		echo '<span class="list_sort_alternative">' . _t("Municipality: ");
+		self::makeSelecBox('county', self::getCounties(), "All municipalities");
 		echo "</span>";
 		if(isset($_SESSION['is_member_admin'])) {
 			$show_deleted = isset($_GET['show_deleted']) ? $_GET['show_deleted'] : 0;
 			echo '<span class="list_sort_alternative">';
 			echo '<input type="checkbox" name="show_deleted"' .
-			($show_deleted ? ' checked' : '') . ' id="show_deleted" onchange="this.form.submit()"><label for "show_deleted">Visa borttagna medlemmar</label>';
+			($show_deleted ? ' checked' : '') . ' id="show_deleted" onchange="this.form.submit()"><label for "show_deleted">' . _t("Show removed members") . '</label>';
 			echo '</span>';
 		}
 		echo "</span></div></form>";
@@ -82,8 +82,8 @@ class member
 			: null;
 		$regions = \db_constituency::get_regions();
 		$region_options = \db_general::make_hash($regions, 'title', 'title');
-		$region_options['EMPTY'] = '- Alla län - ';
-		\View\general::make_labeled_selector("region", "Län", $region_options, $selected_region
+		$region_options['EMPTY'] = _t('- All regions - ');
+		\View\general::make_labeled_selector("region", _t("Region"), $region_options, $selected_region
 			, 'onchange="region_changed()"');
 	}
 

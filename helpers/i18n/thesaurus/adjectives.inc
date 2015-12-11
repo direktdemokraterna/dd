@@ -93,6 +93,10 @@ class adjectives
 				"sv" => "offentlig|t:a"
 				,"en" => "public"
 				)
+			,"removed:adj" => array(
+				"sv" => "borttagen|_t:__na"
+				,"en" => "removed"
+				)
 			,"restricted:adj" => array(
 				"sv" => "stängd|_t:a"
 				,"en" => "restricted"
