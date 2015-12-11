@@ -33,6 +33,10 @@ class adjectives
 				"sv" => "tillgänglig|t:a"
 				,"en" => "available"
 				)
+			,"blank:adj" => array(
+				"sv" => "inte ifyllt"
+				,"en" => "blank"
+				)
 			,"continous:adj" => array(
 				"sv" => "kontinuerlig|t:a"
 				,"en" => "continous"
@@ -44,6 +48,10 @@ class adjectives
 			,"finished:adj" => array(
 				"sv" => "avslutad|_t:e"
 				,"en" => "finished"
+				)
+			,"invalid:adj" => array(
+				"sv" => "felaktigt"
+				,"en" => "invalid"
 				)
 			,"late:adj" => array(
 				"sv" => "sen|t:a:aste"
@@ -96,6 +104,10 @@ class adjectives
 			,"sufficient:adj" => array(
 				"sv" => "tillräcklig|t:a"
 				,"en" => "sufficient"
+				)
+			,"suspended:adj" => array(
+				"sv" => "avstängd|_t:a"
+				,"en" => "suspended"
 				)
 			,"time limited:adj" => array(
 				"sv" => "tidsbegränsad|_t:e"

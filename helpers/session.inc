@@ -18,7 +18,7 @@ class session
 		$user_data = db_user::get_user_data($_COOKIE['user_id']);
 		if(self::is_user_suspended($user_data)) {
 			self::destroy_session();
-			echo "<div class=\"red_message\">Användaren är tillfälligt avstängd.</div>";
+			echo '<div class="red_message">' . _t("The user is temporarily suspended.") . '</div>';
 			return;
 		}
 		$hasher = new PasswordHash(8, FALSE);
@@ -30,19 +30,19 @@ class session
 
 	private static function create_session() {
 		if (!isset($_POST['username']) || !isset($_POST['password'])) {
-			echo "<div class=\"red_message\">Användarnamn eller lösenord är inte ifyllt.</div>";
+			echo '<div class="red_message">' . _t("Username or password is blank.") . '</div>';
 			return;
 		}
 		$user_data = db_user::get_user_data_from_username($_POST['username']);
 		if(self::is_user_suspended($user_data)) {
-			echo "<div class=\"red_message\">Användaren är tillfälligt avstängd</div>";
+			echo '<div class="red_message">' . _t("The user is temporarily suspended.") . '</div>';
 			return;
 		}
 		$hasher = new PasswordHash(8, FALSE);
 		if($hasher->CheckPassword($_POST['password'], $user_data['password']))
 			self::open_session($user_data);
 		else
-			echo "<div class=\"red_message\">Lösenordet var inte korrekt</div>";
+			echo '<div class="red_message">' . _t("Invalid username or password.") . '</div>';
 	}
 
 	private static function is_user_suspended($user_data) 

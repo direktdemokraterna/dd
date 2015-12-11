@@ -295,7 +295,7 @@ class nouns
 				,"en" => "type"
 				)
 			,"user:noun1" => array(
-				"sv" => "användare"
+				"sv" => "användare::n:_na"
 				,"en" => "user:s"
 				)
 			,"user information:noun1" => array(
