@@ -88,11 +88,12 @@ class noun_plural extends noun
 {
 	function __construct($identifier, $compact_translation) 
 	{
-		if (!$identifier->key) {
-			$key_parts = explode(':', $compact_translation[BASE_LANG]);
-			$identifier->key = self::assemble_word_form($key_parts, 1);			
-		}
 		parent::__construct($identifier, 'plural', $compact_translation[LANG], 1, 3);
+	}
+
+	public static function make_plural_identifier($identifier, $compact_translation) {
+		$key_parts = explode(':', $compact_translation[BASE_LANG]);
+		return $identifier->copy(self::assemble_word_form($key_parts, 1));
 	}
 }
 ?>

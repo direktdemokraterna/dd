@@ -27,33 +27,24 @@ class db_workgroup
 
 	public static function create ($title, $description, $user_id)
 	{
-		$already_exists = self::get_id_from_name($title);
-		if($already_exists==0){
-			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
-			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen".$title, "workgroup");
-			$query = "insert into workgroup (title, description, propose_time, create_user, public_forum_id, private_forum_id) values (?, ?, ?, ?, ?, ?)";
-			$values = Array($title, $description, time(), $user_id, $public_forum_id, $private_forum_id);
-			return db::insert($query, $values);
-		}
-		return false;
+		if (self::get_id_from_name($title)) return false;
+		$workgroup_forums_ids = self::create_workgroup_forums($title);
+		$query = "insert into workgroup (title, description, propose_time, create_user, public_forum_id, private_forum_id) values (?, ?, ?, ?, ?, ?)";
+		$values = Array($title, $description, time(), $user_id, $workgroup_forums_ids['public'], $workgroup_forums_ids['private']);
+		return db::insert($query, $values);
 	}
 
 	public static function create_restricted ($title, $description, $number_of_members)
 	{
-		$already_exists = self::get_id_from_name($title);
+		if (self::get_id_from_name($title)) return false;
+		$workgroup_forums_ids = self::create_workgroup_forums($title);
 		$constituency_id = DEFAULT_CONSTITUENCY_ID;
-		if($already_exists==0){
-			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen".$title, "public");
-			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen".$title, "workgroup");
-			$query = "insert into workgroup (title, description, is_active, number_of_members, create_time, create_user, public_forum_id, private_forum_id, is_restricted) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			$values = Array($title, $description, 1, $number_of_members, time(), $_SESSION['id'], $public_forum_id, $private_forum_id, 1);
-			$workgroup_id = db::insert($query, $values);
-			if($workgroup_id){
-				$vote_id = self::create_vote_for_restricted($workgroup_id, $title, $public_forum_id, $constituency_id, $_SESSION['id']);
-				return $workgroup_id;
-			}
-		}
-		return false;
+		$query = "insert into workgroup (title, description, is_active, number_of_members, create_time, create_user, public_forum_id, private_forum_id, is_restricted) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($title, $description, 1, $number_of_members, time(), $_SESSION['id'], $workgroup_forums_ids['public'], $workgroup_forums_ids['private'], 1);
+		$workgroup_id = db::insert($query, $values);
+		if($workgroup_id)
+			$vote_id = self::create_vote_for_restricted($workgroup_id, $title, $workgroup_forums_ids['public'], $constituency_id, $_SESSION['id']);
+		return $workgroup_id;
 	}
 
 	public static function update ($workgroup_id, $description, $title = null, $number_of_members = null
@@ -300,14 +291,21 @@ class db_workgroup
 		$member_count = self::get_member_count($workgroup_id);
 		if($member_count >= 3){
 			$workgroup_name = self::get_info($workgroup_id);
-			$public_forum_id = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $workgroup_name['title'], "Publikt forum för arbetsgruppen " . $workgroup_name['title'] . ".", "public");
-			$private_forum_id = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $workgroup_name['title'], "Privat forum för arbetsgruppen " . $workgroup_name['title'] . ".", "workgroup");
-			self::activate($public_forum_id, $private_forum_id, $workgroup_id);
+			$workgroup_forum_ids = self::create_workgroup_forums($workgroup_name['title']);
+			self::activate($workgroup_forum_ids['public'], $workgroup_forum_ids['private'], $workgroup_id);
 			$members = self::list_members($workgroup_id);
-			$query = "insert into forum_user (forum_id, user_id) values (" . $private_forum_id . ", ?)";
+			$query = "insert into forum_user (forum_id, user_id) values (" . $workgroup_forum_ids['private'] . ", ?)";
 			db::insert_all($query, $members);
 		}
 		return true;
+	}
+
+	private static function create_workgroup_forums($title)
+	{
+		$ret_val = array()
+		$ret_val['public'] = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, _t("Public forum for the workgroup ") . $title . ".", "public");
+		$ret_val['private'] = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Private forum for the workgroup ") . $title . ".", "workgroup");
+		return $ret_val;
 	}
 
 	public static function remove_supporting_member ($workgroup_id, $candidate_id)
@@ -457,9 +455,9 @@ class db_workgroup
 
 	private static function create_vote_for_restricted ($workgroup_id, $title, $public_forum_id, $constituency_id, $user_id)
 	{
-		$vote_title = "Val av medlemmar till arbetsgruppen " . $title;
-		$vote_description = "Denna omröstning utser medlemmarna i arbetsgruppen <a href=\"index.php?type=workgroup&action=view&id=" . $workgroup_id . "\">" . $title . "</a>.";
-		$forum_topic_id = db_forum::new_topic($user_id, $public_forum_id, "Personval till arbetsgruppen ".$title);
+		$vote_title = _t("Election of members to the workgroup ") . $title;
+		$vote_description = _t("This vote appoints the members to the workgroup ") . '<a href="index.php?type=workgroup&action=view&id=' . $workgroup_id . '>' . $title . "</a>.";
+		$forum_topic_id = db_forum::new_topic($user_id, $public_forum_id, _t("Election of members to the workgroup ") . $title);
 		db_forum::add_content_to_post($forum_topic_id, $vote_description);
 		$vote_id = db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
 		$query = "update workgroup set is_restricted = ? where id = ?";

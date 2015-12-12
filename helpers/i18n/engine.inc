@@ -320,7 +320,7 @@ class engine
 				$adjective_indefinite = new adjective($identifier, $compact_translation[LANG]);
 				yield $adjective_indefinite;
 				if ($adjective_indefinite->has_definite_form)
-					yield new adjective_definite($identifier, $compact_translation, $adjective_indefinite);
+					yield new adjective_definite($identifier->copy(), $compact_translation, $adjective_indefinite);
 				break;
 			case 'verb':
 			case 'verb-aux':
@@ -342,12 +342,12 @@ class engine
 				yield $verb_imperative;
 				break;
 			case 'noun':
-				yield new noun_singular($identifier->copy($identifier->key, new singular_noun_selector()), 
+				yield new noun_singular($identifier->copy(null, new singular_noun_selector()), 
 					$compact_translation[LANG]);
-				yield new noun_plural($identifier->copy($identifier->key, new plural_noun_selector()), 
+				yield new noun_plural($identifier->copy(null, new plural_noun_selector()), 
 					$compact_translation);
 				yield new noun_singular($identifier, $compact_translation[LANG]);
-				yield new noun_plural($identifier->copy(null), $compact_translation);
+				yield new noun_plural(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
 				break;
 			default:
 				throw new \Exception("Unknown word class: " . $identifier->class);
