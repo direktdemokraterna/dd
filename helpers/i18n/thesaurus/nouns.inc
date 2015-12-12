@@ -147,7 +147,7 @@ class nouns
 				,"en" => "front page"
 				)
 			,"group:noun1" => array(
-				"sv" => "grupp:er:-"
+				"sv" => "grupp:er:en:na:-"
 				,"en" => "group:s"
 				)
 			,"hit:noun1" => array(
@@ -198,6 +198,10 @@ class nouns
 				"sv" => "medlemsansvarig:a"
 				,"en" => "member admin:s"
 				)
+			,"membership application:noun1" => array(
+				"sv" => "medlemsansökan"
+				,"en" => "membership application"
+				)
 			,"month:noun1" => array(
 				"sv" => "månad:er:en:na"
 				,"en" => "month:s"
@@ -245,6 +249,10 @@ class nouns
 			,"proposition:noun1" => array(
 				"sv" => "proposition:er:en:erna"
 				,"en" => "proposition:s"
+				)
+			,"question:noun1" => array(
+				"sv" => "fråga:_or:n:na"
+				,"en" => "question:s"
 				)
 			,"recipient:noun1" => array(
 				"sv" => "mottagare::n:_na"

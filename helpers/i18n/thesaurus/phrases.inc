@@ -10,6 +10,10 @@ class phrases
 				"sv" => "kommer det också att skapas en kontinuerlig omröstning"
 				,"en" => "a continous vote will also be created"
 				)
+			,"a member of" => array(
+				"sv" => "medlem i"
+				,"en" => "a member of"
+				)
 			,"after" => array(
 				"sv" => "efter att"
 				,"en" => "after"
@@ -186,6 +190,10 @@ class phrases
 				"sv" => "är lagd"
 				,"en" => "has been cast"
 				)
+			,"has been withdrawn" => array(
+				"sv" => "har dragits tillbaka"
+				,"en" => "has been withdrawn"
+				)
 			,"has voted" => array(
 				"sv" => "röstat"
 				,"en" => "has voted"
@@ -225,6 +233,10 @@ class phrases
 			,"if you want to" => array(
 				"sv" => "vill du"
 				,"en" => "if you want to"
+				)
+			,"included as member" => array(
+				"sv" => "upptagen som medlem"
+				,"en" => "included as member"
 				)
 			,"in a row" => array(
 				"sv" => "i rad"
@@ -334,6 +346,10 @@ class phrases
 				"sv" => "ingen ändring gjord"
 				,"en" => "no change made"
 				)
+			,"no longer" => array(
+				"sv" => "inte längre"
+				,"en" => "no longer"
+				)
 			,"not" => array(
 				"sv" => "inte"
 				,"en" => "not"
@@ -341,6 +357,14 @@ class phrases
 			,"not yet" => array(
 				"sv" => "ännu inte"
 				,"en" => "not yet"
+				)
+			,"now" => array(
+				"sv" => "nu"
+				,"en" => "now"
+				)
+			,"now excluded" => array(
+				"sv" => "numera utesluten"
+				,"en" => "now excluded"
 				)
 			,"number of" => array(
 				"sv" => "antal"
@@ -414,6 +438,14 @@ class phrases
 				"sv" => "så"
 				,"en" => "so"
 				)
+			,"still" => array(
+				"sv" => "fortfarande"
+				,"en" => "still"
+				)
+			,"still needs more support" => array(
+				"sv" => "behöver fortfarande mer stöd"
+				,"en" => "still needs more support"
+				)
 			,"stop supporting" => array(
 				"sv" => "sluta stödja"
 				,"en" => "stop supporting"
@@ -433,6 +465,10 @@ class phrases
 			,"that" => array(
 				"sv" => "att"
 				,"en" => "that"
+				)
+			,"the activation of this workgroup" => array(
+				"sv" => "denna arbetsgrupps aktivering"
+				,"en" => "the activation of this workgroup"
 				)
 			,"the admittance of this candidate" => array(
 				"sv" => "att denna kandidat upptas"
@@ -597,6 +633,10 @@ class phrases
 			,"you have cast" => array(
 				"sv" => "du har själv lagt"
 				,"en" => "you have cast"
+				)
+			,"you no longer support" => array(
+				"sv" => "du stödjer inte längre"
+				,"en" => "you no longer support"
 				)
 			,"you press" => array(
 				"sv" => "trycker du på"

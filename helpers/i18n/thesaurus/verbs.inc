@@ -15,6 +15,10 @@ class verbs
 				"sv" => "avstår"
 				,"en" => "abstain"
 				)
+			,"activated:verb" => array(
+				"sv" => "aktiverad"
+				,"en" => "activated"
+				)
 			,"add:verb" => array(
 				"sv" => "lägg till"
 				,"en" => "add"
@@ -260,8 +264,8 @@ class verbs
 				,"en" => "subscribe::|s:d:(d)"
 				)
 			,"support:verb" => array(
-				"sv" => "stöd:ja:jer"
-				,"en" => "support::|s"
+				"sv" => "stöd:ja:jer:_tt"
+				,"en" => "support::|s:ed"
 				)
 			,"transform:verb" => array(
 				"sv" => "gör om"
