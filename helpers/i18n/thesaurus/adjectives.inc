@@ -50,7 +50,7 @@ class adjectives
 				,"en" => "finished"
 				)
 			,"invalid:adj" => array(
-				"sv" => "felaktigt"
+				"sv" => "ogiltig|t"
 				,"en" => "invalid"
 				)
 			,"late:adj" => array(

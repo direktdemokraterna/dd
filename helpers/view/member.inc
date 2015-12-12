@@ -41,7 +41,7 @@ class member
 		echo '<input type="hidden" name="action" value="list"/>';
 		echo '<input type="hidden" name="filter" value="county"/>';
 		echo '<div class="list_of_link_menu">';
-		echo '<span class="list_sort_alternative">' . _t("RegionL: ");
+		echo '<span class="list_sort_alternative">' . _t("Region: ");
 		self::makeSelecBox('region', \db_constituency::get_regions(), _t("All regions"));
 		echo '</span>';
 		echo '<span class="list_sort_alternative">' . _t("Municipality: ");
@@ -71,7 +71,7 @@ class member
 
 	private static function output_county_selector($result, $counties) {
 		$county_options = \db_general::make_hash($counties, 'county', 'county');
-		\View\general::make_labeled_selector("county", "Kommun", $county_options, $result['county']
+		\View\general::make_labeled_selector("county", _t("Municipality"), $county_options, $result['county']
 			, 'onchange="county_changed()"');
 	}
 

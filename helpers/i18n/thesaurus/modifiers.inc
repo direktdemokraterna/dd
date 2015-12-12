@@ -20,6 +20,10 @@ class modifiers
 				"sv" => "en gång i"
 				,"en" => "once every"
 				)
+			,"that[noun]:definite" => array(
+				"sv" => "den|_t"
+				,"en" => "that"
+				)
 			,"the:definite" => array(
 				"sv" => ""
 				,"en" => "the"

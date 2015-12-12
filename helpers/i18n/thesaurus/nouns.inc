@@ -19,8 +19,8 @@ class nouns
 				,"en" => "activity"
 				)
 			,"address:noun1" => array(
-				"sv" => "adress"
-				,"en" => "address"
+				"sv" => "adress:er:en:na"
+				,"en" => "address:es"
 				)
 			,"admin:noun1" => array(
 				"sv" => "admin:istratörer"
@@ -270,10 +270,6 @@ class nouns
 				"sv" => "inställning:ar"
 				,"en" => "setting:s"
 				)
-			,"social security number:noun1" => array(
-				"sv" => "personnummer"
-				,"en" => "social security number"
-				)
 			,"start:noun1" => array(
 				"sv" => "start:er:en:na"
 				,"en" => "start:s"
@@ -397,7 +393,7 @@ class nouns
 				,"en" => "error:s"
 				)
 			,"forum:noun2" => array(
-				"sv" => "forum::-"
+				"sv" => "forum::et:en-"
 				,"en" => "forum:s"
 				)
 			,"line:noun2" => array(
@@ -447,6 +443,10 @@ class nouns
 			,"subject:noun2" => array(
 				"sv" => "ämne"
 				,"en" => "subject"
+				)
+			,"social security number:noun2" => array(
+				"sv" => "personnummer::___ret"
+				,"en" => "social security number"
 				)
 			,"support:noun2" => array(
 				"sv" => "stöd"

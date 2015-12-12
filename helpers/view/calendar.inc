@@ -19,7 +19,7 @@ class calendar
 
 	public static function output_location_field($calendar_info = null) {
 		$counties = \db_constituency::get_counties();
-		$location_options = array("Internet" => "Internet");
+		$location_options = array("internet" => "Internet");
 		foreach($counties as $row)
 			$location_options[$row['title']] = $row['title'];
 		\View\general::make_labeled_selector("location", _("Location"), $location_options, $calendar_info);
@@ -86,7 +86,7 @@ class calendar
 		if($events_for_this_day) {
 			$events_presentation = "<span>";
 			foreach ($events_for_this_day as $row) {
-				$events_presentation .= "<strong>" . $row['title'] . "</strong><br>Tid: " . $row['time'] . "<br>" . _t("Location: ") . $row['location'] . "<br><br>";
+				$events_presentation .= "<strong>" . $row['title'] . '</strong><br>' . _t('Time: ') . $row['time'] . "<br>" . _t("Location: ") . $row['location'] . "<br><br>";
 			}
 			$events_presentation .= "</span>";
 			return $events_presentation;

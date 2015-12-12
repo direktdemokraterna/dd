@@ -62,6 +62,10 @@ class phrases
 				"sv" => "tillbaka"
 				,"en" => "back"
 				)
+			,"be created" => array(
+				"sv" => "skapas"
+				,"en" => "be created"
+				)
 			,"be given" => array(
 				"sv" => "ges"
 				,"en" => "be given"
@@ -97,6 +101,10 @@ class phrases
 			,"cannot be undone" => array(
 				"sv" => "kan inte ångras"
 				,"en" => "cannot be undone"
+				)
+			,"could not" => array(
+				"sv" => "kunde inte"
+				,"en" => "could not"
 				)
 			,"currently members" => array(
 				"sv" => "medlemmar för närvarande"
@@ -437,6 +445,10 @@ class phrases
 			,"their vote" => array(
 				"sv" => "sin röst"
 				,"en" => "their vote"
+				)
+			,"there already exists" => array(
+				"sv" => "det finns redan"
+				,"en" => "there already exists"
 				)
 			,"this is" => array(
 				"sv" => "det här är"
