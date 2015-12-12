@@ -123,7 +123,7 @@ class nouns
 				,"en" => "delegation:s"
 				)
 			,"description:noun1" => array(
-				"sv" => "beskrivning:ar"
+				"sv" => "beskrivning:ar:en:na"
 				,"en" => "description:s"
 				)
 			,"email:noun1" => array(

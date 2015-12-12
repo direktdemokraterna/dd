@@ -3,10 +3,10 @@
 	if($is_member){
 		$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['edit_description_content']));
 		if($ok)
-			$_SESSION['report_message'] = "Beskrivningen ändrad";
+			$_SESSION['report_message'] = _t("Description changed");
 		else
-			\Logic\util::report_error("Inga ändringar gjorda");
+			\Logic\util::report_error(_t("No changes made");
 	}
 	else
-		\Logic\util::report_error("Du är inte medlem i den arbetsgruppen");
+		\Logic\util::report_error("You are not member of that workgroup");
 ?>

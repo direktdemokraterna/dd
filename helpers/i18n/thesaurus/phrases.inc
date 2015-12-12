@@ -346,6 +346,10 @@ class phrases
 				"sv" => "ingen ändring gjord"
 				,"en" => "no change made"
 				)
+			,"no changes made" => array(
+				"sv" => "inga ändringar gjorda"
+				,"en" => "no changes made"
+				)
 			,"no longer" => array(
 				"sv" => "inte längre"
 				,"en" => "no longer"
