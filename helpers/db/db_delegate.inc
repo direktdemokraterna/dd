@@ -342,6 +342,7 @@ class db_delegate
 
 	public static function get_delegations_for_multiple_constituencies ($constituencies)
 	{
+		if (!$constituencies) return array();
 		$in_clause = implode(',', array_fill(0, count($constituencies), '?'));
 		$query = "select vd.user_code as user_code, vd.constituency_id as constituency_id, vd.delegate_id as delegate_id, d.title as delegate_name 
 					from voter_delegate vd, delegate d 

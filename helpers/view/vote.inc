@@ -259,7 +259,7 @@ class vote
 	}
 
 	public static function output_vote_header($voteinfo) {
-		echo '<h1>' . self::get_vote_type_descriptions($voteinfo['type']) . $voteinfo['title'] . '</h1>';
+		echo '<h1>' . self::get_vote_header_prefix($voteinfo['type']) . $voteinfo['title'] . '</h1>';
 		if($voteinfo['type'] == "workgroup-election") {
 			$workgroup_id = $voteinfo['from_proposition_id'];
 			$workgroup_title = \db_workgroup::get_name_from_id($workgroup_id);

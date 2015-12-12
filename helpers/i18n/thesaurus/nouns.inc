@@ -393,7 +393,7 @@ class nouns
 				,"en" => "error:s"
 				)
 			,"forum:noun2" => array(
-				"sv" => "forum::et:en-"
+				"sv" => "forum::et:en:-"
 				,"en" => "forum:s"
 				)
 			,"line:noun2" => array(

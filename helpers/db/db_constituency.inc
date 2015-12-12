@@ -23,9 +23,10 @@ class db_constituency
 
 	public static function get_constituencies_for_delegate ($delegate_id)
 	{
-		$query = "select c.id as id, c.title as name
-					from constituency c, constituency_delegate cd 
-					where c.id = cd.constituency_id and cd.delegate_id = ? order by c.id asc";
+		$query = "select c.id, c.title as name
+					from constituency c
+						join constituency_delegate cd on c.id = cd.constituency_id
+					where cd.delegate_id = ? order by c.id asc";
 		$values = Array($delegate_id);
 		return db::select($query, $values);
 	}
