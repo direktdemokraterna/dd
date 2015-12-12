@@ -187,19 +187,22 @@ class verb_perfect extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		if ($restrictive && (!$previous_matches || self::has_indefinite_object($following_matches)))
+		if ($restrictive && (!$previous_matches 
+			|| self::has_indefinite_object($previous_matches, $following_matches)))
 			return false;
-		if ($previous_matches && self::is_present_marker(end($previous_matches)->translator))
+		if ($previous_matches && self::is_invalid_verb_perfect_modifier(end($previous_matches)->translator))
 			return false;
 		return true;
 	}
 
-	private static function is_present_marker($translator) {
-		return $translator->is_verb() && $translator->identifier->form == 'present';
+	private static function is_invalid_verb_perfect_modifier($translator) {
+		return ($translator->is_verb() && $translator->identifier->form == 'present')
+			|| $translator->identifier->class == 'definite';
 	}
 
-	private static function has_indefinite_object($following_matches) {
-		return $following_matches && self::is_indefinite_noun($following_matches[0]->translator);
+	private static function has_indefinite_object($previous_matches, $following_matches) {
+		return ($following_matches && self::is_indefinite_noun($following_matches[0]->translator))
+		|| ($previous_matches && self::is_indefinite_noun(end($previous_matches)->translator));
 	}
 
 	private static function is_indefinite_noun($translator) {

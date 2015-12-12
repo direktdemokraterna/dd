@@ -17,6 +17,10 @@ class quantifiers
 				"sv" => "ingen|_t:__a"
 				,"en" => "no"
 				)
+			,"one:quant" => array(
+				"sv" => "en|_tt"
+				,"en" => "one"
+				)
 			,"other[noun-plural]:quant" => array(
 				"sv" => "andra"
 				,"en" => "other"

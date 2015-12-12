@@ -144,8 +144,12 @@ class verbs
 				,"en" => "logout"
 				)
 			,"make:verb" => array(
-				"sv" => "gör"
-				,"en" => "make"
+				"sv" => "gör:a::__jorde:(__jord|_t:a)"
+				,"en" => "make::|s:__de:(__de)"
+				)
+			,"missing:verb" => array(
+				"sv" => "saknas"
+				,"en" => "missing"
 				)
 			,"moderate:verb" => array(
 				"sv" => "moderera"
@@ -268,8 +272,8 @@ class verbs
 				,"en" => "undo"
 				)
 			,"update:verb" => array(
-				"sv" => "uppdatera"
-				,"en" => "update"
+				"sv" => "uppdatera::r:t:(d|_t:e)"
+				,"en" => "update::|s:d:(d)"
 				)
 			,"view:verb" => array(
 				"sv" => "visa"
@@ -286,6 +290,10 @@ class verbs
 			,"voted:verb" => array(
 				"sv" => "röstat"
 				,"en" => "voted"
+				)
+			,"go:verb" => array(
+				"sv" => "gå::r:_ick"
+				,"en" => "go::|es:__went"
 				)
 			,"will:verb" => array(
 				"sv" => "kommer"

@@ -22,8 +22,8 @@ class vote
 		$vote_changed = \db_vote_admin::update_vote($_POST['type_of_vote'], $_POST['title'], $_POST['description'], $_POST['forum_topic_id'], $_POST['vote_id']);
 		$vote_time_changed = util::is_all_set(self::$time_properties, $_POST) && self::change_vote_end_time();
 		if(!($constituency_changed || $vote_changed || $vote_time_changed))
-			throw new \Exception("Databasfel. Ingen uppdatering gjord.");
-		$_SESSION['report_message'] = "Omröstningen är uppdaterad.";
+			throw new \Exception(_t("Database error. No change made."));
+		$_SESSION['report_message'] = _t("The vote is updated.");
 	}
 
 	public static function change_vote_property() {
@@ -33,9 +33,9 @@ class vote
 		$action = $_POST['action'];
 		$ok = self::invoke_action($vote_id, $status, $action);
 		if(!$ok)
-			throw new Exception("Databasfel. Ingen ändring gjord.");
+			throw new \Exception(_t("Database error. No change made."));
 		self::invoke_post_action($vote_id, $status, $action);
-		$_SESSION['report_message'] = "Omröstningen är ändrad.";
+		$_SESSION['report_message'] = _t("The vote is updated.");
 	}
 
 	public static function admin_create_vote() {
@@ -44,8 +44,8 @@ class vote
 			? self::admin_create_time_limited_vote()
 			: self::admin_create_continuous_vote();
 		if(!$ok)
-			throw new \Exception("Något gick fel. Ingen omröstning skapad.");
-		$_SESSION['report_message'] = "Omröstningen är skapad.";
+			throw new \Exception("Something went wrong. No vote created.");
+		$_SESSION['report_message'] = "The vote is created.";
 		$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;
 	}
 
@@ -58,9 +58,9 @@ class vote
 			$ballot_decoded = \json_decode($ballot, true);
 			$ok = \db_delegate::register_prop_ballot($prop_id, $_SESSION['delegate_id'], $ballot_decoded['support']);
 			if($ok)
-				$_SESSION['report_message'] = "Din delegats röst är registrerad.";
+				$_SESSION['report_message'] = "Your delegate's ballot is registered.";
 			else
-				\Logic\util::report_error("Något gick fel. Rösten registrerades inte.");
+				throw new \Exception("Something went wrong. The ballot was not registered.");
 		}
 		elseif($prop_info['status'] == "pending"){
 			$check_user_access = \db_constituency::check_user_constituency_access($_SESSION['id'], $prop_info['constituency_id']);
@@ -68,12 +68,12 @@ class vote
 				$post_vars = Array("user_id" => $_SESSION['id'], "prop_id" => $prop_id, "ballot" => $ballot);
 				$reply = \crypt_helpers::curl_to_anon_server("anonymise_prop_ballot.php", $post_vars);
 				if($reply == "success")
-					$_SESSION['report_message'] = "Din röst är registrerad.";
+					$_SESSION['report_message'] = "Your ballot is registered.";
 				else
-					\Logic\util::report_error("Något gick fel. Rösten registrerades inte.");
+					throw new \Exception("Something went wrong. The ballot was not registered.");
 			}
 			else
-				die("ingen constituency access");
+				die("no constituency access");
 		}		
 	}
 
@@ -173,17 +173,17 @@ class vote
 	{
 		self::validate_input($manatody_properties);
 		if($_POST['vote_id'] != $_GET['id'])
-			throw new \Exception("Något gick fel. Den uppdaterade omröstningens id matchar inte den aktuella omröstningen.");
+			throw new \Exception("Something went wrong. The updated vote's id doesn't match the current vote.");
 	}
 
 	private static function validate_input($mandatory_properties) 
 	{
 		if(!util::is_all_set($mandatory_properties, $_POST)) {
-			throw new \Exception("Värde saknas i något av de obligatoriska fälten");
+			throw new \Exception("Value missing in one of the mandatory fields");
 		}
 		if(!\db_constituency::check_that_constituency_exists($_POST['constituency_id']))
-			throw new \Exception("Valkretsfel. Ingen ändring gjord.");
+			throw new \Exception("Constituency missing. No change made.");
 		if(!in_array($_POST['type_of_vote'], \Logic\vote::get_vote_types()))
-			throw new \Exception("Fel omröstningstyp. Ingen ändring gjord.");
+			throw new \Exception("Wrong vote type. No change made.");
 	}
 }

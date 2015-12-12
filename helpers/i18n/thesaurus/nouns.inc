@@ -94,6 +94,10 @@ class nouns
 				"sv" => "valkrets:ar:en:na:-"
 				,"en" => "constituency:_ies"
 				)
+			,"database:noun1" => array(
+				"sv" => "databas:-"
+				,"en" => "database"
+				)
 			,"day:noun1" => array(
 				"sv" => "dag:ar:en:na"
 				,"en" => "day:s"
@@ -105,6 +109,10 @@ class nouns
 			,"delegate:noun1" => array(
 				"sv" => "delegat:er:-"
 				,"en" => "delegate:s"
+				)
+			,"delegate's:noun1" => array(
+				"sv" => "delegats"
+				,"en" => "delegate's"
 				)
 			,"delegate setting:noun1" => array(
 				"sv" => "delegatinställning:ar"
@@ -310,6 +318,10 @@ class nouns
 				"sv" => "understruken"
 				,"en" => "underline"
 				)
+			,"update:noun1" => array(
+				"sv" => "uppdatering"
+				,"en" => "update"
+				)
 			,"user:noun1" => array(
 				"sv" => "användare::n:_na"
 				,"en" => "user:s"
@@ -323,12 +335,8 @@ class nouns
 				,"en" => "vote:s"
 				)
 			,"vote:noun1" => array(
-				"sv" => "omröstning:ar:en:arna:-s"
+				"sv" => "omröstning:ar:en:na:-s"
 				,"en" => "vote:s"
-				)
-			,"vote time:noun1" => array(
-				"sv" => "omröstningstid:er:en:erna"
-				,"en" => "vote time:s"
 				)
 			,"vote admin:noun1" => array(
 				"sv" => "valadministratör:er"
@@ -338,9 +346,17 @@ class nouns
 				"sv" => "ställningen i denna omröstning"
 				,"en" => "vote count:s"
 				)
+			,"vote time:noun1" => array(
+				"sv" => "omröstningstid:er:en:na"
+				,"en" => "vote time:s"
+				)
+			,"vote type:noun1" => array(
+				"sv" => "omröstningstyp:er:en:na"
+				,"en" => "vote type:s"
+				)
 			,"vote's:noun1" => array(
-				"sv" => "omröstnings"
-				,"en" => "vote's"
+				"sv" => "omröstnings:_ars:_ens"
+				,"en" => "vote's:__s'"
 				)
 			,"voter:noun1" => array(
 				"sv" => "röstande"
@@ -375,6 +391,10 @@ class nouns
 			,"election:noun2" => array(
 				"sv" => "personval::et:en"
 				,"en" => "election:s"
+				)
+			,"error:noun2" => array(
+				"sv" => "fel::et:en"
+				,"en" => "error:s"
 				)
 			,"forum:noun2" => array(
 				"sv" => "forum::-"
@@ -443,6 +463,10 @@ class nouns
 			,"value:noun2" => array(
 				"sv" => "värde"
 				,"en" => "value"
+				)
+			,"wrong:noun2" => array(
+				"sv" => "fel"
+				,"en" => "wrong"
 				)
 			,"zip code:noun2" => array(
 				"sv" => "postnummer"

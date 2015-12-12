@@ -130,6 +130,10 @@ class phrases
 				"sv" => "finns inte"
 				,"en" => "doesn't exist"
 				)
+			,"doesn't match" => array(
+				"sv" => "matchar inte"
+				,"en" => "doesn't match"
+				)
 			,"doesn't support" => array(
 				"sv" => "stöder ej"
 				,"en" => "doesn't support"
@@ -310,6 +314,10 @@ class phrases
 				"sv" => "nej"
 				,"en" => "no"
 				)
+			,"no change made" => array(
+				"sv" => "ingen ändring gjord"
+				,"en" => "no change made"
+				)
 			,"not" => array(
 				"sv" => "inte"
 				,"en" => "not"
@@ -329,6 +337,10 @@ class phrases
 			,"only" => array(
 				"sv" => "bara"
 				,"en" => "only"
+				)
+			,"one of the mandatory fields" => array(
+				"sv" => "något av de obligatoriska fälten"
+				,"en" => "one of the mandatory fields"
 				)
 			,"out" => array(
 				"sv" => "ut"
@@ -501,6 +513,10 @@ class phrases
 			,"was found" => array(
 				"sv" => "hittades"
 				,"en" => "was found"
+				)
+			,"was not registered" => array(
+				"sv" => "registrerades inte"
+				,"en" => "was not registered"
 				)
 			,"was terminated" => array(
 				"sv" => "avslutades"

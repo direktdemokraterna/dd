@@ -226,7 +226,9 @@ class noun_modifier extends translator
 	private function has_plurifying_pronoun($translations_before) 
 	{
 		foreach (array_reverse($translations_before) as $translation) {
-			if ($translation->identifier->key == 'this' || $translation->identifier->class == 'pron-poss')
+			if ($translation->identifier->key == 'this' 
+				|| $translation->identifier->class == 'definite'
+				|| $translation->identifier->class == 'pron-poss')
 				return true;
 			if (!$translation->is_noun_modifier()) break;
 		}
