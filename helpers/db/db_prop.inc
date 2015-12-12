@@ -5,12 +5,13 @@ class db_prop
 	public static function add_prop ($type, $created_by_user, $created_by_delegate, $constituency_id, $title, $description)
 	{
 		$forum_id = db_constituency::get_constituency_forum_id($constituency_id);
-		$post_title = "Proposition: " . $title;
+		$post_title = _t("Proposition: ") . $title;
 		$forum_topic_id = db_forum::new_topic($created_by_user, $forum_id, $post_title);
 		$query = "insert into proposition (type, created_by_user, created_by_delegate, timestamp_created, constituency_id, title, description, forum_topic_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = Array($type, $created_by_user, $created_by_delegate, time(), $constituency_id, $title, $description, $forum_topic_id);
 		$prop_id = db::insert($query, $values);
-		$post_content = "Det här är en automatiskt skapad forumtråd tillhörande propositionen: <a href=\"index.php?type=vote&action=view_prop&id=" . $prop_id . "\">" . $title . "</a>\n\n" . $description;
+		$post_content = _t("This is an auto-generated forum thread for the proposition: ")
+			. '<a href="index.php?type=vote&action=view_prop&id=' . $prop_id . '">' . $title . '</a>\n\n' . $description;
 		db_forum::add_content_to_post($forum_topic_id, $post_content);
 		return $prop_id;
 	}
