@@ -302,9 +302,9 @@ class db_workgroup
 
 	private static function create_workgroup_forums($title)
 	{
-		$ret_val = array()
+		$ret_val = array();
 		$ret_val['public'] = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, _t("Public forum for the workgroup ") . $title . ".", "public");
-		$ret_val['private'] = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Private forum for the workgroup ") . $title . ".", "workgroup");
+		$ret_val['private'] = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, _t("Private forum for the workgroup ") . $title . ".", "workgroup");
 		return $ret_val;
 	}
 

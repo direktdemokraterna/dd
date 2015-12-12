@@ -20,10 +20,9 @@ class db_vote
 			$query = "update proposition set status = 'affirmed', timestamp_ended = ? where id = ?";
 			$values = Array(time(), $prop_id);
 			db::update($query, $values);
-			$post_title = "Omröstning: " . $prop_data['title'];
-			$post_content = "Det här är en automatiskt skapad forumtråd tillhörande omröstningen: 
-			<a href=\"index.php?type=vote&action=view_vote&id=" . $vote_id . "\">" . $prop_data['title'] . 
-			"</a>\n\n" . $prop_data['description'];
+			$post_title = _t("Vote: ", array('class' => 'noun')) . $prop_data['title'];
+			$post_content = _t("This is an auto-generated forum thread for the vote: ") 
+				. '<a href="index.php?type=vote&action=view_vote&id=' . $vote_id . '">' . $prop_data['title'] . "</a>\n\n" . $prop_data['description'];
 			db_forum_admin::edit_title($post_title, $prop_data['forum_topic_id']);
 			db_forum_admin::edit_content($post_content, $prop_data['forum_topic_id']);
 		}

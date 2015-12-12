@@ -192,24 +192,31 @@ class noun_modifier extends translator
 
 	function __construct($identifier, $compact_translation) 
 	{
+		$forms = self::create_word_forms($compact_translation);
+		parent::__construct($identifier, $forms[0]);
+		$this->translation_plural = $forms[1];
+		$this->translation_noun2 = $forms[2];
+	}
+
+	private static function create_word_forms($compact_translation) 
+	{
 		$word_parts = explode(' ', $compact_translation, 2);
 		$form_parts = explode(':', $word_parts[0]);
 		$type_parts = explode('|', $form_parts[0]);
 		$singular = $type_parts[0];
-		$translation_plural = count($form_parts) > 1
-			? parent::create_word_form($singular, $form_parts[1])
-			: $singular;
-		$translation_noun2 = count($type_parts) > 1
-			? parent::create_word_form($singular, $type_parts[1])
-			: $singular;
-		if (count($word_parts) == 2) {
-			$singular .= ' ' . $word_parts[1];
-			$translation_plural .= ' ' . $word_parts[1];
-			$translation_noun2 .= ' ' . $word_parts[1];
+		$forms = array($singular
+			,count($form_parts) > 1
+				? parent::create_word_form($singular, $form_parts[1])
+				: $singular
+			,count($type_parts) > 1
+				? parent::create_word_form($singular, $type_parts[1])
+				: $singular);
+		if (count($word_parts) > 1) {
+			$endings = self::create_word_forms($word_parts[1]);
+			for ($i = 0; $i < 3; $i++)
+				$forms[$i] .= ' ' . $endings[$i];
 		}
-		parent::__construct($identifier, $singular);
-		$this->translation_plural = $translation_plural;
-		$this->translation_noun2 = $translation_noun2;
+		return $forms;
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector
