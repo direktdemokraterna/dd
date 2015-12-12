@@ -27,7 +27,9 @@ class vote
 	}
 
 	public static function output_common_delegate_vote_box_translations_for_js() {
-		echo 'var delegate_vote_box_header = "' . _t("Delegate ballots:") . '<table><tr style=\'color: white\'><th>' . _t("Delegate") . '</th><th>' . _t("Ballot") . '</th>' . _t("Ballot cast by") . '</th></tr>"';
+		echo 'var delegate_vote_box_header = "' . _t("Delegate ballots:", array('class' => 'noun')) 
+		. '<table><tr style=\'color: white\'><th>' . _t("Delegate", array('class' => 'noun')) . '</th><th>' 
+		. _t("Ballot") . '</th><th>' . _t("Ballot cast by", array('class' => 'adj')) . '</th></tr>";';
 		echo 'var abstain_text = "' . _t("Abstain") . '";';
 	}
 

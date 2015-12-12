@@ -94,7 +94,7 @@
 	echo 'var stop_supporting_hint = " ' . _t("Click on") . " \\\"" . _t("Supporting") . "\\\" " 
 		. _t("to stop supporting this proposition.") . '";';
 	echo 'var support_withdrawn = "' . _t("You have withdrawn your support for this proposition.") . '";';
-	echo 'var support_text = "' . _t("Support") . '";';
+	echo 'var support_text = "' . _t("Support", array("form" => "present")) . '";';
 	echo 'var not_support_text = "' . _t("Don't support") . '";';
 	\View\vote::output_common_delegate_vote_box_translations_for_js();
 	echo '</script>';

@@ -61,11 +61,14 @@ class translation_identifier
 		return !$this->selector || $this->selector->match($previous_matches, $following_matches, $restrictive);
 	}
 
-	public function copy($new_key, $new_selector = null, $new_form = null) 
+	public function copy($new_key = null, $new_selector = null, $new_form = null) 
 	{
-		return new translation_identifier($new_key, $this->class, $this->type
-			, $new_form ? $new_form : $this->form, 
-			$new_selector ? $new_selector : $this->selector, $this->base_form);
+		return new translation_identifier($new_key ? $new_key : $this->key
+			, $this->class
+			, $this->type
+			, $new_form ? $new_form : $this->form
+			, $new_selector ? $new_selector : $this->selector
+			, $this->base_form);
 	}
 
 	function __construct($key, $class, $type = 1, $form = null, $selector = null, $base_form = null) 

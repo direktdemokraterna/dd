@@ -14,7 +14,7 @@ function retrieveUserCodes(url, user_id, temp_code) {
 				sessionStorage.passive_user_code3 = user_codes.passive_user_code3;
 			}
 			else {
-				alert("Din användarsession är för gammal. Logga ut och logga in på nytt");
+				alert(session_too_old);
 			}
 	    });
 }

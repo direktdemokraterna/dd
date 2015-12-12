@@ -266,6 +266,10 @@ class nouns
 				"sv" => "avsändare::n:_na"
 				,"en" => "sender:s"
 				)
+			,"session:noun1" => array(
+				"sv" => "session:er:en:na"
+				,"en" => "session:s"
+				)
 			,"setting:noun1" => array(
 				"sv" => "inställning:ar"
 				,"en" => "setting:s"
@@ -319,7 +323,7 @@ class nouns
 				,"en" => "update"
 				)
 			,"user:noun1" => array(
-				"sv" => "användare::n:_na"
+				"sv" => "användare::n:_na:-_"
 				,"en" => "user:s"
 				)
 			,"user information:noun1" => array(

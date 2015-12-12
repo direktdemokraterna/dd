@@ -127,12 +127,6 @@ function encrypt_delegation_get_delegate_from_form (constituency_id){
 
 function show_delegate_votes (is_prop)
 {
-	var delegate_vote_box_header = "Delegatröster:<table><tr style='color: white'><th>Delegat</th><th>Röst</th><Rösten lagd av</th></tr>";
-	var support_text = "Stöder";
-	var not_support_text = "Stöder ej";
-	var abstain_text = "Avstår";
-	var yes_text = "Ja";
-	var no_text = "Nej";
 	document.getElementById("delegate_votes_box").className = "vote_result_box";
 	var delegate_votes_box_content = delegate_vote_box_header;
 	list_of_votes.map(function (vote){
@@ -154,10 +148,5 @@ function show_delegate_votes (is_prop)
 			delegate_votes_box_content += "</td></tr>";
 		}
 	});
-	/*
-	delegate_votes_box_content += is_prop == "prop" 
-		? "</table><p><a href=\"index.php?type=vote&action=view_prop_ballots&id=" + prop_id + "\">Se alla röster för denna proposition</a></p>"
-		: "</table><p><a href=\"index.php?type=vote&action=view_ballots&id=" + vote_id + "\">Se alla röster för denna omröstning</a></p>";
-		*/
 	document.getElementById("delegate_votes_box").innerHTML = delegate_votes_box_content;
 }

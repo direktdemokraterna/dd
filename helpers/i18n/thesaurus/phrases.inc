@@ -18,6 +18,10 @@ class phrases
 				"sv" => "efter att omröstningen har skapats"
 				,"en" => "after the vote has been created"
 				)
+			,"again" => array(
+				"sv" => "igen"
+				,"en" => "again"
+				)
 			,"all" => array(
 				"sv" => "alla"
 				,"en" => "all"
@@ -124,7 +128,11 @@ class phrases
 				)
 			,"don't have" => array(
 				"sv" => "har inte"
-				,"en" => "do no have"
+				,"en" => "don't have"
+				)
+			,"don't support" => array(
+				"sv" => "stödjer inte"
+				,"en" => "don't support"
 				)
 			,"do you really want to" => array(
 				"sv" => "vill du verkligen"
@@ -481,6 +489,10 @@ class phrases
 			,"together" => array(
 				"sv" => "tillsammans"
 				,"en" => "together"
+				)
+			,"too" => array(
+				"sv" => "för"
+				,"en" => "too"
 				)
 			,"treasurer" => array(
 				"sv" => "kassör"
