@@ -94,9 +94,13 @@
 	echo 'var stop_supporting_hint = " ' . _t("Click on") . " \\\"" . _t("Supporting") . "\\\" " 
 		. _t("to stop supporting this proposition.") . '";';
 	echo 'var support_withdrawn = "' . _t("You have withdrawn your support for this proposition.") . '";';
+	echo 'var support_text = "' . _t("Support") . '";';
+	echo 'var not_support_text = "' . _t("Don't support") . '";';
+	\View\vote::output_common_delegate_vote_box_translations_for_js();
 	echo '</script>';
 ?>
 <script>
+
 document.getElementById("user_vote_box").innerHTML = support_hint;
 list_of_votes.map(function (vote){
 	if(vote.user_code == sessionStorage.active_user_code && !acting_as_delegate) {

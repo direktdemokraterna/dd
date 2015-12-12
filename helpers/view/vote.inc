@@ -26,6 +26,11 @@ class vote
 		}
 	}
 
+	public static function output_common_delegate_vote_box_translations_for_js() {
+		echo 'var delegate_vote_box_header = "' . _t("Delegate ballots:") . '<table><tr style=\'color: white\'><th>' . _t("Delegate") . '</th><th>' . _t("Ballot") . '</th>' . _t("Ballot cast by") . '</th></tr>"';
+		echo 'var abstain_text = "' . _t("Abstain") . '";';
+	}
+
 	private static function open_add_alternative_form($caption_prefix, $voteinfo) {
 		_h1(_t($caption_prefix) . _t(" the vote: ") . $voteinfo['title']);
 		_p(\View\general::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['vote_id']));

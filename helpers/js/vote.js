@@ -127,20 +127,26 @@ function encrypt_delegation_get_delegate_from_form (constituency_id){
 
 function show_delegate_votes (is_prop)
 {
+	var delegate_vote_box_header = "Delegatröster:<table><tr style='color: white'><th>Delegat</th><th>Röst</th><Rösten lagd av</th></tr>";
+	var support_text = "Stöder";
+	var not_support_text = "Stöder ej";
+	var abstain_text = "Avstår";
+	var yes_text = "Ja";
+	var no_text = "Nej";
 	document.getElementById("delegate_votes_box").className = "vote_result_box";
-	var delegate_votes_box_content = "Delegatröster:<table><tr style='color: white'><th>Delegat</th><th>Röst</th><Rösten lagd av</th></tr>";
+	var delegate_votes_box_content = delegate_vote_box_header;
 	list_of_votes.map(function (vote){
 		if(vote.user_code == null){
 			delegate_votes_box_content += "<tr><td><a href=\"index.php?type=vote&action=view_delegate&id=" + vote.voter_is_delegate_id + "\">" + vote.voter_is_delegate_name + "</a></td><td style='color: white'>";
 			if(vote.hasOwnProperty('support'))
-				delegate_votes_box_content += vote.support ? "Stöder" : "Stödjer ej";
+				delegate_votes_box_content += vote.support ? support_text : not_support_text;
 			else if(vote.hasOwnProperty('alternative'))
 				delegate_votes_box_content += vote.alternative == "abstain"
-					? "Avstår"
-					: (vote.alternative == "yes" ? "Ja" : "Nej");
+					? abstain_text
+					: (vote.alternative == "yes" ? yes_text : no_text);
 			else if(vote.hasOwnProperty('value'))
 				delegate_votes_box_content += vote.value == "abstain"
-					? "Avstår"
+					? abstain_text
 					: vote.value;
 			delegate_votes_box_content += "</td><td>";
 			if(vote.delegate_id)

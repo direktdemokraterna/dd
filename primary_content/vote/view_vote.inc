@@ -126,6 +126,11 @@
 		echo '</div>';
 		__($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
 	}
+	echo '<script>';
+	\View\vote::output_common_delegate_vote_box_translations_for_js();
+	echo 'var yes_text = "' . _t("Yes") . '";';
+	echo 'var no_text = "' . _t("No") . '";';
+	echo '</script>';
 	$vote_script_include = \View\vote::get_vote_script_include($voteinfo['type']);
 	if ($vote_script_include)
 		include(dirname(__FILE__) . $vote_script_include);
