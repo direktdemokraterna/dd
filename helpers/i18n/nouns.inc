@@ -45,12 +45,12 @@ class noun extends translator
 		return $this->is_definite ? $this->definite_translation	: $this->translation; 
 	}
 
-	private static function check_is_definite($translations_before, $translations_after) 
+	private function check_is_definite($translations_before, $translations_after) 
 	{
 		return $translations_before
 		? self::is_definite_adjective(end($translations_before)->identifier)
 			|| self::has_definite_marker($translations_before)
-		: $translations_after && $translations_after[0]->is_adjective();
+		: $translations_after && $this->identifier->form == 'singular' && $translations_after[0]->is_adjective();
 	}
 
 	private static function is_definite_adjective($identifier) 

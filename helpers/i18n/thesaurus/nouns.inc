@@ -476,6 +476,10 @@ class nouns
 				"sv" => "värde"
 				,"en" => "value"
 				)
+			,"vote alternative:noun2" => array(
+				"sv" => "omröstningsalternativ::et:en"
+				,"en" => "vote alternative:s"
+				)
 			,"wrong:noun2" => array(
 				"sv" => "fel"
 				,"en" => "wrong"

@@ -2,10 +2,7 @@
 	if(isset($_POST['delete'])){
 		if($_POST['vote_id'] == $_GET['id']){
 			$deleted = db_vote_admin::delete_alternatives($_POST['check_list'], $_POST['vote_id']);
-			if($deleted>1)
-				$message = $deleted . " omröstningsalternativ raderade.";
-			else
-				$_SESSION['report_message'] = "1 omröstningsalternativ raderat.";
+			$message = _t($deleted . " vote alternative deleted.");
 		}
 	}
 
