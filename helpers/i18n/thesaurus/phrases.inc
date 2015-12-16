@@ -58,10 +58,6 @@ class phrases
 				"sv" => "är valda"
 				,"en" => "are elected"
 				)
-			,"as" => array(
-				"sv" => "som"
-				,"en" => "as"
-				)
 			,"automatically" => array(
 				"sv" => "automatiskt"
 				,"en" => "automatically"
@@ -102,8 +98,12 @@ class phrases
 				"sv" => "finns"
 				,"en" => "can be found"
 				)
-			,"candidate in" => array(
+			,"[]candidate in" => array(
 				"sv" => "kandidat in"
+				,"en" => "candidate in"
+				)
+			,"candidate in" => array(
+				"sv" => "kandidat i"
 				,"en" => "candidate in"
 				)
 			,"cannot be undone" => array(
@@ -133,6 +133,10 @@ class phrases
 			,"don't have" => array(
 				"sv" => "har inte"
 				,"en" => "don't have"
+				)
+			,"does not have" => array(
+				"sv" => "har inte"
+				,"en" => "does not have"
 				)
 			,"don't support" => array(
 				"sv" => "stödjer inte"
@@ -554,9 +558,9 @@ class phrases
 				"sv" => "votering (ja/nej)"
 				,"en" => "vote (yes/no)"
 				)
-			,"vote as delegate" => array(
-				"sv" => "rösta som delegat"
-				,"en" => "vote as delegate"
+			,"vote[as]" => array(
+				"sv" => "rösta"
+				,"en" => "vote"
 				)
 			,"vote closes" => array(
 				"sv" => "omröstningen avslutas"
@@ -630,9 +634,9 @@ class phrases
 				"sv" => "skapar du"
 				,"en" => "you create"
 				)
-			,"you don't have to vote as delegate" => array(
-				"sv" => "behöver du inte rösta som delegat"
-				,"en" => "you don't have to vote as delegate"
+			,"you don't have to" => array(
+				"sv" => "behöver du inte"
+				,"en" => "you don't have to"
 				)
 			,"you have cast" => array(
 				"sv" => "du har själv lagt"
@@ -641,6 +645,14 @@ class phrases
 			,"you no longer support" => array(
 				"sv" => "du stödjer inte längre"
 				,"en" => "you no longer support"
+				)
+			,"you now vote" => array(
+				"sv" => "nu röstar du"
+				,"en" => "you now vote"
+				)
+			,"as delegate" => array(
+				"sv" => "som delegat"
+				,"en" => "as delegate"
 				)
 			,"you press" => array(
 				"sv" => "trycker du på"

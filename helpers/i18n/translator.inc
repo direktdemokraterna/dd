@@ -48,10 +48,10 @@ class translation_identifier
 			$identifier_str = str_replace($pre_matches[0], '', $identifier_str);
 			return new previous_word_selector(translator::strip_parenthesis($pre_matches[0]));
 		}
-		preg_match(next_class_selector::$pattern, $identifier_str, $post_matches);
+		preg_match(next_word_selector::$pattern, $identifier_str, $post_matches);
 		if ($post_matches) {
 			$identifier_str = str_replace($post_matches[0], '', $identifier_str);
-			return new next_class_selector(translator::strip_parenthesis($post_matches[0]));
+			return new next_word_selector(translator::strip_parenthesis($post_matches[0]));
 		}
 		return null;
 	}

@@ -20,52 +20,62 @@ class previous_word_selector
 	}
 }
 
-class next_class_selector 
+class next_word_selector 
 {
 	public static $pattern = '/\[\w+[\w\|\-]+\w+\]|\[\w*\]$/';
 
+	public $words;
 	public $classes;
 	public $forms;
 
-	function __construct($classes_str) 
+	function __construct($matches_str) 
 	{
-		self::extract_classes_and_forms($classes_str);
+		self::extract_matches($matches_str);
 	}
 
-	private function extract_classes_and_forms($classes_str) 
+	private function extract_matches($matches_str) 
 	{
-		$matches = $classes_str
-			? explode('|', $classes_str)
+		$matches = $matches_str
+			? explode('|', $matches_str)
 			: array();
+		$this->words = array();
 		$this->classes = array();
 		$this->forms = array();
 		foreach ($matches as $match) {
+			$words = $match;
 			$parts = explode('-', $match);
-			$this->classes[] = $parts[0];
+			$class = $parts[0];
+			$this->classes[] = $class;
 			$this->forms[] = count($parts) > 1 ? $parts[1] : null;
 		}
 	}
 
 	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return $this->classes 
-			? $following_matches && $this->match_classes_and_forms($following_matches[0]->translator)
+		return $this->classes || $this->words
+			? $following_matches && $this->match_translator($following_matches[0]->translator)
 			: !$following_matches;
 	}
 
-	public function match_classes_and_forms($translator) 
+	private function match_translator($translator) 
 	{
 		if (is_array($translator)) {
 			foreach ($translator as $candidate)
-				if ($this->match_classes_and_forms($candidate))
+				if ($this->match_translator($candidate))
 					return true;
 			return false;
 		}
-		for ($i = 0; $i < count($this->classes); $i++)
-			if (self::match_class($translator, $this->classes[$i]) 
-				&& self::match_form($translator, $this->forms[$i]))
+		for ($i = 0; $i < count($this->words); $i++)
+			if (self::match_word($translator, $this->words[$i]) 
+				|| (self::match_class($translator, $this->classes[$i]) 
+				&& self::match_form($translator, $this->forms[$i])))
 				return true;
 		return false;
+	}
+
+	public function match_word($translator, $word) 
+	{
+		return $translator->identifier->key == $word; 
 	}
 
 	public function match_class($translator, $class) 

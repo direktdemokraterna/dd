@@ -14,9 +14,9 @@ if(isset($_POST['ballot'])){
 		$ok = db_delegate::register_delegation_ballot(null, $delegand_id, $delegate_id, $constituency_id);
 
 		if($ok)
-			$_SESSION['report_message'] = "Din delegats delegering är registrerad.";
+			$_SESSION['report_message'] = _t("Your delegate's delegation is registered.");
 		else
-			\Logic\util::report_error("Något gick fel. Ingen delegering registrerad.");
+			\Logic\util::report_error(_t("Something went wrong. No delegation registered."));
 	}
 
 	else{
@@ -31,8 +31,8 @@ if(isset($_POST['ballot'])){
 		$reply = crypt_helpers::curl_to_anon_server("anonymise_delegation_ballot.php", $post_vars);
 
 		if($reply == "success")
-			$_SESSION['report_message'] = "Din delegering är registrerad.";
+			$_SESSION['report_message'] = _t("Your delegation is registered.");
 		else
-			\Logic\util::report_error("Något gick fel. Ingen delegering registrerad.");
+			\Logic\util::report_error(_t("Something went wrong. No delegation registered."));
 	}
 }

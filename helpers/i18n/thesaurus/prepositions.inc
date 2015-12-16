@@ -13,6 +13,10 @@ class prepositions
 				"sv" => "ovanför"
 				,"en" => "above"
 				)
+			,"as:prep" => array(
+				"sv" => "som"
+				,"en" => "as"
+				)
 			,"below:prep" => array(
 				"sv" => "nedan"
 				,"en" => "below"

@@ -28,10 +28,10 @@
 				}
 			
 				if($ok){
-					$_SESSION['report_message'] = "Din delegats röst är registrerad.";
+					$_SESSION['report_message'] = _t("Your delegate's ballot is registered.");
 				}
 				else{
-					$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+					$_SESSION['report_message'] = _t("Something went wrong. The ballot was not registered.");
 					$_SESSION['red_report_message'] = 1;
 				}
 
@@ -42,28 +42,21 @@
 				if($check_user_access){
 					$post_vars = Array("user_id" => $_SESSION['id'], "vote_id" => $_POST['vote_id'], "ballot" => $_POST['ballot']);
 					$reply = crypt_helpers::curl_to_anon_server("anonymise_ballot.php", $post_vars);
-
-					if($reply == "success"){
-						$_SESSION['report_message'] = "Din röst är registrerad.";
-						}
+					if($reply == "success")
+						$_SESSION['report_message'] = _t("Your ballot is registered.");
 					else{
-						$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+						$_SESSION['report_message'] = _t("Something went wrong. The ballot was not registered.");
 						$_SESSION['red_report_message'] = 1;
 					}
 				}
-				else{
-					die("ingen constituency access");
-				}
-
+				else
+					die("No constituency access");
 			}
 			else{
-				$_SESSION['report_message'] = "Något gick fel. Rösten registrerades inte.";
+				$_SESSION['report_message'] = _t("Something went wrong. The ballot was not registered.");
 				$_SESSION['red_report_message'] = 1;
 			}
-
 			$redirect = $_SERVER['REQUEST_URI'];
-
 		}
-
 	}
 ?>

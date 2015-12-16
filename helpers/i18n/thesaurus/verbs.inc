@@ -56,7 +56,7 @@ class verbs
 				,"en" => "cast::|s"
 				)
 			,"change:verb" => array(
-				"sv" => "ändra::r:t:(d|t:e)"
+				"sv" => "ändra::r:t:(d|_t:e)"
 				,"en" => "change::s:d:(d)"
 				)
 			,"check:verb" => array(

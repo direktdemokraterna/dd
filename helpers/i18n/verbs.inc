@@ -151,9 +151,7 @@ class verb_present_singular extends translator
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return $previous_matches 
-			? self::has_subject($previous_matches)
-			: !$restrictive;
+		return !$restrictive || ($previous_matches && self::has_subject($previous_matches));
 	}
 
 	private static function has_subject($previous_matches) {

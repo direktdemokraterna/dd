@@ -18,19 +18,19 @@
 						$ok = db_vote::add_candidate($_POST['vote_id'], $user_id['id'], $_POST['description']);
 					}
 					else{
-						$_SESSION['report_message'] = "Användaren har inte valkretsbehörighet. Inget omröstningsalternativ skapat.";
+						$_SESSION['report_message'] = _t("The user does not have access to this constituency. No vote alternative created.");
 						$_SESSION['red_report_message'] = 1;
 					}
 				}
 				else
-					\Logic\util::report_error("Fel användarnamn. Inget omröstningsalternativ skapat.");
+					\Logic\util::report_error(_t("Wrong username. No vote alternative created.");
 			}
 
 			elseif(isset($_POST['title']))
 				$ok = db_vote_admin::add_alternative_by_admin($_POST['vote_id'], $_POST['title'], $_POST['description']);
 			if($ok)
-				$_SESSION['report_message'] = "Omröstningsalternativ skapat.";
+				$_SESSION['report_message'] = _t("Vote alternative created.");
 			else
-				\Logic\util::report_error("Något gick fel. Inget omröstningsalternativ skapat.");
+				\Logic\util::report_error("Something went wrong. No vote alternative created.");
 		}
 	}
