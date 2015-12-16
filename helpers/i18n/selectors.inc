@@ -42,7 +42,7 @@ class next_word_selector
 		$this->classes = array();
 		$this->forms = array();
 		foreach ($matches as $match) {
-			$words = $match;
+			$this->words[] = $match;
 			$parts = explode('-', $match);
 			$class = $parts[0];
 			$this->classes[] = $class;

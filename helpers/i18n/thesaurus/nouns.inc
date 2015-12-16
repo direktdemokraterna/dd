@@ -94,6 +94,10 @@ class nouns
 				"sv" => "valkrets:ar:en:na:-"
 				,"en" => "constituency:_ies"
 				)
+			,"credential:noun1" => array(
+				"sv" => "inloggningsuppgift:er"
+				,"en" => "credential:s"
+				)
 			,"database:noun1" => array(
 				"sv" => "databas:-"
 				,"en" => "database"
@@ -197,6 +201,10 @@ class nouns
 			,"member admin:noun1" => array(
 				"sv" => "medlemsansvarig:a"
 				,"en" => "member admin:s"
+				)
+			,"member-page:noun1" => array(
+				"sv" => "medlems-sida:_or:n:na"
+				,"en" => "member-page:s"
 				)
 			,"membership application:noun1" => array(
 				"sv" => "medlemsansökan"
@@ -335,7 +343,7 @@ class nouns
 				,"en" => "user:s"
 				)
 			,"user information:noun1" => array(
-				"sv" => "uppgifter"
+				"sv" => "användaruppgifter"
 				,"en" => "user information"
 				)
 			,"[your]vote:noun1" => array(
@@ -417,8 +425,12 @@ class nouns
 				,"en" => "membership"
 				)
 			,"message:noun2" => array(
-				"sv" => "meddelande:n"
+				"sv" => "meddelande:n:t:na"
 				,"en" => "message:s"
+				)
+			,"message-text:noun2" => array(
+				"sv" => "meddelande-text:er:en:na"
+				,"en" => "message-text:s"
 				)
 			,"name:noun2" => array(
 				"sv" => "namn::et:en"
@@ -469,7 +481,7 @@ class nouns
 				,"en" => "topic:s"
 				)
 			,"username:noun2" => array(
-				"sv" => "användarnamn"
+				"sv" => "användarnamn::et:en"
 				,"en" => "username:s"
 				)
 			,"value:noun2" => array(

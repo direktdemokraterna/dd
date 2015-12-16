@@ -5,21 +5,21 @@
 			if(!empty($_POST['title']) && !empty($_POST['message_text'])){
 				$ok = db_message::create_message($_SESSION['id'], $user_id, general_helpers::clean($_POST['title']), general_helpers::clean($_POST['message_text']));
 				if($ok){
-					$_SESSION['report_message'] = "Meddelandet har skickats";
+					$_SESSION['report_message'] = _t("The message has been sent");
 					$redirect = "index.php?type=message&action=inbox";
 				}
 				else{
-					$_SESSION['report_message'] = "Något gick fel, inget meddelande skickat.";
+					$_SESSION['report_message'] = _t("Something went wrong. No message sent.");
 					$_SESSION['red_report_message'] = 1;
 				}
 			}
 			else{
-				$_SESSION['report_message'] = "Meddelanden måste ha både rubrik och meddelande-text.";
+				$_SESSION['report_message'] = _t("Messages must have both caption and message-text.");
 				$_SESSION['red_report_message'] = 1;
 			}
 		}
 		else{
-			$_SESSION['report_message'] = "Mottagaren kunde inte hittas.";
+			$_SESSION['report_message'] = _t("Recipient not found.");
 			$_SESSION['red_report_message'] = 1;
 		}
 	}

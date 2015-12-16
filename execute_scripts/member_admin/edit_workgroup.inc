@@ -4,11 +4,11 @@ if(isset($_POST['delete'])){
 		db_workgroup::make_unrestricted($_GET['id']);
 	$ok = db_workgroup::delete($_GET['id']);
 	if($ok){
-		$_SESSION['report_message'] = "Arbetsgruppen borttagen";
+		$_SESSION['report_message'] = _t("Workgroup removed");
 		$redirect = "index.php?type=workgroup";
 	}
 	else
-		\Logic\util::report_error("Inga ändringar gjorda");
+		\Logic\util::report_error(_t("No changes made"));
 }
 else if(isset($_POST['title']) && isset($_POST['is_restricted'])){
 	$workgroup_info = db_workgroup::get_info($_GET['id']);
@@ -26,14 +26,14 @@ else if(isset($_POST['title']) && isset($_POST['is_restricted'])){
 	$ok = db_workgroup::update($_GET['id'], null, 
 		general_helpers::clean($_POST['title']), $number_of_members);
 	if($ok || $restricted_changed)
-		$_SESSION['report_message'] = "Arbetsgruppen ändrad";
+		$_SESSION['report_message'] = _t("Workgroup changed");
 	else
-		\Logic\util::report_error("Inga ändringar gjorda");
+		\Logic\util::report_error(_t("No changes made"));
 }
 else if(isset($_POST['edit_description_content'])){
 	$ok = db_workgroup::update($_GET['id'], forum_helpers::process_text($_POST['edit_description_content']));
 	if($ok)
-		$_SESSION['report_message'] = "Beskrivningen ändrad";
+		$_SESSION['report_message'] = _t("Description changed");
 	else
-		\Logic\util::report_error("Inga ändringar gjorda");
+		\Logic\util::report_error(_t("No changes made"));
 }

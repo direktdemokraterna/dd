@@ -6,16 +6,16 @@
 		if(!$already_exists){
 			$workgroup_id = db_workgroup::create_restricted(general_helpers::clean($_POST['title']), forum_helpers::process_text($_POST['description']), (int)$_POST['number_of_members']);
 			if($workgroup_id){
-				$_SESSION['report_message'] = "Arbetsgruppen skapad";
+				$_SESSION['report_message'] = _t("Workgroup created");
 				$redirect = "index.php?type=workgroup&action=view&id=" . $workgroup_id;
 			}
 			else{
-				$_SESSION['report_message'] = "Något gick fel, ingen arbetsgrupp skapad";
+				$_SESSION['report_message'] = _t("Something went wrong. No workgroup created");
 				$_SESSION['red_report_message'] = 1;
 			}
 		}
 		else{
-			$_SESSION['report_message'] = "Det finns redan en arbetsgrupp med den namnet";
+			$_SESSION['report_message'] = _t("There already exists a workgroup with that name";
 			$_SESSION['red_report_message'] = 1;
 		}
 	}

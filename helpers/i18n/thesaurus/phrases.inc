@@ -58,6 +58,10 @@ class phrases
 				"sv" => "är valda"
 				,"en" => "are elected"
 				)
+			,"as follows" => array(
+				"sv" => "följande"
+				,"en" => "as follows"
+				)
 			,"automatically" => array(
 				"sv" => "automatiskt"
 				,"en" => "automatically"
@@ -86,9 +90,17 @@ class phrases
 				"sv" => "tagits bort"
 				,"en" => "been removed"
 				)
+			,"both" => array(
+				"sv" => "både"
+				,"en" => "both"
+				)
 			,"by filling the form" => array(
 				"sv" => "genom att fylla i formuläret"
 				,"en" => "by filling the form"
+				)
+			,"by email" => array(
+				"sv" => "via e-post"
+				,"en" => "by email"
 				)
 			,"can be created" => array(
 				"sv" => "kan skapas"
@@ -125,6 +137,10 @@ class phrases
 			,"delegate voting closes" => array(
 				"sv" => "delegatröstning avslutas"
 				,"en" => "delegate voting closes"
+				)
+			,"did never read it" => array(
+				"sv" => "hann aldrig läsa det"
+				,"en" => "did never read it"
 				)
 			,"directly" => array(
 				"sv" => "direkt"
@@ -186,6 +202,10 @@ class phrases
 				"sv" => "förnamn"
 				,"en" => "given name"
 				)
+			,"got" => array(
+				"sv" => "fått"
+				,"en" => "got"
+				)
 			,"half" => array(
 				"sv" => "halva"
 				,"en" => "half"
@@ -193,6 +213,18 @@ class phrases
 			,"has been cast" => array(
 				"sv" => "är lagd"
 				,"en" => "has been cast"
+				)
+			,"has been revoked" => array(
+				"sv" => "har ångrats"
+				,"en" => "has been revoked"
+				)
+			,"has been registered" => array(
+				"sv" => "har registrerats"
+				,"en" => "has been registered"
+				)
+			,"has been sent" => array(
+				"sv" => "har skickats"
+				,"en" => "has been sent"
 				)
 			,"has been withdrawn" => array(
 				"sv" => "har dragits tillbaka"
@@ -209,6 +241,14 @@ class phrases
 			,"have" => array(
 				"sv" => "har"
 				,"en" => "have"
+				)
+			,"have been accepted" => array(
+				"sv" => "har blivit antagen"
+				,"en" => "have been accepted"
+				)
+			,"have been sent" => array(
+				"sv" => "har skickats"
+				,"en" => "have been sent"
 				)
 			,"have cast your own ballot" => array(
 				"sv" => "har lagt din egen röst"
@@ -331,8 +371,16 @@ class phrases
 				,"en" => "me"
 				)
 			,"message not found" => array(
-				"sv" => "kan inte hitta meddelandet"
+				"sv" => "meddelandet kunde inte hittas"
 				,"en" => "message not found"
+				)
+			,"recipient not found" => array(
+				"sv" => "mottagaren kunde inte hittas"
+				,"en" => "recipient not found"
+				)
+			,"must have" => array(
+				"sv" => "måste ha"
+				,"en" => "must have"
 				)
 			,"name of" => array(
 				"sv" => "namn på"

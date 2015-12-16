@@ -2,7 +2,7 @@
 
 if($_POST['accept']){
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-		$_SESSION['report_message'] = "Mejladressen var inte korrekt.";
+		$_SESSION['report_message'] = _t("The email address is invalid.";
 		$_SESSION['red_report_message'] = 1;
 	}
 	else{
@@ -31,19 +31,21 @@ if($_POST['accept']){
 			db_user::delete_user_application($_GET['id']);
 
 			$mail_receiver = $_POST['email'];
-			$mail_title = "Välkommen till Direktdemokraterna";
-			$mail_text = "Du har blivit antagen som medlem i Direktdemokraterna och kan logga in på medlems-sidan.\n\nDina inloggningsuppgifter är följande:\n\nAnvändarnamn: " . $username . "\nLösenord: " . $random_password;
+			$mail_title = _t("Welcome to Direktdemokraterna");
+			$mail_text = _t("You have been accepted as a member of Direktdemokraterna and can login on the member-page.") . "\n\n" . _t("Your credentials are as follows:") 
+				. "\n\n" . _t("Username: ") . $username . "\n" 
+				. _t("Password: ") . $random_password;
 
 			$mail_response = general_helpers::admin_mail($mail_receiver, $mail_title, $mail_text);
 			if($mail_response != "success"){
 				die($mail_response);
 			}
 
-			$_SESSION['report_message'] = "Ny medlem har registrerats med användarnamnet " . $username . ". Användaruppgifter har skickats via e-post till medlemmen.";
+			$_SESSION['report_message'] = _t("A new member has been registered with the username ") . $username . _t(". User information have been sent by email to the member.");
 			$redirect = "index.php?type=member_admin&action=list_applications";
 		}
 		else{
-			$_SESSION['report_message'] = "Något gick fel, ingen användare skapad.";
+			$_SESSION['report_message'] = _t("Something went wrong. No user created.");
 			$_SESSION['red_report_message'] = 1;
 		}
 	}
