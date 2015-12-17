@@ -5,11 +5,11 @@
 		if($check_access){
 			$report_insert_id = db_forum::new_report($_POST['post_id'], $_SESSION['id'], general_helpers::clean($_POST['report_post_argument']));
 			if($report_insert_id){
-				$_SESSION['report_message'] = "Anmälan är mottagen.";
+				$_SESSION['report_message'] = _t("The report is received.");
 				$redirect = "index.php?type=forum&action=show_posts&post_id=" . $_POST['post_id'];
 			}
 		}
 		else
-			\Logic\util::report_error("Du har inte behörighet till det forumet.");
+			\Logic\util::report_error(_t("You don't have access to that forum.");
 	}
 ?>

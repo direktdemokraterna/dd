@@ -222,6 +222,10 @@ class nouns
 				"sv" => "medlemsansökan"
 				,"en" => "membership application"
 				)
+			,"minute:noun1" => array(
+				"sv" => "minut:er:en:na"
+				,"en" => "minute:s"
+				)
 			,"month:noun1" => array(
 				"sv" => "månad:er:en:na"
 				,"en" => "month:s"
@@ -335,7 +339,7 @@ class nouns
 				,"en" => "thread:s"
 				)
 			,"time:noun1" => array(
-				"sv" => "tidpunkt:er"
+				"sv" => "tidpunkt:er:_____en:na"
 				,"en" => "time:s"
 				)
 			,"time of vote:noun1" => array(

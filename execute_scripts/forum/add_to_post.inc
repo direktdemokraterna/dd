@@ -5,10 +5,10 @@
 		$text = "\n\nTILLÄGG:\n" . $_POST['add_to_post_content'];
 		$ok = forum_helpers::update_post_content($post_id, $text, "add");
 		if($ok){
-			$_SESSION['report_message'] = "Inlägget har försetts med tillägg.";
+			$_SESSION['report_message'] = _t("The post has been appended.");
 			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id;
 		}
 	}
 	else
-		\Logic\util::report_error("Du har inte behörighet till det inlägget.");
+		\Logic\util::report_error(_T("You don't have permission to edit that post."));
 ?>

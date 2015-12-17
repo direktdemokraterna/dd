@@ -38,6 +38,10 @@ class phrases
 				"sv" => "alfabetisk"
 				,"en" => "alphabetic"
 				)
+			,"already" => array(
+				"sv" => "redan"
+				,"en" => "already"
+				)
 			,"also" => array(
 				"sv" => "också"
 				,"en" => "also"
@@ -74,6 +78,14 @@ class phrases
 				"sv" => "skapas"
 				,"en" => "be created"
 				)
+			,"be deleted" => array(
+				"sv" => "raderas"
+				,"en" => "be deleted"
+				)
+			,"be edited" => array(
+				"sv" => "redigeras"
+				,"en" => "be edited"
+				)
 			,"be given" => array(
 				"sv" => "ges"
 				,"en" => "be given"
@@ -85,6 +97,10 @@ class phrases
 			,"become a" => array(
 				"sv" => "bli"
 				,"en" => "become a"
+				)
+			,"been appended" => array(
+				"sv" => "försätts med tillägg"
+				,"en" => "been appended"
 				)
 			,"been removed" => array(
 				"sv" => "tagits bort"
@@ -581,6 +597,10 @@ class phrases
 			,"there already exists" => array(
 				"sv" => "det finns redan"
 				,"en" => "there already exists"
+				)
+			,"they have been posted" => array(
+				"sv" => "de postats"
+				,"en" => "they have been posted"
 				)
 			,"this is" => array(
 				"sv" => "det här är"

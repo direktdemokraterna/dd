@@ -179,6 +179,10 @@ class verbs
 				"sv" => "rangordna"
 				,"en" => "order"
 				)
+			,"pass:verb" => array(
+				"sv" => "passera::r:t"
+				,"en" => "pass::|es:ed"
+				)
 			,"press:verb" => array(
 				"sv" => "tryck på"
 				,"en" => "press"

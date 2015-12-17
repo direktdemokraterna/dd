@@ -73,6 +73,10 @@ class prepositions
 				"sv" => "med"
 				,"en" => "with"
 				)
+			,"within:prep" => array(
+				"sv" => "i"
+				,"en" => "within"
+				)
 		);
 	}	
 } 
