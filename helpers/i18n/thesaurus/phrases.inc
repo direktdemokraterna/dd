@@ -218,6 +218,22 @@ class phrases
 				"sv" => "är lagd"
 				,"en" => "has been cast"
 				)
+			,"has been created" => array(
+				"sv" => "har skapats"
+				,"en" => "has been created"
+				)
+			,"has been deleted" => array(
+				"sv" => "har raderats"
+				,"en" => "has been deleted"
+				)
+			,"has been edited" => array(
+				"sv" => "har redigerats"
+				,"en" => "has been edited"
+				)
+			,"has been moved" => array(
+				"sv" => "har flyttats"
+				,"en" => "has been moved"
+				)
 			,"has been revoked" => array(
 				"sv" => "har ångrats"
 				,"en" => "has been revoked"

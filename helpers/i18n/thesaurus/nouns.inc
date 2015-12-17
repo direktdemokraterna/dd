@@ -79,7 +79,7 @@ class nouns
 				,"en" => "caption:s"
 				)
 			,"category:noun1" => array(
-				"sv" => "kategori:er"
+				"sv" => "kategori:er:n:na:-"
 				,"en" => "category:_ies"
 				)
 			,"change:noun1" => array(
@@ -173,6 +173,10 @@ class nouns
 			,"individual:noun1" => array(
 				"sv" => "privatperson"
 				,"en" => "individual"
+				)
+			,"information:noun1" => array(
+				"sv" => "information"
+				,"en" => "information"
 				)
 			,"italic:noun1" => array(
 				"sv" => "kursiv"
