@@ -338,7 +338,7 @@ class verbs
 				"sv" => "låta"
 				,"en" => "let"
 				)
-			,"may:verb-aux" => array(
+			,"[pron]may:verb-aux" => array(
 				"sv" => "kan"
 				,"en" => "may"
 				)

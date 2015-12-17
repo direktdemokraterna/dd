@@ -22,7 +22,7 @@ class calendar
 		$location_options = array("internet" => "Internet");
 		foreach($counties as $row)
 			$location_options[$row['title']] = $row['title'];
-		\View\general::make_labeled_selector("location", _("Location"), $location_options, $calendar_info);
+		\View\general::make_labeled_selector("location", _t("Location"), $location_options, $calendar_info);
 	}
 
 	public static function output_description_fields($calendar_info = null) {

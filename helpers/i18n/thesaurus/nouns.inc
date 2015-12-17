@@ -290,6 +290,10 @@ class nouns
 				"sv" => "borttagning"
 				,"en" => "removal"
 				)				
+			,"repetition:noun1" => array(
+				"sv" => "upprepning:ar"
+				,"en" => "repetition:s"
+				)				
 			,"role:noun1" => array(
 				"sv" => "roll:er:en:erna"
 				,"en" => "role:s"

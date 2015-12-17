@@ -1,29 +1,8 @@
 <?php
 namespace I18n;
 
-class previous_word_selector 
+class word_selector 
 {
-	public static $pattern = '/^\[\w*\]/';
-
-	public $word;
-
-	function __construct($word) 
-	{
-		$this->word = $word;
-	}
-
-	public function match($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return $this->word 
-			? $previous_matches && end($previous_matches)->translator->identifier->base_form == $this->word
-			: !$previous_matches;
-	}
-}
-
-class next_word_selector 
-{
-	public static $pattern = '/(\[\w+[\w\|\-]+\w+\]|\[\w*\])$/';
-
 	public $words;
 	public $classes;
 	public $forms;
@@ -52,9 +31,15 @@ class next_word_selector
 
 	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
+		$match = $this->get_match($previous_matches, $following_matches);
 		return $this->classes || $this->words
-			? $following_matches && $this->match_translator($following_matches[0]->translator)
-			: !$following_matches;
+			? $match && $this->match_translator($match->translator)
+			: !$match;
+	}
+
+	protected function get_match($previous_matches, $following_matches) 
+	{
+		return null;
 	}
 
 	private function match_translator($translator) 
@@ -86,6 +71,26 @@ class next_word_selector
 	public function match_form($translator, $form) 
 	{
 		return !$form || $translator->identifier->form == $form; 
+	}
+}
+
+class previous_word_selector extends word_selector
+{
+	public static $pattern = '/^(\[\w+[\w\|\-]+\w+\]|\[\w*\])/';
+
+	protected function get_match($previous_matches, $following_matches) 
+	{
+		return end($previous_matches);
+	}
+}
+
+class next_word_selector extends word_selector
+{
+	public static $pattern = '/(\[\w+[\w\|\-]+\w+\]|\[\w*\])$/';
+
+	protected function get_match($previous_matches, $following_matches) 
+	{
+		return $following_matches[0];
 	}
 }
 

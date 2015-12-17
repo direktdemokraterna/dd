@@ -29,7 +29,7 @@
 <?php
 	$options = array();
 	for($i=2; $i<53; $i++) $options[$i] = $i;
-	\View\general::make_labeled_selector("repeat_number", _t("Number of repititions"), $options);
+	\View\general::make_labeled_selector("repeat_number", _t("Number of repetitions"), $options);
 	_br();
-	_submit_and_close("Add");
+	_submit_and_close(_t("Add"));
 ?>

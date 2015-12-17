@@ -202,6 +202,10 @@ class phrases
 				"sv" => "även"
 				,"en" => "even"
 				)
+			,"every" => array(
+				"sv" => "varje"
+				,"en" => "every"
+				)
 			,"for the particular issue" => array(
 				"sv" => "i den frågan"
 				,"en" => "från the particular issue"
