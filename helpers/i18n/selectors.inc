@@ -80,7 +80,7 @@ class previous_word_selector extends word_selector
 
 	protected function get_match($previous_matches, $following_matches) 
 	{
-		return end($previous_matches);
+		return $previous_matches ? end($previous_matches) : null;
 	}
 }
 
@@ -90,7 +90,7 @@ class next_word_selector extends word_selector
 
 	protected function get_match($previous_matches, $following_matches) 
 	{
-		return $following_matches[0];
+		return $following_matches ? $following_matches[0] : null;
 	}
 }
 
