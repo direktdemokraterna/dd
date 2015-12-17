@@ -154,6 +154,10 @@ class phrases
 				"sv" => "delegatröstning avslutas"
 				,"en" => "delegate voting closes"
 				)
+			,"delete selected[]" => array(
+				"sv" => "radera valda"
+				,"en" => "delete selected"
+				)
 			,"didn't match" => array(
 				"sv" => "matchade inte"
 				,"en" => "didn't match"

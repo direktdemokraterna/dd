@@ -21,7 +21,7 @@
 	echo '<input type="checkbox" name="checkall" onclick="checkAll(this, \'delete_checkbox\')">';
 	__("Check all");
 	_br();
-	_submit_and_close(_t("Delete checked", array("form" => "plural")));
+	_submit_and_close(_t("Delete selected", array("form" => "plural")));
 
 	_h2(_t("Add alternative to this vote"));
 

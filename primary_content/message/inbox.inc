@@ -25,7 +25,7 @@
 		_br();
 		echo '<input type="checkbox" name="checkall" onclick="checkAll(this, \'delete_checkbox\');">' . _t("Check all");
 		_br();
-		_submit_and_close(_t("Delete checked", array('form' => 'plural')));
+		_submit_and_close(_t("Delete selected", array('form' => 'plural')));
 	}
 	else
 		__("No messages.");

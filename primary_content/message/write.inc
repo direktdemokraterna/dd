@@ -20,7 +20,7 @@
 	_h1(_t("Write message"));
 	_open_form();
 	_hidden("send", 1);
-	$options = array("none" => _("Select recipient"));
+	$options = array("none" => _t("Select recipient"));
 	$recipients = db_user::get_all_usernames_and_full_names();
 	foreach($recipients as $row)
 		$options[$row['username']] = $row['full_name'];
