@@ -1,6 +1,8 @@
-<?php 
-	$workgroup = db_workgroup::get_info($_GET['id']);
-	if(!empty($workgroup))
+<?php
+	$workgroup = isset($_GET['id'])
+		? db_workgroup::get_info($_GET['id'])
+		: null;
+	if($workgroup)
 	{
 		$is_member = \db_workgroup::is_member($workgroup['id'], $_SESSION['id']);
 		$is_candidate = \db_workgroup::is_candidate($workgroup['id'], $_SESSION['id']);
@@ -12,5 +14,8 @@
 		if(isset($_SESSION['is_member_admin']))
 			_link(_t("Administrate this workgroup as member admin"), "member_admin", 
 				"edit_workgroup", "id=" . $workgroup['id']);
+	}
+	else {
+		_p(_t("No workgroups."));
 	}
 ?>	

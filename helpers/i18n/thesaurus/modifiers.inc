@@ -20,7 +20,7 @@ class modifiers
 				"sv" => "en gång i"
 				,"en" => "once every"
 				)
-			,"that[noun]:definite" => array(
+			,"that:definite[noun]" => array(
 				"sv" => "den|_t"
 				,"en" => "that"
 				)
@@ -28,7 +28,7 @@ class modifiers
 				"sv" => ""
 				,"en" => "the"
 				)
-			,"the[adj|quant]:definite" => array(
+			,"the:definite[adj|quant]" => array(
 				"sv" => "den|_t:_"
 				,"en" => "the"
 				)
@@ -42,7 +42,7 @@ class modifiers
 				"sv" => "för att"
 				,"en" => "to"
 				)
-			,"to[verb|adverb]:indefinite" => array(
+			,"to:indefinite[verb|adverb]" => array(
 				"sv" => "att"
 				,"en" => "to"
 				)

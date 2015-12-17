@@ -24,7 +24,7 @@ class workgroup
 		echo $workgroup['number_of_members'];
 		_br();
 		$is_active = $workgroup['is_active'];
-		_strong(_t($is_active ? "Created: " : "Proposed: "));
+		_strong(_t($is_active ? "Created: " : "Proposed: ", array('class' => 'adj')));
 		echo \general_helpers::show_date($workgroup[$is_active ? 'create_time' : 'propose_time']);
 		_br();				
 		_strong(_t("Description: "));

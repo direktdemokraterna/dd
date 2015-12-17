@@ -60,7 +60,7 @@ class word_selector
 
 	public function match_word($translator, $word) 
 	{
-		return $translator->identifier->key == $word; 
+		return $translator->identifier->base_form == $word; 
 	}
 
 	public function match_class($translator, $class) 
@@ -96,7 +96,7 @@ class next_word_selector extends word_selector
 
 class noun_numerus_selector 
 {
-	protected function get_quantifier($previous_matches) 
+	protected function get_quantifier($previous_matches, $restrictive) 
 	{
 		$current_is_noun = true;
 		foreach (array_reverse($previous_matches) as $match) {
@@ -105,7 +105,7 @@ class noun_numerus_selector
 				return (int)$match->phrase;
 			if ($translator->is_adjective())
 				$current_is_noun = false; 
-			else if (!($translator->is_noun() && $current_is_noun))
+			else if ($restrictive || !$translator->is_noun() || !$current_is_noun)
 				break; 
 		}
 		return null; 
@@ -121,7 +121,7 @@ class singular_noun_selector extends noun_numerus_selector
 {
 	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
-		$quantifier = parent::get_quantifier($previous_matches);
+		$quantifier = parent::get_quantifier($previous_matches, $restrictive);
 		return $quantifier && self::is_one($quantifier);
 	}
 }
@@ -130,7 +130,7 @@ class plural_noun_selector extends noun_numerus_selector
 {
 	public function match($previous_matches, $following_matches, $restrictive = true) 
 	{
-		$quantifier = parent::get_quantifier($previous_matches);
+		$quantifier = parent::get_quantifier($previous_matches, $restrictive);
 		return $quantifier && !self::is_one($quantifier);
 	}
 }
