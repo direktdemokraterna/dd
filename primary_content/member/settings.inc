@@ -2,7 +2,7 @@
 <?php 
 	$tab_index = 1;
 	$user_settings = db_user::get_user_data($_SESSION['id']); 
-	_h1(_t("Change your profile"));
+	_h1(_t("Change my profile"));
 	
 	_h2(_t("Change user information"));
 	_open_form();

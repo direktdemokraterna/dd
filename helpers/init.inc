@@ -39,6 +39,7 @@ include(dirname(__FILE__)."/i18n/engine.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/adjectives.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/conjunctions.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/modifiers.inc");
+include(dirname(__FILE__)."/i18n/thesaurus/names.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/nouns.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/phrases.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/prepositions.inc");

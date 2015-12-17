@@ -49,7 +49,7 @@ class member
 		self::makeSelecBox('region', \db_constituency::get_regions(), _t("All regions"));
 		echo '</span>';
 		echo '<span class="list_sort_alternative">' . _t("Municipality: ");
-		self::makeSelecBox('county', self::getCounties(), "All municipalities");
+		self::makeSelecBox('county', self::getCounties(), _t("All municipalities"));
 		echo "</span>";
 		if(isset($_SESSION['is_member_admin'])) {
 			$show_deleted = isset($_GET['show_deleted']) ? $_GET['show_deleted'] : 0;

@@ -219,7 +219,7 @@ class forum
 	private static function output_topic_link_for_post($post_info)
 	{
 		$is_first_post = $post_info['topic_id'] == $post_info['post_id'];
-		echo $is_first_post ? _t(' thread start: ') : ' ' . _t('as reply to: ');
+		echo $is_first_post ? _t(' thread start: ') : ' ' . _t('reply to: ');
 		general::output_internal_link($post_info['title'], "forum", "show_posts", "topic_id=" . 
 			$post_info['topic_id'] . self::get_from_action_for_url());
 		echo '&nbsp;';

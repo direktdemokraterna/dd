@@ -123,6 +123,10 @@ class verbs
 				"sv" => "slutar"
 				,"en" => "finishes"
 				)
+			,"generate:verb" => array(
+				"sv" => "skapa::r:t"
+				,"en" => "generate::|s:d"
+				)
 			,"give:verb" => array(
 				"sv" => "ge::r:_av"
 				,"en" => "give::|s:___ave"

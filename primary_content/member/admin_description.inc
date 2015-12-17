@@ -1,6 +1,6 @@
 <?php 
 	$admin_role_info = db_admin::get_admin_role_info($_GET['id']);
-	_h1($admin_role_info['title']);
+	_h1(_t($admin_role_info['title']));
 	echo '<p>';
 	_strong(_t("Description:"));
 	_br();

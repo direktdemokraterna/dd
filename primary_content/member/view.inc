@@ -37,7 +37,7 @@
 				_p(_t("Telephone number: ") . $userinfo['telephone2']);
 		}
 		if($userinfo['show_skype'] && !empty($userinfo['skype_name']))
-			_p(_t("Skype username: ") . $userinfo['skype_name']);
+			_p(_t("Skype name: ") . $userinfo['skype_name']);
 		_p(_t("Municipality: ") . $userinfo['county']);
 		_p(_t("Region: ") . $userinfo['region']);
 		_p(_t("Presentation:") . '<br>' . \View\general::make_html_from_wiki_text($userinfo['description']));
