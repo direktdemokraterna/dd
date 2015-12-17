@@ -6,7 +6,11 @@ class pronouns
 	public static function create_translations() {
 		return array(
 			//PRONOUN
-			"something:pron" => array(
+			"i:pron" => array(
+				"sv" => "jag"
+				,"en" => "i"
+				)
+			,"something:pron" => array(
 				"sv" => "något"
 				,"en" => "something"
 				)

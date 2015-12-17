@@ -558,6 +558,10 @@ class phrases
 				"sv" => "anmäl dig till"
 				,"en" => "subscribe for"
 				)
+			,"subscribe to" => array(
+				"sv" => "prenumerera på"
+				,"en" => "subscribe to"
+				)
 			,"superadmin" => array(
 				"sv" => "superadmin"
 				,"en" => "superadmin"
@@ -565,6 +569,10 @@ class phrases
 			,"supporting" => array(
 				"sv" => "stöder"
 				,"en" => "supporting"
+				)
+			,"thank you" => array(
+				"sv" => "tack"
+				,"en" => "thank you"
 				)
 			,"that" => array(
 				"sv" => "att"

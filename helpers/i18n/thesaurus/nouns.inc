@@ -31,7 +31,7 @@ class nouns
 				,"en" => "administrator:s"
 				)
 			,"application:noun1" => array(
-				"sv" => "ansökning:ar"
+				"sv" => "ansökan:__ningar"
 				,"en" => "application:s"
 				)
 			,"authorisation:noun1" => array(
@@ -463,6 +463,10 @@ class nouns
 			,"name:noun2" => array(
 				"sv" => "namn::et:en"
 				,"en" => "name:s"
+				)
+			,"news letter:noun2" => array(
+				"sv" => "nyhetsbrev::et:en"
+				,"en" => "news letter:s"
 				)
 			,"number:noun2" => array(
 				"sv" => "nummer::___ret:___en"

@@ -22,7 +22,7 @@ class previous_word_selector
 
 class next_word_selector 
 {
-	public static $pattern = '/\[\w+[\w\|\-]+\w+\]|\[\w*\]$/';
+	public static $pattern = '/(\[\w+[\w\|\-]+\w+\]|\[\w*\])$/';
 
 	public $words;
 	public $classes;

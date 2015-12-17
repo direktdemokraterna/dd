@@ -11,7 +11,7 @@ class engine
 		$trimmed_original = trim($original);
 		$translation = self::translate_whole_phrase($original, $translation_hints);
 		if (!$translation) {
-			$phrases = preg_split('/\s*[.,;:!?&=()]+\s*/', $trimmed_original, -1, PREG_SPLIT_NO_EMPTY);
+			$phrases = preg_split('/\s*[.,;:!?&=()*]+\s*/', $trimmed_original, -1, PREG_SPLIT_NO_EMPTY);
 			$translations = array_map(function($phrase) use ($translation_hints){
 				return self::translate_original_phrase($phrase, $translation_hints);
 			}, $phrases);

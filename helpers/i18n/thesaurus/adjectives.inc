@@ -74,7 +74,11 @@ class adjectives
 				,"en" => "limited"
 				)
 			,"mandatory:adj" => array(
-				"sv" => "obligatorisk|_t:a"
+				"sv" => "obligatorisk|t:a"
+				,"en" => "mandatory"
+				)
+			,"mandatory:adj[]" => array(
+				"sv" => "obligatoriskt"
 				,"en" => "mandatory"
 				)
 			,"my:adj" => array(

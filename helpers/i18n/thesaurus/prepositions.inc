@@ -9,7 +9,7 @@ class prepositions
 				"sv" => "ovan"
 				,"en" => "above"
 				)
-			,"above[definite]:prep" => array(
+			,"above:prep[definite]" => array(
 				"sv" => "ovanför"
 				,"en" => "above"
 				)
@@ -37,7 +37,7 @@ class prepositions
 				"sv" => "för"
 				,"en" => "for"
 				)
-			,"for[quant]:prep" => array(
+			,"for:prep[quant]" => array(
 				"sv" => "under"
 				,"en" => "for"
 				)

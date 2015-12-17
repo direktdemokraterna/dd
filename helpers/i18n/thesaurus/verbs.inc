@@ -251,6 +251,10 @@ class verbs
 				"sv" => "se"
 				,"en" => "see"
 				)
+			,"select:verb" => array(
+				"sv" => "välj"
+				,"en" => "select"
+				)
 			,"send:verb" => array(
 				"sv" => "skicka::r:t:(d|_t:e)"
 				,"en" => "send::|s|ing:_t:(_t)"

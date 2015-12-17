@@ -14,13 +14,17 @@ class member
 		\View\general::make_textfield("street_address", _t("Street address"), $tab_index++, $result);
 		\View\general::make_textfield("zip_code", _t("Zip code"), $tab_index++, $result);
 		\View\general::make_textfield("city_address", _t("City"), $tab_index++, $result);
+		self::output_county_selectors($result);
+		\View\general::make_textfield("telephone", _t("Telephone"), $tab_index++, $result);
+		\View\general::make_textfield("email", _t("Email"), $tab_index++, $result);
+		\View\general::make_textfield("skype_name", _t("Skype name"), $tab_index++, $result);
+	}
+	
+	public static function output_county_selectors($result = null) {
 		$counties = \db_constituency::get_counties_with_regions();
 		self::set_regions_by_county_in_javascript($counties);
 		self::output_county_selector($result, $counties);
 		self::output_region_selector($result);
-		\View\general::make_textfield("telephone", _t("Telephone"), $tab_index++, $result);
-		\View\general::make_textfield("email", _t("Email"), $tab_index++, $result);
-		\View\general::make_textfield("social_security_number", _t("Social security number"), $tab_index++, $result);
 	}
 	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
@@ -71,12 +75,11 @@ class member
 
 	private static function output_county_selector($result, $counties) {
 		$county_options = \db_general::make_hash($counties, 'county', 'county');
-		\View\general::make_labeled_selector("county", _t("Municipality"), $county_options, $result['county']
-			, 'onchange="county_changed()"');
+		\View\general::make_labeled_selector("county", _t("Municipality"), $county_options, $result ? $result['county'] : null, 'onchange="county_changed()"');
 	}
 
 	private static function output_region_selector($result) {
-		$selected_county = $result['county'];
+		$selected_county = $result ? $result['county'] : null;
 		$selected_region = $selected_county 
 			? \db_constituency::get_region_from_county($selected_county)
 			: null;

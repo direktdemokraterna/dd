@@ -11,7 +11,7 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['st
 		die($error);
 	$region = db_constituency::get_region_from_county($_POST['county']);
 	if(!$region){
-		die("Välj din kommun.");
+		die(_t("Select your municipality."));
 	}
 	$form_data_has_been_processed = db_user::enter_user_application(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region, $personnummer, $_POST['email'], general_helpers::clean($telephone));
 }
@@ -43,52 +43,28 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['st
 
 <?php if(isset($form_data_has_been_processed)) : ?>
 	<p>
-	<h1>Tack för din anmälan.</h1>
+	<h1><?php __("Thank you for your application."); ?></h1>
 	</p>
 <?php else : ?>
 
-<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">Medlemsanmälan</h1>
-* obligatoriskt<br>
+<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; "><?php __("Membership application"); ?>
+</h1><?php __("* mandatory"); ?><br>
 <form method="post" id="login-form" action="">
 <p>
-<label for "first_name">Förnamn*</label>
-<input type="text" name="first_name" id="first_name" tabindex="1">
-
-<label for "last_name">Efternamn*</label>
-<input type="text" name="last_name" id="last_name" tabindex="2">
-
-<label for "street_address">Adress*</label>
-<input type="text" name="street_address" id="street_address" tabindex="3">
-
-<label for "zip_code">Postnummer*</label>
-<input type="text" name="zip_code" id="zip_code" tabindex="4">
-
-<label for "city_address">Postort*</label>
-<input type="text" name="city_address" id="city_address" tabindex="5">
-
-<label for "county">Kommun*</label><br>
-<select name="county" id="county" tabindex="6">
-	<option value="">Välj din kommun</option>
-	<?php 
-		$counties = db_constituency::get_counties();
-		foreach($counties as $row){
-			echo "<option value=\"" . $row['title'] . "\">" . $row['title'] . "</option>";
-		}
+	<?php
+		\View\general::make_textfield('first_name', _t("Given name"), 1);
+		\View\general::make_textfield('last_name', _t("Last name*"), 2);
+		\View\general::make_textfield('street_address', _t("Street address*"), 3);
+		\View\general::make_textfield('zip_code', _t("Zip code*"), 4);
+		\View\general::make_textfield('city_address', _t("City*"), 5);
+		self::output_county_selectors();
+		\View\general::make_textfield("telephone", _t("Telephone"), $tab_index++, $result);
+		\View\general::make_textfield("email*", _t("Email"), $tab_index++, $result);
+		\View\general::make_textfield("skype_name", _t("Skype name"), $tab_index++, $result);
 	?>
-</select><br><br>
-
-<label for "telephone">Telefon</label>
-<input type="text" name="telephone" id="telephone" tabindex="7">
-
-<label for "email">E-post*</label>
-<input type="text" name="email" id="email" tabindex="8">
-
-<label for "social_security_number">Personnummer*</label>
-<input type="text" name="social_security_number" id="social_security_number" tabindex="9">
-
-<input type="checkbox" name="news_letter" value="1" id="news_letter"><label for "news_letter">Jag vill prenumerera på nyhetsbrevet</label>
-
-<input type="submit" value="Skicka">
+<input type="checkbox" name="news_letter" value="1" id="news_letter">
+	<label for "news_letter"><?php __("I want to subscribe to the news letter"); ?></label>
+<input type="submit" value="<?php __("Send"); ?>">
 </p>
 </form>
 

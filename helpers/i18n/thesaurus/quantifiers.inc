@@ -21,7 +21,7 @@ class quantifiers
 				"sv" => "en|_tt"
 				,"en" => "one"
 				)
-			,"other[noun-plural]:quant" => array(
+			,"other:quant[noun-plural]" => array(
 				"sv" => "andra"
 				,"en" => "other"
 				)
