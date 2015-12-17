@@ -15,8 +15,8 @@ class nouns
 				,"en" => "active vote:s"
 				)
 			,"activity:noun1" => array(
-				"sv" => "aktivitet"
-				,"en" => "activity"
+				"sv" => "aktivitet:er:en:na"
+				,"en" => "activity:_ies"
 				)
 			,"address:noun1" => array(
 				"sv" => "adress:er:en:na"
@@ -138,6 +138,10 @@ class nouns
 				"sv" => "uteslutning"
 				,"en" => "exclusion"
 				)
+			,"file:noun1" => array(
+				"sv" => "fil:er:en:na:-"
+				,"en" => "file:s"
+				)
 			,"filtering:noun1" => array(
 				"sv" => "filtrering"
 				,"en" => "filtering"
@@ -177,6 +181,10 @@ class nouns
 			,"link:noun1" => array(
 				"sv" => "länk:ar"
 				,"en" => "link:es"
+				)
+			,"list:noun1" => array(
+				"sv" => "lista:_or:n:na"
+				,"en" => "list:s"
 				)
 			,"list of members:noun1" => array(
 				"sv" => "medlemslista:_or:n:na"
@@ -246,6 +254,10 @@ class nouns
 				"sv" => "populäritet"
 				,"en" => "popularity"
 				)
+			,"presentation:noun1" => array(
+				"sv" => "presentation:er:en:na"
+				,"en" => "presentation:s"
+				)
 			,"priority:noun1" => array(
 				"sv" => "prioritet:er:-s"
 				,"en" => "priority:_ies"
@@ -301,6 +313,10 @@ class nouns
 			,"subforum:noun1" => array(
 				"sv" => "underforum::et:en"
 				,"en" => "subforum:s"
+				)
+			,"subscription:noun1" => array(
+				"sv" => "anmälan"
+				,"en" => "subscription"
 				)
 			,"supporter:noun1" => array(
 				"sv" => "stödjare::n:_na"
@@ -412,6 +428,10 @@ class nouns
 				"sv" => "fel::et:en"
 				,"en" => "error:s"
 				)
+			,"field:noun2" => array(
+				"sv" => "fält::et:en"
+				,"en" => "field:s"
+				)
 			,"forum:noun2" => array(
 				"sv" => "forum::et:en:-"
 				,"en" => "forum:s"
@@ -439,6 +459,10 @@ class nouns
 			,"number:noun2" => array(
 				"sv" => "nummer::___ret:___en"
 				,"en" => "number:s"
+				)
+			,"one or more mandatory field:noun2" => array(
+				"sv" => "ett eller fler obligatoriska fält"
+				,"en" => "one or more mandatory field:s"
 				)
 			,"password:noun2" => array(
 				"sv" => "lösenord::et:en"

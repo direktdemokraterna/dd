@@ -17,8 +17,8 @@ class adjectives
 				"sv" => "aktiv|t:a"
 				,"en" => "active"
 				)
-			,"added:verb" => array(
-				"sv" => "inlagd"
+			,"added:adj" => array(
+				"sv" => "inlagd|_t:a"
 				,"en" => "added"
 				)
 			,"affirmed:adj" => array(
@@ -45,9 +45,17 @@ class adjectives
 				"sv" => "kontinuerlig|t:a"
 				,"en" => "continous"
 				)
+			,"correct:adj" => array(
+				"sv" => "korrekt"
+				,"en" => "correct"
+				)
 			,"current:adj" => array(
 				"sv" => "aktuell|t:a"
 				,"en" => "current"
+				)
+			,"filled in:adj" => array(
+				"sv" => "ifylld|_t:a"
+				,"en" => "filled in"
 				)
 			,"finished:adj" => array(
 				"sv" => "avslutad|_t:e"
@@ -64,6 +72,10 @@ class adjectives
 			,"limited:adj" => array(
 				"sv" => "begränsad"
 				,"en" => "limited"
+				)
+			,"mandatory:adj" => array(
+				"sv" => "obligatorisk|_t:a"
+				,"en" => "mandatory"
 				)
 			,"my:adj" => array(
 				"sv" => "min|_tt:a"

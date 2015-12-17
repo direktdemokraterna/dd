@@ -39,6 +39,10 @@ class verbs
 				"sv" => "var:a:___är:it:(ande)"
 				,"en" => "be::__are|___is:en:(ing)"
 				)
+			,"was:verb" => array(
+				"sv" => "var"
+				,"en" => "was"
+				)
 			,"become:verb" => array(
 				"sv" => "bli::r:vit"
 				,"en" => "become::|s:___ame"

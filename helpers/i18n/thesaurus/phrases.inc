@@ -138,6 +138,10 @@ class phrases
 				"sv" => "delegatröstning avslutas"
 				,"en" => "delegate voting closes"
 				)
+			,"didn't match" => array(
+				"sv" => "matchade inte"
+				,"en" => "didn't match"
+				)
 			,"did never read it" => array(
 				"sv" => "hann aldrig läsa det"
 				,"en" => "did never read it"
@@ -225,6 +229,14 @@ class phrases
 			,"has been sent" => array(
 				"sv" => "har skickats"
 				,"en" => "has been sent"
+				)
+			,"has been restored" => array(
+				"sv" => "har återställts"
+				,"en" => "has been restored"
+				)
+			,"has been updated" => array(
+				"sv" => "har uppdaterats"
+				,"en" => "has been updated"
 				)
 			,"has been withdrawn" => array(
 				"sv" => "har dragits tillbaka"
@@ -490,6 +502,10 @@ class phrases
 				"sv" => "ska anmälas"
 				,"en" => "should be reported"
 				)
+			,"signed up for:adj" => array(
+				"sv" => "anmäld till"
+				,"en" => "signed up for"
+				)
 			,"so" => array(
 				"sv" => "så"
 				,"en" => "so"
@@ -577,6 +593,10 @@ class phrases
 			,"to stop supporting" => array(
 				"sv" => "för att sluta stödja"
 				,"en" => "to stop supporting"
+				)
+			,"to the calendar" => array(
+				"sv" => "i kalendern"
+				,"en" => "to the calendar"
 				)
 			,"together" => array(
 				"sv" => "tillsammans"

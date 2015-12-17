@@ -1,7 +1,7 @@
 <?php
 	if($_POST['form_type']=="password"){
 		if($_POST['new_password1']!=$_POST['new_password2'])
-			\Logic\util::report_error("De nya lösenorden matchade inte"); 
+			\Logic\util::report_error(_t("The new passwords didn't match")); 
 		else{
 			$old_password_hash = db_user::get_password($_SESSION['id']);
 			$hasher = new PasswordHash(8, FALSE);
@@ -9,10 +9,10 @@
 				$new_password_hash = $hasher->HashPassword($_POST['new_password1']);
 				$ok = db_user::update_password($new_password_hash, $_SESSION['id']);
 				if($ok)
-					$_SESSION['report_message'] = "Lösenordet har blivit uppdaterat."; 
+					$_SESSION['report_message'] = _t("The password has been updated."); 
 			}
 			else
-				\Logic\util::report_error("Lösenordet var inte korrekt");
+				\Logic\util::report_error(_t("The password was not correct"));
 		}
 	}
 
@@ -22,18 +22,18 @@
 		if(!isset($_POST['show_skype'])) $_POST['show_skype']=0;
 		$ok = db_user::update_settings($_POST['show_email'], $_POST['show_telephone'], $_POST['show_skype'], $_SESSION['id']);
 		if($ok)
-			$_SESSION['report_message'] = "Dina inställningar har uppdaterats"; 
+			$_SESSION['report_message'] = _t("Your settings has been updated"); 
 		else
-			\Logic\util::report_error("Inga inställningar ändrade"); 
+			\Logic\util::report_error(_t("No settings changed")); 
 	}
 
 	elseif($_POST['form_type']=="description"){
 		$presentation = forum_helpers::process_text($_POST['settings_description']);
 		$ok = db_user::update_description($presentation, $_SESSION['id']);
 		if($ok)
-			$_SESSION['report_message'] = "Presentationen har uppdaterats."; 
+			$_SESSION['report_message'] = _t("The presentation has been updated."); 
 		else
-			\Logic\util::report_error("Ingenting ändrat"); 
+			\Logic\util::report_error(_t("No changes made")); 
 	}
 
 	elseif($_POST['form_type']=="image"){
@@ -45,19 +45,19 @@
 		elseif($image_info['2']==3)  // Checks that file is png image
 			$image_filename = general_helpers::GenerateRandomString(20) . ".png";
 		else
-			\Logic\util::report_error("Felaktig filtyp."); 
+			\Logic\util::report_error(_t("Wrong file type.")); 
 
 		if(isset($image_filename)){ // Execute file upload and database update
 			move_uploaded_file($_FILES['image']['tmp_name'], USERIMG_PATH . $image_filename);
 			$ok = db_user::update_image($image_filename, $_SESSION['id']);
 			if($ok)
-				$_SESSION['report_message'] = "Bild uppdaterad."; 
+				$_SESSION['report_message'] = _t("Image updated."); 
 		}
 	}
 
 	elseif($_POST['form_type']=="profile"){
 		if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-			\Logic\util::report_error("Mejladressen är inte korrekt."); 
+			\Logic\util::report_error(_t("the email address is invalid.")); 
 		elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county']) && isset($_POST['email'])){
 		
 			$region = db_constituency::get_region_from_county($_POST['county']);
@@ -65,12 +65,12 @@
 			if($ok){
 				forum_helpers::update_county_region_forum_access($_SESSION['id'], $_POST['county']);
 				vote_helpers::update_county_region_constituencies($_SESSION['id'], $_POST['county']);
-				$_SESSION['report_message'] = "Din profil är uppdaterad";
+				$_SESSION['report_message'] = _t("Your profile is updated");
 			}
 			else
-				\Logic\util::report_error("Ingen uppdatering gjord."); 
+				\Logic\util::report_error("No update made."); 
 		}
 		else
-			\Logic\util::report_error("Något fält som måste vara ifyllt var inte ifyllt."); 
+			\Logic\util::report_error(_t("One or more mandatory fields are not filled in.")); 
 	}
 ?>
