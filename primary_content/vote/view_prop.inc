@@ -39,13 +39,15 @@
 		_link(_t("here"), 'vote', 'view_vote', 'id=' . $vote_id);
 	}
 	echo '</div>';
-	echo '<div class="vote_result_box" id="user_vote_box">';
-		if(isset($delegate_ballot) && $delegate_ballot['support']) {
-			__(isset($delegate_ballot['delegate_id'])
-				? 'You as delegate support this proposition through your delegate.'
-				: 'You as delegate support this proposition yourself.');
-		}
-	echo '</div>';
+	if($user_allowed_to_vote && $propinfo['status'] == "pending") {
+		echo '<div class="vote_result_box" id="user_vote_box">';
+			if(isset($delegate_ballot) && $delegate_ballot['support']) {
+				__(isset($delegate_ballot['delegate_id'])
+					? 'You as delegate support this proposition through your delegate.'
+					: 'You as delegate support this proposition yourself.');
+			}
+		echo '</div>';
+	}
 	echo '<p>';
 	_info(_t("Type of proposed vote"), \View\vote::get_vote_type_description($propinfo['type']));
 	_info(_t("Constituency"), $propinfo['constituency_name']);
@@ -98,22 +100,6 @@
 	echo 'var not_support_text = "' . _t("Don't support") . '";';
 	\View\vote::output_common_delegate_vote_box_translations_for_js();
 	echo '</script>';
+	if($user_allowed_to_vote && $propinfo['status'] == "pending")
+		include(dirname(__FILE__) . "/view_prop_user_vote_box_js.inc");
 ?>
-<script>
-
-document.getElementById("user_vote_box").innerHTML = support_hint;
-list_of_votes.map(function (vote){
-	if(vote.user_code == sessionStorage.active_user_code && !acting_as_delegate) {
-		support = vote.support;
-		document.getElementById("user_vote_box").innerHTML = support
-			? (vote.delegate_id 
-				? "<br>" + delegate_supporting + " <a href='index.php?type=vote&action=view_delegate&id=" + 
-				vote.delegate_id + "'>" + vote.delegate_name + "</a>." 
-				: supporting) 
-				+ stop_supporting_hint
-			: support_withdrawn;
-	}
-});
-$("#green_vote").css('display', (support ? 'none' : 'inline'));
-$("#yellow_vote").css('display', (support ? 'inline' : 'none'));
-</script>
