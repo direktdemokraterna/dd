@@ -17,7 +17,7 @@ class forum
 			self::insert_post_content($post_insert_id, $post_content);
 		}
 		else
-			\Logic\util::report_error("You don't have access to that forum.");
+			\Logic\util::report_error(_t("You don't have access to that forum."));
 	}
 
 	private static function insert_post_content($post_id, $post_content) 
@@ -25,10 +25,10 @@ class forum
 		$processed_content = \forum_helpers::process_text($post_content);
 		$ok = \db_forum::add_content_to_post($post_id, $processed_content);
 		if($ok){
-			$_SESSION['report_message'] = "Post created.";
+			$_SESSION['report_message'] = _t("Post created.");
 			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id;
 		}
 		else 
-			\Logic\util::report_error("The post could not be created.");
+			\Logic\util::report_error(_t("The post could not be created."));
 	}
 }

@@ -9,6 +9,10 @@ class quantifiers
 				"sv" => "%d"
 				,"en" => "%d"
 				)
+			,"another:quant" => array(
+				"sv" => "en|_tt annan|_t"
+				,"en" => "another"
+				)
 			,"more:quant" => array(
 				"sv" => "fler"
 				,"en" => "more"

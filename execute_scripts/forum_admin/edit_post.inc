@@ -22,7 +22,7 @@
 		}
 	}
 	elseif(isset($_POST['edit'])){
-		$text = $_POST['edit_post_content'] . "\n\n" _t("Post changed by moderator ") . date("Y-m-d G:i");
+		$text = $_POST['edit_post_content'] . "\n\n" . _t("Post changed by moderator ") . date("Y-m-d G:i");
 		$ok = forum_helpers::update_post_content($_GET['id'], $text, "edit");
 		if($ok){
 			$_SESSION['report_message'] = _t("The post has been edited."); 

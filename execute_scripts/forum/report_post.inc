@@ -10,6 +10,6 @@
 			}
 		}
 		else
-			\Logic\util::report_error(_t("You don't have access to that forum.");
+			\Logic\util::report_error(_t("You don't have access to that forum."));
 	}
 ?>

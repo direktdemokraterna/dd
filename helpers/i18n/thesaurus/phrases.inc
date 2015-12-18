@@ -50,10 +50,6 @@ class phrases
 				"sv" => "innebär också"
 				,"en" => "also means"
 				)
-			,"another" => array(
-				"sv" => "ett annat"
-				,"en" => "another"
-				)
 			,"are appointed" => array(
 				"sv" => "utses"
 				,"en" => "are appointed"

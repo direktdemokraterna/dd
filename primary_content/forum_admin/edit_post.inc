@@ -36,7 +36,7 @@
 	_br();
 	_submit_and_close(_t("Move"));
 
-	_h2(_t("Delete post"));
+	_h2(_t("Delete the post"));
 	_open_form();
 	_hidden('delete', 1);
 	_submit_and_close(_t("Delete"));
