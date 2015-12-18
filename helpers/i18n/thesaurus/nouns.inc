@@ -158,6 +158,10 @@ class nouns
 				"sv" => "grupp:er:en:na:-"
 				,"en" => "group:s"
 				)
+			,"history:noun1" => array(
+				"sv" => "historik"
+				,"en" => "history"
+				)
 			,"hit:noun1" => array(
 				"sv" => "träff:ar"
 				,"en" => "hit:s"

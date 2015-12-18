@@ -90,7 +90,7 @@
 		_link($voteinfo['user_full_name'], 'member', 'view', 'id=' . $voteinfo['user_id']);
 	}
   	else 
-		_strong(_t("Vote created by administrator"));
+		_strong(_t("Vote ", array('class' => 'noun')) . _t("created by administrator", array('class' => 'adj')));
 	_br();
 	_strong(_t("Vote started: "));
 	echo general_helpers::show_date($voteinfo['timestamp_created']);
@@ -100,13 +100,13 @@
 		_br();
 	}
 	else {
-		_info("Delegate voting closes", general_helpers::show_date($voteinfo['timestamp_delegate_ended']));
-		_info("Vote closes", general_helpers::show_date($voteinfo['timestamp_ended']));
+		_info(_t("Delegate voting closes"), general_helpers::show_date($voteinfo['timestamp_delegate_ended']));
+		_info(_t("Vote closes"), general_helpers::show_date($voteinfo['timestamp_ended']));
   	}
-	_info("Number of cast ballots", $voteinfo['number_of_ballots']);
-	_info("Whereof personally cast ballots", $voteinfo['number_of_direct_ballots']);
-	_info("Number of delegates who has voted", $number_of_delegate_ballots);
-	_info("Description", '<br>' . \View\general::make_html_from_wiki_text($voteinfo['description']));
+	_info(_t("Number of cast ballots"), $voteinfo['number_of_ballots']);
+	_info(_t("Whereof personally cast ballots"), $voteinfo['number_of_direct_ballots']);
+	_info(_t("Number of delegates who has voted"), $number_of_delegate_ballots);
+	_info(_t("Description"), '<br>' . \View\general::make_html_from_wiki_text($voteinfo['description']));
 	echo '</p>';
 	if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
 		&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {

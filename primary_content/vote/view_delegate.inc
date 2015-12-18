@@ -28,14 +28,14 @@
 	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
 </script>
 <?php
-	_h1(_t("Delegate: ") . $delegate_info['title']);
+	_h1(_t("Delegate: ", array('class' => 'noun')) . $delegate_info['title']);
 	_h2(_t("Description"));
 	_p($delegate_info['description']);
-	_h2(_t("Vote history"));
+	_h2(_t("Vote history", array('class' => 'noun')));
 ?>
 
 <table class="responsive">
-<tr><th><?php __("Vote"); ?></th><th><?php __("Type"); ?></th><th><?php __("Ballot"); ?></th></tr>
+<tr><th><?php __("Vote", array('class' => 'noun')); ?></th><th><?php __("Type"); ?></th><th><?php __("Ballot"); ?></th></tr>
 <?php foreach($delegate_ballots as $row) : ?>
 	<tr>
 		<td><a href="index.php?type=vote&action=view_vote&id=<?php echo $row['vote_id']; ?>">
@@ -76,7 +76,7 @@
 		echo '<span id="constituency' . $row['id'] . '">' . _t("You have no delegate in this constituency") . '</span>';
 		_br(2);
 		echo '<input type="submit" value="' . _t("Delegate your vote in the constituency ") . $row['name'] 
-			. _t(" to ") . $delegate_info['title'] 
+			. _t(" to ", array('class' => 'prep')) . $delegate_info['title'] 
 			. '" onmousedown="return encrypt_single_delegation(' . $row['id'] . ')">';
 		echo '</div>';
 	}
