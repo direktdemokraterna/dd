@@ -2,7 +2,7 @@
 
 if($_POST['accept']){
 	if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-		$_SESSION['report_message'] = _t("The email address is invalid.";
+		$_SESSION['report_message'] = _t("The email address is invalid.");
 		$_SESSION['red_report_message'] = 1;
 	}
 	else{

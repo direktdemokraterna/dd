@@ -146,6 +146,10 @@ class nouns
 				"sv" => "filtrering"
 				,"en" => "filtering"
 				)
+			,"forum access:noun1" => array(
+				"sv" => "forumbehörighet"
+				,"en" => "forum access"
+				)
 			,"forum admin:noun1" => array(
 				"sv" => "forumadministratör:er"
 				,"en" => "forum admin:s"

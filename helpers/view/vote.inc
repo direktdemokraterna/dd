@@ -47,7 +47,7 @@ class vote
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
 		$options = self::get_selectable_vote_type_descriptions();
-		general::make_control_label("type_of_vote", _t("Type of vote"));
+		general::make_control_label("type_of_vote", _t("Type of vote", array('class' => 'noun')));
 		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
@@ -230,7 +230,7 @@ class vote
 			$control_name_prefix . 'year" id="year" style="width: 50px;">');
 		$month_options = array();
 		foreach (\Logic\calendar::$months as $index => $name)
-			$month_options["" . (index + 1)] = $name;
+			$month_options["" . ($index + 1)] = $name;
 		general::make_selector($control_name_prefix . "month", $month_options, date("n", $vote_end_time), 
 			'style="width: 100px;"');
 		$days = array();
@@ -289,8 +289,8 @@ class vote
 			, "prio-vote" => _t("Priority vote", array('class' => 'noun'))
 			, "candidate-election" => _t("Candidate election")
 			, "workgroup-election" => _t("Workgroup election")
-			, "median" => _t("Median vote")
-			, "budget" => _t("Budget vote")
+			, "median" => _t("Median vote", array('class' => 'noun'))
+			, "budget" => _t("Budget vote", array('class' => 'noun'))
 			); 
 	}	
 }

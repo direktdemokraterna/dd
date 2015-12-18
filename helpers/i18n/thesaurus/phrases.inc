@@ -18,6 +18,10 @@ class phrases
 				"sv" => "efter att"
 				,"en" => "after"
 				)
+			,"after half" => array(
+				"sv" => "efter halva"
+				,"en" => "after half"
+				)
 			,"after the vote has been created" => array(
 				"sv" => "efter att omröstningen har skapats"
 				,"en" => "after the vote has been created"
@@ -49,6 +53,10 @@ class phrases
 			,"also means" => array(
 				"sv" => "innebär också"
 				,"en" => "also means"
+				)
+			,"another" => array(
+				"sv" => "ett annat"
+				,"en" => "another"
 				)
 			,"are appointed" => array(
 				"sv" => "utses"
@@ -221,6 +229,10 @@ class phrases
 			,"found" => array(
 				"sv" => "funna"
 				,"en" => "found"
+				)
+			,"half" => array(
+				"sv" => "halva"
+				,"en" => "half"
 				)
 			,"given name" => array(
 				"sv" => "förnamn"
