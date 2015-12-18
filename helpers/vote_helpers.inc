@@ -488,7 +488,7 @@ class vote_helpers
 	private static function make_list_header($res_count) 
 	{
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
-		$sort_alternatives = Array("created" => _t("Created"), "alphabetic" => _t("Alphabetic"), "priority" => _t("Priority"));
+		$sort_alternatives = Array("created" => _t("Created", array('class' => 'adj')), "alphabetic" => _t("Alphabetic"), "priority" => _t("Priority"));
 		general_helpers::make_list_of_links_header($page, $res_count, $sort_alternatives); 
 	}
 } //End of class

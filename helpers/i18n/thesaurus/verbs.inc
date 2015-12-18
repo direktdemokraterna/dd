@@ -135,10 +135,6 @@ class verbs
 				"sv" => "hantera"
 				,"en" => "handle"
 				)
-			,"have:verb" => array(
-				"sv" => "ha::r:ft"
-				,"en" => "have::|__s:__d"
-				)
 			,"leave:verb" => array(
 				"sv" => "lämna"
 				,"en" => "leave"
@@ -283,6 +279,10 @@ class verbs
 				"sv" => "stöd:ja:jer:_tt"
 				,"en" => "support::|s:ed"
 				)
+			,"to be subject for:verb" => array(
+				"sv" => "för att gå vidare och bli"
+				,"en" => "to be subject for"
+				)
 			,"transform:verb" => array(
 				"sv" => "gör om"
 				,"en" => "transform"
@@ -337,6 +337,10 @@ class verbs
 			,"can:verb-aux" => array(
 				"sv" => "kan"
 				,"en" => "can"
+				)
+			,"have:verb-aux" => array(
+				"sv" => "ha::r:ft"
+				,"en" => "have::|__s:__d"
 				)
 			,"let:verb-aux" => array(
 				"sv" => "låta"

@@ -47,15 +47,15 @@
 		}
 	echo '</div>';
 	echo '<p>';
-	_info("Type of proposed vote", \View\vote::get_vote_type_description($propinfo['type']));
-	_info("Constituency", $propinfo['constituency_name']);
-	_info("Created", general_helpers::show_date($propinfo['timestamp_created']));
-	_info("Proposed by", \View\general::generate_internal_link($propinfo['user_full_name'],
+	_info(_t("Type of proposed vote"), \View\vote::get_vote_type_description($propinfo['type']));
+	_info(_t("Constituency"), $propinfo['constituency_name']);
+	_info(_t("Created", array('class' => 'adj')), general_helpers::show_date($propinfo['timestamp_created']));
+	_info(_t("Proposed by", array('class' => 'adj')), \View\general::generate_internal_link($propinfo['user_full_name'],
 		'member', 'view', 'id=' . $propinfo['user_id']));
-	_info("Number of support-ballots", $number_of_ballots['total_number_of_ballots']);
-	_info("Whereof personally cast ballots", $number_of_ballots['number_of_direct_ballots']);
-	_info("Number of delegates who has voted", $number_of_ballots['number_of_delegate_ballots']);
-	_info("Description", '<br>' . \View\general::make_html_from_wiki_text($propinfo['description']));
+	_info(_t("Number of support-ballots"), $number_of_ballots['total_number_of_ballots']);
+	_info(_t("Whereof personally cast ballots"), $number_of_ballots['number_of_direct_ballots']);
+	_info(_t("Number of delegates who has voted"), $number_of_ballots['number_of_delegate_ballots']);
+	_info(_t("Description"), '<br>' . \View\general::make_html_from_wiki_text($propinfo['description']));
 	echo '</p>';
 	if($number_of_ballots['number_of_delegate_ballots']){
 		echo '<div class="" id="delegate_votes_box">';

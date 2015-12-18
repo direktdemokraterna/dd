@@ -286,7 +286,7 @@ class vote
 	public static function get_vote_type_descriptions() {
 		return array(
 			"yes-no" => _t("Vote (yes/no)")
-			, "prio-vote" => _t("Priority vote")
+			, "prio-vote" => _t("Priority vote", array('class' => 'noun'))
 			, "candidate-election" => _t("Candidate election")
 			, "workgroup-election" => _t("Workgroup election")
 			, "median" => _t("Median vote")

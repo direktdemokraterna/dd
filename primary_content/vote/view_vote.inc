@@ -47,7 +47,7 @@
 		vote_helpers::output_workgroup_election_result($_GET['id'], $voteinfo['from_proposition_id']);
 	elseif($voteinfo['type'] == "median")
 		vote_helpers::output_median_result($list_of_votes);
-
+	_br();
 	if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished")
 		echo _t("The vote is finished. It finished ") 
 		. general_helpers::show_date($voteinfo['timestamp_ended']) . '.';

@@ -274,6 +274,10 @@ class nouns
 				"sv" => "profil:er:en:erna:-"
 				,"en" => "profile:s"
 				)
+			,"proposed vote:noun1" => array(
+				"sv" => "föreslagen omröstning"
+				,"en" => "proposed vote"
+				)
 			,"proposition:noun1" => array(
 				"sv" => "proposition:er:en:erna"
 				,"en" => "proposition:s"
@@ -329,6 +333,10 @@ class nouns
 			,"subscription:noun1" => array(
 				"sv" => "anmälan"
 				,"en" => "subscription"
+				)
+			,"support-ballot:noun1" => array(
+				"sv" => "stöd-röst:er:en:na"
+				,"en" => "support-ballot:s"
 				)
 			,"supporter:noun1" => array(
 				"sv" => "stödjare::n:_na"

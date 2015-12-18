@@ -330,6 +330,10 @@ class phrases
 				"sv" => "vill du"
 				,"en" => "if you want to"
 				)
+			,"if you want to support" => array(
+				"sv" => "om du vill stödja"
+				,"en" => "if you want to support"
+				)
 			,"included as member" => array(
 				"sv" => "upptagen som medlem"
 				,"en" => "included as member"
@@ -637,10 +641,6 @@ class phrases
 			,"through" => array(
 				"sv" => "via"
 				,"en" => "through"
-				)
-			,"to be subject for" => array(
-				"sv" => "för att gå vidare och bli"
-				,"en" => "to be subject for"
 				)
 			,"to stop supporting" => array(
 				"sv" => "för att sluta stödja"

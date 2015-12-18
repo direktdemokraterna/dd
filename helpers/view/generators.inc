@@ -54,7 +54,7 @@
 	}
 
 	function _info($label, $data) {
-		_strong(_t($label) . ": ");
+		_strong($label . ": ");
 		echo $data;
 		_br();		
 	}

@@ -68,7 +68,7 @@ class vote
 				$post_vars = Array("user_id" => $_SESSION['id'], "prop_id" => $prop_id, "ballot" => $ballot);
 				$reply = \crypt_helpers::curl_to_anon_server("anonymise_prop_ballot.php", $post_vars);
 				if($reply == "success")
-					$_SESSION['report_message'] = "Your ballot is registered.";
+					$_SESSION['report_message'] = _t("Your ballot is registered.");
 				else
 					throw new \Exception("Something went wrong. The ballot was not registered.");
 			}

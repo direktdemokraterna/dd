@@ -12,7 +12,7 @@ if(isset($_POST['vote_id'])){
 				if($ok)
 					$_SESSION['report_message'] = _t("The alternative has been created.");
 				else
-					\Logic\util::report_error(_t("Soething went wrong. No alternative created.");
+					\Logic\util::report_error(_t("Soething went wrong. No alternative created."));
 			}
 		}
 		elseif(db_vote::is_user_candidate_in_vote($_SESSION['id'], $_GET['id'])){
