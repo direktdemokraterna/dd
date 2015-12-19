@@ -1,6 +1,18 @@
 <?php
 class session 
 {
+	public static function update_language() {
+		preg_match('/[\?|&]lang=(\w+)$/', $_SERVER['REQUEST_URI'], $lang_param_match);
+		if ($lang_param_match) {
+			$param = $lang_param_match[0];
+			$lang = $lang_param_match[1];
+			\I18n\controller::update_language($lang);
+			$redirect = str_replace($param, '', $_SERVER['REQUEST_URI']);
+			header("Location: $redirect");
+			exit();
+		}		
+	}
+
 	public static function login_logout() {
 		if(isset($_GET['logout']))
 			self::destroy_session();
@@ -12,6 +24,11 @@ class session
 			self::restore_session();
 		else
 			self::destroy_session();
+	}
+
+	public static function is_session_open() 
+	{
+		return isset($_SESSION['id']);		
 	}
 
 	private static function restore_session() {
@@ -48,11 +65,6 @@ class session
 	private static function is_user_suspended($user_data) 
 	{
 		return isset($user_data['deletion_time']);
-	}
-
-	private static function is_session_open() 
-	{
-		return isset($_SESSION['id']);		
 	}
 
 	private static function open_session($user_data)

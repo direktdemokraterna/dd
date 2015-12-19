@@ -19,6 +19,13 @@ function retrieveUserCodes(url, user_id, temp_code) {
 	    });
 }
 
+function set_language(lang) {
+	var qsign = window.location.href.indexOf('?') >= 0
+		? '&'
+		: '?';
+	window.location.href=window.location.href + qsign + 'lang=' + lang;
+}
+
 function make_ajax_call(url, callback) {
 	var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {

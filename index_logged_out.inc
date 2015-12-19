@@ -1,7 +1,10 @@
 <div id="wrap">
 
 <div id="login-column">
-
+<div>
+	<a onClick="set_language('en')">En</a>
+	<a onClick="set_language('sv')">Sv</a>
+</div>
 <div id="login_image">
 	<img src="images/dd120.png">
 </div>

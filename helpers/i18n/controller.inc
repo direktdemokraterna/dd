@@ -13,11 +13,13 @@ class controller
 	public static function get_language() {
 		return isset($_SESSION['lang'])
 			? $_SESSION['lang']
-			: LANG;
+			: (isset($_COOKIE['lang']) ? $_COOKIE['lang'] : LANG);
 	}
 
 	private static function set_language($lang) {
-		$_SESSION['lang'] = $lang;
+		if (\session::is_session_open())
+			$_SESSION['lang'] = $lang;
+		else setcookie('lang', $lang, strtotime('+30 days'));
 	}
 }
 ?>
