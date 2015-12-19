@@ -8,7 +8,7 @@ class pronouns
 			//PRONOUN
 			"i:pron" => array(
 				"sv" => "jag"
-				,"en" => "i"
+				,"en" => "I"
 				)
 			,"something:pron" => array(
 				"sv" => "något"

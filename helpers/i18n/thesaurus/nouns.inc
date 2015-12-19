@@ -326,6 +326,10 @@ class nouns
 				"sv" => "inställning:ar"
 				,"en" => "setting:s"
 				)
+			,"sort order:noun1" => array(
+				"sv" => "sortering:ar:en:na"
+				,"en" => "sort order:s"
+				)
 			,"start:noun1" => array(
 				"sv" => "start:er:en:na"
 				,"en" => "start:s"

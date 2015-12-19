@@ -239,13 +239,13 @@ class general_helpers {
 			: 0;
 		$last_showed_item_number = min($page * LIST_ITEMS_PER_PAGE, $result_counter);
 		echo "<span class=\"list_counter\">";
-		echo $first_showed_item_number . " - " . $last_showed_item_number . " av totalt " . $result_counter;
+		echo _t("Showing ") . $first_showed_item_number . " - " . $last_showed_item_number . _t(" of ") . $result_counter;
 		echo "</span>";
 	}
 	
 	private static function make_list_sorting ($get_parameters, $sort_alternatives = null){
 		if($sort_alternatives){
-			echo "<span class=\"list_sort_alternative\">Sortering: </span>";
+			echo '<span class="list_sort_alternative">' . _t("Sort order: ") . '</span>';
 			foreach($sort_alternatives as $key => $value){
 				echo "<span class=\"list_sort_alternative\">";
 				$get_parameters['sort'] = $key;

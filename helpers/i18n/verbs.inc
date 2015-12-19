@@ -79,7 +79,7 @@ class verb_present extends translator
 	function __construct($identifier, $compact_translation) 
 	{
 		$keys = self::get_word_forms($compact_translation[BASE_LANG]);
-		$translations = self::get_word_forms($compact_translation[LANG]);
+		$translations = self::get_word_forms($compact_translation[controller::get_language()]);
 		$identifier->form = 'present';
 		parent::__construct($identifier, $translations[0]);
 		$this->singular_key = $keys[1];
@@ -179,7 +179,7 @@ class verb_perfect extends translator
 	function __construct($identifier, $compact_translation) 
 	{
 		$perfect_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 3);
-		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[LANG]), 3);
+		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[controller::get_language()]), 3);
 		parent::__construct($identifier->copy($perfect_key), $perfect_translation);
 	}
 
@@ -218,7 +218,7 @@ class verb_perfect_participle extends adjective
 		$adjective_key = count($base_parts) > 4 
 			? parent::create_word_form($base_parts[0], self::strip_parenthesis($base_parts[4]))
 			: $base_parts[0];
-		$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation_pair[LANG]);
+		$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation_pair[controller::get_language()]);
 		parent::__construct(new translation_identifier($adjective_key, 'adj'),
 			$adjective_compact_translation);
 	}

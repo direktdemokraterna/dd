@@ -87,7 +87,7 @@ class noun_plural extends noun
 {
 	function __construct($identifier, $compact_translation) 
 	{
-		parent::__construct($identifier, 'plural', $compact_translation[LANG], 1, 3);
+		parent::__construct($identifier, 'plural', $compact_translation[controller::get_language()], 1, 3);
 	}
 
 	public static function make_plural_identifier($identifier, $compact_translation) {

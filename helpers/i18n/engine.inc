@@ -295,6 +295,7 @@ class engine
 
 	private static function get_expanded_translations($identifier, $compact_translation) 
 	{
+		$lang = controller::get_language();
 		switch ($identifier->class) {
 			case 'genitive':
 			case 'indefinite':
@@ -303,31 +304,31 @@ class engine
 			case 'pron':
 			case 'prep':
 			case 'adverb':
-				yield new translator($identifier, $compact_translation[LANG]);
+				yield new translator($identifier, $compact_translation[$lang]);
 				break;
 			case 'quant':
-				yield new quantifier($identifier, $compact_translation[LANG]);
+				yield new quantifier($identifier, $compact_translation[$lang]);
 				break;
 			case 'pron-it':
-				yield new pronoun_it($identifier, $compact_translation[LANG]);
+				yield new pronoun_it($identifier, $compact_translation[$lang]);
 				break;
 			case 'pron-poss':
-				yield new pronoun_possessive($identifier, $compact_translation[LANG]);
+				yield new pronoun_possessive($identifier, $compact_translation[$lang]);
 				break;
 			case 'definite':
-				yield new definite_marker($identifier, $compact_translation[LANG]);
+				yield new definite_marker($identifier, $compact_translation[$lang]);
 				break;
 			case 'adj':
-				$adjective_indefinite = new adjective($identifier, $compact_translation[LANG]);
+				$adjective_indefinite = new adjective($identifier, $compact_translation[$lang]);
 				yield $adjective_indefinite;
 				if ($adjective_indefinite->has_definite_form)
 					yield new adjective_definite($identifier->copy(), $compact_translation, $adjective_indefinite);
 				break;
 			case 'verb':
 			case 'verb-aux':
-				$verb_imperative = new verb_imperative($identifier, $compact_translation[LANG]);
+				$verb_imperative = new verb_imperative($identifier, $compact_translation[$lang]);
 				if ($verb_imperative->has_infinitive)
-					yield new verb_infinitive($identifier->copy(), $compact_translation[LANG]);
+					yield new verb_infinitive($identifier->copy(), $compact_translation[$lang]);
 				if ($verb_imperative->has_perfect)
 					yield new verb_perfect($identifier->copy(), $compact_translation);
 				if ($verb_imperative->has_present) {
@@ -344,10 +345,10 @@ class engine
 				break;
 			case 'noun':
 				yield new noun_singular($identifier->copy(null, new singular_noun_selector()), 
-					$compact_translation[LANG]);
+					$compact_translation[$lang]);
 				yield new noun_plural($identifier->copy(null, new plural_noun_selector()), 
 					$compact_translation);
-				yield new noun_singular($identifier, $compact_translation[LANG]);
+				yield new noun_singular($identifier, $compact_translation[$lang]);
 				yield new noun_plural(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
 				break;
 			default:

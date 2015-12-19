@@ -105,7 +105,7 @@ class forum
 	{
 		general::open_div("post_count_info");
 		general::open_span("post_counter");
-		echo "Visar inlägg " . $paging_info->first_showed_post_number . " - " . $paging_info->last_showed_post_number . " av totalt " . $paging_info->post_count;
+		echo _t("Showing post ") . $paging_info->first_showed_post_number . " - " . $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count;
 		general::close_span();
 		if ($paging_info->post_count > POSTS_PER_PAGE) {
 			general::open_span("post_page_chooser");

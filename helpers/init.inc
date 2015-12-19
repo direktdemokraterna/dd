@@ -35,7 +35,15 @@ include(dirname(__FILE__)."/db/db_prop.inc");
 include(dirname(__FILE__)."/db/db_delegate.inc");
 include(dirname(__FILE__)."/db/db_constituency.inc");
 
+include(dirname(__FILE__)."/i18n/controller.inc");
 include(dirname(__FILE__)."/i18n/engine.inc");
+include(dirname(__FILE__)."/i18n/selectors.inc");
+include(dirname(__FILE__)."/i18n/translator.inc");
+include(dirname(__FILE__)."/i18n/adjectives.inc");
+include(dirname(__FILE__)."/i18n/nouns.inc");
+include(dirname(__FILE__)."/i18n/pronouns.inc");
+include(dirname(__FILE__)."/i18n/verbs.inc");
+
 include(dirname(__FILE__)."/i18n/thesaurus/adjectives.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/conjunctions.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/modifiers.inc");
@@ -47,12 +55,6 @@ include(dirname(__FILE__)."/i18n/thesaurus/pronouns.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/quantifiers.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/time_and_date.inc");
 include(dirname(__FILE__)."/i18n/thesaurus/verbs.inc");
-include(dirname(__FILE__)."/i18n/selectors.inc");
-include(dirname(__FILE__)."/i18n/translator.inc");
-include(dirname(__FILE__)."/i18n/adjectives.inc");
-include(dirname(__FILE__)."/i18n/nouns.inc");
-include(dirname(__FILE__)."/i18n/pronouns.inc");
-include(dirname(__FILE__)."/i18n/verbs.inc");
 
 include(dirname(__FILE__)."/logic/calendar.inc");
 include(dirname(__FILE__)."/logic/forum.inc");
@@ -84,7 +86,7 @@ define("PROP_REMOVAL_TIME", 14*24*60*60);
 define("STANDARD_VOTE_LENGTH", 14*24*60*60);
 define("BUFFER_TIME_FOR_CONTINUOUS_ELECTIONS", 1*24*60*60);
 
-switch (LANG) {
+switch (\I18n\controller::get_language()) {
 	case 'en': 
 		setlocale(LC_ALL, NULL);
 		break;

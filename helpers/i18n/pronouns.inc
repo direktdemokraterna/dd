@@ -9,7 +9,7 @@ class pronoun_it extends translator
 	{
 		$parts = explode('|', $compact_translation);
 		parent::__construct($identifier, $parts[0]);
-		$this->translation_noun2 = $parts[1];
+		$this->translation_noun2 = count($parts) > 1 ? $parts[1] : $parts[0];
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 

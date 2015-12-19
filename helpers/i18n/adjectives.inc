@@ -97,7 +97,7 @@ class adjective_definite extends translator
 	{
 		$definite_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 2, 
 			$identifier->key);
-		$definite_translation = self::assemble_word_form(explode(':', $compact_translation[LANG]), 2,
+		$definite_translation = self::assemble_word_form(explode(':', $compact_translation[controller::get_language()]), 2,
 			$indefinite_translator->translation);
 		$definite_identifier = $identifier->copy($definite_key, null, 'definite');
 		parent::__construct($definite_identifier, $definite_translation);
