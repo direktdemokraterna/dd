@@ -67,6 +67,7 @@ include(dirname(__FILE__)."/view/calendar.inc");
 include(dirname(__FILE__)."/view/forum.inc");
 include(dirname(__FILE__)."/view/general.inc");
 include(dirname(__FILE__)."/view/generators.inc");
+include(dirname(__FILE__)."/view/index.inc");
 include(dirname(__FILE__)."/view/member.inc");
 include(dirname(__FILE__)."/view/vote.inc");
 include(dirname(__FILE__)."/view/workgroup.inc");

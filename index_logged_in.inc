@@ -8,8 +8,7 @@
 			<a href="index.php"><img id="dd-logo" src="images/direktdemokraterna-logotyp.png"></a>
 		</div>
 		<div id="header-lang">
-			<a onClick="set_language('en')">En</a>
-			<a onClick="set_language('sv')">Sv</a>
+			<?php \View\index::output_language_buttons(); ?>
 		</div>
 	</div>
 	<div class="main">
