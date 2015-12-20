@@ -81,8 +81,10 @@
 	</ul>
 	<ul id="logout-link">
 		<li><?php
-				$welcome_text = _t("Hello") . ", " . db_user::get_user_full_name($_SESSION['id']);
-				\View\general::output_internal_link($welcome_text, "member", "view");
+				$user_label = db_user::get_user_full_name($_SESSION['id']);
+				$hello = _span("large_screen", _t("Hello") . ", ");
+				$user_label = $hello . $user_label;
+				\View\general::output_internal_link($user_label, "member", "view");
 			?>
 			<ul>
 				<li><a href="index.php?logout=1"><?php __("Logout"); ?></a></li>

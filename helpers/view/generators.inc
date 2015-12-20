@@ -65,6 +65,11 @@
 			echo '&nbsp;';
 	}
 
+	function _span($class, $html) 
+	{
+		return "<span class=\"$class\">$html</span>";
+	}
+
 	function __($text, $hints = null) 
 	{
 		echo _t($text, $hints);
