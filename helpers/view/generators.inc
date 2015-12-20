@@ -59,7 +59,7 @@
 		_br();		
 	}
 
-	function _space($count) 
+	function _space($count = 1) 
 	{
 		for ($i = 0; $i < $count; $i++)
 			echo '&nbsp;';
