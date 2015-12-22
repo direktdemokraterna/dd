@@ -44,8 +44,8 @@ class vote
 			? self::admin_create_time_limited_vote()
 			: self::admin_create_continuous_vote();
 		if(!$ok)
-			throw new \Exception("Something went wrong. No vote created.");
-		$_SESSION['report_message'] = "The vote is created.";
+			throw new \Exception(_t("Something went wrong. No vote created."));
+		$_SESSION['report_message'] = _t("The vote is created.");
 		$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;
 	}
 
@@ -58,9 +58,9 @@ class vote
 			$ballot_decoded = \json_decode($ballot, true);
 			$ok = \db_delegate::register_prop_ballot($prop_id, $_SESSION['delegate_id'], $ballot_decoded['support']);
 			if($ok)
-				$_SESSION['report_message'] = "Your delegate's ballot is registered.";
+				$_SESSION['report_message'] = _t("Your delegate's ballot is registered.");
 			else
-				throw new \Exception("Something went wrong. The ballot was not registered.");
+				throw new \Exception(_t("Something went wrong. The ballot was not registered."));
 		}
 		elseif($prop_info['status'] == "pending"){
 			$check_user_access = \db_constituency::check_user_constituency_access($_SESSION['id'], $prop_info['constituency_id']);
@@ -70,7 +70,7 @@ class vote
 				if($reply == "success")
 					$_SESSION['report_message'] = _t("Your ballot is registered.");
 				else
-					throw new \Exception("Something went wrong. The ballot was not registered.");
+					throw new \Exception(_t("Something went wrong. The ballot was not registered."));
 			}
 			else
 				die("no constituency access");
@@ -135,7 +135,7 @@ class vote
 			case 'restore_delegate_vote':
 				return \db_vote_admin::restore_delegate_vote($vote_id);
 			default:
-				throw new \Exception("Invalid action: " . $action);
+				throw new \Exception(_t("Invalid action: ") . $action);
 		}
 	}
 
@@ -175,17 +175,17 @@ class vote
 	{
 		self::validate_input($manatody_properties);
 		if($_POST['vote_id'] != $_GET['id'])
-			throw new \Exception("Something went wrong. The updated vote's id doesn't match the current vote.");
+			throw new \Exception(_t("Something went wrong. The updated vote's id doesn't match the current vote."));
 	}
 
 	private static function validate_input($mandatory_properties) 
 	{
 		if(!util::is_all_set($mandatory_properties, $_POST)) {
-			throw new \Exception("Value missing in one of the mandatory fields");
+			throw new \Exception(_t("Value missing in one of the mandatory fields"));
 		}
 		if(!\db_constituency::check_that_constituency_exists($_POST['constituency_id']))
-			throw new \Exception("Constituency missing. No change made.");
+			throw new \Exception(_t("Constituency missing. No change made."));
 		if(!in_array($_POST['type_of_vote'], \Logic\vote::get_vote_types()))
-			throw new \Exception("Wrong vote type. No change made.");
+			throw new \Exception(_t("Wrong vote type. No change made."));
 	}
 }

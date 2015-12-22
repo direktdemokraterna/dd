@@ -6,9 +6,9 @@
 	\View\vote::make_constituency_selector(null, null, 3);
 	\View\general::make_textfield("title", _t("Title"), 4);
 	\View\general::make_textarea("description", _t("Description"), 5);
-	_label(_t("The vote finishes"),  "year");
+	_label(_t("The vote finishes"), "year");
 	\View\vote::make_vote_end_time_select(time() + \View\vote::get_two_weeks_in_seconds()); 
 	_br();
 	_p(_t("The vote closes for delegates after half the vote time. In case this is not appropriate it is possible to change the delegate vote time after the vote has been created."));
-	_submit_and_close("Create", 6);
+	_submit_and_close(_t("Create"), 6);
 ?>
