@@ -9,10 +9,12 @@
 	\View\general::make_textarea("description", _t("Description"), 4, $voteinfo);
 	\View\vote::output_vote_status($voteinfo['status']); 
 	\View\general::make_textfield("forum_topic_id", _t("Forum topic-ID"), 5, $voteinfo); 
+	_br();
 	_label(_t("The vote finishes"), "year");
 	\View\vote::make_vote_end_time_select($voteinfo['timestamp_ended']); 
-	_label(_t("The delegate vote finishes"), "delegate_year");
+	_br();
+	_label(_t("The delegate vote finishes", array('class' => 'noun')), "delegate_year");
 	\View\vote::make_vote_end_time_select($voteinfo['timestamp_delegate_ended'], 'delegate_');
 	_br();
-	_submit_and_close("Update");
+	_submit_and_close(_t("Update"));
 ?>

@@ -28,7 +28,7 @@ class vote
 
 	public static function change_vote_property() {
 		$vote_id = $_GET['id'];
-		$voteinfo = db_vote::get_vote_info($vote_id);
+		$voteinfo = \db_vote::get_vote_info($vote_id);
 		$status = $voteinfo['status'];
 		$action = $_POST['action'];
 		$ok = self::invoke_action($vote_id, $status, $action);
@@ -132,8 +132,10 @@ class vote
 				return \db_vote_admin::make_continuous($vote_id);
 			case 'make_active':
 				return \db_vote_admin::make_active($vote_id);
+			case 'restore_delegate_vote':
+				return \db_vote_admin::restore_delegate_vote($vote_id);
 			default:
-				throw new Exception("Invalid action: " . $action);
+				throw new \Exception("Invalid action: " . $action);
 		}
 	}
 

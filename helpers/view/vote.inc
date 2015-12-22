@@ -89,8 +89,12 @@ class vote
 		__($status_text);
 		_br();
 		$buttons = self::get_vote_status_buttons($status);
-		foreach ($buttons as $key => $value)
-			echo '<button type="submit" name="action" value="' . $key . '">' . _t($value) . '</button>';
+		foreach ($buttons as $key => $value) {
+			_space();
+			echo '<button type="submit" name="action" value="' . $key . '">' 
+			. _t($value, array('class' => 'noun')) . '</button>';			
+			_space();
+		}
 	}
 
 	public static function list_ballots($vote_type, $ballots, $content_prop = 'ballot') 

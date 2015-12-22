@@ -1,9 +1,9 @@
 <?php
 	try {
-		if(isset($_POST['update']))
-			\Logic\vote::change_vote();
-		elseif(isset($_POST['action']))
+		if(isset($_POST['action']))
 			\Logic\vote::change_vote_property();
+		else
+			\Logic\vote::change_vote();
 	}
 	catch (Exception $ex) {
 		$_SESSION['report_message'] = $ex->getMessage();
