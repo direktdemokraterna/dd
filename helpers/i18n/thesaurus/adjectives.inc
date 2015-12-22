@@ -141,6 +141,10 @@ class adjectives
 				"sv" => "tidsbegränsad|_t:e"
 				,"en" => "time limited"
 				)
+			,"unread:adj" => array(
+				"sv" => "oläst:a"
+				,"en" => "unread"
+				)
 			,"visible:adj" => array(
 				"sv" => "synlig|_t:a"
 				,"en" => "visible"
