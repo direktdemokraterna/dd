@@ -195,6 +195,10 @@ class verbs
 				"sv" => "föreslå::r:_agit:(_agen|_t:__na)"
 				,"en" => "propose::|s:d:(d)"
 				)				
+			,"quote:verb" => array(
+				"sv" => "citera::r:t:(d|_t:e)"
+				,"en" => "quote::|s:d:(d)"
+				)				
 			,"receive:verb" => array(
 				"sv" => "motta::r:git:(gen|_t:__na)"
 				,"en" => "receive::|s:d:(d)"

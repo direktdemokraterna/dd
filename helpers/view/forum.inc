@@ -172,7 +172,7 @@ class forum
 		}
 		_link(_t("Report"), "forum", "report", "id=" . $post_id);
 		_space();
-		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">Citera</a>&nbsp;'; 
+		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">' . _t('Quote') . '</a>&nbsp;'; 
 	}
 
 	private static function make_post_body($post_info) 
@@ -207,7 +207,7 @@ class forum
 	private static function make_post_content_bbcode($post_info) 
 	{
 		$post_id = $post_info['post_id'];
-		_hidden("post_content_' . $post_id . '", self::escape_double_quotes($post_info['content']));
+		_hidden("post_content_$post_id", self::escape_double_quotes($post_info['content']));
 	}
 
 	private static function escape_double_quotes($text) {
