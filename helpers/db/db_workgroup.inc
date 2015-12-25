@@ -456,7 +456,7 @@ class db_workgroup
 	private static function create_vote_for_restricted ($workgroup_id, $title, $public_forum_id, $constituency_id, $user_id)
 	{
 		$vote_title = _t("Election of members to the workgroup ") . $title;
-		$vote_description = _t("This vote appoints the members to the workgroup ") . '<a href="index.php?type=workgroup&action=view&id=' . $workgroup_id . '>' . $title . "</a>.";
+		$vote_description = _t("This vote appoints the members to the workgroup ") . '<a href="index.php?type=workgroup&action=view&id=' . $workgroup_id . '">' . $title . "</a>.";
 		$forum_topic_id = db_forum::new_topic($user_id, $public_forum_id, _t("Election of members to the workgroup ") . $title);
 		db_forum::add_content_to_post($forum_topic_id, $vote_description);
 		$vote_id = db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
