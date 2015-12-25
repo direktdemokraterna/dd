@@ -29,10 +29,10 @@ class crypt_helpers
 
 	public static function ensure_user_codes_on_client ($user_id)
 	{
-		echo "<script>";
-		echo 'var session_too_old = "Your user session is too old. Logout and login again."';
-		echo "ensureUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $_SESSION['temp_code'] . "');";
-		echo "</script>\n";
+		echo "<script>" . PHP_EOL;
+		echo 'var session_too_old = "Your user session is too old. Logout and login again.";' . PHP_EOL;
+		echo "ensureUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $_SESSION['temp_code'] . "');" . PHP_EOL;
+		echo "</script>" . PHP_EOL;
 	}
 
 	public static function decrypt_ballot ($rsa_message, $aes_message)

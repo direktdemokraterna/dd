@@ -159,7 +159,7 @@ class forum
 		}
 		if($user_id == $_SESSION['id']) {
 			if(\Logic\forum::is_recent_post($post_info)) {
-				general::output_internal_link(_("Delete"), "forum", "delete", "id=" . $post_id
+				general::output_internal_link(_t("Delete"), "forum", "delete", "id=$post_id"
 					, null, _t("Do you really want to delete the post?"));
 				_space();
 				_link(_t("Edit"), "forum", "edit", "id=" . $post_id);
