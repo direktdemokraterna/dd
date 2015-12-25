@@ -21,13 +21,11 @@ function region_changed() {
 }
 
 function filter_counties_by_region(region) {
-	if (region == EMPTY) {
+	if (region == EMPTY)
 		return Object.keys(regions_by_county);
-	}
 	var counties = [];
-	for (var county in regions_by_county) {
+	for (var county in regions_by_county)
 		if (regions_by_county[county] == region)
 			counties.push(county);
-	}
 	return counties;
 }
