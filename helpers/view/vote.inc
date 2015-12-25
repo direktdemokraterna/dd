@@ -100,7 +100,7 @@ class vote
 	public static function list_ballots($vote_type, $ballots, $content_prop = 'ballot') 
 	{
 		if(empty($ballots))
-			__("No ballots cast");
+			__("No ballots cast.", array('class'=>'adj'));
 		else {
 			echo '<table class="responsive">';
 			echo '<tr><th>' . _t("Voter") . '</th><th>' . _t("Ballot") 
