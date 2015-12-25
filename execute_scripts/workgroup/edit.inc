@@ -5,8 +5,8 @@
 		if($ok)
 			$_SESSION['report_message'] = _t("Description changed");
 		else
-			\Logic\util::report_error(_t("No changes made");
+			\Logic\util::report_error(_t("No changes made"));
 	}
 	else
-		\Logic\util::report_error("You are not member of that workgroup");
+		\Logic\util::report_error(_t("You are not member of that workgroup"));
 ?>

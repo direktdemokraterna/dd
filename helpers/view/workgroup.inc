@@ -28,6 +28,7 @@ class workgroup
 		echo \general_helpers::show_date($workgroup[$is_active ? 'create_time' : 'propose_time']);
 		_br();				
 		_strong(_t("Description: "));
+		_br();
 		echo \View\general::make_html_from_wiki_text($workgroup['description']);
 		echo '</p>';
 		if($is_member) {
