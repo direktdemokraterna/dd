@@ -1,6 +1,6 @@
 <?php
 
-require(dirname(__FILE__)."./../init.inc");
+require(dirname(__FILE__)."./../../init.inc");
 
 $changes_to_execute = db_workgroup::get_workgroup_election_changes_to_execute();
 

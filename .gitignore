@@ -1,5 +1,5 @@
 dd.intellisense.cache
 dd.suo
-helpers/config.inc
+config.inc
 dd.sublime-project
 *.sublime-workspace

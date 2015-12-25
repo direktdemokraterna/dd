@@ -183,10 +183,10 @@ class db_user
 		return db::select($query, $values);
 	}
 
-	public static function enter_user_application ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone)
+	public static function enter_user_application ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone1, $telephone2)
 	{
-		$query = "insert into user_application (application_filed_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, telephone1) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array(time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone);
+		$query = "insert into user_application (application_filed_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, telephone1, telephone2) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array(time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone1, $telephone2);
 		return db::insert($query, $values);
 	}
 

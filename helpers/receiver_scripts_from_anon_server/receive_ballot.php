@@ -1,6 +1,6 @@
 <?php
 
-require("./../init.inc");
+require("./../../init.inc");
 
 if(isset($_POST['user_code']) && isset($_POST['vote_id']) && isset($_POST['rsa']) && isset($_POST['aes'])){
 

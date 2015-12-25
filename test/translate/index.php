@@ -1,5 +1,5 @@
 <?php 
-	include("../../helpers/init.inc");
+	include("../../init.inc");
 	$phrase = isset($_POST['phrase']) ? $_POST['phrase'] : '';
 	$hints = isset($_POST['hints']) ? $_POST['hints'] : '';
 	$translation_hints = $hints ? get_translation_hints($hints) : null;

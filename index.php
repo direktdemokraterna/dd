@@ -1,10 +1,9 @@
 <html>
 	<head>
 		<?php
-			include("helpers/init.inc");
+			include("init.inc");
 			include("helpers/load_css.inc");
 			include("helpers/load_js.inc");
-			include("helpers/session.inc");
 		?>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<link rel="shortcut icon" href="images/favicon.ico">

@@ -1,5 +1,6 @@
 <?php 
-include("../helpers/init.inc");
+include("../init.inc");
+session::update_language();
 
 // Processing data if form has been posted
 $mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county', 'email', 'social_security_number');
@@ -7,7 +8,8 @@ $is_all_mandatory_set = true;
 foreach ($mandatory_fields as $mandatory) 
 	$is_all_mandatory_set &= isset($_POST[$mandatory]);
 if($is_all_mandatory_set){
-	$telephone = str_replace(" ", "", str_replace("-", "", $_POST['telephone']));
+	$telephone1 = str_replace(" ", "", str_replace("-", "", $_POST['telephone1']));
+	$telephone2 = str_replace(" ", "", str_replace("-", "", $_POST['telephone2']));
 	$personnummer = general_helpers::clean_personnummer($_POST['social_security_number']);
 	$error = \Logic\user::validate_user($personnummer, $_POST['email']);
 	if ($error)
@@ -15,7 +17,18 @@ if($is_all_mandatory_set){
 	$region = db_constituency::get_region_from_county($_POST['county']);
 	if(!$region)
 		die(_t("Select your municipality."));
-	$form_data_has_been_processed = db_user::enter_user_application(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region, $personnummer, $_POST['email'], general_helpers::clean($telephone));
+	$form_data_has_been_processed = db_user::enter_user_application(
+		general_helpers::clean($_POST['first_name'])
+		, general_helpers::clean($_POST['last_name'])
+		, general_helpers::clean($_POST['street_address'])
+		, (int)$_POST['zip_code']
+		, general_helpers::clean($_POST['city_address'])
+		, $_POST['county']
+		, $region
+		, $personnummer
+		, $_POST['email']
+		, general_helpers::clean($telephone1)
+		, general_helpers::clean($telephone2));
 }
 
 ?>
@@ -34,9 +47,10 @@ if($is_all_mandatory_set){
 <body>
 
 <div class="wrap">
-
 <div class="login-column">
-
+<div>
+	<?php \View\index::output_language_buttons(); ?>
+</div>
 <div class="login_image">
 	<img src="../images/dd120.png">
 </div>
@@ -60,6 +74,8 @@ if($is_all_mandatory_set){
 </h1>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="../helpers/js/constituency.js"></script>
+<script src="../helpers/js/session.js"></script>
+
 <?php
 	__("* mandatory");
 	_br();
