@@ -150,3 +150,45 @@ function show_delegate_votes (is_prop)
 	});
 	document.getElementById("delegate_votes_box").innerHTML = delegate_votes_box_content;
 }
+
+////////////////////////////////////////////
+/// UI helper methods
+////////////////////////////////////////////
+
+function populate_promoting_demoting_lists(promoting, demoting, prio_ranking) {
+	var prio_ranking_object = JSON.parse(prio_ranking);
+	var ul_support = document.getElementById("support-list");
+	var ul_reject = document.getElementById("reject-list");
+	var sorted_alternative_rank_pairs = get_sorted_alternative_rank_pairs(prio_ranking_object);
+	for (var i = 0; i < sorted_alternative_rank_pairs.length; i++) {
+		var pair = sorted_alternative_rank_pairs[i];
+	    var li_element = document.getElementById(pair.key);
+	    if(li_element != null){
+	      var li_content = li_element.innerHTML;
+	      li_element.parentNode.removeChild(li_element);
+	      var li = document.createElement("li");
+	      li.setAttribute("id", pair.key);
+	      li.className = "sortable";
+	      if(pair.rank > 0) {
+	        promoting.push(li_content);
+	        ul_support.appendChild(li);                
+	      }
+	      else {
+	        demoting.push(li_content);
+	        ul_reject.appendChild(li);                
+	      }
+	      document.getElementById(pair.key).innerHTML = li_content;
+	    }
+	  }
+}
+
+function get_sorted_alternative_rank_pairs(prio_ranking_object) {
+	var pairs = [];
+	for (var key in prio_ranking_object)
+	  	if (prio_ranking_object.hasOwnProperty(key))
+	  		pairs.push({key: key, rank: prio_ranking_object[key]});
+	pairs.sort(function (a, b) {
+		return b.rank - a.rank;
+	});
+	return pairs;
+}

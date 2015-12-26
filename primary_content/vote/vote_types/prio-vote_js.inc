@@ -55,29 +55,7 @@
       else{
         var promoting = [];
         var demoting = [];
-        var prio_ranking_object = JSON.parse(vote.prio_ranking);
-        var ul_support = document.getElementById("support-list");
-        var ul_reject = document.getElementById("reject-list");
-        for (var key in prio_ranking_object)
-          if (prio_ranking_object.hasOwnProperty(key)) {
-            var li_element = document.getElementById(key);
-            if(li_element != null){
-              var li_content = li_element.innerHTML;
-              li_element.parentNode.removeChild(li_element);
-              var li = document.createElement("li");
-              li.setAttribute("id", key);
-              li.className = "sortable";
-              if(prio_ranking_object[key] > 0) {
-                promoting.push(li_content);
-                ul_support.appendChild(li);                
-              }
-              else {
-                demoting.push(li_content);
-                ul_reject.appendChild(li);                
-              }
-              document.getElementById(key).innerHTML = li_content;
-            }
-          }
+        populate_promoting_demoting_lists(promoting, demoting, vote.prio_ranking);
         if (promoting.length) 
           user_vote_box.innerHTML += you_promoted + promoting.join() + '<br>';
         if (demoting.length) 
