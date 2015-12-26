@@ -16,7 +16,7 @@
 	echo '</div>';
 	echo '<div class="user_presentation_right">';
 	if($userinfo['deletion_time']) {
-		_p(_t("This member's membership was terminated ") . strtolower(general_helpers::show_date($user_data['deletion_time'])) . '.');
+		_p(_t("This member's membership was terminated ") . strtolower(general_helpers::show_date($userinfo['deletion_time'])) . '.');
 		if(isset($_SESSION['is_member_admin'])) {
 			_open_form();
 			_hidden("restore_user", 1);
