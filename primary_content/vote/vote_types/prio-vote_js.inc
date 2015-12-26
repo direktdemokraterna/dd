@@ -67,7 +67,7 @@
               var li = document.createElement("li");
               li.setAttribute("id", key);
               li.className = "sortable";
-              if(prio_ranking_object[key]) {
+              if(prio_ranking_object[key] > 0) {
                 promoting.push(li_content);
                 ul_support.appendChild(li);                
               }
