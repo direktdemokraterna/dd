@@ -1,14 +1,14 @@
 <div id="wrap">
 
-<div id="login-column">
+<div class="login-column">
 <div>
 	<?php \View\index::output_language_buttons(); ?>
 </div>
-<div id="login_image">
+<div class="login_image">
 	<img src="images/dd120.png">
 </div>
 
-<form method="post" id="login-form" action="index.php?login=1">
+<form method="post" class="login-form" action="index.php?login=1">
 <input type="hidden" name="login" value="1">
 <p>
 <label for "username"><?php __("Username"); ?></label>
