@@ -19,15 +19,6 @@ class db_delegate
 		return db::select_single_row($query, $values);
 	}
 
-	public static function get_constituencies_for_delegate ($delegate_id)
-	{
-		$query = "select c.id as id, c.title as title 
-			from constituency c, constituency_delegate cd 
-			where c.id = cd.constituency_id and cd.delegate_id = ?";
-		$values = Array($user_id);
-		return db::select($query, $values);
-	}
-
 	public static function get_available_delegates_for_constituency ($constituency_id)
 	{
 		$query = "select d.id as id, d.title as title 
@@ -163,7 +154,7 @@ class db_delegate
 
 				db_vote::insert_ballot($vote_id, $ballot, $delegand['user_code'], $delegand['voter_is_delegate_id'], $actual_delegate_voter_id, $delegation_level, $delegand['priority']);
 
-				if($delegand['voter_is_delegate_id']) // Delegand is another delegate.
+				if($delegand['voter_is_delegate_id'] && $delegand['voter_is_delegate_id'] != $delegate_id) // Delegand is another delegate.
 					self::register_ballot_for_delegands($delegand['voter_is_delegate_id'], $constituency_id, $vote_id, $ballot, $actual_delegate_voter_id, $delegation_level+1);
 			}
 		}
