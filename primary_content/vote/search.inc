@@ -4,7 +4,7 @@
 	$search_query = \Logic\util::update_search_query("vote");
 	$votes = db_vote::search_votes($search_query, $_SESSION['id'], $sort, $page);
 	if(empty($votes)) {
-		_p(_t("No votes with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption was found."));
+		_p(_t("No votes with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption were found."));
 	}
 	else {
 		_h1(_t("Found votes"));

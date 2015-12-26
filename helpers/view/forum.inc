@@ -3,17 +3,6 @@ namespace View;
 
 class forum 
 {
-	public static function output_back_link() {
-		switch ($_GET['from_action']) {
-			case 'search':
-				_link(_t("Back to the search result"), $_GET['type'], $_GET['from_action']);
-				_br();
-				break;
-			default:
-				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
-		}
-	}
-
 	public static function show_post_breadcrumbs($post_info) 
 	{
 		self::start_topic_breadcrumbs($post_info['post_id']);

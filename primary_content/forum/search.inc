@@ -3,7 +3,7 @@
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$posts = db_forum::search_posts($search_query, $_SESSION['id'], $page);
 	if(empty($posts)) {
-		_p(_t("No posts with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption was found."));
+		_p(_t("No posts with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption were found."));
 	}
 	else {
 		_h1(_t("Found posts"));

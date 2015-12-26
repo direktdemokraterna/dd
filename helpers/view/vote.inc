@@ -256,19 +256,6 @@ class vote
 			'style="width: 60px;"');
 	}
 
-	public static function output_back_link() {
-		switch ($_GET['from_action']) {
-			case 'search_prop':
-			case 'search':
-				\View\general::output_internal_link(_t("Back to the search result"),
-					$_GET['type'], $_GET['from_action']);
-				echo '<br>';
-				break;
-			default:
-				throw new \Exception("Unknown from_action: " . $_GET('from_action'));
-		}
-	}
-
 	public static function output_vote_header($voteinfo) {
 		echo '<h1>' . self::get_vote_header_prefix($voteinfo['type']) . $voteinfo['title'] . '</h1>';
 		if($voteinfo['type'] == "workgroup-election") {

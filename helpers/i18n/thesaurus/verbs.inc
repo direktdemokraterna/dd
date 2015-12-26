@@ -39,10 +39,6 @@ class verbs
 				"sv" => "var:a:___är:it:(ande)"
 				,"en" => "be::__are|___is:en:(ing)"
 				)
-			,"was:verb" => array(
-				"sv" => "var"
-				,"en" => "was"
-				)
 			,"become:verb" => array(
 				"sv" => "bli::r:vit"
 				,"en" => "become::|s:___ame"
@@ -319,6 +315,14 @@ class verbs
 				"sv" => "gå::r:_ick"
 				,"en" => "go::|es:__went"
 				)
+			,"was:verb" => array(
+				"sv" => "var"
+				,"en" => "was"
+				)
+			,"were:verb" => array(
+				"sv" => "var"
+				,"en" => "were"
+				)
 			,"will:verb" => array(
 				"sv" => "kommer"
 				,"en" => "will"
@@ -354,13 +358,13 @@ class verbs
 				"sv" => "kan"
 				,"en" => "may"
 				)
-			,"want to:verb-aux" => array(
-				"sv" => "vill"
-				,"en" => "want::|s to"
-				)
 			,"shall:verb-aux" => array(
 				"sv" => "ska"
 				,"en" => "shall"
+				)
+			,"want to:verb-aux" => array(
+				"sv" => "vill"
+				,"en" => "want::|s to"
 				)
 			,"[]you can:verb-aux" => array(
 				"sv" => "du kan"

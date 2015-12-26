@@ -134,6 +134,12 @@ class general
 		echo '</form>';
 	}
 
+	public static function output_search_back_link() {
+		_link(_t("Back to the search result"), $_GET['type'], $_GET['from_action']);
+		_br();
+	}
+
+
 	private static function open_select($control_name, $attributes) {
 		echo('<select name="' . $control_name . '" id="' . $control_name . '"'
 			. ($attributes != null ? ' ' . $attributes : '') . '>' . PHP_EOL);

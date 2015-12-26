@@ -4,7 +4,7 @@
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$props = db_prop::search_props($search_query, $_SESSION['id'], $sort, $page);
 	if(empty($props)) {
-		_p(_t("No propositions with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption was found."));
+		_p(_t("No propositions with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption were found."));
 	}
 	else {
 		_h1(_t("Found propositions"));

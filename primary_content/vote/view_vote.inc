@@ -33,7 +33,7 @@
 
 <?php 
 	if (isset($_GET['from_action']))
-		\View\vote::output_back_link();
+		\View\general::output_search_back_link();
 	\View\vote::output_vote_header($voteinfo);
 
 	\View\general::open_div("vote_result_box");

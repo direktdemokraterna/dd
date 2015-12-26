@@ -3,6 +3,15 @@ namespace View;
 
 class workgroup 
 {
+	public static function list_workgroups($workgroups) {
+		echo '<div class="list_of_links">';
+		foreach($workgroups as $row) {
+			_link($row['title'], 'workgroup', 'view', 'id=' . $row['id'] . \View\general::get_from_action_for_url(array('search')));
+			_br();
+		}
+		echo '</div>';
+	}
+
 	public static function output_workgroup_membership_vote_button($label, $action, $workgroup_id, $user_id) {
 		_open_form();
 		_hidden("type", $action);
@@ -12,6 +21,8 @@ class workgroup
 	}
 
 	public static function output_workgroup_info($workgroup, $is_member, $is_candidate) {
+		if (isset($_GET['from_action']))
+			\View\general::output_search_back_link();
 		_h1($workgroup['title']);
 		if($workgroup['is_active']==0)
 			_p(_t("This workgroup is proposed. It needs at least three members to be activated. Currently the number of members is " . $workgroup['number_of_members'] . "."));

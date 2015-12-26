@@ -710,6 +710,10 @@ class phrases
 				"sv" => "hittades"
 				,"en" => "was found"
 				)
+			,"were found" => array(
+				"sv" => "hittades"
+				,"en" => "were found"
+				)
 			,"was not registered" => array(
 				"sv" => "registrerades inte"
 				,"en" => "was not registered"

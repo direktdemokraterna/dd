@@ -491,4 +491,25 @@ class db_workgroup
 		$values = Array($workgroup_id);
 		return db::delete($query, $values);
 	}
+
+	public static function search_workgroups ($search, $page = 1, $limit = LIST_ITEMS_PER_PAGE){
+		$limit_clause = db_general::get_limit_clause($page, $limit);
+		$query = "select * 
+					from workgroup 
+					where is_active=1 
+						and match(title, description) against(? in boolean mode)
+					order by id asc " . $limit_clause;
+		$values = Array($search);
+		return db::select($query, $values);
+	}
+
+	public static function get_workgroup_count_from_search ($search)
+	{
+		$query = "select count(*)
+					from workgroup 
+					where is_active=1 
+						and match(title, description) against(? in boolean mode)";
+		$values = Array($search);
+		return db::select_single_value($query, $values);
+	}
 }

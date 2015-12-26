@@ -113,7 +113,7 @@ class navigation_helpers {
 				,"cancel_candidacy" => Page_info::create("view.inc")
 				,"support_workgroup" => Page_info::create("view.inc")
 				,"cancel_support_workgroup" => Page_info::create("view.inc")
-				,"search" => Page_info::create("view.inc"))
+				,"search" => Page_info::create("search.inc"))
 			,"listall.inc")
 
 			,"forum" => Division_info::create(array(
