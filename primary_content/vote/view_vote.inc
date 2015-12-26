@@ -122,7 +122,7 @@
 		_link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id']);
 		echo '</p>';
 		echo '<div class="vote_box">';
-		include(dirname(__FILE__) . \View\vote::get_vote_form_include($voteinfo['type']));
+		include(__DIR__ . \View\vote::get_vote_form_include($voteinfo['type']));
 		echo '</div>';
 		__($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
 	}

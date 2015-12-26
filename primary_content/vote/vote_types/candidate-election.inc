@@ -1,5 +1,5 @@
 <?php 
-  if (\Logic\vote::is_active_private_vote($voteinfo['status'])) {
+  if (\Logic\vote::is_active_vote($voteinfo['status'])) {
     __("Order the candidates");
     _br();
     _open_form("prio-vote");

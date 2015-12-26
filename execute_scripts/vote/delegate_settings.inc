@@ -33,7 +33,7 @@
 			? db_delegate::remove_all_delegate_constituencies($_SESSION['id'])
 			: db_delegate::update_delegate_constituencies($_POST['constituencies'], $_SESSION['id']);
 		if($constituencies_changed)
-			$report_messages[] = _t("constituency activity updated.");
+			$report_messages[] = _t("Constituency activity updated.");
 		if ($report_messages)
 			$_SESSION['report_message'] = implode(" ", $report_messages);
 		else 

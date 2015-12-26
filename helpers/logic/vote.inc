@@ -77,9 +77,10 @@ class vote
 		}		
 	}
 
-	public static function is_active_private_vote($vote_status) {
-		return !$_SESSION['delegate_id'] 
-			&& in_array($vote_status, array("active", "continuous", "del_ended"));
+	public static function is_active_vote($vote_status) {
+		return in_array($vote_status, $_SESSION['delegate_id'] 
+			? array("active", "continuous")
+			: array("active", "continuous", "del_ended"));
 	}
 
 	private static function admin_create_time_limited_vote() {
