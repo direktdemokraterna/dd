@@ -12,7 +12,8 @@ class util
 	public static function is_all_set($properties, $array) 
 	{
 		foreach($properties as $prop)
-			if (!isset($array[$prop])) return false;
+			if (!isset($array[$prop]) || (!$array[$prop] && $array[$prop] !== 0)) 
+				return false;
 		return true;
 	}
 

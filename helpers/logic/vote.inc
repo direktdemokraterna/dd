@@ -4,8 +4,8 @@ namespace Logic;
 class vote 
 {
 	private static $vote_types = array("yes-no", "prio-vote", "candidate-election", "median", "budget");
-	private static $mandatory_change_vote_properties = array("vote_id", "type_of_vote", "constituency_id", "forum_topic_id", "title");
-	private static $mandatory_admin_create_vote_properties = array("type_of_vote", "constituency_id", "vote_status", "title");
+	private static $mandatory_change_vote_properties = array("vote_id", "type_of_vote", "constituency_id", "forum_topic_id", "title", "description");
+	private static $mandatory_admin_create_vote_properties = array("type_of_vote", "constituency_id", "vote_status", "title", "description");
 	private static $time_properties = array("year", "month", "day", "hour", "minute", "delegate_year", "delegate_month", "delegate_day", "delegate_hour", "delegate_minute");
 
 	public static function get_vote_types() 
@@ -200,9 +200,8 @@ class vote
 
 	private static function validate_input($mandatory_properties) 
 	{
-		if(!util::is_all_set($mandatory_properties, $_POST)) {
+		if(!util::is_all_set($mandatory_properties, $_POST))
 			throw new \Exception(_t("Value missing in one of the mandatory fields"));
-		}
 		if(!\db_constituency::check_that_constituency_exists($_POST['constituency_id']))
 			throw new \Exception(_t("Constituency missing. No change made."));
 		if(!in_array($_POST['type_of_vote'], \Logic\vote::get_vote_types()))
