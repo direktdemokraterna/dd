@@ -2,9 +2,6 @@
 
 class general_helpers {
 	private static $ALPHANUMERIC_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	private static $WEEK_DAY_NAMES = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-	private static $MONTH_NAMES = array("NO_MONTH", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-	private static $DAY_IN_SECONDS = 86400;
 
 	public static function GenerateRandomString ($length){
 		$random_string = "";
@@ -36,14 +33,14 @@ class general_helpers {
 		$weekday = $timestamp > 0 
 			? date("w", $timestamp) 
 			: $weekday;
-		return _t(self::$WEEK_DAY_NAMES[$weekday]);
+		return _t(\Logic\calendar::$week_day_names[$weekday]);
 	}
 
 	public static function get_month($timestamp, $month = 0){
 		$month = $timestamp > 0 
 			? date("n", $timestamp) 
 			: $month;
-		return _t(self::$MONTH_NAMES[$month]);
+		return _t(\Logic\calendar::$months[$month]);
 	}
 
 	public static function admin_mail ($receiver, $title, $text) {
@@ -166,8 +163,8 @@ class general_helpers {
 
 	private static function get_pretty_day_representation ($time, $present_time){
 		$tested_time = getdate($time);
-		$tested_time_next_day = getdate($time+self::$DAY_IN_SECONDS);
-		$tested_time_previous_day = getdate($time-self::$DAY_IN_SECONDS);
+		$tested_time_next_day = getdate($time+DAY_IN_SECONDS);
+		$tested_time_previous_day = getdate($time-DAY_IN_SECONDS);
 		if(self::is_same_day($tested_time, $present_time))
 		return _t("Today");
 		if(self::is_same_day($tested_time_next_day, $present_time))

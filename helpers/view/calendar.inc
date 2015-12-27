@@ -5,9 +5,7 @@ class calendar
 {
 	public static function output_time_fields($calendar_info = null) {
 		\View\general::make_textfield("year", _t("Date"), 1, $calendar_info);
-		$month_options = array();
-		foreach (\Logic\calendar::$months as $index => $month)
-			$month_options[$index + 1] = _t($month);
+		$month_options = self::generate_month_options();
 		\View\general::make_selector("month", $month_options, $calendar_info);
 		$day_options = array();
 		for($i=1; $i<32; $i++)
@@ -15,6 +13,13 @@ class calendar
 		\View\general::make_selector("day", $day_options, $calendar_info);
 		\View\general::make_textfield("time", _t("Time"), 4, $calendar_info,
 			array("style"=>"width: 200px;"));
+	}
+
+	public static function generate_month_options() {
+		$month_options = array();
+		foreach (\Logic\calendar::$months as $index => $month)
+			if ($index) $month_options[$index] = _t($month);
+		return $month_options;
 	}
 
 	public static function output_location_field($calendar_info = null) {

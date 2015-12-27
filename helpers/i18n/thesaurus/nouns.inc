@@ -556,6 +556,10 @@ class nouns
 				"sv" => "fel"
 				,"en" => "wrong"
 				)
+			,"year:noun2" => array(
+				"sv" => "år"
+				,"en" => "year"
+				)
 			,"zip code:noun2" => array(
 				"sv" => "postnummer"
 				,"en" => "zip code"

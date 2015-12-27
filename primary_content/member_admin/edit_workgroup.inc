@@ -12,7 +12,7 @@
 	if($workgroup['is_restricted'])
 		\View\general::make_textfield("number_of_members", _t('Number of members'), 5, $workgroup);
 	_br();
-	_submit_and_close(_t("Change"), 7);
+	_submit_and_close(_t("Change"), null, 7);
 	\View\forum::output_text_editor(array(
 		'name' => 'edit_description'
 		,'legend' => _t('Description of the workgroup')

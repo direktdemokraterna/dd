@@ -3,10 +3,6 @@ namespace View;
 
 class vote 
 {
-	public static function get_two_weeks_in_seconds() {
-		return 14*24*3600;
-	}
-
 	public static function make_add_alternative_form($voteinfo) {
 		if($voteinfo['type'] == "prio-vote") {
 			self::open_add_alternative_form("Add alternative to", $voteinfo);
@@ -42,7 +38,7 @@ class vote
 
 	private static function close_add_alternative_form($submit_text, $submit_tab_index = 1) 
 	{
-		_submit_and_close($submit_text, $submit_tab_index);
+		_submit_and_close($submit_text, null, $submit_tab_index);
 	}
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
@@ -232,9 +228,7 @@ class vote
 	public static function make_vote_end_time_select($vote_end_time, $control_name_prefix = "") {
 		echo('<input type="text" value="' . date("Y", $vote_end_time) . '" name="' . 
 			$control_name_prefix . 'year" id="year" style="width: 50px;">');
-		$month_options = array();
-		foreach (\Logic\calendar::$months as $index => $name)
-			$month_options["" . ($index + 1)] = $name;
+		$month_options = \View\calendar::generate_month_options();
 		general::make_selector($control_name_prefix . "month", $month_options, date("n", $vote_end_time), 
 			'style="width: 100px;"');
 		$days = array();

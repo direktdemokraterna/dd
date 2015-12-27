@@ -46,7 +46,7 @@ class vote
 		if(!$ok)
 			throw new \Exception(_t("Something went wrong. No vote created."));
 		$_SESSION['report_message'] = _t("The vote is created.");
-		$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;
+		$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;			
 	}
 
 	public static function update_proposition_support($prop_id, $ballot) 
@@ -169,7 +169,26 @@ class vote
 
 	private static function generate_time_string($prefix = '') 
 	{
+		self::validate_time($_POST[$prefix . 'year']
+			, $_POST[$prefix . 'month']
+			, $_POST[$prefix . 'day']
+			, $_POST[$prefix . 'hour']
+			, $_POST[$prefix . 'minute']);
 		return $_POST[$prefix . 'year'] . "-" . $_POST[$prefix . 'month'] . "-" . $_POST[$prefix . 'day'] . " " . $_POST[$prefix . 'hour'] . ":" . $_POST[$prefix . 'minute'] . ":00";
+	}
+
+	private static function validate_time($year, $month, $day, $hour, $minute) {
+		self::validate_time_param('year', $year, 1970, 2999);
+		self::validate_time_param('month', $month, 1, 12);
+		self::validate_time_param('day', $day, 1, 31);
+		self::validate_time_param('hour', $hour, 0, 23);
+		self::validate_time_param('minute', $minute, 0, 59);
+	}
+
+	private static function validate_time_param($param_name, $time_param, $min, $max) {
+		$ntime_param = (int)$time_param;
+		if ($ntime_param < $min || $ntime_param > $max)
+			throw new \Exception(_t("Invalid $param_name: $time_param"));
 	}
 
 	private static function validate_input_for_update($manatody_properties) 

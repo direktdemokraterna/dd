@@ -28,7 +28,7 @@
 					echo \View\member::link($p_row, 'user_id');
 					_br();
 				}
-			if(($timestamp + ONE_DAY_IN_SECONDS) > time()) {
+			if(($timestamp + DAY_IN_SECONDS) > time()) {
 				_br();
 				_open_form("single_submit_button");
 				_hidden("id", $row['event_id']);
