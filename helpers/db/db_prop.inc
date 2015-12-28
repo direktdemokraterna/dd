@@ -178,6 +178,25 @@ class db_prop
 		return $ok >= 0;
 	}
 
+	public static function remove_prop_ballots($user_code) {
+		$affected_props_query = 
+		"select proposition_id id
+			from proposition_support
+			where user_code = ?";
+		$affected_props = db::select($affected_props_query, Array($user_code));
+		if ($affected_props) {
+			$query = "delete from proposition_support where user_code = ?";
+			$values = Array($user_code);
+			$result = db::delete($query, $values);
+			foreach ($affected_props as $affected_prop) {
+				$prop_id = $affected_prop['id'];
+				self::count_prop_support($prop_id);
+			}			
+			return $result;		
+		}
+		return false;
+	}
+
 	public static function cancel_ballot ($prop_id, $user_code)
 	{
 		$query = "delete from proposition_support where proposition_id = ? and user_code = ? and delegate_id is null";

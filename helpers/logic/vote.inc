@@ -83,6 +83,12 @@ class vote
 			: array("active", "continuous", "del_ended"));
 	}
 
+	public static function remove_prop_ballots($user_id) {
+		$post_vars = Array("user_id" => $user_id);
+		$reply = \crypt_helpers::curl_to_anon_server("remove_prop_ballots.php", $post_vars);
+		return $reply; 
+	}
+
 	private static function admin_create_time_limited_vote() {
 		$forum_topic_id = self::create_vote_topic();
 		$time_string = self::generate_time_string(); 
