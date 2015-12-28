@@ -60,7 +60,7 @@
 		if(isset($_SESSION['is_member_admin'])) {
 			_open_form();
 			_hidden("delete_user", 1);
-			_submit_and_close(_t("Remove this user"), _t("Do you realy want to remove this user?"));
+			_submit_and_close(_t("Remove this user"), _t("Do you really want to remove this user?"));
 		}
 	}
 	echo '</div>';
