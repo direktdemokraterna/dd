@@ -1,15 +1,19 @@
 <?php
 	if(isset($_POST['register_delegate'])){
 		$ok = db_delegate::create_delegate($_SESSION['id']);
-		if($ok)
+		if($ok) {
+			$_SESSION['delegate_id'] = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
 			$_SESSION['report_message'] = _t("Your user is now a delegate.");
+		}
 		else
 			\Logic\util::report_error(_t("Something went wrong."));
 	}
 	elseif(isset($_POST['delete'])){
 		$ok = db_delegate::delete_delegate($_SESSION['id']);
-		if($ok)
-			$_SESSION['report_message'] = _t("Your delegate is removed.");
+		if($ok) {
+			$_SESSION['delegate_id'] = 0;
+			$_SESSION['report_message'] = _t("Your delegate is removed.");			
+		}
 		else
 			\Logic\util::report_error(_t("Something went wrong."));
 	}

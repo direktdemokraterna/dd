@@ -62,7 +62,10 @@ class db_delegate
 
 	public static function get_delegate_id_from_user_id ($user_id)
 	{
-		$query = "select delegate_id from delegate_user where user_id = ?";
+		$query = "select du.delegate_id 
+					from user u
+						left join delegate_user du on du.user_id = u.id
+					where u.id = ?";
 		$values = Array($user_id);
 		return db::select_single_value($query, $values);
 	}
