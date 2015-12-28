@@ -7,8 +7,10 @@ class db_member_admin
 		$query = "update user set deletion_time = ? where id = ?";
 		$values = Array(time(), $user_id);
 		$ok = db::update($query, $values);
-		if ($ok)
-			\Logic\vote::remove_prop_ballots($user_id);
+		if ($ok) {
+			\Logic\vote::remove_ballots($user_id);
+			\Logic\vote::remove_prop_ballots($user_id);			
+		}
 		return $ok;
 	}
 

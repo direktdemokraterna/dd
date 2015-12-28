@@ -94,6 +94,25 @@ class db_vote
 		return true;
 	}
 
+	public static function remove_ballots($user_code) {
+		$affected_props_query = 
+		"select vote_id id
+			from ballot
+			where user_code = ?";
+		$affected_votes = db::select($affected_props_query, Array($user_code));
+		if ($affected_votes) {
+			$query = "delete from ballot where user_code = ?";
+			$values = Array($user_code);
+			$result = db::delete($query, $values);
+			foreach ($affected_votes as $affected_vote) {
+				$vote_id = $affected_vote['id'];
+				self::count_ballots_for_vote($vote_id);
+			}			
+			return $result;		
+		}
+		return false;
+	}
+
 	public static function get_vote_alternative_from_title ($vote_id, $alternative_title)
 	{
 		$query = "select id from vote_alternative where vote_id = ? and alternative_title = ?";
