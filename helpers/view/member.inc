@@ -14,18 +14,17 @@ class member
 		\View\general::make_textfield("street_address", _t("Street address"), $tab_index++, $result);
 		\View\general::make_textfield("zip_code", _t("Zip code"), $tab_index++, $result);
 		\View\general::make_textfield("city_address", _t("City"), $tab_index++, $result);
-		self::output_county_selectors($result);
+		self::output_county_selectors($result, $tab_index);
 		\View\general::make_textfield("telephone1", _t("Telephone 1"), $tab_index++, $result);
 		\View\general::make_textfield("telephone2", _t("Telephone 2"), $tab_index++, $result);
-		\View\general::make_textfield("email", _t("Email"), $tab_index++, $result);
 		\View\general::make_textfield("skype_name", _t("Skype name"), $tab_index++, $result);
 	}
 	
-	public static function output_county_selectors($result = null) {
+	public static function output_county_selectors($result = null, &$tab_index = 1) {
 		$counties = \db_constituency::get_counties_with_regions();
 		self::set_regions_by_county_in_javascript($counties);
-		self::output_region_selector($result);
-		self::output_county_selector($result, $counties);
+		self::output_region_selector($result, $tab_index++);
+		self::output_county_selector($result, $counties, $tab_index++);
 	}
 	
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
@@ -74,7 +73,7 @@ class member
 		return $pairs . '};';
 	}
 
-	private static function output_region_selector($result) {
+	private static function output_region_selector($result, $tab_index) {
 		$selected_county = $result ? $result['county'] : null;
 		$selected_region = $selected_county 
 			? \db_constituency::get_region_from_county($selected_county)
@@ -83,12 +82,12 @@ class member
 		$region_options = \db_general::make_hash($regions, 'title', 'title');
 		$region_options = array('EMPTY' => _t('- All regions - ')) + $region_options;
 		\View\general::make_labeled_selector("region", _t("Region"), $region_options, $selected_region
-			, 'onchange="region_changed()"');
+			, 'onchange="region_changed()" tabindex="' . $tab_index . '"');
 	}
 
-	private static function output_county_selector($result, $counties) {
+	private static function output_county_selector($result, $counties, $tab_index) {
 		$county_options = \db_general::make_hash($counties, 'county', 'county');
-		\View\general::make_labeled_selector("county", _t("Municipality"), $county_options, $result ? $result['county'] : null, 'onchange="county_changed()"');
+		\View\general::make_labeled_selector("county", _t("Municipality"), $county_options, $result ? $result['county'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
 	}
 
 	private static function makeSelecBox($paramName, $rows, $unselectedLabel) {
