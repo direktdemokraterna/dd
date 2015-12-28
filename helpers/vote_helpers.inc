@@ -2,46 +2,36 @@
 
 class vote_helpers 
 {
-	public static function ballot_count_yes_no_abstain ($array_of_ballots)
+	public static function ballot_count_yes_no_abstain ($ballots_to_count)
 	{
 		$yes = 0;
 		$no = 0;
 		$abstain = 0;
-		foreach($array_of_ballots as $row){
-			if($row['user_code'] != null){
-			    if($row['alternative'] == "yes") $yes++;
-			    elseif($row['alternative'] == "no") $no++;
-		    	elseif($row['alternative'] == "abstain") $abstain++;
-		    }
+		foreach($ballots_to_count as $ballot){
+		    if($ballot['alternative'] == "yes") $yes++;
+		    elseif($ballot['alternative'] == "no") $no++;
+		    elseif($ballot['alternative'] == "abstain") $abstain++;
 		}
 		return Array("yes" => $yes, "no" => $no, "abstain" => $abstain);
 	}
 
-	public static function ballot_count_median ($array_of_ballots)
+	public static function ballot_count_median ($ballots_to_count)
 	{
 		$array_of_values = array();
-		foreach ($array_of_ballots as $item) {
-			if($item['user_code'] != null){
-		   		if(is_numeric($item['value'])){
-	   				$array_of_values[] = $item['value'];
-	   			}
-	   		}
-		}
+		foreach ($ballots_to_count as $ballot)
+	   		if(is_numeric($ballot['value']))
+   				$array_of_values[] = $ballot['value'];
 		$count = count($array_of_values);
-		if($count == 0){
+		if($count == 0)
 			return _t("No value set");
-		}
-		else{
-			$middle_index = floor($count / 2);
-			sort($array_of_values, SORT_NUMERIC);
-			$median = $array_of_values[$middle_index]; // assume an odd # of items
+		$middle_index = floor($count / 2);
+		sort($array_of_values, SORT_NUMERIC);
+		$median = $array_of_values[$middle_index]; // assume an odd # of items
 
-			// Handle the even case by averaging the middle 2 items
-			if ($count % 2 == 0) {
-				$median = ($median + $array_of_values[$middle_index - 1]) / 2;
-			}
-			return $median;
-		}
+		// Handle the even case by averaging the middle 2 items
+		if ($count % 2 == 0)
+			$median = ($median + $array_of_values[$middle_index - 1]) / 2;
+		return $median;
 	}
 
 	public static function get_complete_list_of_user_delegations ()
@@ -248,12 +238,9 @@ class vote_helpers
 		$post_vars = Array("user_codes" => $ballot_user_codes_for_ended_vote_serialized);
 		$reply = crypt_helpers::curl_to_anon_server("get_passive_user_codes.php", $post_vars);
 		$passive_user_codes = unserialize($reply);
-		foreach ($ballot_user_codes_for_ended_vote as $key => $value) {
-			$active_user_code = $key;
-			$passive_user_code = $value;
-			if(!empty($active_user_code) && !empty($passive_user_code))
+		foreach ($passive_user_codes as $active_user_code => $passive_user_code)
+			if($active_user_code && $passive_user_code)
 				db_vote_admin::set_active_user_code_to_passive($active_user_code, $passive_user_code, $vote_id);
-		}
 	}
 
 	public static function restore_active_user_codes ($vote_id)
@@ -272,9 +259,9 @@ class vote_helpers
 		}
 	}
 
-	public static function output_yes_no_result ($list_of_votes)
+	public static function output_yes_no_result ($ballots_to_count)
 	{
-		$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($list_of_votes);
+		$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($ballots_to_count);
 		$yes_percentage = $ballot_counter['yes'] || $ballot_counter['no']
 			? round($ballot_counter['yes'] / ($ballot_counter['yes'] + $ballot_counter['no']), 4) * 100
 			: 0;
@@ -288,9 +275,9 @@ class vote_helpers
 		echo _t("Abstain: ") . $ballot_counter['abstain'] . "<br><br>";
 	}
 
-	public static function output_median_result ($list_of_votes)
+	public static function output_median_result ($ballots_to_count)
 	{
-		$ballot_counter = vote_helpers::ballot_count_median($list_of_votes);
+		$ballot_counter = vote_helpers::ballot_count_median($ballots_to_count);
 		__("The vote count is:");
 		echo _("Median value: ") . $ballot_counter. "<br><br>";
 	}

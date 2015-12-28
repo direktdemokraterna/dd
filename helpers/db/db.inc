@@ -69,7 +69,7 @@ class db
 	// executes an update query, returns number of affected rows
 	public static function update ($query, $values)
 	{
-		return self::update_delete($query, $values);
+		return self::execute($query, $values);
 	}
 
 	public static function update_from_array ($query, $id_array)
@@ -87,10 +87,10 @@ class db
 
 	public static function delete ($query, $values)
 	{
-		return self::update_delete($query, $values);
+		return self::execute($query, $values);
 	}
 
-	private static function update_delete ($query, $values)
+	public static function execute ($query, $values)
 	{
 		$db = self::connect();
 		$stmt = $db->prepare($query);

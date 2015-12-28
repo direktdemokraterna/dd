@@ -9,7 +9,7 @@ class db_member_admin
 		$ok = db::update($query, $values);
 		if ($ok) {
 			\Logic\vote::remove_ballots($user_id);
-			\Logic\vote::remove_prop_ballots($user_id);			
+			\Logic\vote::remove_prop_ballots($user_id);
 		}
 		return $ok;
 	}

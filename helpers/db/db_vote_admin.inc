@@ -96,8 +96,11 @@ class db_vote_admin
 	public static function restore_vote ($vote_id)
 	{
 		$query = "update vote set status = 'active', timestamp_ended = ?, timestamp_delegate_ended = ? where id = ?";
-		$values = Array(time()+STANDARD_VOTE_LENGTH, time()+STANDARD_VOTE_LENGTH/2, $vote_id);
-		return db::update($query, $values);
+		$values = array(time()+STANDARD_VOTE_LENGTH, time()+STANDARD_VOTE_LENGTH/2, $vote_id);
+		$result = db::update($query, $values);
+		if ($result) 
+			self::remove_dead_ballots($vote_id);
+		return $result;
 	}
 
 	public static function finish_vote ($vote_id)
@@ -111,7 +114,10 @@ class db_vote_admin
 	{
 		$query = "update vote set status = 'continuous', timestamp_ended = null where id = ?";
 		$values = Array($vote_id);
-		return db::update($query, $values);
+		$result = db::update($query, $values);
+		if ($result) 
+			self::remove_dead_ballots($vote_id);
+		return $result;
 	}
 
 	public static function make_continuous ($vote_id)
@@ -154,5 +160,13 @@ class db_vote_admin
 		$query = "update ballot set user_code = ? where user_code = ? and vote_id = ?";
 		$values = Array($active_user_code, $passive_user_code, $vote_id);
 		return db::update($query, $values);
+	}
+
+	private static function remove_dead_ballots ($vote_id)
+	{
+		$query = "delete from ballot 
+			where user_code is null and voter_is_delegate_id is null and vote_id = ?";
+		if (db::delete($query, array($vote_id)))
+			db_vote::count_ballots_for_vote($vote_id);			
 	}
 }

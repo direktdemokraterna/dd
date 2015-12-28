@@ -35,10 +35,11 @@
 	if (isset($_GET['from_action']))
 		\View\general::output_search_back_link();
 	\View\vote::output_vote_header($voteinfo);
-
+	$ballots_to_count = array_filter($list_of_votes, 
+		function($ballot) {return $ballot['voter_is_delegate_id'] == null;});
 	\View\general::open_div("vote_result_box");
 	if($voteinfo['type'] == "yes-no")
-		vote_helpers::output_yes_no_result($list_of_votes);
+		vote_helpers::output_yes_no_result($ballots_to_count);
 	elseif($voteinfo['type'] == "prio-vote")
 		vote_helpers::output_prio_vote_result($_GET['id']);
 	elseif($voteinfo['type'] == "candidate-election")
@@ -46,7 +47,7 @@
 	elseif($voteinfo['type'] == "workgroup-election")
 		vote_helpers::output_workgroup_election_result($_GET['id'], $voteinfo['from_proposition_id']);
 	elseif($voteinfo['type'] == "median")
-		vote_helpers::output_median_result($list_of_votes);
+		vote_helpers::output_median_result($ballots_to_count);
 	_br();
 	if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished")
 		echo _t("The vote is finished. It finished ") 

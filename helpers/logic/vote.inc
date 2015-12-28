@@ -34,7 +34,7 @@ class vote
 		$ok = self::invoke_action($vote_id, $status, $action);
 		if(!$ok)
 			throw new \Exception(_t("Database error. No change made."));
-		self::invoke_post_action($vote_id, $status, $action);
+		self::invoke_post_action($vote_id, $action);
 		$_SESSION['report_message'] = _t("The vote is updated.");
 	}
 

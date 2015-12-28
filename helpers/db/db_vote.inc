@@ -95,22 +95,29 @@ class db_vote
 	}
 
 	public static function remove_ballots($user_code) {
-		$affected_props_query = 
+		$affected_votes_query = 
 		"select vote_id id
 			from ballot
 			where user_code = ?";
-		$affected_votes = db::select($affected_props_query, Array($user_code));
+		$affected_votes = db::select($affected_votes_query, Array($user_code));
 		if ($affected_votes) {
-			$query = "delete from ballot where user_code = ?";
+			$delete_ballots_query = "delete from ballot where user_code = ?";
 			$values = Array($user_code);
-			$result = db::delete($query, $values);
+			$result = db::delete($delete_ballots_query, $values);
 			foreach ($affected_votes as $affected_vote) {
 				$vote_id = $affected_vote['id'];
 				self::count_ballots_for_vote($vote_id);
 			}			
 			return $result;		
 		}
-		return false;
+		return true;
+	}
+
+	public static function remove_user_codes_from_closed_votes($user_code1, $user_code2, $user_code3) {
+		$query = "update ballot set user_code = null 
+			where user_code = ? or user_code = ? or user_code = ?";
+		$values = array($user_code1, $user_code2, $user_code3);
+		db::update($query, $values);
 	}
 
 	public static function get_vote_alternative_from_title ($vote_id, $alternative_title)

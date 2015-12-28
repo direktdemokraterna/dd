@@ -20,7 +20,7 @@
 		if(isset($_SESSION['is_member_admin'])) {
 			_open_form();
 			_hidden("restore_user", 1);
-			_submit_and_close("Restore member");
+			_submit_and_close(_t("Restore member"));
 		}
 	}
 	else {
