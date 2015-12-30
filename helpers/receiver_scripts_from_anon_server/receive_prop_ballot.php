@@ -15,7 +15,6 @@ if(isset($_POST['user_code']) && isset($_POST['prop_id']) && isset($_POST['rsa']
 				? "success"
 				: "fail - something went wrong when registering the vote";
 		}
-		else
-			echo "fail - invalid ballot: " . $ballot_decoded['support'];
+		else echo "fail - invalid ballot: " . $ballot_decoded['support'];
 	}
 }

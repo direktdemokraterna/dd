@@ -86,13 +86,15 @@ class vote
 	public static function remove_ballots($user_id) {
 		$post_vars = Array("user_id" => $user_id);
 		$reply = \crypt_helpers::curl_to_anon_server("remove_ballots.php", $post_vars);
-		return $reply; 
+		if ($reply != 'success')
+			throw new \Exception('Failed to remove ballots with reply: ' . $reply);
 	}
 
 	public static function remove_prop_ballots($user_id) {
 		$post_vars = Array("user_id" => $user_id);
 		$reply = \crypt_helpers::curl_to_anon_server("remove_prop_ballots.php", $post_vars);
-		return $reply; 
+		if ($reply != 'success')
+			throw new \Exception('Failed to remove prop ballots with reply: ' . $reply);
 	}
 
 	private static function admin_create_time_limited_vote() {
