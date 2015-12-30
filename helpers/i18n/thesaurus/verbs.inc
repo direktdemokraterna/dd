@@ -235,6 +235,10 @@ class verbs
 				"sv" => "svara::r:t"
 				,"en" => "reply::|_ies:_ied"
 				)				
+			,"restore:verb" => array(
+				"sv" => "återställ"
+				,"en" => "restore"
+				)				
 			,"resume:verb" => array(
 				"sv" => "återuppta"
 				,"en" => "resume"

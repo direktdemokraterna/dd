@@ -9,6 +9,8 @@ if(empty($_GET['type'])) $_GET['type']=null;
 if(empty($_GET['sort'])) $_GET['sort']=null; 
 if(empty($_GET['filter'])) $_GET['filter']=null; 
 
+set_include_path(get_include_path() . PATH_SEPARATOR . 'helpers');
+
 // Includes files
 include(dirname(__FILE__)."/config.inc");
 
