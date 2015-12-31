@@ -18,6 +18,14 @@ class crypt_helpers
 		return $reply;
 	}
 
+	public static function get_signed_data_from_anon_server() {
+		$serial_data = $_POST['data'];
+		$signature = $_POST['sign'];
+		self::verify($signature, $serial_data);
+		$data = unserialize($serial_data);
+		return $data;
+	}
+
 	private static function sign($post_vars) {
 		include_once('Crypt/RSA.php');
 		if (!$post_vars)
@@ -31,6 +39,19 @@ class crypt_helpers
 		$signature = $rsa->encrypt($hash);
 		$post_vars = array('sign' => $signature, 'data' => $serial_data);
 		return $post_vars;
+	}
+
+	private static function verify($signature, $plaintext) {
+		include_once('Crypt/RSA.php');
+		$computed_hash = hash('sha256', $plaintext);
+		$rsa = new Crypt_RSA();
+		$rsa->loadKey(DD_ANON_PUBLIC_KEY);
+		$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
+		$hash = $rsa->decrypt($signature);
+		if ($hash != $computed_hash)
+			throw new \Exception('Invalid message: ' . $plaintext 
+				. '. Hash missmatch, provided: ' . $hash 
+				. ', computed: ' . $computed_hash);
 	}
 
 	public static function retrieve_user_codes_on_client ($user_id)
@@ -55,7 +76,7 @@ class crypt_helpers
 	public static function decrypt_ballot ($rsa_message, $aes_message)
 	{
 		// decryption using phplibsec RSA library
-		include('Crypt/RSA.php');
+		include_once('Crypt/RSA.php');
 		$rsa = new Crypt_RSA();
 		$rsa->loadKey(DD_PRIVATE_KEY);
 		$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
@@ -64,7 +85,7 @@ class crypt_helpers
 		$ballot_rsa_decrypted_decoded = json_decode($ballot_rsa_decrypted, true);
 
 		// decryption using Giberish AES library
-		include('Crypt/GibberishAES.php');
+		include_once('Crypt/GibberishAES.php');
 		$ballot_aes_decrypted = GibberishAES::dec($aes_message, $ballot_rsa_decrypted_decoded['password']);
 		$ballot_aes_decrypted_decoded = json_decode($ballot_aes_decrypted, true);
 		return $ballot_aes_decrypted_decoded;
