@@ -26,7 +26,7 @@ class crypt_helpers
 		$serial_data = serialize($post_vars);
 		$hash = hash('sha256', $serial_data);
 		$rsa = new Crypt_RSA();
-		$rsa->loadKey(RSA_PRIVATE_KEY);
+		$rsa->loadKey(DD_PRIVATE_KEY);
 		$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
 		$signature = $rsa->encrypt($hash);
 		$post_vars = array('sign' => $signature, 'data' => $serial_data);
@@ -54,11 +54,10 @@ class crypt_helpers
 
 	public static function decrypt_ballot ($rsa_message, $aes_message)
 	{
-		$private_key = RSA_PRIVATE_KEY;
 		// decryption using phplibsec RSA library
 		include('Crypt/RSA.php');
 		$rsa = new Crypt_RSA();
-		$rsa->loadKey($private_key);
+		$rsa->loadKey(DD_PRIVATE_KEY);
 		$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
 
 		$ballot_rsa_decrypted = $rsa->decrypt(base64_decode($rsa_message));

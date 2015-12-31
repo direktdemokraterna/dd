@@ -3,3 +3,4 @@ dd.suo
 config.inc
 dd.sublime-project
 *.sublime-workspace
+helpers/keys/dd_anon/dd_anon_public_key.txt

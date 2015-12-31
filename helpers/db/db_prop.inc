@@ -194,7 +194,7 @@ class db_prop
 			}			
 			return $result;		
 		}
-		return false;
+		return true;
 	}
 
 	public static function cancel_ballot ($prop_id, $user_code)
