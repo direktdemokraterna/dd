@@ -48,7 +48,8 @@ class vote
 	}	
 
 	public static function get_vote_type_description($type) {
-		return self::get_vote_type_descriptions()[$type];
+		$type_descriptions = self::get_vote_type_descriptions();
+		return $type_descriptions[$type];
 	}	
 
 	public static function get_selectable_vote_type_descriptions() {
@@ -265,7 +266,8 @@ class vote
 	private static function get_vote_header_prefix($type) {
 		if ($type == "yes-no") return _t("Vote: ");
 		if ($type == "workgroup-election") return '';
-		return self::get_vote_type_descriptions()[$type] . ": ";
+		$type_descriptions = self::get_vote_type_descriptions();
+		return $type_descriptions[$type] . ": ";
 	}
 	
 	public static function get_vote_type_descriptions() {
