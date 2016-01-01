@@ -135,7 +135,7 @@ class vote_helpers
 
 	public static function calculate_and_output_workgroup_election_result ($result_array, $workgroup_id)
 	{
-		echo self::get_formatted_workgroup_election_result($result_array);
+		echo self::get_formatted_workgroup_election_result($result_array, $workgroup_id);
 	}
 
 	public static function get_formatted_prio_vote_result ($result_array)
