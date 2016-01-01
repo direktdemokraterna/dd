@@ -6,7 +6,10 @@
 <body>
 <div style="margin: 100px;">
 <?php
-	$pk_filename = '../helpers/keys/dd_anon/dd_anon_public_key.txt';
+	$pk_foreign_key_path = '../helpers/keys/dd_anon/';
+	$pk_filename = $pk_foreign_key_path . 'dd_anon_public_key.txt';
+	if (!file_exists($pk_foreign_key_path))
+    	mkdir($pk_foreign_key_path, 0777, true);
 	file_put_contents($pk_filename, '-- KEY MISSING --');
 	include("../init.inc");
 	$post_vars = array('key' => DD_PUBLIC_KEY);
