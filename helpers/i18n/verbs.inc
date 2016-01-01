@@ -93,7 +93,7 @@ class verb_present extends translator
 		$words = explode(' ', $compact_translation, 2);
 		$parts = explode(':', $words[0]);
 		$word = parent::assemble_word_form($parts, 2);
-		$alternatives = iterator_to_array(self::extract_alternatives($word));
+		$alternatives = self::extract_alternatives($word);
 		return count($words) == 2
 			? array_map(function ($alt) use ($words) {return $alt . ' ' . $words[1];}, $alternatives)
 			: $alternatives;
@@ -101,10 +101,14 @@ class verb_present extends translator
 
 	private static function extract_alternatives($compact_forms) 
 	{
+		$alternatives = array();
 		$parts = explode('|', $compact_forms, 3);
-		yield $parts[0];
+		$alternatives[] = $parts[0];
 		for ($i = 1; $i < 3; $i++)
-			yield ($i < count($parts) ? self::assemble_word_form($parts, $i) : $parts[0]);
+			$alternatives[] = ($i < count($parts) 
+				? self::assemble_word_form($parts, $i) 
+				: $parts[0]);
+		return $alternatives;
 	}
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
