@@ -222,10 +222,11 @@ class db_constituency
 		$old_constituencies = self::get_constituency_ids_for_user($user_id);
 		$added_constituencies = array_diff($constituency_ids, $old_constituencies);
 		$removed_constituencies = array_diff($old_constituencies, $constituency_ids);
-		foreach($added_constituencies as $added_constituency){
+		foreach($added_constituencies as $added_constituency)
 			$chg_cnt += self::add_constituency_access($user_id, $added_constituency);
-		}
 		foreach($removed_constituencies as $removed_constituency){
+			\Logic\vote::remove_ballots($user_id, $removed_constituency);
+			\Logic\vote::remove_prop_ballots($user_id, $removed_constituency);
 			$chg_cnt += self::remove_constituency_access($user_id, $removed_constituency);
 		}
 		return $chg_cnt;

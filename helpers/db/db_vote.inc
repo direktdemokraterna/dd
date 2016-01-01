@@ -94,15 +94,20 @@ class db_vote
 		return true;
 	}
 
-	public static function remove_ballots($user_code) {
-		$affected_votes_query = 
-		"select vote_id id
-			from ballot
+	public static function remove_ballots($user_code, $constituency_id = null) {
+		$votes_common_query = 
+		"from ballot
 			where user_code = ?";
-		$affected_votes = db::select($affected_votes_query, Array($user_code));
+		$values = array($user_code);
+		if ($constituency_id) {
+			$votes_common_query .= "
+			and constituency_id = ?";
+			$values[] = $constituency_id;
+		}
+		$affected_votes_query = "select vote_id id " . $votes_common_query;
+		$affected_votes = db::select($affected_votes_query, $values);
 		if ($affected_votes) {
-			$delete_ballots_query = "delete from ballot where user_code = ?";
-			$values = Array($user_code);
+			$delete_ballots_query = "delete " . $votes_common_query;
 			$result = db::delete($delete_ballots_query, $values);
 			foreach ($affected_votes as $affected_vote) {
 				$vote_id = $affected_vote['id'];
@@ -113,10 +118,16 @@ class db_vote
 		return true;
 	}
 
-	public static function remove_user_codes_from_closed_votes($user_code1, $user_code2, $user_code3) {
+	public static function remove_user_codes_from_closed_votes($user_code1, $user_code2, $user_code3
+		, $constituency_id = null) {
 		$query = "update ballot set user_code = null 
-			where user_code = ? or user_code = ? or user_code = ?";
+			where (user_code = ? or user_code = ? or user_code = ?)";
 		$values = array($user_code1, $user_code2, $user_code3);
+		if ($constituency_id) {
+			$query .= "
+			and constituency_id = ?";
+			$values[] = $constituency_id;
+		}
 		db::update($query, $values);
 	}
 

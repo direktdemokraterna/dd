@@ -178,15 +178,20 @@ class db_prop
 		return $ok >= 0;
 	}
 
-	public static function remove_prop_ballots($user_code) {
-		$affected_props_query = 
-		"select proposition_id id
-			from proposition_support
+	public static function remove_prop_ballots($user_code, $constituency_id = null) {
+		$props_common_query = 
+		"from proposition_support
 			where user_code = ?";
-		$affected_props = db::select($affected_props_query, Array($user_code));
+		$values = array($user_code);
+		if ($constituency_id) {
+			$props_common_query .= "
+			and constituency_id = ?";
+			$values[] = $constituency_id;
+		}
+		$affected_props_query = "select proposition_id id " . $props_common_query;
+		$affected_props = db::select($affected_props_query, $values);
 		if ($affected_props) {
-			$query = "delete from proposition_support where user_code = ?";
-			$values = Array($user_code);
+			$query = "delete " . $props_common_query;
 			$result = db::delete($query, $values);
 			foreach ($affected_props as $affected_prop) {
 				$prop_id = $affected_prop['id'];
