@@ -84,9 +84,12 @@ switch (\I18n\controller::get_language()) {
 		setlocale(LC_ALL, 'swedish', 'sv_SE', 'sv_SE.ISO8859-1');
 		break;
 }
+
 $app_folder_name = str_replace('index.php', '', $_SERVER['PHP_SELF']);
 DEFINE('BASE_URL', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' 
 	. $_SERVER['HTTP_HOST'] . $app_folder_name);
+
+define("USERIMG_PATH", BASE_URL . "images/userimg/");
 
 define("DD_PRIVATE_KEY", file_get_contents(__DIR__ . "/helpers/keys/dd_private_key.txt"));
 define("DD_PUBLIC_KEY", file_get_contents(__DIR__ . "/helpers/keys/dd_public_key.txt"));

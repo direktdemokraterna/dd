@@ -14,7 +14,6 @@ define("BASE_LANG", "en");
 define("LANG", "sv");
 
 // Defines constants
-define("USERIMG_PATH", "images/userimg/");
 define("WORKGROUP_PUBLIC_FORUMS_CATEGORY", 9);
 define("WORKGROUP_PRIVATE_FORUMS_CATEGORY", 8);
 define("POSTS_PER_PAGE", 10);
