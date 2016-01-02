@@ -1,25 +1,30 @@
-<?php 
-	$propinfo = db_prop::get_prop_info($_GET['id']);
-	$number_of_ballots = db_prop::get_number_of_ballots($_GET['id']);
-	$user_allowed_to_vote = db_constituency::check_user_constituency_access($_SESSION['id'], $propinfo['constituency_id']);
-	$list_of_votes_from_db = db_prop::get_prop_supporters($_GET['id']);
+<?php
+	$prop_id = $_GET['id'];
+	$is_voting_as_delegate = $_SESSION['delegate_id'];
+	$voter_id = $is_voting_as_delegate
+		? $_SESSION['delegate_id']
+		: $_SESSION['id'];
+	$propinfo = db_prop::get_prop_info($prop_id);
+	$constituency_id = $propinfo['constituency_id'];
+	$number_of_ballots = db_prop::get_number_of_ballots($prop_id);
+	$voter_allowed_to_vote = $is_voting_as_delegate
+		? db_constituency::check_delegate_constituency_access($voter_id, $constituency_id)
+		: db_constituency::check_user_constituency_access($voter_id, $constituency_id);
+	$list_of_votes_from_db = db_prop::get_prop_supporters($prop_id);
 	$list_of_votes = Array();
 	foreach($list_of_votes_from_db as $row){
 		$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_is_delegate_id" => $row['voter_is_delegate_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "support" => $row['support'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 	}
-
-	if($_SESSION['delegate_id']){
-		$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $propinfo['constituency_id']);
-		$delegate_ballot = db_delegate::get_ballot_for_prop($_GET['id'], $_SESSION['delegate_id']);
-	}
+	if($is_voting_as_delegate)
+		$delegate_ballot = db_delegate::get_ballot_for_prop($prop_id, $voter_id);
 ?>
 
 <script>
-	var user_id = <?php echo json_encode($_SESSION['id']); ?>;
-	var prop_id = <?php echo json_encode($propinfo['prop_id']); ?>;
-	var constituency_id = <?php echo json_encode($propinfo['constituency_id']); ?>;
+	var user_id = <?php echo json_encode($voter_id); ?>;
+	var prop_id = <?php echo json_encode($prop_id); ?>;
+	var constituency_id = <?php echo json_encode($constituency_id); ?>;
 	var list_of_votes = <?php echo json_encode($list_of_votes); ?>;
-	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
+	var acting_as_delegate = <?php echo $is_voting_as_delegate ? "true" : "false"; ?>;
 	var support = <?php echo isset($delegate_ballot) && $delegate_ballot['support'] ? 'true' : 'false'; ?>;
 </script>
 
@@ -34,12 +39,12 @@
 		__("The necessary number of supporters for it to be subject for vote is " . (ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT)) . ".");
 	}
 	elseif($propinfo['status'] == "affirmed"){
-		$vote_id = db_vote::get_vote_id_from_prop_id($propinfo['prop_id']);
+		$vote_id = db_vote::get_vote_id_from_prop_id($prop_id);
 		__("This proposition has reached sufficient support to be subject for vote. The vote can be found ");
 		_link(_t("here"), 'vote', 'view_vote', 'id=' . $vote_id);
 	}
 	echo '</div>';
-	if($user_allowed_to_vote && $propinfo['status'] == "pending") {
+	if($voter_allowed_to_vote && $propinfo['status'] == "pending") {
 		echo '<div class="vote_result_box" id="user_vote_box">';
 			if(isset($delegate_ballot) && $delegate_ballot['support']) {
 				__(isset($delegate_ballot['delegate_id'])
@@ -68,24 +73,24 @@
 	echo '<p>';
 	_link(_t("See all support-ballots for this proposition"), 'vote', 'view_prop_ballots', 'id=' . $_GET['id']);
 	echo '</p>';
-	if($user_allowed_to_vote) {
+	if($voter_allowed_to_vote) {
 		echo '<p>';
 		_link(_t("Link to this proposition's forum debate"), 'forum', 'show_posts', 'topic_id=' . $propinfo['forum_topic_id']);
 		echo '</p>';
-	}
-	if($user_allowed_to_vote && $propinfo['status'] == "pending") {
-		echo '<div class="vote_box">';
-		_open_form("yes-no");
-		_hidden("prop_id", $propinfo['prop_id']);
-		_hidden("ballot", "");
-		echo '<input type="submit" class="vote_button" style="display: none" id="green_vote" value="' 
-		. _t("Support") . '" onmousedown="return encrypt_prop_ballot(true)">';
-		echo '<input type="submit" class="vote_button" style="display: none" title="' 
-		. _t("Click to stop supporting") . '" id="yellow_vote" value="' . _t("Supporting") 
-		. '" onmousedown="return encrypt_prop_ballot(false)">';
-		echo '</form>';
-		echo '</div>';
-		__($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
+		if($propinfo['status'] == "pending") {
+			echo '<div class="vote_box">';
+			_open_form("yes-no");
+			_hidden("prop_id", $prop_id);
+			_hidden("ballot", "");
+			echo '<input type="submit" class="vote_button" style="display: none" id="green_vote" value="' 
+			. _t("Support") . '" onmousedown="return encrypt_prop_ballot(true)">';
+			echo '<input type="submit" class="vote_button" style="display: none" title="' 
+			. _t("Click to stop supporting") . '" id="yellow_vote" value="' . _t("Supporting") 
+			. '" onmousedown="return encrypt_prop_ballot(false)">';
+			echo '</form>';
+			echo '</div>';
+			__($is_voting_as_delegate ? "You vote as delegate." : "You vote as individual.");
+		}
 	}
 
 	echo '<script>';
@@ -100,6 +105,6 @@
 	echo 'var not_support_text = "' . _t("Don't support") . '";';
 	\View\vote::output_common_delegate_vote_box_translations_for_js();
 	echo '</script>';
-	if($user_allowed_to_vote && $propinfo['status'] == "pending")
+	if($voter_allowed_to_vote && $propinfo['status'] == "pending")
 		include(dirname(__FILE__) . "/view_prop_user_vote_box_js.inc");
 ?>
