@@ -14,4 +14,21 @@ class user
 		if(\db_user::check_if_email_exists($email, $exclude_user_id))
 			return "There already exists a user with that email address";
 	}
+
+	public static function delete_user ($user_id)
+	{
+		$ok = \db_user::delete_user ($user_id);
+		if ($ok) {
+			\Logic\delegate::delete_delegate($user_id);
+			\Logic\vote::remove_ballots($user_id);
+			\Logic\vote::remove_prop_ballots($user_id);
+			\Logic\vote::remove_delegations($user_id);
+		}
+		return $ok;
+	}
+
+	public static function restore_user ($user_id)
+	{
+		return \db_user::restore_user ($user_id);
+	}	
 }

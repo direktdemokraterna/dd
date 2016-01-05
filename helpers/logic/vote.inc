@@ -53,8 +53,8 @@ class vote
 	{
 		$prop_info = \db_prop::get_prop_info($prop_id);
 		if($_SESSION['delegate_id'])
-			$check_delegate_constituency_access = \db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $prop_info['constituency_id']);
-		if(!empty($check_delegate_constituency_access) && $prop_info['status'] == "pending"){
+			$delegate_constituency_access = \db_constituency::check_voter_constituency_access($_SESSION['delegate_id'], $prop_info['constituency_id']);
+		if(!empty($delegate_constituency_access) && $prop_info['status'] == "pending"){
 			$ballot_decoded = \json_decode($ballot, true);
 			$ok = \db_delegate::register_prop_ballot($prop_id, $_SESSION['delegate_id'], $ballot_decoded['support']);
 			if($ok)
@@ -63,7 +63,7 @@ class vote
 				throw new \Exception(_t("Something went wrong. The ballot was not registered."));
 		}
 		elseif($prop_info['status'] == "pending"){
-			$check_user_access = \db_constituency::check_user_constituency_access($_SESSION['id'], $prop_info['constituency_id']);
+			$check_user_access = \db_constituency::check_voter_constituency_access($_SESSION['id'], $prop_info['constituency_id']);
 			if($check_user_access){
 				$post_vars = Array("user_id" => $_SESSION['id'], "prop_id" => $prop_id, "ballot" => $ballot);
 				$reply = \crypt_helpers::curl_to_anon_server("anonymise_prop_ballot.php", $post_vars);
@@ -95,6 +95,22 @@ class vote
 		$reply = \crypt_helpers::curl_to_anon_server("remove_prop_ballots.php", $post_vars);
 		if ($reply != 'success')
 			throw new \Exception('Failed to remove prop ballots with reply: ' . $reply);
+	}
+
+	public static function remove_delegations($user_id, $constituency_id = null) {
+		//throw new \Exception('TODO:');
+	}
+
+	public static function remove_delegate_ballots($delegate_id, $constituency_id = null) {
+		//throw new \Exception('TODO:');
+	}
+
+	public static function remove_delegate_prop_ballots($delegate_id, $constituency_id = null) {
+		//throw new \Exception('TODO:');
+	}
+
+	public static function remove_delegate_delegations($delegate_id, $constituency_id = null) {
+		//throw new \Exception('TODO:');
 	}
 
 	private static function admin_create_time_limited_vote() {

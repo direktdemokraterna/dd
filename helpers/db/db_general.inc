@@ -17,4 +17,18 @@ class db_general
 		}
 		return $hash;
 	}
+
+	public static function create_voter($voter_type) {
+		if ($voter_type != 'user' && $voter_type != 'delegate')
+			throw new \Exception("Invalid voter_type: " . $voter_type);
+		$query = "insert into voter (voter_type) values (?)";
+		$values = array($voter_type);
+		return db::insert($query, $values);
+	}
+
+	public static function delete_voter($voter_id) {
+		$query = "delete from voter where id = ?";
+		$values = array($voter_id);
+		return db::delete($query, $values);
+	}
 }

@@ -2,13 +2,13 @@
 
 class db_prop 
 {
-	public static function add_prop ($type, $created_by_user, $created_by_delegate, $constituency_id, $title, $description)
+	public static function add_prop ($type, $created_by_voter, $constituency_id, $title, $description)
 	{
 		$forum_id = db_constituency::get_constituency_forum_id($constituency_id);
 		$post_title = _t("Proposition: ") . $title;
-		$forum_topic_id = db_forum::new_topic($created_by_user, $forum_id, $post_title);
-		$query = "insert into proposition (type, created_by_user, created_by_delegate, timestamp_created, constituency_id, title, description, forum_topic_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($type, $created_by_user, $created_by_delegate, time(), $constituency_id, $title, $description, $forum_topic_id);
+		$forum_topic_id = db_forum::new_topic($created_by_voter, $forum_id, $post_title);
+		$query = "insert into proposition (type, created_by_voter, timestamp_created, constituency_id, title, description, forum_topic_id) values (?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($type, $created_by_voter, time(), $constituency_id, $title, $description, $forum_topic_id);
 		$prop_id = db::insert($query, $values);
 		$post_content = _t("This is an auto-generated forum thread for the proposition: ")
 			. '<a href="index.php?type=vote&action=view_prop&id=' . $prop_id . '">' . $title . '</a>\n\n' . $description;
@@ -24,7 +24,7 @@ class db_prop
 		, p.forum_topic_id, c.id as constituency_id, c.title as constituency_name
 		, c.number_of_voters 
 			from proposition p, user u, constituency c 
-			where u.id = p.created_by_user and c.id = p.constituency_id and p.id = ?";
+			where u.id = p.created_by_voter and c.id = p.constituency_id and p.id = ?";
 		$values = Array($prop_id);
 		return db::select_single_row($query, $values);
 	}
@@ -60,8 +60,8 @@ class db_prop
 
 	public static function get_prop_supporters ($prop_id)
 	{
-		$query = "select ps.user_code, ps.voter_is_delegate_id
-			, (select d1.title from delegate d1 where ps.voter_is_delegate_id = d1.id) as voter_is_delegate_name
+		$query = "select ps.user_code, ps.voter_id
+			, (select d1.title from delegate d1 where ps.voter_id = d1.id) as voter_is_delegate_name
 			, ps.support, ps.delegate_id
 			, (select d2.title from delegate d2 where ps.delegate_id = d2.id) as delegate_name
 			, time_ballot_placed 
@@ -144,13 +144,13 @@ class db_prop
 	{
 		return "from proposition P
 					join constituency C on C.id = P.constituency_id
-					left join constituency_user CU 
-						on CU.constituency_id = C.id and CU.user_id = " . $user_id;
+					left join constituency_voter cv 
+						on cv.constituency_id = C.id and cv.voter_id = " . $user_id;
 	}
 
 	private static function get_props_where_clause ($status)
 	{
-		$where_clause = "where CU.id IS NOT NULL and P.status = '" . $status . "'";
+		$where_clause = "where cv.voter_id IS NOT NULL and P.status = '" . $status . "'";
 		return $where_clause;
 	}
 
@@ -237,7 +237,7 @@ class db_prop
 
 	public static function get_prop_ballot_from_delegate_or_user ($prop_id, $user_code, $delegand_id)
 	{
-		$query = "select id, support, delegate_id, time_ballot_placed, delegation_level, delegate_priority from proposition_support where proposition_id = ? and (user_code = ? or voter_is_delegate_id = ?)";
+		$query = "select id, support, delegate_id, time_ballot_placed, delegation_level, delegate_priority from proposition_support where proposition_id = ? and (user_code = ? or voter_id = ?)";
 		$values = Array($prop_id, $user_code, $delegand_id);
 		return db::select_single_row($query, $values);
 	}

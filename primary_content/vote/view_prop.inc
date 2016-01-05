@@ -7,13 +7,11 @@
 	$propinfo = db_prop::get_prop_info($prop_id);
 	$constituency_id = $propinfo['constituency_id'];
 	$number_of_ballots = db_prop::get_number_of_ballots($prop_id);
-	$voter_allowed_to_vote = $is_voting_as_delegate
-		? db_constituency::check_delegate_constituency_access($voter_id, $constituency_id)
-		: db_constituency::check_user_constituency_access($voter_id, $constituency_id);
+	$voter_allowed_to_vote = db_constituency::check_voter_constituency_access($voter_id, $constituency_id);
 	$list_of_votes_from_db = db_prop::get_prop_supporters($prop_id);
 	$list_of_votes = Array();
 	foreach($list_of_votes_from_db as $row){
-		$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_is_delegate_id" => $row['voter_is_delegate_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "support" => $row['support'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+		$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_id" => $row['voter_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "support" => $row['support'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 	}
 	if($is_voting_as_delegate)
 		$delegate_ballot = db_delegate::get_ballot_for_prop($prop_id, $voter_id);

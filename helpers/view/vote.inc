@@ -70,7 +70,7 @@ class vote
 	public static function make_constituency_selector($selected_option = null, $user_id = null, $tab_index = 1) {
 		$options = array();
 		$constituencies = $user_id 
-			? \db_constituency::get_constituencies_for_user($user_id)
+			? \db_constituency::get_constituencies_for_voter($user_id)
 			: \db_constituency::get_all_constituencies(1, PHP_INT_MAX);
 		foreach($constituencies as $row)
 			$options[$row['id']] = $row['name'];
@@ -108,7 +108,7 @@ class vote
 				if($ballot['user_code'])
 					__("User");
 				else 
-					_link($ballot['voter_is_delegate_name'], 'vote', 'view_delegate', 'id=' . $ballot['voter_is_delegate_id']);
+					_link($ballot['voter_is_delegate_name'], 'vote', 'view_delegate', 'id=' . $ballot['voter_id']);
 				echo '</td><td>';
 				echo self::get_ballot_content($vote_type, $ballot[$content_prop]);
 				echo '</td><td>';

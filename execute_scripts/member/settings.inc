@@ -64,7 +64,7 @@
 			$ok = db_user::update_profile(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), general_helpers::clean($_POST['zip_code']), general_helpers::clean($_POST['city_address']), $_POST['county'], $region, $_POST['email'], general_helpers::clean($_POST['skype_name']), general_helpers::clean($_POST['telephone1']), general_helpers::clean($_POST['telephone2']), $_SESSION['id']);
 			if($ok){
 				forum_helpers::update_county_region_forum_access($_SESSION['id'], $_POST['county']);
-				vote_helpers::update_county_region_constituencies($_SESSION['id'], $_POST['county']);
+				\Logic\constituency::update_county_region_constituencies($_SESSION['id'], $_POST['county']);
 				$_SESSION['report_message'] = _t("Your profile is updated");
 			}
 			else

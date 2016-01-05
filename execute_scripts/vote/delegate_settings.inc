@@ -33,9 +33,8 @@
 				$report_messages[] = _t("You now vote as individual.");
 			}
 		}
-		$constituencies_changed = empty($_POST['constituencies'])
-			? db_delegate::remove_all_delegate_constituencies($_SESSION['id'])
-			: db_delegate::update_delegate_constituencies($_POST['constituencies'], $_SESSION['id']);
+		$constituencies = isset($_POST['constituencies']) ? $_POST['constituencies'] : array();
+		$constituencies_changed = \Logic\constituency::update_constituencies_for_delegate($constituencies, $_SESSION['id']);
 		if($constituencies_changed)
 			$report_messages[] = _t("Constituency activity updated.");
 		if ($report_messages)

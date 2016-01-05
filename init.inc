@@ -28,7 +28,6 @@ include(dirname(__FILE__)."/helpers/db/db_user.inc");
 include(dirname(__FILE__)."/helpers/db/db_admin.inc");
 include(dirname(__FILE__)."/helpers/db/db_forum_admin.inc");
 include(dirname(__FILE__)."/helpers/db/db_vote_admin.inc");
-include(dirname(__FILE__)."/helpers/db/db_member_admin.inc");
 include(dirname(__FILE__)."/helpers/db/db_forum.inc");
 include(dirname(__FILE__)."/helpers/db/db_message.inc");
 include(dirname(__FILE__)."/helpers/db/db_workgroup.inc");
@@ -61,6 +60,7 @@ include(dirname(__FILE__)."/helpers/i18n/thesaurus/time_and_date.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/verbs.inc");
 
 include(dirname(__FILE__)."/helpers/logic/calendar.inc");
+include(dirname(__FILE__)."/helpers/logic/constituency.inc");
 include(dirname(__FILE__)."/helpers/logic/forum.inc");
 include(dirname(__FILE__)."/helpers/logic/global.inc");
 include(dirname(__FILE__)."/helpers/logic/user.inc");

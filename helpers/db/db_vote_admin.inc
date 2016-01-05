@@ -165,7 +165,7 @@ class db_vote_admin
 	private static function remove_dead_ballots ($vote_id)
 	{
 		$query = "delete from ballot 
-			where user_code is null and voter_is_delegate_id is null and vote_id = ?";
+			where user_code is null and voter_id is null and vote_id = ?";
 		if (db::delete($query, array($vote_id)))
 			db_vote::count_ballots_for_vote($vote_id);			
 	}

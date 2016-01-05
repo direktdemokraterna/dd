@@ -2,15 +2,16 @@
 	$userdata = db_user::get_user_data($_GET['id']);
 	_h1(\View\general::generate_internal_link($userdata['first_name'] . " " . $userdata['last_name'], "member", "view", "id=" . $_GET['id']));
 	_strong(_t("Constituency authorisations for this user"));
+	echo '<form method="post" action=""><ul class="checkbox-grid">';
+	$constituency_access = db_constituency::get_all_constituencies_and_if_voter_belongs($_GET['id']);
+	foreach($constituency_access as $row) {
+		$constituency_name = $row['constituency_name'];
+		echo '<li>';
+		echo '<input type="checkbox" name="check_list[]" id="' . $constituency_name . '" value="' 
+			. $row['constituency_id'] . '"' . ($row['voter_access'] ? ' checked' : '') . '>';
+		_label($constituency_name, $constituency_name);
+		echo '</li>';
+	}
+	echo '</ul><div class="clear"></div><br>';
+	_submit_and_close(_t('Change'));
 ?>
-<form method="post" action=""><ul class="checkbox-grid">
-
-<?php $constituency_access = db_constituency::get_all_constituencies_and_if_user_belongs($_GET['id']); ?>
-
-<?php foreach($constituency_access as $row) : ?>
-	<li><input type="checkbox" name="check_list[]" id="<?php echo $row['constituency_name']; ?>" value="<?php echo $row['constituency_id']; ?>" <?php if($row['user_access']==1) echo " checked"; ?>>
-	<label for "<?php echo $row['constituency_name']; ?>"><?php echo $row['constituency_name']; ?></label></li>
-<?php endforeach; ?>
-
-</ul><div class="clear"></div><br><input type="submit" style="margin-left: 10%;" id="submit" value="<?php __('Change'); ?>">
-</form>

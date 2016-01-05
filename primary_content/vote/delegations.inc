@@ -1,7 +1,6 @@
 <?php
-	$constituencies = $_SESSION['delegate_id']
-		? db_constituency::get_constituencies_for_delegate($_SESSION['delegate_id'])
-		: db_constituency::get_constituencies_for_user($_SESSION['id']);
+	$constituencies = db_constituency::get_constituencies_for_voter($_SESSION['delegate_id'] 
+			? $_SESSION['delegate_id'] : $_SESSION['id']);
 	$list_of_delegations_from_db = db_delegate::get_delegations_for_multiple_constituencies($constituencies);
 	$list_of_delegations = Array();
 	foreach($list_of_delegations_from_db as $row)

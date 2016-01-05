@@ -14,7 +14,7 @@
 				$user_id = db_user::get_user_data_from_username($_POST['username']);
 				if($user_id['id']){
 					$constituency_id = db_constituency::get_vote_constituency_id($_POST['vote_id']);
-					if(db_constituency::check_user_constituency_access($user_id['id'], $constituency_id)){
+					if(db_constituency::check_voter_constituency_access($user_id['id'], $constituency_id)){
 						$ok = db_vote::add_candidate($_POST['vote_id'], $user_id['id'], $_POST['description']);
 					}
 					else{

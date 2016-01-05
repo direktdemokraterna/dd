@@ -220,10 +220,10 @@ class vote_helpers
 
 	public static function find_user_delegate_matching_constituencies ($user_id, $delegate_id)
 	{
-		$user_constituencies = db_constituency::get_constituencies_for_user($user_id);
+		$user_constituencies = db_constituency::get_constituencies_for_voter($user_id);
 		$matching_constituencies = Array();
 		foreach($user_constituencies as $row){
-			$delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegate_id, $row['id']);
+			$delegate_constituency_access = db_constituency::check_voter_constituency_access($delegate_id, $row['id']);
 			if($delegate_constituency_access){
 				$matching_constituencies[] = Array("id" => $row['id'], "name" => $row['name']);
 			}
@@ -313,21 +313,6 @@ class vote_helpers
 			__("No candidates");
 		else
 			vote_helpers::calculate_and_output_workgroup_election_result($prio_vote_result, $workgroup_id);
-	}
-
-	public static function update_county_region_constituencies ($user_id, $county)
-	{
-		$old_county_constituency_id = db_constituency::get_local_county_constituency_for_user($user_id);
-		$new_county_constituency_id = db_constituency::get_local_county_constituency($county);
-		if ($old_county_constituency_id != $new_county_constituency_id) {
-			$old_region_constituency_id = db_constituency::get_local_region_constituency_for_user($user_id);
-			$new_region = db_constituency::get_region_from_county($_POST['county']);
-			$new_region_constituency_id = db_constituency::get_local_region_constituency($new_region);
-			db_constituency::remove_constituency_access($user_id, $old_county_constituency_id);
-			db_constituency::remove_constituency_access($user_id, $old_region_constituency_id);
-			db_constituency::add_constituency_access($user_id, $new_county_constituency_id);
-			db_constituency::add_constituency_access($user_id, $new_region_constituency_id);		
-		}
 	}
 
 	public static function workgroup_election_compare_result ($vote_id){

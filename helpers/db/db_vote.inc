@@ -32,7 +32,7 @@ class db_vote
 	public static function get_vote_info ($vote_id)
 	{
 		$query = "select v.id as vote_id, v.title as title, v.description as description
-			, p.created_by_user as user_id
+			, p.created_by_voter as user_id
 			, concat(initiator.first_name, ' ', initiator.last_name) as user_full_name
 			, v.type as type, v.timestamp_created as timestamp_created
 			, v.timestamp_delegate_ended as timestamp_delegate_ended, v.timestamp_ended as timestamp_ended
@@ -45,7 +45,7 @@ class db_vote
 		from vote v
 			join constituency c on c.id = constituency_id
 			left join proposition p on p.id = v.from_proposition_id
-			left join user initiator on initiator.id = p.created_by_user
+			left join user initiator on initiator.id = p.created_by_voter
 		where c.id = v.constituency_id and v.id = ?";
 		$values = Array($vote_id);
 		return db::select_single_row($query, $values);
@@ -61,7 +61,7 @@ class db_vote
 		return db::select($query, $values);
 	}
 
-	public static function insert_ballot ($vote_id, $ballot, $user_code, $voter_is_delegate_id = null, 
+	public static function insert_ballot ($vote_id, $ballot, $user_code, $voter_id = null, 
 		$delegate_id = null, $delegation_level = null, $delegate_priority = null)
 	{
 		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
@@ -70,16 +70,16 @@ class db_vote
 			$values = Array($vote_id, $user_code);
 		}
 		else{
-			$query = "delete from ballot where vote_id = ? and voter_is_delegate_id = ?";
+			$query = "delete from ballot where vote_id = ? and voter_id = ?";
 			$values = Array($vote_id, $delegate_id);
 		}
 		db::delete($query, $values);
 
 		$query = "insert into ballot 
-				(vote_id, constituency_id, ballot, user_code, voter_is_delegate_id, delegate_id, 
+				(vote_id, constituency_id, ballot, user_code, voter_id, delegate_id, 
 					delegation_level, delegate_priority, time_ballot_placed) 
 				values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $constituency_id, $ballot, $user_code, $voter_is_delegate_id, $delegate_id, $delegation_level, $delegate_priority, time());
+		$values = Array($vote_id, $constituency_id, $ballot, $user_code, $voter_id, $delegate_id, $delegation_level, $delegate_priority, time());
 		$return = db::insert($query, $values);
 		self::count_ballots_for_vote($vote_id);
 		return $return;
@@ -140,9 +140,9 @@ class db_vote
 
 	public static function get_ballots ($vote_id)
 	{
-		$query = "select b.user_code as user_code, b.voter_is_delegate_id as voter_is_delegate_id, 
+		$query = "select b.user_code as user_code, b.voter_id as voter_id, 
 					(
-						select d1.title from delegate d1 where b.voter_is_delegate_id = d1.id
+						select d1.title from delegate d1 where b.voter_id = d1.id
 					) as voter_is_delegate_name
 					, b.ballot as ballot, b.delegate_id as delegate_id, 
 					(
@@ -218,23 +218,21 @@ class db_vote
 	{
 		return "from vote V
 					join constituency C on C.id = V.constituency_id
-					left join constituency_user CU 
-						on CU.constituency_id = C.id and CU.user_id = " . $user_id;
+					left join constituency_voter CV 
+						on CV.constituency_id = C.id and CV.voter_id = " . $user_id;
 	}
 
 	private static function get_votes_where_clause ($statuses = null)
 	{
-		$where_clause = "where CU.id IS NOT NULL";
-		if (!empty($statuses)) {
-			//echo($statuses);
+		$where_clause = "where CV.voter_id IS NOT NULL";
+		if (!empty($statuses)) 
 			$where_clause .= " and V.status in ('" . implode("', '", $statuses) . "')";
-		}
 		return $where_clause;
 	}
 
 	public static function get_ballot_from_delegate_or_user ($vote_id, $user_code, $delegand_id)
 	{
-		$query = "select id, ballot, delegate_id, time_ballot_placed, delegation_level, delegate_priority from ballot b where b.vote_id = ? and (b.user_code = ? or b.voter_is_delegate_id = ?)";
+		$query = "select id, ballot, delegate_id, time_ballot_placed, delegation_level, delegate_priority from ballot b where b.vote_id = ? and (b.user_code = ? or b.voter_id = ?)";
 		$values = Array($vote_id, $user_code, $delegand_id);
 		return db::select_single_row($query, $values);
 	}

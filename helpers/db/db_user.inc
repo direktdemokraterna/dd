@@ -1,13 +1,27 @@
 <?php
 class db_user 
 {
+	public static function delete_user ($user_id)
+	{
+		$query = "update user set deletion_time = ? where id = ?";
+		$values = Array(time(), $user_id);
+		$ok = db::update($query, $values);
+		return $ok;
+	}
+
+	public static function restore_user ($user_id)
+	{
+		$query = "update user set deletion_time = null where id = ?";
+		$values = Array($user_id);
+		return db::update($query, $values);
+	}
+
 	public static function add_user ($username, $password, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name = "")
 	{
-		$query = "insert into user (username, password, registration_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, skype_name) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($username, $password, time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name);
-		$user_id = db::insert($query, $values);
-		if(!$user_id)
-			return false;
+		$user_id = \db_general::create_voter('user');
+		$query = "insert into user (id, username, password, registration_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, skype_name) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($user_id, $username, $password, time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name);
+		db::insert($query, $values);
 
 		// Adding forum accesses for new user
 		$public_forums = db_forum::get_public_forum_ids();

@@ -1,7 +1,7 @@
 <?php 
 
 if(isset($_POST['delete_user'])){
-	$ok = db_member_admin::delete_user($_GET['id']);
+	$ok = \Logic\user::delete_user($_GET['id']);
 	if($ok)
 		$_SESSION['report_message'] = _t("The user has been removed from the list of members");
 }
@@ -11,7 +11,7 @@ elseif(isset($_POST['restore_user'])){
 	if ($error)
 		\Logic\util::report_error($error);
 	else {
-		$ok = db_member_admin::restore_user($_GET['id']);
+		$ok = \Logic\user::restore_user($_GET['id']);
 		if($ok)
 			$_SESSION['report_message'] = _t("The user has been restored in the list of member");
 	}

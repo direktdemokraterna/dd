@@ -131,7 +131,7 @@ function show_delegate_votes (is_prop)
 	var delegate_votes_box_content = delegate_vote_box_header;
 	list_of_votes.map(function (vote){
 		if(vote.user_code == null){
-			delegate_votes_box_content += "<tr><td><a href=\"index.php?type=vote&action=view_delegate&id=" + vote.voter_is_delegate_id + "\">" + vote.voter_is_delegate_name + "</a></td><td style='color: white'>";
+			delegate_votes_box_content += "<tr><td><a href=\"index.php?type=vote&action=view_delegate&id=" + vote.voter_id + "\">" + vote.voter_is_delegate_name + "</a></td><td style='color: white'>";
 			if(vote.hasOwnProperty('support'))
 				delegate_votes_box_content += vote.support ? support_text : not_support_text;
 			else if(vote.hasOwnProperty('alternative'))

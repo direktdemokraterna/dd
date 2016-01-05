@@ -15,6 +15,7 @@
 --
 -- Create schema dd_anon
 --
+SET SQL_SAFE_UPDATES = 0;
 
 CREATE DATABASE IF NOT EXISTS dd_anon;
 USE dd_anon;
@@ -159,11 +160,11 @@ INSERT INTO `user_temp_codes` (`id`,`temp_code`,`user_id`,`timestamp_created`) V
 /*!40000 ALTER TABLE `user_temp_codes` ENABLE KEYS */;
 
 --
--- Definition of table `users`
+-- Definition of table `user`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `user_id` int(10) unsigned NOT NULL default '0',
   `active_user_code` varchar(20) NOT NULL default '',
@@ -176,16 +177,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `user`
 --
 
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`,`user_id`,`active_user_code`,`passive_user_code1`,`passive_user_code2`,`passive_user_code3`,`timestamp_last_login`,`timestamp_last_activity`) VALUES 
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`,`user_id`,`active_user_code`,`passive_user_code1`,`passive_user_code2`,`passive_user_code3`,`timestamp_last_login`,`timestamp_last_activity`) VALUES 
  (1,5,'osb8A8xrrQrGQfologrm','Csc0Wdfy6CHQB9eEx2UW','nTY2K5KFS3qsVuewTQNj','evYYqLsXAtpiEyQAu9vU',NULL,NULL),
  (2,6,'9ZvUSJF2Y9binMKfwOr7','QzcZsdP5ilu1roSlrhSW','qW4dkmHmZGXd2qpTAAeC','4uNKQd3WK8RzdQAqtFRp',NULL,NULL),
  (3,4,'OBc7rZoonK45KsRWs4gq','S28ZUXNjGMofzPxd16iJ','Dys7rHw0qdeH3vOrmDk0','afflJNzLhhT5QyX1cDuF',NULL,NULL),
  (4,13,'nNSpJccU3OdwJxq3SMBw','sKbDUhNO4GHSweyENtF4','nrjiKEbZCJm7XrUhg8Yg','ko7qVZd1ePk3vF5JU8o5',NULL,NULL);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 --
 -- Create schema dd
@@ -193,6 +194,109 @@ INSERT INTO `users` (`id`,`user_id`,`active_user_code`,`passive_user_code1`,`pas
 
 CREATE DATABASE IF NOT EXISTS dd;
 USE dd;
+
+--
+-- Definition of table `voter`
+--
+
+DROP TABLE IF EXISTS `voter`;
+CREATE TABLE `voter` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `voter_type` varchar(20) NOT NULL default 'user', -- user or delegate
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Definition of table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL,
+  `username` varchar(45) NOT NULL default '',
+  `password` varchar(128) NOT NULL default '',
+  `remember_me_token` varchar(128) default NULL,
+  `registration_time` int(10) unsigned NOT NULL default '0',
+  `deletion_time` int(10) unsigned default NULL,
+  `last_login_time` int(10) unsigned default NULL,
+  `last_activity_time` int(10) unsigned default NULL,
+  `first_name` varchar(45) default '',
+  `last_name` varchar(45) default '',
+  `street_address` varchar(45) default '',
+  `zip_code` varchar(10) default '',
+  `city_address` varchar(45) default '',
+  `county` varchar(45) default '',
+  `region` varchar(45) default '',
+  `social_security_number` varchar(13) default '',
+  `email` varchar(45) NOT NULL default '',
+  `telephone1` varchar(20) default '',
+  `telephone2` varchar(20) default '',
+  `skype_name` varchar(45) default '',
+  `show_email` tinyint(1) unsigned NOT NULL default '1',
+  `show_telephone` tinyint(1) unsigned NOT NULL default '1',
+  `show_skype` tinyint(1) unsigned NOT NULL default '1',
+  `number_of_posts` int(10) unsigned NOT NULL default '0',
+  `number_of_topics` int(10) unsigned NOT NULL default '0',
+  `membership_fee_payed` int(10) unsigned default NULL,
+  `last_contact_with_admin` int(10) unsigned default NULL,
+  `acting_as_delegate` tinyint(1) unsigned default '0',
+  `user_role` int(10) unsigned NOT NULL default '2',
+  `admin_notes` varchar(255) default '',
+  `image` varchar(90) NOT NULL default 'no_image.png',
+  `description` text,
+  PRIMARY KEY  (`id`),
+  FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`user`
+  ADD FOREIGN KEY (id) REFERENCES voter(`id`);
+
+--
+-- Dumping data for table `user`
+--
+INSERT INTO `voter` (`id`,`voter_type`) 
+VALUES 
+ (13,'user')
+ ,(4,'user')
+ ,(5,'user')
+ ,(6,'user');
+
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`,`username`,`password`,`remember_me_token`,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`,`county`,`region`,`social_security_number`,`email`,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) VALUES 
+ (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe','$2a$08$WAzFNLCyIlWNmP3uzPqewe8phR06obIhBVeudO.vaN3zHE2gM9IWu',1432280530,NULL,1433764952,1433765659,'Skutt','Katt','','','','Olofström','Blekinge','','skutt@katt.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
+ (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$eqsqQVMQ3TD4Eedn3bZxbu.F3CYI1Bwl2fgYtivLGu.bWxEVB4Bou',1420102449,NULL,1441270294,1441305594,'Gullan','Katt','Blä 3','12345','Olle','Olofström','Blekinge','','gullan@katt.se','','','',1,1,1,55,9,NULL,NULL,0,2,'','no_image.png','Mjau.'),
+ (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$.xLTCZskLeEw3wfJNyUHBeg1eRrhYbvk/bYtmOXrpB3n2jh0BeInO',1420102512,NULL,1444481227,1444481384,'Missan','Katt','','0','','Olofström','Blekinge','110202-1234','missan@katt.se','','','',1,1,1,9,5,NULL,NULL,0,2,'','Pb8fdDccUQwOv6thRoG0.jpg',NULL),
+ (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$E/pVVtVRuew/mflf3YJHDuHihl4TN0vlpK3fv0oSQ/Lfm2GC7mthq',1420102590,NULL,1444585621,1444729438,'Suddis','Katt','','','','Olofström','Blekinge','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+--
+-- Definition of table `delegate`
+--
+
+DROP TABLE IF EXISTS `delegate`;
+CREATE TABLE `delegate` (
+  `id` int(10) unsigned NOT NULL,
+  `title` varchar(90) NOT NULL default '',
+  `description` text NOT NULL,
+  `timestamp_created` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`delegate`
+  ADD FOREIGN KEY (id) REFERENCES voter(`id`);
+
+--
+-- Dumping data for table `delegate`
+--
+
+INSERT INTO `voter` (`id`,`voter_type`) 
+VALUES 
+ (7,'delegate')
+ ,(8,'delegate');
+ 
+/*!40000 ALTER TABLE `delegate` DISABLE KEYS */;
+INSERT INTO `delegate` (`id`,`title`,`description`,`timestamp_created`) VALUES 
+ (7,'Suddis Katt','',0),
+ (8,'Missan Katt','',0);
+/*!40000 ALTER TABLE `delegate` ENABLE KEYS */;
 
 --
 -- Definition of table `admin_role`
@@ -226,30 +330,33 @@ INSERT INTO `admin_role` (`id`,`title`,`description`,`type`) VALUES
 
 DROP TABLE IF EXISTS `admin_role_user`;
 CREATE TABLE `admin_role_user` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `admin_role_id` int(10) unsigned NOT NULL default '0',
-  `user_id` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+  `admin_role_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`admin_role_id`, `user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`admin_role_user`
+  ADD FOREIGN KEY (admin_role_id) REFERENCES admin_role(`id`);
+ALTER TABLE `dd`.`admin_role_user`
+  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
 
 --
 -- Dumping data for table `admin_role_user`
 --
 
 /*!40000 ALTER TABLE `admin_role_user` DISABLE KEYS */;
-INSERT INTO `admin_role_user` (`id`,`admin_role_id`,`user_id`) VALUES 
- (89,1,5),
- (88,5,13),
- (87,4,6),
- (80,2,4),
- (86,3,6),
- (85,2,6),
- (84,1,4),
- (90,5,5),
- (91,2,5),
- (92,3,13),
- (93,3,4),
- (94,4,4);
+INSERT INTO `admin_role_user` (`admin_role_id`,`user_id`) VALUES 
+ (1,5),
+ (5,13),
+ (4,6),
+ (2,4),
+ (3,6),
+ (2,6),
+ (1,4),
+ (5,5),
+ (2,5),
+ (3,13),
+ (3,4),
+ (4,4);
 /*!40000 ALTER TABLE `admin_role_user` ENABLE KEYS */;
 
 --
@@ -263,7 +370,7 @@ CREATE TABLE `ballot` (
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `ballot` text,
   `user_code` varchar(20) default NULL,
-  `voter_is_delegate_id` int(10) unsigned default NULL,
+  `voter_id` int(10) unsigned default NULL,
   `delegate_id` int(10) unsigned default NULL,
   `delegation_level` int(10) unsigned default NULL,
   `delegate_priority` int(10) unsigned default NULL,
@@ -276,20 +383,21 @@ CREATE TABLE `ballot` (
 --
 
 /*!40000 ALTER TABLE `ballot` DISABLE KEYS */;
-INSERT INTO `ballot` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) VALUES 
- (185,13,313,'no',NULL,7,NULL,NULL,NULL,1443531961),
- (100,8,313,'[]','OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1441401249),
- (18,1,165,'no','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430117214),
- (15,2,165,'22','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1429606227),
- (32,3,165,'{\"2\":-1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430802217),
- (38,4,165,'{\"6\":1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1431326408),
- (76,1,165,'yes','9ZvUSJF2Y9binMKfwOr7',NULL,NULL,NULL,NULL,1434556181),
- (65,5,291,'no',NULL,6,NULL,NULL,NULL,1433832853),
- (186,13,313,'no','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443531961),
- (71,5,0,'no','9ZvUSJF2Y9binMKfwOr7',NULL,6,1,1,1433854681),
- (77,1,165,'yes',NULL,6,NULL,NULL,NULL,1434557442),
- (209,9,313,'{\"12\":2}',NULL,7,NULL,NULL,NULL,1443792695),
- (210,9,313,'{\"12\":2}','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443792696);
+INSERT INTO `ballot` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`voter_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) 
+VALUES 
+ (185,13,313,'no',NULL,8,NULL,NULL,NULL,1443531961)
+ ,(100,8,313,'[]','OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1441401249)
+ ,(18,1,165,'no','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430117214)
+ ,(15,2,165,'22','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1429606227)
+ ,(32,3,165,'{\"2\":-1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430802217)
+ ,(38,4,165,'{\"6\":1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1431326408)
+ ,(76,1,165,'yes','9ZvUSJF2Y9binMKfwOr7',NULL,NULL,NULL,NULL,1434556181)
+ ,(65,5,291,'no',NULL,7,NULL,NULL,NULL,1433832853)
+ ,(186,13,313,'no','nNSpJccU3OdwJxq3SMBw',NULL,8,0,1,1443531961)
+ ,(71,5,0,'no','9ZvUSJF2Y9binMKfwOr7',NULL,7,1,1,1433854681)
+ ,(77,1,165,'yes',NULL,7,NULL,NULL,NULL,1434557442)
+ ,(209,9,313,'{\"12\":2}',NULL,8,NULL,NULL,NULL,1443792695)
+ ,(210,9,313,'{\"12\":2}','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443792696);
 /*!40000 ALTER TABLE `ballot` ENABLE KEYS */;
 
 --
@@ -704,29 +812,44 @@ VALUES
 /*!40000 ALTER TABLE `constituency` ENABLE KEYS */;
 
 --
--- Definition of table `constituency_delegate`
+-- Definition of table `constituency_voter`
 --
 
-DROP TABLE IF EXISTS `constituency_delegate`;
-CREATE TABLE `constituency_delegate` (
-  `id` int(10) unsigned NOT NULL auto_increment,
+DROP TABLE IF EXISTS `constituency_voter`;
+CREATE TABLE `constituency_voter` (
   `constituency_id` int(10) unsigned NOT NULL default '0',
-  `delegate_id` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+  `voter_id` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY (`constituency_id`, `voter_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`constituency_voter`
+  ADD FOREIGN KEY (voter_id) REFERENCES voter(`id`);
+ALTER TABLE `dd`.`constituency_voter`
+  ADD FOREIGN KEY (constituency_id) REFERENCES constituency(`id`);
 
 --
--- Dumping data for table `constituency_delegate`
+-- Dumping data for table `constituency_voter`
 --
 
-/*!40000 ALTER TABLE `constituency_delegate` DISABLE KEYS */;
-INSERT INTO `constituency_delegate` (`id`,`constituency_id`,`delegate_id`) VALUES 
- (7,291,6),
- (6,165,6),
- (10,165,7),
- (11,291,7),
- (12,313,7);
-/*!40000 ALTER TABLE `constituency_delegate` ENABLE KEYS */;
+/*!40000 ALTER TABLE `constituency_voter` DISABLE KEYS */;
+INSERT INTO `constituency_voter` (`constituency_id`,`voter_id`) VALUES 
+-- delegates
+ (291,7)
+ ,(165,7)
+ ,(165,8)
+ ,(291,8)
+ ,(313,8)
+-- users
+ ,(165,4)
+ ,(291,4)
+ ,(313,4)
+ ,(165,5)
+ ,(291,5)
+ ,(313,5)
+ ,(165,6)
+ ,(291,6)
+ ,(291,13)
+ ,(165,13);
+ /*!40000 ALTER TABLE `constituency_voter` ENABLE KEYS */;
 
 --
 -- Definition of table `constituency_level`
@@ -752,118 +875,28 @@ INSERT INTO `constituency_level` (`level`,`name`) VALUES
 /*!40000 ALTER TABLE `constituency_level` ENABLE KEYS */;
 
 --
--- Definition of table `constituency_user`
---
-
-DROP TABLE IF EXISTS `constituency_user`;
-CREATE TABLE `constituency_user` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `constituency_id` int(10) unsigned NOT NULL default '0',
-  `user_id` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `constituency_user`
---
-
-/*!40000 ALTER TABLE `constituency_user` DISABLE KEYS */;
-INSERT INTO `constituency_user` (`id`,`constituency_id`,`user_id`) VALUES 
- (12,291,13),
- (34,165,4),
- (40,165,5),
- (4,165,6),
- (5,291,6),
- (41,291,5),
- (37,313,5),
- (11,165,13),
- (13,165,14),
- (14,291,14),
- (15,165,15),
- (16,291,15),
- (17,165,16),
- (18,291,16),
- (19,165,17),
- (20,291,17),
- (21,165,18),
- (22,291,18),
- (35,291,4),
- (36,313,4);
-/*!40000 ALTER TABLE `constituency_user` ENABLE KEYS */;
-
---
--- Definition of table `delegate`
---
-
-DROP TABLE IF EXISTS `delegate`;
-CREATE TABLE `delegate` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `title` varchar(90) NOT NULL default '',
-  `description` text NOT NULL,
-  `timestamp_created` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `delegate`
---
-
-/*!40000 ALTER TABLE `delegate` DISABLE KEYS */;
-INSERT INTO `delegate` (`id`,`title`,`description`,`timestamp_created`) VALUES 
- (6,'Suddis Katt','',0),
- (7,'Missan Katt','',0);
-/*!40000 ALTER TABLE `delegate` ENABLE KEYS */;
-
---
--- Definition of table `delegate_ballot`
---
-
-DROP TABLE IF EXISTS `delegate_ballot`;
-CREATE TABLE `delegate_ballot` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `vote_id` int(10) unsigned NOT NULL default '0',
-  `constituency_id` int(10) unsigned NOT NULL default '0',
-  `ballot_alternative` varchar(9) default NULL,
-  `vote_alternative_id` int(10) unsigned default NULL,
-  `priority` int(10) unsigned default NULL,
-  `median_vote_value` float default NULL,
-  `ballot_owner_id` int(10) unsigned NOT NULL default '0',
-  `delegate_id` int(10) unsigned default NULL,
-  `delegation_level` int(10) unsigned default NULL,
-  `delegate_priority` int(10) unsigned default NULL,
-  `time_ballot_placed` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `delegate_ballot`
---
-
-/*!40000 ALTER TABLE `delegate_ballot` DISABLE KEYS */;
-INSERT INTO `delegate_ballot` (`id`,`vote_id`,`constituency_id`,`ballot_alternative`,`vote_alternative_id`,`priority`,`median_vote_value`,`ballot_owner_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) VALUES 
- (1,1,165,'yes',NULL,NULL,NULL,0,6,NULL,NULL,1429188717);
-/*!40000 ALTER TABLE `delegate_ballot` ENABLE KEYS */;
-
---
 -- Definition of table `delegate_user`
 --
 
 DROP TABLE IF EXISTS `delegate_user`;
 CREATE TABLE `delegate_user` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `delegate_id` int(10) unsigned NOT NULL default '0',
-  `user_id` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+  `delegate_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`delegate_id`, `user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`delegate_user`
+  ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
+ALTER TABLE `dd`.`delegate_user`
+  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
 
 --
 -- Dumping data for table `delegate_user`
 --
 
 /*!40000 ALTER TABLE `delegate_user` DISABLE KEYS */;
-INSERT INTO `delegate_user` (`id`,`delegate_id`,`user_id`) VALUES 
- (1,6,6),
- (2,7,5);
+INSERT INTO `delegate_user` (`delegate_id`,`user_id`) VALUES 
+ (7,6)
+ ,(8,5);
 /*!40000 ALTER TABLE `delegate_user` ENABLE KEYS */;
 
 --
@@ -1191,8 +1224,7 @@ DROP TABLE IF EXISTS `proposition`;
 CREATE TABLE `proposition` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `type` varchar(20) NOT NULL default '',
-  `created_by_user` int(10) unsigned default NULL,
-  `created_by_delegate` int(10) unsigned default NULL,
+  `created_by_voter` int(10) unsigned default NULL,
   `timestamp_created` int(10) unsigned NOT NULL default '0',
   `timestamp_ended` int(10) unsigned default NULL,
   `constituency_id` int(10) unsigned NOT NULL default '0',
@@ -1210,16 +1242,16 @@ CREATE TABLE `proposition` (
 --
 
 /*!40000 ALTER TABLE `proposition` DISABLE KEYS */;
-INSERT INTO `proposition` (`id`,`type`,`created_by_user`,`created_by_delegate`,`timestamp_created`,`timestamp_ended`,`constituency_id`,`status`,`number_of_supporters`,`title`,`description`,`forum_topic_id`) VALUES 
- (1,'yes-no',5,NULL,1426586078,NULL,165,'pending',0,'Testvotering','Bara ett test. ',31),
- (2,'yes-no',5,NULL,1428388195,NULL,165,'affirmed',2,'Testvotering2','Ett test till. ',32),
- (3,'median',4,NULL,1428506873,1428506887,165,'affirmed',2,'Mediantest','Test av medianomröstningar.',33),
- (4,'prio-vote',6,NULL,1430116507,1430117564,165,'affirmed',2,'Prio-test','Det är dags att testa prioritetsomröstningar. ',34),
- (5,'candidate-election',6,NULL,1430808243,1430850944,165,'affirmed',2,'Personvalstest','Test av personvalsfunktionen. ',35),
- (6,'yes-no',5,NULL,1441469576,1441469588,313,'affirmed',2,'test','test',107),
- (7,'yes-no',5,NULL,1441541122,NULL,165,'pending',1,'Nytt test','test\r\n',108),
- (8,'median',5,NULL,1441566650,1441566655,165,'affirmed',2,'mediantest','test',109),
- (9,'yes-no',5,NULL,1441614927,1441614937,313,'affirmed',2,'fdfgd','hfgdf',110);
+INSERT INTO `proposition` (`id`,`type`,`created_by_voter`,`timestamp_created`,`timestamp_ended`,`constituency_id`,`status`,`number_of_supporters`,`title`,`description`,`forum_topic_id`) VALUES 
+ (1,'yes-no',5,1426586078,NULL,165,'pending',0,'Testvotering','Bara ett test. ',31),
+ (2,'yes-no',5,1428388195,NULL,165,'affirmed',2,'Testvotering2','Ett test till. ',32),
+ (3,'median',4,1428506873,1428506887,165,'affirmed',2,'Mediantest','Test av medianomröstningar.',33),
+ (4,'prio-vote',6,1430116507,1430117564,165,'affirmed',2,'Prio-test','Det är dags att testa prioritetsomröstningar. ',34),
+ (5,'candidate-election',6,1430808243,1430850944,165,'affirmed',2,'Personvalstest','Test av personvalsfunktionen. ',35),
+ (6,'yes-no',5,1441469576,1441469588,313,'affirmed',2,'test','test',107),
+ (7,'yes-no',5,1441541122,NULL,165,'pending',1,'Nytt test','test\r\n',108),
+ (8,'median',5,1441566650,1441566655,165,'affirmed',2,'mediantest','test',109),
+ (9,'yes-no',5,1441614927,1441614937,313,'affirmed',2,'fdfgd','hfgdf',110);
 /*!40000 ALTER TABLE `proposition` ENABLE KEYS */;
 
 --
@@ -1232,7 +1264,7 @@ CREATE TABLE `proposition_support` (
   `proposition_id` int(10) unsigned NOT NULL default '0',
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `user_code` varchar(20) default NULL,
-  `voter_is_delegate_id` int(10) unsigned default NULL,
+  `voter_id` int(10) unsigned default NULL,
   `delegate_id` int(10) unsigned default NULL,
   `delegation_level` int(10) unsigned default NULL,
   `delegate_priority` int(10) unsigned default NULL,
@@ -1246,7 +1278,7 @@ CREATE TABLE `proposition_support` (
 --
 
 /*!40000 ALTER TABLE `proposition_support` DISABLE KEYS */;
-INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user_code`,`voter_is_delegate_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`support`,`time_ballot_placed`) VALUES 
+INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user_code`,`voter_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`support`,`time_ballot_placed`) VALUES 
  (6,1,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,0,0),
  (7,2,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1428388208),
  (8,3,0,'OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1,1428506887),
@@ -1255,64 +1287,10 @@ INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user
  (11,6,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441469588),
  (12,8,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441566655),
  (13,9,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441614937),
- (31,7,165,'nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1,1443615670),
- (30,7,165,NULL,7,NULL,NULL,NULL,1,1443615670),
+ (31,7,165,'nNSpJccU3OdwJxq3SMBw',NULL,8,0,1,1,1443615670),
+ (30,7,165,NULL,8,NULL,NULL,NULL,1,1443615670),
  (27,7,165,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1443515050);
 /*!40000 ALTER TABLE `proposition_support` ENABLE KEYS */;
-
---
--- Definition of table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `username` varchar(45) NOT NULL default '',
-  `password` varchar(128) NOT NULL default '',
-  `remember_me_token` varchar(128) default NULL,
-  `registration_time` int(10) unsigned NOT NULL default '0',
-  `deletion_time` int(10) unsigned default NULL,
-  `last_login_time` int(10) unsigned default NULL,
-  `last_activity_time` int(10) unsigned default NULL,
-  `first_name` varchar(45) default '',
-  `last_name` varchar(45) default '',
-  `street_address` varchar(45) default '',
-  `zip_code` varchar(10) default '',
-  `city_address` varchar(45) default '',
-  `county` varchar(45) default '',
-  `region` varchar(45) default '',
-  `social_security_number` varchar(13) default '',
-  `email` varchar(45) NOT NULL default '',
-  `telephone1` varchar(20) default '',
-  `telephone2` varchar(20) default '',
-  `skype_name` varchar(45) default '',
-  `show_email` tinyint(1) unsigned NOT NULL default '1',
-  `show_telephone` tinyint(1) unsigned NOT NULL default '1',
-  `show_skype` tinyint(1) unsigned NOT NULL default '1',
-  `number_of_posts` int(10) unsigned NOT NULL default '0',
-  `number_of_topics` int(10) unsigned NOT NULL default '0',
-  `membership_fee_payed` int(10) unsigned default NULL,
-  `last_contact_with_admin` int(10) unsigned default NULL,
-  `acting_as_delegate` tinyint(1) unsigned default '0',
-  `user_role` int(10) unsigned NOT NULL default '2',
-  `admin_notes` varchar(255) default '',
-  `image` varchar(90) NOT NULL default 'no_image.png',
-  `description` text,
-  PRIMARY KEY  (`id`),
-  FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user`
---
-
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`,`username`,`password`,`remember_me_token`,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`,`county`,`region`,`social_security_number`,`email`,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) VALUES 
- (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe','$2a$08$WAzFNLCyIlWNmP3uzPqewe8phR06obIhBVeudO.vaN3zHE2gM9IWu',1432280530,NULL,1433764952,1433765659,'Skutt','Katt','','','','Olofström','Blekinge','','skutt@katt.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
- (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$eqsqQVMQ3TD4Eedn3bZxbu.F3CYI1Bwl2fgYtivLGu.bWxEVB4Bou',1420102449,NULL,1441270294,1441305594,'Gullan','Katt','Blä 3','12345','Olle','Olofström','Blekinge','','gullan@katt.se','','','',1,1,1,55,9,NULL,NULL,0,2,'','no_image.png','Mjau.'),
- (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$.xLTCZskLeEw3wfJNyUHBeg1eRrhYbvk/bYtmOXrpB3n2jh0BeInO',1420102512,NULL,1444481227,1444481384,'Missan','Katt','','0','','Olofström','Blekinge','110202-1234','missan@katt.se','','','',1,1,1,9,5,NULL,NULL,0,2,'','Pb8fdDccUQwOv6thRoG0.jpg',NULL),
- (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$E/pVVtVRuew/mflf3YJHDuHihl4TN0vlpK3fv0oSQ/Lfm2GC7mthq',1420102590,NULL,1444585621,1444729438,'Suddis','Katt','','','','Olofström','Blekinge','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 --
 -- Definition of table `user_application`
@@ -1392,8 +1370,7 @@ DROP TABLE IF EXISTS `vote_alternative`;
 CREATE TABLE `vote_alternative` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `vote_id` int(10) unsigned NOT NULL default '0',
-  `added_by_user` int(10) unsigned default NULL,
-  `added_by_delegate` int(10) unsigned default NULL,
+  `added_by_voter` int(10) unsigned default NULL,
   `timestamp_added` int(10) unsigned NOT NULL default '0',
   `alternative_title` varchar(90) NOT NULL default '',
   `alternative_description` text NOT NULL,
@@ -1406,17 +1383,17 @@ CREATE TABLE `vote_alternative` (
 --
 
 /*!40000 ALTER TABLE `vote_alternative` DISABLE KEYS */;
-INSERT INTO `vote_alternative` (`id`,`vote_id`,`added_by_user`,`added_by_delegate`,`timestamp_added`,`alternative_title`,`alternative_description`,`alternative_user_id`) VALUES 
- (1,3,6,NULL,1430376548,'Första alternativet','Det allra första alternativet i en prioomröstning. ',NULL),
- (2,3,6,NULL,1430390060,'Andra alternativet','Ett alternativ till. ',NULL),
- (3,3,6,NULL,1430390078,'Tredje alternativet','Och, slutligen, ännu ett alternativ. ',NULL),
- (4,3,6,NULL,1430807992,'Fjärde alternativet','Ett fjärde alternativ. ',NULL),
- (6,4,6,NULL,1430897482,'Suddis Katt','Mer katter i den flytande demokratin. ',6),
- (8,3,NULL,NULL,1432040362,'Alternativ fem','Numero cinq.',NULL),
- (10,4,4,NULL,1432053297,'Gullan Katt','Gullan är en tvångskandidat.',4),
- (11,9,4,NULL,1441305522,'Gullan Katt','Det här är Gullan.',4),
- (12,9,5,NULL,1441305636,'Missan Katt','Det här är Missan.',5),
- (13,6,5,NULL,1441363409,'Ett alternativ','Alternativ 1',NULL);
+INSERT INTO `vote_alternative` (`id`,`vote_id`,`added_by_voter`,`timestamp_added`,`alternative_title`,`alternative_description`,`alternative_user_id`) VALUES 
+ (1,3,6,1430376548,'Första alternativet','Det allra första alternativet i en prioomröstning. ',NULL),
+ (2,3,6,1430390060,'Andra alternativet','Ett alternativ till. ',NULL),
+ (3,3,6,1430390078,'Tredje alternativet','Och, slutligen, ännu ett alternativ. ',NULL),
+ (4,3,6,1430807992,'Fjärde alternativet','Ett fjärde alternativ. ',NULL),
+ (6,4,6,1430897482,'Suddis Katt','Mer katter i den flytande demokratin. ',6),
+ (8,3,NULL,1432040362,'Alternativ fem','Numero cinq.',NULL),
+ (10,4,4,1432053297,'Gullan Katt','Gullan är en tvångskandidat.',4),
+ (11,9,4,1441305522,'Gullan Katt','Det här är Gullan.',4),
+ (12,9,5,1441305636,'Missan Katt','Det här är Missan.',5),
+ (13,6,5,1441363409,'Ett alternativ','Alternativ 1',NULL);
 /*!40000 ALTER TABLE `vote_alternative` ENABLE KEYS */;
 
 --
@@ -1426,25 +1403,27 @@ INSERT INTO `vote_alternative` (`id`,`vote_id`,`added_by_user`,`added_by_delegat
 DROP TABLE IF EXISTS `voter_delegate`;
 CREATE TABLE `voter_delegate` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `delegate_id` int(10) unsigned NOT NULL default '0',
   `user_code` varchar(20) default NULL,
-  `voter_is_delegate_id` int(10) unsigned default NULL,
+  `voter_id` int(10) unsigned default NULL,
+  `delegate_id` int(10) unsigned NOT NULL,
   `constituency_id` int(10) unsigned NOT NULL default '0',
   `priority` int(10) unsigned NOT NULL default '1',
   `time_delegate_chosen` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`voter_delegate`
+  ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
 
 --
 -- Dumping data for table `voter_delegate`
 --
 
 /*!40000 ALTER TABLE `voter_delegate` DISABLE KEYS */;
-INSERT INTO `voter_delegate` (`id`,`delegate_id`,`user_code`,`voter_is_delegate_id`,`constituency_id`,`priority`,`time_delegate_chosen`) VALUES 
- (3,7,'nNSpJccU3OdwJxq3SMBw',NULL,313,1,1433765591),
- (4,7,'nNSpJccU3OdwJxq3SMBw',NULL,165,1,1433765597),
- (10,6,'9ZvUSJF2Y9binMKfwOr7',NULL,291,1,1433854555),
- (14,7,NULL,6,291,1,1434868372);
+INSERT INTO `voter_delegate` (`id`,`user_code`,`voter_id`,`delegate_id`,`constituency_id`,`priority`,`time_delegate_chosen`) VALUES 
+ (3,'nNSpJccU3OdwJxq3SMBw',NULL,8,313,1,1433765591),
+ (4,'nNSpJccU3OdwJxq3SMBw',NULL,8,165,1,1433765597),
+ (10,'9ZvUSJF2Y9binMKfwOr7',NULL,7,291,1,1433854555),
+ (14,NULL,7,8,291,1,1434868372);
 /*!40000 ALTER TABLE `voter_delegate` ENABLE KEYS */;
 
 --

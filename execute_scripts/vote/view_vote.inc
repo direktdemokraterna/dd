@@ -2,8 +2,8 @@
 	if(isset($_POST['vote_id']) && $_POST['vote_id'] == $_GET['id']){
 		$voteinfo = db_vote::get_vote_info($_GET['id']); 
 		if($_SESSION['delegate_id'])
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
-		if(!empty($check_delegate_constituency_access) 
+			$delegate_constituency_access = db_constituency::check_voter_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
+		if(!empty($delegate_constituency_access) 
 			&& in_array($voteinfo['status'], array("active", "continuous"))){
 			$ballot_decoded = json_decode($_POST['ballot'], true);
 			if($ballot_decoded['ballot'] == "cancel")
@@ -23,7 +23,7 @@
 				\Logic\util::report_error(_t("Something went wrong. The ballot was not registered."));
 		}
 		elseif(in_array($voteinfo['status'], array("active", "del_ended", "continuous"))){
-			$check_user_access = db_constituency::check_user_constituency_access($_SESSION['id'], $voteinfo['constituency_id']);
+			$check_user_access = db_constituency::check_voter_constituency_access($_SESSION['id'], $voteinfo['constituency_id']);
 			if($check_user_access){
 				$post_vars = Array("user_id" => $_SESSION['id'], "vote_id" => $_POST['vote_id'], "ballot" => $_POST['ballot']);
 				$reply = crypt_helpers::curl_to_anon_server("anonymise_ballot.php", $post_vars);

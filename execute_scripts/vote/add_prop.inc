@@ -20,9 +20,9 @@ else if(!isset($_POST['type_of_vote']) || !in_array($_POST['type_of_vote'],
 else {
 	$title = general_helpers::clean($_POST['new_prop_title']);
 	$description = forum_helpers::process_text($_POST['new_prop_description']);
-	$constituency_check = db_constituency::check_user_constituency_access($_SESSION['id'], $_POST['constituency_id']);
+	$constituency_check = db_constituency::check_voter_constituency_access($_SESSION['id'], $_POST['constituency_id']);
 	if($constituency_check){
-		$insert_id = db_prop::add_prop($_POST['type_of_vote'], $_SESSION['id'], null, $_POST['constituency_id'], $title, $description);
+		$insert_id = db_prop::add_prop($_POST['type_of_vote'], $_SESSION['id'], $_POST['constituency_id'], $title, $description);
 		if($insert_id){
 			$_SESSION['report_message'] = _t("The proposition is created.");
 			$redirect = "index.php?type=vote&action=view_prop&id=" . $insert_id;

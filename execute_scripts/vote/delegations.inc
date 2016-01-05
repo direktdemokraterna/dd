@@ -6,7 +6,7 @@ if(isset($_POST['ballot'])){
 		$ballot = json_decode($_POST['ballot'], true);
 		$constituency_id = $ballot['constituency_id'];
 		$delegate_id = $ballot['delegate_id'];
-		$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegand_id, $constituency_id);
+		db_constituency::check_voter_constituency_access($delegand_id, $constituency_id);
 		$ok = db_delegate::register_delegation_ballot(null, $delegand_id, $delegate_id, $constituency_id);
 		if($ok)
 			$_SESSION['report_message'] = _t("Your delegate's delegation is registered.");
@@ -14,7 +14,7 @@ if(isset($_POST['ballot'])){
 			\Logic\util::report_error(_t("Something went wrong. No delegation registered."));
 	}
 	else{
-		$user_constituencies = db_constituency::get_constituencies_for_user($_SESSION['id']);
+		$user_constituencies = db_constituency::get_constituencies_for_voter($_SESSION['id']);
 		$user_constituencies_array = Array();
 		foreach($user_constituencies as $row)
 			$user_constituencies_array[] = $row['id'];

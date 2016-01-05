@@ -22,10 +22,10 @@
 	var list_of_delegations = <?php echo json_encode($list_of_delegations); ?>;
 	<?php
 		if($_SESSION['delegate_id']){
-			$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
+			$delegate_constituency_access = db_constituency::check_voter_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
 		}
 	?>
-	var acting_as_delegate = <?php if(!empty($check_delegate_constituency_access)) echo "true"; else echo "false"; ?>;
+	var acting_as_delegate = <?php if(!empty($delegate_constituency_access)) echo "true"; else echo "false"; ?>;
 </script>
 <?php
 	_h1(_t("Delegate: ", array('class' => 'noun')) . $delegate_info['title']);

@@ -9,7 +9,7 @@ if(isset($_POST['ballot'])){
 		$constituency_id = $ballot['constituency_id'];
 		$delegate_id = $ballot['delegate_id'];
 
-		$check_delegate_constituency_access = db_constituency::check_delegate_constituency_access($delegand_id, $constituency_id);
+		db_constituency::check_voter_constituency_access($delegand_id, $constituency_id);
 
 		$ok = db_delegate::register_delegation_ballot(null, $delegand_id, $delegate_id, $constituency_id);
 
@@ -20,7 +20,7 @@ if(isset($_POST['ballot'])){
 	}
 
 	else{
-		$user_constituencies = db_constituency::get_constituencies_for_user($_SESSION['id']);
+		$user_constituencies = db_constituency::get_constituencies_for_voter($_SESSION['id']);
 		$user_constituencies_array = Array();
 		foreach($user_constituencies as $row){
 			$user_constituencies_array[] = $row['id'];
