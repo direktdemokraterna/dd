@@ -64,7 +64,6 @@ class constituency
 	private static function remove_constituency_access_for_delegate($delegate_id, $constituency_id)
 	{
 		\Logic\vote::remove_delegate_ballots($delegate_id, $constituency_id);
-		\Logic\vote::remove_delegate_prop_ballots($delegate_id, $constituency_id);
 		\Logic\vote::remove_delegate_delegations($delegate_id, $constituency_id);
 		return \db_constituency::remove_constituency_access($delegate_id, $constituency_id);
 	}

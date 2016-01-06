@@ -61,6 +61,7 @@ include(dirname(__FILE__)."/helpers/i18n/thesaurus/verbs.inc");
 
 include(dirname(__FILE__)."/helpers/logic/calendar.inc");
 include(dirname(__FILE__)."/helpers/logic/constituency.inc");
+include(dirname(__FILE__)."/helpers/logic/delegate.inc");
 include(dirname(__FILE__)."/helpers/logic/forum.inc");
 include(dirname(__FILE__)."/helpers/logic/global.inc");
 include(dirname(__FILE__)."/helpers/logic/user.inc");

@@ -42,7 +42,7 @@
 		foreach ($delegates_for_constituency as $delegate)
 			$delegate_options[$delegate['id']] = $delegate['title'];
 		\View\general::make_selector('select' . $row['id'], $delegate_options);
-		echo '<input type="submit" value="Delegera" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
+		echo '<input type="submit" value="' . _t("Delegate") . '" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
 			. $row['id'] . ')">';
 		echo '</div>';
 	}

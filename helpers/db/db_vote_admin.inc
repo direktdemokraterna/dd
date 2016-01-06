@@ -99,7 +99,7 @@ class db_vote_admin
 		$values = array(time()+STANDARD_VOTE_LENGTH, time()+STANDARD_VOTE_LENGTH/2, $vote_id);
 		$result = db::update($query, $values);
 		if ($result) 
-			self::remove_dead_ballots($vote_id);
+			self::remove_all_ballots($vote_id);
 		return $result;
 	}
 
@@ -116,7 +116,7 @@ class db_vote_admin
 		$values = Array($vote_id);
 		$result = db::update($query, $values);
 		if ($result) 
-			self::remove_dead_ballots($vote_id);
+			self::remove_all_ballots($vote_id);
 		return $result;
 	}
 
@@ -141,31 +141,10 @@ class db_vote_admin
 		return db::update($query, $values);
 	}
 
-	public static function get_user_codes_for_vote ($vote_id)
-	{
-		$query = "select user_code from ballot where vote_id = ?";
-		$values = Array($vote_id);
-		return db::select($query, $values);
-	}
-
-	public static function set_active_user_code_to_passive ($active_user_code, $passive_user_code, $vote_id)
-	{
-		$query = "update ballot set user_code = ? where user_code = ? and vote_id = ?";
-		$values = Array($passive_user_code, $active_user_code, $vote_id);
-		return db::update($query, $values);
-	}
-
-	public static function set_passive_user_code_to_active ($active_user_code, $passive_user_code, $vote_id)
-	{
-		$query = "update ballot set user_code = ? where user_code = ? and vote_id = ?";
-		$values = Array($active_user_code, $passive_user_code, $vote_id);
-		return db::update($query, $values);
-	}
-
-	private static function remove_dead_ballots ($vote_id)
+	private static function remove_all_ballots ($vote_id)
 	{
 		$query = "delete from ballot 
-			where user_code is null and voter_id is null and vote_id = ?";
+			where vote_id = ?";
 		if (db::delete($query, array($vote_id)))
 			db_vote::count_ballots_for_vote($vote_id);			
 	}

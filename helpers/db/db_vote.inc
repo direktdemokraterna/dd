@@ -94,41 +94,62 @@ class db_vote
 		return true;
 	}
 
-	public static function remove_ballots($user_code, $constituency_id = null) {
-		$votes_common_query = 
-		"from ballot
-			where user_code = ?";
-		$values = array($user_code);
-		if ($constituency_id) {
-			$votes_common_query .= "
-			and constituency_id = ?";
-			$values[] = $constituency_id;
-		}
-		$affected_votes_query = "select vote_id id " . $votes_common_query;
-		$affected_votes = db::select($affected_votes_query, $values);
-		if ($affected_votes) {
-			$delete_ballots_query = "delete " . $votes_common_query;
-			$result = db::delete($delete_ballots_query, $values);
-			foreach ($affected_votes as $affected_vote) {
-				$vote_id = $affected_vote['id'];
-				self::count_ballots_for_vote($vote_id);
-			}			
-			return $result;		
-		}
+	public static function remove_ballots($user_code, $voter_id, $delegate_id = null
+		, $constituency_id = null, $vote_id = null) {
+		$affected_vote_ids = array_unique(self::remove_ballots_no_recount($user_code, $voter_id, $delegate_id, $constituency_id, $vote_id));
+		foreach ($affected_vote_ids as $id)
+			self::count_ballots_for_vote($id);
 		return true;
 	}
 
-	public static function remove_user_codes_from_closed_votes($user_code1, $user_code2, $user_code3
-		, $constituency_id = null) {
-		$query = "update ballot set user_code = null 
-			where (user_code = ? or user_code = ? or user_code = ?)";
-		$values = array($user_code1, $user_code2, $user_code3);
+	private static function remove_ballots_no_recount($user_code, $voter_id, $delegate_id = null
+		, $constituency_id = null, $vote_id = null) {
+		$values = array();
+		$from_where = self::get_ballots_from_where_fragment($values, $user_code, $voter_id
+			, $delegate_id, $constituency_id, $vote_id);
+		$sel_query = "select b.user_code, b.voter_id, b.vote_id " . $from_where;
+		$deleted_ballots = db::select($sel_query, $values);
+		$affected_vote_ids = array();
+		if ($deleted_ballots) {
+			$del_query = "delete b " . $from_where;
+			db::delete($del_query, $values);
+			foreach ($deleted_ballots as $ballot) {
+				if ($ballot['user_code'])
+					$affected_votes[] = $ballot['vote_id'];
+				else {
+					$new_affected_vote_ids = self::remove_ballots_no_recount(null, null, $voter_id
+						, $constituency_id, $ballot['vote_id']);
+					$affected_vote_ids = array_merge($affected_vote_ids, $new_affected_vote_ids);
+				}
+			}
+		}
+		return $affected_vote_ids;
+	}
+
+	public static function get_ballots_from_where_fragment(&$values, $user_code, $voter_id, $delegate_id = null, $constituency_id = null, $vote_id = null) {
+		$from_where = "from ballot b
+		join vote v on v.id = b.vote_id and status in ('active', 'del_ended', 'continuous')
+		where ";
+		$conditions = array();
+		if ($user_code || $voter_id) {
+			$conditions[] .= "(b.user_code = ? OR b.voter_id = ?)";
+			$values[] = $user_code;
+			$values[] = $voter_id;
+		}
+		if ($delegate_id) {
+			$conditions[] .= "b.delegate_id = ?";
+			$values[] = $delegate_id;
+		}
 		if ($constituency_id) {
-			$query .= "
-			and constituency_id = ?";
+			$conditions[] .= "v.constituency_id = ?";
 			$values[] = $constituency_id;
 		}
-		db::update($query, $values);
+		if ($vote_id) {
+			$conditions[] .= "v.id = ?";
+			$values[] = $vote_id;
+		}
+		$from_where .= implode(" and ", $conditions);
+		return $from_where;
 	}
 
 	public static function get_vote_alternative_from_title ($vote_id, $alternative_title)

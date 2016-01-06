@@ -178,28 +178,62 @@ class db_prop
 		return $ok >= 0;
 	}
 
-	public static function remove_prop_ballots($user_code, $constituency_id = null) {
-		$props_common_query = 
-		"from proposition_support
-			where user_code = ?";
-		$values = array($user_code);
+	public static function remove_prop_ballots($user_code, $voter_id, $delegate_id = null
+		, $constituency_id = null, $prop_id = null) {
+		$affected_prop_ids = array_unique(self::remove_prop_ballots_no_recount($user_code, $voter_id, $delegate_id, $constituency_id, $prop_id));
+		foreach ($affected_prop_ids as $id)
+			self::count_prop_support($id);
+		return true;
+	}
+
+	private static function remove_prop_ballots_no_recount($user_code, $voter_id, $delegate_id = null
+		, $constituency_id = null, $prop_id = null) {
+		$values = array();
+		$from_where = self::get_prop_ballots_from_where_fragment($values, $user_code, $voter_id
+			, $delegate_id, $constituency_id, $prop_id);
+		$sel_query = "select ps.user_code, ps.voter_id, ps.proposition_id " . $from_where;
+		$deleted_prop_ballots = db::select($sel_query, $values);
+		$affected_prop_ids = array();
+		if ($deleted_prop_ballots) {
+			$del_query = "delete " . $from_where;
+			db::delete($del_query, $values);
+			foreach ($deleted_prop_ballots as $prop_ballot) {
+				if ($prop_ballot['user_code'])
+					$affected_prop_ids[] = $ballot['proposition_id'];
+				else {
+					$new_affected_prop_ids = self::remove_prop_ballots_no_recount(null, null, $voter_id
+						, $constituency_id, $ballot['proposition_id']);
+					$affected_prop_ids = array_merge($affected_prop_ids, $new_affected_prop_ids);
+				}
+			}
+		}
+		return $affected_prop_ids;
+	}
+
+	public static function get_prop_ballots_from_where_fragment(&$values, $user_code, $voter_id, $delegate_id = null, $constituency_id = null, $prop_id = null) {
+		$from_where = "from proposition_support ps
+		join proposition p on p.id = ps.proposition_id and status = 'pending'
+		where ";
+		$conditions = array();
+		if ($user_code || $voter_id) {
+			$conditions[] .= "(ps.user_code = ? OR ps.voter_id = ?)";
+			$values[] = $user_code;
+			$values[] = $voter_id;
+		}
+		if ($delegate_id) {
+			$conditions[] .= "ps.delegate_id = ?";
+			$values[] = $delegate_id;
+		}
 		if ($constituency_id) {
-			$props_common_query .= "
-			and constituency_id = ?";
+			$conditions[] .= "p.constituency_id = ?";
 			$values[] = $constituency_id;
 		}
-		$affected_props_query = "select proposition_id id " . $props_common_query;
-		$affected_props = db::select($affected_props_query, $values);
-		if ($affected_props) {
-			$query = "delete " . $props_common_query;
-			$result = db::delete($query, $values);
-			foreach ($affected_props as $affected_prop) {
-				$prop_id = $affected_prop['id'];
-				self::count_prop_support($prop_id);
-			}			
-			return $result;		
+		if ($prop_id) {
+			$conditions[] .= "p.id = ?";
+			$values[] = $prop_id;
 		}
-		return true;
+		$from_where .= implode(" and ", $conditions);
+		return $from_where;
 	}
 
 	public static function cancel_ballot ($prop_id, $user_code)

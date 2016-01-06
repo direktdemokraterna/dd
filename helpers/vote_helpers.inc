@@ -231,34 +231,6 @@ class vote_helpers
 		return $matching_constituencies;
 	}
 
-	public static function substitute_active_for_passive_user_codes ($vote_id)
-	{
-		$ballot_user_codes_for_ended_vote = db_vote_admin::get_user_codes_for_vote($vote_id);
-		$ballot_user_codes_for_ended_vote_serialized = serialize($ballot_user_codes_for_ended_vote);
-		$post_vars = Array("user_codes" => $ballot_user_codes_for_ended_vote_serialized);
-		$reply = crypt_helpers::curl_to_anon_server("get_passive_user_codes.php", $post_vars);
-		$passive_user_codes = unserialize($reply);
-		foreach ($passive_user_codes as $active_user_code => $passive_user_code)
-			if($active_user_code && $passive_user_code)
-				db_vote_admin::set_active_user_code_to_passive($active_user_code, $passive_user_code, $vote_id);
-	}
-
-	public static function restore_active_user_codes ($vote_id)
-	{
-		$ballot_user_codes_for_ended_vote = db_vote_admin::get_user_codes_for_vote($vote_id);
-		$ballot_user_codes_for_ended_vote_serialized = serialize($ballot_user_codes_for_ended_vote);
-		$post_vars = Array("user_codes" => $ballot_user_codes_for_ended_vote_serialized);
-		$reply = crypt_helpers::curl_to_anon_server("get_active_user_code_for_passive.php", $post_vars);
-		$active_user_codes = unserialize($reply);
-		foreach ($ballot_user_codes_for_ended_vote as $row) {
-			$passive_user_code = $row['user_code'];
-			$active_user_code = $active_user_codes[$passive_user_code];
-			if(!empty($passive_user_code) && !empty($active_user_code)){
-				db_vote_admin::set_passive_user_code_to_active($active_user_code, $passive_user_code, $vote_id);
-			}
-		}
-	}
-
 	public static function output_yes_no_result ($ballots_to_count)
 	{
 		$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($ballots_to_count);

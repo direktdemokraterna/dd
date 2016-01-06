@@ -34,7 +34,6 @@ class vote
 		$ok = self::invoke_action($vote_id, $status, $action);
 		if(!$ok)
 			throw new \Exception(_t("Database error. No change made."));
-		self::invoke_post_action($vote_id, $action);
 		$_SESSION['report_message'] = _t("The vote is updated.");
 	}
 
@@ -84,6 +83,8 @@ class vote
 	}
 
 	public static function remove_ballots($user_id, $constituency_id = null) {
+		//\db_vote::remove_ballots('iiT8ol4mWekOXkSOdPPO', null, null, $constituency_id);
+		//return;
 		$post_vars = array("user_id" => $user_id, "constituency_id" => $constituency_id);
 		$reply = \crypt_helpers::curl_to_anon_server("remove_ballots.php", $post_vars);
 		if ($reply != 'success')
@@ -98,19 +99,19 @@ class vote
 	}
 
 	public static function remove_delegations($user_id, $constituency_id = null) {
-		//throw new \Exception('TODO:');
+		$post_vars = Array("user_id" => $user_id, "constituency_id" => $constituency_id);
+		$reply = \crypt_helpers::curl_to_anon_server("remove_delegations.php", $post_vars);
+		if ($reply != 'success')
+			throw new \Exception('Failed to remove delegations with reply: ' . $reply);
 	}
 
 	public static function remove_delegate_ballots($delegate_id, $constituency_id = null) {
-		//throw new \Exception('TODO:');
-	}
-
-	public static function remove_delegate_prop_ballots($delegate_id, $constituency_id = null) {
-		//throw new \Exception('TODO:');
+		\db_delegate::remove_delegated_ballots(null, $delegate_id, null, $constituency_id);
 	}
 
 	public static function remove_delegate_delegations($delegate_id, $constituency_id = null) {
-		//throw new \Exception('TODO:');
+		\db_delegate::remove_delegations_for(null, $delegate_id, null, $constituency_id);
+		\db_delegate::remove_delegations_for(null, null, $delegate_id, $constituency_id);
 	}
 
 	private static function admin_create_time_limited_vote() {
@@ -167,19 +168,6 @@ class vote
 				return \db_vote_admin::restore_delegate_vote($vote_id);
 			default:
 				throw new \Exception(_t("Invalid action: ") . $action);
-		}
-	}
-
-	private static function invoke_post_action($vote_id, $action) {
-		switch ($action) {
-			case 'end_vote':
-			case 'finish_vote':
-				\vote_helpers::substitute_active_for_passive_user_codes($vote_id);
-				break;
-			case 'restore_vote':
-			case 'restore_finished_vote':
-				\vote_helpers::restore_active_user_codes($vote_id);
-				break;
 		}
 	}
 

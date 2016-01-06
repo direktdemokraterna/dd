@@ -44,6 +44,7 @@ class db_delegate
 
 	public static function delete_delegate ($delegate_id)
 	{
+		self::remove_delegations_for(null, null, $delegate_id);
 		$query = "delete from delegate_user where delegate_id = ?";
 		$values = array($delegate_id);
 		db::delete($query, $values);
@@ -74,6 +75,71 @@ class db_delegate
 		$query = "update user set acting_as_delegate = ? where id = ?";
 		$values = Array($value ? 1 : 0, $user_id);
 		return db::update($query, $values);
+	}
+
+	public static function register_delegation ($user_code, $voter_id, $delegate_id, $constituency_id, $priority = 1)
+	{
+		$values = array();
+		$from_where = self::get_delegations_from_to_query_fragment($values, $user_code, $voter_id, null, $constituency_id);
+		$sel_query = "select * $from_where";
+		$old_delegation = db::select_single_row($sel_query, $values);
+		if($old_delegation){
+			if ($old_delegation['delegate_id'] == $delegate_id) return true;
+			$del_query = "delete $from_where";
+			db::delete($del_query, $values);
+			self::remove_delegated_votes($user_code, $voter_id
+				, $old_delegation['delegate_id'], $constituency_id);
+		}
+		if($delegate_id != "null"){
+			$query = "insert into voter_delegate (delegate_id, user_code, voter_id, constituency_id, time_delegate_chosen) values (?, ?, ?, ?, ?)";
+			$values = Array($delegate_id, $user_code, $voter_id, $constituency_id, time());
+			db::insert($query, $values);
+			self::execute_delegate_votes_for_new_delegate($user_code, $voter_id, $delegate_id, $constituency_id);
+		}
+		return true; 
+	}
+
+	public static function remove_delegations_for ($user_code, $voter_id = null, $delegate_id = null, $constituency_id = null)
+	{
+		$values = array();
+		$from_where = self::get_delegations_from_to_query_fragment($values, $user_code, $voter_id, $delegate_id, $constituency_id);
+		$sel_query = "select * $from_where";
+		$delegations_to_remove = db::select($sel_query, $values);
+		if($delegations_to_remove){
+			$del_query = "delete $from_where";
+			db::delete($del_query, $values);
+			foreach ($delegations_to_remove as $row)
+				self::remove_delegated_ballots($row['user_code'], $row['voter_id'], $row['delegate_id'], $row['constituency_id']);
+		}
+		return true; 
+	}
+
+	public static function remove_delegated_ballots($user_code, $voter_id, $delegate_id
+		, $constituency_id) 
+	{
+		\db_vote::remove_ballots($user_code, $voter_id, $delegate_id, $constituency_id);
+		\db_prop::remove_prop_ballots($user_code, $voter_id, $delegate_id, $constituency_id);
+	}
+
+	private static function get_delegations_from_to_query_fragment (&$values, $user_code, $voter_id = null, $delegate_id = null, $constituency_id = null)
+	{
+		$from_where = "from voter_delegate where ";
+		$conditions = array();
+		if ($user_code || $voter_id) {
+			$conditions[] .= "(user_code = ? OR voter_id = ?)";
+			$values[] = $user_code;
+			$values[] = $voter_id;
+		}
+		if ($delegate_id) {
+			$conditions[] .= "delegate_id = ?";
+			$values[] = $delegate_id;
+		}
+		if ($constituency_id) {
+			$conditions[] .= "constituency_id = ?";
+			$values[] = $constituency_id;
+		}
+		$from_where .= implode(" and ", $conditions);
+		return $from_where;
 	}
 
 	public static function get_constituencies_for_user_and_delegate_activity ($user_id, $delegate_id)
@@ -324,35 +390,6 @@ class db_delegate
 		foreach($constituencies as $row)
 			$values[] = $row['id'];
 		return db::select($query, $values);
-	}
-
-	public static function register_delegation_ballot ($user_code, $delegand_id, $delegate_id, $constituency_id, $priority = 1)
-	{
-		$query = "select * from voter_delegate where (user_code = ? or voter_id = ?) and constituency_id = ?";
-		$values = Array($user_code, $delegand_id, $constituency_id);
-		$result = db::select_single_row($query, $values);
-		if(!empty($result)){
-			$query = "delete from voter_delegate where (user_code = ? or voter_id = ?) and constituency_id = ?";	
-			$values = Array($user_code, $delegand_id, $constituency_id);
-			db::delete($query, $values);
-			if($delegate_id == "null"){
-				self::remove_delegate_votes($user_code, $delegand_id, $result['delegate_id'], $constituency_id);
-			}
-		}
-		if($delegate_id != "null"){
-			$query = "insert into voter_delegate (delegate_id, user_code, voter_id, constituency_id, time_delegate_chosen) values (?, ?, ?, ?, ?)";
-			$values = Array($delegate_id, $user_code, $delegand_id, $constituency_id, time());
-			db::insert($query, $values);
-			self::execute_delegate_votes_for_new_delegate($user_code, $delegand_id, $delegate_id, $constituency_id);
-		}
-		return true; 
-	}
-
-	public static function remove_delegate_votes ($user_code, $delegand_id, $delegate_id, $constituency_id)
-	{
-		$query = "delete from ballot where (user_code = ? or voter_id = ?) and delegate_id = ? and constituency_id = ?";
-		$values = Array($user_code, $delegand_id, $delegate_id, $constituency_id);
-		return db::delete($query, $values);
 	}
 
 	public static function get_delegate_ballots_for_vote ($vote_id)
