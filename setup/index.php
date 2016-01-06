@@ -1,7 +1,7 @@
 <html><head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<link rel="shortcut icon" href="images/favicon.ico">
-	<title>DD - Nya versionen - Setup</title>
+	<title>DD Medlemssystem - Setup</title>
 </head>
 <body>
 <div style="margin: 100px;">

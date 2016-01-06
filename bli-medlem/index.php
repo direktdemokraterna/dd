@@ -40,7 +40,7 @@ if($is_all_mandatory_set){
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="shortcut icon" href="images/favicon.ico">
 
-<title>DD - Nya versionen</title>
+<title>DD Medlemssystem ver <?php echo VERSION ?></title>
 
 </head>
 
