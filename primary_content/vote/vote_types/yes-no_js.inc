@@ -6,7 +6,7 @@
 	var your_delegate = "<?php __('Your delegate'); ?>";
 	var voted_for_you = "<?php __('has voted for you.'); ?>";
 	list_of_votes.map(function (vote){
-		if(vote.user_code == sessionStorage.active_user_code && acting_as_delegate == false){
+		if(vote.user_code == sessionStorage.user_code && acting_as_delegate == false){
 			if(vote.alternative == "yes")
 				document.getElementById("user_vote_box").innerHTML = you_voted_yes;
 			else if(vote.alternative == "no")

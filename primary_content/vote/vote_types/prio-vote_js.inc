@@ -48,7 +48,7 @@
 <?php else : ?>
   var user_vote_box = document.getElementById("user_vote_box");
   list_of_votes.map(function (vote){
-    if(vote.user_code == sessionStorage.active_user_code){
+    if(vote.user_code == sessionStorage.user_code){
       user_vote_box.innerHTML = "";
       if(vote.prio_ranking == "abstain")
         user_vote_box.innerHTML += you_voted_abstain + "<br>";        

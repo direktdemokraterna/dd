@@ -17,7 +17,7 @@ class session
 		if(isset($_GET['logout']))
 			self::destroy_session();
 		elseif(self::is_session_open())
-			crypt_helpers::ensure_user_codes_on_client($_SESSION['id']);
+			crypt_helpers::ensure_user_code_on_client($_SESSION['id']);
 		elseif(isset($_POST['login']))
 			self::create_session();
 		elseif(isset($_COOKIE['user_id']) && isset($_COOKIE['user_token']))
@@ -74,7 +74,7 @@ class session
 		$_SESSION['last_login_time'] = $user_data['last_login_time'];
 		self::set_delegate_role($user_data);
 		self::set_admin_roles($user_id);
-		crypt_helpers::retrieve_user_codes_on_client($user_id);
+		crypt_helpers::retrieve_user_code_on_client($user_id);
 		db_user::update_last_login_time($user_id);
 		if(isset($_POST['rememberme']))
 			self::remember_user();

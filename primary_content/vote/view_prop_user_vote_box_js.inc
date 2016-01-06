@@ -1,7 +1,7 @@
 <script>
 	document.getElementById("user_vote_box").innerHTML = support_hint;
 	list_of_votes.map(function (vote){
-		if(vote.user_code == sessionStorage.active_user_code && !acting_as_delegate) {
+		if(vote.user_code == sessionStorage.user_code && !acting_as_delegate) {
 			support = vote.support;
 			document.getElementById("user_vote_box").innerHTML = support
 				? (vote.delegate_id 

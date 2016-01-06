@@ -54,7 +54,7 @@ class crypt_helpers
 				. ', computed: ' . $computed_hash);
 	}
 
-	public static function retrieve_user_codes_on_client ($user_id)
+	public static function retrieve_user_code_on_client ($user_id)
 	{
 		$temp_code = general_helpers::GenerateRandomString(20);
 		$_SESSION['temp_code'] = $temp_code;
@@ -64,25 +64,25 @@ class crypt_helpers
 			die($reply);
 		echo '<script>' . PHP_EOL;
 		echo 'is_session_active = 0;' . PHP_EOL;
- 		self::output_get_user_codes_cross_domain_call($user_id, $temp_code);
+ 		self::output_get_user_code_cross_domain_call($user_id, $temp_code);
  		echo '</script>' . PHP_EOL;
 	}
 
-	public static function ensure_user_codes_on_client ($user_id)
+	public static function ensure_user_code_on_client ($user_id)
 	{
 		echo '<script>' . PHP_EOL;
-		echo 'session_too_old_message = ' 
-			. _t("Your user session is too old. Logout and login again.") . ';' . PHP_EOL;
-		echo 'is_session_active = sessionStorage.active_user_code ? 1 : 0;' . PHP_EOL;
- 		self::output_get_user_codes_cross_domain_call($user_id, $_SESSION['temp_code']);
+		echo 'session_too_old_message = "' 
+			. _t("Your user session is too old. Logout and login again.") . '";' . PHP_EOL;
+		echo 'is_session_active = sessionStorage.user_code ? 1 : 0;' . PHP_EOL;
+ 		self::output_get_user_code_cross_domain_call($user_id, $_SESSION['temp_code']);
  		echo '</script>' . PHP_EOL;
 	}
 
-	private static function output_get_user_codes_cross_domain_call($user_id, $temp_code) 
+	private static function output_get_user_code_cross_domain_call($user_id, $temp_code) 
 	{
 		echo 'var cross_domain_script = document.createElement("script");' . PHP_EOL;
 		echo 'cross_domain_script.src = "' . ANON_SERVER_BROWSER_URL
- 			. 'give_out_user_codes.php?user_id=' . $user_id
+ 			. 'give_out_user_code.php?user_id=' . $user_id
  			. '&temp_code=' . $temp_code . '&ignore=" + is_session_active;' . PHP_EOL;
  		echo 'document.getElementsByTagName("head")[0].appendChild(cross_domain_script);' . PHP_EOL;
 	}

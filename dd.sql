@@ -167,10 +167,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `user_id` int(10) unsigned NOT NULL default '0',
-  `active_user_code` varchar(20) NOT NULL default '',
-  `passive_user_code1` varchar(20) NOT NULL default '',
-  `passive_user_code2` varchar(20) NOT NULL default '',
-  `passive_user_code3` varchar(20) NOT NULL default '',
+  `user_code` varchar(20) NOT NULL default '',
   `timestamp_last_login` int(10) unsigned default NULL,
   `timestamp_last_activity` int(10) unsigned default NULL,
   PRIMARY KEY  (`id`)
@@ -181,11 +178,11 @@ CREATE TABLE `user` (
 --
 
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`,`user_id`,`active_user_code`,`passive_user_code1`,`passive_user_code2`,`passive_user_code3`,`timestamp_last_login`,`timestamp_last_activity`) VALUES 
- (1,5,'osb8A8xrrQrGQfologrm','Csc0Wdfy6CHQB9eEx2UW','nTY2K5KFS3qsVuewTQNj','evYYqLsXAtpiEyQAu9vU',NULL,NULL),
- (2,6,'9ZvUSJF2Y9binMKfwOr7','QzcZsdP5ilu1roSlrhSW','qW4dkmHmZGXd2qpTAAeC','4uNKQd3WK8RzdQAqtFRp',NULL,NULL),
- (3,4,'OBc7rZoonK45KsRWs4gq','S28ZUXNjGMofzPxd16iJ','Dys7rHw0qdeH3vOrmDk0','afflJNzLhhT5QyX1cDuF',NULL,NULL),
- (4,13,'nNSpJccU3OdwJxq3SMBw','sKbDUhNO4GHSweyENtF4','nrjiKEbZCJm7XrUhg8Yg','ko7qVZd1ePk3vF5JU8o5',NULL,NULL);
+INSERT INTO `user` (`id`,`user_id`,`user_code`,`timestamp_last_login`,`timestamp_last_activity`) VALUES 
+ (1,5,'osb8A8xrrQrGQfologrm',NULL,NULL),
+ (2,6,'9ZvUSJF2Y9binMKfwOr7',NULL,NULL),
+ (3,4,'OBc7rZoonK45KsRWs4gq',NULL,NULL),
+ (4,13,'nNSpJccU3OdwJxq3SMBw',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 --

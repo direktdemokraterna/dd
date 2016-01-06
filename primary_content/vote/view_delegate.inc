@@ -87,7 +87,7 @@
 ?>
 <script>
 list_of_delegations.map(function (vote){
-	if(vote.user_code == sessionStorage.active_user_code){
+	if(vote.user_code == sessionStorage.user_code){
 		var constituency_element = "constituency" + vote.constituency_id;
 		document.getElementById(constituency_element).innerHTML = dynamic_delegation_info_text + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
 	}

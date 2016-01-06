@@ -39,10 +39,9 @@ function package_encrypted_ballot (encrypted_ballot_json){
 }
 
 function encrypt_ballot (ballot_json){
-	//alert("active_user_code: " + sessionStorage.active_user_code);
 	var encrypted_ballot = encrypt_message(ballot_json, dd_public_key);
 	encrypted_ballot["user_id"] = user_id;
-	encrypted_ballot["user_code"] = sessionStorage.active_user_code;
+	encrypted_ballot["user_code"] = sessionStorage.user_code;
 	return encrypted_ballot;
 }
 
