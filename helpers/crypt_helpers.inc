@@ -56,21 +56,35 @@ class crypt_helpers
 
 	public static function retrieve_user_codes_on_client ($user_id)
 	{
-		$_SESSION['temp_code'] = general_helpers::GenerateRandomString(20);
-		$post_vars = Array("user_id" => $user_id, "temp_code" => $_SESSION['temp_code']);
+		$temp_code = general_helpers::GenerateRandomString(20);
+		$_SESSION['temp_code'] = $temp_code;
+		$post_vars = array("user_id" => $user_id, "temp_code" => $temp_code);
 		$reply = crypt_helpers::curl_to_anon_server("receive_temp_code.php", $post_vars);
 		if($reply != "success") 
-			die($reply);		
-		echo "<script>retrieveUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . 
-			", '" . $_SESSION['temp_code'] . "');</script>\n";
+			die($reply);
+		echo '<script>' . PHP_EOL;
+		echo 'is_session_active = 0;' . PHP_EOL;
+ 		self::output_get_user_codes_cross_domain_call($user_id, $temp_code);
+ 		echo '</script>' . PHP_EOL;
 	}
 
 	public static function ensure_user_codes_on_client ($user_id)
 	{
-		echo "<script>" . PHP_EOL;
-		echo 'var session_too_old = "Your user session is too old. Logout and login again.";' . PHP_EOL;
-		echo "ensureUserCodes('" .  ANON_SERVER_BROWSER_URL . "', " . $user_id . ", '" . $_SESSION['temp_code'] . "');" . PHP_EOL;
-		echo "</script>" . PHP_EOL;
+		echo '<script>' . PHP_EOL;
+		echo 'session_too_old_message = ' 
+			. _t("Your user session is too old. Logout and login again.") . ';' . PHP_EOL;
+		echo 'is_session_active = sessionStorage.active_user_code ? 1 : 0;' . PHP_EOL;
+ 		self::output_get_user_codes_cross_domain_call($user_id, $_SESSION['temp_code']);
+ 		echo '</script>' . PHP_EOL;
+	}
+
+	private static function output_get_user_codes_cross_domain_call($user_id, $temp_code) 
+	{
+		echo 'var cross_domain_script = document.createElement("script");' . PHP_EOL;
+		echo 'cross_domain_script.src = "' . ANON_SERVER_BROWSER_URL
+ 			. 'give_out_user_codes.php?user_id=' . $user_id
+ 			. '&temp_code=' . $temp_code . '&ignore=" + is_session_active;' . PHP_EOL;
+ 		echo 'document.getElementsByTagName("head")[0].appendChild(cross_domain_script);' . PHP_EOL;
 	}
 
 	public static function decrypt_ballot ($rsa_message, $aes_message)
