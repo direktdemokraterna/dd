@@ -1,4 +1,6 @@
 <?php 
+DEFINE('VERSION', 0.101);
+
 session_start();
 
 date_default_timezone_set('Europe/Stockholm');
@@ -86,7 +88,6 @@ switch (\I18n\controller::get_language()) {
 		break;
 }
 
-DEFINE('VERSION', 0.1);
 $app_folder_name = str_replace('index.php', '', $_SERVER['PHP_SELF']);
 DEFINE('BASE_URL', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' 
 	. $_SERVER['HTTP_HOST'] . $app_folder_name);
