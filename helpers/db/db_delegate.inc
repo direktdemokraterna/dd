@@ -87,7 +87,7 @@ class db_delegate
 			if ($old_delegation['delegate_id'] == $delegate_id) return true;
 			$del_query = "delete $from_where";
 			db::delete($del_query, $values);
-			self::remove_delegated_votes($user_code, $voter_id
+			self::remove_delegations_for($user_code, $voter_id
 				, $old_delegation['delegate_id'], $constituency_id);
 		}
 		if($delegate_id != "null"){

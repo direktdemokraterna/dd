@@ -21,12 +21,11 @@ class delegate
 	{
 		if(isset($_POST['ballot'])){
 			if($_SESSION['delegate_id']){
-				$delegand_id = $_SESSION['delegate_id'];
+				$voter_id = $_SESSION['delegate_id'];
 				$ballot = json_decode($_POST['ballot'], true);
 				$constituency_id = $ballot['constituency_id'];
 				$delegate_id = $ballot['delegate_id'];
-				\db_constituency::check_voter_constituency_access($delegand_id, $constituency_id);
-				$ok = \db_delegate::register_delegation(null, $delegand_id, $delegate_id, $constituency_id);
+				$ok = \db_delegate::register_delegation(null, $voter_id, $delegate_id, $constituency_id);
 				if($ok)
 					$_SESSION['report_message'] = _t("Your delegate's delegation is registered.");
 				else
@@ -34,16 +33,16 @@ class delegate
 			}
 			else{
 				$user_constituencies = \db_constituency::get_constituencies_for_voter($_SESSION['id']);
-				$user_constituencies_array = Array();
+				$user_constituency_ids = array();
 				foreach($user_constituencies as $row)
-					$user_constituencies_array[] = $row['id'];
-				$user_constituencies_serialized = serialize($user_constituencies_array);
-				$post_vars = Array("user_id" => $_SESSION['id'], "user_constituencies" => $user_constituencies_serialized, "ballot" => $_POST['ballot']);
+					$user_constituency_ids[] = $row['id'];
+				$user_constituency_ids_serialized = serialize($user_constituency_ids);
+				$post_vars = array("user_id" => $_SESSION['id'], "user_constituencies" => $user_constituency_ids_serialized, "ballot" => $_POST['ballot']);
 				$reply = \crypt_helpers::curl_to_anon_server("anonymise_delegation_ballot.php", $post_vars);
 				if($reply == "success")
 					$_SESSION['report_message'] = _t("Your delegation is registered.");
 				else
-					\Logic\util::report_error(_t("Something went wrong. No delegation registered."));
+					\Logic\util::report_error(_t("Something went wrong. No delegation registered because: " . $reply));
 			}
 		}		
 	}

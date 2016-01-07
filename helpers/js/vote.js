@@ -110,7 +110,7 @@ function encrypt_median_ballot (abstain_or_cancel){
 	return true;
 }
 
-function encrypt_single_delegation (constituency_id){
+function encrypt_single_delegation (constituency_id, delegate_id){
 	var dd_message = {delegate_id: delegate_id, constituency_id: constituency_id};
 	prepare_ballot_for_submit(dd_message);
 	return true;
@@ -119,9 +119,7 @@ function encrypt_single_delegation (constituency_id){
 function encrypt_delegation_get_delegate_from_form (constituency_id){
 	var select_element = document.getElementById("select" + constituency_id);
 	var delegate_id_from_form = select_element.options[select_element.selectedIndex].value;
-	var dd_message = {delegate_id: delegate_id_from_form, constituency_id: constituency_id};
-	prepare_ballot_for_submit(dd_message);
-	return true;
+	return encrypt_single_delegation(constituency_id, delegate_id_from_form);
 }
 
 function show_delegate_votes (is_prop)

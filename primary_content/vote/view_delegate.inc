@@ -69,15 +69,18 @@
 	_hidden("ballot");
 
 	foreach($constituencies as $row) {
+		$constituency_id = $row['id'];
 		echo '<div class="delegation_box">';
 		echo _t("Constituency: ");
 		_strong($row['name']);
 		_br();
-		echo '<span id="constituency' . $row['id'] . '">' . _t("You have no delegate in this constituency") . '</span>';
+		echo '<span id="constituency' . $constituency_id . '">' . _t("You have no delegate in this constituency") . '</span>';
 		_br(2);
-		echo '<input type="submit" value="' . _t("Delegate your vote in the constituency ") . $row['name'] 
-			. _t(" to ", array('class' => 'prep')) . $delegate_info['title'] 
-			. '" onmousedown="return encrypt_single_delegation(' . $row['id'] . ')">';
+		echo '<input id="delegate_in_' . $constituency_id . '" style="display: inline" type="submit" value="' . _t("Delegate to ", array('class' => 'prep')) . $delegate_info['title'] 
+			. '" onmousedown="return encrypt_single_delegation(' . $constituency_id
+				. ', ' . $_GET['id'] . ')">';
+		echo '<input id="undelegate_in_' . $constituency_id . '" style="display: none" type="submit" value="' . _t("Remove delegate ") 
+			. '" onmousedown="return encrypt_single_delegation(' . $constituency_id . ', 0)">';
 		echo '</div>';
 	}
 	echo '</form>';
@@ -90,6 +93,10 @@ list_of_delegations.map(function (vote){
 	if(vote.user_code == sessionStorage.user_code){
 		var constituency_element = "constituency" + vote.constituency_id;
 		document.getElementById(constituency_element).innerHTML = dynamic_delegation_info_text + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
+		var delegate_button = document.getElementById("delegate_in_" + vote.constituency_id);
+		delegate_button.style.display = "none";
+		var undelegate_button = document.getElementById("undelegate_in_" + vote.constituency_id);
+		undelegate_button.style.display = "inline";
 	}
 });
 </script>
