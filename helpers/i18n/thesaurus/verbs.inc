@@ -15,6 +15,10 @@ class verbs
 				"sv" => "avstår"
 				,"en" => "abstain"
 				)
+			,"act:verb" => array(
+				"sv" => "agera::r:t"
+				,"en" => "act::|s:ed"
+				)
 			,"activated:verb" => array(
 				"sv" => "aktiverad"
 				,"en" => "activated"

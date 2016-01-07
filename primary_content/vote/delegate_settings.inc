@@ -6,11 +6,11 @@
 	_open_form();
 	if($is_delegate) {
 		_h2(_t("Vote as delegate"));
-		_label(_t("Vote as delegate"), "acting_as_delegate");
+		_label(_t("Act as delegate"), "acting_as_delegate");
 		echo '<input type="checkbox" id="acting_as_delegate" name="acting_as_delegate"' 
 			. ($_SESSION['delegate_id'] ? ' checked>' : '>');
 		_br();
-		_p(_t("If the box above is checked you vote and support propositions as delegate instead of as individual. This means that you vote for all those who have delegated their vote to you for the particular issue. It also means that your ballot is public and can be seen by others. You can only vote as delegate in those constituencies for which you have registerered your delegacy below. In all other constituencies you vote as individual even if the box above is checked."));
+		_p(_t("If the box above is checked you act as delegate instead of as individual. This means that you vote for all those who have delegated their vote to you for the particular issue. It also means that your ballot is public and can be seen by others. You can only vote as delegate in those constituencies for which you have registerered your delegacy below. In all other constituencies you vote as individual even if the box above is checked."));
 		_h2(_t("constituencies for your delegate"));
 		$constituencies = db_delegate::get_constituencies_for_user_and_delegate_activity($_SESSION['id'], $delegate_settings['delegate_id']);
 		_p(_t("Here you can choose in which constituencies other users shall be able to delegate to you."));

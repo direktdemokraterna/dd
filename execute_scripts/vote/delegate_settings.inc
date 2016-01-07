@@ -20,18 +20,14 @@
 	elseif(isset($_POST['change_delegate'])){
 		$report_messages = array();
 		if(isset($_POST['acting_as_delegate'])){
-			$delegate_activated = db_delegate::change_acting_as_delegate($_SESSION['id'], true);
-			if ($delegate_activated){
-				$_SESSION['delegate_id'] = db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
+			$delegate_activated = \Logic\delegate::act_as_delegate();
+			if ($delegate_activated)
 				$report_messages[] = _t("You now vote as delegate.");
-			}
 		}
 		else if ($_SESSION['delegate_id']){
-			$delegate_unactivated = db_delegate::change_acting_as_delegate($_SESSION['id'], false);
-			if ($delegate_unactivated){
-				$_SESSION['delegate_id'] = 0;
+			$delegate_deactivated = \Logic\delegate::act_as_individual();
+			if ($delegate_deactivated)
 				$report_messages[] = _t("You now vote as individual.");
-			}
 		}
 		$constituencies = isset($_POST['constituencies']) ? $_POST['constituencies'] : array();
 		$constituencies_changed = \Logic\constituency::update_constituencies_for_delegate($constituencies, $_SESSION['id']);

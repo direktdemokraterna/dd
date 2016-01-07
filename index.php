@@ -12,6 +12,7 @@
 	<body>
 		<?php
 			session::update_language();
+			session::update_acting_as_delegate();
 			navigation_helpers::handle_action_request();
 			session::login_logout();
 			require(isset($_SESSION['id']) ? "index_logged_in.inc" : "index_logged_out.inc");

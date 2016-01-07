@@ -66,6 +66,10 @@ class phrases
 				"sv" => "är valda"
 				,"en" => "are elected"
 				)
+			,"as delegate" => array(
+				"sv" => "som delegat"
+				,"en" => "as delegate"
+				)
 			,"as follows" => array(
 				"sv" => "följande"
 				,"en" => "as follows"
@@ -782,9 +786,9 @@ class phrases
 				"sv" => "nu röstar du"
 				,"en" => "you now vote"
 				)
-			,"as delegate" => array(
-				"sv" => "som delegat"
-				,"en" => "as delegate"
+			,"you act" => array(
+				"sv" => "agerar du"
+				,"en" => "you act"
 				)
 			,"you press" => array(
 				"sv" => "trycker du på"

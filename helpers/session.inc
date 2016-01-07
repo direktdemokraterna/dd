@@ -1,16 +1,36 @@
 <?php
 class session 
 {
-	public static function update_language() {
+	public static function update_language() 
+	{
 		preg_match('/[\?|&]lang=(\w+)$/', $_SERVER['REQUEST_URI'], $lang_param_match);
 		if ($lang_param_match) {
 			$param = $lang_param_match[0];
 			$lang = $lang_param_match[1];
 			\I18n\controller::update_language($lang);
-			$redirect = str_replace($param, '', $_SERVER['REQUEST_URI']);
-			header("Location: $redirect");
-			exit();
+			self::continue_to_page($param);
 		}		
+	}
+
+	public static function update_acting_as_delegate() 
+	{
+		preg_match('/[\?|&]act_as_delegate=(1|0)$/', $_SERVER['REQUEST_URI'], $act_as_delegate_param_match);
+		if ($act_as_delegate_param_match) {
+			$param = $act_as_delegate_param_match[0];
+			$act_as_delegate = $act_as_delegate_param_match[1];
+			if ($act_as_delegate)
+				\Logic\delegate::act_as_delegate();
+			else 
+				\Logic\delegate::act_as_individual();
+			self::continue_to_page($param);
+		}		
+	}
+
+	private static function continue_to_page($remove_param) 
+	{
+		$redirect = str_replace($remove_param, '', $_SERVER['REQUEST_URI']);
+		header("Location: $redirect");
+		exit();
 	}
 
 	public static function login_logout() {

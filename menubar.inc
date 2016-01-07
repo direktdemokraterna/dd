@@ -82,11 +82,20 @@
 	<ul id="logout-link">
 		<li><?php
 				$user_label = db_user::get_user_full_name($_SESSION['id']);
-				$hello = _span("large_screen", _t("Hello") . ", ");
+				$hello = _span("large_screen", _t("Hello, "));
 				$user_label = $hello . $user_label;
+				if ($_SESSION['delegate_id']) $user_label .= 
+					_t(" (delegate)", array('class' => 'noun'));
 				\View\general::output_internal_link($user_label, "member", "view");
 			?>
 			<ul>
+				<?php if ($_SESSION['delegate_id']) : ?>
+					<li><a onClick="set_acting_as_delegate(0)">
+						<?php __("Act as individual"); ?></a></li>
+				<?php else : ?>
+					<li><a onClick="set_acting_as_delegate(1)">
+						<?php __("Act as delegate"); ?></a></li>
+				<?php endif; ?>
 				<li><a href="index.php?logout=1"><?php __("Logout"); ?></a></li>
 			</ul>
 		</li>

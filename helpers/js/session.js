@@ -9,9 +9,17 @@ function failed_to_set_user_code() {
 	alert(session_too_old_message);
 }
 
-function set_language(lang) {
+function set_control_parameter(param_name, value) {
 	var qsign = window.location.href.indexOf('?') >= 0
 		? '&'
 		: '?';
-	window.location.href=window.location.href + qsign + 'lang=' + lang;
+	window.location.href=window.location.href + qsign + param_name + '=' + value;
+}
+
+function set_language(lang) {
+	set_control_parameter('lang', lang);
+}
+
+function set_acting_as_delegate(value) {
+	set_control_parameter('act_as_delegate', value);
 }

@@ -17,6 +17,22 @@ class delegate
 		return \db_delegate::delete_delegate($delegate_id);
 	}
 
+	public static function act_as_delegate() 
+	{
+		$delegate_activated = \db_delegate::change_acting_as_delegate($_SESSION['id'], true);
+		if ($delegate_activated)
+			$_SESSION['delegate_id'] = \db_delegate::get_delegate_id_from_user_id($_SESSION['id']);
+		return $delegate_activated;
+	}
+
+	public static function act_as_individual() 
+	{
+		$delegate_deactivated = \db_delegate::change_acting_as_delegate($_SESSION['id'], false);
+		if ($delegate_deactivated)
+			$_SESSION['delegate_id'] = 0;
+		return $delegate_deactivated;
+	}
+
 	public static function register_delegation_from_post() 
 	{
 		if(isset($_POST['ballot'])){
