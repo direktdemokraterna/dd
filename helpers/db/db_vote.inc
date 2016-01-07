@@ -127,26 +127,26 @@ class db_vote
 		return $affected_vote_ids;
 	}
 
-	public static function get_ballots_from_where_fragment(&$values, $user_code, $voter_id, $delegate_id = null, $constituency_id = null, $vote_id = null) {
+	protected static function get_ballots_from_where_fragment(&$values, $user_code, $voter_id, $delegate_id = null, $constituency_id = null, $vote_id = null) {
 		$from_where = "from ballot b
 		join vote v on v.id = b.vote_id and status in ('active', 'del_ended', 'continuous')
 		where ";
 		$conditions = array();
 		if ($user_code || $voter_id) {
-			$conditions[] .= "(b.user_code = ? OR b.voter_id = ?)";
+			$conditions[] = "(b.user_code = ? OR b.voter_id = ?)";
 			$values[] = $user_code;
 			$values[] = $voter_id;
 		}
 		if ($delegate_id) {
-			$conditions[] .= "b.delegate_id = ?";
+			$conditions[] = "b.delegate_id = ?";
 			$values[] = $delegate_id;
 		}
 		if ($constituency_id) {
-			$conditions[] .= "v.constituency_id = ?";
+			$conditions[] = "v.constituency_id = ?";
 			$values[] = $constituency_id;
 		}
 		if ($vote_id) {
-			$conditions[] .= "v.id = ?";
+			$conditions[] = "v.id = ?";
 			$values[] = $vote_id;
 		}
 		$from_where .= implode(" and ", $conditions);
@@ -323,7 +323,7 @@ class db_vote
 	public static function add_alternative_by_user ($vote_id, $title, $description, $user_id)
 	{
 		$query = "insert into vote_alternative 
-					(vote_id, added_by_user, timestamp_added, alternative_title, alternative_description) 
+					(vote_id, added_by_voter, timestamp_added, alternative_title, alternative_description) 
 					values (?, ?, ?, ?, ?)";
 		$values = Array($vote_id, $user_id, time(), general_helpers::clean($title), general_helpers::clean($description));
 		$result =  db::insert($query, $values);
@@ -345,7 +345,7 @@ class db_vote
 	public static function add_candidate ($vote_id, $user_id, $description)
 	{
 		$query = "insert into vote_alternative 
-			(vote_id, added_by_user, timestamp_added, alternative_user_id, alternative_title, alternative_description) 
+			(vote_id, added_by_voter, timestamp_added, alternative_user_id, alternative_title, alternative_description) 
 			values (?, ?, ?, ?, ?, ?)";
 		$values = Array($vote_id, $user_id, time(), $user_id, 
 			db_user::get_user_full_name($user_id), 

@@ -4,11 +4,7 @@
 		$delegate_settings = db_delegate::get_delegate_settings($_SESSION['id']);
 	_h1(_t("Delegate settings"));
 	_open_form();
-	if(!$is_delegate) {
-		_p(_t("You are not yet registred as a delegate. If you want to create a delegate profile you press the button below. Even if you have created a delegate profile you don't have to vote as delegate (so your ballots become public) or let other users delegate to you."));
-		echo '<input type="submit" name="register_delegate" value="' . _t("Create delegate") . '">';
-	}
-	else {
+	if($is_delegate) {
 		_h2(_t("Vote as delegate"));
 		_label(_t("Vote as delegate"), "acting_as_delegate");
 		echo '<input type="checkbox" id="acting_as_delegate" name="acting_as_delegate"' 
@@ -33,6 +29,10 @@
 			. _t("Your delegate will be completely deleted. You may also choose to temporarily deactivate your delegate. Do you still want to continue?") . '">';
 		_h2(_t("Remove delegate"));
 		echo '<input type="submit" name="delete" value="' . _t("Remove delegate") . '">';
+	}
+	else {
+		_p(_t("You are not yet registred as a delegate. If you want to create a delegate profile you press the button below. Even if you have created a delegate profile you don't have to vote as delegate (so your ballots become public) or let other users delegate to you."));
+		echo '<input type="submit" name="register_delegate" value="' . _t("Create delegate") . '">';
 	}
 	echo '</form>';
 ?>

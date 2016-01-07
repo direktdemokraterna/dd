@@ -210,7 +210,7 @@ class db_prop
 		return $affected_prop_ids;
 	}
 
-	public static function get_prop_ballots_from_where_fragment(&$values, $user_code, $voter_id, $delegate_id = null, $constituency_id = null, $prop_id = null) {
+	private static function get_prop_ballots_from_where_fragment(&$values, $user_code, $voter_id, $delegate_id = null, $constituency_id = null, $prop_id = null) {
 		$from_where = "from proposition_support ps
 		join proposition p on p.id = ps.proposition_id and status = 'pending'
 		where ";
@@ -221,15 +221,15 @@ class db_prop
 			$values[] = $voter_id;
 		}
 		if ($delegate_id) {
-			$conditions[] .= "ps.delegate_id = ?";
+			$conditions[] = "ps.delegate_id = ?";
 			$values[] = $delegate_id;
 		}
 		if ($constituency_id) {
-			$conditions[] .= "p.constituency_id = ?";
+			$conditions[] = "p.constituency_id = ?";
 			$values[] = $constituency_id;
 		}
 		if ($prop_id) {
-			$conditions[] .= "p.id = ?";
+			$conditions[] = "p.id = ?";
 			$values[] = $prop_id;
 		}
 		$from_where .= implode(" and ", $conditions);

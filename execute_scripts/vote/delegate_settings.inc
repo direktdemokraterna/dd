@@ -9,7 +9,7 @@
 			\Logic\util::report_error(_t("Something went wrong."));
 	}
 	elseif(isset($_POST['delete'])){
-		$ok = db_delegate::delete_delegate($_SESSION['id']);
+		$ok = \Logic\delegate::delete_delegate_for_user($_SESSION['id']);
 		if($ok) {
 			$_SESSION['delegate_id'] = 0;
 			$_SESSION['report_message'] = _t("Your delegate is removed.");			

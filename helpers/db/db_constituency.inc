@@ -67,13 +67,29 @@ class db_constituency
 		return 1; // number of updates made
 	}
 
-	public static function remove_constituency_access ($voter_id, $constituency_id)
-	{
-		$query = "delete from constituency_voter where voter_id = ? and constituency_id = ?";
-		$values = Array($voter_id, $constituency_id);
-		$chg_count = db::delete($query, $values);
-		self::update_constituency_member_count($constituency_id);
-		return $chg_count;
+	public static function remove_constituency_access($voter_id, $constituency_id = null) {
+		$values = array();
+		$from_where = self::get_constituency_access_from_where_fragment($values, $voter_id, $constituency_id);
+		$sel_query = "select constituency_id " . $from_where;
+		$affected_constituencies = db::select($sel_query, $values);
+		if ($affected_constituencies) {
+			$del_query = "delete " . $from_where;
+			db::delete($del_query, $values);
+			foreach ($affected_constituencies as $row)
+				self::update_constituency_member_count($row['constituency_id']);
+		}
+		return count($affected_constituencies);
+	}
+
+	private static function get_constituency_access_from_where_fragment(&$values, $voter_id, $constituency_id = null) {
+		$from_where = "from constituency_voter
+		where voter_id = ?";
+		$values[] = $voter_id;
+		if ($constituency_id) {
+			$from_where .= " and constituency_id = ?";
+			$values[] = $constituency_id;
+		}
+		return $from_where;
 	}
 
 	public static function update_constituency_member_count ($constituency_id)
