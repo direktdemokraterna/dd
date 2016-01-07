@@ -19,13 +19,13 @@ class db_delegate
 		return db::select_single_row($query, $values);
 	}
 
-	public static function get_available_delegates_for_constituency ($constituency_id)
+	public static function get_available_delegates ($constituency_id, $delegate_id)
 	{
 		$query = "select d.id as id, d.title as title 
 			from delegate d
 				join constituency_voter cv on cv.voter_id = d.id
-			where cv.constituency_id = ?";
-		$values = Array($constituency_id);
+			where cv.constituency_id = ? and d.id <> ?";
+		$values = Array($constituency_id, $delegate_id);
 		return db::select($query, $values);
 	}
 

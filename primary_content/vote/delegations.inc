@@ -36,8 +36,8 @@
 		else 
 			echo '<span id="constituency' . $row['id'] . '">' . _t("You have no delegate in this constituency") . '</span>';
 		_br(2);
-		$delegates_for_constituency = db_delegate::get_available_delegates_for_constituency($row['id'], 
-			$_SESSION['delegate_id']);
+		$delegates_for_constituency = db_delegate::get_available_delegates($row['id']
+			, $_SESSION['delegate_id']);
 		$delegate_options = array("null" => _t("Remove delegate"));
 		foreach ($delegates_for_constituency as $delegate)
 			$delegate_options[$delegate['id']] = $delegate['title'];
