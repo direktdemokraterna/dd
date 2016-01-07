@@ -1438,7 +1438,7 @@ CREATE TABLE `workgroup` (
   `create_time` int(10) unsigned default NULL,
   `create_user` int(10) unsigned NOT NULL default '0',
   `public_forum_id` int(10) unsigned default NULL,
-  `is_restricted` tinyint(3) unsigned NOT NULL default '0',
+  `membership_vote_id` int(10) unsigned NOT NULL default '0',
   `propose_time` int(10) unsigned NOT NULL default '0',
   `private_forum_id` int(10) unsigned default NULL,
   PRIMARY KEY  (`id`),
@@ -1450,7 +1450,9 @@ CREATE TABLE `workgroup` (
 --
 
 /*!40000 ALTER TABLE `workgroup` DISABLE KEYS */;
-INSERT INTO `workgroup` (`id`,`title`,`description`,`is_active`,`number_of_members`,`create_time`,`create_user`,`public_forum_id`,`is_restricted`,`propose_time`,`private_forum_id`) VALUES 
+INSERT INTO `workgroup` (`id`,`title`,`description`,`is_active`,`number_of_members`
+  ,`create_time`,`create_user`,`public_forum_id`,`membership_vote_id`,`propose_time`
+  ,`private_forum_id`) VALUES 
  (1,'Testgruppen','Vi <b>testar </b><u>funktionerna</u>. ',1,3,1423038623,1,4,1,0,5),
  (5,'Styrelsen','Styrelsen was here.',1,2,1441286282,4,331,1,0,332),
  (6,'Test','test',1,2,1441375856,5,333,10,0,334),

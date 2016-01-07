@@ -50,7 +50,7 @@ class workgroup
 
 	public static function output_active_group_membership($workgroup, $is_member) {
 		\View\workgroup::output_workgroup_members($workgroup, $is_member);
-		if($workgroup['is_restricted']>0)
+		if($workgroup['membership_vote_id'])
 			\View\workgroup::output_membship_changes($workgroup);
 		elseif($is_member)
 			\View\workgroup::output_open_workgroup_membership_support_form($workgroup);
@@ -88,7 +88,7 @@ class workgroup
 			$user_id = $row['user_id'];
 			_link($row['full_name'], 'member', 'view', 'id=' . $user_id);
 			_space(3);
-			if($is_member && $workgroup['is_restricted']==0) {
+			if($is_member && $workgroup['membership_vote_id']==0) {
 				$exclude_info = \db_workgroup::exclude_info($workgroup['id'], $row['user_id'], $_SESSION['id']);
 				if($exclude_info['number_of_excluders']) {
 					_space(3);
@@ -110,7 +110,7 @@ class workgroup
 	{
 		_br();
 		_p(_t("This workgroup is closed and the members are appointed through candidate election. It is not possible to apply for membership in the same way as in open groups. The election of the members of this workgroup can be found ") . 
-			\View\general::generate_internal_link(_t("here"), 'vote','view_vote', 'id=' . $workgroup['is_restricted']));
+			\View\general::generate_internal_link(_t("here"), 'vote','view_vote', 'id=' . $workgroup['membership_vote_id']));
 		$workgroup_membership_changes = \db_workgroup::get_workgroup_election_changes($_GET['id']);
 		if(!empty($workgroup_membership_changes)) {
 			echo '<p>';

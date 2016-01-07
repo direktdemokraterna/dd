@@ -12,7 +12,7 @@ if(isset($_POST['delete'])){
 }
 else if(isset($_POST['title']) && isset($_POST['is_restricted'])){
 	$workgroup_info = db_workgroup::get_info($_GET['id']);
-	if(($workgroup_info['is_restricted'] > 0) != $_POST['is_restricted']) {
+	if(($workgroup_info['membership_vote_id'] > 0) != $_POST['is_restricted']) {
 		if ($_POST['is_restricted'])
 			db_workgroup::make_restricted($_GET['id']);
 		else 

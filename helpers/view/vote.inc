@@ -11,7 +11,7 @@ class vote
 			\View\general::make_textarea("alternative_description", _t("Description"), 2);
 			self::close_add_alternative_form(_t("Create alternative"), 3);
 		}
-		elseif(db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['vote_id'])){
+		elseif(\db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['vote_id'])){
 			self::open_add_alternative_form("Remove your candidacy in", $voteinfo);
 			self::close_add_alternative_form(_t("Remove candidacy"));
 		}

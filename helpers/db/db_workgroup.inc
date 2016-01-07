@@ -39,24 +39,22 @@ class db_workgroup
 		if (self::get_id_from_name($title)) return false;
 		$workgroup_forums_ids = self::create_workgroup_forums($title);
 		$constituency_id = DEFAULT_CONSTITUENCY_ID;
-		$query = "insert into workgroup (title, description, is_active, number_of_members, create_time, create_user, public_forum_id, private_forum_id, is_restricted) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($title, $description, 1, $number_of_members, time(), $_SESSION['id'], $workgroup_forums_ids['public'], $workgroup_forums_ids['private'], 1);
+		$query = "insert into workgroup (title, description, is_active, number_of_members, create_time, create_user, public_forum_id, private_forum_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($title, $description, 1, $number_of_members, time(), $_SESSION['id'], $workgroup_forums_ids['public'], $workgroup_forums_ids['private']);
 		$workgroup_id = db::insert($query, $values);
 		if($workgroup_id)
-			$vote_id = self::create_vote_for_restricted($workgroup_id, $title, $workgroup_forums_ids['public'], $constituency_id, $_SESSION['id']);
+			self::create_vote_for_restricted($workgroup_id, $title, $workgroup_forums_ids['public'], $constituency_id, $_SESSION['id']);
 		return $workgroup_id;
 	}
 
-	public static function update ($workgroup_id, $description, $title = null, $number_of_members = null
-		, $is_restricted = null)
+	public static function update ($workgroup_id, $description, $title = null, $number_of_members = null)
 	{
 		$query = "update workgroup 
 		set	title = IFNULL(?, title)
 		, description = IFNULL(?, description)
 		, number_of_members = IFNULL(?, number_of_members)
-		, is_restricted = IFNULL(?, is_restricted) 
 		where id = ?";
-		$values = Array($title, $description, $number_of_members, $is_restricted, $workgroup_id);
+		$values = Array($title, $description, $number_of_members, $workgroup_id);
 		return db::update($query, $values);
 	}
 
@@ -76,9 +74,9 @@ class db_workgroup
 
 	public static function is_restricted ($workgroup_id)
 	{
-		$query = "select is_restricted from workgroup where id = ?";
+		$query = "select membership_vote_id from workgroup where id = ?";
 		$values = Array($workgroup_id);
-		return db::select_single_value($query, $values);
+		return db::select_single_value($query, $values) > 0;
 	}
 
 	public static function is_member ($workgroup_id, $user_id)
@@ -436,10 +434,10 @@ class db_workgroup
 	public static function make_un_restricted ($workgroup_id)
 	{
 		$workgroup_info = self::get_info($_GET['id']);
-		$vote_id = $workgroup_info['is_restricted'];
+		$vote_id = $workgroup_info['membership_vote_id'];
 		db_vote_admin::finish_vote($vote_id);
 		$query = "update workgroup 
-		set is_restricted = 0 
+		set membership_vote_id = 0 
 		, number_of_members = (select count(*) from workgroup_member where workgroup_id = ?)
 		where id = ?";
 		$values = Array($workgroup_id, $workgroup_id);
@@ -460,7 +458,7 @@ class db_workgroup
 		$forum_topic_id = db_forum::new_topic($user_id, $public_forum_id, _t("Election of members to the workgroup ") . $title);
 		db_forum::add_content_to_post($forum_topic_id, $vote_description);
 		$vote_id = db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
-		$query = "update workgroup set is_restricted = ? where id = ?";
+		$query = "update workgroup set membership_vote_id = ? where id = ?";
 		$values = Array($vote_id, $workgroup_id);
 		db::update($query, $values);
 		return $vote_id;
