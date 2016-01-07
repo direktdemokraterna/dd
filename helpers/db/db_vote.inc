@@ -320,23 +320,12 @@ class db_vote
 		return db::select($query, $values);
 	}
 
-	public static function add_alternative_by_user ($vote_id, $title, $description, $user_id)
+	public static function add_alternative_by_voter ($vote_id, $title, $description, $voter_id)
 	{
 		$query = "insert into vote_alternative 
 					(vote_id, added_by_voter, timestamp_added, alternative_title, alternative_description) 
 					values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $user_id, time(), general_helpers::clean($title), general_helpers::clean($description));
-		$result =  db::insert($query, $values);
-		self::update_number_of_alternatives($vote_id);
-		return $result;
-	}
-
-	public static function add_alternative_by_delegate ($vote_id, $title, $description, $delegate_id)
-	{
-		$query = "insert into vote_alternative 
-				(vote_id, added_by_delegate, timestamp_added, alternative_title, alternative_description) 
-				values (?, ?, ?, ?, ?)";
-		$values = Array($vote_id, $delegate_id, time(), general_helpers::clean($title), general_helpers::clean($description));
+		$values = Array($vote_id, $voter_id, time(), general_helpers::clean($title), general_helpers::clean($description));
 		$result =  db::insert($query, $values);
 		self::update_number_of_alternatives($vote_id);
 		return $result;

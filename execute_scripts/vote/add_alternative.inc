@@ -4,11 +4,9 @@ if(isset($_POST['vote_id'])){
 		$voteinfo = db_vote::get_vote_info($_POST['vote_id']);
 		if($voteinfo['type'] == "prio-vote"){
 			if(isset($_POST['alternative_title'])){
-				if($_SESSION['delegate_id'])
-					$voter_constituency_access = db_constituency::check_voter_constituency_access($_SESSION['delegate_id'], $voteinfo['constituency_id']);
-				$ok = empty($voter_constituency_access)
-					? db_vote::add_alternative_by_user($_POST['vote_id'], $_POST['alternative_title'], $_POST['alternative_description'], $_SESSION['id'])
-					: db_vote::add_alternative_by_delegate($_POST['vote_id'], $_POST['alternative_title'], $_POST['alternative_description'], $_SESSION['delegate_id']);
+				$ok = db_vote::add_alternative_by_voter($_POST['vote_id']
+					, $_POST['alternative_title'], $_POST['alternative_description']
+					, $_SESSION['delegate_id'] ? $_SESSION['delegate_id'] : $_SESSION['id']);
 				if($ok)
 					$_SESSION['report_message'] = _t("The alternative has been created.");
 				else
