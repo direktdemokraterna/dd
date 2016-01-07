@@ -2,7 +2,7 @@
   var you_promoted = "<?php __('You have promoted: '); ?>";
   var you_demoted = "<?php __('You have demoted: '); ?>";
   var you_voted_abstain = "<?php __('You have voted abstain.'); ?>";
-  var you_voted_yourself = "<?php __('You have cast this ballot.'); ?>";
+  var you_voted_yourself = "<?php __('You have personally cast this ballot.'); ?>";
   var your_delegate = "<?php __('Your delegate'); ?>";
   var voted_for_you = "<?php __('has voted for you.'); ?>";
 
@@ -46,21 +46,10 @@
   <?php endif; ?>
 
 <?php else : ?>
-  var user_vote_box = document.getElementById("user_vote_box");
   list_of_votes.map(function (vote){
     if(vote.user_code == sessionStorage.user_code){
-      user_vote_box.innerHTML = "";
-      if(vote.prio_ranking == "abstain")
-        user_vote_box.innerHTML += you_voted_abstain + "<br>";        
-      else{
-        var promoting = [];
-        var demoting = [];
-        populate_promoting_demoting_lists(promoting, demoting, vote.prio_ranking);
-        if (promoting.length) 
-          user_vote_box.innerHTML += you_promoted + promoting.join() + '<br>';
-        if (demoting.length) 
-          user_vote_box.innerHTML += you_demoted + demoting.join() + '<br>';
-      }
+      var user_vote_box = document.getElementById("user_vote_box");
+      output_prio_vote(user_vote_box, vote);
       if(vote.delegate_id == null){
         user_vote_box.innerHTML += you_voted_yourself;
         document.getElementById("white_vote").style.display = "inline-block";

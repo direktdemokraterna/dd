@@ -154,6 +154,21 @@ function show_delegate_votes (is_prop)
 /// UI helper methods
 ////////////////////////////////////////////
 
+function output_prio_vote(user_vote_box, vote) {
+	user_vote_box.innerHTML = "";
+	if(vote.prio_ranking == "abstain")
+		user_vote_box.innerHTML += you_voted_abstain + "<br>";        
+	else{
+		var promoting = [];
+		var demoting = [];
+		populate_promoting_demoting_lists(promoting, demoting, vote.prio_ranking);
+		if (promoting.length) 
+		 	user_vote_box.innerHTML += you_promoted + promoting.join() + '<br>';
+		if (demoting.length) 
+		 	user_vote_box.innerHTML += you_demoted + demoting.join() + '<br>';
+	}	
+}
+
 function populate_promoting_demoting_lists(promoting, demoting, prio_ranking) {
 	var prio_ranking_object = JSON.parse(prio_ranking);
 	var ul_support = document.getElementById("support-list");

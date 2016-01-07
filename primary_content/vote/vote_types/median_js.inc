@@ -1,7 +1,7 @@
 <script>
   var you_voted = "<?php __('You have voted: '); ?>";
   var you_voted_abstain = "<?php __('You have voted abstain.'); ?>";
-  var you_voted_yourself = "<?php __('You have cast this ballot.'); ?>";
+  var you_voted_yourself = "<?php __('You have personally cast this ballot.'); ?>";
   var your_delegate = "<?php __('Your delegate'); ?>";
   var voted_for_you = "<?php __('has voted for you.'); ?>";
 list_of_votes.map(function (vote){

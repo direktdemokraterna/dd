@@ -770,9 +770,9 @@ class phrases
 				"sv" => "behöver du inte"
 				,"en" => "you don't have to"
 				)
-			,"you have cast" => array(
-				"sv" => "du har själv lagt"
-				,"en" => "you have cast"
+			,"have personally cast" => array(
+				"sv" => "har själv lagt"
+				,"en" => "have personally cast"
 				)
 			,"you no longer support" => array(
 				"sv" => "du stödjer inte längre"
