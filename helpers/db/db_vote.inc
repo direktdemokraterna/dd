@@ -89,9 +89,10 @@ class db_vote
 	{
 		$query = "delete from ballot where vote_id = ? and user_code = ? and delegate_id is null";
 		$values = Array($vote_id, $user_code);
-		$return = db::delete($query, $values);
+		$result = db::delete($query, $values);
+		db_delegate::find_and_insert_delegate_vote_for_user($user_code, null, $vote_id);
 		self::count_ballots_for_vote($vote_id);
-		return true;
+		return $result;
 	}
 
 	public static function remove_ballots($user_code, $voter_id, $delegate_id = null

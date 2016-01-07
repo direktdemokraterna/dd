@@ -176,7 +176,7 @@ class db_delegate
 		$return = db::delete($query, $values);
 		foreach($delegand_ballots as $row)
 			if($row['user_code'])
-				$new_ballot = self::find_and_insert_delegate_vote_for_user($row['user_code'], null, $vote_id);
+				self::find_and_insert_delegate_vote_for_user($row['user_code'], null, $vote_id);
 		db_vote::count_ballots_for_vote($vote_id);
 		return $return;
 	}
