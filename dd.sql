@@ -246,6 +246,7 @@ CREATE TABLE `user` (
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 ALTER TABLE `dd`.`user`
   ADD FOREIGN KEY (id) REFERENCES voter(`id`);
+CREATE UNIQUE INDEX ux_user_username ON `dd`.`user` (`username`);
 
 --
 -- Dumping data for table `user`
@@ -294,6 +295,31 @@ INSERT INTO `delegate` (`id`,`title`,`description`,`timestamp_created`) VALUES
  (7,'Suddis Katt','',0),
  (8,'Missan Katt','',0);
 /*!40000 ALTER TABLE `delegate` ENABLE KEYS */;
+
+--
+-- Definition of table `delegate_user`
+--
+
+DROP TABLE IF EXISTS `delegate_user`;
+CREATE TABLE `delegate_user` (
+  `user_id` int(10) unsigned NOT NULL,
+  `delegate_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`delegate_user`
+  ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
+ALTER TABLE `dd`.`delegate_user`
+  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
+
+--
+-- Dumping data for table `delegate_user`
+--
+
+/*!40000 ALTER TABLE `delegate_user` DISABLE KEYS */;
+INSERT INTO `delegate_user` (`delegate_id`,`user_id`) VALUES 
+ (7,6)
+ ,(8,5);
+/*!40000 ALTER TABLE `delegate_user` ENABLE KEYS */;
 
 --
 -- Definition of table `admin_role`
@@ -870,31 +896,6 @@ INSERT INTO `constituency_level` (`level`,`name`) VALUES
  (3,'county'),
  (4,'workgroup');
 /*!40000 ALTER TABLE `constituency_level` ENABLE KEYS */;
-
---
--- Definition of table `delegate_user`
---
-
-DROP TABLE IF EXISTS `delegate_user`;
-CREATE TABLE `delegate_user` (
-  `delegate_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`delegate_id`, `user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-ALTER TABLE `dd`.`delegate_user`
-  ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
-ALTER TABLE `dd`.`delegate_user`
-  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
-
---
--- Dumping data for table `delegate_user`
---
-
-/*!40000 ALTER TABLE `delegate_user` DISABLE KEYS */;
-INSERT INTO `delegate_user` (`delegate_id`,`user_id`) VALUES 
- (7,6)
- ,(8,5);
-/*!40000 ALTER TABLE `delegate_user` ENABLE KEYS */;
 
 --
 -- Definition of table `forum`
