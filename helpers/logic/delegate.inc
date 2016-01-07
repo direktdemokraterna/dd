@@ -42,7 +42,8 @@ class delegate
 				if($reply == "success")
 					$_SESSION['report_message'] = _t("Your delegation is registered.");
 				else
-					\Logic\util::report_error(_t("Something went wrong. No delegation registered because: " . $reply));
+					\Logic\util::report_error(_t("Something went wrong. No delegation registered") 
+						. " because: " . $reply);
 			}
 		}		
 	}

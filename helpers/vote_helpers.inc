@@ -218,15 +218,14 @@ class vote_helpers
 		return $ballot;
 	}
 
-	public static function find_user_delegate_matching_constituencies ($user_id, $delegate_id)
+	public static function find_common_constituencies ($voter_id, $delegate_id)
 	{
-		$user_constituencies = db_constituency::get_constituencies_for_voter($user_id);
+		$voter_constituencies = db_constituency::get_constituencies_for_voter($voter_id);
 		$matching_constituencies = Array();
-		foreach($user_constituencies as $row){
+		foreach($voter_constituencies as $row){
 			$delegate_constituency_access = db_constituency::check_voter_constituency_access($delegate_id, $row['id']);
-			if($delegate_constituency_access){
-				$matching_constituencies[] = Array("id" => $row['id'], "name" => $row['name']);
-			}
+			if($delegate_constituency_access)
+				$matching_constituencies[] = $row;
 		}
 		return $matching_constituencies;
 	}

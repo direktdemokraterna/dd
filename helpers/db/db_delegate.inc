@@ -379,13 +379,16 @@ class db_delegate
 		return db::select_single_row($query, $values);
 	}
 
-	public static function get_delegations_for_multiple_constituencies ($constituencies)
+	public static function get_delegations_for_multiple_constituencies ($constituencies
+		, $for_delegate_id = 0)
 	{
 		if (!$constituencies) return array();
 		$in_clause = implode(',', array_fill(0, count($constituencies), '?'));
-		$query = "select vd.user_code as user_code, vd.constituency_id as constituency_id, vd.delegate_id as delegate_id, d.title as delegate_name 
-					from voter_delegate vd, delegate d 
-					where vd.delegate_id = d.id and vd.voter_id is null and vd.constituency_id in (" . $in_clause . ")";
+		$query = "select vd.user_code, vd.voter_id, vd.constituency_id, vd.delegate_id, d.title as delegate_name 
+			from voter_delegate vd, delegate d 
+			where vd.delegate_id = d.id 
+			and vd.voter_id " . ($for_delegate_id ? " = " . $for_delegate_id : "is null") 
+			. " and vd.constituency_id in (" . $in_clause . ")";
 		$values = Array();
 		foreach($constituencies as $row)
 			$values[] = $row['id'];
