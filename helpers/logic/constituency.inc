@@ -29,12 +29,12 @@ class constituency
 		$old_county_constituency_id = \db_constituency::get_local_county_constituency_for_user($user_id);
 		if ($old_county_constituency_id != $county_id) {
 			self::remove_constituency_access_for_user($user_id, $old_county_constituency_id);
-			db_constituency::add_constituency_access($user_id, $county_id);
-			$old_region_constituency_id = db_constituency::get_local_region_constituency_for_user($user_id);
+			\db_constituency::add_constituency_access($user_id, $county_id);
+			$old_region_constituency_id = \db_constituency::get_local_region_constituency_for_user($user_id);
 			if ($old_county_constituency_id != $county_id) {
-				$new_region_id = db_constituency::get_region_id_from_county_id($county_id);
-				self::remove_constituency_access($user_id, $old_region_constituency_id);
-				db_constituency::add_constituency_access($user_id, $new_region_constituency_id);
+				$new_region_id = \db_constituency::get_region_id_from_county_id($county_id);
+				self::remove_constituency_access_for_user($user_id, $old_region_constituency_id);
+				\db_constituency::add_constituency_access($user_id, $new_region_id);
 			}
 		}
 	}	

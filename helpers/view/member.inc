@@ -56,10 +56,16 @@ class member
 	}
 
 	private static function get_county_region_pairs_for_javascript($county_rows) {
-		$pairs = 'regions_by_county = {'; //Used by functions in constituency.js
-		foreach($county_rows as $row)
-			$pairs .= PHP_EOL . '"' . $row['county_id'] . '": "' . $row['region_id'] . '",';
-		return $pairs . '};';
+		$pairs = [];
+		foreach($county_rows as $row) {
+			$county_id = $row['county_id'];
+			$county_name = $row['county_name'];
+			$region_id = $row['region_id'];
+			$pairs[] = '"' . $county_id . '": {id: ' . $county_id . ', name: "' . $county_name 
+			. '", region_id: ' . $region_id . '}';
+		}
+		$json = 'county_name_and_region_by_id = {' . PHP_EOL . implode("," . PHP_EOL, $pairs) . '};';
+		return $json;
 	}
 
 	private static function output_region_selector($user_data, $tab_index) {

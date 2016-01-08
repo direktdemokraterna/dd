@@ -110,13 +110,6 @@ class db_constituency
 		return $reply > 0;
 	}
 
-	public static function get_constituency_name ($constituency_id)
-	{
-		$query = "select title as name from constituency where id = ?";
-		$values = Array($constituency_id);
-		return db::select_single_value($query, $values);
-	}
-
 	public static function get_all_constituencies_and_if_voter_belongs ($voter_id)
 	{
 		$query = "select c.id as constituency_id, c.title as constituency_name
