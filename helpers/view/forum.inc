@@ -228,13 +228,16 @@ class forum
 		$legend = $options['legend'];
 		$target_id = $options['target_id'];
 		$submit_text = $options['submit_text'];
-		$content = isset($options['content']) ? $options['content'] : '';
 		$title_label = isset($options['title_label']) ? $options['title_label'] : null;
 		$tab_index = isset($options['tab_index']) ? $options['tab_index'] : 1;
 
 		$form_name = $name . '_form';
 		$content_name = $name . '_content';
 		$submit_name = $name . '_submit';
+
+		$content = isset($_POST[$content_name]) 
+			? $_POST[$content_name] 
+			: (isset($options['content']) ? $options['content'] : '');
 
 		echo '<form method="post" action="" id="' . $form_name . '" class="text-editor">';
 		echo '<fieldset>';

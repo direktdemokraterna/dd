@@ -2,6 +2,13 @@
 class navigation_helpers {
 	private static $divisions = null;
 
+	public static function get_subpage() {
+		$path = self::get_specific_path();
+		return $path
+			? $path
+			: "primary_content/first_page.inc";
+	}
+
 	public static function get_sidebar_page() {
 		$page = self::get_sidebar_page_name();
 		return "sidebar/$page.inc";
@@ -9,18 +16,34 @@ class navigation_helpers {
 
 	public static function handle_action_request() 
 	{
+		if (self::restore_post())
+			return;
 		$divisionName = $_GET['type'];
-		$division = self::get_division($divisionName);
-		if ($division == null) return;
-		$pageInfo = $division->get_page($_GET['action'], Page_info::EXECUTE);
-		if ($pageInfo && !self::is_view_request($pageInfo)) 
-			self::execute_action($divisionName, $pageInfo);
+		$execute_page = self::get_execute_page($divisionName);
+		if ($execute_page && !self::is_view_request($execute_page)) 
+			self::execute_action($divisionName, $execute_page);
 	}
 
-	public static function get_sidebar_page_name() {
+	private static function get_sidebar_page_name() {
 		$divisionName = $_GET['type'];
 		$division = self::get_division($divisionName);
 		return $division ? $divisionName : "default";
+	}
+
+	private static function get_execute_page($divisionName) 
+	{
+		$division = self::get_division($divisionName);
+		return $division 
+			? $division->get_page($_GET['action'], Page_info::EXECUTE)
+			: null;
+	}
+
+	private static function restore_post() {
+		if (empty($_SESSION['previous_post'])) return false;
+		foreach ($_SESSION['previous_post'] as $key => $value)
+			$_POST[$key] = $value;
+		unset($_SESSION['previous_post']);
+		return true;
 	}
 
 	private static function is_view_request($pageInfo) {
@@ -31,17 +54,12 @@ class navigation_helpers {
 	{
 		$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
 		require($path);
-		if (empty($redirect))
+		if (empty($redirect)) {
 			$redirect = $_SERVER['REQUEST_URI'];
+			$_SESSION['previous_post'] = $_POST;
+		}
 		header("Location: $redirect");
 		exit();
-	}
-
-	public static function get_subpage() {
-		$path = self::get_specific_path();
-		return $path
-			? $path
-			: "primary_content/first_page.inc";
 	}
 
 	private static function get_specific_path() {
