@@ -134,11 +134,11 @@ class forum_helpers
 		return $deprocessed_text;
 	}
 
-	public static function update_county_region_forum_access ($user_id, $county)
+	public static function update_county_region_forum_access ($user_id, $county_id)
 	{
-		$county_forum_id = db_forum::get_local_county_forum($county);
-		$region = db_constituency::get_region_from_county($_POST['county']);
-		$region_forum_id = db_forum::get_local_region_forum($region);
+		$county_forum_id = db_forum::get_local_county_forum($county_id);
+		$region_id = db_constituency::get_region_id_from_county_id($county_id);
+		$region_forum_id = db_forum::get_local_region_forum($region_id);
 		db_forum_admin::drop_local_forums_for_user($user_id);
 		db_forum_admin::add_forum_access($user_id, $county_forum_id);
 		db_forum_admin::add_forum_access($user_id, $region_forum_id);

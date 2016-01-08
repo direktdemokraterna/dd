@@ -24,16 +24,15 @@ class constituency
 		return $chg_cnt;
 	}
 
-	public static function update_county_region_constituencies ($user_id, $county)
+	public static function update_county_region_constituencies ($user_id, $county_id)
 	{
 		$old_county_constituency_id = \db_constituency::get_local_county_constituency_for_user($user_id);
-		$new_county_constituency_id = \db_constituency::get_local_county_constituency($county);
-		if ($old_county_constituency_id != $new_county_constituency_id) {
+		if ($old_county_constituency_id != $county_id) {
 			self::remove_constituency_access_for_user($user_id, $old_county_constituency_id);
-			db_constituency::add_constituency_access($user_id, $new_county_constituency_id);
+			db_constituency::add_constituency_access($user_id, $county_id);
 			$old_region_constituency_id = db_constituency::get_local_region_constituency_for_user($user_id);
-			if ($old_county_constituency_id != $new_county_constituency_id) {
-				$new_region_id = db_constituency::get_region_id_from_county($_POST['county']);
+			if ($old_county_constituency_id != $county_id) {
+				$new_region_id = db_constituency::get_region_id_from_county_id($county_id);
 				self::remove_constituency_access($user_id, $old_region_constituency_id);
 				db_constituency::add_constituency_access($user_id, $new_region_constituency_id);
 			}

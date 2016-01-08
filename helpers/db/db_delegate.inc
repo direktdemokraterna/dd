@@ -275,28 +275,30 @@ class db_delegate
 		return db::select($query, $values);
 	}
 
-	public static function list_delegates_for_user_constituencies ($user_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
+	public static function list_delegates_for_user_constituencies ($voter_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
 		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select d.id as id, d.title as title from delegate d 
 				where exists 
 				(
-					select * from constituency_voter cd, constituency_voter cu 
-					where cd.voter_id = d.id and cd.constituency_id = cu.constituency_id and cu.voter_id = ? and " . $where_filter . "
+					select * from constituency_voter cd
+						join constituency_voter cv on cd.constituency_id = cv.constituency_id
+					where cd.voter_id = d.id and cv.voter_id = ? and " . $where_filter . "
 				) 
 				order by " . $order_by . " " . $limit_clause;
-		$values = Array($user_id);
+		$values = Array($voter_id);
 		return db::select($query, $values);
 	}
 
-	public static function list_delegates_for_user_constituencies_count ($user_id, $where_filter = "1=1")
+	public static function list_delegates_for_user_constituencies_count ($voter_id, $where_filter = "1=1")
 	{
 		$query = "select count(*) from delegate d 
 				where exists 
 				(
-					select * from constituency_voter cd, constituency_voter cu 
-					where cd.voter_id = d.id and cd.constituency_id = cu.constituency_id and cu.voter_id = ? and " . $where_filter . "
+					select * from constituency_voter cd
+						join constituency_voter cv on cd.constituency_id = cv.constituency_id
+					where cd.voter_id = d.id and cv.voter_id = ? and " . $where_filter . "
 				)";
-		$values = Array($user_id);
+		$values = Array($voter_id);
 		return db::select_single_value($query, $values);
 	}
 

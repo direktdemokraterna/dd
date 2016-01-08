@@ -3,11 +3,14 @@
 	if(isset($_GET['page'])) $page = $_GET['page']; else $page = 1;
 	if($_GET['sort'] == "alphabetic") $order_by = "first_name asc";
 	else $order_by = "last_activity_time desc";
+
 	$where_filters = array();
-	if((isset($_GET['filter']) ? $_GET['filter'] == 'county' : isset($_GET['county'])) && $_GET['county']) 
-		$where_filters[] = "county = '" . $_GET['county'] . "'";
-	else if(isset($_GET['region']) && $_GET['region']) 
-		$where_filters[] = "region = '" . $_GET['region'] . "'";
+	$region_id = isset($_GET['region']) ? $_GET['region'] : 0;
+	$county_id = isset($_GET['county']) ? $_GET['county'] : 0;
+	if ($region_id)
+		$where_filters[] = "region_id = '$region_id'";
+	if ($county_id)
+		$where_filters[] = "county_id = '$county_id'";
 	if (!(isset($_GET['show_deleted']) && $_GET['show_deleted']))
 		$where_filters[] = "deletion_time is null";
 	$result = db_user::get_all_users($page, LIST_ITEMS_PER_PAGE, $order_by, $where_filters);

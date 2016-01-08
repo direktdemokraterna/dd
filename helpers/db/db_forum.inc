@@ -279,17 +279,23 @@ class db_forum
 		return db::select_single_value($query, $values);
 	}
 
-	public static function get_local_county_forum ($county)
+	public static function get_local_county_forum ($county_id)
 	{
-		$query = "select id from forum where access_type = 'local_county' and title = ?";
-		$values = Array($county);
+		$query = "select f.id 
+			from forum f
+				join constituency c on c.title = f.title
+			where f.access_type = 'local_county' and c.id = ?";
+		$values = Array($county_id);
 		return db::select_single_value($query, $values);
 	}
 
-	public static function get_local_region_forum ($region)
+	public static function get_local_region_forum ($region_id)
 	{
-		$query = "select id from forum where access_type = 'local_region' and title = ?";
-		$values = Array($region);
+		$query = "select f.id 
+			from forum f
+				join constituency c on c.title = f.title
+			where f.access_type = 'local_region' and c.id = ?";
+		$values = Array($region_id);
 		return db::select_single_value($query, $values);
 	}
 }

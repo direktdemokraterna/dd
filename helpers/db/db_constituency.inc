@@ -34,20 +34,6 @@ class db_constituency
 		return db::select($query, $values);
 	}
 
-	public static function get_local_region_constituency ($region)
-	{
-		$query = "select id from constituency where constituency_level = 2 and title = ?";
-		$values = Array($region);
-		return db::select_single_value($query, $values);
-	}
-
-	public static function get_local_county_constituency ($county)
-	{
-		$query = "select id from constituency where constituency_level = 3 and title = ?";
-		$values = Array($county);
-		return db::select_single_value($query, $values);
-	}
-
 	public static function get_local_region_constituency_for_user ($user_id)
 	{
 		return self::get_local_constituency_on_level_for_user(2, $user_id);
@@ -168,7 +154,7 @@ class db_constituency
 
 	public static function get_counties ()
 	{
-		$query = "select title from constituency
+		$query = "select id, title from constituency
 					where constituency_level = 3
 					 order by title asc";
 		$values = Array();
@@ -177,7 +163,7 @@ class db_constituency
 
 	public static function get_counties_with_regions ()
 	{
-		$query = "select c.title county, r.title region from constituency c
+		$query = "select c.id county_id, c.title county_name, r.id region_id from constituency c
 					join constituency r on r.id = c.parent_id
 					where c.constituency_level = 3
 					 order by c.title asc";
@@ -187,37 +173,33 @@ class db_constituency
 
 	public static function get_regions ()
 	{
-		$query = "select title from constituency
+		$query = "select id, title from constituency
 					where constituency_level = 2
 					 order by title asc";
 		$values = Array();
 		return db::select($query, $values);
 	}
 
-	public static function get_region_id_from_county ($county)
+	public static function get_region_id_from_county_id ($county_id)
 	{
 		$query = "select cr.id from constituency cr
 					join constituency cc on cc.parent_id = cr.id
-					where cc.title = ? and cc.constituency_level = 3";
-		$values = Array($county);
+					where cc.id = ? and cc.constituency_level = 3";
+		$values = Array($county_id);
 		return db::select_single_value($query, $values);
 	}		
 
-	public static function get_region_from_county ($county)
+	public static function get_region_from_county ($county_id)
 	{
-		$query = "select cr.title from constituency cr
-					join constituency cc on cc.parent_id = cr.id
-					where cc.title = ?";
-		$values = Array($county);
+		$query = "select parent_id from constituency where id = ?";
+		$values = Array($county_id);
 		return db::select_single_value($query, $values);
 	}
 
-	public static function get_counties_for_region ($region)
+	public static function get_counties_for_region ($region_id)
 	{
-		$query = "select cc.title from constituency cc
-					join constituency cr on cc.parent_id = cr.id
-					where cr.title = ?";
-		$values = Array($region);
+		$query = "select id, title from constituency cc	where parent_id = ?";
+		$values = Array($region_id);
 		return db::select($query, $values);
 	}
 

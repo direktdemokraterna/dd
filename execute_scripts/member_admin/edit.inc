@@ -4,8 +4,8 @@ if(isset($_POST['edit_user'])){
 	if($error)
 		\Logic\util::report_error($error);
 	else{
-		$region = db_constituency::get_region_from_county($_POST['county']);
-		$ok = db_user::update_user_by_admin($_POST['username'], $_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county'], $region, $_POST['social_security_number'], $_POST['email'], $_POST['skype_name'], $_POST['telephone1'], $_POST['telephone2'], $_GET['id']);
+		$region_id = db_constituency::get_region_id_from_county_id($_POST['county']);
+		$ok = db_user::update_user_by_admin($_POST['username'], $_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county'], $region_id, $_POST['social_security_number'], $_POST['email'], $_POST['skype_name'], $_POST['telephone1'], $_POST['telephone2'], $_GET['id']);
 		if($ok){
 			forum_helpers::update_county_region_forum_access($_GET['id'], $_POST['county']);
 			\Logic\constituency::update_county_region_constituencies($_SESSION['id'], $_POST['county']);

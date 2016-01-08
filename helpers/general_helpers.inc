@@ -74,11 +74,10 @@ class general_helpers {
 		self::make_generic_list_filter($get_parameters, $filter_title, $filter_alternatives);
 	}
 	
-	// makes the top links for choosing page and sorting alternatives for a list_of_links
-	public static function make_list_header_with_region_county_filter ($page, $result_counter, $sort_alternatives = null){
-		$get_parameters = $_GET;
-		self::make_list_pagin_and_sorting($get_parameters, $page, $result_counter, $sort_alternatives);
-		self::make_region_county_list_filter($get_parameters);
+	public static function make_list_header_with_region_county_filter ($page, $result_counter
+		, $sort_alternatives = null, $extra_filter_controls_html = null){
+		self::make_list_paging_and_sorting($_GET, $page, $result_counter, $sort_alternatives);
+		self::make_region_county_list_filter($extra_filter_controls_html);
 	}
 
 	public static function find_max_in_multidimensional_array ($array, $key) {
@@ -202,27 +201,26 @@ class general_helpers {
 		}
 	}
 	
-	// makes the top links for choosing page and sorting alternatives for a list_of_links
-	private static function make_region_county_list_filter ($get_parameters){
-		echo "<div class=\"list_of_link_menu\">";
-		echo "<span class=\"list_sort_alternative\">Län: ";
-		$get_parameters['region'] = null;
-		$get_parameters['county'] = null;
-		$get_parameters['filter'] = null;
-		$regions = db_constituency::get_regions();
-		self::makeSelecBox($get_parameters, 'region', $regions, 'lan', _t("All regions"));
-		if(isset($_GET['region']))
-		$get_parameters['region'] = $_GET['region'];
-		echo "<span class=\"list_sort_alternative\">Kommun: ";
-		$get_parameters['filter'] = isset($_GET['region']) ? "region" : null;
-		self::makeSelecBox($get_parameters, 'county', self::getCounties(), 'kommun', _t("All municipalities"));
+	private static function make_region_county_list_filter ($extra_filter_controls_html = null){
+		$region_id = isset($_GET['region']) ? $_GET['region'] : 0;
+		$county_id = isset($_GET['county']) ? $_GET['county'] : 0;
+		echo '<form id="filter_list" name="filter_list" method="get" action="">';
+		echo '<input type="hidden" name="type" value="' . $_GET['type'] . '"/>';
+		echo '<input type="hidden" name="action" value="' . $_GET['action'] . '"/>';
+		echo '<div class="list_of_link_menu">';
+		echo '<span class="list_sort_alternative">' . _t("Region: ");
+		self::makeSelectBox('region', $region_id, \db_constituency::get_regions(), _t("All regions")
+			, 'set_default_county_if_region_set();');
+		echo '</span>';
+		echo '<span class="list_sort_alternative">' . _t("Municipality: ");
+		self::makeSelectBox('county', $county_id, self::getCounties($region_id), _t("All municipalities"));
 		echo "</span>";
-		$get_parameters['county'] = null;
-		echo "</span></div>";
+		if ($extra_filter_controls_html)
+			echo ($extra_filter_controls_html);
+		echo "</div></form>";
 	}
 	
-	// makes the top links for choosing page and sorting alternatives for a list_of_links
-	public static function make_list_pagin_and_sorting ($get_parameters, $page, $result_counter, $sort_alternatives = null){
+	public static function make_list_paging_and_sorting ($get_parameters, $page, $result_counter, $sort_alternatives = null){
 		echo "<div class=\"list_of_link_menu\">";
 		self::make_list_paging($page, $result_counter);
 		self::make_list_sorting($get_parameters, $sort_alternatives);
@@ -250,29 +248,26 @@ class general_helpers {
 			}
 		}
 	}
-	
-	private static function makeSelecBox($get_parameters, $paramName, $rows, $columnName, $unselectedLabel) {
-		echo "<select class=\"standard-form\" onchange='window.location.href=this.value'>";
-		self::makeOption($get_parameters, $unselectedLabel);
-		$get_parameters['filter'] = $paramName;
-		foreach($rows as $row){
-			$get_parameters[$paramName] = $row[$columnName];
-			$select = isset($_GET[$paramName]) && $row[$columnName] == $_GET[$paramName];
-			self::makeOption($get_parameters, $row[$columnName], $select);
-		}
+
+	private static function makeSelectBox($paramName, $selected_value, $rows, $unselectedLabel, $on_change = "") {
+		echo '<select class="standard-form" id="' . $paramName . '" name="' . $paramName . 
+		'" onchange="' . $on_change . 'this.form.submit();">';
+		echo self::generate_option($unselectedLabel);
+		foreach($rows as $row)
+			echo self::generate_option($row['title'], $row['id'], $selected_value);
 		echo "</select>";
 	}
-	
-	private static function makeOption($get_parameters, $label, $selected = false) {
-		$url = "index.php?" . http_build_query($get_parameters);
-		echo "<option value=\"" . $url . "\"" . ($selected ? " selected" : "") . ">" . $label . "</option>";
+
+	private static function generate_option($label, $value = 0, $selected_value = 0) {
+		return '<option value="' . $value . '"' . 
+		($value == $selected_value ? ' selected' : '') . '>' . $label . '</option>';
 	}
 	
-	private static function getCounties() {
-		return isset($_GET['region']) 
-			? db_constituency::get_counties_for_region($_GET['region'])
-			: db_constituency::get_counties();
-	}
+	private static function getCounties($region_id) {
+		return $region_id
+			? \db_constituency::get_counties_for_region($region_id)
+			: \db_constituency::get_counties();
+	}	
 	
 	private static function makeLink($get_parameters, $label) {
 		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $label . "</a>";

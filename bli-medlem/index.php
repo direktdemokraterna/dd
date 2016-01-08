@@ -3,7 +3,7 @@ include("../init.inc");
 session::update_language();
 
 // Processing data if form has been posted
-$mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county', 'email', 'social_security_number');
+$mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county_id', 'email', 'social_security_number');
 $is_all_mandatory_set = true;
 foreach ($mandatory_fields as $mandatory) 
 	$is_all_mandatory_set &= isset($_POST[$mandatory]);
@@ -14,8 +14,8 @@ if($is_all_mandatory_set){
 	$error = \Logic\user::validate_user($personnummer, $_POST['email']);
 	if ($error)
 		die($error);
-	$region = db_constituency::get_region_from_county($_POST['county']);
-	if(!$region)
+	$region_id = db_constituency::get_region_id_from_county_id($_POST['county']);
+	if(!$region_id)
 		die(_t("Select your municipality."));
 	$form_data_has_been_processed = db_user::enter_user_application(
 		general_helpers::clean($_POST['first_name'])
@@ -24,7 +24,7 @@ if($is_all_mandatory_set){
 		, (int)$_POST['zip_code']
 		, general_helpers::clean($_POST['city_address'])
 		, $_POST['county']
-		, $region
+		, $region_id
 		, $personnummer
 		, $_POST['email']
 		, general_helpers::clean($telephone1)

@@ -38,8 +38,8 @@
 		}
 		if($userinfo['show_skype'] && !empty($userinfo['skype_name']))
 			_p(_t("Skype name: ") . $userinfo['skype_name']);
-		_p(_t("Municipality: ") . $userinfo['county']);
-		_p(_t("Region: ") . $userinfo['region']);
+		_p(_t("Municipality: ") . $userinfo['county_name']);
+		_p(_t("Region: ") . $userinfo['region_name']);
 		_p(_t("Presentation:") . '<br>' . \View\general::make_html_from_wiki_text($userinfo['description']));
 		_br();
 		if ($user_id == $_SESSION['id'])

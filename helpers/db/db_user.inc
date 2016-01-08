@@ -16,11 +16,11 @@ class db_user
 		return db::update($query, $values);
 	}
 
-	public static function add_user ($username, $password, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name = "")
+	public static function add_user ($username, $password, $first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $social_security_number, $email, $skype_name = "")
 	{
 		$user_id = \db_general::create_voter('user');
-		$query = "insert into user (id, username, password, registration_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, skype_name) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($user_id, $username, $password, time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name);
+		$query = "insert into user (id, username, password, registration_time, first_name, last_name, street_address, zip_code, city_address, county_id, region_id, social_security_number, email, skype_name) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($user_id, $username, $password, time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $social_security_number, $email, $skype_name);
 		db::insert($query, $values);
 
 		// Adding forum accesses for new user
@@ -29,17 +29,15 @@ class db_user
 			db_forum_admin::add_forum_access($user_id, $row['id']);
 		$local_county_forum = db_forum::get_local_county_forum($_POST['county']);
 		db_forum_admin::add_forum_access($user_id, $local_county_forum);
-		$local_region_forum = db_forum::get_local_region_forum($region);
+		$local_region_forum = db_forum::get_local_region_forum($region_id);
 		db_forum_admin::add_forum_access($user_id, $local_region_forum);
 
 		// Adding constituency access for new user
 		$public_constituencies = db_constituency::get_public_constituency_ids();
 		foreach($public_constituencies as $row)
 			db_constituency::add_constituency_access($user_id, $row['id']);
-		$local_county_constituency = db_constituency::get_local_county_constituency($_POST['county']);
-		db_constituency::add_constituency_access($user_id, $local_county_constituency);
-		$local_region_constituency = db_constituency::get_local_region_constituency($region);
-		db_constituency::add_constituency_access($user_id, $local_region_constituency);
+		db_constituency::add_constituency_access($user_id, $_POST['county']);
+		db_constituency::add_constituency_access($user_id, $region_id);
 		return $user_id;
 	}
 
@@ -67,7 +65,7 @@ class db_user
 
 	public static function get_user_data ($id)
 	{
-		return self::get_user_data_from("id = ?", array($id));
+		return self::get_user_data_from("u.id = ?", array($id));
 	}
 
 	public static function get_password ($id)
@@ -79,13 +77,17 @@ class db_user
 
 	public static function get_user_data_from_username ($username)
 	{
-		return self::get_user_data_from("username = ?", array($username));
+		return self::get_user_data_from("u.username = ?", array($username));
 	}
 	
 	private static function get_user_data_from ($condition, $values)
 	{
-		$query = "select *, concat(first_name, ' ', last_name) as full_name
-		 from user where " . $condition;
+		$query = "select u.*, concat(u.first_name, ' ', u.last_name) as full_name
+		, cr.title as region_name, cc.title as county_name
+		 from user u 
+			 join constituency cr on cr.id = u.region_id
+			 join constituency cc on cc.id = u.county_id
+		 where " . $condition;
 		return db::select_single_row($query, $values);
 	}
 
@@ -124,10 +126,10 @@ class db_user
 		return db::update($query, $values);
 	}
 
-	public static function update_profile ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $email, $skype_name, $telephone1, $telephone2, $id)
+	public static function update_profile ($first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $email, $skype_name, $telephone1, $telephone2, $id)
 	{
-		$query = "update user set first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county = ?, region = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
-		$values = Array($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $email, $skype_name, $telephone1, $telephone2, $id);
+		$query = "update user set first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county_id = ?, region_id = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
+		$values = Array($first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $email, $skype_name, $telephone1, $telephone2, $id);
 		return db::update($query, $values);
 	}
 
@@ -138,10 +140,10 @@ class db_user
 		return db::update($query, $values);
 	}
 
-	public static function update_user_by_admin ($username, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name, $telephone1, $telephone2, $id)
+	public static function update_user_by_admin ($username, $first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $social_security_number, $email, $skype_name, $telephone1, $telephone2, $id)
 	{
-		$query = "update user set username = ?, first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county = ?, region = ?, social_security_number = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
-		$values = Array($username, $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $skype_name, $telephone1, $telephone2, $id);
+		$query = "update user set username = ?, first_name = ?, last_name = ?, street_address = ?, zip_code = ?, city_address = ?, county_id = ?, region_id = ?, social_security_number = ?, email = ?, skype_name = ?, telephone1 = ?, telephone2 = ? where id = ?";
+		$values = Array($username, $first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $social_security_number, $email, $skype_name, $telephone1, $telephone2, $id);
 		return db::update($query, $values);
 	}
 
@@ -197,10 +199,10 @@ class db_user
 		return db::select($query, $values);
 	}
 
-	public static function enter_user_application ($first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone1, $telephone2)
+	public static function enter_user_application ($first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $social_security_number, $email, $telephone1, $telephone2)
 	{
-		$query = "insert into user_application (application_filed_time, first_name, last_name, street_address, zip_code, city_address, county, region, social_security_number, email, telephone1, telephone2) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		$values = Array(time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county, $region, $social_security_number, $email, $telephone1, $telephone2);
+		$query = "insert into user_application (application_filed_time, first_name, last_name, street_address, zip_code, city_address, county_id, region_id, social_security_number, email, telephone1, telephone2) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$values = Array(time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $social_security_number, $email, $telephone1, $telephone2);
 		return db::insert($query, $values);
 	}
 

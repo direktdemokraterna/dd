@@ -193,309 +193,6 @@ CREATE DATABASE IF NOT EXISTS dd;
 USE dd;
 
 --
--- Definition of table `voter`
---
-
-DROP TABLE IF EXISTS `voter`;
-CREATE TABLE `voter` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `voter_type` varchar(20) NOT NULL default 'user', -- user or delegate
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
-
---
--- Definition of table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL,
-  `username` varchar(45) NOT NULL default '',
-  `password` varchar(128) NOT NULL default '',
-  `remember_me_token` varchar(128) default NULL,
-  `registration_time` int(10) unsigned NOT NULL default '0',
-  `deletion_time` int(10) unsigned default NULL,
-  `last_login_time` int(10) unsigned default NULL,
-  `last_activity_time` int(10) unsigned default NULL,
-  `first_name` varchar(45) default '',
-  `last_name` varchar(45) default '',
-  `street_address` varchar(45) default '',
-  `zip_code` varchar(10) default '',
-  `city_address` varchar(45) default '',
-  `county` varchar(45) default '',
-  `region` varchar(45) default '',
-  `social_security_number` varchar(13) default '',
-  `email` varchar(45) NOT NULL default '',
-  `telephone1` varchar(20) default '',
-  `telephone2` varchar(20) default '',
-  `skype_name` varchar(45) default '',
-  `show_email` tinyint(1) unsigned NOT NULL default '1',
-  `show_telephone` tinyint(1) unsigned NOT NULL default '1',
-  `show_skype` tinyint(1) unsigned NOT NULL default '1',
-  `number_of_posts` int(10) unsigned NOT NULL default '0',
-  `number_of_topics` int(10) unsigned NOT NULL default '0',
-  `membership_fee_payed` int(10) unsigned default NULL,
-  `last_contact_with_admin` int(10) unsigned default NULL,
-  `acting_as_delegate` tinyint(1) unsigned default '0',
-  `user_role` int(10) unsigned NOT NULL default '2',
-  `admin_notes` varchar(255) default '',
-  `image` varchar(90) NOT NULL default 'no_image.png',
-  `description` text,
-  PRIMARY KEY  (`id`),
-  FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
-ALTER TABLE `dd`.`user`
-  ADD FOREIGN KEY (id) REFERENCES voter(`id`);
-CREATE UNIQUE INDEX ux_user_username ON `dd`.`user` (`username`);
-
---
--- Dumping data for table `user`
---
-INSERT INTO `voter` (`id`,`voter_type`) 
-VALUES 
- (13,'user')
- ,(4,'user')
- ,(5,'user')
- ,(6,'user');
-
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`,`username`,`password`,`remember_me_token`,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`,`county`,`region`,`social_security_number`,`email`,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) VALUES 
- (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe','$2a$08$WAzFNLCyIlWNmP3uzPqewe8phR06obIhBVeudO.vaN3zHE2gM9IWu',1432280530,NULL,1433764952,1433765659,'Skutt','Katt','','','','Olofström','Blekinge','','skutt@katt.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
- (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y','$2a$08$eqsqQVMQ3TD4Eedn3bZxbu.F3CYI1Bwl2fgYtivLGu.bWxEVB4Bou',1420102449,NULL,1441270294,1441305594,'Gullan','Katt','Blä 3','12345','Olle','Olofström','Blekinge','','gullan@katt.se','','','',1,1,1,55,9,NULL,NULL,0,2,'','no_image.png','Mjau.'),
- (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta','$2a$08$.xLTCZskLeEw3wfJNyUHBeg1eRrhYbvk/bYtmOXrpB3n2jh0BeInO',1420102512,NULL,1444481227,1444481384,'Missan','Katt','','0','','Olofström','Blekinge','110202-1234','missan@katt.se','','','',1,1,1,9,5,NULL,NULL,0,2,'','Pb8fdDccUQwOv6thRoG0.jpg',NULL),
- (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC','$2a$08$E/pVVtVRuew/mflf3YJHDuHihl4TN0vlpK3fv0oSQ/Lfm2GC7mthq',1420102590,NULL,1444585621,1444729438,'Suddis','Katt','','','','Olofström','Blekinge','','suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-
---
--- Definition of table `delegate`
---
-
-DROP TABLE IF EXISTS `delegate`;
-CREATE TABLE `delegate` (
-  `id` int(10) unsigned NOT NULL,
-  `title` varchar(90) NOT NULL default '',
-  `description` text NOT NULL,
-  `timestamp_created` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-ALTER TABLE `dd`.`delegate`
-  ADD FOREIGN KEY (id) REFERENCES voter(`id`);
-
---
--- Dumping data for table `delegate`
---
-
-INSERT INTO `voter` (`id`,`voter_type`) 
-VALUES 
- (7,'delegate')
- ,(8,'delegate');
- 
-/*!40000 ALTER TABLE `delegate` DISABLE KEYS */;
-INSERT INTO `delegate` (`id`,`title`,`description`,`timestamp_created`) VALUES 
- (7,'Suddis Katt','',0),
- (8,'Missan Katt','',0);
-/*!40000 ALTER TABLE `delegate` ENABLE KEYS */;
-
---
--- Definition of table `delegate_user`
---
-
-DROP TABLE IF EXISTS `delegate_user`;
-CREATE TABLE `delegate_user` (
-  `user_id` int(10) unsigned NOT NULL,
-  `delegate_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-ALTER TABLE `dd`.`delegate_user`
-  ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
-ALTER TABLE `dd`.`delegate_user`
-  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
-
---
--- Dumping data for table `delegate_user`
---
-
-/*!40000 ALTER TABLE `delegate_user` DISABLE KEYS */;
-INSERT INTO `delegate_user` (`delegate_id`,`user_id`) VALUES 
- (7,6)
- ,(8,5);
-/*!40000 ALTER TABLE `delegate_user` ENABLE KEYS */;
-
---
--- Definition of table `admin_role`
---
-
-DROP TABLE IF EXISTS `admin_role`;
-CREATE TABLE `admin_role` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `title` varchar(90) NOT NULL default '',
-  `description` text,
-  `type` varchar(45) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `admin_role`
---
-
-/*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
-INSERT INTO `admin_role` (`id`,`title`,`description`,`type`) VALUES 
- (1,'Superadmin','','superadmin'),
- (2,'Member admin','','member_admin'),
- (3,'Forum admin','','forum_admin'),
- (4,'Vote admin','','vote_admin'),
- (5,'Treasurer','','treasurer');
-/*!40000 ALTER TABLE `admin_role` ENABLE KEYS */;
-
---
--- Definition of table `admin_role_user`
---
-
-DROP TABLE IF EXISTS `admin_role_user`;
-CREATE TABLE `admin_role_user` (
-  `admin_role_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY  (`admin_role_id`, `user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
-ALTER TABLE `dd`.`admin_role_user`
-  ADD FOREIGN KEY (admin_role_id) REFERENCES admin_role(`id`);
-ALTER TABLE `dd`.`admin_role_user`
-  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
-
---
--- Dumping data for table `admin_role_user`
---
-
-/*!40000 ALTER TABLE `admin_role_user` DISABLE KEYS */;
-INSERT INTO `admin_role_user` (`admin_role_id`,`user_id`) VALUES 
- (1,5),
- (5,13),
- (4,6),
- (2,4),
- (3,6),
- (2,6),
- (1,4),
- (5,5),
- (2,5),
- (3,13),
- (3,4),
- (4,4);
-/*!40000 ALTER TABLE `admin_role_user` ENABLE KEYS */;
-
---
--- Definition of table `ballot`
---
-
-DROP TABLE IF EXISTS `ballot`;
-CREATE TABLE `ballot` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `vote_id` int(10) unsigned NOT NULL default '0',
-  `constituency_id` int(10) unsigned NOT NULL default '0',
-  `ballot` text,
-  `user_code` varchar(20) default NULL,
-  `voter_id` int(10) unsigned default NULL,
-  `delegate_id` int(10) unsigned default NULL,
-  `delegation_level` int(10) unsigned default NULL,
-  `delegate_priority` int(10) unsigned default NULL,
-  `time_ballot_placed` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ballot`
---
-
-/*!40000 ALTER TABLE `ballot` DISABLE KEYS */;
-INSERT INTO `ballot` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`voter_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) 
-VALUES 
- (185,13,313,'no',NULL,8,NULL,NULL,NULL,1443531961)
- ,(100,8,313,'[]','OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1441401249)
- ,(18,1,165,'no','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430117214)
- ,(15,2,165,'22','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1429606227)
- ,(32,3,165,'{\"2\":-1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430802217)
- ,(38,4,165,'{\"6\":1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1431326408)
- ,(76,1,165,'yes','9ZvUSJF2Y9binMKfwOr7',NULL,NULL,NULL,NULL,1434556181)
- ,(65,5,291,'no',NULL,7,NULL,NULL,NULL,1433832853)
- ,(186,13,313,'no','nNSpJccU3OdwJxq3SMBw',NULL,8,0,1,1443531961)
- ,(71,5,0,'no','9ZvUSJF2Y9binMKfwOr7',NULL,7,1,1,1433854681)
- ,(77,1,165,'yes',NULL,7,NULL,NULL,NULL,1434557442)
- ,(209,9,313,'{\"12\":2}',NULL,8,NULL,NULL,NULL,1443792695)
- ,(210,9,313,'{\"12\":2}','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443792696);
-/*!40000 ALTER TABLE `ballot` ENABLE KEYS */;
-
---
--- Definition of table `calendar`
---
-
-DROP TABLE IF EXISTS `calendar`;
-CREATE TABLE `calendar` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `timestamp` int(10) unsigned NOT NULL default '0',
-  `year` int(4) unsigned NOT NULL default '0',
-  `month` int(2) unsigned NOT NULL default '0',
-  `day` int(2) unsigned NOT NULL default '0',
-  `time` varchar(20) NOT NULL default '',
-  `timestamp_added` int(10) unsigned NOT NULL default '0',
-  `added_by_user` int(10) unsigned NOT NULL default '0',
-  `location` varchar(45) NOT NULL default '',
-  `title` varchar(90) NOT NULL default '',
-  `content` text NOT NULL,
-  PRIMARY KEY  (`id`),
-  FULLTEXT KEY `search` (`title`,`content`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `calendar`
---
-
-/*!40000 ALTER TABLE `calendar` DISABLE KEYS */;
-INSERT INTO `calendar` (`id`,`timestamp`,`year`,`month`,`day`,`time`,`timestamp_added`,`added_by_user`,`location`,`title`,`content`) VALUES 
- (1,1425513599,2015,3,5,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
- (2,1425599999,2015,3,6,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
- (3,1425686399,2015,3,7,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
- (4,1439855999,2015,8,18,'18.00',1439889397,5,'Internet','Test','test'),
- (5,1440115199,2015,8,21,'15',1439964396,5,'Internet','Ändrings-test','Bara test3');
-/*!40000 ALTER TABLE `calendar` ENABLE KEYS */;
-
---
--- Definition of table `calendar_participant`
---
-
-DROP TABLE IF EXISTS `calendar_participant`;
-CREATE TABLE `calendar_participant` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `calendar_id` int(10) unsigned NOT NULL default '0',
-  `user_id` int(10) unsigned NOT NULL default '0',
-  `timestamp_registration` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Definition of table `category`
---
-
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE `category` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `title` varchar(45) NOT NULL default '',
-  `description` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `category`
---
-
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` (`id`,`title`,`description`) VALUES 
- (4,'Testkategorin','Bara ett test. '),
- (5,'Andra testkategorin','Ännu ett test. '),
- (8,'Interna arbetsgruppsforum','Dessa forum har bara medlemmarna i den respektive arbetsgrupperna tillg†ng till.'),
- (9,'Arbetsgrupper','Publika forum f”r de olika arbetsgrupperna.'),
- (2,'Lokala forum','');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-
---
 -- Definition of table `constituency`
 --
 
@@ -833,6 +530,332 @@ VALUES
 (312,'Östergötland','',0,322,2,313),
 (313,'Allmant','',4,1,1,NULL);
 /*!40000 ALTER TABLE `constituency` ENABLE KEYS */;
+
+--
+-- Definition of table `voter`
+--
+
+DROP TABLE IF EXISTS `voter`;
+CREATE TABLE `voter` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `voter_type` varchar(20) NOT NULL default 'user', -- user or delegate
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Definition of table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL,
+  `username` varchar(45) NOT NULL default '',
+  `password` varchar(128) NOT NULL default '',
+  `remember_me_token` varchar(128) default NULL,
+  `registration_time` int(10) unsigned NOT NULL default '0',
+  `deletion_time` int(10) unsigned default NULL,
+  `last_login_time` int(10) unsigned default NULL,
+  `last_activity_time` int(10) unsigned default NULL,
+  `first_name` varchar(45) default '',
+  `last_name` varchar(45) default '',
+  `street_address` varchar(45) default '',
+  `zip_code` varchar(10) default '',
+  `city_address` varchar(45) default '',
+  `region_id` int(10) unsigned NOT NULL,
+  `county_id` int(10) unsigned NOT NULL,
+  `social_security_number` varchar(13) default '',
+  `email` varchar(45) NOT NULL default '',
+  `telephone1` varchar(20) default '',
+  `telephone2` varchar(20) default '',
+  `skype_name` varchar(45) default '',
+  `show_email` tinyint(1) unsigned NOT NULL default '1',
+  `show_telephone` tinyint(1) unsigned NOT NULL default '1',
+  `show_skype` tinyint(1) unsigned NOT NULL default '1',
+  `number_of_posts` int(10) unsigned NOT NULL default '0',
+  `number_of_topics` int(10) unsigned NOT NULL default '0',
+  `membership_fee_payed` int(10) unsigned default NULL,
+  `last_contact_with_admin` int(10) unsigned default NULL,
+  `acting_as_delegate` tinyint(1) unsigned default '0',
+  `user_role` int(10) unsigned NOT NULL default '2',
+  `admin_notes` varchar(255) default '',
+  `image` varchar(90) NOT NULL default 'no_image.png',
+  `description` text,
+  PRIMARY KEY  (`id`),
+  FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`user`
+  ADD CONSTRAINT fk_user_voter_id FOREIGN KEY (id) REFERENCES voter(`id`);
+ALTER TABLE `dd`.`user`
+  ADD CONSTRAINT fk_user_region_id FOREIGN KEY (region_id) REFERENCES constituency(`id`);
+ALTER TABLE `dd`.`user`
+  ADD CONSTRAINT fk_user_county_id FOREIGN KEY (county_id) REFERENCES constituency(`id`);
+CREATE UNIQUE INDEX ux_user_username ON `dd`.`user` (`username`);
+
+--
+-- Dumping data for table `user`
+--
+INSERT INTO `voter` (`id`,`voter_type`) 
+VALUES 
+ (13,'user')
+ ,(4,'user')
+ ,(5,'user')
+ ,(6,'user');
+
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`,`username`,`password`,`remember_me_token`
+  ,`registration_time`,`deletion_time`,`last_login_time`,`last_activity_time`
+  ,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`
+  ,`region_id`,`county_id`,`social_security_number`,`email`
+  ,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`
+  ,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`
+  ,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) 
+VALUES 
+ (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe'
+  ,'$2a$08$WAzFNLCyIlWNmP3uzPqewe8phR06obIhBVeudO.vaN3zHE2gM9IWu',1432280530,NULL
+  ,1433764952,1433765659,'Skutt','Katt','','','',291,165,''
+  ,'skutt@katt.se','','','',1,1,1,0,0,NULL,NULL,0,2,'','no_image.png',NULL),
+ (4,'gullan','$2a$08$qmMitF1wFOtDsNkpQqLn8e9my0OojrDFXy3uBR9lKxVOHrbbShM/y'
+  ,'$2a$08$eqsqQVMQ3TD4Eedn3bZxbu.F3CYI1Bwl2fgYtivLGu.bWxEVB4Bou',1420102449,NULL
+  ,1441270294,1441305594,'Gullan','Katt','Blä 3','12345','Olle',291,165,''
+  ,'gullan@katt.se','','','',1,1,1,55,9,NULL,NULL,0,2,'','no_image.png','Mjau.'),
+ (5,'missan','$2a$08$zaaFjU/eVdew7BqSTG4oyO.5UsZ6H2F6lugaJU0Mwnvag3mPp.Vta'
+  ,'$2a$08$.xLTCZskLeEw3wfJNyUHBeg1eRrhYbvk/bYtmOXrpB3n2jh0BeInO',1420102512,NULL
+  ,1444481227,1444481384,'Missan','Katt','','0','',291,165,'110202-1234'
+  ,'missan@katt.se','','','',1,1,1,9,5,NULL,NULL,0,2,'','Pb8fdDccUQwOv6thRoG0.jpg',NULL),
+ (6,'suddis','$2a$08$ByrId8LM06kA.4PaMj4MGu/Ftkyh/nMwj.3zFfiDLv3fAUzbLmkRC'
+  ,'$2a$08$E/pVVtVRuew/mflf3YJHDuHihl4TN0vlpK3fv0oSQ/Lfm2GC7mthq',1420102590,NULL
+  ,1444585621,1444729438,'Suddis','Katt','','','',291,165,''
+  ,'suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+--
+-- Definition of table `delegate`
+--
+
+DROP TABLE IF EXISTS `delegate`;
+CREATE TABLE `delegate` (
+  `id` int(10) unsigned NOT NULL,
+  `title` varchar(90) NOT NULL default '',
+  `description` text NOT NULL,
+  `timestamp_created` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`delegate`
+  ADD FOREIGN KEY (id) REFERENCES voter(`id`);
+
+--
+-- Dumping data for table `delegate`
+--
+
+INSERT INTO `voter` (`id`,`voter_type`) 
+VALUES 
+ (7,'delegate')
+ ,(8,'delegate');
+ 
+/*!40000 ALTER TABLE `delegate` DISABLE KEYS */;
+INSERT INTO `delegate` (`id`,`title`,`description`,`timestamp_created`) VALUES 
+ (7,'Suddis Katt','',0),
+ (8,'Missan Katt','',0);
+/*!40000 ALTER TABLE `delegate` ENABLE KEYS */;
+
+--
+-- Definition of table `delegate_user`
+--
+
+DROP TABLE IF EXISTS `delegate_user`;
+CREATE TABLE `delegate_user` (
+  `user_id` int(10) unsigned NOT NULL,
+  `delegate_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`delegate_user`
+  ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
+ALTER TABLE `dd`.`delegate_user`
+  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
+
+--
+-- Dumping data for table `delegate_user`
+--
+
+/*!40000 ALTER TABLE `delegate_user` DISABLE KEYS */;
+INSERT INTO `delegate_user` (`delegate_id`,`user_id`) VALUES 
+ (7,6)
+ ,(8,5);
+/*!40000 ALTER TABLE `delegate_user` ENABLE KEYS */;
+
+--
+-- Definition of table `admin_role`
+--
+
+DROP TABLE IF EXISTS `admin_role`;
+CREATE TABLE `admin_role` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(90) NOT NULL default '',
+  `description` text,
+  `type` varchar(45) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin_role`
+--
+
+/*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
+INSERT INTO `admin_role` (`id`,`title`,`description`,`type`) VALUES 
+ (1,'Superadmin','','superadmin'),
+ (2,'Member admin','','member_admin'),
+ (3,'Forum admin','','forum_admin'),
+ (4,'Vote admin','','vote_admin'),
+ (5,'Treasurer','','treasurer');
+/*!40000 ALTER TABLE `admin_role` ENABLE KEYS */;
+
+--
+-- Definition of table `admin_role_user`
+--
+
+DROP TABLE IF EXISTS `admin_role_user`;
+CREATE TABLE `admin_role_user` (
+  `admin_role_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`admin_role_id`, `user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`admin_role_user`
+  ADD FOREIGN KEY (admin_role_id) REFERENCES admin_role(`id`);
+ALTER TABLE `dd`.`admin_role_user`
+  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
+
+--
+-- Dumping data for table `admin_role_user`
+--
+
+/*!40000 ALTER TABLE `admin_role_user` DISABLE KEYS */;
+INSERT INTO `admin_role_user` (`admin_role_id`,`user_id`) VALUES 
+ (1,5),
+ (5,13),
+ (4,6),
+ (2,4),
+ (3,6),
+ (2,6),
+ (1,4),
+ (5,5),
+ (2,5),
+ (3,13),
+ (3,4),
+ (4,4);
+/*!40000 ALTER TABLE `admin_role_user` ENABLE KEYS */;
+
+--
+-- Definition of table `ballot`
+--
+
+DROP TABLE IF EXISTS `ballot`;
+CREATE TABLE `ballot` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `vote_id` int(10) unsigned NOT NULL default '0',
+  `constituency_id` int(10) unsigned NOT NULL default '0',
+  `ballot` text,
+  `user_code` varchar(20) default NULL,
+  `voter_id` int(10) unsigned default NULL,
+  `delegate_id` int(10) unsigned default NULL,
+  `delegation_level` int(10) unsigned default NULL,
+  `delegate_priority` int(10) unsigned default NULL,
+  `time_ballot_placed` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ballot`
+--
+
+/*!40000 ALTER TABLE `ballot` DISABLE KEYS */;
+INSERT INTO `ballot` (`id`,`vote_id`,`constituency_id`,`ballot`,`user_code`,`voter_id`,`delegate_id`,`delegation_level`,`delegate_priority`,`time_ballot_placed`) 
+VALUES 
+ (185,13,313,'no',NULL,8,NULL,NULL,NULL,1443531961)
+ ,(100,8,313,'[]','OBc7rZoonK45KsRWs4gq',NULL,NULL,NULL,NULL,1441401249)
+ ,(18,1,165,'no','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430117214)
+ ,(15,2,165,'22','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1429606227)
+ ,(32,3,165,'{\"2\":-1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1430802217)
+ ,(38,4,165,'{\"6\":1}','nNSpJccU3OdwJxq3SMBw',NULL,NULL,NULL,NULL,1431326408)
+ ,(76,1,165,'yes','9ZvUSJF2Y9binMKfwOr7',NULL,NULL,NULL,NULL,1434556181)
+ ,(65,5,291,'no',NULL,7,NULL,NULL,NULL,1433832853)
+ ,(186,13,313,'no','nNSpJccU3OdwJxq3SMBw',NULL,8,0,1,1443531961)
+ ,(71,5,0,'no','9ZvUSJF2Y9binMKfwOr7',NULL,7,1,1,1433854681)
+ ,(77,1,165,'yes',NULL,7,NULL,NULL,NULL,1434557442)
+ ,(209,9,313,'{\"12\":2}',NULL,8,NULL,NULL,NULL,1443792695)
+ ,(210,9,313,'{\"12\":2}','nNSpJccU3OdwJxq3SMBw',NULL,7,0,1,1443792696);
+/*!40000 ALTER TABLE `ballot` ENABLE KEYS */;
+
+--
+-- Definition of table `calendar`
+--
+
+DROP TABLE IF EXISTS `calendar`;
+CREATE TABLE `calendar` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `timestamp` int(10) unsigned NOT NULL default '0',
+  `year` int(4) unsigned NOT NULL default '0',
+  `month` int(2) unsigned NOT NULL default '0',
+  `day` int(2) unsigned NOT NULL default '0',
+  `time` varchar(20) NOT NULL default '',
+  `timestamp_added` int(10) unsigned NOT NULL default '0',
+  `added_by_user` int(10) unsigned NOT NULL default '0',
+  `location` varchar(45) NOT NULL default '',
+  `title` varchar(90) NOT NULL default '',
+  `content` text NOT NULL,
+  PRIMARY KEY  (`id`),
+  FULLTEXT KEY `search` (`title`,`content`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `calendar`
+--
+
+/*!40000 ALTER TABLE `calendar` DISABLE KEYS */;
+INSERT INTO `calendar` (`id`,`timestamp`,`year`,`month`,`day`,`time`,`timestamp_added`,`added_by_user`,`location`,`title`,`content`) VALUES 
+ (1,1425513599,2015,3,5,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
+ (2,1425599999,2015,3,6,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
+ (3,1425686399,2015,3,7,'Hela dagen',1425586448,4,'Internet','Programmering','Bara programmering, inget skoj.'),
+ (4,1439855999,2015,8,18,'18.00',1439889397,5,'Internet','Test','test'),
+ (5,1440115199,2015,8,21,'15',1439964396,5,'Internet','Ändrings-test','Bara test3');
+/*!40000 ALTER TABLE `calendar` ENABLE KEYS */;
+
+--
+-- Definition of table `calendar_participant`
+--
+
+DROP TABLE IF EXISTS `calendar_participant`;
+CREATE TABLE `calendar_participant` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `calendar_id` int(10) unsigned NOT NULL default '0',
+  `user_id` int(10) unsigned NOT NULL default '0',
+  `timestamp_registration` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Definition of table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(45) NOT NULL default '',
+  `description` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` (`id`,`title`,`description`) VALUES 
+ (4,'Testkategorin','Bara ett test. '),
+ (5,'Andra testkategorin','Ännu ett test. '),
+ (8,'Interna arbetsgruppsforum','Dessa forum har bara medlemmarna i den respektive arbetsgrupperna tillg†ng till.'),
+ (9,'Arbetsgrupper','Publika forum f”r de olika arbetsgrupperna.'),
+ (2,'Lokala forum','');
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
 --
 -- Definition of table `constituency_voter`
@@ -1303,8 +1326,8 @@ CREATE TABLE `user_application` (
   `street_address` varchar(45) default '',
   `zip_code` varchar(10) default '',
   `city_address` varchar(45) default '',
-  `county` varchar(45) default '',
-  `region` varchar(45) default '',
+  `county_id` int(10) unsigned NOT NULL,
+  `region_id` int(10) unsigned NOT NULL,
   `social_security_number` varchar(13) default '',
   `email` varchar(45) NOT NULL default '',
   `telephone1` varchar(20) default '',
