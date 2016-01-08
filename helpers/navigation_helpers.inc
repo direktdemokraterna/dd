@@ -27,7 +27,7 @@ class navigation_helpers {
 	private static function get_sidebar_page_name() {
 		$divisionName = $_GET['type'];
 		$division = self::get_division($divisionName);
-		return $division ? $divisionName : "default";
+		return $division ? $divisionName : "forum";
 	}
 
 	private static function get_execute_page($divisionName) 
