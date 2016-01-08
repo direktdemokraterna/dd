@@ -208,14 +208,6 @@ class db_forum
 		return db::select_single_value($query, $values);
 	}
 
-	public static function check_quote_validity ($post_id, $quote_text)
-	{
-		$query = "select * from post where id = ? and content like ?";
-		$values = Array($post_id, '%' . $quote_text . '%');
-		$return = db::select($query, $values);
-		return !empty($return);
-	}
-
 	public static function add_content_to_post ($post_id, $content, $edit = "new")
 	{
 		if($edit == "new"){

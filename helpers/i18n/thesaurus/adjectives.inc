@@ -73,6 +73,10 @@ class adjectives
 				"sv" => "begränsad"
 				,"en" => "limited"
 				)
+			,"malformed:adj" => array(
+				"sv" => "felformaterad|t:e"
+				,"en" => "malformed"
+				)
 			,"mandatory:adj" => array(
 				"sv" => "obligatorisk|t:a"
 				,"en" => "mandatory"

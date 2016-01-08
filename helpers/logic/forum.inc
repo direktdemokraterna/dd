@@ -5,7 +5,7 @@ class forum
 {
 	public static function is_recent_post($post_info) 
 	{
-		return $post_info['posted_time'] > (time() - 10*60);
+		return $post_info['posted_time'] > (time() - EDIT_POST_TIME_WINDOW_IN_MINUTES*60);
 	}
 
 	public static function insert_post($topic_id, $post_content) 

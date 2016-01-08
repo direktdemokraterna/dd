@@ -186,10 +186,11 @@ class forum
 	{
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
-		echo '<span>' . \View\general::make_html_from_wiki_text($post_info['content']) . '</span>';
+		$html = \View\general::make_html_from_wiki_text($post_info['content']);
+		echo _span(null, $html);
 		if(isset($post_info['last_edited_time']))
-			echo('<span class="post_last_edited">' . _t('Last changed ') . 
-				strtolower(\general_helpers::show_date($post_info['last_edited_time'])) . '.</span>');			
+			echo _span("post_last_edited", _t('Last changed ') . 
+				strtolower(\general_helpers::show_date($post_info['last_edited_time'])));
 		general::close_div();
 	}
 

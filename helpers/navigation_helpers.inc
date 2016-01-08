@@ -56,7 +56,8 @@ class navigation_helpers {
 		require($path);
 		if (empty($redirect)) {
 			$redirect = $_SERVER['REQUEST_URI'];
-			$_SESSION['previous_post'] = $_POST;
+			if (\Logic\util::page_has_error())
+				$_SESSION['previous_post'] = $_POST;
 		}
 		header("Location: $redirect");
 		exit();

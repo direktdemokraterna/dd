@@ -2,16 +2,7 @@
 
 class forum_helpers 
 {
-	public static function process_text ($text)
-	{
-		$processed_text = general_helpers::clean($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
-		$processed_text = self::urls_to_links($processed_text);
-		$processed_text = self::closetags($processed_text);
-		$processed_text = self::replace_format_tags_with_brackets($processed_text);
-		return $processed_text;
-	}
-
-	public static function update_post_content ($post_id, $text, $action = "new")
+	public static function set_post_content ($post_id, $text, $action = "new")
 	{
 		$processed_post_content = forum_helpers::process_post_text($post_id, $text);
 		return empty($processed_post_content)
@@ -23,33 +14,22 @@ class forum_helpers
 	{
 		$processed_text = forum_helpers::process_text($text);
 		$processed_text = str_replace("[/quote]\r\n\r\n", "[/quote]\r\n", $processed_text);
-		$number_of_quotes_in_post = substr_count($processed_text, "[quote=");
-
-		// Iterating through post text to find all quotes, check validity of quote and transforming into HTML
-		for($i=0; $i<$number_of_quotes_in_post; $i++){
-			$quote_start = strpos($processed_text, "[quote=");
-			$text_starting_at_post_id = substr($processed_text, $quote_start+7);
-			$end_pos_of_post_id = strpos($text_starting_at_post_id, "]");
-			$post_id = substr($text_starting_at_post_id, 0, $end_pos_of_post_id);
-			$quote_stop = strpos($processed_text, "[/quote]");
-
-			$old_full_quote_text = substr($processed_text, $quote_start, $quote_stop-$quote_start+8); 
-
-			$quote_text_with_end_bracket = substr($old_full_quote_text, 8 + strlen((string)$post_id));
-			$quote_text = substr($quote_text_with_end_bracket, 0, -8);
-
-			// Checking quote validity in db.
-			$valid_quote = db_forum::check_quote_validity($post_id, $quote_text);
-			if($valid_quote){
-				$post_info = db_forum::get_post_info($post_id);
-				$new_full_quote_text = "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&topic_id=" . $post_id . "\">" . $post_info['full_name'] . " skrev:</a>\n" . $quote_text . "</div>";
-				$processed_text = str_replace($old_full_quote_text, $new_full_quote_text, $processed_text);
-			}
-			else{
-				$_SESSION['report_message'] = _t("A quote in your post is not well formed.");
-				return null;
-			}
+		try {
+			self::replace_brackets_with_html_tags($text);
 		}
+		catch (\Exception $ex) {
+			\Logic\util::report_error(_t("Malformed text in post"));
+			return null;
+		}
+		return $processed_text;
+	}
+
+	public static function process_text ($text)
+	{
+		$processed_text = general_helpers::clean($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
+		$processed_text = self::urls_to_links($processed_text);
+		$processed_text = self::closetags($processed_text);
+		$processed_text = self::replace_format_tags_with_brackets($processed_text);
 		return $processed_text;
 	}
 
@@ -225,19 +205,23 @@ class forum_helpers
 
 	public static function replace_quotes($wiki_text)
 	{
+		$number_of_unnamed_quotes = 0;
 		$html_text = $wiki_text;
-		$html_text = str_replace("[quote]", "<div class='quote_in_post'>", $html_text);	
-		$html_text = self::replace_named_open_quotes($html_text);	
-		$html_text = str_replace("[/quote]", "</div>", $html_text);
+		$html_text = str_replace("[quote]", "<div class='quote_in_post'>"
+			, $html_text, $number_of_unnamed_quotes);	
+		$html_text = self::replace_named_open_quotes($html_text, $number_of_named_quotes);	
+		$html_text = str_replace("[/quote]", "</div>", $html_text, $number_of_closed_quotes);
+		if ($number_of_unnamed_quotes + $number_of_named_quotes != $number_of_closed_quotes)
+			throw new \Exception('Malformed quotes, mismatching open and close tags');
 		return $html_text;
 	}
 
-	private static function replace_named_open_quotes($html_text) {
+	private static function replace_named_open_quotes($html_text, &$count) {
 		$html_text = preg_replace_callback("/\\[quote=(\d+)\\]/i", 
 			function ($matches) {
 				return "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.	php?type=forum&action=show_posts&post_id=$matches[1]#post$matches[1]\">" .
 				self::get_name_of_poster($matches[1]) . " skrev:</a><br><br>";
-			}, $html_text);
+			}, $html_text, -1, $count);
 		return $html_text;	
 	}
 

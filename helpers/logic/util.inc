@@ -17,7 +17,7 @@ class util
 		return true;
 	}
 
-	public static function has_error() 
+	public static function page_has_error() 
 	{
 		return $_SESSION['red_report_message'];
 	}
