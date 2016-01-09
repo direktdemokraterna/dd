@@ -27,7 +27,7 @@ class db_user
 		$public_forums = db_forum::get_public_forum_ids();
 		foreach($public_forums as $row)
 			db_forum_admin::add_forum_access($user_id, $row['id']);
-		$local_county_forum = db_forum::get_local_county_forum($_POST['county']);
+		$local_county_forum = db_forum::get_local_county_forum($_POST['county_id']);
 		db_forum_admin::add_forum_access($user_id, $local_county_forum);
 		$local_region_forum = db_forum::get_local_region_forum($region_id);
 		db_forum_admin::add_forum_access($user_id, $local_region_forum);
@@ -36,7 +36,7 @@ class db_user
 		$public_constituencies = db_constituency::get_public_constituency_ids();
 		foreach($public_constituencies as $row)
 			db_constituency::add_constituency_access($user_id, $row['id']);
-		db_constituency::add_constituency_access($user_id, $_POST['county']);
+		db_constituency::add_constituency_access($user_id, $_POST['county_id']);
 		db_constituency::add_constituency_access($user_id, $region_id);
 		return $user_id;
 	}

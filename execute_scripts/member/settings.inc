@@ -58,12 +58,12 @@
 	elseif($_POST['form_type']=="profile"){
 		if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 			\Logic\util::report_error(_t("the email address is invalid.")); 
-		elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county']) && isset($_POST['email'])){
-			$region_id = db_constituency::get_region_id_from_county_id($_POST['county']);
-			$ok = db_user::update_profile(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), general_helpers::clean($_POST['zip_code']), general_helpers::clean($_POST['city_address']), $_POST['county'], $region_id, $_POST['email'], general_helpers::clean($_POST['skype_name']), general_helpers::clean($_POST['telephone1']), general_helpers::clean($_POST['telephone2']), $_SESSION['id']);
+		elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county_id']) && isset($_POST['email'])){
+			$region_id = db_constituency::get_region_id_from_county_id($_POST['county_id']);
+			$ok = db_user::update_profile(general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), general_helpers::clean($_POST['zip_code']), general_helpers::clean($_POST['city_address']), $_POST['county_id'], $region_id, $_POST['email'], general_helpers::clean($_POST['skype_name']), general_helpers::clean($_POST['telephone1']), general_helpers::clean($_POST['telephone2']), $_SESSION['id']);
 			if($ok){
-				forum_helpers::update_county_region_forum_access($_SESSION['id'], $_POST['county']);
-				\Logic\constituency::update_county_region_constituencies($_SESSION['id'], $_POST['county']);
+				forum_helpers::update_county_region_forum_access($_SESSION['id'], $_POST['county_id']);
+				\Logic\constituency::update_county_region_constituencies($_SESSION['id'], $_POST['county_id']);
 				$_SESSION['report_message'] = _t("Your profile is updated");
 			}
 			else

@@ -23,7 +23,7 @@ if($is_all_mandatory_set){
 		, general_helpers::clean($_POST['street_address'])
 		, (int)$_POST['zip_code']
 		, general_helpers::clean($_POST['city_address'])
-		, $_POST['county']
+		, $_POST['county_id']
 		, $region_id
 		, $personnummer
 		, $_POST['email']

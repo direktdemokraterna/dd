@@ -6,7 +6,7 @@ if($_POST['accept']){
 		$_SESSION['red_report_message'] = 1;
 	}
 	else{
-		$region_id = db_constituency::get_region_id_from_county_id($_POST['county']);
+		$region_id = db_constituency::get_region_id_from_county_id($_POST['county_id']);
 		$username = strtolower(general_helpers::clean($_POST['first_name']) . general_helpers::clean($_POST['last_name']));
 		$username = str_replace(Array("å", "ä", "ö", "é"), Array("a", "a", "o", "e"), $username);
 
@@ -23,7 +23,7 @@ if($_POST['accept']){
 		$hasher = new PasswordHash(8, FALSE);
 		$password = $hasher->HashPassword($random_password);
 		
-		$ok = db_user::add_user($username, $password, general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county'], $region_id, general_helpers::clean($_POST['social_security_number']), $_POST['email']);
+		$ok = db_user::add_user($username, $password, general_helpers::clean($_POST['first_name']), general_helpers::clean($_POST['last_name']), general_helpers::clean($_POST['street_address']), (int)$_POST['zip_code'], general_helpers::clean($_POST['city_address']), $_POST['county_id'], $region_id, general_helpers::clean($_POST['social_security_number']), $_POST['email']);
 
 		if($ok){
 			db_user::delete_user_application($_GET['id']);

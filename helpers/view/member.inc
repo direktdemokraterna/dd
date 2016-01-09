@@ -76,13 +76,14 @@ class member
 		$regions = \db_constituency::get_regions();
 		$region_options = \db_general::make_hash($regions, 'id', 'title');
 		$region_options = array(0 => _t('All regions')) + $region_options;
-		\View\general::make_labeled_selector("region", _t("Region"), $region_options, $selected_region
+		\View\general::make_labeled_selector("region_id", _t("Region")
+			, $region_options, $selected_region
 			, 'onchange="region_changed()" tabindex="' . $tab_index . '"');
 	}
 
 	private static function output_county_selector($user_data, $counties, $tab_index) {
 		$county_options = \db_general::make_hash($counties, 'county_id', 'county_name');
-		\View\general::make_labeled_selector("county", _t("Municipality"), $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
+		\View\general::make_labeled_selector("county_id", _t("Municipality"), $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
 	}
 }
 ?>
