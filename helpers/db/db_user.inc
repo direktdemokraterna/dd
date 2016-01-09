@@ -45,7 +45,12 @@ class db_user
 	{
 		$where_clause = self::create_where_clause($where_filters);
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select id, concat(first_name, ' ', last_name) as full_name, deletion_time from user" . $where_clause . " order by " . $order_by . " " . $limit_clause;
+		$query = "select u.id, concat(u.first_name, ' ', u.last_name) as full_name, u.deletion_time
+			, u.username, cr.title region, cc.title county 
+			from user u
+				join constituency cr on cr.id = u.region_id
+				join constituency cc on cc.id = u.county_id
+				" . $where_clause . " order by " . $order_by . " " . $limit_clause;
 		$values = Array();
 		return db::select($query, $values);
 	}
@@ -53,7 +58,7 @@ class db_user
 	public static function get_all_users_count ($where_filters)
 	{
 		$where_clause = self::create_where_clause($where_filters);
-		$query = "select count(*) from user" . $where_clause;
+		$query = "select count(*) from user u " . $where_clause;
 		$values = Array();
 		return db::select_single_value($query, $values);
 	}

@@ -35,6 +35,20 @@ class member
 		\general_helpers::make_list_header_with_region_county_filter($page, $result_counter, $sort_alternatives, $show_deleted_control);
 	}
 
+	public static function output_member_list ($members) {
+		$columns = array(_t("Name"), _t("Username"), _t("Region"), _t("Municipality"));
+		$rows = array_map(function($member) {
+			return array(
+				\View\general::generate_internal_link($member['full_name'], "member", "view", "id=" . $member['id'])
+				, $member['username']
+				, $member['region']
+				, $member['county']
+			);
+		}, $members);
+		$row_styles = array_map(function($member) {return $member['deletion_time'] ? 'deleted' : '';}, $members);
+		\View\general::output_grid_view($columns, $rows, $row_styles);
+	}
+
 	public static function link($user, $id_prop = 'id', $name_prop = 'full_name') {
 		return \View\general::generate_internal_link($user[$name_prop]
 			, 'member', 'view', 'id=' . $user[$id_prop]);
