@@ -22,7 +22,7 @@ class vote
 		$vote_changed = \db_vote_admin::update_vote($_POST['type_of_vote'], $_POST['title'], $_POST['description'], $_POST['forum_topic_id'], $_POST['vote_id']);
 		$vote_time_changed = util::is_all_set(self::$time_properties, $_POST) && self::change_vote_end_time();
 		if(!($constituency_changed || $vote_changed || $vote_time_changed))
-			throw new \Exception(_t("Database error. No change made."));
+			throw new \Exception(_t("No change made."));
 		$_SESSION['report_message'] = _t("The vote is updated.");
 	}
 

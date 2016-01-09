@@ -6,7 +6,6 @@
 			\Logic\vote::change_vote();
 	}
 	catch (Exception $ex) {
-		$_SESSION['report_message'] = $ex->getMessage();
-		$_SESSION['red_report_message'] = 1;		
+		\Logic\util::report_error($ex->getMessage());
 	}
 ?>

@@ -193,16 +193,16 @@ class navigation_helpers {
 			, "list_categories.inc", "is_forum_admin")
 
 			,"vote_admin" => Division_info::create(array(
-				"create_new_vote" => Page_info::create("create_new_vote.inc", Page_info::VIEW_AND_EXECUTE)
-				,"edit_vote" => Page_info::create("edit_vote.inc", Page_info::VIEW_AND_EXECUTE)
-				,"edit_alternatives" => Page_info::create("edit_alternatives.inc", Page_info::VIEW_AND_EXECUTE)
-				,"edit_alternative" => Page_info::create("edit_alternative.inc", Page_info::VIEW_AND_EXECUTE)
-				,"edit_user" => Page_info::create("edit_user.inc")
-				,"edit_constituency" => Page_info::create("edit_constituency.inc")
+				"constituencylist" => Page_info::create("constituencylist.inc")
 				,"create_constituency" => Page_info::create("create_constituency.inc")
-				,"constituencylist" => Page_info::create("constituencylist.inc")
+				,"create_new_vote" => Page_info::create("create_new_vote.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_alternative" => Page_info::create("edit_alternative.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_alternatives" => Page_info::create("edit_alternatives.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_constituency" => Page_info::create("edit_constituency.inc")
 				,"edit_post" => Page_info::create("edit_post.inc")
-				,"edit_user" => Page_info::create("edit_user.inc", Page_info::VIEW_AND_EXECUTE))
+				,"edit_user" => Page_info::create("edit_user.inc", Page_info::VIEW_AND_EXECUTE)
+				,"edit_vote" => Page_info::create("edit_vote.inc", Page_info::VIEW_AND_EXECUTE)
+				,"votelist" => Page_info::create("votelist.inc"))
 			, "votelist.inc", "is_vote_admin")
 
 			,"treasurer" => Division_info::create(array(

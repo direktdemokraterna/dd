@@ -3,7 +3,7 @@
 	_open_form();
 	\View\vote::make_vote_type_selector(null, 1);
 	\View\vote::make_vote_time_type_selector(null, 2);
-	\View\vote::make_constituency_selector(null, null, 3);
+	\View\vote::make_constituency_selector(null, $_SESSION['id'], 3);
 	\View\general::make_textfield("title", _t("Title"), 4);
 	\View\general::make_textarea("description", _t("Description"), 5);
 	_label(_t("The vote finishes"), "year");

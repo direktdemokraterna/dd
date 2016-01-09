@@ -4,7 +4,7 @@
 	_open_form();
 	_hidden("vote_id", $voteinfo['vote_id']);
 	\View\vote::make_vote_type_selector($voteinfo['type']);
-	\View\vote::make_constituency_selector($voteinfo['constituency_id'], null, 2); 
+	\View\vote::make_constituency_selector($voteinfo['constituency_id'], $_SESSION['id'], 2); 
 	\View\general::make_textfield("title", _t("Title"), 3, $voteinfo); 
 	\View\general::make_textarea("description", _t("Description"), 4, $voteinfo);
 	\View\vote::output_vote_status($voteinfo['status']); 

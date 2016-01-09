@@ -70,7 +70,7 @@ class general_helpers {
 		if (!$filter_title)
 			$filter_title = _t("Filtrering:");
 		$get_parameters = $_GET;
-		self::make_list_pagin_and_sorting($get_parameters, $page, $result_counter, $sort_alternatives);
+		self::make_list_paging_and_sorting($get_parameters, $page, $result_counter, $sort_alternatives);
 		self::make_generic_list_filter($get_parameters, $filter_title, $filter_alternatives);
 	}
 	

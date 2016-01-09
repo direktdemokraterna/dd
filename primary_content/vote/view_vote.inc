@@ -83,7 +83,7 @@
 	echo '<p>';
 	_strong(_t("Constituency: ") . $voteinfo['constituency_name']);
 	_br();
-	if($voteinfo['status'] != "continuous" && $voteinfo['status'] != "finished") {
+	if($voteinfo['proposition_created']) {
 		_strong(_t("Proposition created: "));
 		echo general_helpers::show_date($voteinfo['proposition_created']);
 		_br();
