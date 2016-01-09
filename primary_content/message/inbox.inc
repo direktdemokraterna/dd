@@ -12,7 +12,8 @@
 		echo _t("Showing messages ") . "$start_message - $stop_message";
 		echo '<table class="message"><tr><td></td><td>' . _t("Sender") . '</td><td>' . _t("Subject") . '</td><td>' . _t("Date") . '</td></tr>';
 		foreach($inbox as $row) {
-			echo '<tr class="' . ($i++ % 2 ? "even_row" : "odd_row") . '">';
+			echo '<tr class="' . ($i++ % 2 ? "even_row" : "odd_row") 
+			. ($row['read_time'] ? '' : ' unread') . '">';
 			echo '<td><input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $row['id'] . '"></td>';
 			echo '<td>';
 			_link($row['full_name'], 'member', 'view', 'id=' . $row['sender_id']);

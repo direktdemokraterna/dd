@@ -50,3 +50,16 @@
     font-weight: 300px;
     font-family: "Open Sans",sans-serif;margin: 0px 0px 15px 5px;
 }
+
+tr.even_row {
+    background-color: aliceblue
+}
+
+tr.odd_row {
+    background-color: white
+}
+
+tr.unread {
+    font-weight: bold;
+    font-style: italic;
+}
