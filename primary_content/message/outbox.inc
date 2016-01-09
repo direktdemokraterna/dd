@@ -10,19 +10,7 @@
 		_open_form();
 		_hidden("delete", 1);
 		echo _t("Showing messages ") . "$start_message - $stop_message";
-		echo '<table class="message"><tr><td></td><td>' . _t("Recipient") . '</td><td>' . _t("Subject") . '</td><td>' . _t("Date") . '</td></tr>';
-		foreach($outbox as $row) {
-			echo '<tr class="' . ($i++ % 2 ? "even_row" : "odd_row") 
-			. ($row['read_time'] ? '' : ' unread') . '">';
-			echo '<td><input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $row['id'] . '"></td>';
-			echo '<td>';
-			_link($row['full_name'], 'member', 'view', 'id=' . $row['sender_id']);
-			echo '</td><td>';
-			_link($row['title'], 'message', 'view', 'id=' . $row['id']);
-			echo '</td><td>' . general_helpers::show_date($row['sent_time']) . '</td>';
-			echo '</tr>';			
-		}
-		echo '</table>';
+		\View\message::output_outbox($outbox);
 		_br();
 		echo '<input type="checkbox" name="checkall" onclick="checkAll(this, \'delete_checkbox\');">' . _t("Check all");
 		_br();
