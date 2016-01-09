@@ -18,18 +18,14 @@ class db_message
 
 	public static function get_message ($message_id)
 	{
-		$query = "select *, 
-					(select concat(first_name, ' ', last_name) from user where user.id = message.recipient_id) as recipient_name, 
-					(select concat(first_name, ' ', last_name) from user where user.id = message.sender_id) as sender_name
-					from message where id = ?";
-		$values = Array($message_id);
-		return db::select_single_row($query, $values);
-	}
-
-	public static function get_reply_message ($message_id)
-	{
-		$query = "select u.username as username, concat(u.first_name, ' ', u.last_name) as full_name, m.title as title, m.content as content 
-					from message m, user u where m.sender_id = u.id and m.id = ?";
+		$query = "select m.*
+					,concat(ur.first_name, ' ', ur.last_name) as recipient_name
+					,concat(us.first_name, ' ', us.last_name) as sender_name
+					,us.username sender_username
+					from message m
+						join user us on us.id = m.sender_id 
+						join user ur on ur.id = m.recipient_id 
+					where m.id = ?";
 		$values = Array($message_id);
 		return db::select_single_row($query, $values);
 	}

@@ -79,6 +79,7 @@ include(dirname(__FILE__)."/helpers/view/general.inc");
 include(dirname(__FILE__)."/helpers/view/generators.inc");
 include(dirname(__FILE__)."/helpers/view/index.inc");
 include(dirname(__FILE__)."/helpers/view/member.inc");
+include(dirname(__FILE__)."/helpers/view/message.inc");
 include(dirname(__FILE__)."/helpers/view/vote.inc");
 include(dirname(__FILE__)."/helpers/view/workgroup.inc");
 

@@ -1,10 +1,11 @@
 <?php
 	$recipient = ""; 
 	$title = ""; 
-	$content = ""; 
+	$content = "";
+	$reply_info = null;
 	if(isset($_GET['reply']) && !isset($_POST['recipient']) && !isset($_POST['title']) && !isset($_POST['message_text'])){
-		$reply_info = db_message::get_reply_message($_GET['reply']);
-		$recipient = $reply_info['username'];
+		$reply_info = db_message::get_message($_GET['reply']);
+		$recipient = $reply_info['sender_username'];
 		$title = $reply_info['title'];
 		$reply_short = _t("Re: ");
 		$title = (starts_with($title, $reply_short) ? '' : $reply_short) . $title; 
@@ -17,7 +18,11 @@
 	elseif(isset($_GET['id'])){
 		$recipient = db_user::get_username($_GET['id']); 
 	}
-	_h1(_t("Write message"));
+	if ($reply_info) {
+		\View\message::output_message($reply_info, false, false, _t("Reply to: "));
+	}
+	else 
+		_h1(_t("Write message"));
 	_open_form();
 	_hidden("send", 1);
 	$options = array("none" => _t("Select recipient"));
