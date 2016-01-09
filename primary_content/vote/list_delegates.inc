@@ -18,7 +18,7 @@
 	}
 	$result_counter = db_delegate::list_delegates_for_user_constituencies_count($where_filter, $filter_values);
 	$sort_alternatives = Array("popularity" => _t("Popularity"), "age" => _t("Created", array('class' => 'adj')), "alphabetic" => _t("Alphabetic"));
-	\View\delegate::output_delegate_list_header($page, $result_counter, $sort_alternatives);
 	$rows = \db_delegate::list_delegates_for_user_constituencies($_SESSION['id'], $page, LIST_ITEMS_PER_PAGE, $order_by, $where_filter, $filter_values);
+	\View\delegate::output_delegate_list_header($page, $result_counter, $sort_alternatives);
 	\View\delegate::output_delegate_list_rows($rows);
 ?>

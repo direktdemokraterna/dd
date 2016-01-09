@@ -278,9 +278,6 @@ strong {
     margin-bottom: 10px;
 }
 
-
-
-
 /* NORMAL LIST */
 
 .list_of_links {
@@ -305,4 +302,37 @@ strong {
 
 .list_sort_alternative {
     padding-left: 30px;
+}
+
+/* GRID VIEW */
+
+.grid_view{
+    max-width: 800px;
+    width: 95%;
+    border: 1px solid #e5e5e5;
+    border-bottom: none;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    background: #fff;border-spacing: 0;
+    margin-bottom: 15px
+}
+
+.grid_view tbody td{
+    border-bottom: 1px solid #e1e1e1;
+    padding: 10px 5px;
+    font-size: 14px;
+    font-weight: 400px;
+    font-family: "Open Sans",sans-serif;
+}
+
+tr.even_row {
+    background-color: aliceblue
+}
+
+tr.odd_row {
+    background-color: white
+}
+
+tr.unread {
+    font-weight: bold;
+    font-style: italic;
 }

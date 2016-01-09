@@ -11,17 +11,13 @@ class delegate
 
 	public static function output_delegate_list_rows($delegates) 
 	{
-		echo '<table class="message"><tr><td>' . _t("Title") . '</td><td>' . _t("Description") . '</td><td>' . _t("Delegands") . '</td></tr>';
-		$i = 0;
-		foreach($delegates as $delegate) {
-			echo '<tr class="' . ($i++ % 2 ? "even_row" : "odd_row") . '">';
-			echo '<td>';
-			_link($delegate['title'], 'vote', 'view_delegate', 'id=' . $delegate['id']);
-			echo '</td><td>' . _limit_with_ellipsis($delegate['description'], 30);
-			echo '</td><td>' . $delegate['delegand_count'] . '</td>';
-			echo '</tr>';			
-		}
-		echo '</table>';
+		$columns = array(_t("Title"), _t("Description"), _t("Delegands"));
+		$rows = array_map(function($delegate) {
+			return array(\View\general::generate_internal_link($delegate['title'], 'vote', 'view_delegate', 'id=' . $delegate['id'])
+				, _limit_with_ellipsis($delegate['description'], 30)
+				, $delegate['delegand_count']);
+		}, $delegates);
+		\View\general::output_grid_view($columns, $rows);
 	}
 
 	// makes the top links for choosing page and sorting alternatives for a list_of_links

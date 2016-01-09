@@ -10,7 +10,6 @@
     margin-bottom: 15px
 }
 
-
 .message tbody td{
     border-bottom: 1px solid #e1e1e1;
     padding: 10px 5px;
@@ -49,14 +48,6 @@
     font-size: 12px;
     font-weight: 300px;
     font-family: "Open Sans",sans-serif;margin: 0px 0px 15px 5px;
-}
-
-tr.even_row {
-    background-color: aliceblue
-}
-
-tr.odd_row {
-    background-color: white
 }
 
 tr.unread {

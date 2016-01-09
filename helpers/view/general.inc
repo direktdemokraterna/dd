@@ -32,11 +32,25 @@ class general
 		echo $element;
 	}
 
-	private static function add_attributes(&$element, $attributes) {
-		if ($attributes)
-			foreach ($attributes as $key => $value)
-				$element .= ' ' . $key . '="' . $value . '"';
-	}
+	public static function output_grid_view($columns, $rows, $row_styles = null) 
+	{
+		$col_count = count($columns);
+		echo '<table class="grid_view"><tr>';
+		foreach ($columns as $column)
+			echo '<td>' . $column . '</td>';
+		$i = 0;
+		foreach($rows as $row) {
+			$classes = $i % 2 ? "even_row" : "odd_row";
+			if ($row_styles && $row_styles[$i]) 
+				$classes .= ' ' . $row_styles[$i];
+			echo "<tr class='$classes'>";
+			for ($col = 0; $col < $col_count; $col++)
+				echo '<td>' . $row[$col] . '</td>';
+			echo '</tr>';
+			$i++;			
+		}
+		echo '</table>';
+	}	
 
 	public static function make_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {
 		$checked_value = is_array($checked_values) 
@@ -144,6 +158,11 @@ class general
 		_br();
 	}
 
+	private static function add_attributes(&$element, $attributes) {
+		if ($attributes)
+			foreach ($attributes as $key => $value)
+				$element .= ' ' . $key . '="' . $value . '"';
+	}
 
 	private static function open_select($control_name, $attributes) {
 		echo('<select name="' . $control_name . '" id="' . $control_name . '"'
