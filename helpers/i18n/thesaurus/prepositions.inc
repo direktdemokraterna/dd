@@ -65,6 +65,10 @@ class prepositions
 				"sv" => "på"
 				,"en" => "on"
 				)
+			,"outside:prep" => array(
+				"sv" => "utanför"
+				,"en" => "outside"
+				)
 			,"to:prep" => array(
 				"sv" => "till"
 				,"en" => "to"

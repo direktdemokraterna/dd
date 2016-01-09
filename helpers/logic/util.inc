@@ -19,7 +19,7 @@ class util
 
 	public static function page_has_error() 
 	{
-		return $_SESSION['red_report_message'];
+		return isset($_SESSION['red_report_message']) && $_SESSION['red_report_message'];
 	}
 
 	public static function report_error($message) 

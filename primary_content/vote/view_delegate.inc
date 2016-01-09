@@ -13,8 +13,8 @@
 	$delegate_ballots = db_delegate::list_delegate_ballots($delegate_id, $page
 		, LIST_ITEMS_PER_PAGE_SHORT, $where_filter);
 	$result_counter = db_delegate::list_delegate_ballots_count($delegate_id, $where_filter);
-	$constituencies = vote_helpers::find_common_constituencies($voter_id, $delegate_id);
-	$list_of_delegations = db_delegate::get_delegations_for_multiple_constituencies($constituencies
+	$shared_constituencies = vote_helpers::find_shared_constituencies($voter_id, $delegate_id);
+	$list_of_delegations = db_delegate::get_delegations_for_multiple_constituencies($shared_constituencies
 		, $_SESSION['delegate_id']);
 ?>
 
@@ -58,33 +58,34 @@
 			echo _t(" in constituency ") . $row['constituency_title'] . '<br>'; 
 		}		
 	}
-	echo '<script>';
-	echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
-	echo '</script>';
-	_h2(_t("Delegate your vote" . ($acting_as_delegate ? " as delegate" : "") . " to ") 
-		. $delegate_info['title']);
-	_open_form("prio-vote");
-	_hidden("ballot");
-
-	foreach($constituencies as $row) {
-		$constituency_id = $row['id'];
-		echo '<div class="delegation_box">';
-		echo _t("Constituency: ");
-		_strong($row['name']);
-		_br();
-		echo '<span id="constituency' . $constituency_id . '">' . _t("You have no delegate in this constituency") . '</span>';
-		_br(2);
-		echo '<input id="delegate_in_' . $constituency_id . '" style="display: inline" type="submit" value="' . _t("Delegate to ", array('class' => 'prep')) . $delegate_info['title'] 
-			. '" onmousedown="return encrypt_single_delegation(' . $constituency_id
-				. ', ' . $_GET['id'] . ')">';
-		echo '<input id="undelegate_in_' . $constituency_id . '" style="display: none" type="submit" value="' . _t("Remove delegate ") 
-			. '" onmousedown="return encrypt_single_delegation(' . $constituency_id . ', 0)">';
-		echo '</div>';
+	if ($shared_constituencies) {
+		echo '<script>';
+		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+		echo '</script>';
+		_h2(_t("Delegate your vote" . ($acting_as_delegate ? " as delegate" : "") . " to ") 
+			. $delegate_info['title']);
+		_open_form("prio-vote");
+		_hidden("ballot");
+		foreach($shared_constituencies as $row) {
+			$constituency_id = $row['id'];
+			echo '<div class="delegation_box">';
+			echo _t("Constituency: ");
+			_strong($row['name']);
+			_br();
+			echo '<span id="constituency' . $constituency_id . '">' . _t("You have no delegate in this constituency") . '</span>';
+			_br(2);
+			echo '<input id="delegate_in_' . $constituency_id . '" style="display: inline" type="submit" value="' . _t("Delegate to ", array('class' => 'prep')) . $delegate_info['title'] 
+				. '" onmousedown="return encrypt_single_delegation(' . $constituency_id
+					. ', ' . $_GET['id'] . ')">';
+			echo '<input id="undelegate_in_' . $constituency_id . '" style="display: none" type="submit" value="' . _t("Remove delegate ") 
+				. '" onmousedown="return encrypt_single_delegation(' . $constituency_id . ', 0)">';
+			echo '</div>';
+		}
+		echo '</form>';
+		echo '<script>';
+		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+		echo '</script>';		
 	}
-	echo '</form>';
-	echo '<script>';
-	echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
-	echo '</script>';
 ?>
 <script>
 list_of_delegations.map(function (vote){

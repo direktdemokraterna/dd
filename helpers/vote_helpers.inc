@@ -218,7 +218,7 @@ class vote_helpers
 		return $ballot;
 	}
 
-	public static function find_common_constituencies ($voter_id, $delegate_id)
+	public static function find_shared_constituencies ($voter_id, $delegate_id)
 	{
 		$voter_constituencies = db_constituency::get_constituencies_for_voter($voter_id);
 		$matching_constituencies = Array();

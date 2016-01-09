@@ -110,6 +110,10 @@ class nouns
 				"sv" => "debatt:er"
 				,"en" => "debate:s"
 				)
+			,"delegand:noun1" => array(
+				"sv" => "delegand:er:en:na"
+				,"en" => "delegand:s"
+				)
 			,"delegate:noun1" => array(
 				"sv" => "delegat:er:-"
 				,"en" => "delegate:s"

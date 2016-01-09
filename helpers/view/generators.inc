@@ -89,4 +89,11 @@
 	{
 		return \i18n\engine::translate($text, $hints);
 	}
+
+	function _limit_with_ellipsis($text, $limit) 
+	{
+		return $text && strlen($text) > $limit
+			? substr($text, 0, $limit - 3) . '...'
+			: $text;
+	}
 ?>

@@ -81,6 +81,7 @@
 	</ul>
 	<ul id="logout-link">
 		<li><?php
+				$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
 				$user_label = db_user::get_user_full_name($_SESSION['id']);
 				$hello = _span("large_screen", _t("Hello, "));
 				$user_label = $hello . $user_label;
@@ -92,7 +93,7 @@
 				<?php if ($_SESSION['delegate_id']) : ?>
 					<li><a onClick="set_acting_as_delegate(0)">
 						<?php __("Act as individual"); ?></a></li>
-				<?php else : ?>
+				<?php elseif (db_delegate::is_user_delegate($_SESSION['id'])) : ?>
 					<li><a onClick="set_acting_as_delegate(1)">
 						<?php __("Act as delegate"); ?></a></li>
 				<?php endif; ?>

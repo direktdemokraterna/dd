@@ -275,31 +275,36 @@ class db_delegate
 		return db::select($query, $values);
 	}
 
-	public static function list_delegates_for_user_constituencies ($voter_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter = "1=1"){
+	public static function list_delegates_for_user_constituencies ($voter_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter, $filter_values)
+	{
+		$where_filter[] = "cd.voter_id = d.id";
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select d.id as id, d.title as title from delegate d 
-				where exists 
-				(
-					select * from constituency_voter cd
-						join constituency_voter cv on cd.constituency_id = cv.constituency_id
-					where cd.voter_id = d.id and cv.voter_id = ? and " . $where_filter . "
-				) 
+		$where_clause = self::create_delegates_for_user_constituencies_where_clause($where_filter);
+		$query = "select d.id, d.title, d.description
+				, (select count(*) from voter_delegate vd where vd.delegate_id = d.id) as delegand_count 
+				from delegate d 
+				" . $where_clause . "
 				order by " . $order_by . " " . $limit_clause;
-		$values = Array($voter_id);
-		return db::select($query, $values);
+		return db::select($query, $filter_values);
 	}
 
-	public static function list_delegates_for_user_constituencies_count ($voter_id, $where_filter = "1=1")
+	public static function list_delegates_for_user_constituencies_count ($where_filter, $filter_values)
 	{
+		$where_clause = self::create_delegates_for_user_constituencies_where_clause($where_filter);
 		$query = "select count(*) from delegate d 
-				where exists 
+				" . $where_clause;
+		return db::select_single_value($query, $filter_values);
+	}
+
+	private static function create_delegates_for_user_constituencies_where_clause ($where_filter)
+	{
+		$where_filter[] = "cd.voter_id = d.id";
+		return "where exists 
 				(
 					select * from constituency_voter cd
 						join constituency_voter cv on cd.constituency_id = cv.constituency_id
-					where cd.voter_id = d.id and cv.voter_id = ? and " . $where_filter . "
+					where " . implode(" and ", $where_filter) . "
 				)";
-		$values = Array($voter_id);
-		return db::select_single_value($query, $values);
 	}
 
 	public static function get_delegate_info ($delegate_id)

@@ -74,6 +74,7 @@ include(dirname(__FILE__)."/helpers/logic/util.inc");
 include(dirname(__FILE__)."/helpers/logic/vote.inc");
 
 include(dirname(__FILE__)."/helpers/view/calendar.inc");
+include(dirname(__FILE__)."/helpers/view/delegate.inc");
 include(dirname(__FILE__)."/helpers/view/forum.inc");
 include(dirname(__FILE__)."/helpers/view/general.inc");
 include(dirname(__FILE__)."/helpers/view/generators.inc");
