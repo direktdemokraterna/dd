@@ -4,12 +4,14 @@ namespace View;
 class workgroup 
 {
 	public static function list_workgroups($workgroups) {
-		echo '<div class="list_of_links">';
-		foreach($workgroups as $row) {
-			_link($row['title'], 'workgroup', 'view', 'id=' . $row['id'] . \View\general::get_from_action_for_url(array('search')));
-			_br();
-		}
-		echo '</div>';
+		$columns = array(_t("Name"), _t("Restricted"), _t("Number of members"));
+		$rows = array_map(function($workgroup) {
+			return array(\View\general::generate_internal_link($workgroup['title'], 'workgroup', 'view'
+				, 'id=' . $workgroup['id'] . \View\general::get_from_action_for_url(array('search')))
+			, ($workgroup['membership_vote_id'] ? _t("Yes"): _t("No"))
+			, $workgroup['number_of_members']);
+		}, $workgroups);
+		\View\general::output_grid_view($columns, $rows);
 	}
 
 	public static function output_workgroup_membership_vote_button($label, $action, $workgroup_id, $user_id) {
@@ -114,7 +116,7 @@ class workgroup
 		$workgroup_membership_changes = \db_workgroup::get_workgroup_election_changes($_GET['id']);
 		if(!empty($workgroup_membership_changes)) {
 			echo '<p>';
-			_strong(_t("Upcoming changes in membership"));
+			_strong(_t("Upcoming changes in membership", array('class' => 'noun')));
 			_br();
 			echo '<table>';
 			echo '<tr><th>' . _t("Time") . '</th><th>' . _t("Member out") . '</th><th>' 
