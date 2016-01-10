@@ -10,5 +10,5 @@
 	\View\vote::make_vote_end_time_select(time() + STANDARD_VOTE_LENGTH); 
 	_br();
 	_p(_t("The vote closes for delegates after half the vote time. In case this is not appropriate it is possible to change the delegate vote time after the vote has been created."));
-	_submit_and_close(_t("Create"), null, 6);
+	_submit_and_close(_t("Create"), null, null, 6);
 ?>

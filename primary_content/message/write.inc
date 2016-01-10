@@ -32,5 +32,5 @@
 	\View\general::make_labeled_selector("recipient", _t("Recipient"), $options, $recipient, 'tabindex="1"');
 	\View\general::make_textfield("title", _t("Caption"), 2, $title);
 	\View\general::make_textarea("message_text", _t("Message"), 3, $content);
-	_submit_and_close(_t("Send"), null, 4);
+	_submit_and_close(_t("Send"), null, null, 4);
 ?>

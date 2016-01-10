@@ -34,18 +34,19 @@
 		 echo '<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '">';
 	}
 
-	function _submit_and_close($label, $confirm = null, $tab_index = 1) {
-		_submit($label, $confirm, $tab_index);
+	function _submit_and_close($label, $name = null, $confirm = null, $tab_index = 1) {
+		_submit($label, $name, $confirm, $tab_index);
 		echo '</form>';
 	}
 
-	function _submit($label, $confirm, $tab_index) {
-		echo '<input type="submit" style="width: auto;" value="' . $label . '" tabindex="' . $tab_index .
-			($confirm ? '" onclick="return confirm(\'' . $confirm . '\');' : '') . '">';
+	function _submit($label, $name, $confirm, $tab_index) {
+		echo "<input type=\"submit\"" . ($name ? " name=\"$name\"" : "") 
+			. " style=\"width: auto;\" value=\"$label\" tabindex=\"$tab_index\""
+			. ($confirm ? " onclick=\"return confirm('$confirm');\">" : ">");
 	}
 
 	function _label($text, $for) {
-		echo '<label for"' . $for . '">' . $text . '</label>';
+		echo "<label for=\"$for\">$text</label>";
 	}
 
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
@@ -97,6 +98,7 @@
 			: $text;
 	}
 
+	//TODO: Use named submit
 	function _action($label, $action, $params) 
 	{
 		_open_form();

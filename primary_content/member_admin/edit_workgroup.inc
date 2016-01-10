@@ -12,7 +12,7 @@
 	if($is_restricted)
 		\View\general::make_textfield("number_of_members", _t('Number of members'), 5, $workgroup);
 	_br();
-	_submit_and_close(_t("Change"), null, 7);
+	_submit_and_close(_t("Change"), null, null, 7);
 	\View\forum::output_text_editor(array(
 		'name' => 'edit_description'
 		,'legend' => _t('Description of the workgroup')
@@ -22,5 +22,5 @@
 	_open_form();
 	_hidden("delete", 1);
 	_p(_t("Removal of the workgroup cannot be undone."));
-	_submit_and_close(_t("Remove"), _t("Do you really want to remove this workgroup?"), 8);
+	_submit_and_close(_t("Remove"), null, _t("Do you really want to remove this workgroup?"), 8);
 ?>

@@ -4,20 +4,20 @@
 	$user_settings = db_user::get_user_data($_SESSION['id']); 
 	_h1(_t("Change my profile"));
 	
-	_h2(_t("Change user information"));
+	_h2(_t("User information"));
 	_open_form();
 	_hidden("form_type", "profile");
 	\View\member::output_edit_fields($user_settings, false, $tab_index);
 	_br();
 	_submit_and_close(_t("Change"));
 
-	_h2(_t("Change presentation"));
+	_h2(_t("Presentation"));
 	_open_form();
 	_hidden("form_type", "description");
 	\View\general::make_textarea("settings_description", _t("Personal description (visible to all members)"), $tab_index++, forum_helpers::de_process_text($user_settings['description']));	
 	_submit_and_close(_t("Change"));
 	
-	_h2(_t("Change profile image"));
+	_h2(_t("Profile image"));
 	echo '<form enctype="multipart/form-data" class="standard-form" method="post" action="">';
 	_hidden("form_type", "image");
 	_br();
@@ -30,7 +30,7 @@
 	_br();
 	_submit_and_close(_t("Change"));
 	
-	_h2(_t("Change settings"));
+	_h2(_t("Settings"));
 	_open_form();
 	_hidden("form_type", "settings");
 	\View\general::make_checkbox("show_email", _t("Show email address"), 1, $tab_index++, $user_settings);	

@@ -40,7 +40,7 @@ class vote
 
 	private static function close_add_alternative_form($submit_text, $submit_tab_index = 1) 
 	{
-		_submit_and_close($submit_text, null, $submit_tab_index);
+		_submit_and_close($submit_text, null, null, $submit_tab_index);
 	}
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {

@@ -4,6 +4,7 @@
 	$delegate_id = $_GET['id'];
 
 	$delegate_info = db_delegate::get_delegate_info($_GET['id']);
+	$is_own_delegate = $delegate_info['user_id'] == $_SESSION['id'];
 	if(empty($delegate_info['description'])) 
 		$delegate_info['description'] = _t("No description");
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -25,7 +26,7 @@
 	var acting_as_delegate = <?php echo $acting_as_delegate ? "true" : "false"; ?>;
 </script>
 <?php
-	_h1(_t(($delegate_info['user_id'] == $_SESSION['id'] ? "Your delegate" : "Delegate") . ": "
+	_h1(_t(($is_own_delegate ? "Your delegate" : "Delegate") . ": "
 		, array('class' => 'noun')) . $delegate_info['title']);
 	_h2(_t("Description"));
 	_p($delegate_info['description']);
@@ -59,14 +60,14 @@
 			echo _t(" in constituency ") . $row['constituency_title'] . '<br>'; 
 		}		
 	}
-?>
-<?php if ($_SESSION['delegate_id'] == $delegate_id) : ?>
-	<?php
+	if ($is_own_delegate) {
 		_br();
-		_link(_t("Handle delegate"), "vote", "delegate_settings");
-	?>
-<?php elseif ($shared_constituencies) : ?>
+		_link(_t("Handle delegate"), "vote", "delegate_settings");		
+	}
+?>
+<?php if ($shared_constituencies && $_SESSION['delegate_id'] != $delegate_id) : ?>
 	<?php
+		echo '<hr>';
 		echo '<script>';
 		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
 		echo '</script>';

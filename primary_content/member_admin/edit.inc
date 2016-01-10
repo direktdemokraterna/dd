@@ -13,5 +13,5 @@
 	_hidden("change_password", 1);
 	_hidden("username", $user_data['username']);
 	_hidden("user_email", $user_data['email']);
-	_submit_and_close(_t("Generate new password"), _t("Do you really want to replace the password for this user with an auto-generated password?"));
+	_submit_and_close(_t("Generate new password"), null, _t("Do you really want to replace the password for this user with an auto-generated password?"));
 ?>

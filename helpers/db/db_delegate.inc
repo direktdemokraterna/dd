@@ -53,16 +53,6 @@ class db_delegate
 		return \db_general::delete_voter($delegate_id);
 	}
 
-	public static function get_delegate_id_from_user_id ($user_id)
-	{
-		$query = "select du.delegate_id 
-					from user u
-						left join delegate_user du on du.user_id = u.id
-					where u.id = ?";
-		$values = Array($user_id);
-		return db::select_single_value($query, $values);
-	}
-
 	public static function get_user_id_from_delegate_id ($delegate_id)
 	{
 		$query = "select user_id from delegate_user where delegate_id = ?";
@@ -75,6 +65,23 @@ class db_delegate
 		$query = "update user set acting_as_delegate = ? where id = ?";
 		$values = Array($value ? 1 : 0, $user_id);
 		return db::update($query, $values);
+	}
+
+	public static function update_delegate_description($user_id, $description) {
+		$delegate_id = self::get_delegate_id_from_user_id($user_id);
+		$query = "update delegate set description = ? where id = ?";
+		$values = Array($description, $delegate_id);
+		return db::update($query, $values);		
+	}
+
+	public static function get_delegate_id_from_user_id ($user_id)
+	{
+		$query = "select du.delegate_id 
+					from user u
+						left join delegate_user du on du.user_id = u.id
+					where u.id = ?";
+		$values = Array($user_id);
+		return db::select_single_value($query, $values);
 	}
 
 	public static function register_delegation ($user_code, $voter_id, $delegate_id, $constituency_id, $priority = 1)

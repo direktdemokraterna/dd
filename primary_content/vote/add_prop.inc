@@ -8,5 +8,5 @@
 	\View\vote::make_title_input(); 
 	\View\vote::make_description_input(); 
 	_br();
-	_submit_and_close(_t("Send"), null, 5);
+	_submit_and_close(_t("Send"), null, null, 5);
 ?>

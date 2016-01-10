@@ -17,25 +17,32 @@
 		else
 			\Logic\util::report_error(_t("Something went wrong."));
 	}
-	elseif(isset($_POST['change_delegate'])){
-		$report_messages = array();
+	elseif(isset($_POST['act_as_delegate'])){
+		var_dump($_POST);
 		if(isset($_POST['acting_as_delegate'])){
 			$delegate_activated = \Logic\delegate::act_as_delegate();
 			if ($delegate_activated)
-				$report_messages[] = _t("You now vote as delegate.");
+				$_SESSION['report_message'] = _t("You now vote as delegate.");
 		}
 		else if ($_SESSION['delegate_id']){
 			$delegate_deactivated = \Logic\delegate::act_as_individual();
 			if ($delegate_deactivated)
-				$report_messages[] = _t("You now vote as individual.");
+				$_SESSION['report_message'] = _t("You now vote as individual.");
 		}
+	}
+	elseif(isset($_POST['change_constituencies'])){
 		$constituencies = isset($_POST['constituencies']) ? $_POST['constituencies'] : array();
 		$constituencies_changed = \Logic\constituency::update_constituencies_for_delegate($constituencies, $_SESSION['id']);
 		if($constituencies_changed)
-			$report_messages[] = _t("Constituency activity updated.");
-		if ($report_messages)
-			$_SESSION['report_message'] = implode(" ", $report_messages);
+			$_SESSION['report_message'] = _t("Constituency activity updated.");
 		else 
 			$_SESSION['report_message'] = _t("No changes made.");
+	}
+	elseif(isset($_POST['description'])){
+		$ok = db_delegate::update_delegate_description($_SESSION['id'], $_POST['description']);
+		if($ok)
+			$_SESSION['report_message'] = _t("Delegate description updated.");
+		else
+			\Logic\util::report_error(_t("Something went wrong. Could not update description"));
 	}
 ?>
