@@ -2,7 +2,7 @@
 	$post_info = db_forum::get_full_post_info($_GET['id'], $_SESSION['id']);
 	_h1(_t("Edit post"));
 	\View\forum::output_post($post_info, false);
-	\View\forum::output_text_editor(array(
+	\View\general::output_text_editor(array(
 		'name' => 'edit_post'
 		,'legend' => _t('Edit post')
 		,'target_id' => $_GET['id']

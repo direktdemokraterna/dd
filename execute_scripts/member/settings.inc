@@ -1,5 +1,5 @@
 <?php
-	if($_POST['form_type']=="password"){
+	if(isset($_POST["password"])){
 		if($_POST['new_password1']!=$_POST['new_password2'])
 			\Logic\util::report_error(_t("The new passwords didn't match")); 
 		else{
@@ -15,8 +15,7 @@
 				\Logic\util::report_error(_t("The password was not correct"));
 		}
 	}
-
-	elseif($_POST['form_type']=="settings"){
+	elseif(isset($_POST["settings"])){
 		if(!isset($_POST['show_email'])) $_POST['show_email']=0;
 		if(!isset($_POST['show_telephone'])) $_POST['show_telephone']=0;
 		if(!isset($_POST['show_skype'])) $_POST['show_skype']=0;
@@ -26,17 +25,15 @@
 		else
 			\Logic\util::report_error(_t("No settings changed")); 
 	}
-
-	elseif($_POST['form_type']=="description"){
-		$presentation = forum_helpers::process_text($_POST['settings_description']);
+	elseif(isset($_POST["description_content"])){
+		$presentation = forum_helpers::process_text($_POST['description_content']);
 		$ok = db_user::update_description($presentation, $_SESSION['id']);
 		if($ok)
 			$_SESSION['report_message'] = _t("The presentation has been updated."); 
 		else
 			\Logic\util::report_error(_t("No changes made")); 
 	}
-
-	elseif($_POST['form_type']=="image"){
+	elseif(isset($_POST["image"])){
 		$image_info = getimagesize($_FILES['image']['tmp_name']);
 		if($image_info['2']==1)  // Checks that file is gif image
 			$image_filename = general_helpers::GenerateRandomString(20) . ".gif";
@@ -46,7 +43,6 @@
 			$image_filename = general_helpers::GenerateRandomString(20) . ".png";
 		else
 			\Logic\util::report_error(_t("Wrong file type.")); 
-
 		if(isset($image_filename)){ // Execute file upload and database update
 			move_uploaded_file($_FILES['image']['tmp_name'], USERIMG_PATH . $image_filename);
 			$ok = db_user::update_image($image_filename, $_SESSION['id']);
@@ -54,8 +50,7 @@
 				$_SESSION['report_message'] = _t("Image updated."); 
 		}
 	}
-
-	elseif($_POST['form_type']=="profile"){
+	elseif(isset($_POST["profile"])){
 		if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 			\Logic\util::report_error(_t("the email address is invalid.")); 
 		elseif(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['street_address']) && isset($_POST['zip_code']) && isset($_POST['city_address']) && isset($_POST['county_id']) && isset($_POST['email'])){

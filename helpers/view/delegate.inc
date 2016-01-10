@@ -9,12 +9,12 @@ class delegate
 		\general_helpers::make_list_header_with_region_county_filter($page, $result_counter, $sort_alternatives, $show_other_constituencies_control);
 	}
 
-	public static function output_delegate_list_rows($delegates) 
+	public static function output_delegate_list($delegates) 
 	{
 		$columns = array(_t("Title"), _t("Description"), _t("Delegands"));
 		$rows = array_map(function($delegate) {
 			return array(\View\general::generate_internal_link($delegate['title'], 'vote', 'view_delegate', 'id=' . $delegate['id'])
-				, _limit_with_ellipsis($delegate['description'], 30)
+				, _limit_with_ellipsis(\View\general::make_plaintext_from_wiki_text($delegate['description']), 30)
 				, $delegate['delegand_count']);
 		}, $delegates);
 		\View\general::output_grid_view($columns, $rows);

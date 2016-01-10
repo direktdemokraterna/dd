@@ -165,21 +165,49 @@ class forum_helpers
 		return 1;
 	}
 
+	private static $html_tags_by_bbc_tag = array(
+		"[b]" => "<b>"
+		,"[/b]" => "</b>"
+		,"[i]" => "<i>"
+		,"[/i]" => "</i>"
+		,"[u]" => "<u>"
+		,"[/u]" => "</u>"
+		);
+
 	public static function replace_brackets_with_html_tags($wiki_text)
 	{
 		$html_text = $wiki_text;
-		$html_text = self::replace_quotes($html_text);	
-		$html_text = str_replace("[b]", "<b>", $html_text);
-		$html_text = str_replace("[/b]", "</b>", $html_text);
-		$html_text = str_replace("[i]", "<i>", $html_text);
-		$html_text = str_replace("[/i]", "</i>", $html_text);
-		$html_text = str_replace("[u]", "<u>", $html_text);
-		$html_text = str_replace("[/u]", "</u>", $html_text);
+		$html_text = self::replace_quotes($html_text);
+		foreach (self::$html_tags_by_bbc_tag as $bbc_tag => $html_tag)
+			$html_text = str_replace($bbc_tag, $html_tag, $html_text);	
 		$html_text = self::replace_links_with_a_tags($html_text);
 		return $html_text;
 	}
 
+	public static function remove_bbcode_tags($wiki_text)
+	{
+		$plaintext = $wiki_text;
+		foreach (array_keys(self::$html_tags_by_bbc_tag) as $bbc_tag)
+			$plaintext = str_replace($bbc_tag, "", $plaintext);	
+		$plaintext = self::remove_links($plaintext);
+		return $plaintext;
+	}
+
 	private static function replace_links_with_a_tags($text) {
+		return self::transform_links($text, function ($link_text) 
+			{
+				$completeUrl = \Logic\util::starts_With($link_text, "http") 
+					? $link_text 
+					: "http://$url";
+				return "<a href=\"$completeUrl\" target=\"_blank\">$url</a>";
+			});
+	}
+
+	private static function remove_links($text) {
+		return self::transform_links($text, function ($link_text) {return "";});
+	}
+
+	private static function transform_links($text, $transform_function) {
 		$pos = 0;
 		$open_link = "[link]";
 		$close_link = "[/link]";
@@ -191,16 +219,11 @@ class forum_helpers
 			$start_url_index = $start_link_index + strlen($open_link);
 			$link_text = substr($text, $start_url_index, $end_link_index - $start_url_index);
 			$bbcode_link = $open_link . $link_text . $close_link;
-			$html_link = self::create_html_link($link_text);
+			$html_link = $transform_function($link_text);
 			$text = str_replace($bbcode_link, $html_link, $text);
 			$pos = $start_link_index + strlen($html_link);
 		}
 		return $text;
-	}
-
-	private static function create_html_link($url) {
-		$completeUrl = \Logic\util::starts_With($url, "http") ? $url : "http://$url";
-		return "<a href=\"$completeUrl\" target=\"_blank\">$url</a>";
 	}
 
 	public static function replace_quotes($wiki_text)

@@ -222,42 +222,6 @@ class forum
 			. '#' . $post_element_id);
 		_space();
 	}
-
-	public static function output_text_editor($options)
-	{
-		$name = $options['name'];
-		$legend = $options['legend'];
-		$target_id = $options['target_id'];
-		$submit_text = $options['submit_text'];
-		$title_label = isset($options['title_label']) ? $options['title_label'] : null;
-		$tab_index = isset($options['tab_index']) ? $options['tab_index'] : 1;
-
-		$form_name = $name . '_form';
-		$content_name = $name . '_content';
-		$submit_name = $name . '_submit';
-
-		$content = isset($_POST[$content_name]) 
-			? $_POST[$content_name] 
-			: (isset($options['content']) ? $options['content'] : '');
-
-		echo '<form method="post" action="" id="' . $form_name . '" class="text-editor">';
-		echo '<fieldset>';
-		echo '<legend>' . $legend . '</legend>';
-		_hidden("target_id", $target_id);
-		if ($title_label) 
-			\View\general::make_textfield($name . '_title', $title_label, $tab_index++);
-		echo '<div id="format_buttons_div">';
-		echo '<input type="button" id="format_buttons_b" accesskey="b" title="'. _t("Bold") .'" value="b" onClick="make_bold(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_i" accesskey="i" title="'. _t("Italic") .'" value="i" onClick="make_italic(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_u" accesskey="u" title="'. _t("Underline") .'" value="u" onClick="make_underline(\'' . $content_name . '\')">';
-		echo '</div>';
-		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
-			. $tab_index . '">' . $content . '</textarea><br>';
-		echo '<input type="submit" id="' . $submit_name . '" value="' . $submit_text 
-			. '" tabindex="' . ($tab_index + 1) . '">';
-		echo '</fieldset>';
-		echo '</form>';
-	}
 }
 
 class Paging_info 

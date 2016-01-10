@@ -1,9 +1,8 @@
 <?php
 	$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
-	if($is_delegate)
-		$delegate_settings = db_delegate::get_delegate_settings($_SESSION['id']);
 	_h1(_t("Delegate settings"));
 	if($is_delegate) {
+		$delegate_settings = db_delegate::get_delegate_settings($_SESSION['id']);
 		_open_form("standard-form");
 		_h2(_t("Vote as delegate"));
 		_label(_t("Act as delegate"), "acting_as_delegate");
@@ -14,9 +13,12 @@
 		_submit_and_close(_t("Change"), "act_as_delegate");
 
 		_h2(_t("Presentation"));
-		_open_form("standard-form");
-		\View\general::make_textarea("description", _t("Description of your delegate (visible to all members)"), 1, forum_helpers::de_process_text($delegate_settings['description']));	
-		_submit_and_close(_t("Change"));
+		\View\general::output_text_editor(array(
+			'name' => 'description'
+			,'legend' => _t('Description of your delegate')
+			,'target_id' => $delegate_settings['id']
+			,'submit_text' => _t("Change")
+			,'content' => $delegate_settings['description']));
 
 		_h2(_t("constituencies for your delegate"));
 		$constituencies = db_delegate::get_constituencies_for_user_and_delegate_activity($_SESSION['id'], $delegate_settings['id']);

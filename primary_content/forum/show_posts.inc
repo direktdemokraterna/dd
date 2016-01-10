@@ -13,8 +13,8 @@
 	else {
 		\View\forum::show_posts("index.php?type=forum&action=show_posts&topic_id=" . $topic_id, $page, $posts, $post_count);
 		if(isset($_SESSION['is_forum_admin']))
-			echo '<p><a href="index.php?type=forum_admin&action=edit_topic&id=' . $topic_id . '" style="float: right; margin-top: 20px;">' . _t("Moderate topic") . '</a></p>';
-		\View\forum::output_text_editor(array(
+			echo '<p><a href="index.php?type=forum_admin&action=edit_topic&id=' . $topic_id . '" style="float: right;">' . _t("Moderate topic") . '</a></p>';
+		\View\general::output_text_editor(array(
 			'name' => 'new_post'
 			,'legend' => _t('Reply in the thread')
 			,'target_id' => $topic_id

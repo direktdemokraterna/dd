@@ -38,8 +38,8 @@
 		else 
 			$_SESSION['report_message'] = _t("No changes made.");
 	}
-	elseif(isset($_POST['description'])){
-		$ok = db_delegate::update_delegate_description($_SESSION['id'], $_POST['description']);
+	elseif(isset($_POST['description_content'])){
+		$ok = db_delegate::update_delegate_description($_SESSION['id'], $_POST['description_content']);
 		if($ok)
 			$_SESSION['report_message'] = _t("Delegate description updated.");
 		else
