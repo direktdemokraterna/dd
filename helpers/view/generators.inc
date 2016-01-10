@@ -96,4 +96,13 @@
 			? substr($text, 0, $limit - 3) . '...'
 			: $text;
 	}
+
+	function _action($action, $params) 
+	{
+		_open_form();
+		_hidden('action', $action);
+		foreach ($params as $key = $value)
+			_hidden($key, $value);
+		_submit_and_close(_t("Remove from sent"));
+	}
 ?>

@@ -11,16 +11,15 @@
 	}
 	if ($user_is_sender || $user_is_recipient) {
 		\View\message::output_message($message, $user_is_sender, $user_is_recipient, "", true);
-		if ($user_is_recipient) {
-			_link(_t("Remove from received"), 'message', 'inbox', 'recipient_delete=' . $message['id']);
-			_br();
-		}
+		if ($user_is_recipient)
+			_action('recipient_delete', array('message_id' => $message['id']))
 		if($user_is_sender) {
 			if($message['read_time'])
-				_link(_t("Delete from sent"), 'message', 'inbox', 'sender_delete=' . $message['id']);
+				_action('sender_delete', array('message_id' => $message['id']))
 			else
-				_link(_t("Undo send"), 'message', 'inbox', 'cancel=' . $message['id']);
+				_action('cancel', array('message_id' => $message['id']))
 		}
+		echo '</form>';
 	}
 	else
 		__("Message not found");

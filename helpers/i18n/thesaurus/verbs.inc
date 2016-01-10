@@ -205,7 +205,7 @@ class verbs
 				)				
 			,"read:verb" => array(
 				"sv" => "läs:a:er:t:(t:a)"
-				,"en" => "read::|s:::()"
+				,"en" => "read::|s::()"
 				)				
 			,"reach:verb" => array(
 				"sv" => "uppnå::r:tt"
