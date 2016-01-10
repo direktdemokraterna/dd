@@ -12,12 +12,12 @@
 	if ($user_is_sender || $user_is_recipient) {
 		\View\message::output_message($message, $user_is_sender, $user_is_recipient, "", true);
 		if ($user_is_recipient)
-			_action('recipient_delete', array('message_id' => $message['id']))
+			_action(_t("Remove from received"), 'recipient_delete', array('message_id' => $message['id']));
 		if($user_is_sender) {
 			if($message['read_time'])
-				_action('sender_delete', array('message_id' => $message['id']))
+				_action(_t("Remove from sent"), 'sender_delete', array('message_id' => $message['id']));
 			else
-				_action('cancel', array('message_id' => $message['id']))
+				_action(_t("Undo send"), 'cancel', array('message_id' => $message['id']));
 		}
 		echo '</form>';
 	}

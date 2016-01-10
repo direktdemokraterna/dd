@@ -97,12 +97,12 @@
 			: $text;
 	}
 
-	function _action($action, $params) 
+	function _action($label, $action, $params) 
 	{
 		_open_form();
 		_hidden('action', $action);
-		foreach ($params as $key = $value)
+		foreach ($params as $key => $value)
 			_hidden($key, $value);
-		_submit_and_close(_t("Remove from sent"));
+		_submit_and_close($label);
 	}
 ?>
