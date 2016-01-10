@@ -2,7 +2,7 @@
 	$voteinfo = db_vote::get_vote_info($_GET['id']); 
 	_h1(_t("Edit vote: ") . $voteinfo['title']);
 	_open_form();
-	_hidden("vote_id", $voteinfo['vote_id']);
+	_hidden("vote_id", $voteinfo['id']);
 	\View\vote::make_vote_type_selector($voteinfo['type']);
 	\View\vote::make_constituency_selector($voteinfo['constituency_id'], $_SESSION['id'], 2); 
 	\View\general::make_textfield("title", _t("Title"), 3, $voteinfo); 

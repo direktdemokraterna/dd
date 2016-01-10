@@ -31,17 +31,14 @@ class db_vote
 
 	public static function get_vote_info ($vote_id)
 	{
-		$query = "select v.id as vote_id, v.title as title, v.description as description
+		$query = "select v.id, v.title, v.description
 			, p.created_by_voter as user_id
 			, concat(initiator.first_name, ' ', initiator.last_name) as user_full_name
-			, v.type as type, v.timestamp_created as timestamp_created
-			, v.timestamp_delegate_ended as timestamp_delegate_ended, v.timestamp_ended as timestamp_ended
-			, v.forum_topic_id as forum_topic_id, c.id as constituency_id, c.title as constituency_name
-			, c.number_of_voters as number_of_voters, v.number_of_alternatives as number_of_alternatives
-			, v.number_of_ballots as number_of_ballots, v.number_of_direct_ballots as number_of_direct_ballots
-			, v.from_proposition_id as from_proposition_id
-			, p.timestamp_created as proposition_created
-			, v.status as status  
+			, v.type, v.timestamp_created, v.timestamp_delegate_ended , v.timestamp_ended
+			, v.forum_topic_id, c.id as constituency_id, c.title as constituency_name
+			, c.number_of_voters, v.number_of_alternatives
+			, v.number_of_ballots, v.number_of_direct_ballots
+			, v.from_proposition_id, p.timestamp_created as proposition_created, v.status  
 		from vote v
 			join constituency c on c.id = constituency_id
 			left join proposition p on p.id = v.from_proposition_id
@@ -183,7 +180,8 @@ class db_vote
 		$where_clause = self::get_votes_where_clause($statuses);
 		$order_by = self::get_votes_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select V.id, V.title, C.title as constituency 
+		$query = "select V.id, V.title, C.title as constituency
+					, V.status, V.type, V.from_proposition_id, V.number_of_ballots 
 					" . $from_clause . "
 					" . $where_clause . "
 					order by C.constituency_level asc, C.id, " . $order_by . " 

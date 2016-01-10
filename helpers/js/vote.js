@@ -122,28 +122,26 @@ function encrypt_delegation_get_delegate_from_form (constituency_id){
 	return encrypt_single_delegation(constituency_id, delegate_id_from_form);
 }
 
-function show_delegate_votes (is_prop)
+function show_delegate_votes (vote_type)
 {
 	document.getElementById("delegate_votes_box").className = "vote_result_box";
 	var delegate_votes_box_content = delegate_vote_box_header;
-	list_of_votes.map(function (vote){
-		if(vote.user_code == null){
-			delegate_votes_box_content += "<tr><td><a href=\"index.php?type=vote&action=view_delegate&id=" + vote.voter_id + "\">" + vote.voter_is_delegate_name + "</a></td><td style='color: white'>";
-			if(vote.hasOwnProperty('support'))
-				delegate_votes_box_content += vote.support ? support_text : not_support_text;
-			else if(vote.hasOwnProperty('alternative'))
-				delegate_votes_box_content += vote.alternative == "abstain"
-					? abstain_text
-					: (vote.alternative == "yes" ? yes_text : no_text);
-			else if(vote.hasOwnProperty('value'))
-				delegate_votes_box_content += vote.value == "abstain"
-					? abstain_text
-					: vote.value;
-			delegate_votes_box_content += "</td><td>";
-			if(vote.delegate_id)
-				delegate_votes_box_content += "<a href=\"index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "\">" + vote.delegate_name + "</a>";
-			delegate_votes_box_content += "</td></tr>";
-		}
+	delegate_ballots.map(function (ballot){
+		delegate_votes_box_content += "<tr><td><a href=\"index.php?type=vote&action=view_delegate&id=" + ballot.voter_id + "\">" + ballot.voter_is_delegate_name + "</a></td><td style='color: white'>";
+		if(vote_type == 'support')
+			delegate_votes_box_content += ballot.ballot ? support_text : not_support_text;
+		else if(vote_type == 'yes-no')
+			delegate_votes_box_content += ballot.ballot == "abstain"
+				? abstain_text
+				: (ballot.ballot == "yes" ? yes_text : no_text);
+		else if(vote_type == 'median')
+			delegate_votes_box_content += ballot.ballot == "abstain"
+				? abstain_text
+				: ballot.ballot;
+		delegate_votes_box_content += "</td><td>";
+		if(ballot.delegate_id)
+			delegate_votes_box_content += "<a href=\"index.php?type=vote&action=view_delegate&id=" + ballot.delegate_id + "\">" + ballot.delegate_name + "</a>";
+		delegate_votes_box_content += "</td></tr>";
 	});
 	document.getElementById("delegate_votes_box").innerHTML = delegate_votes_box_content;
 }
@@ -152,14 +150,14 @@ function show_delegate_votes (is_prop)
 /// UI helper methods
 ////////////////////////////////////////////
 
-function output_prio_vote(user_vote_box, vote) {
+function output_prio_vote(user_vote_box, ballot) {
 	user_vote_box.innerHTML = "";
-	if(vote.prio_ranking == "abstain")
+	if(ballot.ballot == "abstain")
 		user_vote_box.innerHTML += you_voted_abstain + "<br>";        
 	else{
 		var promoting = [];
 		var demoting = [];
-		populate_promoting_demoting_lists(promoting, demoting, vote.prio_ranking);
+		populate_promoting_demoting_lists(promoting, demoting, ballot.ballot);
 		if (promoting.length) 
 		 	user_vote_box.innerHTML += you_promoted + promoting.join() + '<br>';
 		if (demoting.length) 

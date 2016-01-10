@@ -158,6 +158,18 @@ class general
 		_br();
 	}
 
+	public static function db_result_to_json($db_result) {
+		$list = array();
+		foreach($db_result as $row){
+			$map = array();
+			foreach ($row as $key => $value)
+				$map[$key] = $value;
+			$list[] = $map;
+		}
+		$json = json_encode($list);
+		return $json;
+	}
+
 	private static function add_attributes(&$element, $attributes) {
 		if ($attributes)
 			foreach ($attributes as $key => $value)

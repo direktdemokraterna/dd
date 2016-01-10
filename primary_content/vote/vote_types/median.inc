@@ -3,7 +3,7 @@
 		__("Cast your vote:");
 		_br();
 		_open_form("yes-no");
-		_hidden("vote_id", $voteinfo['vote_id']);
+		_hidden("vote_id", $voteinfo['id']);
 		_hidden("ballot");
 		_label(_t("Your choosen value: "), "median_value");
 		echo '<input type="text" name="median_value" id="median_value" value="' . (!empty($delegate_ballot) && is_numeric($delegate_ballot['ballot']) ? $delegate_ballot['ballot'] : '') . '" oninput="validateMedianValue(\'median_value\', \'submit_vote\');" onpropertychange="this.oninput();">';

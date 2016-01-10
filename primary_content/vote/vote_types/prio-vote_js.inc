@@ -46,18 +46,19 @@
   <?php endif; ?>
 
 <?php else : ?>
-  list_of_votes.map(function (vote){
-    if(vote.user_code == sessionStorage.user_code){
-      var user_vote_box = document.getElementById("user_vote_box");
-      output_prio_vote(user_vote_box, vote);
-      if(vote.delegate_id == null){
-        user_vote_box.innerHTML += you_voted_yourself;
-        document.getElementById("white_vote").style.display = "inline-block";
+  if (acting_as_delegate ? false : true)
+    ballots_to_count.map(function (ballot){
+      if(ballot.user_code == sessionStorage.user_code){
+        var user_vote_box = document.getElementById("user_vote_box");
+        output_prio_vote(user_vote_box, ballot);
+        if(ballot.delegate_id == null){
+          user_vote_box.innerHTML += you_voted_yourself;
+          document.getElementById("white_vote").style.display = "inline-block";
+        }
+        else
+          user_vote_box.innerHTML = your_delegate + " <a href='index.php?type=vote&action=view_delegate&id=" + ballot.delegate_id + "'>" + ballot.delegate_name + "</a> " + voted_for_you;
       }
-      else
-        user_vote_box.innerHTML = your_delegate + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a> " + voted_for_you;
-    }
-  });
+    });
 <?php endif; ?>
 var numberOfAlternatives = <?php echo $voteinfo['number_of_alternatives']; ?>;
 var prio_type = "";

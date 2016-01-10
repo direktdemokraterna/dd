@@ -11,7 +11,7 @@ class vote
 			\View\general::make_textarea("alternative_description", _t("Description"), 2);
 			self::close_add_alternative_form(_t("Create alternative"), 3);
 		}
-		elseif(\db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['vote_id'])){
+		elseif(\db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['id'])){
 			self::open_add_alternative_form("Remove your candidacy in", $voteinfo);
 			self::close_add_alternative_form(_t("Remove candidacy"));
 		}
@@ -24,16 +24,18 @@ class vote
 
 	public static function output_common_delegate_vote_box_translations_for_js() {
 		echo 'var delegate_vote_box_header = "' . _t("Delegate ballots:", array('class' => 'noun')) 
-		. '<table><tr style=\'color: white\'><th>' . _t("Delegate", array('class' => 'noun')) . '</th><th>' 
-		. _t("Ballot") . '</th><th>' . _t("Ballot cast by", array('class' => 'adj')) . '</th></tr>";';
+		. '<table><tr style=\'color: white\'><th>' 
+		. _t("Delegate", array('class' => 'noun')) . '</th><th>' 
+		. _t("Ballot") . '</th><th>' 
+		. _t("Ballot cast by", array('class' => 'adj')) . '</th></tr>";';
 		echo 'var abstain_text = "' . _t("Abstain") . '";';
 	}
 
 	private static function open_add_alternative_form($caption_prefix, $voteinfo) {
 		_h1(_t($caption_prefix) . _t(" the vote: ") . $voteinfo['title']);
-		_p(\View\general::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['vote_id']));
+		_p(\View\general::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['id']));
 		_open_form();
-		_hidden("vote_id", $voteinfo['vote_id']);
+		_hidden("vote_id", $voteinfo['id']);
 	}
 
 	private static function close_add_alternative_form($submit_text, $submit_tab_index = 1) 
@@ -213,17 +215,63 @@ class vote
 		general::make_textarea("new_prop_description", _t("Description"), 4);
 	}
 
-	public static function make_vote_list($vote_groups, $type, $action, $from_action = null) {
-		general::open_div("list_of_links");
+	public static function make_vote_list($vote_groups, $type, $action, $from_action = null) 
+	{
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
-			foreach($vote_group->votes as $row) {
-				general::output_internal_link($row['title'], $type, $action, 'id=' . $row['id']
-					. \View\general::get_from_action_for_url(array($from_action)));
-				echo '<br/>';
-			}
+			$columns = array(_t("Vote", array('class' => 'noun')), _t('Vote type'), _t("Result"), _t("Number of ballots"));
+			$rows = array_map(function($vote) use ($type, $action, $from_action) {
+				return array(
+					\View\general::generate_internal_link($vote['title'], $type, $action
+						, 'id=' . $vote['id']
+					. \View\general::get_from_action_for_url(array($from_action)))
+					, \View\vote::get_vote_type_description($vote['type'])
+					, \View\vote::generate_vote_result($vote)
+					, $vote['number_of_ballots']
+					);
+			}, $vote_group->votes);
+			\View\general::output_grid_view($columns, $rows);
 		}
-		general::close_div("list_of_links");
+	}
+
+	public static function output_vote_result_with_header($voteinfo, $ballots_to_count) {
+		echo self::generate_vote_result_header($voteinfo, $ballots_to_count);
+		echo self::generate_vote_result($voteinfo);
+	}
+
+	public static function generate_vote_result_header($voteinfo) {
+		switch ($voteinfo['type']) {
+			case "candidate-election": 
+			case "median": 
+			case "prio-vote": 
+			case "yes-no": 
+				return _t("The vote count is:") . '<br>';
+			case "workgroup-election": 
+				return _t("Candidates above the line are elected to the workgroup, candidates in bold are those who are currently members: ") . '<br>';
+			default: throw new \Exception("Unknonw vote type: " . $voteinfo['type']);
+		}
+	}
+
+	public static function generate_vote_result($voteinfo, $ballots_to_count = null) {
+		if (!$ballots_to_count) {
+			$all_ballots = \db_vote::get_ballots($voteinfo['id']);
+			$ballots_to_count = array_filter($all_ballots, 
+				function($ballot) {return $ballot['user_code'];});					
+		}
+		switch ($voteinfo['type']) {
+			case "yes-no": 
+				return \vote_helpers::generate_yes_no_result($ballots_to_count);
+			case "prio-vote": 
+				return \vote_helpers::generate_prio_vote_result($voteinfo['id']);
+			case "candidate-election": 
+				return \vote_helpers::generate_candidate_election_result($voteinfo['id']);
+			case "workgroup-election": 
+				return generate_workgroup_election_result($voteinfo['id']
+					, $voteinfo['from_proposition_id']);
+			case "median": 
+				return \vote_helpers::generate_median_result($ballots_to_count);
+			default: throw new \Exception("Unknonw vote type: " . $voteinfo['type']);
+		}
 	}
 
 	public static function make_vote_end_time_select($vote_end_time, $control_name_prefix = "") {

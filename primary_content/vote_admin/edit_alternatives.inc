@@ -1,8 +1,8 @@
 <?php 
 	$voteinfo = db_vote::get_vote_info($_GET['id']); 
 	$votes_alternatives = $voteinfo['type'] == "prio-vote" 
-		? db_vote::get_alternatives_for_vote($voteinfo['vote_id'])
-		: db_vote::get_candidates_for_vote($voteinfo['vote_id']);
+		? db_vote::get_alternatives_for_vote($voteinfo['id'])
+		: db_vote::get_candidates_for_vote($voteinfo['id']);
 	_h1(_t("Edit vote alternatives for the vote: " . $voteinfo['title']));
 
 	_open_form();

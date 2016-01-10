@@ -8,9 +8,9 @@ class vote_helpers
 		$no = 0;
 		$abstain = 0;
 		foreach($ballots_to_count as $ballot){
-		    if($ballot['alternative'] == "yes") $yes++;
-		    elseif($ballot['alternative'] == "no") $no++;
-		    elseif($ballot['alternative'] == "abstain") $abstain++;
+		    if($ballot['ballot'] == "yes") $yes++;
+		    elseif($ballot['ballot'] == "no") $no++;
+		    elseif($ballot['ballot'] == "abstain") $abstain++;
 		}
 		return Array("yes" => $yes, "no" => $no, "abstain" => $abstain);
 	}
@@ -19,11 +19,11 @@ class vote_helpers
 	{
 		$array_of_values = array();
 		foreach ($ballots_to_count as $ballot)
-	   		if(is_numeric($ballot['value']))
-   				$array_of_values[] = $ballot['value'];
+	   		if(is_numeric($ballot['ballot']))
+   				$array_of_values[] = $ballot['ballot'];
 		$count = count($array_of_values);
 		if($count == 0)
-			return _t("No value set");
+			return _t("No value");
 		$middle_index = floor($count / 2);
 		sort($array_of_values, SORT_NUMERIC);
 		$median = $array_of_values[$middle_index]; // assume an odd # of items
@@ -36,12 +36,8 @@ class vote_helpers
 
 	public static function get_complete_list_of_user_delegations ()
 	{
-		$list_of_delegations_from_db = db_delegate::get_complete_list_of_user_delegations();
-		$list_of_delegations = Array();
-		foreach($list_of_delegations_from_db as $row){
-			$list_of_votes[] = Array("user_code" => $row['user_code'], "constituency_id" => $row['constituency_id'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
-		}
-		echo "<script>var list_of_votes = " . json_encode($list_of_delegations) . ";</script>";
+		$list_of_delegations = db_delegate::get_complete_list_of_user_delegations();
+		echo "<script>var ballots_to_count = " . \View\general::db_result_to_json($list_of_delegations) . ";</script>";
 	}
 
 	public static function calculate_prio_vote_result ($vote_id){
@@ -123,42 +119,6 @@ class vote_helpers
 
 	}
 
-	public static function calculate_and_output_prio_vote_result ($result_array)
-	{
-		echo self::get_formatted_prio_vote_result($result_array);
-	}
-
-	public static function calculate_and_output_candidate_election_result ($result_array)
-	{
-		echo self::get_formatted_candidate_election_result($result_array);
-	}
-
-	public static function calculate_and_output_workgroup_election_result ($result_array, $workgroup_id)
-	{
-		echo self::get_formatted_workgroup_election_result($result_array, $workgroup_id);
-	}
-
-	public static function get_formatted_prio_vote_result ($result_array)
-	{
-		$ret_val = '';
-		$rank = 1;
-		$previous_rank = 1;
-		$previous_score = PHP_INT_MAX;
-		foreach($result_array as $row){
-			$alternative_title = db_vote::get_alternative_title($row['alternative_id']);
-			if($row['score'] < $previous_score){
-				$ret_val .= $rank;
-				$previous_rank = $rank;
-			}
-			else
-				$ret_val .= $previous_rank;
-			$ret_val .= ". " . $alternative_title . "<br>";
-			$previous_score = $row['score'];
-			$rank++;
-		}
-		return $ret_val;
-	}
-
 	public static function get_formatted_candidate_election_result ($result_array)
 	{
 		$ret_val = '';
@@ -230,7 +190,7 @@ class vote_helpers
 		return $matching_constituencies;
 	}
 
-	public static function output_yes_no_result ($ballots_to_count)
+	public static function generate_yes_no_result ($ballots_to_count)
 	{
 		$ballot_counter = vote_helpers::ballot_count_yes_no_abstain($ballots_to_count);
 		$yes_percentage = $ballot_counter['yes'] || $ballot_counter['no']
@@ -238,52 +198,61 @@ class vote_helpers
 			: 0;
 		$no_percentage = $ballot_counter['no']
 			? 100 - $yes_percentage
-			: 0; 
-		__("The vote count is:");
-		_br();
-		echo _t("Yes: ") . $ballot_counter['yes'] . " (" . $yes_percentage . " %)<br>";
-		echo _t("Nej: ") . $ballot_counter['no'] . " (" . $no_percentage . " %)<br>";
-		echo _t("Abstain: ") . $ballot_counter['abstain'] . "<br><br>";
+			: 0;
+		return _t("Yes: ") . $ballot_counter['yes'] . " (" . $yes_percentage . " %)<br>"
+			. _t("No: ") . $ballot_counter['no'] . " (" . $no_percentage . " %)<br>"
+			. _t("Abstain: ") . $ballot_counter['abstain'] . "<br>";
 	}
 
-	public static function output_median_result ($ballots_to_count)
+	public static function generate_median_result ($ballots_to_count)
 	{
 		$ballot_counter = vote_helpers::ballot_count_median($ballots_to_count);
-		__("The vote count is:");
-		echo _("Median value: ") . $ballot_counter. "<br><br>";
+		return $ballot_counter . "<br>";
 	}
 
-	public static function output_prio_vote_result ($vote_id)
+	public static function generate_prio_vote_result ($vote_id)
 	{
 		$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
-		__("The vote count is:");
-		_br();
-		if(empty($prio_vote_result))
-			__("No alternatives");
-		else
-			vote_helpers::calculate_and_output_prio_vote_result($prio_vote_result);
+		return empty($prio_vote_result)
+			? __("No alternatives")
+			: self::get_formatted_prio_vote_result($prio_vote_result);
 	}
 
-	public static function output_candidate_election_result ($vote_id)
+	public static function generate_candidate_election_result ($vote_id)
 	{
 		$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
-		__("The vote count is:");
-		_br();
-		if(empty($prio_vote_result))
-			__("No candidates");
-		else
-			vote_helpers::calculate_and_output_candidate_election_result($prio_vote_result);
+		return empty($prio_vote_result)
+			? _t("No candidates")
+			: self::get_formatted_candidate_election_result($prio_vote_result);
 	}
 
-	public static function output_workgroup_election_result ($vote_id, $workgroup_id)
+	public static function generate_workgroup_election_result ($vote_id, $workgroup_id)
 	{
 		$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
-		__("Candidates above the line are elected to the workgroup, candidates in bold are those who are currently members: ");
-		_br();
-		if(empty($prio_vote_result))
-			__("No candidates");
-		else
-			vote_helpers::calculate_and_output_workgroup_election_result($prio_vote_result, $workgroup_id);
+		return empty($prio_vote_result)
+			? _t("No candidates")
+			: self::get_formatted_workgroup_election_result($prio_vote_result, $workgroup_id);
+	}
+
+	public static function get_formatted_prio_vote_result ($result_array)
+	{
+		$ret_val = '';
+		$rank = 1;
+		$previous_rank = 1;
+		$previous_score = PHP_INT_MAX;
+		foreach($result_array as $row){
+			$alternative_title = db_vote::get_alternative_title($row['alternative_id']);
+			if($row['score'] < $previous_score){
+				$ret_val .= $rank;
+				$previous_rank = $rank;
+			}
+			else
+				$ret_val .= $previous_rank;
+			$ret_val .= ". " . $alternative_title . "<br>";
+			$previous_score = $row['score'];
+			$rank++;
+		}
+		return $ret_val;
 	}
 
 	public static function workgroup_election_compare_result ($vote_id){

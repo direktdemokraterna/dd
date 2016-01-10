@@ -8,11 +8,15 @@
 	$constituency_id = $propinfo['constituency_id'];
 	$number_of_ballots = db_prop::get_number_of_ballots($prop_id);
 	$voter_allowed_to_vote = db_constituency::check_voter_constituency_access($voter_id, $constituency_id);
-	$list_of_votes_from_db = db_prop::get_prop_supporters($prop_id);
-	$list_of_votes = Array();
-	foreach($list_of_votes_from_db as $row){
-		$list_of_votes[] = Array("user_code" => $row['user_code'], "voter_id" => $row['voter_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "support" => $row['support'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
+	$all_ballots_from_db = db_prop::get_prop_supporters($prop_id);
+	$all_ballots = array();
+	foreach($all_ballots_from_db as $row){
+		$all_ballots[] = Array("user_code" => $row['user_code'], "voter_id" => $row['voter_id'], "voter_is_delegate_name" => $row['voter_is_delegate_name'], "support" => $row['support'], "delegate_id" => $row['delegate_id'], "delegate_name" => $row['delegate_name']);
 	}
+	$ballots_to_count = array_filter($all_ballots, 
+		function($ballot) {return $ballot['user_code'];});
+	$delegate_ballots = array_filter($all_ballots, 
+		function($ballot) {return $ballot['voter_id'];});
 	if($is_voting_as_delegate)
 		$delegate_ballot = db_delegate::get_ballot_for_prop($prop_id, $voter_id);
 ?>
@@ -21,7 +25,8 @@
 	var user_id = <?php echo json_encode($voter_id); ?>;
 	var prop_id = <?php echo json_encode($prop_id); ?>;
 	var constituency_id = <?php echo json_encode($constituency_id); ?>;
-	var list_of_votes = <?php echo json_encode($list_of_votes); ?>;
+	var ballots_to_count = <?php echo \View\general::db_result_to_json($ballots_to_count); ?>;
+	var delegate_ballots = <?php echo \View\general::db_result_to_json($delegate_ballots); ?>;
 	var acting_as_delegate = <?php echo $is_voting_as_delegate ? "true" : "false"; ?>;
 	var support = <?php echo isset($delegate_ballot) && $delegate_ballot['support'] ? 'true' : 'false'; ?>;
 </script>
@@ -64,7 +69,7 @@
 	echo '</p>';
 	if($number_of_ballots['number_of_delegate_ballots']){
 		echo '<div class="" id="delegate_votes_box">';
-		echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'prop\')">' 
+		echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'support\')">' 
 		. _t("See delegate ballots for this proposition") . '</a>';
 		echo '</div>';
 	}
