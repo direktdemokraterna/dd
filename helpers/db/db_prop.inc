@@ -77,7 +77,7 @@ class db_prop
 		$from_clause = self::get_props_from_clause($user_id);
 		$order_by = self::get_props_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select id, title, constituency
+		$query = "select id, title, constituency, number_of_supporters
 					from (select P.*, C.title as constituency, C.constituency_level " 
 						. $from_clause . "
 					" . $where_clause . "
@@ -119,7 +119,7 @@ class db_prop
 					and match(P.title, P.description) against(? in boolean mode)";
 		$order_by = self::get_props_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select P.id, P.title, C.title as constituency 
+		$query = "select P.id, P.title, C.title as constituency, P.number_of_supporters 
 					" . $from_clause . "
 					" . $where_clause . "
 					order by C.constituency_level asc, C.id" . $order_by . " 

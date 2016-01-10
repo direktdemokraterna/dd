@@ -234,6 +234,23 @@ class vote
 		}
 	}
 
+	public static function make_proposition_list($prop_groups, $type, $action, $from_action = null) 
+	{
+		foreach($prop_groups as $prop_group) {
+			echo '<h2>' . $prop_group->constituency . '</h2>';
+			$columns = array(_t("Proposition", array('class' => 'noun')), _t("Support", array('class' => 'noun')));
+			$rows = array_map(function($prop) use ($type, $action, $from_action) {
+				return array(
+					\View\general::generate_internal_link($prop['title'], $type, $action
+						, 'id=' . $prop['id']
+					. \View\general::get_from_action_for_url(array($from_action)))
+					, $prop['number_of_supporters']
+					);
+			}, $prop_group->votes);
+			\View\general::output_grid_view($columns, $rows);
+		}
+	}
+
 	public static function output_vote_result_with_header($voteinfo, $ballots_to_count) {
 		echo self::generate_vote_result_header($voteinfo, $ballots_to_count);
 		echo self::generate_vote_result($voteinfo);
