@@ -12,7 +12,7 @@ class db_delegate
 
 	public static function get_delegate_settings ($user_id)
 	{
-		$query = "select d.id as delegate_id, d.title as title, d.description as description 
+		$query = "select d.id, d.title, d.description 
 			from delegate d, delegate_user du 
 			where d.id = du.delegate_id and du.user_id = ?";
 		$values = Array($user_id);
@@ -309,7 +309,10 @@ class db_delegate
 
 	public static function get_delegate_info ($delegate_id)
 	{
-		$query = "select title, description from delegate where id = ?";
+		$query = "select d.title, d.description, du.user_id 
+			from delegate d
+				join delegate_user du on du.delegate_id = d.id
+			where d.id = ?";
 		$values = Array($delegate_id);
 		return db::select_single_row($query, $values);
 	}

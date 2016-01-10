@@ -12,7 +12,7 @@
 		_br();
 		_p(_t("If the box above is checked you act as delegate instead of as individual. This means that you vote for all those who have delegated their vote to you for the particular issue. It also means that your ballot is public and can be seen by others. You can only vote as delegate in those constituencies for which you have registerered your delegacy below. In all other constituencies you vote as individual even if the box above is checked."));
 		_h2(_t("constituencies for your delegate"));
-		$constituencies = db_delegate::get_constituencies_for_user_and_delegate_activity($_SESSION['id'], $delegate_settings['delegate_id']);
+		$constituencies = db_delegate::get_constituencies_for_user_and_delegate_activity($_SESSION['id'], $delegate_settings['id']);
 		_p(_t("Here you can choose in which constituencies other users shall be able to delegate to you."));
 		echo '<ul class="checkbox-grid">';
 		foreach($constituencies as $row) {
@@ -27,6 +27,8 @@
 		echo '</form>';
 		echo '<form method="post" action="" class="standard-form" onsubmit="return confirm(\''
 			. _t("Your delegate will be completely deleted. You may also choose to temporarily deactivate your delegate. Do you still want to continue?") . '">';
+		_br();
+		_link(_t("View delegate"), "vote", "view_delegate", "id=" . $delegate_settings['id']);
 		_h2(_t("Remove delegate"));
 		echo '<input type="submit" name="delete" value="' . _t("Remove delegate") . '">';
 	}

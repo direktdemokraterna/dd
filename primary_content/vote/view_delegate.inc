@@ -25,7 +25,8 @@
 	var acting_as_delegate = <?php echo $acting_as_delegate ? "true" : "false"; ?>;
 </script>
 <?php
-	_h1(_t("Delegate: ", array('class' => 'noun')) . $delegate_info['title']);
+	_h1(_t(($delegate_info['user_id'] == $_SESSION['id'] ? "Your delegate" : "Delegate") . ": "
+		, array('class' => 'noun')) . $delegate_info['title']);
 	_h2(_t("Description"));
 	_p($delegate_info['description']);
 	_h2(_t("Vote history", array('class' => 'noun')));
@@ -58,7 +59,14 @@
 			echo _t(" in constituency ") . $row['constituency_title'] . '<br>'; 
 		}		
 	}
-	if ($shared_constituencies) {
+?>
+<?php if ($_SESSION['delegate_id'] == $delegate_id) : ?>
+	<?php
+		_br();
+		_link(_t("Handle delegate"), "vote", "delegate_settings");
+	?>
+<?php elseif ($shared_constituencies) : ?>
+	<?php
 		echo '<script>';
 		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
 		echo '</script>';
@@ -85,17 +93,17 @@
 		echo '<script>';
 		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
 		echo '</script>';		
-	}
-?>
-<script>
-list_of_delegations.map(function (vote){
-	if(acting_as_delegate || vote.user_code == sessionStorage.user_code) {
-		var constituency_element = "constituency" + vote.constituency_id;
-		document.getElementById(constituency_element).innerHTML = dynamic_delegation_info_text + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
-		var delegate_button = document.getElementById("delegate_in_" + vote.constituency_id);
-		delegate_button.style.display = "none";
-		var undelegate_button = document.getElementById("undelegate_in_" + vote.constituency_id);
-		undelegate_button.style.display = "inline";
-	}
-});
-</script>
+	?>
+	<script>
+	list_of_delegations.map(function (vote){
+		if(acting_as_delegate || vote.user_code == sessionStorage.user_code) {
+			var constituency_element = "constituency" + vote.constituency_id;
+			document.getElementById(constituency_element).innerHTML = dynamic_delegation_info_text + " <a href='index.php?type=vote&action=view_delegate&id=" + vote.delegate_id + "'>" + vote.delegate_name + "</a>";
+			var delegate_button = document.getElementById("delegate_in_" + vote.constituency_id);
+			delegate_button.style.display = "none";
+			var undelegate_button = document.getElementById("undelegate_in_" + vote.constituency_id);
+			undelegate_button.style.display = "inline";
+		}
+	});
+	</script>
+<?php endif ?>
