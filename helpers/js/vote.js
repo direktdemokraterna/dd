@@ -173,23 +173,29 @@ function populate_promoting_demoting_lists(promoting, demoting, prio_ranking) {
 	for (var i = 0; i < sorted_alternative_rank_pairs.length; i++) {
 		var pair = sorted_alternative_rank_pairs[i];
 	    var li_element = document.getElementById(pair.key);
-	    if(li_element != null){
-	      var li_content = li_element.innerHTML;
-	      li_element.parentNode.removeChild(li_element);
-	      var li = document.createElement("li");
-	      li.setAttribute("id", pair.key);
-	      li.className = "sortable";
-	      if(pair.rank > 0) {
-	        promoting.push(li_content);
-	        ul_support.appendChild(li);                
-	      }
-	      else {
-	        demoting.push(li_content);
-	        ul_reject.appendChild(li);                
-	      }
-	      document.getElementById(pair.key).innerHTML = li_content;
+	    if(li_element){
+	    	if (li_element.innerHTML) {
+				var li_content = li_element.innerHTML;
+				li_element.parentNode.removeChild(li_element);
+				var li = document.createElement("li");
+				li.setAttribute("id", pair.key);
+				li.className = "sortable";
+				if(pair.rank > 0) {
+					promoting.push(li_content);
+					ul_support.appendChild(li);                
+				}
+				else {
+					demoting.push(li_content);
+					ul_reject.appendChild(li);                
+				}
+				document.getElementById(pair.key).innerHTML = li_content;
+	    	}
+			else {
+				var list = pair.rank > 0 ? promoting : demoting;
+				list.push(li_element.value);				
+			}
 	    }
-	  }
+	}
 }
 
 function get_sorted_alternative_rank_pairs(prio_ranking_object) {
