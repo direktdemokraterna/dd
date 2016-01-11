@@ -7,7 +7,7 @@ if(isset($_POST['edit_user'])){
 		$region_id = db_constituency::get_region_id_from_county_id($_POST['county_id']);
 		$ok = db_user::update_user_by_admin($_POST['username'], $_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county_id'], $region_id, $_POST['social_security_number'], $_POST['email'], $_POST['skype_name'], $_POST['telephone1'], $_POST['telephone2'], $_GET['id']);
 		if($ok){
-			forum_helpers::update_county_region_forum_access($_GET['id'], $_POST['county_id']);
+			\Logic\forum::update_county_region_forum_access($_GET['id'], $_POST['county_id']);
 			\Logic\constituency::update_county_region_constituencies($_SESSION['id'], $_POST['county_id']);
 			$_SESSION['report_message'] = _t("User updated");
 		}

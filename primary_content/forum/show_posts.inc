@@ -1,6 +1,6 @@
 <?php
-	$topic_id = forum_helpers::get_requested_topic();
-	$page = forum_helpers::get_requested_page($topic_id);	
+	$topic_id = \Logic\forum::get_requested_topic();
+	$page = \Logic\forum::get_requested_page($topic_id);	
 	$posts = db_forum::get_posts($topic_id, $_SESSION['id'], $page);
 	$post_count = db_forum::get_post_count($topic_id);
 	if (isset($_GET['from_action']))

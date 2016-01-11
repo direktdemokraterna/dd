@@ -180,7 +180,7 @@ class forum
 	{
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
-		$html = \View\general::make_html_from_wiki_text($post_info['content']);
+		$html = \forum_helpers::make_html_from_post_text($post_info['content']);
 		echo _span($html);
 		if(isset($post_info['last_edited_time']))
 			echo _span(_t('Last changed ') . 

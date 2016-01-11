@@ -18,7 +18,7 @@
 			<a class="user_name_link" href="index.php?type=member&action=view&id=<?php echo $post_info['user_id']; ?>"><?php echo $post_info['user_full_name']; ?></a>
 		</div>		
 		<div class="post_content">
-			<span id="post_content_<?php echo $post_info['post_id']; ?>"><?php echo \View\general::make_html_from_wiki_text($post_info['content']); ?></span>
+			<span id="post_content_<?php echo $post_info['post_id']; ?>"><?php echo forum_helpers::make_html_from_post_text($post_info['content']); ?></span>
 			<?php if(isset($post_info['last_edited_time'])) : ?>
 				<span class="post_last_edited">Ändrades senast <?php echo strtolower(general_helpers::show_date($post_info['last_edited_time'])); ?>.</span>
 			<?php endif; ?>

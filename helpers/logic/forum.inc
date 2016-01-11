@@ -20,9 +20,44 @@ class forum
 			\Logic\util::report_error(_t("You don't have access to that forum."));
 	}
 
+	public static function update_county_region_forum_access ($user_id, $county_id)
+	{
+		$county_forum_id = db_forum::get_local_county_forum($county_id);
+		$region_id = db_constituency::get_region_id_from_county_id($county_id);
+		$region_forum_id = db_forum::get_local_region_forum($region_id);
+		db_forum_admin::drop_local_forums_for_user($user_id);
+		db_forum_admin::add_forum_access($user_id, $county_forum_id);
+		db_forum_admin::add_forum_access($user_id, $region_forum_id);
+	}
+
+	public static function get_requested_topic() {
+		return isset($_GET['topic_id']) 
+			? $_GET['topic_id']
+			: db_forum::get_topic($_GET['post_id']);
+	}
+
+	public static function get_requested_page($topic_id) {
+		if(isset($_GET['page'])) {
+			if ($_GET['page'] == "last"){
+				$number_of_posts_in_topic = db_forum::get_number_of_posts($topic_id);
+				return self::get_page_from_post_number($number_of_posts_in_topic);
+			}
+			return $_GET['page'];
+		}
+		if(isset($_GET['post_id'])){
+			$posts_before_this_post = db_forum::count_posts_before_post_id($topic_id, $_GET['post_id']);
+			return self::get_page_from_post_number($posts_before_this_post+1);
+		}
+		return 1;
+	}
+
+	private static function get_page_from_post_number($number) {
+		return ceil($number / POSTS_PER_PAGE);
+	}
+	
 	private static function insert_post_content($post_id, $post_content) 
 	{
-		$processed_content = \forum_helpers::process_text($post_content);
+		$processed_content = \View\general::process_text($post_content);
 		$ok = \db_forum::add_content_to_post($post_id, $processed_content);
 		if($ok){
 			$_SESSION['report_message'] = _t("Post created.");

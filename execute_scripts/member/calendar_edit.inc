@@ -11,7 +11,7 @@
 			
 		$timestamp = $event_time - ($event_time % 86400) + 86399;
 
-		$content = forum_helpers::process_text($_POST['content']);
+		$content = \View\general::process_text($_POST['content']);
 		$title = general_helpers::clean($_POST['title']);
 		if(isset($_POST['time'])){
 			$time = general_helpers::clean($_POST['time']);

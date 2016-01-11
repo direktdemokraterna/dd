@@ -3,7 +3,7 @@ namespace View;
 class controls 
 {
 	public static function output_password($control_name, $control_label, $tab_index = 1) {
-		self::make_control_label($control_name, $control_label);
+		self::output_control_label($control_name, $control_label);
 		echo('<input type="password" name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '"></input>');
 	}
@@ -12,7 +12,7 @@ class controls
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
-		self::make_control_label($control_name, $control_label);
+		self::output_control_label($control_name, $control_label);
 		$element = '<input type="text" name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '" value="' . $value . '"';
 		self::add_attributes($element, $attributes);
@@ -24,7 +24,7 @@ class controls
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
-		self::make_control_label($control_name, $control_label);
+		self::output_control_label($control_name, $control_label);
 		$element = '<textarea name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '"';
 		self::add_attributes($element, $attributes);
@@ -56,13 +56,13 @@ class controls
 		$checked_value = is_array($checked_values) 
 			? self::get_value($control_name, $checked_values) 
 			: $checked_values;
-		self::make_control_label($control_name, $control_label);
+		self::output_control_label($control_name, $control_label);
 		echo '<input type="checkbox" name="' . $control_name . '" value="' . $value 
 			. '" id="' . $control_name . '"' . ($checked_value ? " checked>" : ">");
 	}
 
 	public static function output_labeled_selector($control_name, $control_label, $options, $values = null, $attributes = null) {
-		self::make_control_label($control_name, $control_label);
+		self::output_control_label($control_name, $control_label);
 		self::output_selector($control_name, $options, $values, $attributes);
 	}
 
@@ -72,7 +72,7 @@ class controls
 			: $values;
 		self::open_select($control_name, $attributes);
 		foreach($options as $key => $value){
-			self::make_option($key, $selected_option, $value);
+			self::output_option($key, $selected_option, $value);
 		}
 		self::close_select();
 	}
@@ -167,6 +167,10 @@ class controls
 		general::close_div();
 	}
 
+	public static function output_control_label($control_name, $control_label) {
+		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
+	}	
+
 	private static function output_page_links ($number_of_pages, $current_page, $link_without_page_number)
 	{
 		echo "<span class=\"float-right\">";
@@ -204,7 +208,7 @@ class controls
 		echo('</select>' . PHP_EOL);		
 	}	
 
-	private static function make_option($value, $selected_value, $label = null) {
+	private static function output_option($value, $selected_value, $label = null) {
 		echo "<option value=\"" . $value . "\"" . ($value == $selected_value ? " selected" : "") . ">" 
 		. ($label != null ? $label : $value) . "</option>" . PHP_EOL;
 	}
