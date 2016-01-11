@@ -2,7 +2,7 @@
 	$post_info = db_forum::get_post_info($_GET['id']);
 	if($post_info['user_id'] == $_SESSION['id']) {
 		if (\Logic\forum::is_recent_post($post_info)) {
-			$ok = forum_helpers::set_post_content($_GET['id'], $_POST['edit_post_content'], "edit");
+			$ok = Logic\forum::set_post_content($_GET['id'], $_POST['edit_post_content'], "edit");
 			if($ok){
 				$_SESSION['report_message'] = _t("The post has been edited.");
 				$redirect = "index.php?type=forum&action=show_posts&topic_id=" . $post_info['topic_id'] . "&page=last";

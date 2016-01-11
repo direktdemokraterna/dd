@@ -26,7 +26,7 @@
 			\Logic\util::report_error(_t("No settings changed")); 
 	}
 	elseif(isset($_POST["description_content"])){
-		$presentation = forum_helpers::process_text($_POST['description_content']);
+		$presentation = Logic\forum::process_text($_POST['description_content']);
 		$ok = db_user::update_description($presentation, $_SESSION['id']);
 		if($ok)
 			$_SESSION['report_message'] = _t("The presentation has been updated."); 
