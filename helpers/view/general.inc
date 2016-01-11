@@ -90,8 +90,8 @@ class general
 		echo $div_tag;
 	}
 
-	public static function open_span($classes) {
-		echo('<span class="' . $classes . '">' . PHP_EOL);
+	public static function open_span($classes = null) {
+		echo("<span" . ($classes ? " class=\"$classes\">" : ">") . PHP_EOL);
 	}
 
 	public static function close_div() {
@@ -213,6 +213,43 @@ class general
 			. '" tabindex="' . ($tab_index + 1) . '">';
 		echo '</fieldset>';
 		echo '</form>';
+	}
+
+	public static function show_paging_row($url_without_page, $paging_info, $label = null) 
+	{
+		general::open_div("paging_info");
+		echo _span(_t("Showing ") . ($label ? "$label " : "") 
+			. $paging_info->first_showed_post_number . " - " 
+			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);
+		if ($paging_info->post_count > POSTS_PER_PAGE) {
+			general::open_span();
+			self::output_page_links($paging_info->number_of_pages, $paging_info->page, 
+				$url_without_page . "&page=");
+			general::close_span();
+		}
+		general::close_div();
+	}
+
+	private static function output_page_links ($number_of_pages, $current_page, $link_without_page_number)
+	{
+		echo "<span class=\"float-right\">";
+		if($current_page > 1){
+			$previous_page = $current_page - 1;
+			echo "<a href=\"" . $link_without_page_number . $previous_page . "\"><</a> ";
+		}
+		for($i=1; $i<($number_of_pages+1); $i++){
+			echo "&nbsp;&nbsp;&nbsp;";
+			if($i != $current_page)
+				echo "<a href=\"" . $link_without_page_number . $i . "\">" . $i . "</a> ";
+			else
+				echo "<strong>" . $i . "</strong> ";
+		}
+		if($current_page < $number_of_pages){
+			echo "&nbsp;&nbsp;&nbsp;";
+			$next_page = $current_page + 1;
+			echo "<a href=\"" . $link_without_page_number . $next_page . "\">></a> ";
+		}
+		echo "</span>";
 	}
 
 	private static function add_attributes(&$element, $attributes) {

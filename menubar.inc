@@ -83,7 +83,7 @@
 		<li><?php
 				$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
 				$user_label = db_user::get_user_full_name($_SESSION['id']);
-				$hello = _span("large_screen", _t("Hello, "));
+				$hello = _span(_t("Hello, "), "large_screen");
 				$user_label = $hello . $user_label;
 				if ($_SESSION['delegate_id']) $user_label .= 
 					_t(" (delegate)", array('class' => 'noun'));

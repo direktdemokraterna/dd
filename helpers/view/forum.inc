@@ -22,12 +22,19 @@ class forum
 		\View\general::make_labeled_selector("category", _t("Category"), $category_options, $selected_category);
 	}	
 
-	public static function output_topic_list($topics) {
+	public static function output_topic_list($topics, $url_without_page, $page, $topic_count) {
+		$paging_info = Paging_info::create($page, $topic_count);
 		echo '<div class="topic_list">';
+		self::output_topic_paging_row($url_without_page, $paging_info);
 		self::output_topic_list_top_row();
 		foreach($topics as $row) 
 			self::output_topic_list_row($row);
+		self::output_topic_paging_row($url_without_page, $paging_info);
 		echo '</div>';
+	}
+
+	private static function output_topic_paging_row($url_without_page, $paging_info) {
+		\View\general::show_paging_row($url_without_page, $paging_info, _t("topic"));
 	}
 
 	private static function output_topic_list_top_row() {
@@ -84,25 +91,14 @@ class forum
 	public static function show_posts($url_without_page, $page, $posts, $post_count) 
 	{
 		$paging_info = Paging_info::create($page, $post_count);
-		self::show_paging_row($url_without_page, $paging_info);
+		self::output_post_paging_row($url_without_page, $paging_info);
 		foreach($posts as $post_info)
 			self::output_post($post_info);			
-		self::show_paging_row($url_without_page, $paging_info);
+		self::output_post_paging_row($url_without_page, $paging_info);
 	}
 
-	private static function show_paging_row($url_without_page, $paging_info) 
-	{
-		general::open_div("post_count_info");
-		general::open_span("post_counter");
-		echo _t("Showing post ") . $paging_info->first_showed_post_number . " - " . $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count;
-		general::close_span();
-		if ($paging_info->post_count > POSTS_PER_PAGE) {
-			general::open_span("post_page_chooser");
-			\forum_helpers::output_page_links($paging_info->number_of_pages, $paging_info->page, 
-				$url_without_page . "&page=");
-			general::close_span();
-		}
-		general::close_div();
+	private static function output_post_paging_row($url_without_page, $paging_info) {
+		\View\general::show_paging_row($url_without_page, $paging_info, _t("post"));
 	}
 
 	public static function output_post($post_info, $show_action_buttons = true) 
@@ -187,10 +183,11 @@ class forum
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
 		$html = \View\general::make_html_from_wiki_text($post_info['content']);
-		echo _span(null, $html);
+		echo _span($html);
 		if(isset($post_info['last_edited_time']))
-			echo _span("post_last_edited", _t('Last changed ') . 
-				strtolower(\general_helpers::show_date($post_info['last_edited_time'])));
+			echo _span(_t('Last changed ') . 
+				strtolower(\general_helpers::show_date($post_info['last_edited_time']))
+				, "post_last_edited");
 		general::close_div();
 	}
 

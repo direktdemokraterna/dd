@@ -53,7 +53,16 @@ class db_forum
 		return db::select_single_row($query, $values);
 	}
 
-	public static function list_topics ($forum_id, $access_user_id, $page = 1, $limit = 50)
+	public static function get_topic_count ($forum_id)
+	{
+		$query = "select count(*) from post
+					where is_topic = 1 and forum_id = ?";
+		$values = Array($forum_id);
+		return db::select_single_value($query, $values);
+	}
+
+	public static function list_topics ($forum_id, $access_user_id, $page = 1
+		, $limit = LIST_ITEMS_PER_PAGE)
 	{
 		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select p.id as topic_id, p.title as topic_title, u.id as topic_user_id, concat(u.first_name, ' ', u.last_name) as topic_user_full_name, 

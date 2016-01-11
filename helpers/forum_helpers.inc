@@ -33,28 +33,6 @@ class forum_helpers
 		return $processed_text;
 	}
 
-	public static function output_page_links ($number_of_pages, $current_page, $link_without_page_number)
-	{
-		echo "<span class=\"float-right\">";
-		if($current_page > 1){
-			$previous_page = $current_page - 1;
-			echo "<a href=\"" . $link_without_page_number . $previous_page . "\"><</a> ";
-		}
-		for($i=1; $i<($number_of_pages+1); $i++){
-			echo "&nbsp;&nbsp;&nbsp;";
-			if($i != $current_page)
-				echo "<a href=\"" . $link_without_page_number . $i . "\">" . $i . "</a> ";
-			else
-				echo "<strong>" . $i . "</strong> ";
-		}
-		if($current_page < $number_of_pages){
-			echo "&nbsp;&nbsp;&nbsp;";
-			$next_page = $current_page + 1;
-			echo "<a href=\"" . $link_without_page_number . $next_page . "\">></a> ";
-		}
-		echo "</span>";
-	}
-
 	public static function urls_to_links ($text)
 	{
 		$rexProtocol = '(https?://)?';

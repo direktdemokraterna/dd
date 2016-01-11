@@ -9,7 +9,6 @@ body, table, tr, td {
     border-spacing: 0;
 }
 
-
 h1, h2, h3 {
     margin: 0;
     padding: 0;
@@ -140,9 +139,8 @@ strong {
     }
 }
 
-
-
 /* Standard form */
+
 .standard-form label {
     display: inline-block;
     margin-right: 5px;
@@ -223,8 +221,8 @@ strong {
     width: 60px;
 }
 
-
 /* Checkbox grid */
+
 .checkbox-grid li {
     display: block;
     float: left;
@@ -243,8 +241,6 @@ strong {
     text-align: center;
     color: #999999;
 }
-
-
 
 /* GENERAL ATTRIBUTES */
 
@@ -336,3 +332,17 @@ tr.unread {
     font-weight: bold;
     font-style: italic;
 }
+
+/* Paging */
+
+.paging_info{
+  clear: both;
+  margin-bottom: 15px;
+  margin-top:10px;
+  margin-left: 5px;
+  font-size: 12px;
+  color: #2b2b2b;
+  font-family: "Open Sans",sans-serif;font-weight: 300; 
+}
+
+

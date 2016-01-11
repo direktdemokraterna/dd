@@ -283,7 +283,7 @@ class vote
 			case "candidate-election": 
 				return \vote_helpers::generate_candidate_election_result($voteinfo['id']);
 			case "workgroup-election": 
-				return generate_workgroup_election_result($voteinfo['id']
+				return \vote_helpers::generate_workgroup_election_result($voteinfo['id']
 					, $voteinfo['from_proposition_id']);
 			case "median": 
 				return \vote_helpers::generate_median_result($ballots_to_count);

@@ -27,7 +27,7 @@ class delegate
 			($show_outside ? ' checked' : '') 
 			. ' id="show_outside" onchange="this.form.submit()"><label for "show_outside">' 
 			. _t("Show delegates outside your constituencies") . '</label>';
-		return _span("list_sort_alternative", $html);
+		return _span($html, "list_sort_alternative");
 	}
 }
 ?>

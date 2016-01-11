@@ -61,7 +61,7 @@ class member
 			($show_deleted ? ' checked' : '') 
 			. ' id="show_deleted" onchange="this.form.submit()"><label for "show_deleted">' 
 			. _t("Show removed members") . '</label>';
-		return _span("list_sort_alternative", $html);
+		return _span($html, "list_sort_alternative");
 	}
 
 	private static function set_regions_by_county_in_javascript($counties) {
