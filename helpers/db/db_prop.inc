@@ -96,7 +96,6 @@ class db_prop
 			case '' :
 			case 'alphabetic' : return ", title asc";
 			case 'created' : return ", timestamp_created desc";
-			case 'priority' : return "";
 			default: die('unknown sort: ' . $sort);
 		}
 	}

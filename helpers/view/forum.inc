@@ -23,18 +23,17 @@ class forum
 	}	
 
 	public static function output_topic_list($topics, $url_without_page, $page, $topic_count) {
-		$paging_info = Paging_info::create($page, $topic_count);
-		echo '<div class="topic_list">';
-		self::output_topic_paging_row($url_without_page, $paging_info);
+		echo '<div class="principal_list">';
+		self::output_topic_paging_row($page, $topic_count, $url_without_page);
 		self::output_topic_list_top_row();
 		foreach($topics as $row) 
 			self::output_topic_list_row($row);
-		self::output_topic_paging_row($url_without_page, $paging_info);
+		self::output_topic_paging_row($page, $topic_count, $url_without_page);
 		echo '</div>';
 	}
 
-	private static function output_topic_paging_row($url_without_page, $paging_info) {
-		\View\general::show_paging_row($url_without_page, $paging_info, _t("topic"));
+	private static function output_topic_paging_row($page, $list_count, $url_without_page) {
+		\View\general::show_paging_row($page, $list_count, $url_without_page, _t("topic"));
 	}
 
 	private static function output_topic_list_top_row() {
@@ -90,15 +89,14 @@ class forum
 
 	public static function show_posts($url_without_page, $page, $posts, $post_count) 
 	{
-		$paging_info = Paging_info::create($page, $post_count);
-		self::output_post_paging_row($url_without_page, $paging_info);
+		self::output_post_paging_row($page, $post_count, $url_without_page);
 		foreach($posts as $post_info)
 			self::output_post($post_info);			
-		self::output_post_paging_row($url_without_page, $paging_info);
+		self::output_post_paging_row($page, $post_count, $url_without_page);
 	}
 
-	private static function output_post_paging_row($url_without_page, $paging_info) {
-		\View\general::show_paging_row($url_without_page, $paging_info, _t("post"));
+	private static function output_post_paging_row($page, $post_count, $url_without_page) {
+		\View\general::show_paging_row($page, $post_count, $url_without_page, _t("post"));
 	}
 
 	public static function output_post($post_info, $show_action_buttons = true) 
@@ -218,25 +216,6 @@ class forum
 			$post_id . \View\general::get_from_action_for_url(array('search')) 
 			. '#' . $post_element_id);
 		_space();
-	}
-}
-
-class Paging_info 
-{
-	public $page;
-	public $post_count;
-	public $number_of_pages;
-	public $first_showed_post_number;
-	public $last_showed_post_number;
-
-	public static function create($page, $post_count) {
-		$instance = new Paging_info();
-		$instance->page = $page;
-		$instance->post_count = $post_count;
-		$instance->number_of_pages = ceil($post_count / POSTS_PER_PAGE);
-		$instance->first_showed_post_number = 1 + ($page - 1) * POSTS_PER_PAGE;
-		$instance->last_showed_post_number = min($page * POSTS_PER_PAGE, $post_count);
-		return $instance;
 	}
 }
 ?>

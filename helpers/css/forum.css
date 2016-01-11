@@ -1,10 +1,5 @@
 /* FORUM CSS */
 
-.forum_list {
-  max-width: 800px;
-  width: 95%;
-}
-
 .forum_name {
   float: left;
   width: 47.5%;
@@ -21,11 +16,6 @@
   font-size: 16px;
   margin-bottom: 5px;
   padding: 10px;
-}
-
-.topic_list {
-  max-width: 800px;
-  width: 95%;
 }
 
 .topic_list_top_row {

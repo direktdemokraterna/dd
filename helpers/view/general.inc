@@ -215,8 +215,9 @@ class general
 		echo '</form>';
 	}
 
-	public static function show_paging_row($url_without_page, $paging_info, $label = null) 
+	public static function show_paging_row($page, $list_count, $url_without_page, $label = null) 
 	{
+		$paging_info = Paging_info::create($page, $list_count);
 		general::open_div("paging_info");
 		echo _span(_t("Showing ") . ($label ? "$label " : "") 
 			. $paging_info->first_showed_post_number . " - " 
@@ -270,6 +271,25 @@ class general
 	private static function make_option($value, $selected_value, $label = null) {
 		echo "<option value=\"" . $value . "\"" . ($value == $selected_value ? " selected" : "") . ">" 
 		. ($label != null ? $label : $value) . "</option>" . PHP_EOL;
+	}
+}
+
+class Paging_info 
+{
+	public $page;
+	public $post_count;
+	public $number_of_pages;
+	public $first_showed_post_number;
+	public $last_showed_post_number;
+
+	public static function create($page, $post_count) {
+		$instance = new Paging_info();
+		$instance->page = $page;
+		$instance->post_count = $post_count;
+		$instance->number_of_pages = ceil($post_count / POSTS_PER_PAGE);
+		$instance->first_showed_post_number = 1 + ($page - 1) * POSTS_PER_PAGE;
+		$instance->last_showed_post_number = min($page * POSTS_PER_PAGE, $post_count);
+		return $instance;
 	}
 }
 ?>

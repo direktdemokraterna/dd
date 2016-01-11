@@ -630,6 +630,10 @@ class phrases
 				"sv" => "det finns redan"
 				,"en" => "there already exists"
 				)
+			,"there are" => array(
+				"sv" => "det finns"
+				,"en" => "there are"
+				)
 			,"they have been posted" => array(
 				"sv" => "de postats"
 				,"en" => "they have been posted"

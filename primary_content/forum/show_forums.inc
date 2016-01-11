@@ -2,7 +2,7 @@
 	_h1(_t("Forums"));
 	$forums = db_forum::list_forums(); 
 	$category = "";
-	echo '<div class="forum_list">';
+	echo '<div class="principal_list">';
 	foreach($forums as $row) {
 		if($category != $row['cat_name']) {
 			echo '<div class="topic_list_top_row" style="text-align: left;"><span class="cat_name">'

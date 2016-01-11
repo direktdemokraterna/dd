@@ -276,6 +276,11 @@ strong {
 
 /* NORMAL LIST */
 
+.principal_list {
+  max-width: 800px;
+  width: 95%;
+}
+
 .list_of_links {
     font-size: 14px;
     line-height: 28px;

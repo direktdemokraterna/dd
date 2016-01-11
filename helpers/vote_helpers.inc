@@ -341,14 +341,12 @@ class vote_helpers
 		$prio_ranking_array = json_decode($prio_ranking, true);
 		arsort($prio_ranking_array, SORT_NUMERIC);
 		$sorted_prio_ranking = json_encode($prio_ranking_array);
-
 		return $sorted_prio_ranking;
 	}
 
-	public static function get_vote_groups($statuses = null) 
+	public static function get_vote_groups($page, $statuses = null) 
 	{
 		$user_id = $_SESSION['id'];
-		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 		$votes = db_vote::list_votes($user_id, $sort, $page, $statuses);
 		return self::group_by_constituency($votes);
@@ -361,20 +359,6 @@ class vote_helpers
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 		$props = db_prop::list_props($status, $user_id, $sort, $page);
 		return self::group_by_constituency($props);
-	}
-
-	public static function make_vote_list_header($statuses = null, $vote_count = null)
-	{
-		if ($vote_count == null) 
-			$vote_count = db_vote::list_votes_count($statuses, $_SESSION['id']);
-		self::make_list_header($vote_count);
-	}
-
-	public static function make_prop_list_header($status, $prop_count = null)
-	{
-		if ($prop_count == null) 
-			$prop_count = db_prop::list_props_count($status, $_SESSION['id']);
-		self::make_list_header($prop_count);
 	}
 
 	public static function group_by_constituency($rows) 
@@ -395,13 +379,6 @@ class vote_helpers
 		$vote_group = Vote_group::create();
 		$vote_groups[$constituency] = $vote_group;
 		return $vote_group;
-	}
-
-	private static function make_list_header($res_count) 
-	{
-		$page = isset($_GET['page']) ? $_GET['page'] : 1;
-		$sort_alternatives = Array("created" => _t("Created", array('class' => 'adj')), "alphabetic" => _t("Alphabetic"), "priority" => _t("Priority"));
-		general_helpers::make_list_of_links_header($page, $res_count, $sort_alternatives); 
 	}
 } //End of class
 

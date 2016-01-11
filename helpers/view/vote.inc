@@ -215,17 +215,26 @@ class vote
 		general::make_textarea("new_prop_description", _t("Description"), 4);
 	}
 
-	public static function make_vote_list($vote_groups, $type, $action, $from_action = null) 
+	public static function make_vote_list($vote_groups, $page, $vote_count, $url_without_page, $type, $action, $from_action = null) 
+	{
+		self::output_paging_row($page, $vote_count, $url_without_page);
+		self::output_vote_grid($vote_groups, $type, $action, $from_action);
+		self::output_paging_row($page, $vote_count, $url_without_page);
+	}
+
+	private static function output_vote_grid($vote_groups, $type, $action, $from_action = null) 
 	{
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
-			$columns = array(_t("Vote", array('class' => 'noun')), _t('Vote type'), _t("Result"), _t("Number of ballots"));
+			$columns = array(_t("Vote", array('class' => 'noun')), _t('Vote type')
+				, _t("Vote started"), _t("Result"), _t("Number of ballots"));
 			$rows = array_map(function($vote) use ($type, $action, $from_action) {
 				return array(
 					\View\general::generate_internal_link($vote['title'], $type, $action
 						, 'id=' . $vote['id']
 					. \View\general::get_from_action_for_url(array($from_action)))
 					, \View\vote::get_vote_type_description($vote['type'])
+					, \general_helpers::show_date($vote['timestamp_created'])
 					, \View\vote::generate_vote_result($vote)
 					, $vote['number_of_ballots']
 					);
@@ -234,7 +243,15 @@ class vote
 		}
 	}
 
-	public static function make_proposition_list($prop_groups, $type, $action, $from_action = null) 
+	public static function make_proposition_list($prop_groups, $page, $prop_count, $url_without_page
+		, $type, $action, $from_action = null) 
+	{
+		self::output_paging_row($page, $prop_count, $url_without_page);
+		self::output_proposition_grid($prop_groups, $type, $action, $from_action);
+		self::output_paging_row($page, $prop_count, $url_without_page);
+	}
+
+	private static function output_proposition_grid($prop_groups, $type, $action, $from_action = null) 
 	{
 		foreach($prop_groups as $prop_group) {
 			echo '<h2>' . $prop_group->constituency . '</h2>';
@@ -249,6 +266,13 @@ class vote
 			}, $prop_group->votes);
 			\View\general::output_grid_view($columns, $rows);
 		}
+	}
+
+	private static function output_paging_row($page, $list_count, $url_without_page)
+	{
+		echo '<div class="principal_list">';
+		\View\general::show_paging_row($page, $list_count, $url_without_page);
+		echo '</div>';
 	}
 
 	public static function output_vote_result_with_header($voteinfo, $ballots_to_count) {

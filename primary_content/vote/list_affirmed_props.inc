@@ -1,7 +1,12 @@
 <?php 
 	_h1(_t("Affirmed propositions"));
 	$status = 'affirmed';
-	vote_helpers::make_prop_list_header($status);
-	$prop_groups = vote_helpers::get_prop_groups($status);
-	\View\vote::make_proposition_list($prop_groups, "vote", "view_prop", "search_prop");
-?>
+	$prop_count = db_prop::list_props_count($status, $_SESSION['id']);
+	if ($prop_count) {
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$prop_groups = vote_helpers::get_prop_groups($status);
+		$url_without_page = "index.php?type=vote&action=list_affirmed_props";
+		\View\vote::make_proposition_list($prop_groups, $page, $prop_count, $url_without_page, "vote", "view_prop");
+	}
+	else 
+		__("There are no affirmed propositions in your constituencies");?>

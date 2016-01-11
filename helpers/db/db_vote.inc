@@ -180,7 +180,7 @@ class db_vote
 		$where_clause = self::get_votes_where_clause($statuses);
 		$order_by = self::get_votes_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select V.id, V.title, C.title as constituency
+		$query = "select V.id, V.title, C.title as constituency, V.timestamp_created
 					, V.status, V.type, V.from_proposition_id, V.number_of_ballots 
 					" . $from_clause . "
 					" . $where_clause . "
@@ -193,11 +193,11 @@ class db_vote
 	public static function search_votes ($search, $user_id, $sort, $page = 1)
 	{
 		$from_clause = self::get_votes_from_clause();
-		$where_clause = self::get_votes_where_clause() . "
-					and match(V.title, V.description) against(? in boolean mode)";
+		$where_clause = self::get_search_votes_where_clause();
 		$order_by = self::get_votes_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select V.id, V.title, C.title as constituency 
+		$query = "select V.id, V.title, C.title as constituency, V.timestamp_created 
+					, V.status, V.type, V.from_proposition_id, V.number_of_ballots
 					" . $from_clause . "
 					" . $where_clause . "
 					order by C.constituency_level asc, C.id, " . $order_by . " 
@@ -206,12 +206,28 @@ class db_vote
 		return db::select($query, $values);
 	}
 
+	public static function search_votes_count ($search, $user_id)
+	{
+		$from_clause = self::get_votes_from_clause();
+		$where_clause = self::get_search_votes_where_clause();
+		$query = "select count(*) 
+					" . $from_clause . "
+					" . $where_clause;
+		$values = array($user_id, $search);
+		return db::select_single_value($query, $values);
+	}
+
+	private static function get_search_votes_where_clause() {
+		return self::get_votes_where_clause() . "
+			and match(V.title, V.description) against(? in boolean mode)";
+	}
+
 	public static function get_votes_order_by ($sort = null)
 	{
 		return $sort === "alphabetic" ? "V.title asc" : "V.timestamp_created desc";
 	}
 
-	public static function list_votes_count ($statuses, $user_id)
+	public static function list_votes_count ($user_id, $statuses = null)
 	{
 		$from_clause = self::get_votes_from_clause();
 		$where_clause = self::get_votes_where_clause($statuses);
@@ -219,18 +235,6 @@ class db_vote
 					" . $from_clause . "
 					" . $where_clause;
 		$values = array($user_id);
-		return db::select_single_value($query, $values);
-	}
-
-	public static function search_votes_count ($search, $user_id, $page = 1)
-	{
-		$from_clause = self::get_votes_from_clause();
-		$where_clause = self::get_votes_where_clause() . "
-					and match(V.title, V.description) against(? in boolean mode)";
-		$query = "select count(*) 
-					" . $from_clause . "
-					" . $where_clause;
-		$values = array($search, $search);
 		return db::select_single_value($query, $values);
 	}
 
