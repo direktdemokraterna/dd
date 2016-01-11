@@ -60,26 +60,26 @@ if($is_all_mandatory_set){
 <?php 
 	if(isset($form_data_has_been_processed)) {
 		echo '<p>';
-		_h1(_t("Thank you for your application."));		
+		__h1(_t("Thank you for your application."));		
 		echo '</p>';
 		die();
 	}
 	if ($_POST) {
 		echo '<p>';
-		__("One or more mandatory fields are not filled in.");		
+		__t("One or more mandatory fields are not filled in.");		
 		echo '</p>';
 	}
 ?>
-<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; "><?php __("Membership application"); ?>
+<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; "><?php __t("Membership application"); ?>
 </h1>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="../helpers/js/constituency.js"></script>
 <script src="../helpers/js/session.js"></script>
 
 <?php
-	__("* mandatory");
-	_br();
-	_open_form("login-form");
+	__t("* mandatory");
+	__br();
+	__open_form("login-form");
 	$tab_index = 1;
 	\View\controls::output_textfield('first_name', _t("Given name"), $tab_index++);
 	\View\controls::output_textfield('last_name', _t("Last name*"), $tab_index++);
@@ -93,8 +93,8 @@ if($is_all_mandatory_set){
 	\View\controls::output_textfield("skype_name", _t("Skype name"), $tab_index++);
 ?>
 <input type="checkbox" name="news_letter" value="1" id="news_letter">
-	<label for "news_letter"><?php __("I want to subscribe to the news letter"); ?></label>
-<input type="submit" value="<?php __("Send"); ?>">
+	<label for "news_letter"><?php __t("I want to subscribe to the news letter"); ?></label>
+<input type="submit" value="<?php __t("Send"); ?>">
 </form>
 
 <script type="text/javascript" language="JavaScript">

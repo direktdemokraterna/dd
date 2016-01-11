@@ -11,12 +11,12 @@
 <form method="post" class="login-form" action="index.php?login=1">
 <input type="hidden" name="login" value="1">
 <p>
-<label for "username"><?php __("Username"); ?></label>
+<label for "username"><?php __t("Username"); ?></label>
 <input type="text" name="username" id="username" tabindex="1">
-<br><label for "password"><?php __("Password"); ?></label>
+<br><label for "password"><?php __t("Password"); ?></label>
 <input type="password" name="password" id="password" tabindex="2"></p>
-<p><label for "rememberme"><?php __("Remember me"); ?><input type="checkbox" name="rememberme" id="rememberme"></label>
-<span><input type="submit" value="<?php __("Login"); ?>"></span>
+<p><label for "rememberme"><?php __t("Remember me"); ?><input type="checkbox" name="rememberme" id="rememberme"></label>
+<span><input type="submit" value="<?php __t("Login"); ?>"></span>
 </p>
 </form>
 

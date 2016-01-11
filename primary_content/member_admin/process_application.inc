@@ -10,11 +10,11 @@
 		}
 		$suggested_username = $suggested_username_with_number;
 	}
-	_h1(_t("Process application from ") . $application_data['full_name']);
-	_open_form();
-	_hidden("accept", 1);
-	_br();
-	_label(_t("Username"), "username");
+	__h1(_t("Process application from ") . $application_data['full_name']);
+	__open_form();
+	__hidden("accept", 1);
+	__br();
+	__label(_t("Username"), "username");
 	echo '<input type="text" name="username" id="username" value="' . $suggested_username . '" style="background: #E8E8E8; color: #B0B0B0;" disabled>';
 	\View\controls::output_textfield("first_name", _t("Given name"), 2, $application_data);
 	\View\controls::output_textfield("last_name", _t("Last name"), 3, $application_data);
@@ -28,9 +28,9 @@
 	\View\controls::output_textfield("telephone", _t("Telephone"), 8, $application_data['telephone1']);
 	\View\controls::output_textfield("email", _t("Email"), 9, $application_data);
 	\View\controls::output_textfield("social_security_number", _t("Social security number"), 10, $application_data);
-	_br();
-	_submit_and_close(_t("Register as member"));
-	_open_form();
-	_hidden("reject", 1);
-	_submit_and_close(_t("Reject application"));
+	__br();
+	__submit_and_close(_t("Register as member"));
+	__open_form();
+	__hidden("reject", 1);
+	__submit_and_close(_t("Reject application"));
 ?>

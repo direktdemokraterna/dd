@@ -1,9 +1,9 @@
 <script>
-  var you_voted = "<?php __('You have voted: '); ?>";
-  var you_voted_abstain = "<?php __('You have voted abstain.'); ?>";
-  var you_voted_yourself = "<?php __('You have personally cast this ballot.'); ?>";
-  var your_delegate = "<?php __('Your delegate'); ?>";
-  var voted_for_you = "<?php __('has voted for you.'); ?>";
+  var you_voted = "<?php __t('You have voted: '); ?>";
+  var you_voted_abstain = "<?php __t('You have voted abstain.'); ?>";
+  var you_voted_yourself = "<?php __t('You have personally cast this ballot.'); ?>";
+  var your_delegate = "<?php __t('Your delegate'); ?>";
+  var voted_for_you = "<?php __t('has voted for you.'); ?>";
   if (acting_as_delegate ? false : true)
 	ballots_to_count.map(function (ballot){
 	if(ballot.user_code == sessionStorage.user_code){

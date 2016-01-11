@@ -1,5 +1,5 @@
 <?php 
-	_h1(_t("Members"));
+	__h1(_t("Members"));
 	if(isset($_GET['page'])) $page = $_GET['page']; else $page = 1;
 	$order_by = $_GET['sort'] == "alphabetic"
 		? "u.first_name asc"

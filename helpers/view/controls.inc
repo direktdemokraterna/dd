@@ -98,7 +98,7 @@ class controls
 	}
 
 	public static function output_search_box($label, $type, $action, $tab_index = 1) {
-		_h2(_t("Search " . $label));
+		__h2(_t("Search " . $label));
 		$search_input_name = \Logic\util::get_search_input_name($type, $action);
 		$value = isset($_SESSION[$search_input_name]) ? $_SESSION[$search_input_name] : '';
 		echo '<form method="post" class="sidebar_search_form" action="index.php?type=' 
@@ -111,8 +111,8 @@ class controls
 	}
 
 	public static function output_search_back_link() {
-		_link(_t("Back to the search result"), $_GET['type'], $_GET['from_action']);
-		_br();
+		__link(_t("Back to the search result"), $_GET['type'], $_GET['from_action']);
+		__br();
 	}
 
 	public static function output_text_editor($options)
@@ -126,7 +126,7 @@ class controls
 
 		$form_name = $name . '_form';
 		$content_name = $name . '_content';
-		$submit_name = $name . '_submit';
+		$submit_name = $name . '__submit';
 
 		$content = isset($_POST[$content_name]) 
 			? $_POST[$content_name] 
@@ -135,7 +135,7 @@ class controls
 		echo '<form method="post" action="" id="' . $form_name . '" class="text-editor">';
 		echo '<fieldset>';
 		echo '<legend>' . $legend . '</legend>';
-		_hidden("target_id", $target_id);
+		__hidden("target_id", $target_id);
 		if ($title_label) 
 			\View\controls::output_textfield($name . '_title', $title_label, $tab_index++);
 		echo '<div id="format_buttons_div">';

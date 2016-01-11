@@ -34,38 +34,38 @@
 <?php 
 	if (isset($_GET['from_action']))
 		\View\controls::output_search_back_link();
-	_h1(_t("Proposition: ") . $propinfo['title']);
+	__h1(_t("Proposition: ") . $propinfo['title']);
 	echo '<div class="vote_result_box">';
 	if($propinfo['status'] == "pending") {
-		__("It is " . $propinfo['number_of_supporters'] . " member who support this proposition.");
-		_br();
-		__("The necessary number of supporters for it to be subject for vote is " . (ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT)) . ".");
+		__t("It is " . $propinfo['number_of_supporters'] . " member who support this proposition.");
+		__br();
+		__t("The necessary number of supporters for it to be subject for vote is " . (ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT)) . ".");
 	}
 	elseif($propinfo['status'] == "affirmed"){
 		$vote_id = db_vote::get_vote_id_from_prop_id($prop_id);
-		__("This proposition has reached sufficient support to be subject for vote. The vote can be found ");
-		_link(_t("here"), 'vote', 'view_vote', 'id=' . $vote_id);
+		__t("This proposition has reached sufficient support to be subject for vote. The vote can be found ");
+		__link(_t("here"), 'vote', 'view_vote', 'id=' . $vote_id);
 	}
 	echo '</div>';
 	if($voter_allowed_to_vote && $propinfo['status'] == "pending") {
 		echo '<div class="vote_result_box" id="user_vote_box">';
 			if(isset($delegate_ballot) && $delegate_ballot['support']) {
-				__(isset($delegate_ballot['delegate_id'])
+				__t(isset($delegate_ballot['delegate_id'])
 					? 'You as delegate support this proposition through your delegate.'
 					: 'You as delegate support this proposition yourself.');
 			}
 		echo '</div>';
 	}
 	echo '<p>';
-	_info(_t("Type of proposed vote"), \View\vote::get_vote_type_description($propinfo['type']));
-	_info(_t("Constituency"), $propinfo['constituency_name']);
-	_info(_t("Created", array('class' => 'adj')), general_helpers::show_date($propinfo['timestamp_created']));
-	_info(_t("Proposed by", array('class' => 'adj')), \View\controls::generate_internal_link($propinfo['user_full_name'],
+	__info(_t("Type of proposed vote"), \View\vote::get_vote_type_description($propinfo['type']));
+	__info(_t("Constituency"), $propinfo['constituency_name']);
+	__info(_t("Created", array('class' => 'adj')), general_helpers::show_date($propinfo['timestamp_created']));
+	__info(_t("Proposed by", array('class' => 'adj')), \View\controls::generate_internal_link($propinfo['user_full_name'],
 		'member', 'view', 'id=' . $propinfo['user_id']));
-	_info(_t("Number of support-ballots"), $number_of_ballots['total_number_of_ballots']);
-	_info(_t("Whereof personally cast ballots"), $number_of_ballots['number_of_direct_ballots']);
-	_info(_t("Number of delegates who has voted"), $number_of_ballots['number_of_delegate_ballots']);
-	_info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($propinfo['description']));
+	__info(_t("Number of support-ballots"), $number_of_ballots['total_number_of_ballots']);
+	__info(_t("Whereof personally cast ballots"), $number_of_ballots['number_of_direct_ballots']);
+	__info(_t("Number of delegates who has voted"), $number_of_ballots['number_of_delegate_ballots']);
+	__info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($propinfo['description']));
 	echo '</p>';
 	if($number_of_ballots['number_of_delegate_ballots']){
 		echo '<div class="" id="delegate_votes_box">';
@@ -74,17 +74,17 @@
 		echo '</div>';
 	}
 	echo '<p>';
-	_link(_t("See all support-ballots for this proposition"), 'vote', 'view_prop_ballots', 'id=' . $_GET['id']);
+	__link(_t("See all support-ballots for this proposition"), 'vote', 'view_prop_ballots', 'id=' . $_GET['id']);
 	echo '</p>';
 	if($voter_allowed_to_vote) {
 		echo '<p>';
-		_link(_t("Link to this proposition's forum debate"), 'forum', 'show_posts', 'topic_id=' . $propinfo['forum_topic_id']);
+		__link(_t("Link to this proposition's forum debate"), 'forum', 'show_posts', 'topic_id=' . $propinfo['forum_topic_id']);
 		echo '</p>';
 		if($propinfo['status'] == "pending") {
 			echo '<div class="vote_box">';
-			_open_form("yes-no");
-			_hidden("prop_id", $prop_id);
-			_hidden("ballot", "");
+			__open_form("yes-no");
+			__hidden("prop_id", $prop_id);
+			__hidden("ballot", "");
 			echo '<input type="submit" class="vote_button" style="display: none" id="green_vote" value="' 
 			. _t("Support") . '" onmousedown="return encrypt_prop_ballot(true)">';
 			echo '<input type="submit" class="vote_button" style="display: none" title="' 
@@ -92,7 +92,7 @@
 			. '" onmousedown="return encrypt_prop_ballot(false)">';
 			echo '</form>';
 			echo '</div>';
-			__($is_voting_as_delegate ? "You vote as delegate." : "You vote as individual.");
+			__t($is_voting_as_delegate ? "You vote as delegate." : "You vote as individual.");
 		}
 	}
 

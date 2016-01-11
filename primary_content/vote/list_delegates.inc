@@ -1,5 +1,5 @@
 <?php 
-	_h1(_t("Delegates"));
+	__h1(_t("Delegates"));
 	if(isset($_GET['page'])) $page = $_GET['page']; else $page = 1;
 	if($_GET['sort'] == "alphabetic") $order_by = "title asc";
 	elseif($_GET['sort'] == "age") $order_by = "timestamp_created asc";

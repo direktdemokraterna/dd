@@ -36,7 +36,7 @@
 			echo '<ul>';
 				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
 				foreach($workgroups as $row)
-					_li(\View\controls::generate_internal_link($row['title'], "workgroup", "view", "id=" . 
+					__li(\View\controls::generate_internal_link($row['title'], "workgroup", "view", "id=" . 
 						$row['id']));
 			echo '</ul>';
 			?>
@@ -56,7 +56,7 @@
 			</ul>
 		</li>
 		<?php if(isset($_SESSION['admin'])) : ?>
-		<li><a href="#"><?php __("Admin"); ?></a>
+		<li><a href="#"><?php __t("Admin"); ?></a>
 			<ul>
 				<?php 
 					if(isset($_SESSION['is_member_admin']))
@@ -92,12 +92,12 @@
 			<ul>
 				<?php if ($_SESSION['delegate_id']) : ?>
 					<li><a onClick="set_acting_as_delegate(0)">
-						<?php __("Act as individual"); ?></a></li>
+						<?php __t("Act as individual"); ?></a></li>
 				<?php elseif (db_delegate::is_user_delegate($_SESSION['id'])) : ?>
 					<li><a onClick="set_acting_as_delegate(1)">
-						<?php __("Act as delegate"); ?></a></li>
+						<?php __t("Act as delegate"); ?></a></li>
 				<?php endif; ?>
-				<li><a href="index.php?logout=1"><?php __("Logout"); ?></a></li>
+				<li><a href="index.php?logout=1"><?php __t("Logout"); ?></a></li>
 			</ul>
 		</li>
 	</ul>

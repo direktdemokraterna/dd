@@ -55,11 +55,11 @@ class calendar
 
 		echo '<caption class="month_table_caption">';
 		echo '<div class="previous_month">';
-		_link(\general_helpers::get_month(null, $previous_month) . $show_previous_year
+		__link(\general_helpers::get_month(null, $previous_month) . $show_previous_year
 			, 'member', 'calendar', "year=$previous_year&month=$previous_month");
 		echo '</div>';
 		echo '<div class="next_month">';
-		_link(\general_helpers::get_month(null, $next_month) . $show_next_year
+		__link(\general_helpers::get_month(null, $next_month) . $show_next_year
 			, 'member', 'calendar', "year=$next_year&month=$next_month");
 		echo '</div>';
 		echo '<div class="this_month">';
@@ -83,7 +83,7 @@ class calendar
 			echo ' id="this_day"';
 		echo '>';
 		$query_params = "year=$year&month=$month&day=$day_counter";
-		_link($day_counter . $events_presentation, 'member', 'calendar', $query_params);
+		__link($day_counter . $events_presentation, 'member', 'calendar', $query_params);
 		echo '</td>';
 	}
 

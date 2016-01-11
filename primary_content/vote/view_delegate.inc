@@ -26,15 +26,15 @@
 	var acting_as_delegate = <?php echo $acting_as_delegate ? "true" : "false"; ?>;
 </script>
 <?php
-	_h1(_t(($is_own_delegate ? "Your delegate" : "Delegate") . ": "
+	__h1(_t(($is_own_delegate ? "Your delegate" : "Delegate") . ": "
 		, array('class' => 'noun')) . $delegate_info['title']);
-	_h2(_t("Description"));
+	__h2(_t("Description"));
 	echo \Logic\text::make_html_from_wiki_text($delegate_info['description']);
-	_h2(_t("Vote history", array('class' => 'noun')));
+	__h2(_t("Vote history", array('class' => 'noun')));
 ?>
 
 <table class="responsive">
-<tr><th><?php __("Vote", array('class' => 'noun')); ?></th><th><?php __("Type"); ?></th><th><?php __("Ballot"); ?></th></tr>
+<tr><th><?php __t("Vote", array('class' => 'noun')); ?></th><th><?php __t("Type"); ?></th><th><?php __t("Ballot"); ?></th></tr>
 <?php foreach($delegate_ballots as $row) : ?>
 	<tr>
 		<td><a href="index.php?type=vote&action=view_vote&id=<?php echo $row['vote_id']; ?>">
@@ -46,23 +46,23 @@
 </table>
 
 <?php
-	_h2(general_helpers::make_genitive($delegate_info['title']) . _t(" delegations"));
+	__h2(general_helpers::make_genitive($delegate_info['title']) . _t(" delegations"));
 	$delegate_delegations = db_delegate::get_delegate_delegates($_GET['id']);
 	if(empty($delegate_delegations)) {
-		__("No delegations");
-		_br();		
+		__t("No delegations");
+		__br();		
 	}
 	else {
 		echo $delegate_info['title'] . _t(" has delegated to:") . '<br>'; 
 		foreach($delegate_delegations as $row)
 		{
-			_link($row['delegate_title'], 'vote', 'view_delegate', 'id=' . $row['delegate_id']); 
+			__link($row['delegate_title'], 'vote', 'view_delegate', 'id=' . $row['delegate_id']); 
 			echo _t(" in constituency ") . $row['constituency_title'] . '<br>'; 
 		}		
 	}
 	if ($is_own_delegate) {
-		_br();
-		_link(_t("Handle delegate"), "vote", "delegate_settings");		
+		__br();
+		__link(_t("Handle delegate"), "vote", "delegate_settings");		
 	}
 ?>
 <?php if ($shared_constituencies && $_SESSION['delegate_id'] != $delegate_id) : ?>
@@ -71,18 +71,18 @@
 		echo '<script>';
 		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
 		echo '</script>';
-		_h2(_t("Delegate your vote" . ($acting_as_delegate ? " as delegate" : "") . " to ") 
+		__h2(_t("Delegate your vote" . ($acting_as_delegate ? " as delegate" : "") . " to ") 
 			. $delegate_info['title']);
-		_open_form("prio-vote");
-		_hidden("ballot");
+		__open_form("prio-vote");
+		__hidden("ballot");
 		foreach($shared_constituencies as $row) {
 			$constituency_id = $row['id'];
 			echo '<div class="delegation_box">';
 			echo _t("Constituency: ");
-			_strong($row['name']);
-			_br();
+			__strong($row['name']);
+			__br();
 			echo '<span id="constituency' . $constituency_id . '">' . _t("You have no delegate in this constituency") . '</span>';
-			_br(2);
+			__br(2);
 			echo '<input id="delegate_in_' . $constituency_id . '" style="display: inline" type="submit" value="' . _t("Delegate to ", array('class' => 'prep')) . $delegate_info['title'] 
 				. '" onmousedown="return encrypt_single_delegation(' . $constituency_id
 					. ', ' . $_GET['id'] . ')">';

@@ -1,7 +1,7 @@
 <?php 
 	$userdata = db_user::get_user_data($_GET['id']);
-	_h1(\View\controls::generate_internal_link($userdata['first_name'] . " " . $userdata['last_name'], "member", "view", "id=" . $_GET['id']));
-	_strong(_t("Constituency authorisations for this user"));
+	__h1(\View\controls::generate_internal_link($userdata['first_name'] . " " . $userdata['last_name'], "member", "view", "id=" . $_GET['id']));
+	__strong(_t("Constituency authorisations for this user"));
 	echo '<form method="post" action=""><ul class="checkbox-grid">';
 	$constituency_access = db_constituency::get_all_constituencies_and_if_voter_belongs($_GET['id']);
 	foreach($constituency_access as $row) {
@@ -9,9 +9,9 @@
 		echo '<li>';
 		echo '<input type="checkbox" name="check_list[]" id="' . $constituency_name . '" value="' 
 			. $row['constituency_id'] . '"' . ($row['voter_access'] ? ' checked' : '') . '>';
-		_label($constituency_name, $constituency_name);
+		__label($constituency_name, $constituency_name);
 		echo '</li>';
 	}
 	echo '</ul><div class="clear"></div><br>';
-	_submit_and_close(_t('Change'));
+	__submit_and_close(_t('Change'));
 ?>

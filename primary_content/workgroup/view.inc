@@ -12,10 +12,10 @@
 		else 
 			\View\workgroup::output_inactive_workgroup_form($workgroup, $is_member);
 		if(isset($_SESSION['is_member_admin']))
-			_link(_t("Administrate this workgroup as member admin"), "member_admin", 
+			__link(_t("Administrate this workgroup as member admin"), "member_admin", 
 				"edit_workgroup", "id=" . $workgroup['id']);
 	}
 	else {
-		_p(_t("No workgroups."));
+		__p(_t("No workgroups."));
 	}
 ?>	

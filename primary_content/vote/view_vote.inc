@@ -30,7 +30,7 @@
 	\View\vote::output_vote_header($voteinfo);
 	\View\general::open_div("vote_result_box");
 	\View\vote::output_vote_result_with_header($voteinfo, $ballots_to_count);
-	_br();
+	__br();
 	if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished")
 		echo _t("The vote is finished. It finished ") 
 		. general_helpers::show_date($voteinfo['timestamp_ended']) . '.';
@@ -39,7 +39,7 @@
 			. _t('. For delegates the possibility to vote closed ') 
 			. general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . '.';
 	elseif($voteinfo['status'] == "continuous")
-		__("This is a continous vote and it continues until it is ended through a new yes/no vote.");
+		__t("This is a continous vote and it continues until it is ended through a new yes/no vote.");
 	else
 		echo _t("The vote finishes ") . general_helpers::show_date($voteinfo['timestamp_ended'])
 			. _t(". For delegates the possibility to vote closes ") . general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . ".";
@@ -48,48 +48,48 @@
 	\View\general::open_div("vote_result_box", "user_vote_box");
 	if($_SESSION['delegate_id']) {
 		if(empty($delegate_ballot))
-			__("You have not yet voted in this vote as delegate.");
+			__t("You have not yet voted in this vote as delegate.");
 		else {
 			if(isset($delegate_ballot['delegate_id']))
-				__("You as delegate have let your delegate vote in this vote.");
+				__t("You as delegate have let your delegate vote in this vote.");
 			else
-				__("You as delegate have cast your own ballot in this vote.");
-			_br();
-			__("Your ballot:");
-			_br();
+				__t("You as delegate have cast your own ballot in this vote.");
+			__br();
+			__t("Your ballot:");
+			__br();
 			echo \View\vote::get_ballot_content($voteinfo['type'], $delegate_ballot['ballot']);
 		}
 	}
-	else __("No ballot has been cast in your name in this vote.");
+	else __t("No ballot has been cast in your name in this vote.");
 	\View\general::close_div();
 	echo '<p>';
-	_strong(_t("Constituency: ") . $voteinfo['constituency_name']);
-	_br();
+	__strong(_t("Constituency: ") . $voteinfo['constituency_name']);
+	__br();
 	if($voteinfo['proposition_created']) {
-		_strong(_t("Proposition created: "));
+		__strong(_t("Proposition created: "));
 		echo general_helpers::show_date($voteinfo['proposition_created']);
-		_br();
-		_strong(_t("Proposition created by: "));
-		_link($voteinfo['user_full_name'], 'member', 'view', 'id=' . $voteinfo['user_id']);
+		__br();
+		__strong(_t("Proposition created by: "));
+		__link($voteinfo['user_full_name'], 'member', 'view', 'id=' . $voteinfo['user_id']);
 	}
   	else 
-		_strong(_t("Vote ", array('class' => 'noun')) . _t("created by administrator", array('class' => 'adj')));
-	_br();
-	_strong(_t("Vote started: "));
+		__strong(_t("Vote ", array('class' => 'noun')) . _t("created by administrator", array('class' => 'adj')));
+	__br();
+	__strong(_t("Vote started: "));
 	echo general_helpers::show_date($voteinfo['timestamp_created']);
-	_br();	
+	__br();	
 	if($voteinfo['status'] == "continuous"){
-		_strong(_t("The vote is continous."));
-		_br();
+		__strong(_t("The vote is continous."));
+		__br();
 	}
 	else {
-		_info(_t("Delegate voting closes"), general_helpers::show_date($voteinfo['timestamp_delegate_ended']));
-		_info(_t("Vote closes"), general_helpers::show_date($voteinfo['timestamp_ended']));
+		__info(_t("Delegate voting closes"), general_helpers::show_date($voteinfo['timestamp_delegate_ended']));
+		__info(_t("Vote closes"), general_helpers::show_date($voteinfo['timestamp_ended']));
   	}
-	_info(_t("Number of cast ballots"), $voteinfo['number_of_ballots']);
-	_info(_t("Whereof personally cast ballots"), $voteinfo['number_of_direct_ballots']);
-	_info(_t("Number of delegates who has voted"), $number_of_delegate_ballots);
-	_info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($voteinfo['description']));
+	__info(_t("Number of cast ballots"), $voteinfo['number_of_ballots']);
+	__info(_t("Whereof personally cast ballots"), $voteinfo['number_of_direct_ballots']);
+	__info(_t("Number of delegates who has voted"), $number_of_delegate_ballots);
+	__info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($voteinfo['description']));
 	echo '</p>';
 	if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
 		&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {
@@ -98,16 +98,16 @@
 		echo '</div>';
 	}
 	echo '<p>';
-	_link(_t("See all ballots for this vote"), 'vote', 'view_ballots', 'id=' . $voteinfo['id']);
+	__link(_t("See all ballots for this vote"), 'vote', 'view_ballots', 'id=' . $voteinfo['id']);
 	echo '</p>';
 	if($user_allowed_to_vote) {
 		echo '<p>';
-		_link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id']);
+		__link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id']);
 		echo '</p>';
 		echo '<div class="vote_box">';
 		include(__DIR__ . \View\vote::get_vote_form_include($voteinfo['type']));
 		echo '</div>';
-		__($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
+		__t($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
 	}
 	echo '<script>';
 	\View\vote::output_common_delegate_vote_box_translations_for_js();

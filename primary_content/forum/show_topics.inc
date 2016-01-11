@@ -1,17 +1,17 @@
 <?php 
 	$forum_info = db_forum::get_forum_info($_GET['id']); 
 	if(empty($forum_info)) 
-		_p(_t("Forum not found."));
+		__p(_t("Forum not found."));
 	else {
 		$forum_id = $forum_info['id'];
 		echo '<div class="forum_info">';
-		_link(_t("Forums"), 'forum', 'show_forums');
+		__link(_t("Forums"), 'forum', 'show_forums');
 		echo '</div>';
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
-		_h1($forum_info['title']);
+		__h1($forum_info['title']);
 		$topics = db_forum::list_topics($forum_id, $_SESSION['id'], $page);
 		if(empty($topics))
-			_p(_t("No topics in this forum."));
+			__p(_t("No topics in this forum."));
 		else {
 			$url_without_page = "index.php?type=forum&action=show_topics&id=" . $forum_id;
 			$topic_count = db_forum::get_topic_count($forum_id);

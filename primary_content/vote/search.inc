@@ -3,9 +3,9 @@
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$search_query = \Logic\util::update_search_query("vote");
 	$votes = db_vote::search_votes($search_query, $_SESSION['id'], $sort, $page);
-	_h1(_t("Found votes"));
+	__h1(_t("Found votes"));
 	if(empty($votes)) {
-		_p(_t("No votes with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption were found."));
+		__p(_t("No votes with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption were found."));
 	}
 	else {
 		$result_count = db_vote::search_votes_count($search_query, $_SESSION['id']);

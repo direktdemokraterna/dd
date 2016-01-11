@@ -1,7 +1,7 @@
 <ul>
 	<li>
 		<?php 
-			_h2(_t("Vote admin"));
+			__h2(_t("Vote admin"));
 			\View\controls::output_link_list("vote_admin", array(
 			"constituencylist" => _t("List constituencies")
 			,"create_constituency" => _t("Create new constituency")

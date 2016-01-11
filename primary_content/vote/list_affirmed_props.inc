@@ -1,5 +1,5 @@
 <?php 
-	_h1(_t("Affirmed propositions"));
+	__h1(_t("Affirmed propositions"));
 	$status = 'affirmed';
 	$prop_count = db_prop::list_props_count($status, $_SESSION['id']);
 	if ($prop_count) {
@@ -9,4 +9,4 @@
 		\View\vote::make_proposition_list($prop_groups, $page, $prop_count, $url_without_page, "vote", "view_prop");
 	}
 	else 
-		__("There are no affirmed propositions in your constituencies");?>
+		__t("There are no affirmed propositions in your constituencies");?>

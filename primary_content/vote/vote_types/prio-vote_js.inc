@@ -1,10 +1,10 @@
 <script>
-  var you_promoted = "<?php __('You have promoted: '); ?>";
-  var you_demoted = "<?php __('You have demoted: '); ?>";
-  var you_voted_abstain = "<?php __('You have voted abstain.'); ?>";
-  var you_voted_yourself = "<?php __('You have personally cast this ballot.'); ?>";
-  var your_delegate = "<?php __('Your delegate'); ?>";
-  var voted_for_you = "<?php __('has voted for you.'); ?>";
+  var you_promoted = "<?php __t('You have promoted: '); ?>";
+  var you_demoted = "<?php __t('You have demoted: '); ?>";
+  var you_voted_abstain = "<?php __t('You have voted abstain.'); ?>";
+  var you_voted_yourself = "<?php __t('You have personally cast this ballot.'); ?>";
+  var your_delegate = "<?php __t('Your delegate'); ?>";
+  var voted_for_you = "<?php __t('has voted for you.'); ?>";
 
 <?php if($_SESSION['delegate_id']) : ?>
   <?php if(!empty($delegate_ballot) && $delegate_ballot['ballot'] != "abstain") : ?>

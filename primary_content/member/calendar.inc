@@ -5,49 +5,49 @@
 	$year = isset($_GET['year']) ? $_GET['year'] : date("Y");
 	$timestamp = strtotime($year . "-" . $month . "-" . $day);
 	if($show_this_date) {
-		_h1(general_helpers::get_weekday($timestamp) . ' ' . $day . ' ' . strtolower(general_helpers::get_month($timestamp)) . ($year == date("Y") ? '' : ' ' . $year));
+		__h1(general_helpers::get_weekday($timestamp) . ' ' . $day . ' ' . strtolower(general_helpers::get_month($timestamp)) . ($year == date("Y") ? '' : ' ' . $year));
 		$events = db_calendar::get_events($year, $month, $day);
 		foreach($events as $row) {
 			echo '<div class="event">';
-			_h2($row['title']);
-			_info(_t("Time"), $row['time']);
-			_info(_t("Location"), $row['location']);
-			_info(_t("Added by"), \View\member::link($row, 'user_id'));
-			_info(_t("Description"), \Logic\text::make_html_from_wiki_text($row['content']));
-			_br();
-			_strong(_t("Subscribed participants:", array('class' => 'adj')));
-			_br();
+			__h2($row['title']);
+			__info(_t("Time"), $row['time']);
+			__info(_t("Location"), $row['location']);
+			__info(_t("Added by"), \View\member::link($row, 'user_id'));
+			__info(_t("Description"), \Logic\text::make_html_from_wiki_text($row['content']));
+			__br();
+			__strong(_t("Subscribed participants:", array('class' => 'adj')));
+			__br();
 			$participants = db_calendar::get_participants($row['event_id']);
 			$is_participant = db_calendar::is_participant($row['event_id'], $_SESSION['id']);
 			if(empty($participants)) {
-				__("No subscribed participants");
-				_br();
+				__t("No subscribed participants");
+				__br();
 			}
 			else 
 				foreach($participants as $p_row) {
 					echo \View\member::link($p_row, 'user_id');
-					_br();
+					__br();
 				}
 			if(($timestamp + DAY_IN_SECONDS) > time()) {
-				_br();
-				_open_form("single_submit_button");
-				_hidden("id", $row['event_id']);
+				__br();
+				__open_form("single_submit_button");
+				__hidden("id", $row['event_id']);
 				if($is_participant) {
-					_hidden("type", "cancel_participate");
-					_submit_and_close(_t("Unsubscribe for this activity"));
+					__hidden("type", "cancel_participate");
+					__submit_and_close(_t("Unsubscribe for this activity"));
 				}
 				else {
-					_hidden("type", "participate");
-					_submit_and_close(_t("Subscribe for this activity"));
+					__hidden("type", "participate");
+					__submit_and_close(_t("Subscribe for this activity"));
 				}
 			}
 			if($row['user_id'] == $_SESSION['id'] && $row['timestamp'] > time()) 
-				_link(_t("Edit activity"), 'member', 'calendar_edit', 'id=' . $row['event_id']);
+				__link(_t("Edit activity"), 'member', 'calendar_edit', 'id=' . $row['event_id']);
 			echo '</div>';
 		}
 	}
 	else 
-		_h1(strtolower(general_helpers::get_month($timestamp)) . ' ' . $year);
+		__h1(strtolower(general_helpers::get_month($timestamp)) . ' ' . $year);
 	
 	$weekday_of_first_in_this_month = date("w", strtotime($year . "-" . $month . "-" . 1));
 	if($weekday_of_first_in_this_month == 0) $weekday_of_first_in_this_month = 7; // Make Sunday day 7
@@ -75,6 +75,6 @@
 		echo '</tr>';
 	}
 	echo '</table>';
-	_br();
-	_p(\View\controls::generate_internal_link(_t("Add activity to calendar"), 'member', 'calendar_add'));
+	__br();
+	__p(\View\controls::generate_internal_link(_t("Add activity to calendar"), 'member', 'calendar_add'));
 ?>

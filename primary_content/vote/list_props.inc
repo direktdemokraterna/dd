@@ -1,5 +1,5 @@
 <?php 
-	_h1(_t("Active propositions"));
+	__h1(_t("Active propositions"));
 	$status = 'pending';
 	$prop_count = db_prop::list_props_count($status, $_SESSION['id']);
 	if ($prop_count) {
@@ -9,5 +9,5 @@
 		\View\vote::make_proposition_list($prop_groups, $page, $prop_count, $url_without_page, "vote", "view_prop");
 	}
 	else 
-		__("There are no active propositions in your constituencies");
+		__t("There are no active propositions in your constituencies");
 ?>

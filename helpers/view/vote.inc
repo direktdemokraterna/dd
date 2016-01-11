@@ -6,7 +6,7 @@ class vote
 	public static function make_add_alternative_form($voteinfo) {
 		if($voteinfo['type'] == "prio-vote") {
 			self::open_add_alternative_form("Add alternative to", $voteinfo);
-			_p(_t("Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin."));
+			__p(_t("Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin."));
 			\View\controls::output_textfield("alternative_title", _t("Title"), 1);
 			\View\controls::output_textarea("alternative_description", _t("Description"), 2);
 			self::close_add_alternative_form(_t("Create alternative"), 3);
@@ -32,15 +32,15 @@ class vote
 	}
 
 	private static function open_add_alternative_form($caption_prefix, $voteinfo) {
-		_h1(_t($caption_prefix) . _t(" the vote: ") . $voteinfo['title']);
-		_p(\View\controls::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['id']));
-		_open_form();
-		_hidden("vote_id", $voteinfo['id']);
+		__h1(_t($caption_prefix) . _t(" the vote: ") . $voteinfo['title']);
+		__p(\View\controls::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['id']));
+		__open_form();
+		__hidden("vote_id", $voteinfo['id']);
 	}
 
 	private static function close_add_alternative_form($submit_text, $submit_tab_index = 1) 
 	{
-		_submit_and_close($submit_text, null, null, $submit_tab_index);
+		__submit_and_close($submit_text, null, null, $submit_tab_index);
 	}
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
@@ -82,24 +82,24 @@ class vote
 
 	public static function output_vote_status($status) 
 	{
-		_br();
-		_label(_t("Vote status: "), "vote_status");
+		__br();
+		__label(_t("Vote status: "), "vote_status");
 		$status_text = self::get_vote_status_text($status);
-		__($status_text);
-		_br();
+		__t($status_text);
+		__br();
 		$buttons = self::get_vote_status_buttons($status);
 		foreach ($buttons as $key => $value) {
-			_space();
+			__space();
 			echo '<button type="submit" name="action" value="' . $key . '">' 
 			. _t($value, array('class' => 'noun')) . '</button>';			
-			_space();
+			__space();
 		}
 	}
 
 	public static function list_ballots($vote_type, $ballots, $content_prop = 'ballot') 
 	{
 		if(empty($ballots))
-			__("No ballots cast.", array('class'=>'adj'));
+			__t("No ballots cast.", array('class'=>'adj'));
 		else {
 			echo '<table class="responsive">';
 			echo '<tr><th>' . _t("Voter") . '</th><th>' . _t("Ballot") 
@@ -108,14 +108,14 @@ class vote
 			foreach ($ballots as $ballot){
 				echo '<tr><td>';
 				if($ballot['user_code'])
-					__("User");
+					__t("User");
 				else 
-					_link($ballot['voter_is_delegate_name'], 'vote', 'view_delegate', 'id=' . $ballot['voter_id']);
+					__link($ballot['voter_is_delegate_name'], 'vote', 'view_delegate', 'id=' . $ballot['voter_id']);
 				echo '</td><td>';
 				echo self::get_ballot_content($vote_type, $ballot[$content_prop]);
 				echo '</td><td>';
 				if($ballot['delegate_id'])
-					_link($ballot['delegate_name'], 'vote', 'view_delegate', 'id=' . $ballot['delegate_id']);
+					__link($ballot['delegate_name'], 'vote', 'view_delegate', 'id=' . $ballot['delegate_id']);
 				echo '</td><td>';
 				echo \general_helpers::show_date($ballot['time_ballot_placed']);
 				echo '</td></tr>';
@@ -346,8 +346,8 @@ class vote
 			$workgroup_id = $voteinfo['from_proposition_id'];
 			$workgroup_title = \db_workgroup::get_name_from_id($workgroup_id);
 			echo '<p>';
-			__("This vote appoints members to the workgroup ");
-			_link($workgroup_title, 'workgroup', 'view', 'id=' . $workgroup_id);
+			__t("This vote appoints members to the workgroup ");
+			__link($workgroup_title, 'workgroup', 'view', 'id=' . $workgroup_id);
 			echo '</p>';
 		}		
 	}

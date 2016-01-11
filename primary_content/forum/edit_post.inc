@@ -1,6 +1,6 @@
 <?php 
 	$post_info = db_forum::get_full_post_info($_GET['id'], $_SESSION['id']);
-	_h1(_t("Edit post"));
+	__h1(_t("Edit post"));
 	\View\forum::output_post($post_info, false);
 	\View\controls::output_text_editor(array(
 		'name' => 'edit_post'

@@ -1,5 +1,5 @@
 <?php 
-	_h1(_t("Active votes"));
+	__h1(_t("Active votes"));
 	$statuses = array('active', 'del_ended', 'continuous');
 	$vote_count = db_vote::list_votes_count($_SESSION['id'], $statuses);
 	if ($vote_count) {
@@ -9,5 +9,5 @@
 		\View\vote::make_vote_list($vote_groups, $page, $vote_count, $url_without_page, "vote", "view_vote");
 	}
 	else 
-		__("There are no active votes in your constituencies");
+		__t("There are no active votes in your constituencies");
 ?>

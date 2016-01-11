@@ -214,7 +214,7 @@ class vote_helpers
 	{
 		$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
 		return empty($prio_vote_result)
-			? __("No alternatives")
+			? __t("No alternatives")
 			: self::get_formatted_prio_vote_result($prio_vote_result);
 	}
 

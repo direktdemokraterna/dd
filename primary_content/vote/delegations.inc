@@ -13,29 +13,29 @@
 </script>
 
 <?php 
-	_h1(_t("Your current delegations" . ($_SESSION['delegate_id'] ? " as delegate" : '')));
-	_open_form("prio-vote");
-	_hidden("ballot");
+	__h1(_t("Your current delegations" . ($_SESSION['delegate_id'] ? " as delegate" : '')));
+	__open_form("prio-vote");
+	__hidden("ballot");
 	foreach($constituencies as $row) {
 		echo '<div class="delegation_box">';
 		echo _t("Constituency: ");
-		_strong($row['name']);
-		_br();
+		__strong($row['name']);
+		__br();
 		if($_SESSION['delegate_id']) {
 			echo '<span>';
 			$delegate_delegate_for_constituency = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);
 			if($delegate_delegate_for_constituency) {
-				__("You have delegated your vote in this constituency to ");
-				_link($delegate_delegate_for_constituency['delegate_title'], 'vote', 'view_delegate', 'id=' 
+				__t("You have delegated your vote in this constituency to ");
+				__link($delegate_delegate_for_constituency['delegate_title'], 'vote', 'view_delegate', 'id=' 
 					. $delegate_delegate_for_constituency['delegate_id']);
 			}
 			else
-				__("You have no delegate in this constituency");
+				__t("You have no delegate in this constituency");
 			echo '</span>';
 		}
 		else 
 			echo '<span id="constituency' . $row['id'] . '">' . _t("You have no delegate in this constituency") . '</span>';
-		_br(2);
+		__br(2);
 		$delegates_for_constituency = db_delegate::get_available_delegates($row['id']
 			, $_SESSION['delegate_id']);
 		$delegate_options = array("null" => _t("Remove delegate"));

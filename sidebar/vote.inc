@@ -1,7 +1,7 @@
 <ul>
 	<li>
 		<?php 
-			_h2(_t("Propositions"));
+			__h2(_t("Propositions"));
 			\View\controls::output_link_list("vote", array(
 			"list_props" => _t("List active propositions")
 			,"list_affirmed_props" => _t("List affirmed propositions")
@@ -16,7 +16,7 @@
 	</li>
 	<li>
 		<?php 
-			_h2(_t("Votes"));
+			__h2(_t("Votes"));
 			\View\controls::output_link_list("vote", array(
 			"list_active_votes" => _t("List active votes")
 			,"list_old_votes" => _t("List old votes")
@@ -30,7 +30,7 @@
 	</li>
 	<li>
 		<?php
-			_h2(_t("Delegates"));
+			__h2(_t("Delegates"));
 			$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
 			\View\controls::output_link_list("vote", array(
 			"list_delegates" => _t("List delegates")

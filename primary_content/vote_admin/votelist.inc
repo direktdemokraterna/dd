@@ -1,5 +1,5 @@
 <?php 
-	_h1(_t("All votes"));
+	__h1(_t("All votes"));
 	$vote_count = db_vote::list_votes_count($_SESSION['id']);
 	if ($vote_count) {
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -8,5 +8,5 @@
 		\View\vote::make_vote_list($vote_groups, $page, $vote_count, $url_without_page, "vote_admin", "edit_vote");		
 	}
 	else 
-		__("There are no votes in your constituencies");
+		__t("There are no votes in your constituencies");
 ?>

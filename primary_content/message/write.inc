@@ -22,9 +22,9 @@
 		\View\message::output_message($reply_info, false, false, _t("Reply to: "));
 	}
 	else 
-		_h1(_t("Write message"));
-	_open_form();
-	_hidden("send", 1);
+		__h1(_t("Write message"));
+	__open_form();
+	__hidden("send", 1);
 	$options = array("none" => _t("Select recipient"));
 	$recipients = db_user::get_all_usernames_and_full_names();
 	foreach($recipients as $row)
@@ -32,5 +32,5 @@
 	\View\controls::output_labeled_selector("recipient", _t("Recipient"), $options, $recipient, 'tabindex="1"');
 	\View\controls::output_textfield("title", _t("Caption"), 2, $title);
 	\View\controls::output_textarea("message_text", _t("Message"), 3, $content);
-	_submit_and_close(_t("Send"), null, null, 4);
+	__submit_and_close(_t("Send"), null, null, 4);
 ?>
