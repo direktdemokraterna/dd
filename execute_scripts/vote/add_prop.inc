@@ -19,7 +19,7 @@ else if(!isset($_POST['type_of_vote']) || !in_array($_POST['type_of_vote'],
 }
 else {
 	$title = general_helpers::clean($_POST['new_prop_title']);
-	$description = \View\general::process_text($_POST['new_prop_description']);
+	$description = \Logic\text::process_text($_POST['new_prop_description']);
 	$constituency_check = db_constituency::check_voter_constituency_access($_SESSION['id'], $_POST['constituency_id']);
 	if($constituency_check){
 		$insert_id = db_prop::add_prop($_POST['type_of_vote'], $_SESSION['id'], $_POST['constituency_id'], $title, $description);

@@ -89,7 +89,7 @@
 	_info(_t("Number of cast ballots"), $voteinfo['number_of_ballots']);
 	_info(_t("Whereof personally cast ballots"), $voteinfo['number_of_direct_ballots']);
 	_info(_t("Number of delegates who has voted"), $number_of_delegate_ballots);
-	_info(_t("Description"), '<br>' . \View\general::make_html_from_wiki_text($voteinfo['description']));
+	_info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($voteinfo['description']));
 	echo '</p>';
 	if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
 		&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {

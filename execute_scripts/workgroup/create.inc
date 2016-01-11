@@ -5,7 +5,7 @@
 
 		if(!$already_exists){
 			$workgroup_id = db_workgroup::create(general_helpers::clean($_POST['title'])
-				, \View\general::process_text($_POST['description']), $_SESSION['id']);
+				, \Logic\text::process_text($_POST['description']), $_SESSION['id']);
 			if($workgroup_id){
 				$_SESSION['report_message'] = _t("Workgroup created");
 				$redirect = "index.php?type=workgroup&action=view&id=" . $workgroup_id;

@@ -40,7 +40,7 @@
 			_p(_t("Skype name: ") . $userinfo['skype_name']);
 		_p(_t("Municipality: ") . $userinfo['county_name']);
 		_p(_t("Region: ") . $userinfo['region_name']);
-		_p(_t("Presentation:") . '<br>' . \View\general::make_html_from_wiki_text($userinfo['description']));
+		_p(_t("Presentation:") . '<br>' . \Logic\text::make_html_from_wiki_text($userinfo['description']));
 		_br();
 		if ($user_id == $_SESSION['id'])
 			_p(\View\controls::generate_internal_link(_t("Change my information"), 

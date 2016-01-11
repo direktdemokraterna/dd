@@ -13,7 +13,7 @@
 			_info(_t("Time"), $row['time']);
 			_info(_t("Location"), $row['location']);
 			_info(_t("Added by"), \View\member::link($row, 'user_id'));
-			_info(_t("Description"), \View\general::make_html_from_wiki_text($row['content']));
+			_info(_t("Description"), \Logic\text::make_html_from_wiki_text($row['content']));
 			_br();
 			_strong(_t("Subscribed participants:", array('class' => 'adj')));
 			_br();

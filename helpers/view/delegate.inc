@@ -14,7 +14,7 @@ class delegate
 		$columns = array(_t("Title"), _t("Description"), _t("Delegands"));
 		$rows = array_map(function($delegate) {
 			return array(\View\controls::generate_internal_link($delegate['title'], 'vote', 'view_delegate', 'id=' . $delegate['id'])
-				, _limit_with_ellipsis(\View\general::make_plaintext_from_wiki_text($delegate['description']), 30)
+				, _limit_with_ellipsis(\Logic\text::make_plaintext_from_wiki_text($delegate['description']), 30)
 				, $delegate['delegand_count']);
 		}, $delegates);
 		\View\controls::output_grid_view($columns, $rows);

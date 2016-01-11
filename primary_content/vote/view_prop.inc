@@ -65,7 +65,7 @@
 	_info(_t("Number of support-ballots"), $number_of_ballots['total_number_of_ballots']);
 	_info(_t("Whereof personally cast ballots"), $number_of_ballots['number_of_direct_ballots']);
 	_info(_t("Number of delegates who has voted"), $number_of_ballots['number_of_delegate_ballots']);
-	_info(_t("Description"), '<br>' . \View\general::make_html_from_wiki_text($propinfo['description']));
+	_info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($propinfo['description']));
 	echo '</p>';
 	if($number_of_ballots['number_of_delegate_ballots']){
 		echo '<div class="" id="delegate_votes_box">';

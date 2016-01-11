@@ -42,7 +42,7 @@ class workgroup
 		_br();				
 		_strong(_t("Description: "));
 		_br();
-		echo \View\general::make_html_from_wiki_text($workgroup['description']);
+		echo \Logic\text::make_html_from_wiki_text($workgroup['description']);
 		echo '</p>';
 		if($is_member) {
 			_link(_t("Edit description"), 'workgroup', 'edit', 'id=' . $_GET['id']);

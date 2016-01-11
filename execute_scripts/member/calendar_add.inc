@@ -10,7 +10,7 @@
 			
 		$timestamp = $event_time - ($event_time % 86400) + 86399;
 
-		$content = \View\general::process_text($_POST['content']);
+		$content = \Logic\text::process_text($_POST['content']);
 		$title = general_helpers::clean($_POST['title']);
 		$time = isset($_POST['time'])
 			? general_helpers::clean($_POST['time'])

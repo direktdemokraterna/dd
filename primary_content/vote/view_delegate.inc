@@ -29,7 +29,7 @@
 	_h1(_t(($is_own_delegate ? "Your delegate" : "Delegate") . ": "
 		, array('class' => 'noun')) . $delegate_info['title']);
 	_h2(_t("Description"));
-	echo \View\general::make_html_from_wiki_text($delegate_info['description']);
+	echo \Logic\text::make_html_from_wiki_text($delegate_info['description']);
 	_h2(_t("Vote history", array('class' => 'noun')));
 ?>
 

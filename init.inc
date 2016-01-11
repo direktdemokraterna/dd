@@ -21,7 +21,6 @@ include(dirname(__FILE__)."/config_default.inc");
 
 include(dirname(__FILE__)."/helpers/general_helpers.inc");
 include(dirname(__FILE__)."/helpers/navigation_helpers.inc");
-include(dirname(__FILE__)."/helpers/forum_helpers.inc");
 include(dirname(__FILE__)."/helpers/vote_helpers.inc");
 include(dirname(__FILE__)."/helpers/crypt_helpers.inc");
 include(dirname(__FILE__)."/helpers/class-phpass.php");
@@ -69,6 +68,7 @@ include(dirname(__FILE__)."/helpers/logic/constituency.inc");
 include(dirname(__FILE__)."/helpers/logic/delegate.inc");
 include(dirname(__FILE__)."/helpers/logic/forum.inc");
 include(dirname(__FILE__)."/helpers/logic/global.inc");
+include(dirname(__FILE__)."/helpers/logic/text.inc");
 include(dirname(__FILE__)."/helpers/logic/user.inc");
 include(dirname(__FILE__)."/helpers/logic/util.inc");
 include(dirname(__FILE__)."/helpers/logic/vote.inc");

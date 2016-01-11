@@ -64,7 +64,7 @@ class message
 		}
 		echo '</td>';
 		echo '<td>';
-		echo \View\general::make_html_from_wiki_text($message['content']);
+		echo \Logic\text::make_html_from_wiki_text($message['content']);
 		echo '</td>';
 		echo '</tr>';
 		echo '</table>';		
