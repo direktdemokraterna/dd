@@ -77,10 +77,6 @@ class controls
 		self::close_select();
 	}
 
-	public static function output_internal_link($label, $type, $action = null, $params = null, $class = null, $confirm = null) {
-		echo self::generate_internal_link($label, $type, $action, $params, $class, $confirm);
-	}	
-
 	public static function generate_internal_link($label, $type, $action = null, $params = null, $class = null, $confirm = null) {
 		$url = 'index.php?type=' . $type . ($action ? '&action=' . $action : '') 
 		. (empty($params) ? '' : '&' . $params);
@@ -93,7 +89,7 @@ class controls
 	public static function output_link_list($type, $links) {
 		echo '<ul>';
 		foreach (array_keys($links) as $action)
-			echo '<li>' . self::generate_internal_link($links[$action], $type, $action) . '</li>';
+			__li(_link($links[$action], $type, $action));
 		echo '</ul>';
 	}
 
