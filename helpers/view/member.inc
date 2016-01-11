@@ -4,20 +4,20 @@ namespace View;
 class member 
 {
 	public static function output_edit_fields($user_data = null, $include_social_security_number = true, &$tab_index = 1) {
-		\View\general::make_textfield("username", _t("Username"), $tab_index++, $user_data);
-		\View\general::make_textfield("first_name", _t("Given name"), $tab_index++, $user_data);
-		\View\general::make_textfield("last_name", _t("Last name"), $tab_index++, $user_data);
+		\View\controls::make_textfield("username", _t("Username"), $tab_index++, $user_data);
+		\View\controls::make_textfield("first_name", _t("Given name"), $tab_index++, $user_data);
+		\View\controls::make_textfield("last_name", _t("Last name"), $tab_index++, $user_data);
 		if ($include_social_security_number)
-			\View\general::make_textfield("social_security_number", _t("Social security number"), 
+			\View\controls::make_textfield("social_security_number", _t("Social security number"), 
 				$tab_index++, $user_data);			
-		\View\general::make_textfield("email", _t("Email address"), $tab_index++, $user_data);
-		\View\general::make_textfield("street_address", _t("Street address"), $tab_index++, $user_data);
-		\View\general::make_textfield("zip_code", _t("Zip code"), $tab_index++, $user_data);
-		\View\general::make_textfield("city_address", _t("City"), $tab_index++, $user_data);
+		\View\controls::make_textfield("email", _t("Email address"), $tab_index++, $user_data);
+		\View\controls::make_textfield("street_address", _t("Street address"), $tab_index++, $user_data);
+		\View\controls::make_textfield("zip_code", _t("Zip code"), $tab_index++, $user_data);
+		\View\controls::make_textfield("city_address", _t("City"), $tab_index++, $user_data);
 		self::output_county_selectors($user_data, $tab_index);
-		\View\general::make_textfield("telephone1", _t("Telephone 1"), $tab_index++, $user_data);
-		\View\general::make_textfield("telephone2", _t("Telephone 2"), $tab_index++, $user_data);
-		\View\general::make_textfield("skype_name", _t("Skype name"), $tab_index++, $user_data);
+		\View\controls::make_textfield("telephone1", _t("Telephone 1"), $tab_index++, $user_data);
+		\View\controls::make_textfield("telephone2", _t("Telephone 2"), $tab_index++, $user_data);
+		\View\controls::make_textfield("skype_name", _t("Skype name"), $tab_index++, $user_data);
 	}
 	
 	public static function output_county_selectors($user_data = null, &$tab_index = 1) {
@@ -39,18 +39,18 @@ class member
 		$columns = array(_t("Name"), _t("Username"), _t("Region"), _t("Municipality"));
 		$rows = array_map(function($member) {
 			return array(
-				\View\general::generate_internal_link($member['full_name'], "member", "view", "id=" . $member['id'])
+				\View\controls::generate_internal_link($member['full_name'], "member", "view", "id=" . $member['id'])
 				, $member['username']
 				, $member['region']
 				, $member['county']
 			);
 		}, $members);
 		$row_styles = array_map(function($member) {return $member['deletion_time'] ? 'deleted' : '';}, $members);
-		\View\general::output_grid_view($columns, $rows, $row_styles);
+		\View\controls::output_grid_view($columns, $rows, $row_styles);
 	}
 
 	public static function link($user, $id_prop = 'id', $name_prop = 'full_name') {
-		return \View\general::generate_internal_link($user[$name_prop]
+		return \View\controls::generate_internal_link($user[$name_prop]
 			, 'member', 'view', 'id=' . $user[$id_prop]);
 	}
 
@@ -90,14 +90,14 @@ class member
 		$regions = \db_constituency::get_regions();
 		$region_options = \db_general::make_hash($regions, 'id', 'title');
 		$region_options = array(0 => _t('All regions')) + $region_options;
-		\View\general::make_labeled_selector("region_id", _t("Region")
+		\View\controls::make_labeled_selector("region_id", _t("Region")
 			, $region_options, $selected_region
 			, 'onchange="region_changed()" tabindex="' . $tab_index . '"');
 	}
 
 	private static function output_county_selector($user_data, $counties, $tab_index) {
 		$county_options = \db_general::make_hash($counties, 'county_id', 'county_name');
-		\View\general::make_labeled_selector("county_id", _t("Municipality"), $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
+		\View\controls::make_labeled_selector("county_id", _t("Municipality"), $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
 	}
 }
 ?>

@@ -6,12 +6,12 @@ class workgroup
 	public static function list_workgroups($workgroups) {
 		$columns = array(_t("Name"), _t("Restricted"), _t("Number of members"));
 		$rows = array_map(function($workgroup) {
-			return array(\View\general::generate_internal_link($workgroup['title'], 'workgroup', 'view'
+			return array(\View\controls::generate_internal_link($workgroup['title'], 'workgroup', 'view'
 				, 'id=' . $workgroup['id'] . \View\general::get_from_action_for_url(array('search')))
 			, ($workgroup['membership_vote_id'] ? _t("Yes"): _t("No"))
 			, $workgroup['number_of_members']);
 		}, $workgroups);
-		\View\general::output_grid_view($columns, $rows);
+		\View\controls::output_grid_view($columns, $rows);
 	}
 
 	public static function output_workgroup_membership_vote_button($label, $action, $workgroup_id, $user_id) {
@@ -24,7 +24,7 @@ class workgroup
 
 	public static function output_workgroup_info($workgroup, $is_member, $is_candidate) {
 		if (isset($_GET['from_action']))
-			\View\general::output_search_back_link();
+			\View\controls::output_search_back_link();
 		_h1($workgroup['title']);
 		if($workgroup['is_active']==0)
 			_p(_t("This workgroup is proposed. It needs at least three members to be activated. Currently the number of members is " . $workgroup['number_of_members'] . "."));
@@ -112,7 +112,7 @@ class workgroup
 	{
 		_br();
 		_p(_t("This workgroup is closed and the members are appointed through candidate election. It is not possible to apply for membership in the same way as in open groups. The election of the members of this workgroup can be found ") . 
-			\View\general::generate_internal_link(_t("here"), 'vote','view_vote', 'id=' . $workgroup['membership_vote_id']));
+			\View\controls::generate_internal_link(_t("here"), 'vote','view_vote', 'id=' . $workgroup['membership_vote_id']));
 		$workgroup_membership_changes = \db_workgroup::get_workgroup_election_changes($_GET['id']);
 		if(!empty($workgroup_membership_changes)) {
 			echo '<p>';
@@ -144,7 +144,7 @@ class workgroup
 		if(empty($workgroup_candidates))
 			__("No candidates");
 		else foreach($workgroup_candidates as $row) {
-			\View\general::output_internal_link($row['full_name'], 'member', 'view', 'id=' . $row['user_id']);
+			\View\controls::output_internal_link($row['full_name'], 'member', 'view', 'id=' . $row['user_id']);
 			$candidate_info = \db_workgroup::candidate_info($workgroup['id'], $row['user_id'], $_SESSION['id']);
 		 	$is_supporter = $candidate_info['is_supporter'];
 		 	_space(3);

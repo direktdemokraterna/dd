@@ -2,8 +2,8 @@
 	$cat_info = db_forum_admin::get_category_info($_GET['id']);
 	_h1($cat_info['title']);
 	_open_form();
-	\View\general::make_textfield("title", _t("Name"), 1, $cat_info);
-	\View\general::make_textarea("description", _t("Description"), 2, $cat_info);
+	\View\controls::make_textfield("title", _t("Name"), 1, $cat_info);
+	\View\controls::make_textarea("description", _t("Description"), 2, $cat_info);
 	_br();
 	_submit_and_close(_t("Update"));
 	_h2(_t("Forums under this category"));

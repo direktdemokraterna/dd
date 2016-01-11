@@ -29,8 +29,8 @@
 	$recipients = db_user::get_all_usernames_and_full_names();
 	foreach($recipients as $row)
 		$options[$row['username']] = $row['full_name'];
-	\View\general::make_labeled_selector("recipient", _t("Recipient"), $options, $recipient, 'tabindex="1"');
-	\View\general::make_textfield("title", _t("Caption"), 2, $title);
-	\View\general::make_textarea("message_text", _t("Message"), 3, $content);
+	\View\controls::make_labeled_selector("recipient", _t("Recipient"), $options, $recipient, 'tabindex="1"');
+	\View\controls::make_textfield("title", _t("Caption"), 2, $title);
+	\View\controls::make_textarea("message_text", _t("Message"), 3, $content);
 	_submit_and_close(_t("Send"), null, null, 4);
 ?>

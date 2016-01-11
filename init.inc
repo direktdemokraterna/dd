@@ -73,11 +73,12 @@ include(dirname(__FILE__)."/helpers/logic/user.inc");
 include(dirname(__FILE__)."/helpers/logic/util.inc");
 include(dirname(__FILE__)."/helpers/logic/vote.inc");
 
+include(dirname(__FILE__)."/helpers/view/general.inc");
+include(dirname(__FILE__)."/helpers/view/generators.inc");
+include(dirname(__FILE__)."/helpers/view/controls.inc");
 include(dirname(__FILE__)."/helpers/view/calendar.inc");
 include(dirname(__FILE__)."/helpers/view/delegate.inc");
 include(dirname(__FILE__)."/helpers/view/forum.inc");
-include(dirname(__FILE__)."/helpers/view/general.inc");
-include(dirname(__FILE__)."/helpers/view/generators.inc");
 include(dirname(__FILE__)."/helpers/view/index.inc");
 include(dirname(__FILE__)."/helpers/view/member.inc");
 include(dirname(__FILE__)."/helpers/view/message.inc");

@@ -8,14 +8,14 @@ class message
 		$columns = array("", _t("Sender"), _t("Subject"), _t("Date"));
 		$rows = array_map(function($message) {
 			return array('<input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $message['id'] . '">'
-				, \View\general::generate_internal_link($message['full_name'], 'member', 'view', 'id=' . $message['sender_id'])
-				, \View\general::generate_internal_link($message['title'], 'message', 'view', 'id=' . $message['id'])
+				, \View\controls::generate_internal_link($message['full_name'], 'member', 'view', 'id=' . $message['sender_id'])
+				, \View\controls::generate_internal_link($message['title'], 'message', 'view', 'id=' . $message['id'])
 				, \general_helpers::show_date($message['sent_time']));
 		}, $messages);
 		$row_styles = array_map(function($message) {
 			return $message['read_time'] ? null : 'unread';
 		}, $messages);
-		\View\general::output_grid_view($columns, $rows, $row_styles);
+		\View\controls::output_grid_view($columns, $rows, $row_styles);
 	}
 
 	public static function output_outbox($messages) 
@@ -23,14 +23,14 @@ class message
 		$columns = array("", _t("Recipient"), _t("Subject"), _t("Date"));
 		$rows = array_map(function($message) {
 			return array('<input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $message['id'] . '">'
-				, \View\general::generate_internal_link($message['full_name'], 'member', 'view', 'id=' . $message['recipient_id'])
-				, \View\general::generate_internal_link($message['title'], 'message', 'view', 'id=' . $message['id'])
+				, \View\controls::generate_internal_link($message['full_name'], 'member', 'view', 'id=' . $message['recipient_id'])
+				, \View\controls::generate_internal_link($message['title'], 'message', 'view', 'id=' . $message['id'])
 				, \general_helpers::show_date($message['sent_time']));
 		}, $messages);
 		$row_styles = array_map(function($message) {
 			return $message['read_time'] ? null : 'unread';
 		}, $messages);
-		\View\general::output_grid_view($columns, $rows, $row_styles);
+		\View\controls::output_grid_view($columns, $rows, $row_styles);
 	}
 
 	public static function output_message($message, $user_is_sender, $user_is_recipient, $title_prefix = "", $include_reply_link = false) 

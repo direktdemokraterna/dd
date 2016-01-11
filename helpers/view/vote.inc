@@ -7,8 +7,8 @@ class vote
 		if($voteinfo['type'] == "prio-vote") {
 			self::open_add_alternative_form("Add alternative to", $voteinfo);
 			_p(_t("Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin."));
-			\View\general::make_textfield("alternative_title", _t("Title"), 1);
-			\View\general::make_textarea("alternative_description", _t("Description"), 2);
+			\View\controls::make_textfield("alternative_title", _t("Title"), 1);
+			\View\controls::make_textarea("alternative_description", _t("Description"), 2);
 			self::close_add_alternative_form(_t("Create alternative"), 3);
 		}
 		elseif(\db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['id'])){
@@ -17,7 +17,7 @@ class vote
 		}
 		else {
 			self::open_add_alternative_form("Register as candidate for", $voteinfo);
-			\View\general::make_textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
+			\View\controls::make_textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
 			self::close_add_alternative_form(_t("Candidate", array('class' => 'verb')), 2);
 		}
 	}
@@ -33,7 +33,7 @@ class vote
 
 	private static function open_add_alternative_form($caption_prefix, $voteinfo) {
 		_h1(_t($caption_prefix) . _t(" the vote: ") . $voteinfo['title']);
-		_p(\View\general::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['id']));
+		_p(\View\controls::generate_internal_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['id']));
 		_open_form();
 		_hidden("vote_id", $voteinfo['id']);
 	}
@@ -230,7 +230,7 @@ class vote
 				, _t("Vote started"), _t("Result"), _t("Number of ballots"));
 			$rows = array_map(function($vote) use ($type, $action, $from_action) {
 				return array(
-					\View\general::generate_internal_link($vote['title'], $type, $action
+					\View\controls::generate_internal_link($vote['title'], $type, $action
 						, 'id=' . $vote['id']
 					. \View\general::get_from_action_for_url(array($from_action)))
 					, \View\vote::get_vote_type_description($vote['type'])
@@ -239,7 +239,7 @@ class vote
 					, $vote['number_of_ballots']
 					);
 			}, $vote_group->votes);
-			\View\general::output_grid_view($columns, $rows);
+			\View\controls::output_grid_view($columns, $rows);
 		}
 	}
 
@@ -258,20 +258,20 @@ class vote
 			$columns = array(_t("Proposition", array('class' => 'noun')), _t("Support", array('class' => 'noun')));
 			$rows = array_map(function($prop) use ($type, $action, $from_action) {
 				return array(
-					\View\general::generate_internal_link($prop['title'], $type, $action
+					\View\controls::generate_internal_link($prop['title'], $type, $action
 						, 'id=' . $prop['id']
 					. \View\general::get_from_action_for_url(array($from_action)))
 					, $prop['number_of_supporters']
 					);
 			}, $prop_group->votes);
-			\View\general::output_grid_view($columns, $rows);
+			\View\controls::output_grid_view($columns, $rows);
 		}
 	}
 
 	private static function output_paging_row($page, $list_count, $url_without_page)
 	{
 		echo '<div class="principal_list">';
-		\View\general::show_paging_row($page, $list_count, $url_without_page);
+		\View\controls::show_paging_row($page, $list_count, $url_without_page);
 		echo '</div>';
 	}
 

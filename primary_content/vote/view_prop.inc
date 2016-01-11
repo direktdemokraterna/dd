@@ -33,7 +33,7 @@
 
 <?php 
 	if (isset($_GET['from_action']))
-		\View\general::output_search_back_link();
+		\View\controls::output_search_back_link();
 	_h1(_t("Proposition: ") . $propinfo['title']);
 	echo '<div class="vote_result_box">';
 	if($propinfo['status'] == "pending") {
@@ -60,7 +60,7 @@
 	_info(_t("Type of proposed vote"), \View\vote::get_vote_type_description($propinfo['type']));
 	_info(_t("Constituency"), $propinfo['constituency_name']);
 	_info(_t("Created", array('class' => 'adj')), general_helpers::show_date($propinfo['timestamp_created']));
-	_info(_t("Proposed by", array('class' => 'adj')), \View\general::generate_internal_link($propinfo['user_full_name'],
+	_info(_t("Proposed by", array('class' => 'adj')), \View\controls::generate_internal_link($propinfo['user_full_name'],
 		'member', 'view', 'id=' . $propinfo['user_id']));
 	_info(_t("Number of support-ballots"), $number_of_ballots['total_number_of_ballots']);
 	_info(_t("Whereof personally cast ballots"), $number_of_ballots['number_of_direct_ballots']);

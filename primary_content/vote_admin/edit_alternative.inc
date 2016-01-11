@@ -4,9 +4,9 @@
 	_open_form();
 	_hidden("alternative_id", $alternative_info['id']);
 	if(isset($alternative_info['user_id']))
-		\View\general::make_textfield("username", _t("User"), 1, $alternative_info['alternative_title']);
+		\View\controls::make_textfield("username", _t("User"), 1, $alternative_info['alternative_title']);
 	else 
-		\View\general::make_textfield("title", _t("Title"), 1, $alternative_info['alternative_title']);
-	\View\general::make_textarea("description", _t("Description"), 2, $alternative_info['alternative_description']);
+		\View\controls::make_textfield("title", _t("Title"), 1, $alternative_info['alternative_title']);
+	\View\controls::make_textarea("description", _t("Description"), 2, $alternative_info['alternative_description']);
 	_submit_and_close(_t("Update"));
 ?>

@@ -17,7 +17,7 @@
 			$topic_count = db_forum::get_topic_count($forum_id);
 			\View\forum::output_topic_list($topics, $url_without_page, $page, $topic_count);
 		}
-		\View\general::output_text_editor(array(
+		\View\controls::output_text_editor(array(
 			'name' => 'new_topic'
 			,'legend' => _t("Create new thread in this forum")
 			,'target_id' => $forum_info['id']

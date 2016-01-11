@@ -13,7 +13,7 @@
 		_submit_and_close(_t("Change"), "act_as_delegate");
 
 		_h2(_t("Presentation"));
-		\View\general::output_text_editor(array(
+		\View\controls::output_text_editor(array(
 			'name' => 'description'
 			,'legend' => _t('Description of your delegate')
 			,'target_id' => $delegate_settings['id']

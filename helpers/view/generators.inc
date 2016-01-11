@@ -51,7 +51,7 @@
 
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
 	{
-		\View\general::output_internal_link($label, $type, $action, $params, $class, $confirm);
+		\View\controls::output_internal_link($label, $type, $action, $params, $class, $confirm);
 	}
 
 	function _info($label, $data) {

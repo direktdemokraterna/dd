@@ -9,8 +9,8 @@
 	</div>
 	<ul id="hide_menu">
 		<li><?php 
-			\View\general::output_internal_link(_t("User"), "member"); 
-			\View\general::output_link_list("member", array(
+			\View\controls::output_internal_link(_t("User"), "member"); 
+			\View\controls::output_link_list("member", array(
 				"calendar" => _t("Calendar")
 				,"settings" => _t("My profile")
 				,"memberlist" => _t("Members")
@@ -23,8 +23,8 @@
 			</li>
 		<?php endif; ?>
 		<li><?php 
-			\View\general::output_internal_link(_t("Messages"), "message"); 
-			\View\general::output_link_list("message", array(
+			\View\controls::output_internal_link(_t("Messages"), "message"); 
+			\View\controls::output_link_list("message", array(
 				"inbox" => _t("Inbox")
 				,"outbox" => _t("Outbox")
 				,"write" => _t("Write message")
@@ -32,25 +32,25 @@
 			?>
 		</li>
 		<li><?php 
-			\View\general::output_internal_link(_t("Workgroups"), "workgroup");
+			\View\controls::output_internal_link(_t("Workgroups"), "workgroup");
 			echo '<ul>';
 				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
 				foreach($workgroups as $row)
-					_li(\View\general::generate_internal_link($row['title'], "workgroup", "view", "id=" . 
+					_li(\View\controls::generate_internal_link($row['title'], "workgroup", "view", "id=" . 
 						$row['id']));
 			echo '</ul>';
 			?>
 		</li>
 		<li><?php 
-			\View\general::output_internal_link(_t("Votes"), "vote");
-			\View\general::output_link_list("vote", array(
+			\View\controls::output_internal_link(_t("Votes"), "vote");
+			\View\controls::output_link_list("vote", array(
 				"list_props" => _t("Propositions")
 				,"list_active_votes" => _t("Votes")
 				,"delegations" => _t("Delegates")
 				)); 
 			?>
 		</li>
-		<li><?php \View\general::output_internal_link(_t("Forum"), "forum"); ?>
+		<li><?php \View\controls::output_internal_link(_t("Forum"), "forum"); ?>
 			<ul>
 				<li></li>
 			</ul>
@@ -60,19 +60,19 @@
 			<ul>
 				<?php 
 					if(isset($_SESSION['is_member_admin']))
-						echo '<li>' . \View\general::generate_internal_link(_t("Member admin"), "member_admin") . 
+						echo '<li>' . \View\controls::generate_internal_link(_t("Member admin"), "member_admin") . 
 					'</li>';
 					if(isset($_SESSION['is_forum_admin']))
-						echo '<li>' . \View\general::generate_internal_link(_t("Forum admin"), "forum_admin") . 
+						echo '<li>' . \View\controls::generate_internal_link(_t("Forum admin"), "forum_admin") . 
 					'</li>';
 					if(isset($_SESSION['is_vote_admin']))
-						echo '<li>' . \View\general::generate_internal_link(_t("Vote admin"), "vote_admin") . 
+						echo '<li>' . \View\controls::generate_internal_link(_t("Vote admin"), "vote_admin") . 
 					'</li>';
 					if(isset($_SESSION['is_treasurer']))
-						echo '<li>' . \View\general::generate_internal_link(_t("Treasurer"), "treasurer") . 
+						echo '<li>' . \View\controls::generate_internal_link(_t("Treasurer"), "treasurer") . 
 					'</li>';
 					if(isset($_SESSION['is_superadmin']))
-						echo '<li>' . \View\general::generate_internal_link(_t("Superadmin"), "superadmin") . 
+						echo '<li>' . \View\controls::generate_internal_link(_t("Superadmin"), "superadmin") . 
 					'</li>';
 				?>
 			</ul>
@@ -87,7 +87,7 @@
 				$user_label = $hello . $user_label;
 				if ($_SESSION['delegate_id']) $user_label .= 
 					_t(" (delegate)", array('class' => 'noun'));
-				\View\general::output_internal_link($user_label, "member", "view");
+				\View\controls::output_internal_link($user_label, "member", "view");
 			?>
 			<ul>
 				<?php if ($_SESSION['delegate_id']) : ?>

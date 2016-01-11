@@ -25,9 +25,9 @@
     echo '</div>';
     echo '<div>';
     _p(general_helpers::in_multiarray($votes_alternatives, "user_id", $_SESSION['id'])
-      ? \View\general::generate_internal_link(_t("Revoke your candidacy for this vote"), 'vote', 'add_alternative', 'id=' . $vote_id)
-      : \View\general::generate_internal_link(_t("Candidate for this vote"), 'vote', 'add_alternative', 'id=' . $vote_id));
+      ? \View\controls::generate_internal_link(_t("Revoke your candidacy for this vote"), 'vote', 'add_alternative', 'id=' . $vote_id)
+      : \View\controls::generate_internal_link(_t("Candidate for this vote"), 'vote', 'add_alternative', 'id=' . $vote_id));
     if(isset($_SESSION['is_vote_admin']))
-      _p(\View\general::generate_internal_link(_t("Vote admin: Edit the alternatives for this vote"), 'vote_admin', 'edit_alternatives', 'id=' . $vote_id));
+      _p(\View\controls::generate_internal_link(_t("Vote admin: Edit the alternatives for this vote"), 'vote_admin', 'edit_alternatives', 'id=' . $vote_id));
   }
 ?>
