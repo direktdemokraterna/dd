@@ -19,7 +19,7 @@ class forum
 
 	public static function output_category_selector($selected_category = null) {
 		$category_options = \db_general::make_hash(\db_forum_admin::list_categories(), 'id', 'title');
-		\View\controls::make_labeled_selector("category", _t("Category"), $category_options, $selected_category);
+		\View\controls::output_labeled_selector("category", _t("Category"), $category_options, $selected_category);
 	}	
 
 	public static function output_topic_list($topics, $url_without_page, $page, $topic_count) {
@@ -33,7 +33,7 @@ class forum
 	}
 
 	private static function output_topic_paging_row($page, $list_count, $url_without_page) {
-		\View\controls::show_paging_row($page, $list_count, $url_without_page, _t("topic"));
+		\View\controls::output_paging_row($page, $list_count, $url_without_page, _t("topic"));
 	}
 
 	private static function output_topic_list_top_row() {
@@ -96,7 +96,7 @@ class forum
 	}
 
 	private static function output_post_paging_row($page, $post_count, $url_without_page) {
-		\View\controls::show_paging_row($page, $post_count, $url_without_page, _t("post"));
+		\View\controls::output_paging_row($page, $post_count, $url_without_page, _t("post"));
 	}
 
 	public static function output_post($post_info, $show_action_buttons = true) 

@@ -8,9 +8,9 @@
 	_label(_t("Type of workgroup"), "workgroup_type");
 	echo '<input type="radio" name="is_restricted" id="is_restricted" value="0" tabindex="1"' . ($is_restricted ? '>' : ' checked>') . _t('Open');
 	echo '<input type="radio" name="is_restricted" id="is_restricted" value="1" tabindex="2"' . ($is_restricted ? ' checked>' : '>') . _t('Closed', array('class' => 'adj'));
-	\View\controls::make_textfield("title", _t('Name of workgroup'), 4, $workgroup);
+	\View\controls::output_textfield("title", _t('Name of workgroup'), 4, $workgroup);
 	if($is_restricted)
-		\View\controls::make_textfield("number_of_members", _t('Number of members'), 5, $workgroup);
+		\View\controls::output_textfield("number_of_members", _t('Number of members'), 5, $workgroup);
 	_br();
 	_submit_and_close(_t("Change"), null, null, 7);
 	\View\controls::output_text_editor(array(

@@ -29,9 +29,9 @@
 	_hidden("new_alternative", 1);
 	_hidden("vote_id", $_GET['id']);
 	if($voteinfo['type'] == "prio-vote")
-		\View\controls::make_textfield("title", _t("Title"));
+		\View\controls::output_textfield("title", _t("Title"));
 	else 
-		\View\controls::make_textfield("username", _t("Username"));
-	\View\controls::make_textarea("description", _t("Description"));
+		\View\controls::output_textfield("username", _t("Username"));
+	\View\controls::output_textarea("description", _t("Description"));
 	_submit_and_close(_t("Add"));
 ?>

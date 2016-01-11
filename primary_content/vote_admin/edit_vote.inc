@@ -5,10 +5,10 @@
 	_hidden("vote_id", $voteinfo['id']);
 	\View\vote::make_vote_type_selector($voteinfo['type']);
 	\View\vote::make_constituency_selector($voteinfo['constituency_id'], $_SESSION['id'], 2); 
-	\View\controls::make_textfield("title", _t("Title"), 3, $voteinfo); 
-	\View\controls::make_textarea("description", _t("Description"), 4, $voteinfo);
+	\View\controls::output_textfield("title", _t("Title"), 3, $voteinfo); 
+	\View\controls::output_textarea("description", _t("Description"), 4, $voteinfo);
 	\View\vote::output_vote_status($voteinfo['status']); 
-	\View\controls::make_textfield("forum_topic_id", _t("Forum topic-ID"), 5, $voteinfo); 
+	\View\controls::output_textfield("forum_topic_id", _t("Forum topic-ID"), 5, $voteinfo); 
 	_br();
 	_label(_t("The vote finishes"), "year");
 	\View\vote::make_vote_end_time_select($voteinfo['timestamp_ended']); 

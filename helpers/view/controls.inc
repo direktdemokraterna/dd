@@ -2,13 +2,13 @@
 namespace View;
 class controls 
 {
-	public static function make_password($control_name, $control_label, $tab_index = 1) {
+	public static function output_password($control_name, $control_label, $tab_index = 1) {
 		self::make_control_label($control_name, $control_label);
 		echo('<input type="password" name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '"></input>');
 	}
 
-	public static function make_textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+	public static function output_textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
@@ -20,7 +20,7 @@ class controls
 		echo $element;
 	}
 
-	public static function make_textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+	public static function output_textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
@@ -52,7 +52,7 @@ class controls
 		echo '</table>';
 	}	
 
-	public static function make_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {
+	public static function output_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {
 		$checked_value = is_array($checked_values) 
 			? self::get_value($control_name, $checked_values) 
 			: $checked_values;
@@ -61,12 +61,12 @@ class controls
 			. '" id="' . $control_name . '"' . ($checked_value ? " checked>" : ">");
 	}
 
-	public static function make_labeled_selector($control_name, $control_label, $options, $values = null, $attributes = null) {
+	public static function output_labeled_selector($control_name, $control_label, $options, $values = null, $attributes = null) {
 		self::make_control_label($control_name, $control_label);
-		self::make_selector($control_name, $options, $values, $attributes);
+		self::output_selector($control_name, $options, $values, $attributes);
 	}
 
-	public static function make_selector($control_name, $options, $values = null, $attributes = null) {
+	public static function output_selector($control_name, $options, $values = null, $attributes = null) {
 		$selected_option = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
@@ -137,7 +137,7 @@ class controls
 		echo '<legend>' . $legend . '</legend>';
 		_hidden("target_id", $target_id);
 		if ($title_label) 
-			\View\controls::make_textfield($name . '_title', $title_label, $tab_index++);
+			\View\controls::output_textfield($name . '_title', $title_label, $tab_index++);
 		echo '<div id="format_buttons_div">';
 		echo '<input type="button" id="format_buttons_b" accesskey="b" title="'. _t("Bold") .'" value="b" onClick="make_bold(\'' . $content_name . '\')">';
 		echo '<input type="button" id="format_buttons_i" accesskey="i" title="'. _t("Italic") .'" value="i" onClick="make_italic(\'' . $content_name . '\')">';
@@ -151,7 +151,7 @@ class controls
 		echo '</form>';
 	}
 
-	public static function show_paging_row($page, $list_count, $url_without_page, $label = null) 
+	public static function output_paging_row($page, $list_count, $url_without_page, $label = null) 
 	{
 		$paging_info = Paging_info::create($page, $list_count);
 		general::open_div("paging_info");

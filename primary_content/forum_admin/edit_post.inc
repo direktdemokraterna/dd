@@ -32,7 +32,7 @@
 	_hidden('move', 1);
 	$move_options = db_general::make_hash(db_forum_admin::get_all_topics_for_forum(
 		$post_info['forum_id']), 'id', 'title');
-	\View\controls::make_selector("topic_id", $move_options);
+	\View\controls::output_selector("topic_id", $move_options);
 	_br();
 	_submit_and_close(_t("Move"));
 
@@ -44,7 +44,7 @@
 	_h2(_t("Create a new thread from this post"));
 	_open_form();
 	_hidden('create_new', 1);
-	\View\controls::make_textfield("topic_title", _t("New title"));
+	\View\controls::output_textfield("topic_title", _t("New title"));
 	_br();
 	_submit_and_close(_t("Create"));
 
@@ -52,6 +52,6 @@
 	_open_form();
 	_hidden('edit', 1);
 	_hidden('post_id', $_GET['id']);
-	\View\controls::make_textarea("edit_post_content", _t("Description"), 1, $post_info['content']);
+	\View\controls::output_textarea("edit_post_content", _t("Description"), 1, $post_info['content']);
 	_submit_and_close(_t("Edit"));
 ?>

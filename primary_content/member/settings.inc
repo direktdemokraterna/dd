@@ -32,17 +32,17 @@
 	
 	_h2(_t("Settings"));
 	_open_form();
-	\View\controls::make_checkbox("show_email", _t("Show email address"), 1, $tab_index++, $user_settings);	
-	\View\controls::make_checkbox("show_telephone", _t("Show telephone number"), 1, $tab_index++, $user_settings);
-	\View\controls::make_checkbox("show_skype", _t("Show Skype name"), 1, $tab_index++, $user_settings);	
+	\View\controls::output_checkbox("show_email", _t("Show email address"), 1, $tab_index++, $user_settings);	
+	\View\controls::output_checkbox("show_telephone", _t("Show telephone number"), 1, $tab_index++, $user_settings);
+	\View\controls::output_checkbox("show_skype", _t("Show Skype name"), 1, $tab_index++, $user_settings);	
 	_br();
 	_submit_and_close(_t("Change"), "settings");
 	
 	_h2(_t("Change password"));
 	_open_form();
-	\View\controls::make_password("old_password", _t("Old password"), $tab_index++);
-	\View\controls::make_password("new_password1", _t("New password"), $tab_index++);
-	\View\controls::make_password("new_password2", _t("Repeat new password"), $tab_index++);
+	\View\controls::output_password("old_password", _t("Old password"), $tab_index++);
+	\View\controls::output_password("new_password1", _t("New password"), $tab_index++);
+	\View\controls::output_password("new_password2", _t("Repeat new password"), $tab_index++);
 	_br();
 	_submit_and_close(_t("Change"), "password");
 ?>

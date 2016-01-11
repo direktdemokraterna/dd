@@ -7,8 +7,8 @@ class vote
 		if($voteinfo['type'] == "prio-vote") {
 			self::open_add_alternative_form("Add alternative to", $voteinfo);
 			_p(_t("Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin."));
-			\View\controls::make_textfield("alternative_title", _t("Title"), 1);
-			\View\controls::make_textarea("alternative_description", _t("Description"), 2);
+			\View\controls::output_textfield("alternative_title", _t("Title"), 1);
+			\View\controls::output_textarea("alternative_description", _t("Description"), 2);
 			self::close_add_alternative_form(_t("Create alternative"), 3);
 		}
 		elseif(\db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['id'])){
@@ -17,7 +17,7 @@ class vote
 		}
 		else {
 			self::open_add_alternative_form("Register as candidate for", $voteinfo);
-			\View\controls::make_textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
+			\View\controls::output_textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
 			self::close_add_alternative_form(_t("Candidate", array('class' => 'verb')), 2);
 		}
 	}
@@ -45,8 +45,8 @@ class vote
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
 		$options = self::get_selectable_vote_type_descriptions();
-		general::make_control_label("type_of_vote", _t("Type of vote", array('class' => 'noun')));
-		general::make_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
+		\View\controls::output_control_label("type_of_vote", _t("Type of vote", array('class' => 'noun')));
+		\View\controls::output_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
 	public static function get_vote_type_description($type) {
@@ -65,8 +65,8 @@ class vote
 			"active" => _t("Time limited")
 			, "continuous" => _t("Continuous")
 			); 
-		general::make_control_label("vote_status", _t("Vote time"));
-		general::make_selector("vote_status", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
+		\View\controls::output_control_label("vote_status", _t("Vote time"));
+		\View\controls::output_selector("vote_status", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
 	public static function make_constituency_selector($selected_option = null, $user_id = null, $tab_index = 1) {
@@ -76,8 +76,8 @@ class vote
 			: \db_constituency::get_all_constituencies(1, PHP_INT_MAX);
 		foreach($constituencies as $row)
 			$options[$row['id']] = $row['name'];
-		general::make_control_label("constituency_id", "Valkrets");
-		general::make_selector("constituency_id", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
+		\View\controls::output_control_label("constituency_id", "Valkrets");
+		\View\controls::output_selector("constituency_id", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}
 
 	public static function output_vote_status($status) 
@@ -208,11 +208,11 @@ class vote
 	}
 
 	public static function make_title_input() {
-		general::make_textfield("new_prop_title", _t("Title"), 3);
+		\View\controls::output_textfield("new_prop_title", _t("Title"), 3);
 	}	
 
 	public static function make_description_input() {
-		general::make_textarea("new_prop_description", _t("Description"), 4);
+		\View\controls::output_textarea("new_prop_description", _t("Description"), 4);
 	}
 
 	public static function make_vote_list($vote_groups, $page, $vote_count, $url_without_page, $type, $action, $from_action = null) 
@@ -271,7 +271,7 @@ class vote
 	private static function output_paging_row($page, $list_count, $url_without_page)
 	{
 		echo '<div class="principal_list">';
-		\View\controls::show_paging_row($page, $list_count, $url_without_page);
+		\View\controls::output_paging_row($page, $list_count, $url_without_page);
 		echo '</div>';
 	}
 
@@ -319,24 +319,24 @@ class vote
 		echo('<input type="text" value="' . date("Y", $vote_end_time) . '" name="' . 
 			$control_name_prefix . 'year" id="year" style="width: 50px;">');
 		$month_options = \View\calendar::generate_month_options();
-		general::make_selector($control_name_prefix . "month", $month_options, date("n", $vote_end_time), 
+		\View\controls::output_selector($control_name_prefix . "month", $month_options, date("n", $vote_end_time), 
 			'style="width: 100px;"');
 		$days = array();
 		for ($i = 1; $i < 32; $i++)
 			$days[$i] = $i;
-		general::make_selector($control_name_prefix . "day", $days, date("j", $vote_end_time), 
+		\View\controls::output_selector($control_name_prefix . "day", $days, date("j", $vote_end_time), 
 		'style="width: 60px; margin-right: 12px;"');
 		echo "Kl.";
 		$hours = array();
 		for ($i = 0; $i < 24; $i++)
 			$hours[$i] = str_pad("" . $i, 2, "0", STR_PAD_LEFT);
-		general::make_selector($control_name_prefix . "hour", $hours, date("G", $vote_end_time), 
+		\View\controls::output_selector($control_name_prefix . "hour", $hours, date("G", $vote_end_time), 
 			'style="width: 60px;"');
 		echo ": ";
 		$minutes = array();
 		for ($i = 0; $i < 60; $i += 5)
 			$minutes[$i] = str_pad("" . $i, 2, "0", STR_PAD_LEFT);;
-		general::make_selector($control_name_prefix . "minute", $minutes, date("i", $vote_end_time), 
+		\View\controls::output_selector($control_name_prefix . "minute", $minutes, date("i", $vote_end_time), 
 			'style="width: 60px;"');
 	}
 
