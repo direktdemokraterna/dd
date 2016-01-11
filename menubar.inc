@@ -9,7 +9,7 @@
 	</div>
 	<ul id="hide_menu">
 		<li><?php 
-			_link(_t("User"), "member"); 
+			__link(_t("User"), "member"); 
 			\View\controls::output_link_list("member", array(
 				"calendar" => _t("Calendar")
 				,"settings" => _t("My profile")
@@ -23,7 +23,7 @@
 			</li>
 		<?php endif; ?>
 		<li><?php 
-			_link(_t("Messages"), "message"); 
+			__link(_t("Messages"), "message"); 
 			\View\controls::output_link_list("message", array(
 				"inbox" => _t("Inbox")
 				,"outbox" => _t("Outbox")
@@ -32,7 +32,7 @@
 			?>
 		</li>
 		<li><?php 
-			_link(_t("Workgroups"), "workgroup");
+			__link(_t("Workgroups"), "workgroup");
 			echo '<ul>';
 				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
 				foreach($workgroups as $row)
@@ -42,7 +42,7 @@
 			?>
 		</li>
 		<li><?php 
-			_link(_t("Votes"), "vote");
+			__link(_t("Votes"), "vote");
 			\View\controls::output_link_list("vote", array(
 				"list_props" => _t("Propositions")
 				,"list_active_votes" => _t("Votes")
@@ -87,7 +87,7 @@
 				$user_label = $hello . $user_label;
 				if ($_SESSION['delegate_id']) $user_label .= 
 					_t(" (delegate)", array('class' => 'noun'));
-				_link($user_label, "member", "view");
+				__link($user_label, "member", "view");
 			?>
 			<ul>
 				<?php if ($_SESSION['delegate_id']) : ?>

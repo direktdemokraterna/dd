@@ -7,10 +7,10 @@
 			<?php foreach($last_posts as $row) : ?>
 				<li>
 					<?php 
-						_link($row['post_title'], 'forum', 'show_posts', 
+						__link($row['post_title'], 'forum', 'show_posts', 
 							'post_id=' . $row['post_id']);
-						echo '<br>' . _t("by") . ' ';
-						_link($row['user_full_name'], 'member', 'view', 
+						echo _br() . _t("by") . ' ';
+						__link($row['user_full_name'], 'member', 'view', 
 							'id=' . $row['user_id']);
 						echo ' ' . general_helpers::show_date($row['posted_time']); 
 					?>

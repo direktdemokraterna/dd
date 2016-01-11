@@ -138,7 +138,7 @@ class workgroup
 		if(empty($workgroup_candidates))
 			__t("No candidates");
 		else foreach($workgroup_candidates as $row) {
-			_link($row['full_name'], 'member', 'view', 'id=' . $row['user_id']);
+			__link($row['full_name'], 'member', 'view', 'id=' . $row['user_id']);
 			$candidate_info = \db_workgroup::candidate_info($workgroup['id'], $row['user_id'], $_SESSION['id']);
 		 	$is_supporter = $candidate_info['is_supporter'];
 		 	__space(3);
