@@ -15,11 +15,7 @@ class workgroup
 	}
 
 	public static function output_workgroup_membership_vote_button($label, $action, $workgroup_id, $user_id) {
-		_open_form();
-		_hidden("type", $action);
-		_hidden("id", $workgroup_id);
-		_hidden("user", $user_id);
-		_submit_and_close(_t($label));
+		_action(_t($label), $action, array("id" => $workgroup_id, "user" => $user_id));
 	}
 
 	public static function output_workgroup_info($workgroup, $is_member, $is_candidate) {
@@ -69,14 +65,12 @@ class workgroup
 		_hidden("id", $workgroup['id']);
 		if($is_member) {
 			__('You support that this workgroup is activated.');
-			_hidden("type", "cancel_support_workgroup");
 			_space(3);
-			_submit_and_close(_t("Stop supporting this workgroup"));
+			_submit_and_close(_t("Stop supporting this workgroup"), "cancel_support_workgroup");
 		}
 		else {
-			_hidden("type", "support_workgroup");
 			_space(3);
-			_submit_and_close(_t("Support this workgroup"));
+			_submit_and_close(_t("Support this workgroup"), "support_workgroup");
 			__('(The workgroup will be activated when 3 members support it. The three supporters will automatically be given membership.)');
 		}
 		echo '</p>';
@@ -154,16 +148,17 @@ class workgroup
 		 	_open_form();
 		 	_hidden("id", $workgroup['id']);
 		 	_hidden("user", $row['user_id']);
-			_hidden("type", $is_supporter ? "cancel_support_candidate" : "support_candidate");
-			_submit_and_close(_t(($is_supporter ? "Revoke your support for" : "Support") . " this candidate"));
+		 	if ($is_supporter)
+				_submit_and_close("Revoke your support for this candidate", "cancel_support_candidate");
+			else 
+				_submit_and_close("Support this candidate", "support_candidate");
 		}
 		echo '</p>';
 		echo '<p>';
 		_strong(_t("Discontinue your membership"));
-		_open_form();
-		_hidden("type", "cancel_membership");
-		_hidden("type", $workgroup['id']);
-		_submit_and_close(_t("Leave this workgroup"), _t("Do you really want to leave this workgroup?"));
+		_action(_t("Leave this workgroup"), "cancel_membership"
+			, array("id" => $workgroup['id'])
+			, _t("Do you really want to leave this workgroup?"));
 		echo '</p>';
 	}
 
@@ -176,19 +171,25 @@ class workgroup
 		__('You have applied for membership in this workgroup. At present you are supported by ' . $candidate_info['number_of_supporters'] . ' member, ' . $needed_member_count_for_candidate . ' is needed to become a member.');
 		_br();
 		_open_form();
-		_hidden("type", "cancel_candidacy");
 		_hidden("id", $workgroup['id']);
-		_submit_and_close("Cancel your membership application");
+		_submit_and_close("Cancel your membership application", "cancel_candidacy");
 		echo '</p>';
 	}
 
 	private static function output_open_workgroup_application_form($workgroup)
 	{
+		/*
+		__p(
+			_form(
+				_hidden("id", $workgroup['id'])
+				. _submit("Apply for membership")
+				)
+			);
+		*/
 		echo '<p>';
 		_open_form();
-		_hidden("type", "submit_candidacy");
 		_hidden("id", $workgroup['id']);
-		_submit_and_close("Apply for membership");
+		_submit_and_close("Apply for membership", "submit_candidacy");
 		echo '</p>';
 	}
 }

@@ -193,6 +193,11 @@ class controls
 		echo "</span>";
 	}
 
+	private static function get_value($parameter_name, $values = null) {
+		$values = $values ? $values : $_POST;
+		return isset($values[$parameter_name]) ? $values[$parameter_name] : '';
+	}
+
 	private static function add_attributes(&$element, $attributes) {
 		if ($attributes)
 			foreach ($attributes as $key => $value)

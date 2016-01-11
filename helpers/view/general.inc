@@ -14,11 +14,6 @@ class general
 		return $json;
 	}
 
-	public static function get_value($parameter_name, $values = null) {
-		$values = $values ? $values : $_POST;
-		return isset($values[$parameter_name]) ? $values[$parameter_name] : '';
-	}
-
 	public static function open_div($classes, $id = null) {
 		$div_tag = '<div class="' . $classes . '"';
 		if (!empty($id))

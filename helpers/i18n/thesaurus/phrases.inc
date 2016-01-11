@@ -156,7 +156,7 @@ class phrases
 				)
 			,"currently the number of members is %d" => array(
 				"sv" => "just nu är antalet medlemmar %d st"
-				,"en" => "currently the number of members is"
+				,"en" => "currently the number of members is %d"
 				)
 			,"delegate voting closes" => array(
 				"sv" => "delegatröstning avslutas"

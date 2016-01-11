@@ -35,7 +35,7 @@ class text
 
 	public static function process_text ($text)
 	{
-		$processed_text = general_helpers::clean($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
+		$processed_text = \general_helpers::clean($text, ENT_QUOTES & ENT_COMPAT,'ISO-8859-1', true);
 		$processed_text = self::urls_to_links($processed_text);
 		$processed_text = self::closetags($processed_text);
 		$processed_text = self::replace_format_tags_with_brackets($processed_text);

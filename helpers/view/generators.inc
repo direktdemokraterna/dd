@@ -93,11 +93,11 @@
 			: $text;
 	}
 
-	function _action($label, $action, $params) 
+	function _action($label, $action, $params, $confirm = null) 
 	{
 		_open_form();
 		foreach ($params as $key => $value)
 			_hidden($key, $value);
-		_submit_and_close($label, $action);
+		_submit_and_close($label, $action, $confirm);
 	}
 ?>
