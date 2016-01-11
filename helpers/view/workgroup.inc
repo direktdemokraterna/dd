@@ -145,13 +145,10 @@ class workgroup
 			__($candidate_info['number_of_supporters'] . 
 				" group member support the admittance of this candidate."); 
 		 	_space(3);
-		 	_open_form();
-		 	_hidden("id", $workgroup['id']);
-		 	_hidden("user", $row['user_id']);
-		 	if ($is_supporter)
-				_submit_and_close("Revoke your support for this candidate", "cancel_support_candidate");
-			else 
-				_submit_and_close("Support this candidate", "support_candidate");
+		 	_action(_t(($is_supporter ? "Revoke your support for" : "Support this") . " candidate")
+		 		, ($is_supporter ? "cancel_support" : "support") . "_candidate"
+		 		, array("id" => $workgroup['id'], "user" => $row['user_id']));
+
 		}
 		echo '</p>';
 		echo '<p>';
@@ -170,26 +167,15 @@ class workgroup
 		echo '<p>';
 		__('You have applied for membership in this workgroup. At present you are supported by ' . $candidate_info['number_of_supporters'] . ' member, ' . $needed_member_count_for_candidate . ' is needed to become a member.');
 		_br();
-		_open_form();
-		_hidden("id", $workgroup['id']);
-		_submit_and_close("Cancel your membership application", "cancel_candidacy");
+		action("Cancel your membership application", "cancel_candidacy"
+			, array("id" => $workgroup['id']));
 		echo '</p>';
 	}
 
 	private static function output_open_workgroup_application_form($workgroup)
 	{
-		/*
-		__p(
-			_form(
-				_hidden("id", $workgroup['id'])
-				. _submit("Apply for membership")
-				)
-			);
-		*/
 		echo '<p>';
-		_open_form();
-		_hidden("id", $workgroup['id']);
-		_submit_and_close("Apply for membership", "submit_candidacy");
+		_action("Apply for membership", "submit_candidacy", array("id" => $workgroup['id']));
 		echo '</p>';
 	}
 }
