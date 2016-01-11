@@ -64,7 +64,7 @@ class workgroup
 
 	public static function output_inactive_workgroup_form($workgroup, $is_member)
 	{
-		_p();
+		echo '<p>';
 		_open_form();
 		_hidden("id", $workgroup['id']);
 		if($is_member) {
@@ -79,7 +79,7 @@ class workgroup
 			_submit_and_close(_t("Support this workgroup"));
 			__('(The workgroup will be activated when 3 members support it. The three supporters will automatically be given membership.)');
 		}
-		__p();
+		echo '</p>';
 	}
 
 	private static function output_workgroup_members($workgroup, $is_member)
@@ -138,7 +138,7 @@ class workgroup
 	private static function output_open_workgroup_membership_support_form($workgroup) 
 	{
 		$workgroup_candidates = \db_workgroup::list_candidates($workgroup['id']);
-		_p();
+		echo '<p>';
 		_strong(_t("Candidates for membership: "));
 		_br(2);
 		if(empty($workgroup_candidates))
@@ -157,14 +157,14 @@ class workgroup
 			_hidden("type", $is_supporter ? "cancel_support_candidate" : "support_candidate");
 			_submit_and_close(_t(($is_supporter ? "Revoke your support for" : "Support") . " this candidate"));
 		}
-		__p();
-		_p();
+		echo '</p>';
+		echo '<p>';
 		_strong(_t("Discontinue your membership"));
 		_open_form();
 		_hidden("type", "cancel_membership");
 		_hidden("type", $workgroup['id']);
 		_submit_and_close(_t("Leave this workgroup"), _t("Do you really want to leave this workgroup?"));
-		__p();
+		echo '</p>';
 	}
 
 	private static function output_open_workgroup_candidacy_form($workgroup)
@@ -172,24 +172,24 @@ class workgroup
 		\View\workgroup::output_open_workgroup_candidacy_form($workgroup);
 		$candidate_info = \db_workgroup::candidate_info($workgroup['id'], $_SESSION['id'], $_SESSION['id']);
 		$needed_member_count_for_candidate = ceil(\db_workgroup::get_member_count($workgroup['id']) / 1.999);
-		_p();
+		echo '<p>';
 		__('You have applied for membership in this workgroup. At present you are supported by ' . $candidate_info['number_of_supporters'] . ' member, ' . $needed_member_count_for_candidate . ' is needed to become a member.');
 		_br();
 		_open_form();
 		_hidden("type", "cancel_candidacy");
 		_hidden("id", $workgroup['id']);
 		_submit_and_close("Cancel your membership application");
-		__p();
+		echo '</p>';
 	}
 
 	private static function output_open_workgroup_application_form($workgroup)
 	{
-		_p();
+		echo '<p>';
 		_open_form();
 		_hidden("type", "submit_candidacy");
 		_hidden("id", $workgroup['id']);
 		_submit_and_close("Apply for membership");
-		__p();
+		echo '</p>';
 	}
 }
 ?>

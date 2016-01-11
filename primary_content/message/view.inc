@@ -19,7 +19,6 @@
 			else
 				_action(_t("Undo send"), 'cancel', array('message_id' => $message['id']));
 		}
-		echo '</form>';
 	}
 	else
 		__("Message not found");

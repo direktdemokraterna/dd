@@ -4,14 +4,9 @@
 		echo '<li>' . $content . '</li>';
 	}
 
-	function _p($text = null) 
+	function _p($text) 
 	{
-		echo '<p>' . $text ? $text . '</p>' : '<p>';
-	}
-
-	function __p() 
-	{
-		echo '</p>';
+		echo '<p>' . $text . '</p>';
 	}
 
 	function _strong($text) 
@@ -98,13 +93,11 @@
 			: $text;
 	}
 
-	//TODO: Use named submit
 	function _action($label, $action, $params) 
 	{
 		_open_form();
-		_hidden('action', $action);
 		foreach ($params as $key => $value)
 			_hidden($key, $value);
-		_submit_and_close($label);
+		_submit_and_close($label, $action);
 	}
 ?>
