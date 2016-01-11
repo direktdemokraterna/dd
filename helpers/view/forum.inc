@@ -142,7 +142,7 @@ class forum
 		}
 		if($user_id == $_SESSION['id']) {
 			if(\Logic\forum::is_recent_post($post_info)) {
-				general::output_internal_link(_t("Delete"), "forum", "delete", "id=$post_id"
+				_link(_t("Delete"), "forum", "delete", "id=$post_id"
 					, null, _t("Do you really want to delete the post?"));
 				__space();
 				__link(_t("Edit"), "forum", "edit", "id=" . $post_id);
@@ -181,9 +181,9 @@ class forum
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
 		$html = \Logic\forum::make_html_from_post_text($post_info['content']);
-		echo _span($html);
+		__span($html);
 		if(isset($post_info['last_edited_time']))
-			echo _span(_t('Last changed ') . 
+			__span(_t('Last changed ') . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time']))
 				, "post_last_edited");
 		general::close_div();

@@ -53,7 +53,7 @@ class forum
 
 	public static function make_html_from_post_text($wiki_text) {
 		try {
-			$html_text = self::replace_brackets_with_html_tags($wiki_text);
+			return self::replace_brackets_with_html_tags($wiki_text);
 		}
 		catch (\Exception $ex) {
 			return "ERROR WHEN PARSING TEXT: " . $ex;
@@ -73,7 +73,7 @@ class forum
 		$processed_text = \Logic\text::process_text($text);
 		$processed_text = str_replace("[/quote]\r\n\r\n", "[/quote]\r\n", $processed_text);
 		try {
-			self::replace_brackets_with_html_tags($text);
+			$processed_text = self::replace_brackets_with_html_tags($processed_text);
 		}
 		catch (\Exception $ex) {
 			\Logic\util::report_error(_t("Malformed text in post"));
@@ -85,6 +85,7 @@ class forum
 	private static function replace_brackets_with_html_tags($wiki_text) {
 		$html_text = \Logic\text::replace_brackets_with_html_tags($wiki_text);
 		$html_text = self::replace_quotes($html_text);
+		return $html_text;
 	}
 
 	private static function replace_quotes($wiki_text)

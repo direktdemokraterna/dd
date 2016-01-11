@@ -9,7 +9,7 @@
 		\View\forum::show_topic_breadcrumbs($topic_id);		
 	\View\forum::show_topic_title($topic_id);
 	if(empty($posts))
-		echo __p(_t("The thread doesn't exist or you don't have permission to read it."));
+		__p(_t("The thread doesn't exist or you don't have permission to read it."));
 	else {
 		\View\forum::show_posts("index.php?type=forum&action=show_posts&topic_id=" . $topic_id, $page, $posts, $post_count);
 		if(isset($_SESSION['is_forum_admin']))
