@@ -76,5 +76,5 @@
 	}
 	echo '</table>';
 	__br();
-	__p(\View\controls::generate_internal_link(_t("Add activity to calendar"), 'member', 'calendar_add'));
+	__p(_link(_t("Add activity to calendar"), 'member', 'calendar_add'));
 ?>

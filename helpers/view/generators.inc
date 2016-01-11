@@ -119,7 +119,7 @@
 
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
 	{
-		return \View\controls::generate_internal_link($label, $type, $action, $params, $class, $confirm);
+		return _link($label, $type, $action, $params, $class, $confirm);
 	}
 
 	function _li($html) 

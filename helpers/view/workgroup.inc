@@ -6,7 +6,7 @@ class workgroup
 	public static function list_workgroups($workgroups) {
 		$columns = array(_t("Name"), _t("Restricted"), _t("Number of members"));
 		$rows = array_map(function($workgroup) {
-			return array(\View\controls::generate_internal_link($workgroup['title'], 'workgroup', 'view'
+			return array(_link($workgroup['title'], 'workgroup', 'view'
 				, 'id=' . $workgroup['id'] . \View\general::get_from_action_for_url(array('search')))
 			, ($workgroup['membership_vote_id'] ? _t("Yes"): _t("No"))
 			, $workgroup['number_of_members']);
@@ -106,7 +106,7 @@ class workgroup
 	{
 		__br();
 		__p(_t("This workgroup is closed and the members are appointed through candidate election. It is not possible to apply for membership in the same way as in open groups. The election of the members of this workgroup can be found ") . 
-			\View\controls::generate_internal_link(_t("here"), 'vote','view_vote', 'id=' . $workgroup['membership_vote_id']));
+			_link(_t("here"), 'vote','view_vote', 'id=' . $workgroup['membership_vote_id']));
 		$workgroup_membership_changes = \db_workgroup::get_workgroup_election_changes($_GET['id']);
 		if(!empty($workgroup_membership_changes)) {
 			echo '<p>';

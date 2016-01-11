@@ -8,8 +8,8 @@ class message
 		$columns = array("", _t("Sender"), _t("Subject"), _t("Date"));
 		$rows = array_map(function($message) {
 			return array('<input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $message['id'] . '">'
-				, \View\controls::generate_internal_link($message['full_name'], 'member', 'view', 'id=' . $message['sender_id'])
-				, \View\controls::generate_internal_link($message['title'], 'message', 'view', 'id=' . $message['id'])
+				, _link($message['full_name'], 'member', 'view', 'id=' . $message['sender_id'])
+				, _link($message['title'], 'message', 'view', 'id=' . $message['id'])
 				, \general_helpers::show_date($message['sent_time']));
 		}, $messages);
 		$row_styles = array_map(function($message) {
@@ -23,8 +23,8 @@ class message
 		$columns = array("", _t("Recipient"), _t("Subject"), _t("Date"));
 		$rows = array_map(function($message) {
 			return array('<input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $message['id'] . '">'
-				, \View\controls::generate_internal_link($message['full_name'], 'member', 'view', 'id=' . $message['recipient_id'])
-				, \View\controls::generate_internal_link($message['title'], 'message', 'view', 'id=' . $message['id'])
+				, _link($message['full_name'], 'member', 'view', 'id=' . $message['recipient_id'])
+				, _link($message['title'], 'message', 'view', 'id=' . $message['id'])
 				, \general_helpers::show_date($message['sent_time']));
 		}, $messages);
 		$row_styles = array_map(function($message) {

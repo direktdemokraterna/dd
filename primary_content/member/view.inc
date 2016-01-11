@@ -5,14 +5,14 @@
 	echo '<div class="user_presentation_left">';
 	echo '<img class="image150" src="' . USERIMG_PATH . $userinfo['image'] . '">';
 	__br();
-	__p(\View\controls::generate_internal_link(_t("Thread starts (") 
+	__p(_link(_t("Thread starts (") 
 		. $userinfo['number_of_topics'] . ")", 'forum', 'topics_by_user', 'id=' 
 		. $userinfo['id']));
-	__p(\View\controls::generate_internal_link(_t("Posts (") 
+	__p(_link(_t("Posts (") 
 		. $userinfo['number_of_posts'] . ")", 'forum', 'posts_by_user', 'id=' 
 		. $userinfo['id']));
 	if(!$userinfo['deletion_time'])
-		__p(\View\controls::generate_internal_link(_t("Send message"), 'message', 'write', 'id=' . $userinfo['id']));
+		__p(_link(_t("Send message"), 'message', 'write', 'id=' . $userinfo['id']));
 	echo '</div>';
 	echo '<div class="user_presentation_right">';
 	if($userinfo['deletion_time']) {
@@ -26,7 +26,7 @@
 	else {
 		$admin_roles = db_admin::get_admin_roles_for_user($user_id);
 		foreach($admin_roles as $row)
-			__p(_t("Is ") . \View\controls::generate_internal_link(_t(strtolower($row['title'])), 'member', 'admin_description', 'id=' . $row['id']));
+			__p(_t("Is ") . _link(_t(strtolower($row['title'])), 'member', 'admin_description', 'id=' . $row['id']));
 		__p(_t("Last login: ") . general_helpers::show_date($userinfo['last_activity_time']));
 		if($userinfo['show_email'])
 			__p(_t("Email address: ") . $userinfo['email']);
@@ -43,19 +43,19 @@
 		__p(_t("Presentation:") . '<br>' . \Logic\text::make_html_from_wiki_text($userinfo['description']));
 		__br();
 		if ($user_id == $_SESSION['id'])
-			__p(\View\controls::generate_internal_link(_t("Change my information"), 
+			__p(_link(_t("Change my information"), 
 				"member", "settings"));
 		elseif(isset($_SESSION['is_member_admin']))
-			__p(\View\controls::generate_internal_link(_t("Change information for this user"), 
+			__p(_link(_t("Change information for this user"), 
 				"member_admin", "edit", "id=" . $user_id));
 		if(isset($_SESSION['is_forum_admin']))
-			__p(\View\controls::generate_internal_link(_t("Set forum permissions for this user"), 
+			__p(_link(_t("Set forum permissions for this user"), 
 				"forum_admin", "edit_user", "id=" . $user_id));
 		if(isset($_SESSION['is_vote_admin']))
-			__p(\View\controls::generate_internal_link(_t("Set constituency permissions for this user"), 
+			__p(_link(_t("Set constituency permissions for this user"), 
 				"vote_admin", "edit_user", "id=" . $user_id));
 		if(isset($_SESSION['is_superadmin']))
-			__p(\View\controls::generate_internal_link(_t("Set administrator roles for this user"), 
+			__p(_link(_t("Set administrator roles for this user"), 
 				"superadmin", "edit_admin", "id=" . $user_id));
 		if(isset($_SESSION['is_member_admin'])) {
 			__open_form();

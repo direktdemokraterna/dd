@@ -60,7 +60,7 @@
 	__info(_t("Type of proposed vote"), \View\vote::get_vote_type_description($propinfo['type']));
 	__info(_t("Constituency"), $propinfo['constituency_name']);
 	__info(_t("Created", array('class' => 'adj')), general_helpers::show_date($propinfo['timestamp_created']));
-	__info(_t("Proposed by", array('class' => 'adj')), \View\controls::generate_internal_link($propinfo['user_full_name'],
+	__info(_t("Proposed by", array('class' => 'adj')), _link($propinfo['user_full_name'],
 		'member', 'view', 'id=' . $propinfo['user_id']));
 	__info(_t("Number of support-ballots"), $number_of_ballots['total_number_of_ballots']);
 	__info(_t("Whereof personally cast ballots"), $number_of_ballots['number_of_direct_ballots']);

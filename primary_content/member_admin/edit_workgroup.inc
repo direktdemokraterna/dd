@@ -3,7 +3,7 @@
 	$is_restricted = $workgroup['membership_vote_id'] ? true : false;
 	if($is_restricted)
 		$constituency_id = db_vote::get_constituency_id_for_vote($workgroup['membership_vote_id']);
-	__h1(_t("Administrate the workgroup ") . \View\controls::generate_internal_link($workgroup['title'], 'workgroup', 'view', 'id=' . $_GET['id']));
+	__h1(_t("Administrate the workgroup ") . _link($workgroup['title'], 'workgroup', 'view', 'id=' . $_GET['id']));
 	__open_form();
 	__label(_t("Type of workgroup"), "workgroup_type");
 	echo '<input type="radio" name="is_restricted" id="is_restricted" value="0" tabindex="1"' . ($is_restricted ? '>' : ' checked>') . _t('Open');

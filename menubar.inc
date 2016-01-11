@@ -36,7 +36,7 @@
 			echo '<ul>';
 				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
 				foreach($workgroups as $row)
-					__li(\View\controls::generate_internal_link($row['title'], "workgroup", "view", "id=" . 
+					__li(_link($row['title'], "workgroup", "view", "id=" . 
 						$row['id']));
 			echo '</ul>';
 			?>
@@ -60,20 +60,15 @@
 			<ul>
 				<?php 
 					if(isset($_SESSION['is_member_admin']))
-						echo '<li>' . \View\controls::generate_internal_link(_t("Member admin"), "member_admin") . 
-					'</li>';
+						__li(_link(_t("Member admin"), "member_admin"));
 					if(isset($_SESSION['is_forum_admin']))
-						echo '<li>' . \View\controls::generate_internal_link(_t("Forum admin"), "forum_admin") . 
-					'</li>';
+						__li(_link(_t("Forum admin"), "forum_admin"));
 					if(isset($_SESSION['is_vote_admin']))
-						echo '<li>' . \View\controls::generate_internal_link(_t("Vote admin"), "vote_admin") . 
-					'</li>';
+						__li(_link(_t("Vote admin"), "vote_admin"));
 					if(isset($_SESSION['is_treasurer']))
-						echo '<li>' . \View\controls::generate_internal_link(_t("Treasurer"), "treasurer") . 
-					'</li>';
+						__li(_link(_t("Treasurer"), "treasurer"));
 					if(isset($_SESSION['is_superadmin']))
-						echo '<li>' . \View\controls::generate_internal_link(_t("Superadmin"), "superadmin") . 
-					'</li>';
+						__li(_link(_t("Superadmin"), "superadmin"));
 				?>
 			</ul>
 		</li>

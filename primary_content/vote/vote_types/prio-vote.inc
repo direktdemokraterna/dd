@@ -23,9 +23,9 @@
     echo '</form>';
     echo '</div>';
     echo '<div>';
-    __p(\View\controls::generate_internal_link(_t("Add alternative to this vote"), 'vote', 'add_alternative', 'id=' . $voteinfo['id']));
+    __p(_link(_t("Add alternative to this vote"), 'vote', 'add_alternative', 'id=' . $voteinfo['id']));
     if(isset($_SESSION['is_vote_admin']))
-      __p(\View\controls::generate_internal_link(_t("Vote admin: Edit alternatives for this vote"), 'vote_admin', 'edit_alternatives', 'id=' . $voteinfo['id']));
+      __p(_link(_t("Vote admin: Edit alternatives for this vote"), 'vote_admin', 'edit_alternatives', 'id=' . $voteinfo['id']));
   }
   else { // output alternative titles in hidden fields so user's vote can be presented
     foreach($votes_alternatives as $row)

@@ -39,7 +39,7 @@ class member
 		$columns = array(_t("Name"), _t("Username"), _t("Region"), _t("Municipality"));
 		$rows = array_map(function($member) {
 			return array(
-				\View\controls::generate_internal_link($member['full_name'], "member", "view", "id=" . $member['id'])
+				_link($member['full_name'], "member", "view", "id=" . $member['id'])
 				, $member['username']
 				, $member['region']
 				, $member['county']
@@ -50,7 +50,7 @@ class member
 	}
 
 	public static function link($user, $id_prop = 'id', $name_prop = 'full_name') {
-		return \View\controls::generate_internal_link($user[$name_prop]
+		return _link($user[$name_prop]
 			, 'member', 'view', 'id=' . $user[$id_prop]);
 	}
 
