@@ -116,12 +116,12 @@
 
 	function _h1($text) 
 	{
-		return _h(1, $text);
+		return '<h1>' . $text . '</h1>';
 	}
 
 	function _h2($text) 
 	{
-		return _h(2, $text);
+		return '<h2>' . $text . '</h2>';
 	}
 
 	function _br($n = 1) 
@@ -202,11 +202,6 @@
 	function _span($html, $class = null) 
 	{
 		return "<span" . ($class ? " class=\"$class\"" : "") . ">$html</span>";
-	}
-
-	function _h($n, $text) 
-	{
-		return '<h$n>' . $text . '</h$n>';
 	}
 
 	function _limit_with_ellipsis($text, $limit) 

@@ -37,8 +37,9 @@ class db_general
 		if ($sort == 0) $sort = $default_sort;
 		$direction = $sort > 0 ? " asc" : " desc";
 		$sort_column = $sortable_columns[abs($sort) - 1];
-		return starts_with($sort_column, "null")
-			? self::get_order_by($sortable_columns, $default_sort)
-			: $sortable_columns[abs($sort) - 1] . $direction;
+		if (starts_with($sort_column, "null"))
+			return self::get_order_by($sortable_columns, $default_sort);
+		$column_and_alias = explode(" as ", $sort_column);
+		return end($column_and_alias) . $direction;
 	}	
 }

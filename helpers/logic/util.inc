@@ -40,4 +40,17 @@ class util
 	public static function get_search_input_name($type, $action = "search") {
 		return $type . "_" . $action . "_input";
 	}
+
+	public static function get_request_params(){
+		$query_params = array();
+		parse_str($_SERVER['QUERY_STRING'], $query_params);
+		return $query_params;
+	}
+
+	public static function make_param_string($query_params) {
+		unset($query_params['type']);
+		unset($query_params['action']);
+		return implode('&', array_map(function ($key, $value) {return "$key=$value";}
+			, array_keys($query_params), $query_params));
+	}
 }

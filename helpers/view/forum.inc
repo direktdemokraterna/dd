@@ -22,18 +22,18 @@ class forum
 		\View\controls::output_labeled_selector("category", _t("Category"), $category_options, $selected_category);
 	}	
 
-	public static function output_topic_list($topics, $url_without_page, $page, $topic_count) {
+	public static function output_topic_list($topics, $page, $topic_count) {
 		echo '<div class="principal_list">';
-		self::output_topic_paging_row($page, $topic_count, $url_without_page);
+		self::output_topic_paging_row($page, $topic_count);
 		self::output_topic_list_top_row();
 		foreach($topics as $row) 
 			self::output_topic_list_row($row);
-		self::output_topic_paging_row($page, $topic_count, $url_without_page);
+		self::output_topic_paging_row($page, $topic_count);
 		echo '</div>';
 	}
 
-	private static function output_topic_paging_row($page, $list_count, $url_without_page) {
-		\View\controls::output_paging_row($page, $list_count, $url_without_page, _t("topic"));
+	private static function output_topic_paging_row($page, $list_count) {
+		\View\controls::output_paging_row($page, $list_count, _t("topic"));
 	}
 
 	private static function output_topic_list_top_row() {
@@ -87,16 +87,16 @@ class forum
 		__h1($topic_title);
 	} 
 
-	public static function show_posts($url_without_page, $page, $posts, $post_count) 
+	public static function show_posts($page, $posts, $post_count) 
 	{
-		self::output_post_paging_row($page, $post_count, $url_without_page);
+		self::output_post_paging_row($page, $post_count);
 		foreach($posts as $post_info)
 			self::output_post($post_info);			
-		self::output_post_paging_row($page, $post_count, $url_without_page);
+		self::output_post_paging_row($page, $post_count);
 	}
 
-	private static function output_post_paging_row($page, $post_count, $url_without_page) {
-		\View\controls::output_paging_row($page, $post_count, $url_without_page, _t("post"));
+	private static function output_post_paging_row($page, $post_count) {
+		\View\controls::output_paging_row($page, $post_count, _t("post"));
 	}
 
 	public static function output_post($post_info, $show_action_buttons = true) 

@@ -215,13 +215,13 @@ class vote
 		__textarea("new_prop_description", _t("Description"), 4);
 	}
 
-	public static function make_vote_list($vote_groups, $vote_count, $url_without_page, $type, $action, $from_action = null) 
+	public static function make_vote_list($vote_groups, $vote_count, $type, $action, $from_action = null) 
 	{
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;		
-		self::output_paging_row($page, $vote_count, $url_without_page);
+		self::output_paging_row($page, $vote_count);
 		self::output_vote_grid($vote_groups, $type, $action, $from_action);
-		self::output_paging_row($page, $vote_count, $url_without_page);
+		self::output_paging_row($page, $vote_count);
 	}
 
 	private static function output_vote_grid($vote_groups, $type, $action, $from_action = null) 
@@ -245,14 +245,14 @@ class vote
 		}
 	}
 
-	public static function make_proposition_list($prop_groups, $prop_count, $url_without_page
+	public static function make_proposition_list($prop_groups, $prop_count
 		, $type, $action, $from_action = null) 
 	{
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;		
-		self::output_paging_row($page, $prop_count, $url_without_page);
+		self::output_paging_row($page, $prop_count);
 		self::output_proposition_grid($prop_groups, $type, $action, $from_action);
-		self::output_paging_row($page, $prop_count, $url_without_page);
+		self::output_paging_row($page, $prop_count);
 	}
 
 	private static function output_proposition_grid($prop_groups, $type, $action, $from_action = null) 
@@ -275,10 +275,10 @@ class vote
 		}
 	}
 
-	private static function output_paging_row($page, $list_count, $url_without_page)
+	private static function output_paging_row($page, $list_count)
 	{
 		echo '<div class="principal_list">';
-		\View\controls::output_paging_row($page, $list_count, $url_without_page);
+		\View\controls::output_paging_row($page, $list_count);
 		echo '</div>';
 	}
 

@@ -227,13 +227,13 @@ class db_vote
 		return implode(", ", self::$votes_visible_columns);
 	}
 
-	private static $votes_visible_columns =
-		array("V.title", "V.type", "V.timestamp_created", "null as result", "V.number_of_ballots");
-
-	public static function get_votes_order_by ($sort = 0)
+	private static function get_votes_order_by ($sort = 0)
 	{
 		return db_general::get_order_by(self::$votes_visible_columns, -3, $sort);
 	}
+
+	private static $votes_visible_columns =
+		array("V.title", "V.type", "V.timestamp_created", "null as result", "V.number_of_ballots");
 
 	public static function list_votes_count ($user_id, $statuses = null)
 	{

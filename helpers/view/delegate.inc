@@ -6,7 +6,7 @@ class delegate
 	public static function output_delegate_list_header ($page, $result_counter, $sort_alternatives = null)
 	{
 		$show_other_constituencies_control = self::generate_show_other_constituencies_control();
-		\general_helpers::make_list_header_with_region_county_filter($page, $result_counter, $sort_alternatives, $show_other_constituencies_control);
+		\general_helpers::make_region_county_list_filter($show_other_constituencies_control);
 	}
 
 	public static function output_delegate_list($delegates) 

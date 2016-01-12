@@ -41,19 +41,31 @@ class db_user
 		return $user_id;
 	}
 
-	public static function get_all_users ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "last_activity_time desc", $where_filters)
+	public static function get_all_users ($page = 1, $limit = LIST_ITEMS_PER_PAGE, $sort = 0, $where_filters)
 	{
 		$where_clause = self::create_where_clause($where_filters);
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select u.id, concat(u.first_name, ' ', u.last_name) as full_name, u.deletion_time
-			, u.username, cr.title region, cc.title county 
+		$order_by_clause = self::get_order_by_clause($sort);
+		$visible_columns = implode(", ", self::$members_visible_columns);
+		$query = "select u.id, $visible_columns, u.deletion_time
 			from user u
 				join constituency cr on cr.id = u.region_id
 				join constituency cc on cc.id = u.county_id
-				" . $where_clause . " order by " . $order_by . " " . $limit_clause;
-		$values = Array();
+				" . $where_clause . "
+				" . $order_by_clause . " 
+				" . $limit_clause;
+		$values = array();
 		return db::select($query, $values);
 	}
+
+	private static function get_order_by_clause ($sort = 0)
+	{
+		return "order by " . db_general::get_order_by(self::$members_visible_columns, 1, $sort);
+	}
+
+	private static $members_visible_columns =
+		array("concat(u.first_name, ' ', u.last_name) as full_name", "u.username"
+			, "cr.title as region", "cc.title as county");
 
 	public static function get_all_users_count ($where_filters)
 	{

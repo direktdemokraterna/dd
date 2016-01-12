@@ -13,9 +13,8 @@
 		if(empty($topics))
 			__p(_t("No topics in this forum."));
 		else {
-			$url_without_page = "index.php?type=forum&action=show_topics&id=" . $forum_id;
 			$topic_count = db_forum::get_topic_count($forum_id);
-			\View\forum::output_topic_list($topics, $url_without_page, $page, $topic_count);
+			\View\forum::output_topic_list($topics, $page, $topic_count);
 		}
 		\View\controls::output_text_editor(array(
 			'name' => 'new_topic'

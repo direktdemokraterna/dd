@@ -30,6 +30,21 @@ class controls
 		return self::generate_control_label($control_name, $control_label) . $element;
 	}
 
+	public static function output_paging_row($page, $list_count, $label = null) 
+	{
+		$paging_info = Paging_info::create($page, $list_count);
+		general::open_div("paging_info");
+		echo _span(_t("Showing ") . ($label ? "$label " : "") 
+			. $paging_info->first_showed_post_number . " - " 
+			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);
+		if ($paging_info->post_count > POSTS_PER_PAGE) {
+			general::open_span();
+			self::output_page_links($paging_info->number_of_pages, $paging_info->page);
+			general::close_span();
+		}
+		general::close_div();
+	}
+
 	public static function output_grid_view($columns, $rows, $row_styles = null) 
 	{
 		$col_count = count($columns);
@@ -42,11 +57,9 @@ class controls
 	private static function output_grid_view_header($columns) 
 	{
 		echo '<tr>';
-		$query_params = array();
-		parse_str($_SERVER['QUERY_STRING'], $query_params);
+		$query_params = \Logic\util::get_request_params();
 		$old_sort = isset($query_params['sort']) ? $query_params['sort'] : 0;
-		$param_str = self::generate_sort_link_params($query_params);
-		if ($param_str) $param_str .= "&";
+		$params_except_sort_value = self::generate_params_except_sort_value($query_params);
 		$col = 0;
 		foreach ($columns as $column) {
 			$col++;
@@ -54,19 +67,16 @@ class controls
 				? ' &#x25B2' 
 				: ($col == -$old_sort ? ' &#x25BC' : ''))
 				, $query_params['type'], $query_params['action']
-						, $param_str . "sort=" . ($col == $old_sort ? -$col : $col)));
-
+				, $params_except_sort_value . ($col == $old_sort ? -$col : $col)));
 		}
 		echo '</tr>';
 	}	
 
-	private static function generate_sort_link_params($query_params) 
+	private static function generate_params_except_sort_value($query_params) 
 	{
-		$param_str = '';
-		foreach ($query_params as $key => $value)
-			if (!in_array($key, array('type', 'action', 'sort')))
-				$param_str .= "$key=$value";
-		return $param_str;
+		unset($query_params['sort']);
+		$param_str = \Logic\util::make_param_string($query_params);
+		return $param_str ? $param_str . "&sort=" : "sort=";
 	}	
 
 	private static function output_grid_view_rows($col_count, $rows, $row_styles = null) 
@@ -179,46 +189,35 @@ class controls
 		echo '</form>';
 	}
 
-	public static function output_paging_row($page, $list_count, $url_without_page, $label = null) 
-	{
-		$paging_info = Paging_info::create($page, $list_count);
-		general::open_div("paging_info");
-		echo _span(_t("Showing ") . ($label ? "$label " : "") 
-			. $paging_info->first_showed_post_number . " - " 
-			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);
-		if ($paging_info->post_count > POSTS_PER_PAGE) {
-			general::open_span();
-			self::output_page_links($paging_info->number_of_pages, $paging_info->page, 
-				$url_without_page . "&page=");
-			general::close_span();
-		}
-		general::close_div();
-	}
-
 	public static function generate_control_label($control_name, $control_label) {
 		return '<br><label for "' . $control_name . '">' . $control_label . '</label>';
 	}	
 
-	private static function output_page_links ($number_of_pages, $current_page, $link_without_page_number)
+	private static function output_page_links ($number_of_pages, $page)
 	{
+		$query = \Logic\util::get_request_params();
+		unset($query['page']);
+		$params_except_page_number = \Logic\util::make_param_string($query) . "&page=";
 		echo "<span class=\"float-right\">";
-		if($current_page > 1){
-			$previous_page = $current_page - 1;
-			echo "<a href=\"" . $link_without_page_number . $previous_page . "\"><</a> ";
-		}
+		if($page > 1)
+			__link('<', $query['type'], $query['action'], $params_except_page_number . ($page - 1));
 		for($i=1; $i<($number_of_pages+1); $i++){
-			echo "&nbsp;&nbsp;&nbsp;";
-			if($i != $current_page)
-				echo "<a href=\"" . $link_without_page_number . $i . "\">" . $i . "</a> ";
+			__space(3);
+			if($i == $page)
+				__strong($i);
 			else
-				echo "<strong>" . $i . "</strong> ";
+				__link($i, $query['type'], $query['action'], $params_except_page_number . $i);
 		}
-		if($current_page < $number_of_pages){
-			echo "&nbsp;&nbsp;&nbsp;";
-			$next_page = $current_page + 1;
-			echo "<a href=\"" . $link_without_page_number . $next_page . "\">></a> ";
+		if($page < $number_of_pages){
+			__space(3);
+			__link('>', $query['type'], $query['action'], $params_except_page_number . ($page + 1));
 		}
 		echo "</span>";
+	}
+
+	private static function output_page_link ($label, $query, $params_string)
+	{
+		__link($label, $query['type'], $query['action'], $params_string);
 	}
 
 	private static function get_value($parameter_name, $values = null) {

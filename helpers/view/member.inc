@@ -27,15 +27,21 @@ class member
 		self::output_county_selector($user_data, $counties, $tab_index++);
 	}
 	
-	public static function output_member_list_header ($page, $result_counter, $sort_alternatives = null)
+	public static function output_member_list_filter ()
 	{
 		$show_deleted_control = isset($_SESSION['is_member_admin'])
 			? self::generate_show_deleted_control()
 			: null;
-		\general_helpers::make_list_header_with_region_county_filter($page, $result_counter, $sort_alternatives, $show_deleted_control);
+		\general_helpers::make_region_county_list_filter($show_deleted_control);
 	}
 
-	public static function output_member_list ($members) {
+	public static function output_member_list ($members, $page, $member_count) {
+		\View\controls::output_paging_row($page, $member_count);
+		self::output_member_grid($members);
+		\View\controls::output_paging_row($page, $member_count);
+	}
+
+	private static function output_member_grid ($members) {
 		$columns = array(_t("Name"), _t("Username"), _t("Region"), _t("Municipality"));
 		$rows = array_map(function($member) {
 			return array(

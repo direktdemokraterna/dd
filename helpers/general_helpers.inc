@@ -73,12 +73,6 @@ class general_helpers {
 		self::make_list_paging_and_sorting($get_parameters, $page, $result_counter, $sort_alternatives);
 		self::make_generic_list_filter($get_parameters, $filter_title, $filter_alternatives);
 	}
-	
-	public static function make_list_header_with_region_county_filter ($page, $result_counter
-		, $sort_alternatives = null, $extra_filter_controls_html = null){
-		self::make_list_paging_and_sorting($_GET, $page, $result_counter, $sort_alternatives);
-		self::make_region_county_list_filter($extra_filter_controls_html);
-	}
 
 	public static function find_max_in_multidimensional_array ($array, $key) {
 		if (!is_array($array) || count($array) == 0)
@@ -201,7 +195,7 @@ class general_helpers {
 		}
 	}
 	
-	private static function make_region_county_list_filter ($extra_filter_controls_html = null){
+	public static function make_region_county_list_filter ($extra_filter_controls_html = null){
 		$region_id = isset($_GET['region']) ? $_GET['region'] : 0;
 		$county_id = isset($_GET['county']) ? $_GET['county'] : 0;
 		echo '<form id="filter_list" name="filter_list" method="get" action="">';
