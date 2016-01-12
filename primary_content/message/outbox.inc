@@ -1,16 +1,13 @@
 <?php 
 	__h1(_t("Outbox"));
-	$page = isset($_GET['page']) ? $_GET['page'] : 1;
-	$outbox = db_message::get_outbox($_SESSION['id'], $page);
-	$number_of_messages = count($outbox);
-	$start_message = ($page - 1) * 20 + 1;
-	$stop_message = $start_message + $number_of_messages - 1;
-	$i = 0;
-	if($number_of_messages) {
+	$message_count = db_message::get_outbox_count($_SESSION['id']);
+	if($message_count) {
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;
+		$outbox = db_message::get_outbox($_SESSION['id'], $page, $sort);
 		__open_form();
 		__hidden("delete", 1);
-		echo _t("Showing messages ") . "$start_message - $stop_message";
-		\View\message::output_outbox($outbox);
+		\View\message::output_outbox($outbox, $page, $message_count);
 		__br();
 		echo '<input type="checkbox" name="checkall" onclick="checkAll(this, \'delete_checkbox\');">' . _t("Check all");
 		__br();

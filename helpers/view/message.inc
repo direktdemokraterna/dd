@@ -3,7 +3,14 @@ namespace View;
 
 class message 
 {
-	public static function output_inbox($messages) 
+	public static function output_inbox($messages, $page, $message_count) 
+	{
+		\View\controls::output_paging_row($page, $message_count);
+		self::output_inbox_grid($messages);
+		\View\controls::output_paging_row($page, $message_count);
+	}
+
+	public static function output_inbox_grid($messages) 
 	{
 		$columns = array("", _t("Sender"), _t("Subject"), _t("Date"));
 		$rows = array_map(function($message) {
@@ -18,7 +25,14 @@ class message
 		\View\controls::output_grid_view($columns, $rows, $row_styles);
 	}
 
-	public static function output_outbox($messages) 
+	public static function output_outbox($messages, $page, $message_count) 
+	{
+		\View\controls::output_paging_row($page, $message_count);
+		self::output_outbox_grid($messages);
+		\View\controls::output_paging_row($page, $message_count);
+	}
+
+	private static function output_outbox_grid($messages) 
 	{
 		$columns = array("", _t("Recipient"), _t("Subject"), _t("Date"));
 		$rows = array_map(function($message) {

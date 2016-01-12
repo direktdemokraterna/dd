@@ -37,24 +37,65 @@ class db_message
 		return db::insert($query, $values);
 	}
 
-	public static function get_inbox ($user_id, $page, $limit = LIST_ITEMS_PER_PAGE)
+	public static function get_inbox ($user_id, $page, $sort)
 	{
-		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select *, 
-					(select concat(first_name, ' ', last_name) from user where user.id = message.sender_id) as full_name 
-					from message where recipient_id = ? and deleted_by_recipient = 0 order by sent_time desc " . $limit_clause;
+		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
+		$order_by_clause = "order by " . self::get_inbox_order_by($sort);
+		$visible_columns = implode(", ", self::$inbox_visible_columns);
+		$query = "select m.id, $visible_columns, m.sender_id, m.read_time
+					from message m
+						join user s on s.id = m.sender_id
+					where recipient_id = ? and deleted_by_recipient = 0 
+					" . $order_by_clause . "
+					" . $limit_clause;
 		$values = Array($user_id);
 		return db::select($query, $values);
 	}
 
-	public static function get_outbox ($user_id, $page, $limit = 20){
-		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select *, 
-					(select concat(first_name, ' ', last_name) from user where user.id = message.recipient_id) as full_name 
-					from message where sender_id = ? and deleted_by_sender = 0 order by sent_time desc " . $limit_clause;
+	public static function get_inbox_count ($user_id)
+	{
+		$query = "select count(*)
+					from message where recipient_id = ? and deleted_by_recipient = 0";
+		$values = Array($user_id);
+		return db::select_single_value($query, $values);
+	}
+
+	public static function get_outbox ($user_id, $page, $sort){
+		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
+		$order_by_clause = "order by " . self::get_outbox_order_by($sort);
+		$visible_columns = implode(", ", self::$outbox_visible_columns);
+		$query = "select m.id, $visible_columns, m.recipient_id, m.read_time
+					from message m
+						join user r on r.id = m.recipient_id
+					where sender_id = ? and deleted_by_sender = 0 
+					" . $order_by_clause . "
+					" . $limit_clause;
 		$values = Array($user_id);
 		return db::select($query, $values);
 	}
+
+	public static function get_outbox_count ($user_id){
+		$query = "select count(*)
+					from message where sender_id = ? and deleted_by_sender = 0";
+		$values = Array($user_id);
+		return db::select_single_value($query, $values);
+	}
+
+	private static function get_inbox_order_by ($sort = 0)
+	{
+		return db_general::get_order_by(self::$inbox_visible_columns, 1, $sort);
+	}
+
+	private static $inbox_visible_columns =
+		array("concat(s.first_name, ' ', s.last_name) as full_name", "m.title", "m.sent_time");
+
+	private static function get_outbox_order_by ($sort = 0)
+	{
+		return db_general::get_order_by(self::$outbox_visible_columns, 1, $sort);
+	}
+
+	private static $outbox_visible_columns =
+		array("concat(r.first_name, ' ', r.last_name) as full_name", "m.title", "m.sent_time");
 
 	public static function delete_inbox ($message_ids, $user_id)
 	{

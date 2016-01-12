@@ -33,7 +33,7 @@ class controls
 	public static function output_paging_row($page, $list_count, $label = null) 
 	{
 		$paging_info = Paging_info::create($page, $list_count);
-		general::open_div("paging_info");
+		general::open_div("paging_info principal_list");
 		echo _span(_t("Showing ") . ($label ? "$label " : "") 
 			. $paging_info->first_showed_post_number . " - " 
 			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);
@@ -61,15 +61,18 @@ class controls
 		$old_sort = isset($query_params['sort']) ? $query_params['sort'] : 0;
 		$params_except_sort_value = self::generate_params_except_sort_value($query_params);
 		$col = 0;
-		foreach ($columns as $column) {
-			$col++;
-			__th(_link($column . ($col == $old_sort 
-				? ' &#x25B2' 
-				: ($col == -$old_sort ? ' &#x25BC' : ''))
-				, $query_params['type']
-				, isset($query_params['action']) ? $query_params['action'] : null
-				, $params_except_sort_value . ($col == $old_sort ? -$col : $col)));
-		}
+		foreach ($columns as $column) 
+			if ($column){
+				$col++;
+				__th(_link($column . ($col == $old_sort 
+					? ' &#x25B2' 
+					: ($col == -$old_sort ? ' &#x25BC' : ''))
+					, $query_params['type']
+					, isset($query_params['action']) ? $query_params['action'] : null
+					, $params_except_sort_value . ($col == $old_sort ? -$col : $col)));
+			}
+			else 
+				__th("");
 		echo '</tr>';
 	}	
 

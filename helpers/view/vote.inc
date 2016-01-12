@@ -219,9 +219,9 @@ class vote
 	{
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;		
-		self::output_paging_row($page, $vote_count);
+		\View\controls::output_paging_row($page, $vote_count);
 		self::output_vote_grid($vote_groups, $type, $action, $from_action);
-		self::output_paging_row($page, $vote_count);
+		\View\controls::output_paging_row($page, $vote_count);
 	}
 
 	private static function output_vote_grid($vote_groups, $type, $action, $from_action = null) 
@@ -250,9 +250,9 @@ class vote
 	{
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;		
-		self::output_paging_row($page, $prop_count);
+		\View\controls::output_paging_row($page, $prop_count);
 		self::output_proposition_grid($prop_groups, $type, $action, $from_action);
-		self::output_paging_row($page, $prop_count);
+		\View\controls::output_paging_row($page, $prop_count);
 	}
 
 	private static function output_proposition_grid($prop_groups, $type, $action, $from_action = null) 
@@ -273,13 +273,6 @@ class vote
 			}, $prop_group->votes);
 			\View\controls::output_grid_view($columns, $rows);
 		}
-	}
-
-	private static function output_paging_row($page, $list_count)
-	{
-		echo '<div class="principal_list">';
-		\View\controls::output_paging_row($page, $list_count);
-		echo '</div>';
 	}
 
 	public static function output_vote_result_with_header($voteinfo, $ballots_to_count) {
