@@ -33,9 +33,43 @@ class controls
 	public static function output_grid_view($columns, $rows, $row_styles = null) 
 	{
 		$col_count = count($columns);
-		echo '<table class="grid_view"><tr>';
-		foreach ($columns as $column)
-			echo '<td>' . $column . '</td>';
+		echo '<table class="grid_view">';
+		self::output_grid_view_header($columns);
+		self::output_grid_view_rows(count($columns), $rows, $row_styles);
+		echo '</table>';
+	}	
+
+	private static function output_grid_view_header($columns) 
+	{
+		echo '<tr>';
+		$query_params = array();
+		parse_str($_SERVER['QUERY_STRING'], $query_params);
+		$old_sort = isset($query_params['sort']) ? $query_params['sort'] : 0;
+		$param_str = self::generate_sort_link_params($query_params);
+		$col = 0;
+		foreach ($columns as $column) {
+			$col++;
+			__th(_link($column . ($col == $old_sort 
+				? ' &#x25B2' 
+				: ($col == -$old_sort ? ' &#x25BC' : ''))
+				, $query_params['type'], $query_params['action']
+						, $param_str . "&sort=" . ($col == $old_sort ? -$col : $col)));
+
+		}
+		echo '</tr>';
+	}	
+
+	private static function generate_sort_link_params($query_params) 
+	{
+		$param_str = '';
+		foreach ($query_params as $key => $value)
+			if (!in_array($key, array('type', 'action', 'sort')))
+				$param_str .= "$key=$value";
+		return $param_str;
+	}	
+
+	private static function output_grid_view_rows($col_count, $rows, $row_styles = null) 
+	{
 		$i = 0;
 		foreach($rows as $row) {
 			$classes = $i % 2 ? "even_row" : "odd_row";
@@ -43,11 +77,10 @@ class controls
 				$classes .= ' ' . $row_styles[$i];
 			echo "<tr class='$classes'>";
 			for ($col = 0; $col < $col_count; $col++)
-				echo '<td>' . $row[$col] . '</td>';
+				__td($row[$col]);
 			echo '</tr>';
 			$i++;			
 		}
-		echo '</table>';
 	}	
 
 	public static function generate_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {

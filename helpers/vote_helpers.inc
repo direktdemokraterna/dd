@@ -344,10 +344,11 @@ class vote_helpers
 		return $sorted_prio_ranking;
 	}
 
-	public static function get_vote_groups($page, $statuses = null) 
+	public static function get_vote_groups($statuses = null) 
 	{
 		$user_id = $_SESSION['id'];
-		$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;
 		$votes = db_vote::list_votes($user_id, $sort, $page, $statuses);
 		return self::group_by_constituency($votes);
 	}

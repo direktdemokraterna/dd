@@ -325,6 +325,16 @@ strong {
     font-family: "Open Sans",sans-serif;
 }
 
+.grid_view tbody th{
+    border-bottom: 1px solid #e1e1e1;
+    background: #eee;border-spacing: 0;
+    padding: 10px 5px;
+}
+
+.grid_view tbody > tr > th > a {
+    color: black;
+}
+
 tr.even_row {
     background-color: aliceblue
 }

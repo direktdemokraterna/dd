@@ -215,8 +215,10 @@ class vote
 		__textarea("new_prop_description", _t("Description"), 4);
 	}
 
-	public static function make_vote_list($vote_groups, $page, $vote_count, $url_without_page, $type, $action, $from_action = null) 
+	public static function make_vote_list($vote_groups, $vote_count, $url_without_page, $type, $action, $from_action = null) 
 	{
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;		
 		self::output_paging_row($page, $vote_count, $url_without_page);
 		self::output_vote_grid($vote_groups, $type, $action, $from_action);
 		self::output_paging_row($page, $vote_count, $url_without_page);

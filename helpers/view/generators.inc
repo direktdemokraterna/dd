@@ -38,6 +38,16 @@
 	{
 		echo _li($html);
 	}
+	
+	function __th($html) 
+	{
+		echo _th($html);
+	}
+
+	function __td($html) 
+	{
+		echo _td($html);
+	}
 
 	function __open_form($class = "standard-form") {
 		echo '<form method="post" action="" class="' . $class . '">';
@@ -57,15 +67,15 @@
 	}
 
 	function __textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
-		return _textfield($control_name, $control_label, $tab_index, $values, $attributes);
+		echo _textfield($control_name, $control_label, $tab_index, $values, $attributes);
 	}
 
 	function __textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
-		return _textarea($control_name, $control_label, $tab_index, $values, $attributes);
+		echo _textarea($control_name, $control_label, $tab_index, $values, $attributes);
 	}
 
 	function __checkbox($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
-		return _checkbox($control_name, $control_label, $value, $tab_index, $checked_values);
+		echo _checkbox($control_name, $control_label, $value, $tab_index, $checked_values);
 	}
 
 	function __span($html, $class = null) 
@@ -124,6 +134,21 @@
 		return $n ? '&nbsp;' . _space($n - 1) : '';
 	}
 
+	function _li($html) 
+	{
+		return '<li>' . $html . '</li>';
+	}
+
+	function _th($html) 
+	{
+		return '<th>' . $html . '</th>';
+	}
+
+	function _td($html) 
+	{
+		return '<td>' . $html . '</td>';
+	}
+
 	function _strong($text) 
 	{
 		return '<strong>' . $text . '</strong>';
@@ -152,11 +177,6 @@
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
 	{
 		return \View\controls::generate_internal_link($label, $type, $action, $params, $class, $confirm);
-	}
-
-	function _li($html) 
-	{
-		return '<li>' . $html . '</li>';
 	}
 
 	function _p($html) 

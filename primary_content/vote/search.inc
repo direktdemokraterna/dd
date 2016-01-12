@@ -11,6 +11,6 @@
 		$result_count = db_vote::search_votes_count($search_query, $_SESSION['id']);
 		$vote_groups = vote_helpers::group_by_constituency($votes);
 		$url_without_page = "index.php?type=vote&action=search";
-		\View\vote::make_vote_list($vote_groups, $page, $result_count, $url_without_page, "vote", "view_vote", "search");
+		\View\vote::make_vote_list($vote_groups, $result_count, $url_without_page, "vote", "view_vote", "search");
 	} 
 ?>

@@ -180,8 +180,8 @@ class db_vote
 		$where_clause = self::get_votes_where_clause($statuses);
 		$order_by = self::get_votes_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select V.id, V.title, C.title as constituency, V.timestamp_created
-					, V.status, V.type, V.from_proposition_id, V.number_of_ballots 
+		$visible_columns = self::get_votes_visible_columns();
+		$query = "select V.id, $visible_columns, C.title as constituency, V.from_proposition_id
 					" . $from_clause . "
 					" . $where_clause . "
 					order by C.constituency_level asc, C.id, " . $order_by . " 
@@ -196,8 +196,8 @@ class db_vote
 		$where_clause = self::get_search_votes_where_clause();
 		$order_by = self::get_votes_order_by($sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select V.id, V.title, C.title as constituency, V.timestamp_created 
-					, V.status, V.type, V.from_proposition_id, V.number_of_ballots
+		$visible_columns = self::get_votes_visible_columns();
+		$query = "select V.id, $visible_columns, C.title as constituency, V.from_proposition_id
 					" . $from_clause . "
 					" . $where_clause . "
 					order by C.constituency_level asc, C.id, " . $order_by . " 
@@ -222,9 +222,21 @@ class db_vote
 			and match(V.title, V.description) against(? in boolean mode)";
 	}
 
-	public static function get_votes_order_by ($sort = null)
+	private static function get_votes_visible_columns() {
+		return implode(", ", self::$votes_visible_columns);
+	}
+
+	private static $votes_visible_columns =
+		array("V.title", "V.type", "V.timestamp_created", "null as result", "V.number_of_ballots");
+
+	public static function get_votes_order_by ($sort = 0)
 	{
-		return $sort === "alphabetic" ? "V.title asc" : "V.timestamp_created desc";
+		if ($sort == 0) $sort = -3;
+		$direction = $sort > 0 ? " asc" : " desc";
+		$sort_column = self::$votes_visible_columns[abs($sort) - 1];
+		return starts_with($sort_column, "null")
+			? self::get_votes_order_by()
+			: self::$votes_visible_columns[abs($sort) - 1] . $direction;
 	}
 
 	public static function list_votes_count ($user_id, $statuses = null)
