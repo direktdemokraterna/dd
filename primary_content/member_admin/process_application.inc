@@ -16,18 +16,18 @@
 	__br();
 	__label(_t("Username"), "username");
 	echo '<input type="text" name="username" id="username" value="' . $suggested_username . '" style="background: #E8E8E8; color: #B0B0B0;" disabled>';
-	\View\controls::output_textfield("first_name", _t("Given name"), 2, $application_data);
-	\View\controls::output_textfield("last_name", _t("Last name"), 3, $application_data);
-	\View\controls::output_textfield("street_address", _t("Street address"), 4, $application_data);
-	\View\controls::output_textfield("zip_code", _t("Zip code"), 5, $application_data);
-	\View\controls::output_textfield("city_address", _t("City"), 6, $application_data);
+	__textfield("first_name", _t("Given name"), 2, $application_data);
+	__textfield("last_name", _t("Last name"), 3, $application_data);
+	__textfield("street_address", _t("Street address"), 4, $application_data);
+	__textfield("zip_code", _t("Zip code"), 5, $application_data);
+	__textfield("city_address", _t("City"), 6, $application_data);
 	$counties = db_constituency::get_counties();
 	$county_options = \db_general::make_hash($counties, 'title', 'title');
 	\View\controls::output_labeled_selector("county", _t("Municipality"), $county_options, $application_data['county_id']
 		, 'tabindex="7"');
-	\View\controls::output_textfield("telephone", _t("Telephone"), 8, $application_data['telephone1']);
-	\View\controls::output_textfield("email", _t("Email"), 9, $application_data);
-	\View\controls::output_textfield("social_security_number", _t("Social security number"), 10, $application_data);
+	__textfield("telephone", _t("Telephone"), 8, $application_data['telephone1']);
+	__textfield("email", _t("Email"), 9, $application_data);
+	__textfield("social_security_number", _t("Social security number"), 10, $application_data);
 	__br();
 	__submit_and_close(_t("Register as member"));
 	__open_form();

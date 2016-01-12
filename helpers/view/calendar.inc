@@ -4,14 +4,14 @@ namespace View;
 class calendar 
 {
 	public static function output_time_fields($calendar_info = null) {
-		\View\controls::output_textfield("year", _t("Date"), 1, $calendar_info);
+		__textfield("year", _t("Date"), 1, $calendar_info);
 		$month_options = self::generate_month_options();
 		\View\controls::output_selector("month", $month_options, $calendar_info);
 		$day_options = array();
 		for($i=1; $i<32; $i++)
 			$day_options[$i] = $i;
 		\View\controls::output_selector("day", $day_options, $calendar_info);
-		\View\controls::output_textfield("time", _t("Time"), 4, $calendar_info,
+		__textfield("time", _t("Time"), 4, $calendar_info,
 			array("style"=>"width: 200px;"));
 	}
 
@@ -31,9 +31,9 @@ class calendar
 	}
 
 	public static function output_description_fields($calendar_info = null) {
-		\View\controls::output_textfield("title", _t("Caption"), 6, $calendar_info
+		__textfield("title", _t("Caption"), 6, $calendar_info
 			, array("style"=>"width: 200px;"));
-		\View\controls::output_textarea("content", _t("Description"), 7, $calendar_info
+		__textarea("content", _t("Description"), 7, $calendar_info
 			, array("cols"=>"60", "rows"=>"5"));
 	}
 

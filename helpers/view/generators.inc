@@ -52,6 +52,22 @@
 		echo _label($text, $for);
 	}
 
+	function __password($control_name, $control_label, $tab_index = 1) {
+		echo _password($control_name, $control_label, $tab_index);
+	}
+
+	function __textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+		return _textfield($control_name, $control_label, $tab_index, $values, $attributes);
+	}
+
+	function __textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+		return _textarea($control_name, $control_label, $tab_index, $values, $attributes);
+	}
+
+	function __checkbox($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+		return _checkbox($control_name, $control_label, $value, $tab_index, $checked_values);
+	}
+
 	function __span($html, $class = null) 
 	{
 		echo _span($html, $class);
@@ -115,6 +131,22 @@
 
 	function _label($text, $for) {
 		return "<label for=\"$for\">$text</label>";
+	}
+
+	function _password($control_name, $control_label, $tab_index = 1) {
+		return \View\controls::generate_password($control_name, $control_label, $tab_index);
+	}
+
+	function _textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+		return \View\controls::generate_textfield($control_name, $control_label, $tab_index, $values, $attributes);
+	}
+
+	function _textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+		return \View\controls::generate_textarea($control_name, $control_label, $tab_index, $values, $attributes);
+	}
+
+	function _checkbox($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+		return \View\controls::generate_checkbox($control_name, $control_label, $value, $tab_index, $checked_values);
 	}
 
 	function _link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 

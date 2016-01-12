@@ -2,34 +2,32 @@
 namespace View;
 class controls 
 {
-	public static function output_password($control_name, $control_label, $tab_index = 1) {
-		self::output_control_label($control_name, $control_label);
-		echo('<input type="password" name="' . $control_name . '" id="' . $control_name . 
-			'" tabindex="' . $tab_index . '"></input>');
+	public static function generate_password($control_name, $control_label, $tab_index = 1) {
+		return self::generate_control_label($control_name, $control_label)
+			. '<input type="password" name="' . $control_name . '" id="' . $control_name . 
+			'" tabindex="' . $tab_index . '"></input>';
 	}
-
-	public static function output_textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+	
+	public static function generate_textfield($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
-		self::output_control_label($control_name, $control_label);
 		$element = '<input type="text" name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '" value="' . $value . '"';
 		self::add_attributes($element, $attributes);
 		$element .= '></input>';
-		echo $element;
+		return self::generate_control_label($control_name, $control_label) . $element;
 	}
 
-	public static function output_textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+	public static function generate_textarea($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
 		$value = is_array($values) 
 			? self::get_value($control_name, $values) 
 			: $values;
-		self::output_control_label($control_name, $control_label);
 		$element = '<textarea name="' . $control_name . '" id="' . $control_name . 
 			'" tabindex="' . $tab_index . '"';
 		self::add_attributes($element, $attributes);
 		$element .= '>' . $value . '</textarea>';
-		echo $element;
+		return self::generate_control_label($control_name, $control_label) . $element;
 	}
 
 	public static function output_grid_view($columns, $rows, $row_styles = null) 
@@ -52,17 +50,17 @@ class controls
 		echo '</table>';
 	}	
 
-	public static function output_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {
+	public static function generate_checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {
 		$checked_value = is_array($checked_values) 
 			? self::get_value($control_name, $checked_values) 
 			: $checked_values;
-		self::output_control_label($control_name, $control_label);
-		echo '<input type="checkbox" name="' . $control_name . '" value="' . $value 
+		return self::generate_control_label($control_name, $control_label)
+			. '<input type="checkbox" name="' . $control_name . '" value="' . $value 
 			. '" id="' . $control_name . '"' . ($checked_value ? " checked>" : ">");
 	}
 
 	public static function output_labeled_selector($control_name, $control_label, $options, $values = null, $attributes = null) {
-		self::output_control_label($control_name, $control_label);
+		echo self::generate_control_label($control_name, $control_label);
 		self::output_selector($control_name, $options, $values, $attributes);
 	}
 
@@ -133,7 +131,7 @@ class controls
 		echo '<legend>' . $legend . '</legend>';
 		__hidden("target_id", $target_id);
 		if ($title_label) 
-			\View\controls::output_textfield($name . '_title', $title_label, $tab_index++);
+			__textfield($name . '_title', $title_label, $tab_index++);
 		echo '<div id="format_buttons_div">';
 		echo '<input type="button" id="format_buttons_b" accesskey="b" title="'. _t("Bold") .'" value="b" onClick="make_bold(\'' . $content_name . '\')">';
 		echo '<input type="button" id="format_buttons_i" accesskey="i" title="'. _t("Italic") .'" value="i" onClick="make_italic(\'' . $content_name . '\')">';
@@ -163,8 +161,8 @@ class controls
 		general::close_div();
 	}
 
-	public static function output_control_label($control_name, $control_label) {
-		echo('<br><label for "' . $control_name . '">' . $control_label . '</label>');
+	public static function generate_control_label($control_name, $control_label) {
+		return '<br><label for "' . $control_name . '">' . $control_label . '</label>';
 	}	
 
 	private static function output_page_links ($number_of_pages, $current_page, $link_without_page_number)

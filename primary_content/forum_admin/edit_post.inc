@@ -44,7 +44,7 @@
 	__h2(_t("Create a new thread from this post"));
 	__open_form();
 	__hidden('create_new', 1);
-	\View\controls::output_textfield("topic_title", _t("New title"));
+	__textfield("topic_title", _t("New title"));
 	__br();
 	__submit_and_close(_t("Create"));
 
@@ -52,6 +52,6 @@
 	__open_form();
 	__hidden('edit', 1);
 	__hidden('post_id', $_GET['id']);
-	\View\controls::output_textarea("edit_post_content", _t("Description"), 1, $post_info['content']);
+	__textarea("edit_post_content", _t("Description"), 1, $post_info['content']);
 	__submit_and_close(_t("Edit"));
 ?>

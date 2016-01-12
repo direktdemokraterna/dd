@@ -81,16 +81,16 @@ if($is_all_mandatory_set){
 	__br();
 	__open_form("login-form");
 	$tab_index = 1;
-	\View\controls::output_textfield('first_name', _t("Given name"), $tab_index++);
-	\View\controls::output_textfield('last_name', _t("Last name*"), $tab_index++);
-	\View\controls::output_textfield('street_address', _t("Street address*"), $tab_index++);
-	\View\controls::output_textfield('zip_code', _t("Zip code*"), $tab_index++);
-	\View\controls::output_textfield('city_address', _t("City*"), $tab_index++);
+	__textfield('first_name', _t("Given name"), $tab_index++);
+	__textfield('last_name', _t("Last name*"), $tab_index++);
+	__textfield('street_address', _t("Street address*"), $tab_index++);
+	__textfield('zip_code', _t("Zip code*"), $tab_index++);
+	__textfield('city_address', _t("City*"), $tab_index++);
 	\View\member::output_county_selectors();
-	\View\controls::output_textfield("telephone1", _t("Telephone 1"), $tab_index++);
-	\View\controls::output_textfield("telephone2", _t("Telephone 2"), $tab_index++);
-	\View\controls::output_textfield("email*", _t("Email"), $tab_index++);
-	\View\controls::output_textfield("skype_name", _t("Skype name"), $tab_index++);
+	__textfield("telephone1", _t("Telephone 1"), $tab_index++);
+	__textfield("telephone2", _t("Telephone 2"), $tab_index++);
+	__textfield("email*", _t("Email"), $tab_index++);
+	__textfield("skype_name", _t("Skype name"), $tab_index++);
 ?>
 <input type="checkbox" name="news_letter" value="1" id="news_letter">
 	<label for "news_letter"><?php __t("I want to subscribe to the news letter"); ?></label>

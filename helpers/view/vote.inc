@@ -7,8 +7,8 @@ class vote
 		if($voteinfo['type'] == "prio-vote") {
 			self::open_add_alternative_form("Add alternative to", $voteinfo);
 			__p(_t("Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin."));
-			\View\controls::output_textfield("alternative_title", _t("Title"), 1);
-			\View\controls::output_textarea("alternative_description", _t("Description"), 2);
+			__textfield("alternative_title", _t("Title"), 1);
+			__textarea("alternative_description", _t("Description"), 2);
 			self::close_add_alternative_form(_t("Create alternative"), 3);
 		}
 		elseif(\db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['id'])){
@@ -17,7 +17,7 @@ class vote
 		}
 		else {
 			self::open_add_alternative_form("Register as candidate for", $voteinfo);
-			\View\controls::output_textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
+			__textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
 			self::close_add_alternative_form(_t("Candidate", array('class' => 'verb')), 2);
 		}
 	}
@@ -45,7 +45,7 @@ class vote
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
 		$options = self::get_selectable_vote_type_descriptions();
-		\View\controls::output_control_label("type_of_vote", _t("Type of vote", array('class' => 'noun')));
+		echo \View\controls::generate_control_label("type_of_vote", _t("Type of vote", array('class' => 'noun')));
 		\View\controls::output_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
@@ -65,7 +65,7 @@ class vote
 			"active" => _t("Time limited")
 			, "continuous" => _t("Continuous")
 			); 
-		\View\controls::output_control_label("vote_status", _t("Vote time"));
+		echo \View\controls::generate_control_label("vote_status", _t("Vote time"));
 		\View\controls::output_selector("vote_status", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
@@ -76,7 +76,7 @@ class vote
 			: \db_constituency::get_all_constituencies(1, PHP_INT_MAX);
 		foreach($constituencies as $row)
 			$options[$row['id']] = $row['name'];
-		\View\controls::output_control_label("constituency_id", "Valkrets");
+		echo \View\controls::generate_control_label("constituency_id", "Valkrets");
 		\View\controls::output_selector("constituency_id", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}
 
@@ -208,11 +208,11 @@ class vote
 	}
 
 	public static function make_title_input() {
-		\View\controls::output_textfield("new_prop_title", _t("Title"), 3);
+		__textfield("new_prop_title", _t("Title"), 3);
 	}	
 
 	public static function make_description_input() {
-		\View\controls::output_textarea("new_prop_description", _t("Description"), 4);
+		__textarea("new_prop_description", _t("Description"), 4);
 	}
 
 	public static function make_vote_list($vote_groups, $page, $vote_count, $url_without_page, $type, $action, $from_action = null) 

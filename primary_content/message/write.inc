@@ -30,7 +30,7 @@
 	foreach($recipients as $row)
 		$options[$row['username']] = $row['full_name'];
 	\View\controls::output_labeled_selector("recipient", _t("Recipient"), $options, $recipient, 'tabindex="1"');
-	\View\controls::output_textfield("title", _t("Caption"), 2, $title);
-	\View\controls::output_textarea("message_text", _t("Message"), 3, $content);
+	__textfield("title", _t("Caption"), 2, $title);
+	__textarea("message_text", _t("Message"), 3, $content);
 	__submit_and_close(_t("Send"), null, null, 4);
 ?>

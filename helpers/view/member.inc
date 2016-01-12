@@ -4,20 +4,20 @@ namespace View;
 class member 
 {
 	public static function output_edit_fields($user_data = null, $include_social_security_number = true, &$tab_index = 1) {
-		\View\controls::output_textfield("username", _t("Username"), $tab_index++, $user_data);
-		\View\controls::output_textfield("first_name", _t("Given name"), $tab_index++, $user_data);
-		\View\controls::output_textfield("last_name", _t("Last name"), $tab_index++, $user_data);
+		__textfield("username", _t("Username"), $tab_index++, $user_data);
+		__textfield("first_name", _t("Given name"), $tab_index++, $user_data);
+		__textfield("last_name", _t("Last name"), $tab_index++, $user_data);
 		if ($include_social_security_number)
-			\View\controls::output_textfield("social_security_number", _t("Social security number"), 
+			__textfield("social_security_number", _t("Social security number"), 
 				$tab_index++, $user_data);			
-		\View\controls::output_textfield("email", _t("Email address"), $tab_index++, $user_data);
-		\View\controls::output_textfield("street_address", _t("Street address"), $tab_index++, $user_data);
-		\View\controls::output_textfield("zip_code", _t("Zip code"), $tab_index++, $user_data);
-		\View\controls::output_textfield("city_address", _t("City"), $tab_index++, $user_data);
+		__textfield("email", _t("Email address"), $tab_index++, $user_data);
+		__textfield("street_address", _t("Street address"), $tab_index++, $user_data);
+		__textfield("zip_code", _t("Zip code"), $tab_index++, $user_data);
+		__textfield("city_address", _t("City"), $tab_index++, $user_data);
 		self::output_county_selectors($user_data, $tab_index);
-		\View\controls::output_textfield("telephone1", _t("Telephone 1"), $tab_index++, $user_data);
-		\View\controls::output_textfield("telephone2", _t("Telephone 2"), $tab_index++, $user_data);
-		\View\controls::output_textfield("skype_name", _t("Skype name"), $tab_index++, $user_data);
+		__textfield("telephone1", _t("Telephone 1"), $tab_index++, $user_data);
+		__textfield("telephone2", _t("Telephone 2"), $tab_index++, $user_data);
+		__textfield("skype_name", _t("Skype name"), $tab_index++, $user_data);
 	}
 	
 	public static function output_county_selectors($user_data = null, &$tab_index = 1) {

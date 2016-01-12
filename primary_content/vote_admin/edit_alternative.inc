@@ -4,9 +4,9 @@
 	__open_form();
 	__hidden("alternative_id", $alternative_info['id']);
 	if(isset($alternative_info['user_id']))
-		\View\controls::output_textfield("username", _t("User"), 1, $alternative_info['alternative_title']);
+		__textfield("username", _t("User"), 1, $alternative_info['alternative_title']);
 	else 
-		\View\controls::output_textfield("title", _t("Title"), 1, $alternative_info['alternative_title']);
-	\View\controls::output_textarea("description", _t("Description"), 2, $alternative_info['alternative_description']);
+		__textfield("title", _t("Title"), 1, $alternative_info['alternative_title']);
+	__textarea("description", _t("Description"), 2, $alternative_info['alternative_description']);
 	__submit_and_close(_t("Update"));
 ?>
