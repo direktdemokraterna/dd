@@ -282,20 +282,31 @@ class db_delegate
 		return db::select($query, $values);
 	}
 
-	public static function list_delegates_for_user_constituencies ($voter_id, $page = 1, $limit = LIST_ITEMS_PER_PAGE, $order_by = "timestamp_created desc", $where_filter, $filter_values)
+	public static function get_delegates_for_user_constituencies ($voter_id, $page = 1, $sort = 0, $where_filter, $filter_values)
 	{
 		$where_filter[] = "cd.voter_id = d.id";
-		$limit_clause = db_general::get_limit_clause($page, $limit);
+		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
 		$where_clause = self::create_delegates_for_user_constituencies_where_clause($where_filter);
-		$query = "select d.id, d.title, d.description
-				, (select count(*) from voter_delegate vd where vd.delegate_id = d.id) as delegand_count 
+		$order_by_clause = "order by " . self::get_order_by($sort);
+		$visible_columns = implode(", ", self::$delegates_visible_columns);
+		$query = "select d.id, $visible_columns 
 				from delegate d 
 				" . $where_clause . "
-				order by " . $order_by . " " . $limit_clause;
+				" . $order_by_clause . "
+				" . $limit_clause;
 		return db::select($query, $filter_values);
 	}
 
-	public static function list_delegates_for_user_constituencies_count ($where_filter, $filter_values)
+	private static function get_order_by ($sort = 0)
+	{
+		return db_general::get_order_by(self::$delegates_visible_columns, 1, $sort);
+	}
+
+	private static $delegates_visible_columns =
+		array("d.title", "d.description"
+			, "(select count(*) from voter_delegate vd where vd.delegate_id = d.id) as delegand_count");
+
+	public static function get_delegates_for_user_constituencies_count ($where_filter, $filter_values)
 	{
 		$where_clause = self::create_delegates_for_user_constituencies_where_clause($where_filter);
 		$query = "select count(*) from delegate d 

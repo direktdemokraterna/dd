@@ -45,7 +45,7 @@ class db_user
 	{
 		$where_clause = self::create_where_clause($where_filters);
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$order_by_clause = self::get_order_by_clause($sort);
+		$order_by_clause = "order by " . self::get_order_by($sort);
 		$visible_columns = implode(", ", self::$members_visible_columns);
 		$query = "select u.id, $visible_columns, u.deletion_time
 			from user u
@@ -58,9 +58,9 @@ class db_user
 		return db::select($query, $values);
 	}
 
-	private static function get_order_by_clause ($sort = 0)
+	private static function get_order_by ($sort = 0)
 	{
-		return "order by " . db_general::get_order_by(self::$members_visible_columns, 1, $sort);
+		return db_general::get_order_by(self::$members_visible_columns, 1, $sort);
 	}
 
 	private static $members_visible_columns =

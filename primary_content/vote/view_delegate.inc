@@ -67,6 +67,7 @@
 ?>
 <?php if ($shared_constituencies && $_SESSION['delegate_id'] != $delegate_id) : ?>
 	<?php
+		__br(2);
 		echo '<hr>';
 		echo '<script>';
 		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';

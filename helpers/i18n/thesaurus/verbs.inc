@@ -260,8 +260,8 @@ class verbs
 				,"en" => "see"
 				)
 			,"select:verb" => array(
-				"sv" => "välj"
-				,"en" => "select"
+				"sv" => "välj::er:___alt:(___ald|_t:a)"
+				,"en" => "select::|s|ing:ed:(ed)"
 				)
 			,"send:verb" => array(
 				"sv" => "skicka::r:t:(d|_t:e)"

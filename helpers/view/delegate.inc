@@ -3,13 +3,20 @@ namespace View;
 
 class delegate 
 {
-	public static function output_delegate_list_header ($page, $result_counter, $sort_alternatives = null)
+	public static function output_delegate_list_header ()
 	{
 		$show_other_constituencies_control = self::generate_show_other_constituencies_control();
 		\general_helpers::make_region_county_list_filter($show_other_constituencies_control);
 	}
 
-	public static function output_delegate_list($delegates) 
+	public static function output_delegate_list($delegates, $page, $delegate_count) 
+	{
+		\View\controls::output_paging_row($page, $delegate_count);
+		self::output_delegate_grid($delegates);
+		\View\controls::output_paging_row($page, $delegate_count);
+	}
+	
+	private static function output_delegate_grid($delegates) 
 	{
 		$columns = array(_t("Title"), _t("Description"), _t("Delegands"));
 		$rows = array_map(function($delegate) {
@@ -22,11 +29,11 @@ class delegate
 
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
 	private static function generate_show_other_constituencies_control (){
-		$show_outside = isset($_GET['show_outside']) ? $_GET['show_outside'] : 0;
-		$html = '<input type="checkbox" name="show_outside"' .
-			($show_outside ? ' checked' : '') 
-			. ' id="show_outside" onchange="this.form.submit()"><label for "show_outside">' 
-			. _t("Show delegates outside your constituencies") . '</label>';
+		$show_all = isset($_GET['show_all']) ? $_GET['show_all'] : 0;
+		$html = '<input type="checkbox" name="show_all"' .
+			($show_all ? ' checked' : '') 
+			. ' id="show_all" onchange="this.form.submit()"><label for "show_all">' 
+			. _t("Show delegates from all constituencies") . '</label>';
 		return _span($html, "list_sort_alternative");
 	}
 }
