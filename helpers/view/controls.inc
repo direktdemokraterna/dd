@@ -66,7 +66,8 @@ class controls
 			__th(_link($column . ($col == $old_sort 
 				? ' &#x25B2' 
 				: ($col == -$old_sort ? ' &#x25BC' : ''))
-				, $query_params['type'], $query_params['action']
+				, $query_params['type']
+				, isset($query_params['action']) ? $query_params['action'] : null
 				, $params_except_sort_value . ($col == $old_sort ? -$col : $col)));
 		}
 		echo '</tr>';
