@@ -9,8 +9,8 @@
 	}
 	else {
 		$result_count = db_prop::search_props_count($search_query, $_SESSION['id'], $page);
-		$prop_groups = vote_helpers::group_by_constituency($props);
+		$prop_groups = \Logic\vote::group_by_constituency($props);
 		$url_without_page = "index.php?type=vote&action=search_prop";
-		\View\vote::make_proposition_list($prop_groups, $page, $result_count, $url_without_page, "vote", "view_prop", "search_prop");
+		\View\vote::make_proposition_list($prop_groups, $result_count, $url_without_page, "vote", "view_prop", "search_prop");
 	} 
 ?>

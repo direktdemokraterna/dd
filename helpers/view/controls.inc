@@ -46,6 +46,7 @@ class controls
 		parse_str($_SERVER['QUERY_STRING'], $query_params);
 		$old_sort = isset($query_params['sort']) ? $query_params['sort'] : 0;
 		$param_str = self::generate_sort_link_params($query_params);
+		if ($param_str) $param_str .= "&";
 		$col = 0;
 		foreach ($columns as $column) {
 			$col++;
@@ -53,7 +54,7 @@ class controls
 				? ' &#x25B2' 
 				: ($col == -$old_sort ? ' &#x25BC' : ''))
 				, $query_params['type'], $query_params['action']
-						, $param_str . "&sort=" . ($col == $old_sort ? -$col : $col)));
+						, $param_str . "sort=" . ($col == $old_sort ? -$col : $col)));
 
 		}
 		echo '</tr>';

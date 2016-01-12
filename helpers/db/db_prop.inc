@@ -71,33 +71,23 @@ class db_prop
 		return db::select($query, $values);
 	}
 
-	public static function list_props ($status, $user_id, $sort, $page)
+	public static function list_props ($status, $user_id, $sort, $page = 1)
 	{
 		$where_clause = self::get_props_where_clause($status);
 		$from_clause = self::get_props_from_clause($user_id);
-		$order_by = self::get_props_order_by($sort);
+		$order_by = self::get_props_order_by(null, $sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select id, title, constituency, number_of_supporters
+		$visible_columns = self::get_props_visible_columns();
+		$query = "select id, $visible_columns, constituency 
 					from (select P.*, C.title as constituency, C.constituency_level " 
 						. $from_clause . "
 					" . $where_clause . "
 					order by (now() - timestamp_created)/(1+ln(1 + number_of_supporters))
 					limit " . MAX_ACTIVE_PROPOSITION_COUNT . ") T
-					order by constituency_level asc, constituency_id" . $order_by . " 
+					order by constituency_level asc, constituency_id, " . $order_by . "
 					" . $limit_clause;
 		$values = Array();
 		return db::select($query, $values);
-	}
-
-	public static function get_props_order_by ($sort)
-	{
-		switch ($sort) {
-			case null :
-			case '' :
-			case 'alphabetic' : return ", title asc";
-			case 'created' : return ", timestamp_created desc";
-			default: die('unknown sort: ' . $sort);
-		}
 	}
 
 	public static function list_props_count ($status, $user_id)
@@ -116,12 +106,13 @@ class db_prop
 		$from_clause = self::get_props_from_clause($user_id);
 		$where_clause = self::get_props_where_clause('pending') . "
 					and match(P.title, P.description) against(? in boolean mode)";
-		$order_by = self::get_props_order_by($sort);
+		$order_by = self::get_props_order_by("P", $sort);
 		$limit_clause = db_general::get_limit_clause($page, LIST_ITEMS_PER_PAGE);
-		$query = "select P.id, P.title, C.title as constituency, P.number_of_supporters 
+		$visible_columns = self::get_props_visible_columns("P");
+		$query = "select P.id, $visible_columns, C.title as constituency 
 					" . $from_clause . "
 					" . $where_clause . "
-					order by C.constituency_level asc, C.id" . $order_by . " 
+					order by C.constituency_level asc, C.id, " . $order_by . " 
 					" . $limit_clause;
 		$values = Array($search);
 		return db::select($query, $values);
@@ -138,6 +129,29 @@ class db_prop
 		$values = Array($search);
 		return db::select_single_value($query, $values);
 	}
+
+	private static function get_props_visible_columns($qualifier = null) 
+	{
+		return implode(", ", self::get_qualified_visible_columns($qualifier));
+	}
+
+	public static function get_props_order_by ($qualifier = null, $sort = 0)
+	{
+		$retval = db_general::get_order_by(self::get_qualified_visible_columns($qualifier), 1, $sort);
+		return $retval;
+	}
+
+	private static function get_qualified_visible_columns($qualifier = null) 
+	{
+		return $qualifier 
+			? array_map(function($col) use ($qualifier) 
+				{ return "$qualifier." . $col;}
+				, self::$props_visible_columns)
+			: self::$props_visible_columns;
+	}
+
+	private static $props_visible_columns =
+		array("title", "timestamp_created", "number_of_supporters");
 
 	private static function get_props_from_clause ($user_id)
 	{

@@ -114,6 +114,44 @@ class vote
 		\db_delegate::remove_delegations_for(null, null, $delegate_id, $constituency_id);
 	}
 
+	public static function get_vote_groups($statuses = null) 
+	{
+		$user_id = $_SESSION['id'];
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;
+		$votes = \db_vote::list_votes($user_id, $sort, $page, $statuses);
+		return self::group_by_constituency($votes);
+	}
+
+	public static function get_prop_groups($status) 
+	{
+		$user_id = $_SESSION['id'];
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;
+		$props = \db_prop::list_props($status, $user_id, $sort, $page);
+		return self::group_by_constituency($props);
+	}
+
+	public static function group_by_constituency($rows) 
+	{
+		$groups = array();
+		foreach ($rows as $row) {
+			$group = self::get_vote_group($groups, $row["constituency"]);
+			$group->add_vote($row);
+		}
+		return $groups;
+	}
+
+	private static function &get_vote_group(&$vote_groups, $constituency) 
+	{
+		if (array_key_exists($constituency, $vote_groups)) {
+			return $vote_groups[$constituency];
+		}
+		$vote_group = \Vote_group::create();
+		$vote_groups[$constituency] = $vote_group;
+		return $vote_group;
+	}
+
 	private static function admin_create_time_limited_vote() {
 		$forum_topic_id = self::create_vote_topic();
 		$time_string = self::generate_time_string(); 

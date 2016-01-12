@@ -222,7 +222,8 @@ class db_vote
 			and match(V.title, V.description) against(? in boolean mode)";
 	}
 
-	private static function get_votes_visible_columns() {
+	private static function get_votes_visible_columns() 
+	{
 		return implode(", ", self::$votes_visible_columns);
 	}
 
@@ -231,12 +232,7 @@ class db_vote
 
 	public static function get_votes_order_by ($sort = 0)
 	{
-		if ($sort == 0) $sort = -3;
-		$direction = $sort > 0 ? " asc" : " desc";
-		$sort_column = self::$votes_visible_columns[abs($sort) - 1];
-		return starts_with($sort_column, "null")
-			? self::get_votes_order_by()
-			: self::$votes_visible_columns[abs($sort) - 1] . $direction;
+		return db_general::get_order_by(self::$votes_visible_columns, -3, $sort);
 	}
 
 	public static function list_votes_count ($user_id, $statuses = null)

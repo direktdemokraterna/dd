@@ -245,9 +245,11 @@ class vote
 		}
 	}
 
-	public static function make_proposition_list($prop_groups, $page, $prop_count, $url_without_page
+	public static function make_proposition_list($prop_groups, $prop_count, $url_without_page
 		, $type, $action, $from_action = null) 
 	{
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;		
 		self::output_paging_row($page, $prop_count, $url_without_page);
 		self::output_proposition_grid($prop_groups, $type, $action, $from_action);
 		self::output_paging_row($page, $prop_count, $url_without_page);
@@ -257,12 +259,15 @@ class vote
 	{
 		foreach($prop_groups as $prop_group) {
 			echo '<h2>' . $prop_group->constituency . '</h2>';
-			$columns = array(_t("Proposition", array('class' => 'noun')), _t("Support", array('class' => 'noun')));
+			$columns = array(_t("Proposition", array('class' => 'noun'))
+				, _t("Created", array('class' => 'adj'))
+				, _t("Support", array('class' => 'noun')));
 			$rows = array_map(function($prop) use ($type, $action, $from_action) {
 				return array(
 					_link($prop['title'], $type, $action
 						, 'id=' . $prop['id']
 					. \View\general::get_from_action_for_url(array($from_action)))
+					, \general_helpers::show_date($prop['timestamp_created'])
 					, $prop['number_of_supporters']
 					);
 			}, $prop_group->votes);

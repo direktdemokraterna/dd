@@ -31,4 +31,14 @@ class db_general
 		$values = array($voter_id);
 		return db::delete($query, $values);
 	}
+
+	public static function get_order_by ($sortable_columns, $default_sort = 1, $sort = 0)
+	{
+		if ($sort == 0) $sort = $default_sort;
+		$direction = $sort > 0 ? " asc" : " desc";
+		$sort_column = $sortable_columns[abs($sort) - 1];
+		return starts_with($sort_column, "null")
+			? self::get_order_by($sortable_columns, $default_sort)
+			: $sortable_columns[abs($sort) - 1] . $direction;
+	}	
 }

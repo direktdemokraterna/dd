@@ -335,52 +335,6 @@ class vote_helpers
 			default: throw new Exception("Unknown vote_type: " . $vote_type);
 		}
 	}
-
-	public static function sort_prio_ranking ($prio_ranking){
-		// Ordering JSON prio ranking so that highest rank is top and lowest rank bottom
-		$prio_ranking_array = json_decode($prio_ranking, true);
-		arsort($prio_ranking_array, SORT_NUMERIC);
-		$sorted_prio_ranking = json_encode($prio_ranking_array);
-		return $sorted_prio_ranking;
-	}
-
-	public static function get_vote_groups($statuses = null) 
-	{
-		$user_id = $_SESSION['id'];
-		$page = isset($_GET['page']) ? $_GET['page'] : 1;
-		$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;
-		$votes = db_vote::list_votes($user_id, $sort, $page, $statuses);
-		return self::group_by_constituency($votes);
-	}
-
-	public static function get_prop_groups($status) 
-	{
-		$user_id = $_SESSION['id'];
-		$page = isset($_GET['page']) ? $_GET['page'] : 1;
-		$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
-		$props = db_prop::list_props($status, $user_id, $sort, $page);
-		return self::group_by_constituency($props);
-	}
-
-	public static function group_by_constituency($rows) 
-	{
-		$groups = array();
-		foreach ($rows as $row) {
-			$group = self::get_vote_group($groups, $row["constituency"]);
-			$group->add_vote($row);
-		}
-		return $groups;
-	}
-
-	private static function &get_vote_group(&$vote_groups, $constituency) 
-	{
-		if (array_key_exists($constituency, $vote_groups)) {
-			return $vote_groups[$constituency];
-		}
-		$vote_group = Vote_group::create();
-		$vote_groups[$constituency] = $vote_group;
-		return $vote_group;
-	}
 } //End of class
 
 class Vote_group {
