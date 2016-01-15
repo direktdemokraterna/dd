@@ -11,7 +11,7 @@
 	if(empty($posts))
 		__p(_t("The thread doesn't exist or you don't have permission to read it."));
 	else {
-		\View\forum::show_posts("index.php?type=forum&action=show_posts&topic_id=" . $topic_id, $page, $posts, $post_count);
+		\View\forum::show_posts($page, $posts, $post_count);
 		if(isset($_SESSION['is_forum_admin']))
 			echo '<p><a href="index.php?type=forum_admin&action=edit_topic&id=' . $topic_id . '" style="float: right;">' . _t("Moderate topic") . '</a></p>';
 		\View\controls::output_text_editor(array(

@@ -7,6 +7,6 @@
 	if(empty($posts))
 		__p(_t("No posts."));
 	else
-		\View\forum::show_posts("index.php?type=forum&action=posts_by_user&id=" . $_GET['id'], $page, $posts, $post_count);
+		\View\forum::show_posts($page, $posts, $post_count);
 ?>
 

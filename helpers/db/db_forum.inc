@@ -270,6 +270,16 @@ class db_forum
 		return db::select($query, $values);
 	}
 
+	public static function get_topics_by_user_count ($user_id, $access_user_id)
+	{
+		$query = "select count(*)
+					from post p, user u, forum_user fu 
+					where p.user_id = u.id and p.user_id = ? and is_topic = 1 
+					and fu.user_id = ? and fu.forum_id = p.forum_id";
+		$values = Array($user_id, $access_user_id);
+		return db::select_single_value($query, $values);
+	}
+
 	public static function search_posts ($search, $access_user_id, $page = 1, $limit = POSTS_PER_PAGE){
 		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time 				as posted_time, p.last_edited_time as last_edited_time, p.topic_id as topic_id, u.image as user_image

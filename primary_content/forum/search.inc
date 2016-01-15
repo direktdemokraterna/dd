@@ -8,7 +8,7 @@
 	else {
 		__h1(_t("Found posts"));
 		$result_count = db_forum::get_post_count_from_search($search_query, $_SESSION['id']);
-		\View\forum::show_posts("index.php?type=forum&action=search", $page, $posts, $result_count);
+		\View\forum::show_posts($page, $posts, $result_count);
 	} 
 ?>
 
