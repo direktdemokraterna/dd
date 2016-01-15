@@ -50,11 +50,7 @@
 				)); 
 			?>
 		</li>
-		<li><?php _link(_t("Forum"), "forum"); ?>
-			<ul>
-				<li></li>
-			</ul>
-		</li>
+		<li><?php __link(_t("Forum"), "forum"); ?></li>
 		<?php if(isset($_SESSION['admin'])) : ?>
 		<li><a href="#"><?php __t("Admin"); ?></a>
 			<ul>

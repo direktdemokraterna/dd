@@ -12,6 +12,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+SET SQL_SAFE_UPDATES = 0;
+
 --
 -- Create schema dd
 --
@@ -1136,9 +1138,8 @@ INSERT INTO `proposition_support` (`id`,`proposition_id`,`constituency_id`,`user
  (12,8,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441566655),
  (13,9,0,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1441614937),
  (31,7,165,'nNSpJccU3OdwJxq3SMBw',NULL,8,0,1,1,1443615670),
- (30,7,165,NULL,8,NULL,NULL,NULL,1,1443615670),
- (27,7,165,'osb8A8xrrQrGQfologrm',NULL,NULL,NULL,NULL,1,1443515050);
-/*!40000 ALTER TABLE `proposition_support` ENABLE KEYS */;
+ (30,7,165,NULL,8,NULL,NULL,NULL,1,1443615670);
+ /*!40000 ALTER TABLE `proposition_support` ENABLE KEYS */;
 
 --
 -- Definition of table `user_application`
