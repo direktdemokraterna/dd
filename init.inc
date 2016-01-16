@@ -1,5 +1,5 @@
 <?php 
-DEFINE('VERSION', 0.101);
+DEFINE('VERSION', 0.2);
 
 session_start();
 
