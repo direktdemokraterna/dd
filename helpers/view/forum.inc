@@ -77,7 +77,7 @@ class forum
 		$forum_info = \db_forum::get_forum_from_post($post_id);
 		general::open_div("forum_info");
 		__link(_t("Forums"), "forum", "show_forums");
-		__space(2);
+		echo _space() . '>' . _space();
 		__link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
 	} 
 

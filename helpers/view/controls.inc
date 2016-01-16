@@ -204,24 +204,25 @@ class controls
 		$params_except_page_number = \Logic\util::make_param_string($query) . "&page=";
 		echo "<span class=\"float-right\">";
 		if($page > 1)
-			__link('<', $query['type'], $query['action'], $params_except_page_number . ($page - 1));
+			self::output_page_link('<', $query, $params_except_page_number . ($page - 1));
 		for($i=1; $i<($number_of_pages+1); $i++){
 			__space(3);
 			if($i == $page)
 				__strong($i);
 			else
-				__link($i, $query['type'], $query['action'], $params_except_page_number . $i);
+				self::output_page_link($i, $query, $params_except_page_number . $i);
 		}
 		if($page < $number_of_pages){
 			__space(3);
-			__link('>', $query['type'], $query['action'], $params_except_page_number . ($page + 1));
+			self::output_page_link('>', $query, $params_except_page_number . ($page + 1));
 		}
 		echo "</span>";
 	}
 
 	private static function output_page_link ($label, $query, $params_string)
 	{
-		__link($label, $query['type'], $query['action'], $params_string);
+		__link($label, $query['type'], isset($query['action']) ? $query['action'] : null
+			, $params_string);
 	}
 
 	private static function get_value($parameter_name, $values = null) {
