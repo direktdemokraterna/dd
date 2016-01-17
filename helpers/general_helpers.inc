@@ -161,7 +161,7 @@ class general_helpers {
 		if(self::is_same_day($tested_time, $present_time))
 		return _t("Today");
 		if(self::is_same_day($tested_time_next_day, $present_time))
-		return _("Yesterday");
+		return _t("Yesterday");
 		if(self::is_same_day($tested_time_previous_day, $present_time))
 		return _t("Tomorrow");
 		return date("j/n", $time);
