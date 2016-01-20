@@ -74,7 +74,8 @@
 		echo _textarea($control_name, $control_label, $tab_index, $values, $attributes);
 	}
 
-	function __checkbox($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+	function __checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null)
+	{
 		echo _checkbox($control_name, $control_label, $value, $tab_index, $checked_values);
 	}
 
@@ -170,7 +171,7 @@
 		return \View\controls::generate_textarea($control_name, $control_label, $tab_index, $values, $attributes);
 	}
 
-	function _checkbox($control_name, $control_label, $tab_index = 1, $values = null, $attributes = null) {
+	function _checkbox($control_name, $control_label, $value, $tab_index = 1, $checked_values = null) {
 		return \View\controls::generate_checkbox($control_name, $control_label, $value, $tab_index, $checked_values);
 	}
 
