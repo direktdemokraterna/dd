@@ -1,3 +1,9 @@
+<?php
+	if (isset($_COOKIE['error'])) {
+		echo '<div class="red_message">' . $_COOKIE['error'] . '</div>';
+		unset($_COOKIE['error']);
+	}
+?>
 <div id="wrap">
 
 <div class="login-column">

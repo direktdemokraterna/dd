@@ -22,10 +22,13 @@ class util
 		return isset($_SESSION['red_report_message']) && $_SESSION['red_report_message'];
 	}
 
-	public static function report_error($message) 
+	public static function report_error($message, $has_session = true) 
 	{
-		$_SESSION['report_message'] = $message;
-		$_SESSION['red_report_message'] = 1;
+		if ($has_session) {
+			$_SESSION['report_message'] = $message;
+			$_SESSION['red_report_message'] = 1;
+		}
+		else setcookie('error', $message, strtotime('+30 seconds'));
 	}
 
 	public static function update_search_query($type, $action = "search") {

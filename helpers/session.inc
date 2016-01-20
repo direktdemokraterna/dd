@@ -38,8 +38,11 @@ class session
 			self::destroy_session();
 		elseif(self::is_session_open())
 			crypt_helpers::ensure_user_code_on_client($_SESSION['id']);
-		elseif(isset($_POST['login']))
+		elseif(isset($_POST['login'])) {
 			self::create_session();
+			header("Location: " . $_SERVER['REQUEST_URI']);
+			exit();
+		}
 		elseif(isset($_COOKIE['user_id']) && isset($_COOKIE['user_token']))
 			self::restore_session();
 		else
@@ -67,19 +70,19 @@ class session
 
 	private static function create_session() {
 		if (!isset($_POST['username']) || !isset($_POST['password'])) {
-			echo '<div class="red_message">' . _t("Username or password is blank.") . '</div>';
+			\Logic\util::report_error("Username or password is blank.", false);
 			return;
 		}
 		$user_data = db_user::get_user_data_from_username($_POST['username']);
 		if(self::is_user_suspended($user_data)) {
-			echo '<div class="red_message">' . _t("The user is temporarily suspended.") . '</div>';
+			\Logic\util::report_error("The user is temporarily suspended.", false);
 			return;
 		}
 		$hasher = new PasswordHash(8, FALSE);
 		if($hasher->CheckPassword($_POST['password'], $user_data['password']))
 			self::open_session($user_data);
 		else
-			echo '<div class="red_message">' . _t("Invalid username or password.") . '</div>';
+			\Logic\util::report_error("Invalid username or password.", false);
 	}
 
 	private static function is_user_suspended($user_data) 
