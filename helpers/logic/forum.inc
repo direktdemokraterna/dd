@@ -22,42 +22,39 @@ class forum
 
 	public static function update_county_region_forum_access ($user_id, $county_id)
 	{
-		$county_forum_id = db_forum::get_local_county_forum($county_id);
-		$region_id = db_constituency::get_region_id_from_county_id($county_id);
-		$region_forum_id = db_forum::get_local_region_forum($region_id);
-		db_forum_admin::drop_local_forums_for_user($user_id);
-		db_forum_admin::add_forum_access($user_id, $county_forum_id);
-		db_forum_admin::add_forum_access($user_id, $region_forum_id);
+		$county_forum_id = \db_forum::get_local_county_forum($county_id);
+		$region_id = \db_constituency::get_region_id_from_county_id($county_id);
+		$region_forum_id = \db_forum::get_local_region_forum($region_id);
+		\db_forum_admin::drop_local_forums_for_user($user_id);
+		\db_forum_admin::add_forum_access($user_id, $county_forum_id);
+		\db_forum_admin::add_forum_access($user_id, $region_forum_id);
 	}
 
 	public static function get_requested_topic() {
 		return isset($_GET['topic_id']) 
 			? $_GET['topic_id']
-			: db_forum::get_topic($_GET['post_id']);
+			: \db_forum::get_topic($_GET['post_id']);
 	}
 
 	public static function get_requested_page($topic_id) {
 		if(isset($_GET['page'])) {
 			if ($_GET['page'] == "last"){
-				$number_of_posts_in_topic = db_forum::get_number_of_posts($topic_id);
+				$number_of_posts_in_topic = \db_forum::get_number_of_posts($topic_id);
 				return self::get_page_from_post_number($number_of_posts_in_topic);
 			}
 			return $_GET['page'];
 		}
 		if(isset($_GET['post_id'])){
-			$posts_before_this_post = db_forum::count_posts_before_post_id($topic_id, $_GET['post_id']);
+			$posts_before_this_post = \db_forum::count_posts_before_post_id($topic_id, $_GET['post_id']);
 			return self::get_page_from_post_number($posts_before_this_post+1);
 		}
 		return 1;
 	}
 
 	public static function make_html_from_post_text($wiki_text) {
-		try {
-			return self::replace_brackets_with_html_tags($wiki_text);
-		}
-		catch (\Exception $ex) {
-			return "ERROR WHEN PARSING TEXT: " . $ex;
-		}
+		$html_text = \Logic\text::make_html_from_wiki_text($wiki_text);
+		$html_text = self::replace_quotes($html_text);
+		return $html_text;
 	}
 
 	public static function set_post_content ($post_id, $text, $action = "new")
@@ -65,7 +62,7 @@ class forum
 		$processed_post_content = self::process_post_text($text);
 		return empty($processed_post_content)
 			? false
-			: db_forum::add_content_to_post($post_id, $processed_post_content, $action);
+			: \db_forum::add_content_to_post($post_id, $processed_post_content, $action);
 	}
 
 	private static function process_post_text ($text)
@@ -73,19 +70,13 @@ class forum
 		$processed_text = \Logic\text::process_text($text);
 		$processed_text = str_replace("[/quote]\r\n\r\n", "[/quote]\r\n", $processed_text);
 		try {
-			$processed_text = self::replace_brackets_with_html_tags($processed_text);
+			$processed_text = self::make_html_from_post_text($processed_text);
 		}
 		catch (\Exception $ex) {
 			\Logic\util::report_error(_t("Malformed text in post"));
 			return null;
 		}
 		return $processed_text;
-	}
-
-	private static function replace_brackets_with_html_tags($wiki_text) {
-		$html_text = \Logic\text::replace_brackets_with_html_tags($wiki_text);
-		$html_text = self::replace_quotes($html_text);
-		return $html_text;
 	}
 
 	private static function replace_quotes($wiki_text)
