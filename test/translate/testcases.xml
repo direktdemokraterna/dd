@@ -1,0 +1,4314 @@
+<cases>
+	<case>
+		<when lang="en">
+			(You support the exclusion of this group member)
+		</when>
+		<then lang="sv">
+			(Du stödjer uteslutning av denna gruppmedlem)
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			* mandatory
+		</when>
+		<then lang="sv">
+			* obligatoriskt
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			. For delegates the possibility to vote closes
+		</when>
+		<then lang="sv">
+			. För delegater stänger möjligheten att rösta
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			. User information have been sent by email to the member.
+		</when>
+		<then lang="sv">
+			. Användaruppgifter har skickats via e-post till medlemmen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			A new member has been registered with the username
+		</when>
+		<then lang="sv">
+			En ny medlem har registrerats med användarnamnet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			A new thread has been created from the post.
+		</when>
+		<then lang="sv">
+			En ny tråd har skapats från inlägget.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Abstain
+		</when>
+		<then lang="sv">
+			Avstår
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Abstain:
+		</when>
+		<then lang="sv">
+			Avstår:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Act as delegate
+		</when>
+		<then lang="sv">
+			Agera som delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Act as individual
+		</when>
+		<then lang="sv">
+			Agera som privatperson
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Active propositions
+		</when>
+		<then lang="sv">
+			Aktiva propositioner
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Active votes
+		</when>
+		<then lang="sv">
+			Pågående omröstningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Add
+		</when>
+		<then lang="sv">
+			Lägg till
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Add activity
+		</when>
+		<then lang="sv">
+			Lägg till aktivitet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Add activity to calendar
+		</when>
+		<then lang="sv">
+			Lägg till aktivitet till kalender
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Add alternative to this vote
+		</when>
+		<then lang="sv">
+			Lägg till alternativ till denna omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Added by
+		</when>
+		<then lang="sv">
+			Inlagd av
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Addition
+		</when>
+		<then lang="sv">
+			Tillägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Admin
+		</when>
+		<then lang="sv">
+			Admin
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Administrate the workgroup
+		</when>
+		<then lang="sv">
+			Administrera arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Administrate this workgroup as member admin
+		</when>
+		<then lang="sv">
+			Administrera denna arbetsgrupp som medlemsansvarig
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Administrator roles for this user
+		</when>
+		<then lang="sv">
+			Administratörsroller för denna användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Administrator roles updated.
+		</when>
+		<then lang="sv">
+			Administratörsroller uppdaterade.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Administrators
+		</when>
+		<then lang="sv">
+			Administratörer
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Affirmed propositions
+		</when>
+		<then lang="sv">
+			Beviljade propositioner
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			All ballots in the vote:
+		</when>
+		<then lang="sv">
+			Alla röster i omröstningen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			All municipalities
+		</when>
+		<then lang="sv">
+			Alla kommuner
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			All regions
+		</when>
+		<then lang="sv">
+			Alla län
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			All support-ballots on proposition
+		</when>
+		<then lang="sv">
+			Alla stöd-röster på propositionen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			All votes
+		</when>
+		<then lang="sv">
+			Alla omröstningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Alphabetic
+		</when>
+		<then lang="sv">
+			Alfabetisk
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Alternatives
+		</when>
+		<then lang="sv">
+			Alternativ
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Available for all
+		</when>
+		<then lang="sv">
+			Tillgänglig för alla
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Back to the member page
+		</when>
+		<then lang="sv">
+			Tillbaka till medlemssidan
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Back to the search result
+		</when>
+		<then lang="sv">
+			Tillbaka till sökresultatet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Back to the vote
+		</when>
+		<then lang="sv">
+			Tillbaka till omröstningen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Ballot
+		</when>
+		<then lang="sv">
+			Röst
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Bold
+		</when>
+		<then lang="sv">
+			Fet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			By:
+		</when>
+		<then lang="sv">
+			Av:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Calendar
+		</when>
+		<then lang="sv">
+			Kalender
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Candidate election
+		</when>
+		<then lang="sv">
+			Personval
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Candidate for this vote
+		</when>
+		<then lang="sv">
+			Kandidera till denna omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Candidate in
+		</when>
+		<then lang="sv">
+			Kandidat in
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Candidates above the line are elected to the workgroup, candidates in bold are those who are currently members:
+		</when>
+		<then lang="sv">
+			Kandidater ovanför strecket är valda till arbetsgruppen, kandidater i fetstil är de som är medlemmar för närvarande:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Candidates for membership:
+		</when>
+		<then lang="sv">
+			Kandidater till medlemskap:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Caption
+		</when>
+		<then lang="sv">
+			Rubrik
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Cast your vote:
+		</when>
+		<then lang="sv">
+			Lägg din röst:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Categories
+		</when>
+		<then lang="sv">
+			Kategorier
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Category
+		</when>
+		<then lang="sv">
+			Kategori
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Category created
+		</when>
+		<then lang="sv">
+			Kategorin skapad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Category information updated.
+		</when>
+		<then lang="sv">
+			Kategoriinformation uppdaterad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Change
+		</when>
+		<then lang="sv">
+			Ändra
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Change information for this user
+		</when>
+		<then lang="sv">
+			Ändra information för denna användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Change my information
+		</when>
+		<then lang="sv">
+			Ändra min information
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Change my profile
+		</when>
+		<then lang="sv">
+			Ändra min profil
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Change password
+		</when>
+		<then lang="sv">
+			Ändra lösenord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Change settings
+		</when>
+		<then lang="sv">
+			Ändra inställningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Check all
+		</when>
+		<then lang="sv">
+			Markera alla
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Check if you want the activity to be repeated several days in a row, once every week for several weeks or once every month for several months.
+		</when>
+		<then lang="sv">
+			Markera om du vill att aktiviteten ska upprepas flera dagar i rad, en gång i veckan under flera veckor eller en gång i månaden under flera månader.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			City
+		</when>
+		<then lang="sv">
+			Postort
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			City*
+		</when>
+		<then lang="sv">
+			Postort*
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Click on
+		</when>
+		<then lang="sv">
+			Klicka på
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Click to stop supporting
+		</when>
+		<then lang="sv">
+			Klicka för att sluta stödja
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituencies
+		</when>
+		<then lang="sv">
+			Valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituency
+		</when>
+		<then lang="sv">
+			Valkrets
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituency activity updated.
+		</when>
+		<then lang="sv">
+			Valkretsaktivitet uppdaterat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituency authorisations for this user
+		</when>
+		<then lang="sv">
+			Valkretsbehörigheter för denna användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituency missing.
+		</when>
+		<then lang="sv">
+			Valkrets saknas.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituency missing. No change made.
+		</when>
+		<then lang="sv">
+			Valkrets saknas. Ingen ändring gjord.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituency permissions updated.
+		</when>
+		<then lang="sv">
+			Valkretsbehörigheter uppdaterade.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Constituency:
+		</when>
+		<then lang="sv">
+			Valkrets:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Continuous
+		</when>
+		<then lang="sv">
+			Continuous
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create
+		</when>
+		<then lang="sv">
+			Skapa
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create a new thread from this post
+		</when>
+		<then lang="sv">
+			Skapa en ny tråd från detta inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create a new workgroup
+		</when>
+		<then lang="sv">
+			Skapa en ny arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create alternative
+		</when>
+		<then lang="sv">
+			Skapa alternativ
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create constituency
+		</when>
+		<then lang="sv">
+			Skapa valkrets
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create delegate
+		</when>
+		<then lang="sv">
+			Skapa delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new category
+		</when>
+		<then lang="sv">
+			Skapa ny kategori
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new constituency
+		</when>
+		<then lang="sv">
+			Skapa ny valkrets
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new forum
+		</when>
+		<then lang="sv">
+			Skapa nytt forum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new member
+		</when>
+		<then lang="sv">
+			Skapa ny medlem
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new proposition
+		</when>
+		<then lang="sv">
+			Skapa ny proposition
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new thread in this forum
+		</when>
+		<then lang="sv">
+			Skapa ny tråd i detta forum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new vote
+		</when>
+		<then lang="sv">
+			Skapa ny omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create new workgroup
+		</when>
+		<then lang="sv">
+			Skapa ny arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create proposition
+		</when>
+		<then lang="sv">
+			Skapa proposition
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Create workgroup
+		</when>
+		<then lang="sv">
+			Skapa arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Created
+		</when>
+		<then lang="sv">
+			Skapat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Current image:
+		</when>
+		<then lang="sv">
+			Aktuell bild:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Database error. No change made.
+		</when>
+		<then lang="sv">
+			Databasfel. Ingen ändring gjord.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Date
+		</when>
+		<then lang="sv">
+			Datum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delegands
+		</when>
+		<then lang="sv">
+			Delegander
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delegate
+		</when>
+		<then lang="sv">
+			Delegera
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delegate description updated.
+		</when>
+		<then lang="sv">
+			Delegera beskrivning uppdaterad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delegate settings
+		</when>
+		<then lang="sv">
+			Delegatinställningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delegate voting closes
+		</when>
+		<then lang="sv">
+			Delegatröstning avslutas
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delegates
+		</when>
+		<then lang="sv">
+			Delegater
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delete
+		</when>
+		<then lang="sv">
+			Radera
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delete the post
+		</when>
+		<then lang="sv">
+			Radera inlägget
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Delete the topic and all its posts
+		</when>
+		<then lang="sv">
+			Radera ämnet och alla dess inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Description
+		</when>
+		<then lang="sv">
+			Beskrivning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Description changed
+		</when>
+		<then lang="sv">
+			Beskrivningen ändrad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Description missing.
+		</when>
+		<then lang="sv">
+			Beskrivning saknas.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Description of the workgroup
+		</when>
+		<then lang="sv">
+			Beskrivning av arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Description:
+		</when>
+		<then lang="sv">
+			Beskrivning:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Discontinue your membership
+		</when>
+		<then lang="sv">
+			Avsluta ditt medlemskap
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Do you really want to delete the post?
+		</when>
+		<then lang="sv">
+			Vill du verkligen radera inlägget?
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Do you really want to leave this workgroup?
+		</when>
+		<then lang="sv">
+			Vill du verkligen lämna denna arbetsgrupp?
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Do you really want to remove this user?
+		</when>
+		<then lang="sv">
+			Vill du verkligen ta bort denna användare?
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Do you really want to remove this workgroup?
+		</when>
+		<then lang="sv">
+			Vill du verkligen ta bort denna arbetsgrupp?
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Do you really want to replace the password for this user with an auto-generated password?
+		</when>
+		<then lang="sv">
+			Vill du verkligen ersätta lösenordet för denna användare med ett automatiskt skapat lösenord?
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Doesn't support
+		</when>
+		<then lang="sv">
+			Stöder ej
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Don't support
+		</when>
+		<then lang="sv">
+			Stödjer inte
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit
+		</when>
+		<then lang="sv">
+			Redigera
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit activity
+		</when>
+		<then lang="sv">
+			Redigera aktivitet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit constituency
+		</when>
+		<then lang="sv">
+			Redigera valkrets
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit description
+		</when>
+		<then lang="sv">
+			Redigera beskrivning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit member
+		</when>
+		<then lang="sv">
+			Redigera medlem
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit post
+		</when>
+		<then lang="sv">
+			Redigera inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit the workgroup
+		</when>
+		<then lang="sv">
+			Redigera arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit vote alternative
+		</when>
+		<then lang="sv">
+			Redigera omröstningsalternativ
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Edit vote:
+		</when>
+		<then lang="sv">
+			Redigera omröstning:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Election of members to the workgroup
+		</when>
+		<then lang="sv">
+			Personval av medlemmar till arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Email
+		</when>
+		<then lang="sv">
+			E-post
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Email address
+		</when>
+		<then lang="sv">
+			E-postadress
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Email address:
+		</when>
+		<then lang="sv">
+			E-postadress:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Every day
+		</when>
+		<then lang="sv">
+			Varje dag
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Every month
+		</when>
+		<then lang="sv">
+			Varje månad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Every week
+		</when>
+		<then lang="sv">
+			Varje vecka
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Filtering:
+		</when>
+		<then lang="sv">
+			Filtrering:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Filtrering:
+		</when>
+		<then lang="sv">
+			Filtrering:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum
+		</when>
+		<then lang="sv">
+			Forum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum access
+		</when>
+		<then lang="sv">
+			Forumbehörighet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum admin
+		</when>
+		<then lang="sv">
+			Forumadministratör
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum created
+		</when>
+		<then lang="sv">
+			Forumet skapat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum information updated.
+		</when>
+		<then lang="sv">
+			Foruminformation uppdaterad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum not found.
+		</when>
+		<then lang="sv">
+			Forum inte funna.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum permissions updated.
+		</when>
+		<then lang="sv">
+			Forumbehörigheter uppdaterade.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forum topic-ID
+		</when>
+		<then lang="sv">
+			Forumtråds-ID
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forums
+		</when>
+		<then lang="sv">
+			Forum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Forums under this category
+		</when>
+		<then lang="sv">
+			Forum under denna kategori
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Found posts
+		</when>
+		<then lang="sv">
+			Funna inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Found propositions
+		</when>
+		<then lang="sv">
+			Funna propositioner
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Found votes
+		</when>
+		<then lang="sv">
+			Funna omröstningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Found workgroups
+		</when>
+		<then lang="sv">
+			Funna arbetsgrupper
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Generate new password
+		</when>
+		<then lang="sv">
+			Skapa nytt lösenord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Given name
+		</when>
+		<then lang="sv">
+			Förnamn
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Handle applications
+		</when>
+		<then lang="sv">
+			Hantera ansökningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Handle delegate
+		</when>
+		<then lang="sv">
+			Hantera delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Handle delegations
+		</when>
+		<then lang="sv">
+			Hantera delegeringar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Hello,
+		</when>
+		<then lang="sv">
+			Hej,
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Here you can choose in which constituencies other users shall be able to delegate to you.
+		</when>
+		<then lang="sv">
+			Här kan du välja inom vilka valkretsar andra användare ska kunna delegera till dig.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin.
+		</when>
+		<then lang="sv">
+			Här kan du skapa fler omröstningsalternativ till prioritet rösta ovan. Notera att när du har skapat ett alternativ kan det inte tas bort annat än av en valadministratör.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Here you create restricted workgroups, workgroups whose membership is not free and with a restricted number of members. In association with the creation of this workgroup a continous vote will also be created where the members of this workgroup are appointed.
+		</when>
+		<then lang="sv">
+			Här skapar man stängda arbetsgrupper, arbetsgrupper vars medlemskap inte är öppet och vars medlemsantal är begränsat. I samband med att arbetsgruppen skapas kommer det också att skapas en kontinuerlig omröstning där medlemmarna i denna arbetsgrupp utses.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			I want to subscribe to the news letter
+		</when>
+		<then lang="sv">
+			Jag vill prenumerera på nyhetsbrevet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			If the box above is checked you act as delegate instead of as individual. This means that you vote for all those who have delegated their vote to you for the particular issue. It also means that your ballot is public and can be seen by others. You can only vote as delegate in those constituencies for which you have registerered your delegacy below. In all other constituencies you vote as individual even if the box above is checked.
+		</when>
+		<then lang="sv">
+			Om rutan ovan är markerad agerar du som delegat istället för som privatperson. Det innebär att du röstar för alla som har delegerat sin röst till dig i den frågan. Det innebär också att din röst är offentlig och kan ses av andra. Du kan bara rösta som delegat i de valkretsar som du angivit för din delegat nedan. I alla andra valkretsar röstar du som privatperson även om rutan ovan är markerad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Image updated.
+		</when>
+		<then lang="sv">
+			Bilden uppdaterad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Inbox
+		</when>
+		<then lang="sv">
+			Inkorgen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Invalid $param_name: $time_param
+		</when>
+		<then lang="sv">
+			Ogiltig $param_name: $time_param
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Invalid action:
+		</when>
+		<then lang="sv">
+			Ogiltig action:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Invalid social security number
+		</when>
+		<then lang="sv">
+			Ogiltigt personnummer
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Is
+		</when>
+		<then lang="sv">
+			Är
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Italic
+		</when>
+		<then lang="sv">
+			Kursiv
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Last login
+		</when>
+		<then lang="sv">
+			Senast inloggad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Last login:
+		</when>
+		<then lang="sv">
+			Senast inloggad:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Last name
+		</when>
+		<then lang="sv">
+			Efternamn
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Last name*
+		</when>
+		<then lang="sv">
+			Efternamn*
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Latest post
+		</when>
+		<then lang="sv">
+			Senaste inlägget
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Latest posts
+		</when>
+		<then lang="sv">
+			Senaste inläggen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Leave this workgroup
+		</when>
+		<then lang="sv">
+			Lämna denna arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Limited access
+		</when>
+		<then lang="sv">
+			Begränsad tillgång
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Link to this proposition's forum debate
+		</when>
+		<then lang="sv">
+			Länk till denna propositions forumdebatt
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Link to this vote's forum debate
+		</when>
+		<then lang="sv">
+			Länk till denna omröstnings forumdebatt
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List active propositions
+		</when>
+		<then lang="sv">
+			Lista aktiva propositioner
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List active votes
+		</when>
+		<then lang="sv">
+			Lista pågående omröstningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List affirmed propositions
+		</when>
+		<then lang="sv">
+			Lista beviljade propositioner
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List categories
+		</when>
+		<then lang="sv">
+			Lista kategorier
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List constituencies
+		</when>
+		<then lang="sv">
+			Lista valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List delegates
+		</when>
+		<then lang="sv">
+			Lista delegater
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List forums
+		</when>
+		<then lang="sv">
+			Lista forum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List old votes
+		</when>
+		<then lang="sv">
+			Lista gamla omröstningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			List votes
+		</when>
+		<then lang="sv">
+			Lista omröstningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Location
+		</when>
+		<then lang="sv">
+			Plats
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Location:
+		</when>
+		<then lang="sv">
+			Plats:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Login
+		</when>
+		<then lang="sv">
+			Logga in
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Logout
+		</when>
+		<then lang="sv">
+			Logga ut
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Make an addition to your post
+		</when>
+		<then lang="sv">
+			Gör ett tillägg till ditt inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Malformed text in post
+		</when>
+		<then lang="sv">
+			Felformaterad text i inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Member admin
+		</when>
+		<then lang="sv">
+			Medlemsansvarig
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Member out
+		</when>
+		<then lang="sv">
+			Medlem ut
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Members
+		</when>
+		<then lang="sv">
+			Medlemmar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Members of this workgroup:
+		</when>
+		<then lang="sv">
+			Medlemmar i denna arbetsgrupp:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Members who has this role:
+		</when>
+		<then lang="sv">
+			Medlemmar som har denna roll:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Membership application
+		</when>
+		<then lang="sv">
+			Medlemsansökan
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Message
+		</when>
+		<then lang="sv">
+			Meddelande
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Message not found
+		</when>
+		<then lang="sv">
+			Meddelandet kunde inte hittas
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Messages
+		</when>
+		<then lang="sv">
+			Meddelanden
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Messages must have both caption and message-text.
+		</when>
+		<then lang="sv">
+			Meddelanden måste ha både rubrik och meddelande-text.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Moderate
+		</when>
+		<then lang="sv">
+			Moderera
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Moderate post
+		</when>
+		<then lang="sv">
+			Moderera inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Moderate topic
+		</when>
+		<then lang="sv">
+			Moderera ämne
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Moderate topic:
+		</when>
+		<then lang="sv">
+			Moderera ämne:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Motivate why this post should be reported
+		</when>
+		<then lang="sv">
+			Motivera varför detta inlägg ska anmälas
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Move
+		</when>
+		<then lang="sv">
+			Flytta
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Move the post to another thread
+		</when>
+		<then lang="sv">
+			Flytta inlägget till ett annat tråd
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Move the topic to another forum
+		</when>
+		<then lang="sv">
+			Flytta ämnet till ett annat forum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Municipality
+		</when>
+		<then lang="sv">
+			Kommun
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Municipality:
+		</when>
+		<then lang="sv">
+			Kommun:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			My profile
+		</when>
+		<then lang="sv">
+			Min profil
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Name
+		</when>
+		<then lang="sv">
+			Namn
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Name of workgroup
+		</when>
+		<then lang="sv">
+			Namn på arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			New password
+		</when>
+		<then lang="sv">
+			Nytt lösenord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			New title
+		</when>
+		<then lang="sv">
+			Ny titel
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No
+		</when>
+		<then lang="sv">
+			Nej
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No active workgroups with the phrase:
+		</when>
+		<then lang="sv">
+			Inga aktiva arbetsgrupper med frasen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No alternatives
+		</when>
+		<then lang="sv">
+			Inga alternativ
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No ballot has been cast in your name in this vote.
+		</when>
+		<then lang="sv">
+			Ingen röst är lagd i ditt namn i denna omröstning.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No candidates
+		</when>
+		<then lang="sv">
+			Inga kandidater
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No change made.
+		</when>
+		<then lang="sv">
+			Ingen ändring gjord.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No changes made
+		</when>
+		<then lang="sv">
+			Inga ändringar gjorda
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No changes made.
+		</when>
+		<then lang="sv">
+			Inga ändringar gjorda.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No delegations
+		</when>
+		<then lang="sv">
+			Inga delegeringar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No description
+		</when>
+		<then lang="sv">
+			Ingen beskrivning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No description.
+		</when>
+		<then lang="sv">
+			Ingen beskrivning.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No messages.
+		</when>
+		<then lang="sv">
+			Inga meddelanden.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No posts
+		</when>
+		<then lang="sv">
+			Inga inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No posts with the phrase:
+		</when>
+		<then lang="sv">
+			Inga inlägg med frasen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No posts.
+		</when>
+		<then lang="sv">
+			Inga inlägg.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No propositions with the phrase:
+		</when>
+		<then lang="sv">
+			Inga propositioner med frasen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No settings changed
+		</when>
+		<then lang="sv">
+			Inga inställningar ändrade
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No subforums
+		</when>
+		<then lang="sv">
+			Inga underforum
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No subscribed participants
+		</when>
+		<then lang="sv">
+			Inga anmälda deltagare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No thread starts.
+		</when>
+		<then lang="sv">
+			Inga trådstarter.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No topics in this forum.
+		</when>
+		<then lang="sv">
+			Inga ämnen i detta forum.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No update made
+		</when>
+		<then lang="sv">
+			Ingen uppdatering gjord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No value
+		</when>
+		<then lang="sv">
+			Inget värde
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No votes with the phrase:
+		</when>
+		<then lang="sv">
+			Inga omröstningar med frasen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No workgroups.
+		</when>
+		<then lang="sv">
+			Inga arbetsgrupper.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			No:
+		</when>
+		<then lang="sv">
+			Nej:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Number of ballots
+		</when>
+		<then lang="sv">
+			Antal röster
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Number of cast ballots
+		</when>
+		<then lang="sv">
+			Antal lagda röster
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Number of delegates who has voted
+		</when>
+		<then lang="sv">
+			Antal delegater som röstat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Number of members
+		</when>
+		<then lang="sv">
+			Antal medlemmar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Number of members:
+		</when>
+		<then lang="sv">
+			Antal medlemmar:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Number of repetitions
+		</when>
+		<then lang="sv">
+			Antal upprepningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Number of support-ballots
+		</when>
+		<then lang="sv">
+			Antal stöd-röster
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Old password
+		</when>
+		<then lang="sv">
+			Gammalt lösenord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			One or more mandatory fields are not filled in.
+		</when>
+		<then lang="sv">
+			Ett eller fler obligatoriska fält är inte ifyllda.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Order the alternatives
+		</when>
+		<then lang="sv">
+			Rangordna alternativen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Order the candidates
+		</when>
+		<then lang="sv">
+			Rangordna kandidaterna
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Outbox
+		</when>
+		<then lang="sv">
+			Skickade
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Participants
+		</when>
+		<then lang="sv">
+			Deltagare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Password
+		</when>
+		<then lang="sv">
+			Lösenord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Password:
+		</when>
+		<then lang="sv">
+			Lösenord:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Personal image
+		</when>
+		<then lang="sv">
+			Personlig bild
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Post can only be deleted within 10 minutes after they have been posted, that time has already passed.
+		</when>
+		<then lang="sv">
+			Inlägg kan bara raderas i 10 minuter efter att de postats, den tiden har redan passerat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Post changed by moderator
+		</when>
+		<then lang="sv">
+			Inlägg ändrat av moderator
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Post created.
+		</when>
+		<then lang="sv">
+			Inlägget skapat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Post deleted.
+		</when>
+		<then lang="sv">
+			Inlägget raderat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Posts
+		</when>
+		<then lang="sv">
+			Inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Posts (
+		</when>
+		<then lang="sv">
+			Inlägg (
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Posts by
+		</when>
+		<then lang="sv">
+			Inlägg av
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Presentation
+		</when>
+		<then lang="sv">
+			Presentation
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Presentation:
+		</when>
+		<then lang="sv">
+			Presentation:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Private forum for the workgroup
+		</when>
+		<then lang="sv">
+			Privat forum för arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Process application from
+		</when>
+		<then lang="sv">
+			Hantera ansökan från
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Profile image
+		</when>
+		<then lang="sv">
+			Profilbild
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Proposition created by:
+		</when>
+		<then lang="sv">
+			Propositionen skapad av:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Proposition created:
+		</when>
+		<then lang="sv">
+			Propositionen skapad:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Proposition:
+		</when>
+		<then lang="sv">
+			Proposition:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Propositions
+		</when>
+		<then lang="sv">
+			Propositioner
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Public forum for the workgroup
+		</when>
+		<then lang="sv">
+			Offentligt forum för arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Re:
+		</when>
+		<then lang="sv">
+			Sv:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Recipient
+		</when>
+		<then lang="sv">
+			Mottagare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Recipient not found.
+		</when>
+		<then lang="sv">
+			Mottagaren kunde inte hittas.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Recipient:
+		</when>
+		<then lang="sv">
+			Mottagare:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Region
+		</when>
+		<then lang="sv">
+			Län
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Region:
+		</when>
+		<then lang="sv">
+			Län:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Register as member
+		</when>
+		<then lang="sv">
+			Registrera som medlem
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Reject application
+		</when>
+		<then lang="sv">
+			Avslå ansökan
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Remember me
+		</when>
+		<then lang="sv">
+			Kom ihåg mig
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Removal of the workgroup cannot be undone.
+		</when>
+		<then lang="sv">
+			Borttagning av arbetsgruppen kan inte ångras.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Remove
+		</when>
+		<then lang="sv">
+			Ta bort
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Remove candidacy
+		</when>
+		<then lang="sv">
+			Ta bort kandidatur
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Remove delegate
+		</when>
+		<then lang="sv">
+			Ta bort delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Remove from received
+		</when>
+		<then lang="sv">
+			Ta bort från mottagit
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Remove from sent
+		</when>
+		<then lang="sv">
+			Ta bort från skickat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Remove this user
+		</when>
+		<then lang="sv">
+			Ta bort denna användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Repeat new password
+		</when>
+		<then lang="sv">
+			Upprepa nytt lösenord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Reply
+		</when>
+		<then lang="sv">
+			Svara
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Reply to:
+		</when>
+		<then lang="sv">
+			Svar till:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Report
+		</when>
+		<then lang="sv">
+			Anmäl
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Report post
+		</when>
+		<then lang="sv">
+			Anmäl inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Restore member
+		</when>
+		<then lang="sv">
+			Återställ medlem
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Restricted
+		</when>
+		<then lang="sv">
+			Stängd
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Result
+		</when>
+		<then lang="sv">
+			Resultat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Revoke ballot
+		</when>
+		<then lang="sv">
+			Ångra röst
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Revoke your candidacy for this vote
+		</when>
+		<then lang="sv">
+			Återta din kandidatur för denna omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			See all ballots for this vote
+		</when>
+		<then lang="sv">
+			Se alla röster för denna omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			See all members
+		</when>
+		<then lang="sv">
+			Se alla medlemmar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			See all support-ballots for this proposition
+		</when>
+		<then lang="sv">
+			Se alla stöd-röster för denna proposition
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			See delegate ballots for this proposition
+		</when>
+		<then lang="sv">
+			Se delegatröster för denna proposition
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			See delegate ballots for this vote
+		</when>
+		<then lang="sv">
+			Se delegatröster för denna omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			See proposed workgroups
+		</when>
+		<then lang="sv">
+			Se föreslagna arbetsgrupper
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			See workgroups
+		</when>
+		<then lang="sv">
+			Se arbetsgrupper
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Select recipient
+		</when>
+		<then lang="sv">
+			Välj mottagare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Select your municipality.
+		</when>
+		<then lang="sv">
+			Välj din kommun.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Send
+		</when>
+		<then lang="sv">
+			Skicka
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Send message
+		</when>
+		<then lang="sv">
+			Skicka meddelande
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Sender
+		</when>
+		<then lang="sv">
+			Avsändare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Sender:
+		</when>
+		<then lang="sv">
+			Avsändare:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Sent:
+		</when>
+		<then lang="sv">
+			Skickat:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Set administrator roles for this user
+		</when>
+		<then lang="sv">
+			Ställ in administratörsroller för denna användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Set constituency permissions for this user
+		</when>
+		<then lang="sv">
+			Ställ in valkretsbehörigheter för denna användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Set forum permissions for this user
+		</when>
+		<then lang="sv">
+			Ställ in forumbehörigheter för denna användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Settings
+		</when>
+		<then lang="sv">
+			Inställningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Show Skype name
+		</when>
+		<then lang="sv">
+			Visa Skype-namn
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Show delegates from all constituencies
+		</when>
+		<then lang="sv">
+			Visa delegater från alla valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Show email address
+		</when>
+		<then lang="sv">
+			Visa e-postadress
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Show removed members
+		</when>
+		<then lang="sv">
+			Visa borttagna medlemmar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Show telephone number
+		</when>
+		<then lang="sv">
+			Visa telefonnummer
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Showing
+		</when>
+		<then lang="sv">
+			Visar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Skype name
+		</when>
+		<then lang="sv">
+			Skype-namn
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Skype name:
+		</when>
+		<then lang="sv">
+			Skype-namn:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Social security number
+		</when>
+		<then lang="sv">
+			Personnummer
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Soething went wrong. No alternative created.
+		</when>
+		<then lang="sv">
+			Soething gick fel. Inget alternativ skapat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong.
+		</when>
+		<then lang="sv">
+			Något gick fel.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. Could not update description
+		</when>
+		<then lang="sv">
+			Något gick fel. Kunde inte uppdatera beskrivning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No activity added to the calendar.
+		</when>
+		<then lang="sv">
+			Något gick fel. Ingen aktivitet inlagd i kalendern.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No change made.
+		</when>
+		<then lang="sv">
+			Något gick fel. Ingen ändring gjord.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No delegation registered
+		</when>
+		<then lang="sv">
+			Något gick fel. Ingen delegering registrerad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No delegation registered.
+		</when>
+		<then lang="sv">
+			Något gick fel. Ingen delegering registrerad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No message sent.
+		</when>
+		<then lang="sv">
+			Något gick fel. Inget meddelande skickat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No user created.
+		</when>
+		<then lang="sv">
+			Något gick fel. Ingen användare skapat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No vote created.
+		</when>
+		<then lang="sv">
+			Något gick fel. Ingen omröstning skapat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. No workgroup created
+		</when>
+		<then lang="sv">
+			Något gick fel. Ingen arbetsgrupp skapat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. The ballot was not registered.
+		</when>
+		<then lang="sv">
+			Något gick fel. Rösten registrerades inte.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. The proposition could not be created.
+		</when>
+		<then lang="sv">
+			Något gick fel. Propositionen kunde inte skapas.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Something went wrong. The updated vote's id doesn't match the current vote.
+		</when>
+		<then lang="sv">
+			Något gick fel. Den uppdaterade omröstningens id matchar inte den aktuella omröstningen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Sort order:
+		</when>
+		<then lang="sv">
+			Sortering:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Started by:
+		</when>
+		<then lang="sv">
+			Started av:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Stop supporting this workgroup
+		</when>
+		<then lang="sv">
+			Sluta stödja denna arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Street address
+		</when>
+		<then lang="sv">
+			Gatuadress
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Street address*
+		</when>
+		<then lang="sv">
+			Gatuadress*
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Subject
+		</when>
+		<then lang="sv">
+			Ämne
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Submitted applications
+		</when>
+		<then lang="sv">
+			Inskickade ansökningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Subscribe for this activity
+		</when>
+		<then lang="sv">
+			Anmäl dig till denna aktivitet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Subscription is closed for this activity.
+		</when>
+		<then lang="sv">
+			Anmälan är stängd för denna aktivitet.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Superadmin
+		</when>
+		<then lang="sv">
+			Superadmin
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Support
+		</when>
+		<then lang="sv">
+			Stöd
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Support this workgroup
+		</when>
+		<then lang="sv">
+			Stöd denna arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Supporting
+		</when>
+		<then lang="sv">
+			Stöder
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Telephone
+		</when>
+		<then lang="sv">
+			Telefon
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Telephone 1
+		</when>
+		<then lang="sv">
+			Telefon 1
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Telephone 2
+		</when>
+		<then lang="sv">
+			Telefon 2
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Telephone number:
+		</when>
+		<then lang="sv">
+			Telefonnummer:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Thank you for your application.
+		</when>
+		<then lang="sv">
+			Tack för din ansökan.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The activity has been updated.
+		</when>
+		<then lang="sv">
+			Aktiviteten har uppdaterats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The alternative has been created.
+		</when>
+		<then lang="sv">
+			Alternativet har skapats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The email address is invalid.
+		</when>
+		<then lang="sv">
+			E-postadressen är ogiltig.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The email adress is invalid.
+		</when>
+		<then lang="sv">
+			E-post adress är ogiltig.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The member has got a new password. Email with username and new password has been sent to the member.
+		</when>
+		<then lang="sv">
+			Medlemmen har fått ett nytt lösenord. E-post med användarnamn och nytt lösenord har skickats till medlemmen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The message has been revoked and the recipient did never read it.
+		</when>
+		<then lang="sv">
+			Meddelandet har ångrats och mottagaren hann aldrig läsa det.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The message has been sent
+		</when>
+		<then lang="sv">
+			Meddelandet har skickats
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The new passwords didn't match
+		</when>
+		<then lang="sv">
+			De nya lösenorden matchade inte
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The password has been updated.
+		</when>
+		<then lang="sv">
+			Lösenordet har uppdaterats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The password was not correct
+		</when>
+		<then lang="sv">
+			Lösenordet var inte korrekt
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The post could not be created.
+		</when>
+		<then lang="sv">
+			Inlägget kunde inte skapas.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The post has been appended.
+		</when>
+		<then lang="sv">
+			Inlägget har försätts med tillägg.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The post has been deleted.
+		</when>
+		<then lang="sv">
+			Inlägget har raderats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The post has been edited.
+		</when>
+		<then lang="sv">
+			Inlägget har redigerats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The post has been moved.
+		</when>
+		<then lang="sv">
+			Inlägget har flyttats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The presentation has been updated.
+		</when>
+		<then lang="sv">
+			Presentationen har uppdaterats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The proposition is created.
+		</when>
+		<then lang="sv">
+			Propositionen är skapad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The report is received.
+		</when>
+		<then lang="sv">
+			Anmäl är mottagen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The search gave no hits
+		</when>
+		<then lang="sv">
+			Sökningen gav inga träffar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The thread doesn't exist or you don't have permission to read it.
+		</when>
+		<then lang="sv">
+			Tråden finns inte eller du har inte behörighet att läsa den.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The thread is created.
+		</when>
+		<then lang="sv">
+			Tråden är skapad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The topic changed by moderator
+		</when>
+		<then lang="sv">
+			Ämnet ändrat av moderator
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The topic has been deleted.
+		</when>
+		<then lang="sv">
+			Ämnet har raderats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The topic has been moved.
+		</when>
+		<then lang="sv">
+			Ämnet har flyttats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The user does not have access to this constituency. No vote alternative created.
+		</when>
+		<then lang="sv">
+			Användaren har inte tillgång till denna valkrets. Inget omröstningsalternativ skapat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The user has been removed from the list of members
+		</when>
+		<then lang="sv">
+			Användaren har tagits bort från medlemslistan
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The user has been restored in the list of member
+		</when>
+		<then lang="sv">
+			Användaren har återställts i listan av medlem
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The user is created. The password is:
+		</when>
+		<then lang="sv">
+			Användaren är skapad. Lösenordet är:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The user is temporarily suspended.
+		</when>
+		<then lang="sv">
+			Användaren är tillfälligt avstängd.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The vote closes for delegates after half the vote time. In case this is not appropriate it is possible to change the delegate vote time after the vote has been created.
+		</when>
+		<then lang="sv">
+			Omröstningen avslutas för delegater efter halva omröstningstiden. Ifall detta inte är lämpligt finns möjligheten att ändra delegatomröstningstiden efter att omröstningen har skapats.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The vote count is:
+		</when>
+		<then lang="sv">
+			Ställningen i denna omröstning är:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The vote finishes
+		</when>
+		<then lang="sv">
+			Omröstningen slutar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The vote is continous.
+		</when>
+		<then lang="sv">
+			Omröstningen är kontinuerlig.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The vote is created.
+		</when>
+		<then lang="sv">
+			Omröstningen är skapad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The vote is finished. It finished
+		</when>
+		<then lang="sv">
+			Omröstningen är avslutad. Den avslutades
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The vote is updated.
+		</when>
+		<then lang="sv">
+			Omröstningen är uppdaterad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			The workgroup is now activated and you are included as member.
+		</when>
+		<then lang="sv">
+			Arbetsgruppen är nu aktiverad och du är upptagen som medlem.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			There already exists a workgroup with that name
+		</when>
+		<then lang="sv">
+			Det finns redan en arbetsgrupp med det namnet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			There are no active propositions in your constituencies
+		</when>
+		<then lang="sv">
+			Det finns inga aktiva propositioner i dina valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			There are no active votes in your constituencies
+		</when>
+		<then lang="sv">
+			Det finns inga pågående omröstningar i dina valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			There are no affirmed propositions in your constituencies
+		</when>
+		<then lang="sv">
+			Det finns inga beviljade propositioner i dina valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			There are no closed votes in your constituencies
+		</when>
+		<then lang="sv">
+			Det finns inga stängda omröstningar i dina valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			There are no votes in your constituencies
+		</when>
+		<then lang="sv">
+			Det finns inga omröstningar i dina valkretsar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This is a continous vote and it continues until it is ended through a new yes/no vote.
+		</when>
+		<then lang="sv">
+			Det här är en kontinuerlig omröstning och den fortsätter tills en votering bestämmer att den ska avslutas.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This is an auto-generated forum thread for the proposition:
+		</when>
+		<then lang="sv">
+			Det här är en automatiskt skapad forumtråd för propositionen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This is an auto-generated forum thread for the vote:
+		</when>
+		<then lang="sv">
+			Det här är en automatiskt skapad forumtråd för omröstningen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This is just a front page. Its content has not yet been decided.
+		</when>
+		<then lang="sv">
+			Det här är bara en första-sida. Beslut om dess innehåll är ännu inte fattat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This member's membership was terminated
+		</when>
+		<then lang="sv">
+			Det här medlemmens medlemskap avslutades
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This proposition has reached sufficient support to be subject for vote. The vote can be found
+		</when>
+		<then lang="sv">
+			Den här propositionen har uppnått tillräckligt stöd för att gå vidare och bli omröstning. Omröstningen finns
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This vote appoints members to the workgroup
+		</when>
+		<then lang="sv">
+			Den här omröstningen utser medlemmar till arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This vote appoints the members to the workgroup
+		</when>
+		<then lang="sv">
+			Den här omröstningen utser medlemmarna till arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			This workgroup is closed and the members are appointed through candidate election. It is not possible to apply for membership in the same way as in open groups. The election of the members of this workgroup can be found
+		</when>
+		<then lang="sv">
+			Den här arbetsgruppen är stängd och medlemmarna utses via personval. Det går inte att ansöka om medlemskap på samma sätt som i öppna grupper. Personvalet av medlemmarna i denna arbetsgrupp finns
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Thread starts (
+		</when>
+		<then lang="sv">
+			Trådstarter (
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Thread starts by
+		</when>
+		<then lang="sv">
+			Trådstarter av
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Time
+		</when>
+		<then lang="sv">
+			Tidpunkt
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Time limited
+		</when>
+		<then lang="sv">
+			Tidsbegränsad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Time of vote
+		</when>
+		<then lang="sv">
+			Röstningstidpunkt
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Title
+		</when>
+		<then lang="sv">
+			Titel
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Title missing.
+		</when>
+		<then lang="sv">
+			Titel saknas.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Today
+		</when>
+		<then lang="sv">
+			Idag
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Tomorrow
+		</when>
+		<then lang="sv">
+			Imorgon
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Topic
+		</when>
+		<then lang="sv">
+			Ämne
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Topic title
+		</when>
+		<then lang="sv">
+			Ämnestitel
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Treasurer
+		</when>
+		<then lang="sv">
+			Kassör
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Type
+		</when>
+		<then lang="sv">
+			Typ
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Type of proposed vote
+		</when>
+		<then lang="sv">
+			Typ av föreslagen omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Type of workgroup
+		</when>
+		<then lang="sv">
+			Typ av arbetsgrupp
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Underline
+		</when>
+		<then lang="sv">
+			Understruken
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Undo send
+		</when>
+		<then lang="sv">
+			Ångra skicka
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Unread
+		</when>
+		<then lang="sv">
+			Oläst
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Unsubscribe for this activity
+		</when>
+		<then lang="sv">
+			Avanmäl dig till denna aktivitet
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Update
+		</when>
+		<then lang="sv">
+			Uppdatera
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			User
+		</when>
+		<then lang="sv">
+			Användare
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			User information
+		</when>
+		<then lang="sv">
+			Användaruppgifter
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			User name:
+		</when>
+		<then lang="sv">
+			Användarnamn:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			User updated
+		</when>
+		<then lang="sv">
+			Användaren uppdaterad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Username
+		</when>
+		<then lang="sv">
+			Användarnamn
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Username:
+		</when>
+		<then lang="sv">
+			Användarnamn:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Value missing in one of the mandatory fields
+		</when>
+		<then lang="sv">
+			Värde saknas i något av de obligatoriska fälten
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			View delegate
+		</when>
+		<then lang="sv">
+			Visa delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote
+		</when>
+		<then lang="sv">
+			Rösta
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote (yes/no)
+		</when>
+		<then lang="sv">
+			Votering (ja/nej)
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote admin
+		</when>
+		<then lang="sv">
+			Valadministratör
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote admin: Edit alternatives for this vote
+		</when>
+		<then lang="sv">
+			Valadministratör: Redigera alternativ för denna omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote admin: Edit the alternatives for this vote
+		</when>
+		<then lang="sv">
+			Valadministratör: Redigera alternativen för denna omröstning
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote alternative created.
+		</when>
+		<then lang="sv">
+			Omröstningsalternativet skapat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote as delegate
+		</when>
+		<then lang="sv">
+			Rösta som delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote closes
+		</when>
+		<then lang="sv">
+			Omröstningen avslutas
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote started
+		</when>
+		<then lang="sv">
+			Omröstningen startad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote started:
+		</when>
+		<then lang="sv">
+			Omröstningen startad:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote status:
+		</when>
+		<then lang="sv">
+			Omröstningens status:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote time
+		</when>
+		<then lang="sv">
+			Omröstningstid
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote type missing or is invalid.
+		</when>
+		<then lang="sv">
+			Omröstningstyp saknas eller är ogiltig.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Vote:
+		</when>
+		<then lang="sv">
+			Rösta:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Voter
+		</when>
+		<then lang="sv">
+			Röstande
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Votes
+		</when>
+		<then lang="sv">
+			Omröstningar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Welcome
+		</when>
+		<then lang="sv">
+			Välkommen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Welcome to Direktdemokraterna
+		</when>
+		<then lang="sv">
+			Välkommen till Direktdemokraterna
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Whereof personally cast ballots
+		</when>
+		<then lang="sv">
+			Varav personligt lagda röster
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Workgroup changed
+		</when>
+		<then lang="sv">
+			Arbetsgrupp ändrat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Workgroup created
+		</when>
+		<then lang="sv">
+			Arbetsgruppen skapad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Workgroup election
+		</when>
+		<then lang="sv">
+			Arbetsgrupp personval
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Workgroup removed
+		</when>
+		<then lang="sv">
+			Arbetsgruppen borttagen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Workgroups
+		</when>
+		<then lang="sv">
+			Arbetsgrupper
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Workgroups can be created by three members together. By filling the form above you create a proposal for a workgroup. When three members support this proposed workgroup it will be transformed to an active workgroup.
+		</when>
+		<then lang="sv">
+			Arbetsgrupper kan skapas av tre medlemmar tillsammans. Genom att fylla i formuläret ovan skapar du ett förslag till en arbetsgrupp. När tre medlemmar stödjer denna föreslagna arbetsgrupp kommer den att omvandlas till en aktiv arbetsgrupp.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Write message
+		</when>
+		<then lang="sv">
+			Skriv meddelande
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Wrong file type.
+		</when>
+		<then lang="sv">
+			Fel filtyp.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Wrong username. No vote alternative created.
+		</when>
+		<then lang="sv">
+			Fel användarnamn. Inget omröstningsalternativ skapat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Wrong vote type. No change made.
+		</when>
+		<then lang="sv">
+			Fel omröstningstyp. Ingen ändring gjord.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Yes
+		</when>
+		<then lang="sv">
+			Ja
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Yes:
+		</when>
+		<then lang="sv">
+			Ja:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Yesterday
+		</when>
+		<then lang="sv">
+			Igår
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You are a member of this workgroup.
+		</when>
+		<then lang="sv">
+			Du är medlem i denna arbetsgrupp.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You are no longer a member of this workgroup.
+		</when>
+		<then lang="sv">
+			Du är inte längre medlem i denna arbetsgrupp.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You are no longer signed up for this activity.
+		</when>
+		<then lang="sv">
+			Du är inte längre anmäld till denna aktivitet.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You are not a member of this workgroup.
+		</when>
+		<then lang="sv">
+			Du är inte medlem i denna arbetsgrupp.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You are not member of that workgroup
+		</when>
+		<then lang="sv">
+			Du är inte medlem i den arbetsgruppen
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You are not yet registred as a delegate. If you want to create a delegate profile you press the button below. Even if you have created a delegate profile you don't have to vote as delegate (so your ballots become public) or let other users delegate to you.
+		</when>
+		<then lang="sv">
+			Du är ännu inte registred som en delegat. Vill du skapa en delegatprofil trycker du på knappen nedan. Även om du har skapat en delegatprofil behöver du inte rösta som delegat (så dina röster blir offentliga) eller låta andra användare delegera till dig.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You are signed up for this activity.
+		</when>
+		<then lang="sv">
+			Du är anmäld till denna aktivitet.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You as delegate have cast your own ballot in this vote.
+		</when>
+		<then lang="sv">
+			Du som delegat har lagt din egen röst i denna omröstning.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You as delegate have let your delegate vote in this vote.
+		</when>
+		<then lang="sv">
+			Du som delegat har låtit din delegat rösta i denna omröstning.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You cannot change this activity.
+		</when>
+		<then lang="sv">
+			Du cannot ändrar denna aktivitet.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You don't have access to that forum.
+		</when>
+		<then lang="sv">
+			Du har inte tillgång till det forumet.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You don't have permission to delete that post.
+		</when>
+		<then lang="sv">
+			Du har inte behörighet att radera det inlägget.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You don't have permission to edit that post.
+		</when>
+		<then lang="sv">
+			Du har inte behörighet att redigera det inlägget.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You don't have permission to write in this forum.
+		</when>
+		<then lang="sv">
+			Du har inte behörighet att skriv i detta forum.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have applied for membership in this workgroup.
+		</when>
+		<then lang="sv">
+			Du har ansökt om medlemskap i denna arbetsgrupp.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have been accepted as a member of Direktdemokraterna and can login on the member-page.
+		</when>
+		<then lang="sv">
+			Du har blivit antagen som medlem i Direktdemokraterna och kan logga in på medlems-sidan.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have delegated your vote in this constituency to
+		</when>
+		<then lang="sv">
+			Du har delegerat din röst i denna valkrets till
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have got a new password
+		</when>
+		<then lang="sv">
+			Du har fått ett nytt lösenord
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have no delegate in this constituency
+		</when>
+		<then lang="sv">
+			Du har ingen delegat i denna valkrets
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have not yet voted in this vote as delegate.
+		</when>
+		<then lang="sv">
+			Du har ännu inte röstat i denna omröstning som delegat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have supported a candidacy. The candidate is now member.
+		</when>
+		<then lang="sv">
+			Du har stött en kandidatur. Kandidaten är nu medlem.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have supported a candidacy. The candidate still needs more support.
+		</when>
+		<then lang="sv">
+			Du har stött en kandidatur. Kandidaten behöver fortfarande mer stöd.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have supported an exclusion. The member in question is now excluded.
+		</when>
+		<then lang="sv">
+			Du har stött en uteslutning. Medlemmen i fråga är numera utesluten.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have supported an exclusion. The member in question is still member of the group.
+		</when>
+		<then lang="sv">
+			Du har stött en uteslutning. Medlemmen i fråga är fortfarande medlem i gruppen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You have withdrawn your support for this proposition.
+		</when>
+		<then lang="sv">
+			Du har dragit tillbaka ditt stöd för denna proposition.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You no longer support the activation of this workgroup.
+		</when>
+		<then lang="sv">
+			Du stödjer inte längre denna arbetsgrupps aktivering.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You now vote as delegate.
+		</when>
+		<then lang="sv">
+			Nu röstar du som delegat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You now vote as individual.
+		</when>
+		<then lang="sv">
+			Nu röstar du som privatperson.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You support this proposition through your delegate
+		</when>
+		<then lang="sv">
+			Du stödjer denna proposition via din delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			You support this proposition.
+		</when>
+		<then lang="sv">
+			Du stödjer denna proposition.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your ballot is registered.
+		</when>
+		<then lang="sv">
+			Din röst är registrerad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your ballot:
+		</when>
+		<then lang="sv">
+			Din röst:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your candidacy has been withdrawn.
+		</when>
+		<then lang="sv">
+			Din kandidatur har dragits tillbaka.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your choosen value:
+		</when>
+		<then lang="sv">
+			Ditt valda värde:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your credentials are as follows:
+		</when>
+		<then lang="sv">
+			Dina inloggningsuppgifter är följande:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your delegate is removed.
+		</when>
+		<then lang="sv">
+			Din delegat är borttagen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your delegate will be completely deleted. You may also choose to temporarily deactivate your delegate. Do you still want to continue?
+		</when>
+		<then lang="sv">
+			Din delegat kommer att raderas fullständigt. Du kan också välja att tillfälligt avaktivera din delegat. Vill du fortsätta ändå?
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your delegate's ballot is registered.
+		</when>
+		<then lang="sv">
+			Din delegats röst är registrerad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your delegate's delegation is registered.
+		</when>
+		<then lang="sv">
+			Din delegats delegering är registrerad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your delegation is registered.
+		</when>
+		<then lang="sv">
+			Din delegering är registrerad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your membership application is registered.
+		</when>
+		<then lang="sv">
+			Din medlemsansökan är registrerad.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your membership application is removed.
+		</when>
+		<then lang="sv">
+			Din medlemsansökan är borttagen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your new credentials are as follows:
+		</when>
+		<then lang="sv">
+			Dina nya inloggningsuppgifter är följande:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your profile is updated
+		</when>
+		<then lang="sv">
+			Din profil är uppdaterad
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your settings has been updated
+		</when>
+		<then lang="sv">
+			Dina inställningar har uppdaterats
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your support for exclusion has been withdrawn.
+		</when>
+		<then lang="sv">
+			Ditt stöd för uteslutning har dragits tillbaka.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your support for membership has been withdrawn.
+		</when>
+		<then lang="sv">
+			Ditt stöd för medlemskap har dragits tillbaka.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your user is now a delegate.
+		</when>
+		<then lang="sv">
+			Din användare är nu en delegat.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Your user session is too old. Logout and login again.
+		</when>
+		<then lang="sv">
+			Din användarsession är för gammal. Logga ut och logga in igen.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Zip code
+		</when>
+		<then lang="sv">
+			Postnummer
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			Zip code*
+		</when>
+		<then lang="sv">
+			Postnummer*
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			by
+		</when>
+		<then lang="sv">
+			av
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			constituencies for your delegate
+		</when>
+		<then lang="sv">
+			valkretsar för din delegat
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			delegations
+		</when>
+		<then lang="sv">
+			delegeringar
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			has delegated to:
+		</when>
+		<then lang="sv">
+			har delegerat till:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			here
+		</when>
+		<then lang="sv">
+			här
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			if you want to support this proposition
+		</when>
+		<then lang="sv">
+			om du vill stödja denna proposition
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			in constituency
+		</when>
+		<then lang="sv">
+			i valkrets
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			in description or title were found.
+		</when>
+		<then lang="sv">
+			i beskrivning eller titel hittades.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			in text or caption were found.
+		</when>
+		<then lang="sv">
+			i text eller rubrik hittades.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			of
+		</when>
+		<then lang="sv">
+			av
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			or
+		</when>
+		<then lang="sv">
+			eller
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			post
+		</when>
+		<then lang="sv">
+			inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			posts
+		</when>
+		<then lang="sv">
+			inlägg
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			the email address is invalid.
+		</when>
+		<then lang="sv">
+			e-postadressen är ogiltig.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			the vote:
+		</when>
+		<then lang="sv">
+			omröstningen:
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			to stop supporting this proposition.
+		</when>
+		<then lang="sv">
+			för att sluta stödja denna proposition.
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			topic
+		</when>
+		<then lang="sv">
+			ämne
+		</then>
+	</case>
+	<case>
+		<when lang="en">
+			you are now a candidate in the election:
+		</when>
+		<then lang="sv">
+			du är nu en kandidat i personvalet:
+		</then>
+	</case>
+</cases>

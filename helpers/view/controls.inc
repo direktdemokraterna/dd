@@ -30,14 +30,15 @@ class controls
 		return self::generate_control_label($control_name, $control_label) . $element;
 	}
 
-	public static function output_paging_row($page, $list_count, $label = null) 
+	public static function output_paging_row($page, $list_count, $label = null
+		, $page_size = POSTS_PER_PAGE) 
 	{
-		$paging_info = Paging_info::create($page, $list_count);
+		$paging_info = Paging_info::create($page, $list_count, $page_size);
 		general::open_div("paging_info principal_list");
 		echo _span(_t("Showing ") . ($label ? "$label " : "") 
 			. $paging_info->first_showed_post_number . " - " 
 			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);
-		if ($paging_info->post_count > POSTS_PER_PAGE) {
+		if ($paging_info->post_count > $page_size) {
 			general::open_span();
 			self::output_page_links($paging_info->number_of_pages, $paging_info->page);
 			general::close_span();
@@ -201,7 +202,7 @@ class controls
 	{
 		$query = \Logic\util::get_request_params();
 		unset($query['page']);
-		$params_except_page_number = \Logic\util::make_param_string($query) . "&page=";
+		$params_except_page_number = \Logic\util::make_param_string($query) . "page=";
 		echo "<span class=\"float-right\">";
 		if($page > 1)
 			self::output_page_link('<', $query, $params_except_page_number . ($page - 1));
@@ -221,8 +222,14 @@ class controls
 
 	private static function output_page_link ($label, $query, $params_string)
 	{
-		__link($label, $query['type'], isset($query['action']) ? $query['action'] : null
-			, $params_string);
+		if (isset($query['type'])) {
+			__link($label, $query['type'], isset($query['action']) ? $query['action'] : null
+				, "&$params_string");
+		}
+		else {
+			$url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?$params_string";
+			echo "<a href='$url'>$label</a>";
+		}
 	}
 
 	private static function get_value($parameter_name, $values = null) {
@@ -259,13 +266,13 @@ class Paging_info
 	public $first_showed_post_number;
 	public $last_showed_post_number;
 
-	public static function create($page, $post_count) {
+	public static function create($page, $post_count, $page_size = POSTS_PER_PAGE) {
 		$instance = new Paging_info();
 		$instance->page = $page;
 		$instance->post_count = $post_count;
-		$instance->number_of_pages = ceil($post_count / POSTS_PER_PAGE);
-		$instance->first_showed_post_number = 1 + ($page - 1) * POSTS_PER_PAGE;
-		$instance->last_showed_post_number = min($page * POSTS_PER_PAGE, $post_count);
+		$instance->number_of_pages = ceil($post_count / $page_size);
+		$instance->first_showed_post_number = 1 + ($page - 1) * $page_size;
+		$instance->last_showed_post_number = min($page * $page_size, $post_count);
 		return $instance;
 	}
 }

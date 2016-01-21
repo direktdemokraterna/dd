@@ -18,7 +18,6 @@
 			\Logic\util::report_error(_t("Something went wrong."));
 	}
 	elseif(isset($_POST['act_as_delegate'])){
-		var_dump($_POST);
 		if(isset($_POST['acting_as_delegate'])){
 			$delegate_activated = \Logic\delegate::act_as_delegate();
 			if ($delegate_activated)
