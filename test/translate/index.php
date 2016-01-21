@@ -7,9 +7,8 @@
 	$testcase->from_text = isset($_POST['phrase']) ? $_POST['phrase'] : '';
 	$testcase->to_text = isset($_POST['expected']) ? $_POST['expected'] : '';
 	$testcase->hints = isset($_POST['hints']) ? $_POST['hints'] : '';
-	if (isset($_POST['translate'])) {
+	if (isset($_POST['translate']))
 		$testcase->test();
-	}
 	else if (isset($_POST['remove'])) {
 		$index = testcases::extract_test_index($_POST['remove']);
 		testcases::remove_at_index($index);
@@ -21,15 +20,14 @@
 		$testcase = $testcases[$index];
 		$testcase->test();
 	}
-	else if (isset($_POST['save'])) {
+	else if (isset($_POST['save']))
 		die('save');
-	}
-	else if (isset($_POST['run']) || isset($_GET['page'])) {
-		$testcases = testcases::load();
-	}
-	else if (isset($_POST['extract'])) {
+	else if (isset($_POST['extract']))
 		$testcases = testcases::extract();
-	}
+	else if (isset($_POST['run']))
+		$testcases = testcases::load();
+	else if (isset($_GET['page']) || isset($_POST['showing_testcases']))
+		$testcases = testcases::load();
 ?>
 <html>
 <head>

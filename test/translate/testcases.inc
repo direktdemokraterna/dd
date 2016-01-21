@@ -29,6 +29,7 @@ class testcases
 		$hide_passed = isset($_POST['hide_passed']) ? $_POST['hide_passed'] : 0;
 		\I18n\controller::update_language("sv");
 		__h1("Testfall");
+		__hidden("showing_testcases", true);
 		echo self::generate_hide_passed_control($hide_passed);
 		__br();
 		$n = 0;
@@ -66,7 +67,7 @@ class testcases
 
 		$page_size = 50;
 		$list_count = count($cases);
-		if ($page_size * $page > $list_count)
+		if ($page_size * ($page - 1) >= $list_count)
 			$page = 1;
 		echo '<div style="width: 500px">';
 		\View\controls::output_paging_row($page, $list_count, "testfall", $page_size);
@@ -98,6 +99,30 @@ class testcases
 		return count($current_cases) > $index ? $current_cases[$index] : null;
 	}
 
+	public static function remove_at_index($index) 
+	{
+		$cases = self::load();
+		array_splice($cases, $index, 1);
+		self::save($cases);
+	}
+
+	public static function extract() {
+		include("testcase_extractor.inc");
+		$base_dir = dirname(dirname(__DIR__));
+		$new_cases = testcase_extractor::extract($base_dir);
+		$all_cases = $new_cases;
+		self::sort_testcases($all_cases);
+		self::remove_duplicates($all_cases);
+		self::save($all_cases);
+		return $all_cases;
+	}
+
+	public static function extract_test_index($value) {
+		$parts = explode(' ', $value);
+		$n = (int)end($parts);
+		return $n - 1;
+	}
+
 	private static function generate($xml) 
 	{
 		if (!$xml->children) 
@@ -110,36 +135,14 @@ class testcases
 		}
 		return $cases;
 	}
-	private static function generate_hide_passed_control ($hide_passed){
+
+	private static function generate_hide_passed_control ($hide_passed)
+	{
 		$html = '<input type="checkbox" name="hide_passed"' .
 			($hide_passed ? ' checked' : '') 
 			. ' id="hide_passed" onchange="this.form.submit()"><label for "hide_passed">' 
 			. "Dölj klarade" . '</label>';
 		return _span($html, "standard-form");
-	}
-
-	public static function remove_at_index($index) 
-	{
-		$cases = self::load();
-		array_splice($cases, $index, 1);
-		self::save($cases);
-	}
-
-	public static function extract() {
-		include("testcase_extractor.inc");
-		$base_dir = dirname(dirname(__DIR__));
-		$current_cases = self::load();
-		$new_cases = testcase_extractor::extract($base_dir);
-		$all_cases = array_merge($new_cases);
-		self::sort_testcases($all_cases);
-		self::remove_duplicates($all_cases);
-		self::save($all_cases);
-	}
-
-	public static function extract_test_index($value) {
-		$parts = explode(' ', $value);
-		$n = (int)end($parts);
-		return $n - 1;
 	}
 
 	private static function sort_testcases(&$cases) {
