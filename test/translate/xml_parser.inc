@@ -127,8 +127,6 @@ class xml_parser {
 				throw \Exception("Malformed attribute");
 			case ATTRIBUTE_VALUE:
 				if ($char == '"') {
-					if (!$this->current_text) 
-						throw \Exception("Empty attribute value");
 					$this->current_attribute->value = $this->current_text;
 					return ATTRIBUTE_VALUE_END;
 				}
@@ -174,7 +172,7 @@ class xml_parser {
 	private function add_attribute($name) 
 	{
 		$this->current_attribute = new Attribute($name);
-		$this->current_element()->attributes[] = $this->current_attribute;
+		$this->current_element()->attributes[$name] = $this->current_attribute;
 	}
 }
 

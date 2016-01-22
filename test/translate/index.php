@@ -1,33 +1,37 @@
 <?php
 	include("../../init.inc");
 	include("xml_parser.inc");
-	include("testcases.inc");
+	include("testcase_helper.inc");
+	include("testcase.inc");
 	$testcases = array();
-	$testcase = testcases::empty_testcase();
+	$testcase = testcase_helper::empty_testcase();
 	$testcase->from_text = isset($_POST['phrase']) ? $_POST['phrase'] : '';
 	$testcase->to_text = isset($_POST['expected']) ? $_POST['expected'] : '';
 	$testcase->hints = isset($_POST['hints']) ? $_POST['hints'] : '';
 	if (isset($_POST['translate']))
 		$testcase->test();
 	else if (isset($_POST['remove'])) {
-		$index = testcases::extract_test_index($_POST['remove']);
-		testcases::remove_at_index($index);
-		$testcases = testcases::load();
+		$index = testcase_helper::extract_test_index($_POST['remove']);
+		testcase_helper::remove_at_index($index);
+		$testcases = testcase_helper::load();
 	}
 	else if (isset($_POST['test'])) {
-		$index = testcases::extract_test_index($_POST['test']);
-		$testcases = testcases::load();
+		$index = testcase_helper::extract_test_index($_POST['test']);
+		$testcases = testcase_helper::load();
 		$testcase = $testcases[$index];
 		$testcase->test();
 	}
 	else if (isset($_POST['save']))
 		die('save');
 	else if (isset($_POST['extract']))
-		$testcases = testcases::extract();
-	else if (isset($_POST['run']))
-		$testcases = testcases::load();
+		$testcases = testcase_helper::extract();
+	else if (isset($_POST['run'])) {
+		$testcases = testcase_helper::load();
+		testcase_helper::run_tests($testcases);
+		testcase_helper::save($testcases);
+	}
 	else if (isset($_GET['page']) || isset($_POST['showing_testcases']))
-		$testcases = testcases::load();
+		$testcases = testcase_helper::load();
 ?>
 <html>
 <head>
@@ -59,7 +63,7 @@
 				echo $testcase->to_text; ?>">
 			<br>
 			<label for "actual">Översättning</label>
-			<input type="text" class="<?php echo $testcase->output_class(); ?>" name="actual" id="actual" tabindex="4" readonly value="<?php 
+			<input type="text" class="<?php echo $testcase->get_output_class(); ?>" name="actual" id="actual" tabindex="4" readonly value="<?php 
 				echo $testcase->actual; ?>">
 			<br>
 			<input type="submit" name="translate" value="Översätt">
@@ -70,7 +74,7 @@
 <?php
 	if ($testcases) {
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
-		testcases::output($testcases, false, $page);
+		testcase_helper::output($testcases, false, $page);
 	}
 ?>
 	</p></form>

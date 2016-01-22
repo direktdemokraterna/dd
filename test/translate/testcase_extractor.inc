@@ -25,21 +25,26 @@ class testcase_extractor
 	public static function parse($file_path) 
 	{
 		$text = file_get_contents($file_path);
-		$translation_pattern = '/_t\(["\']([^\'"]+)["\']\)/';
-		$translation_pattern = '/_t\((?:"([^"]+)"|\'([^\']+)\')\)/';
+		$translation_pattern = '/_t\((?:"([^"]+)"|\'([^\']+)\')(\,\s*array\(([^\)]+)\))?\)/';
 		preg_match_all($translation_pattern, $text, $matches);
 		$phrases = $matches[1];
+		$hints_matches = $matches[4];
 		$cases = array();
-		foreach ($phrases as $phrase) {
+		foreach ($phrases as $index => $phrase) {
 			$phrase = trim($phrase);
 			if ($phrase && substr($phrase, 0, 1) != '$') {
+				$hints = trim($hints_matches[$index]);
+				if ($hints)
+					$hints = str_replace(array('\'', '"', ' '), '', $hints);
 				$case = new Testcase();
 				$case->from_language = 'en';
 				$case->to_language = 'sv';
 				$case->from_text = $phrase;
-				$case->to_text =_t("$phrase");
+				$case->hints = $hints;
+				$case->test();
+				$case->to_text = $case->actual;
 				$cases[] = $case;
-			}			
+			}
 		}
 		return $cases;
 	}
