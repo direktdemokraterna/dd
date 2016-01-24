@@ -10,6 +10,7 @@ class verb_imperative extends translator
 
 	function __construct($identifier, $compact_translation) 
 	{
+		$identifier->tempus = 'imperative';
 		$words = explode(' ', $compact_translation, 2);
 		$parts = explode(':', $words[0]);
 		$translation = $parts[0];
@@ -42,6 +43,7 @@ class verb_infinitive extends translator
 {
 	function __construct($identifier, $compact_translation) 
 	{
+		$identifier->tempus = 'infinitive';
 		$words = explode(' ', $compact_translation, 2);
 		$parts = explode(':', $words[0]);
 		$translation = parent::assemble_word_form($parts, 1);
@@ -80,7 +82,7 @@ class verb_present extends translator
 	{
 		$keys = self::get_word_forms($compact_translation[BASE_LANG]);
 		$translations = self::get_word_forms($compact_translation[controller::get_language()]);
-		$identifier->form = 'present';
+		$identifier->tempus = 'present';
 		parent::__construct($identifier, $translations[0]);
 		$this->singular_key = $keys[1];
 		$this->singular_translation = $translations[1];
@@ -122,7 +124,7 @@ class verb_present extends translator
 	{
 		if ($this->singular_translation) {
 			$subject = self::get_subject($translations_before);
-			if ($subject && $subject->identifier->form == 'singular')
+			if ($subject && $subject->identifier->numerus == 'singular')
 				return $this->singular_translation;
 		}
 		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
@@ -149,7 +151,8 @@ class verb_present_singular extends translator
 {
 	function __construct($identifier, $translation) 
 	{
-		$identifier->form = 'present';
+		$identifier->tempus = 'present';
+		$identifier->numerus = 'singular';
 		parent::__construct($identifier, $translation);
 	}
 
@@ -173,7 +176,7 @@ class verb_present_participle extends translator
 {
 	function __construct($identifier, $translation) 
 	{
-		$identifier->form = 'present';
+		$identifier->tempus = 'present';
 		parent::__construct($identifier, $translation);
 	}
 }
@@ -184,7 +187,7 @@ class verb_perfect extends translator
 	{
 		$perfect_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 3);
 		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[controller::get_language()]), 3);
-		parent::__construct($identifier->copy($perfect_key), $perfect_translation);
+		parent::__construct($identifier->copy(array('key' => $perfect_key)), $perfect_translation);
 	}
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
@@ -198,7 +201,7 @@ class verb_perfect extends translator
 	}
 
 	private static function is_invalid_verb_perfect_modifier($translator) {
-		return ($translator->is_verb() && $translator->identifier->form == 'present')
+		return ($translator->is_verb() && $translator->identifier->tempus == 'present')
 			|| $translator->identifier->class == 'definite';
 	}
 

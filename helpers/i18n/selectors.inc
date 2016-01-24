@@ -53,7 +53,9 @@ class word_selector
 		for ($i = 0; $i < count($this->words); $i++)
 			if (self::match_word($translator, $this->words[$i]) 
 				|| (self::match_class($translator, $this->classes[$i]) 
-				&& self::match_form($translator, $this->forms[$i])))
+				&& (self::match_tempus($translator, $this->forms[$i])
+				|| self::match_numerus($translator, $this->forms[$i])
+				|| self::match_definite($translator, $this->forms[$i] == 'definite'))))
 				return true;
 		return false;
 	}
@@ -68,9 +70,19 @@ class word_selector
 		return $translator->identifier->class == $class; 
 	}
 
-	public function match_form($translator, $form) 
+	public function match_tempus($translator, $tempus) 
 	{
-		return !$form || $translator->identifier->form == $form; 
+		return !$tempus || $translator->identifier->tempus == $tempus; 
+	}
+
+	public function match_numerus($translator, $numerus) 
+	{
+		return !$numerus || $translator->identifier->numerus == $numerus; 
+	}
+
+	public function match_definite($translator, $definite) 
+	{
+		return $translator->identifier->definite == $definite; 
 	}
 }
 

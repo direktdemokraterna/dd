@@ -33,14 +33,22 @@ class translation_storage
 	}
 
 	public static function filter_translators($translators, $translation_hints) {
+		//var_dump($translators);
 		if (isset($translation_hints['class']))
 			$translators = array_filter($translators, function ($translator) use ($translation_hints) {
 				return $translator->identifier->class == $translation_hints['class'];
 			});
-		if (isset($translation_hints['form']))
+		if (isset($translation_hints['numerus']))
 			$translators = array_filter($translators, function ($translator) use ($translation_hints) {
-				return $translator->identifier->form == $translation_hints['form'];
+				return !$translator->identifier->numerus 
+					|| $translator->identifier->numerus == $translation_hints['numerus'];
 			});
+		if (isset($translation_hints['tempus']))
+			$translators = array_filter($translators, function ($translator) use ($translation_hints) {
+				return !$translator->identifier->tempus 
+					|| $translator->identifier->tempus == $translation_hints['tempus'];
+			});
+		//var_dump($translators);
 		return $translators;
 	}
 
@@ -132,18 +140,22 @@ class translation_storage
 					$present = new verb_present($identifier->copy(), $compact_translation);
 					$translators[] = $present;
 					if ($present->singular_key != $present->identifier->key)
-						$translators[] = new verb_present_singular($identifier->copy($present->singular_key), $present->singular_translation);
+						$translators[] = new verb_present_singular($identifier->copy(
+							array('key' => $present->singular_key))
+							, $present->singular_translation);
 					if ($present->participle_key != $present->identifier->key)
-						$translators[] = new verb_present_participle($identifier->copy($present->participle_key), $present->participle_translation);
+						$translators[] = new verb_present_participle($identifier->copy(
+							array('key' => $present->participle_key))
+							, $present->participle_translation);
 				}
 				if ($verb_imperative->has_perfect_participle)
 					$translators[] = new verb_perfect_participle($identifier->copy(), $compact_translation);
 				$translators[] = $verb_imperative;
 				break;
 			case 'noun':
-				$translators[] = new noun_singular($identifier->copy(null, new singular_noun_selector()), 
+				$translators[] = new noun_singular($identifier->copy(array('selector' => new singular_noun_selector())), 
 					$compact_translation[$lang]);
-				$translators[] = new noun_plural($identifier->copy(null, new plural_noun_selector()), 
+				$translators[] = new noun_plural($identifier->copy(array('selector' => new plural_noun_selector())), 
 					$compact_translation);
 				$translators[] = new noun_singular($identifier, $compact_translation[$lang]);
 				$translators[] = new noun_plural(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);

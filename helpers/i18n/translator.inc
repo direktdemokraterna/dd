@@ -24,7 +24,11 @@ class translation_identifier
 	public $base_form;
 	public $class;
 	public $type;
-	public $form;
+
+	public $tempus;
+	public $numerus;
+	public $definite;
+
 	public $selector;
 
 	public static function create($identifier_str) 
@@ -61,23 +65,32 @@ class translation_identifier
 		return !$this->selector || $this->selector->match($previous_matches, $following_matches, $restrictive);
 	}
 
-	public function copy($new_key = null, $new_selector = null, $new_form = null) 
+	public function copy($change_props = null) 
 	{
-		return new translation_identifier($new_key ? $new_key : $this->key
+		$copy = new translation_identifier($this->key
 			, $this->class
 			, $this->type
-			, $new_form ? $new_form : $this->form
-			, $new_selector ? $new_selector : $this->selector
+			, $this->tempus
+			, $this->numerus
+			, $this->definite
+			, $this->selector
 			, $this->base_form);
+		if ($change_props)
+			foreach ($change_props as $key => $value)
+				$copy->$key = $value;
+		return $copy;
 	}
 
-	function __construct($key, $class, $type = 1, $form = null, $selector = null, $base_form = null) 
+	function __construct($key, $class, $type = 1, $tempus = null, $numerus = null, $definite = false
+		, $selector = null, $base_form = null) 
 	{
 		$this->key = $key;
 		$this->base_form = $base_form ? $base_form : $key;
 		$this->class = $class;
 		$this->type = $type;	
-		$this->form = $form;
+		$this->tempus = $tempus;
+		$this->numerus = $numerus;
+		$this->definite = $definite;
 		$this->selector = $selector;
 	}
 }
@@ -222,7 +235,7 @@ class noun_modifier extends translator
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector
 		, $translation_hints = null) 
 	{
-		if ($translation_hints && isset($translation_hints['form']) && $translation_hints['form'] == 'plural')
+		if ($translation_hints && isset($translation_hints['numerus']) && $translation_hints['numerus'] == 'plural')
 			return $this->translation_plural;
 		$has_plurifying_pronoun = $this->has_plurifying_pronoun($translations_before);
 		if ($has_plurifying_pronoun)
@@ -247,16 +260,16 @@ class noun_modifier extends translator
 
 	protected function get_translation_for_noun($noun_identifier) 
 	{
-		if ($noun_identifier->form == 'plural')
+		if ($noun_identifier->numerus == 'plural')
 			return $this->translation_plural;
-		if ($noun_identifier->form == 'singular') {
+		if ($noun_identifier->numerus == 'singular') {
 			if ($noun_identifier->type == 1)
 				return $this->translation;
 			if ($noun_identifier->type == 2)
 				return $this->translation_noun2;
 			throw new \Exception('Invalid noun type: ' . $noun_identifier->type);
 		}
-		throw new \Exception('Invalid noun form: ' . $noun_identifier->form);
+		throw new \Exception('Invalid numerus: ' . $noun_identifier->numerus);
 	}
 	
 	protected function get_significant_noun($translations_before, $translations_after) 

@@ -22,14 +22,14 @@ class pronoun_it extends translator
 
 	protected function get_translation_for_noun($noun_identifier) 
 	{
-		if ($noun_identifier->form == 'singular') {
+		if ($noun_identifier->numerus == 'singular') {
 			if ($noun_identifier->type == 1)
 				return $this->translation;
 			if ($noun_identifier->type == 2)
 				return $this->translation_noun2;
 			throw new \Exception('Invalid noun type: ' . $noun_identifier->type);
 		}
-		throw new \Exception('Invalid noun form: ' . $noun_identifier->form);
+		throw new \Exception('Invalid numerus: ' . $noun_identifier->numerus);
 	}
 
 	private static function get_significant_noun($translations_before) 
@@ -43,7 +43,7 @@ class pronoun_it extends translator
 	private static function is_significant_noun($previous_translation) 
 	{
 		return $previous_translation->is_noun() 
-		&& $previous_translation->identifier->form == 'singular' 
+		&& $previous_translation->identifier->numerus == 'singular' 
 		&& $previous_translation->is_definite;
 	}
 }

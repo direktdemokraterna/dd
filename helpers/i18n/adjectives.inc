@@ -5,9 +5,10 @@ class adjective extends noun_modifier
 {
 	public $has_definite_form;
 
-	function __construct($identifier, $compact_translation, $form = 'infinite') 
+	function __construct($identifier, $compact_translation, $numerus = null, $definite = false) 
 	{
-		$identifier->form = $form;
+		$identifier->numerus = $numerus;
+		$identifier->definite = $definite;
 		parent::__construct($identifier, $compact_translation);
 		$parts = explode(':', $compact_translation);
 		$this->has_definite_form = (count($parts) > 2);
@@ -99,7 +100,7 @@ class adjective_definite extends translator
 			$identifier->key);
 		$definite_translation = self::assemble_word_form(explode(':', $compact_translation[controller::get_language()]), 2,
 			$indefinite_translator->translation);
-		$definite_identifier = $identifier->copy($definite_key, null, 'definite');
+		$definite_identifier = $identifier->copy(array('key' => $definite_key, 'definite' => true));
 		parent::__construct($definite_identifier, $definite_translation);
 	}
 

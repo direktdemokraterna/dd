@@ -9,9 +9,9 @@ class noun extends translator
 	private $definite_translation;
 	private $connector;
 
-	function __construct($identifier, $form, $compact_translation, $indef_index, $def_index) 
+	function __construct($identifier, $numerus, $compact_translation, $indef_index, $def_index) 
 	{
-		$identifier->form = $form;
+		$identifier->numerus = $numerus;
 		parent::__construct($identifier);
 		$this->connector = self::extract_connector($compact_translation);
 		self::set_inflections($compact_translation, $indef_index, $def_index);
@@ -50,12 +50,12 @@ class noun extends translator
 		return $translations_before
 		? self::is_definite_adjective(end($translations_before)->identifier)
 			|| self::has_definite_marker($translations_before)
-		: $translations_after && $this->identifier->form == 'singular' && $translations_after[0]->is_adjective();
+		: $translations_after && $this->identifier->numerus == 'singular' && $translations_after[0]->is_adjective();
 	}
 
 	private static function is_definite_adjective($identifier) 
 	{
-		return $identifier->class == 'adj' && $identifier->form == 'definite';
+		return $identifier->class == 'adj' && $identifier->definite;
 	}
 
 	private static function has_definite_marker($translations_before) 
@@ -92,7 +92,7 @@ class noun_plural extends noun
 
 	public static function make_plural_identifier($identifier, $compact_translation) {
 		$key_parts = explode(':', $compact_translation[BASE_LANG]);
-		return $identifier->copy(self::assemble_word_form($key_parts, 1));
+		return $identifier->copy(array('key' => self::assemble_word_form($key_parts, 1)));
 	}
 }
 ?>
