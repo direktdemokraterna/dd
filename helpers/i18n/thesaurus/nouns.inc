@@ -391,8 +391,8 @@ class nouns
 				,"en" => "underline"
 				)
 			,"update:noun1" => array(
-				"sv" => "uppdatering"
-				,"en" => "update"
+				"sv" => "uppdatering:ar:en:na"
+				,"en" => "update:s"
 				)
 			,"user:noun1" => array(
 				"sv" => "användare::n:_na:-_"
@@ -403,7 +403,7 @@ class nouns
 				,"en" => "user information"
 				)
 			,"[your]vote:noun1" => array(
-				"sv" => "röst:er:en:erna"
+				"sv" => "röst:er:en:na"
 				,"en" => "vote:s"
 				)
 			,"vote:noun1" => array(
@@ -475,6 +475,14 @@ class nouns
 			,"forum:noun2" => array(
 				"sv" => "forum::et:en:-"
 				,"en" => "forum:s"
+				)
+			,"given name:noun2" => array(
+				"sv" => "förnamn"
+				,"en" => "given name"
+				)
+			,"last name:noun2" => array(
+				"sv" => "efternamn"
+				,"en" => "last name"
 				)
 			,"line:noun2" => array(
 				"sv" => "streck::et:en"

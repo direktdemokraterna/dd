@@ -230,10 +230,6 @@ class phrases
 				"sv" => "halva"
 				,"en" => "half"
 				)
-			,"given name" => array(
-				"sv" => "förnamn"
-				,"en" => "given name"
-				)
 			,"got" => array(
 				"sv" => "fått"
 				,"en" => "got"
@@ -413,10 +409,6 @@ class phrases
 			,"last login" => array(
 				"sv" => "senast inloggad"
 				,"en" => "last login"
-				)
-			,"last name" => array(
-				"sv" => "efternamn"
-				,"en" => "last name"
 				)
 			,"me" => array(
 				"sv" => "mig"

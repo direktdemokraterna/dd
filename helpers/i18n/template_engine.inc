@@ -183,22 +183,9 @@ class template_engine
 
 	private static function expand_word_form($word_part) 
 	{
-		$class = self::expand_class($word_part[0]);
-		return new word_form($class);
-	}
-
-	private static function expand_class($class_code) 
-	{
-		switch($class_code) {
-			case 'A': return 'adj';
-			case 'Q': return 'quant';
-			case 'N': return 'noun';
-			case 'V': return 'verb';
-			case 'P': return 'prep';
-			case 'D': return 'definite';
-			case 'W': return null;
-			default: throw new \Exception("Unknown class_code: " . $class_code);
-		}
+		$class = templates::expand_class($word_part[0]);
+		$modifiers = templates::expand_modifiers(substr($word_part, 1));
+		return new word_form($class, $modifiers);
 	}
 }
 
@@ -274,21 +261,26 @@ class template
 class word_form 
 {
 	public $class;
+	public $numerus;
 
-	public function __construct($class) 
+	public function __construct($class, $modifiers) 
 	{
 		$this->class = $class;
+		if (isset($modifiers['numerus']))
+			$this->numerus = $modifiers['numerus'];
 	}
 
 	public function matches_in_context($translator, $matches_before, $matches_after) 
 	{
-		return $this->matches($translator) 
+		$match = $this->matches($translator) 
 			&& $translator->identifier->match($matches_before, $matches_after);
+		return $match;
 	}
 
 	public function matches($translator) 
 	{
-		return !$this->class || $this->class == $translator->identifier->class;
+		return (!$this->class || $this->class == $translator->identifier->class)
+			&& (!$this->numerus || $this->numerus == $translator->identifier->numerus);
 	}
 }
 ?>
