@@ -61,9 +61,10 @@ class translation_storage
 	private static function expand_all_translations() 
 	{
 		$translators = array();
-		self::expand_translations($translators, \Thesaurus\phrases::create_translations());
+		//self::expand_translations($translators, \Thesaurus\phrases::create_translations());
 		self::expand_translations($translators, \Thesaurus\modifiers::create_translations());
 		self::expand_translations($translators, \Thesaurus\conjunctions::create_translations());
+		self::expand_translations($translators, \Thesaurus\interjections::create_translations());
 		self::expand_translations($translators, \Thesaurus\prepositions::create_translations());
 		self::expand_translations($translators, \Thesaurus\pronouns::create_translations());
 		self::expand_translations($translators, \Thesaurus\quantifiers::create_translations());
@@ -72,6 +73,8 @@ class translation_storage
 		self::expand_translations($translators, \Thesaurus\nouns::create_translations());
 		self::expand_translations($translators, \Thesaurus\time_and_date::create_translations());
 		self::expand_translations($translators, \Thesaurus\names::create_translations());
+		self::expand_translations($translators, \Thesaurus\abbreviations::create_translations());
+		self::expand_translations($translators, \Thesaurus\adverbs::create_translations());
 		return $translators;
 	}
 

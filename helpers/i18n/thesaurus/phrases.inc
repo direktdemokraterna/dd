@@ -210,10 +210,6 @@ class phrases
 				"sv" => "även"
 				,"en" => "even"
 				)
-			,"every" => array(
-				"sv" => "varje"
-				,"en" => "every"
-				)
 			,"for the particular issue" => array(
 				"sv" => "i den frågan"
 				,"en" => "från the particular issue"
@@ -317,14 +313,6 @@ class phrases
 			,"have let your delegate vote" => array(
 				"sv" => "har låtit din delegat rösta"
 				,"en" => "have let your delegate vote"
-				)
-			,"hello" => array(
-				"sv" => "hej"
-				,"en" => "hello"
-				)
-			,"here" => array(
-				"sv" => "här"
-				,"en" => "here"
 				)
 			,"here you create" => array(
 				"sv" => "här skapar man"
@@ -454,10 +442,6 @@ class phrases
 				"sv" => "nödvändigt"
 				,"en" => "necessary"
 				)
-			,"no[]" => array(
-				"sv" => "nej"
-				,"en" => "no"
-				)
 			,"no change made" => array(
 				"sv" => "ingen ändring gjord"
 				,"en" => "no change made"
@@ -525,10 +509,6 @@ class phrases
 			,"proposition's" => array(
 				"sv" => "propositions"
 				,"en" => "proposition's"
-				)
-			,"re" => array(
-				"sv" => "sv"
-				,"en" => "re"
 				)
 			,"register as candidate for" => array(
 				"sv" => "anmäl dig som kandidat i"
@@ -670,10 +650,6 @@ class phrases
 				"sv" => "för"
 				,"en" => "too"
 				)
-			,"treasurer" => array(
-				"sv" => "kassör"
-				,"en" => "treasurer"
-				)
 			,"unsubscribe for" => array(
 				"sv" => "avanmäl dig till"
 				,"en" => "unsubscribe for"
@@ -726,10 +702,6 @@ class phrases
 				"sv" => "avslutades"
 				,"en" => "was terminated"
 				)
-			,"welcome" => array(
-				"sv" => "välkommen"
-				,"en" => "welcome"
-				)
 			,"will be activated" => array(
 				"sv" => "kommer aktiveras"
 				,"en" => "will be activated"
@@ -761,10 +733,6 @@ class phrases
 			,"why" => array(
 				"sv" => "varför"
 				,"en" => "why"
-				)
-			,"yes" => array(
-				"sv" => "ja"
-				,"en" => "yes"
 				)
 			,"you create" => array(
 				"sv" => "skapar du"

@@ -378,6 +378,10 @@ class nouns
 				"sv" => "titel"
 				,"en" => "title"
 				)
+			,"treasurer:noun1" => array(
+				"sv" => "kassör"
+				,"en" => "treasurer"
+				)
 			,"type:noun1" => array(
 				"sv" => "typ"
 				,"en" => "type"

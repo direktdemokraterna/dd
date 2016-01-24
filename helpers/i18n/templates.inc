@@ -11,6 +11,8 @@ class templates
 		,'VP' => 'VP'
 		,'VN' => 'VN'
 		,'AP' => 'AP'
+		,'VV' => 'VV'
+		,'DN' => 'DN'
 		,'W' => 'W'
 		);
 	}

@@ -16,6 +16,13 @@ class translation_match
 	{
 		return $this->translator->translate(strtolower($this->phrase), $translators_before, $translators_after, $translation_hints);
 	}
+
+	public function split() 
+	{
+		return array_map(function($single_translator) {
+					return new translation_match($this->phrase, $single_translator);
+				}, $this->translator);
+	}
 }
 
 class translation_identifier 

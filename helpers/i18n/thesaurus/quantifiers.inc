@@ -17,6 +17,10 @@ class quantifiers
 				"sv" => "en|_tt annan|_t"
 				,"en" => "another"
 				)
+			,"every:quant" => array(
+				"sv" => "varje"
+				,"en" => "every"
+				)
 			,"more:quant" => array(
 				"sv" => "fler"
 				,"en" => "more"

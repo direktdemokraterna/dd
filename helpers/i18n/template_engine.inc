@@ -26,31 +26,66 @@ class template_engine
 
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
-		$words = translation_helper::split_words($phrase);
-		$matches = self::match_words($words, $translation_hints);
-		$template_match = self::find_best_template($matches);
+		$candidate_matches = self::get_candidate_matches($phrase, $translation_hints);
+		$phrase_matches = self::combine_candidate_matches($candidate_matches);
+		$template_match = self::find_best_template($phrase_matches);
 		$translation = $template_match
 			? $template_match->translate($translation_hints)
 			: $phrase;
 		return $translation;
 	}
 
-	private static function match_words($words, $translation_hints = null) 
+	private static function get_candidate_matches($phrase, $translation_hints = null) 
 	{
-		if (!$words) return array(array());
-		$first_word = array_shift($words);
-		$first_word_translators = self::match_word($first_word, $translation_hints);
-		$first_word_matches = array_map(function($translator) use ($first_word) {
-			return new translation_match($first_word, $translator);
-		}, $first_word_translators);
-		$remainder_matches = self::match_words($words);
-		return self::combine_matches($first_word_matches, $remainder_matches);
+		$candidate_matches = array();
+		$remaining_words = null;
+		do {
+			$words = $remaining_words;
+			$remaining_words = array();
+			$candidate_match = self::get_next_candidate_match($phrase, $words, $remaining_words, $translation_hints);
+			array_unshift($candidate_matches, $candidate_match);
+		}
+		while (count($remaining_words));
+		return $candidate_matches; 
 	}
 
-	private static function combine_matches($first_word_matches, $remainder_matches) 
+	private static function get_next_candidate_match($fragment, &$words, &$remaining_words, $translation_hints) 
+	{
+		while (true) {
+			if ($words)
+				$fragment = implode(' ', $words);
+			$candidates = self::match_translator($fragment, $translation_hints);
+			if ($candidates) 
+				return new translation_match($fragment, $candidates);
+			if ($words == null)
+				$words = translation_helper::split_words($fragment);
+			if (count($words) == 1)
+				return new translation_match($fragment, array(new untranslated($fragment)));
+			$remaining_words[] = array_shift($words);
+		}
+	}
+
+	private static function match_translator($fragment, $translation_hints = null) 
+	{
+		$candidates = translation_storage::get_translators(strtolower($fragment));
+		if ($translation_hints && $candidates)
+			$candidates = translation_storage::filter_translators($candidates, $translation_hints);
+		return $candidates;
+	}
+
+	private static function combine_candidate_matches($candidate_matches) 
+	{
+		if (!$candidate_matches) return array(array());
+		$first_match = array_shift($candidate_matches);
+		$first_matches = $first_match->split();
+		$remainder_matches = self::combine_candidate_matches($candidate_matches);
+		return self::combine_matches($first_matches, $remainder_matches);
+	}
+
+	private static function combine_matches($first_matches, $remainder_matches) 
 	{
 		$candidates = array();
-		foreach ($first_word_matches as $first_word_match)
+		foreach ($first_matches as $first_word_match)
 			foreach ($remainder_matches as $remainder_match) {
 				$candidate = array_merge(array($first_word_match), $remainder_match);
 				if (self::partial_match_end($candidate))
@@ -66,16 +101,6 @@ class template_engine
 				return true;
 		}
 		return false;
-	}
-
-	private static function match_word($word, $translation_hints = null) 
-	{
-		$candidates = translation_storage::get_translators(strtolower($word));
-		//var_dump($candidates);
-		if ($translation_hints && $candidates)
-			$candidates = translation_storage::filter_translators($candidates, $translation_hints);
-		//var_dump($candidates);
-		return $candidates ? $candidates : array(new untranslated($word));
 	}
 
 	private static function find_best_template($candidates) 
@@ -170,6 +195,7 @@ class template_engine
 			case 'N': return 'noun';
 			case 'V': return 'verb';
 			case 'P': return 'prep';
+			case 'D': return 'definite';
 			case 'W': return null;
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

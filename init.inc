@@ -55,8 +55,11 @@ include(dirname(__FILE__)."/helpers/i18n/nouns.inc");
 include(dirname(__FILE__)."/helpers/i18n/pronouns.inc");
 include(dirname(__FILE__)."/helpers/i18n/verbs.inc");
 
+include(dirname(__FILE__)."/helpers/i18n/thesaurus/abbreviations.inc");
+include(dirname(__FILE__)."/helpers/i18n/thesaurus/adverbs.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/adjectives.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/conjunctions.inc");
+include(dirname(__FILE__)."/helpers/i18n/thesaurus/interjections.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/modifiers.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/names.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/nouns.inc");
