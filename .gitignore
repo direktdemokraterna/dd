@@ -5,3 +5,5 @@ dd.sublime-project
 *.sublime-workspace
 helpers/keys/dd_anon/dd_anon_public_key.txt
 images/userimg/c8l7Io47ACwlDpE9a9jA.png
+test/translate/testcases.xml
+test/translate/testcases1.xml

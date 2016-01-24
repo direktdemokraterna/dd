@@ -50,9 +50,21 @@ class template_engine
 	{
 		$candidates = array();
 		foreach ($first_word_matches as $first_word_match)
-			foreach ($remainder_matches as $remainder_match)
-				$candidates[] = array_merge(array($first_word_match), $remainder_match);
+			foreach ($remainder_matches as $remainder_match) {
+				$candidate = array_merge(array($first_word_match), $remainder_match);
+				if (self::partial_match_end($candidate))
+					$candidates[] = $candidate;	
+			}
 		return $candidates;
+	}
+
+	private static function partial_match_end($candidate_end) {
+		$templates = self::get_templates();
+		foreach ($templates as $template) {
+			if ($template->partial_match_end($candidate_end))
+				return true;
+		}
+		return false;
 	}
 
 	private static function match_word($word) 
@@ -205,6 +217,16 @@ class template
 			return false;
 		for ($index = 0; $index < count($this->from_sequence); $index++)
 			if (!$this->from_sequence[$index]->matches($translator_matches[$index]->translator))
+				return false;
+		return true;
+	}
+
+	public function partial_match_end($candidate_end) {
+		$offset = count($this->from_sequence) - count($candidate_end);
+		if ($offset < 0)
+			return false;
+		for ($index = 0; $index < count($candidate_end); $index++)
+			if (!$this->from_sequence[$index + $offset]->matches($candidate_end[$index]->translator))
 				return false;
 		return true;
 	}

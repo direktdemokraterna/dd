@@ -1,6 +1,6 @@
 <?php
 
-define('TEST_FILENAME', 'testcases.xml');
+define('TEST_FILENAME', 'testcases1.xml');
 
 class testcase_helper 
 {
@@ -33,11 +33,13 @@ class testcase_helper
 	public static function output($testcases, $hide_passed_tests = false, $page = 1) 
 	{
 		$hide_passed = isset($_POST['hide_passed']) ? $_POST['hide_passed'] : false;
+		$hide_failed = isset($_POST['hide_failed']) ? $_POST['hide_failed'] : false;
 		$hide_without_hint = isset($_POST['hide_without_hint']) ? $_POST['hide_without_hint'] : false;
 		\I18n\controller::update_language("sv");
 		__h1("Testfall");
 		__hidden("showing_testcases", true);
 		echo self::generate_hide_passed_control($hide_passed);
+		echo self::generate_hide_failed_control($hide_failed);
 		echo self::generate_hide_without_hint_control($hide_without_hint);
 		__br();
 		$error_count = count(array_filter($testcases, function($case) 
@@ -49,7 +51,7 @@ class testcase_helper
 		else 
 			__span("Inga fel", "correct");
 		__br();
-		self::output_testcases_list($testcases, $hide_passed, $hide_without_hint, $page);
+		self::output_testcases_list($testcases, $hide_passed, $hide_failed, $hide_without_hint, $page);
 	}
 
 	public static function get_testcase($index) 
@@ -82,11 +84,13 @@ class testcase_helper
 		return $n - 1;
 	}
 
-	private static function output_testcases_list($all_cases, $hide_passed, $hide_without_hint, $page) 
+	private static function output_testcases_list($all_cases, $hide_passed, $hide_failed, $hide_without_hint, $page) 
 	{
-		$cases = $hide_passed
-			? array_filter($all_cases, function($case) { return $case->success === false; })
-			: $all_cases;
+		$cases = $all_cases;
+		if ($hide_passed)
+			$cases = array_filter($cases, function($case) { return $case->success === false; });
+		if ($hide_failed)
+			$cases = array_filter($cases, function($case) { return $case->success; });
 		if ($hide_without_hint)
 			$cases = array_filter($cases, function($case) { return $case->hints; });
 		$page_size = 50;
@@ -96,12 +100,10 @@ class testcase_helper
 		echo '<div style="width: 500px">';
 		\View\controls::output_paging_row($page, $list_count, "testfall", $page_size);
 		echo '</div>';
-		$n = ($page - 1) * $page_size;
-		$cases = array_slice($cases, $n, $page_size);
+		$offset = $page_size * ($page - 1);
+		$cases = array_slice($cases, $offset, $page_size);
 		foreach ($cases as $case) {
-			if ($hide_passed) 
-				$n = array_search($case, $all_cases);
-			$n++;
+			$n = array_search($case, $all_cases) + 1;
 			$case->output($n);
 		}
 	}
@@ -121,19 +123,25 @@ class testcase_helper
 
 	private static function generate_hide_passed_control ($hide_passed)
 	{
-		$html = '<input type="checkbox" name="hide_passed"' .
-			($hide_passed ? ' checked' : '') 
-			. ' id="hide_passed" onchange="this.form.submit()"><label for "hide_passed">' 
-			. "Dölj klarade" . '</label>';
-		return _span($html, "standard-form");
+		return self::generate_checkbox_control("Dölj klarade", "hide_passed", $hide_passed);
+	}
+
+	private static function generate_hide_failed_control ($hide_failed)
+	{
+		return self::generate_checkbox_control("Dölj felande", "hide_failed", $hide_failed);
 	}
 
 	private static function generate_hide_without_hint_control ($hide_without_hint)
 	{
-		$html = '<input type="checkbox" name="hide_without_hint"' .
-			($hide_without_hint ? ' checked' : '') 
-			. ' id="hide_without_hint" onchange="this.form.submit()"><label for "hide_without_hint">' 
-			. "Dölj utan hint" . '</label>';
+		return self::generate_checkbox_control("Dölj utan hint", "hide_without_hint", $hide_without_hint);
+	}
+
+	private static function generate_checkbox_control ($label, $name, $value)
+	{
+		$html = "<input type='checkbox' name='$name'" .
+			($value ? ' checked' : '') 
+			. " id='$name' onchange='this.form.submit()''><label for '$name'>" 
+			. $label . '</label>';
 		return _span($html, "standard-form");
 	}
 
