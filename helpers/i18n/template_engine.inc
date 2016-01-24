@@ -7,26 +7,27 @@ class template_engine
 
 	public static function translate($original, $translation_hints = null) 
 	{
+		//echo 'translate: ' . $original . '<br>';
 		$trimmed_original = trim($original);
 		$phrases = translation_helper::split_phrases($trimmed_original);
-		$translations = array_map(function($phrase) {
-			return self::translate_original_phrase($phrase);
+		$translations = array_map(function($phrase) use ($translation_hints) {
+			return self::translate_original_phrase($phrase, $translation_hints);
 		}, $phrases);
 		$translation = translation_helper::apply_translations($trimmed_original, $phrases, $translations);		
 		return $translation;
 	}
 
-	private static function translate_original_phrase($original)
+	private static function translate_original_phrase($original, $translation_hints = null)
 	{
-		$translation = self::translate_phrase($original);
+		$translation = self::translate_phrase($original, $translation_hints );
 		$translation = translation_helper::preserve_case($translation, $original);
 		return $translation;
 	}	
 
-	private static function translate_phrase($phrase) 
+	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$words = translation_helper::split_words($phrase);
-		$matches = self::match_words($words);
+		$matches = self::match_words($words, $translation_hints);
 		$template_match = self::find_best_template($matches);
 		$translation = $template_match
 			? $template_match->translate()
@@ -34,11 +35,11 @@ class template_engine
 		return $translation;
 	}
 
-	private static function match_words($words) 
+	private static function match_words($words, $translation_hints = null) 
 	{
 		if (!$words) return array(array());
 		$first_word = array_shift($words);
-		$first_word_translators = self::match_word($first_word);
+		$first_word_translators = self::match_word($first_word, $translation_hints);
 		$first_word_matches = array_map(function($translator) use ($first_word) {
 			return new translation_match($first_word, $translator);
 		}, $first_word_translators);
@@ -67,9 +68,13 @@ class template_engine
 		return false;
 	}
 
-	private static function match_word($word) 
+	private static function match_word($word, $translation_hints = null) 
 	{
 		$candidates = translation_storage::get_translators(strtolower($word));
+		//var_dump($candidates);
+		if ($translation_hints && $candidates)
+			$candidates = translation_storage::filter_translators($candidates, $translation_hints);
+		//var_dump($candidates);
 		return $candidates ? $candidates : array(new untranslated($word));
 	}
 
@@ -113,15 +118,11 @@ class template_engine
 		return self::$templates;
 	}
 
-	private static $compact_templates = array(
-		'AN' => 'AN'
-		,'W' => 'W'
-	);
-
 	private static function expand_templates() 
 	{
 		$templates = array();
-		foreach (self::$compact_templates as $from => $to)
+		$compact_templates = templates::create_templates();
+		foreach ($compact_templates as $from => $to)
 			$templates[] = self::expand_template($from, $to);
 		return $templates;
 	}
@@ -217,9 +218,16 @@ class template
 	{
 		if (count($this->from_sequence) != count($translator_matches))
 			return false;
-		for ($index = 0; $index < count($this->from_sequence); $index++)
-			if (!$this->from_sequence[$index]->matches($translator_matches[$index]->translator))
-				return false;
+		$matches_after = $translator_matches;
+		$matches_before = array();
+		$localized_strings = array();
+		for ($index = 0; $index < count($this->from_sequence); $index++) {
+			$match = array_shift($matches_after);
+			if (!$this->from_sequence[$index]->matches_in_context($match->translator
+				, $matches_before, $matches_after))
+				return false;			
+			$matches_before[] = $match;
+		}
 		return true;
 	}
 
@@ -241,6 +249,12 @@ class word_form
 	public function __construct($class) 
 	{
 		$this->class = $class;
+	}
+
+	public function matches_in_context($translator, $matches_before, $matches_after) 
+	{
+		return $this->matches($translator) 
+			&& $translator->identifier->match($matches_before, $matches_after);
 	}
 
 	public function matches($translator) 

@@ -123,8 +123,13 @@ class Testcase {
 
 	private static function get_translation_hints($hints_txt) 
 	{
-		$parts = explode('=>', $hints_txt);
-		return array($parts[0] => $parts[1]);
-	}	
+		$segments = explode(',', $hints_txt);
+		$hints = array();
+		foreach ($segments as $segment) {
+			$parts = explode('=>', $segment);
+			$hints[$parts[0]] = $parts[1];
+		}
+		return $hints;
+	}
 }
 ?>

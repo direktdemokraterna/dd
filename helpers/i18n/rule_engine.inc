@@ -28,7 +28,7 @@ class rule_engine
 
 	private static function get_predefined_translation($lower_phrase, $translation_hints) 
 	{
-		$candidates = translation_storage::get_translators($lower_phrase, $translation_hints);
+		$candidates = translation_storage::get_translators($lower_phrase);
 		$translation = $candidates 
 			? self::try_select_translator($candidates, array(), array(), $translation_hints) 
 			: null;
@@ -155,7 +155,7 @@ class rule_engine
 		$with_selector = array();
 		$without_selector = array();
 		if ($strictness > 0 && $translation_hints)
-			$candidates = self::filter_translator_candidates($candidates, $translation_hints);
+			$candidates = translation_storage::filter_translators($candidates, $translation_hints);
 		foreach ($candidates as $candidate)
 			if ($candidate->identifier->selector)
 				$with_selector[] = $candidate;
@@ -167,18 +167,6 @@ class rule_engine
 			if ($candidate->match($previous_matches, $following_matches, $strictness > 1))
 				return $candidate;
 		return null;
-	}
-
-	private static function filter_translator_candidates($candidates, $translation_hints) {
-		if (isset($translation_hints['class']))
-			$candidates = array_filter($candidates, function ($translator) use ($translation_hints) {
-				return $translator->identifier->class == $translation_hints['class'];
-			});
-		if (isset($translation_hints['form']))
-			$candidates = array_filter($candidates, function ($translator) use ($translation_hints) {
-				return $translator->identifier->form == $translation_hints['form'];
-			});
-		return $candidates;
 	}
 }
 ?>

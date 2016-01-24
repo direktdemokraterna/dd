@@ -45,6 +45,7 @@ include(dirname(__FILE__)."/helpers/db/db_constituency.inc");
 include(dirname(__FILE__)."/helpers/i18n/controller.inc");
 include(dirname(__FILE__)."/helpers/i18n/rule_engine.inc");
 include(dirname(__FILE__)."/helpers/i18n/template_engine.inc");
+include(dirname(__FILE__)."/helpers/i18n/templates.inc");
 include(dirname(__FILE__)."/helpers/i18n/selectors.inc");
 include(dirname(__FILE__)."/helpers/i18n/translator.inc");
 include(dirname(__FILE__)."/helpers/i18n/translation_helper.inc");

@@ -19,6 +19,9 @@ class translation_storage
 		return isset(self::$translators[$phrase_lower]) 
 			? self::$translators[$phrase_lower]
 			: array();
+		return $translation_hints
+			? self::filter_translators($translators, $translation_hints)
+			: $translators;
 	}
 
 	public static function store_translation($phrase, $translated_phrase) 
@@ -27,6 +30,18 @@ class translation_storage
 		$translation = strtolower($translated_phrase);
 		$identifier = translation_identifier::create($key);
 		self::$stored_translators[$phrase] = new translator($identifier, $translation);
+	}
+
+	public static function filter_translators($translators, $translation_hints) {
+		if (isset($translation_hints['class']))
+			$translators = array_filter($translators, function ($translator) use ($translation_hints) {
+				return $translator->identifier->class == $translation_hints['class'];
+			});
+		if (isset($translation_hints['form']))
+			$translators = array_filter($translators, function ($translator) use ($translation_hints) {
+				return $translator->identifier->form == $translation_hints['form'];
+			});
+		return $translators;
 	}
 
 	private static function init_translations() 
