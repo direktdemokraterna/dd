@@ -166,6 +166,7 @@ class template_engine
 	{
 		switch($class_code) {
 			case 'A': return 'adj';
+			case 'Q': return 'quant';
 			case 'N': return 'noun';
 			case 'W': return null;
 			default: throw new \Exception("Unknown class_code: " . $class_code);
