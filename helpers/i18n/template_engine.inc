@@ -168,6 +168,8 @@ class template_engine
 			case 'A': return 'adj';
 			case 'Q': return 'quant';
 			case 'N': return 'noun';
+			case 'V': return 'verb';
+			case 'P': return 'prep';
 			case 'W': return null;
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

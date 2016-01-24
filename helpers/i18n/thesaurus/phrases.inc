@@ -30,10 +30,6 @@ class phrases
 				"sv" => "igen"
 				,"en" => "again"
 				)
-			,"all" => array(
-				"sv" => "alla"
-				,"en" => "all"
-				)
 			,"all those" => array(
 				"sv" => "alla"
 				,"en" => "all those"

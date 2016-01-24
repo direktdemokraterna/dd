@@ -7,6 +7,10 @@ class templates
 		return array(
 		'AN' => 'AN'
 		,'QN' => 'QN'
+		,'NP' => 'NP'
+		,'VP' => 'VP'
+		,'VN' => 'VN'
+		,'AP' => 'AP'
 		,'W' => 'W'
 		);
 	}
