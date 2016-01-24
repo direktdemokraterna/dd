@@ -112,7 +112,8 @@
 
 	function _t($text, $hints = null) 
 	{
-		return \i18n\engine::translate($text, $hints);
+		//return \i18n\rule_engine::translate($text, $hints);
+		return \i18n\template_engine::translate($text, $hints);
 	}
 
 	function _h1($text) 
