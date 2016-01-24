@@ -30,7 +30,7 @@ class template_engine
 		$matches = self::match_words($words, $translation_hints);
 		$template_match = self::find_best_template($matches);
 		$translation = $template_match
-			? $template_match->translate()
+			? $template_match->translate($translation_hints)
 			: $phrase;
 		return $translation;
 	}
@@ -184,19 +184,19 @@ class template_match
 		$this->matches = $matches;
 	}
 
-	public function translate() {
-		$translated_words = $this->get_translated_parts();
+	public function translate($translation_hints = null) {
+		$translated_words = $this->get_translated_parts($translation_hints);
 		return implode('', $translated_words);
 	}
 
-	private function get_translated_parts() 
+	private function get_translated_parts($translation_hints = null) 
 	{
 		$translators_after = array_map(function($match) {return $match->translator;}, $this->matches);
 		$translators_before = array();
 		$localized_strings = array();
 		foreach ($this->matches as $match) {
 			$translator = array_shift($translators_after);
-			$localized_strings[] = $match->translate($translators_before, $translators_after, null);
+			$localized_strings[] = $match->translate($translators_before, $translators_after, $translation_hints);
 			$translators_before[] = $translator;
 		}
 		return $localized_strings;

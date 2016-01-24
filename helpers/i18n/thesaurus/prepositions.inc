@@ -33,16 +33,16 @@ class prepositions
 				"sv" => "till"
 				,"en" => "for"
 				)
-			,"for:prep" => array(
-				"sv" => "för"
-				,"en" => "for"
-				)
 			,"[proposal]for:prep" => array(
 				"sv" => "till"
 				,"en" => "for"
 				)
 			,"for:prep[quant]" => array(
 				"sv" => "under"
+				,"en" => "for"
+				)
+			,"for:prep" => array(
+				"sv" => "för"
 				,"en" => "for"
 				)
 			,"from:prep" => array(

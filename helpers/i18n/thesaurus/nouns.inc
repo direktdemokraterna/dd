@@ -42,12 +42,12 @@ class nouns
 				"sv" => "röst:er:en:na"
 				,"en" => "ballot:s"
 				)
-			,"bold:noun1" => array(
-				"sv" => "fetstil"
-				,"en" => "bold"
-				)
 			,"[]bold:noun1" => array(
 				"sv" => "fet"
+				,"en" => "bold"
+				)
+			,"bold:noun1" => array(
+				"sv" => "fetstil"
 				,"en" => "bold"
 				)
 			,"box:noun1" => array(
