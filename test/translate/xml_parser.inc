@@ -23,7 +23,7 @@ class xml_parser {
 
 	public static function parse($filename) 
 	{
-		$xml = file_get_contents('testcases.xml');
+		$xml = file_get_contents($filename);
 		$parser = new xml_parser();
 		return $parser->_parse($xml);
 	}

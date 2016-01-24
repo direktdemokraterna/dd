@@ -87,6 +87,9 @@ class testcase_helper
 	private static function output_testcases_list($all_cases, $hide_passed, $hide_failed, $hide_without_hint, $page) 
 	{
 		$cases = $all_cases;
+		usort($cases, function($a, $b) {
+			return strlen($a->from_text) - strlen($b->from_text);
+		});
 		if ($hide_passed)
 			$cases = array_filter($cases, function($case) { return $case->success === false; });
 		if ($hide_failed)

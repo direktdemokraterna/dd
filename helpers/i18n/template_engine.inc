@@ -115,6 +115,7 @@ class template_engine
 
 	private static $compact_templates = array(
 		'AN' => 'AN'
+		,'W' => 'W'
 	);
 
 	private static function expand_templates() 
@@ -165,6 +166,7 @@ class template_engine
 		switch($class_code) {
 			case 'A': return 'adj';
 			case 'N': return 'noun';
+			case 'W': return null;
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}
 	}
@@ -243,7 +245,7 @@ class word_form
 
 	public function matches($translator) 
 	{
-		return $this->class == $translator->identifier->class;
+		return !$this->class || $this->class == $translator->identifier->class;
 	}
 }
 ?>
