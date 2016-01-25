@@ -27,16 +27,20 @@ class template_match
 	}
 
 	public function prepend($translator_match) {
-		$matching_templates = array();
 		$new_translator_matches = array_merge(array($translator_match), $this->translator_matches);
+		if (template::is_compound_noun($translator_match->translator, $this->translator_matches))
+			return new template_match($new_translator_matches, $this->templates
+				, $this->matched_word_form_count);
+		$new_matched_word_form_count = $this->matched_word_form_count + 1;
+		$matching_templates = array();
 		foreach ($this->templates as $template) {
-			$offset = count($template->from_sequence) - $this->matched_word_form_count;
+			$offset = count($template->from_sequence) - $new_matched_word_form_count;
 			if ($offset >= 0 && $template->partially_matches($new_translator_matches, $offset))
 				$matching_templates[] = $template;
 		}
 		return $matching_templates
 			? new template_match($new_translator_matches, $matching_templates
-				, $this->matched_word_form_count + 1)
+				, $new_matched_word_form_count)
 			: null;
 	}
 

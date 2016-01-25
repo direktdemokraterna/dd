@@ -7,6 +7,7 @@ class template_engine
 
 	public static function translate($original, $translation_hints = null) 
 	{
+//		echo "translate: $original<br>";
 		$trimmed_original = trim($original);
 		$phrases = translation_helper::split_phrases($trimmed_original);
 		$translations = array_map(function($phrase) use ($translation_hints) {

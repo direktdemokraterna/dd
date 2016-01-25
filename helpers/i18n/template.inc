@@ -54,7 +54,7 @@ class template
 		return end($this->from_sequence)->matches($translator);
 	}
 
-	private function is_compound_noun($translator, $matches_after) 
+	public static function is_compound_noun($translator, $matches_after) 
 	{
 		return $translator->is_noun() 
 			&& $matches_after && $matches_after[0]->translator->is_noun();
