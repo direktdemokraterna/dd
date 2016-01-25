@@ -48,14 +48,6 @@ class pronoun_it extends translator
 	}
 }
 
-class quantifier extends noun_modifier 
-{
-}
-
-class definite_marker extends noun_modifier 
-{
-}
-
 class pronoun_possessive extends noun_modifier
 {
 }

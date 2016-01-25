@@ -514,10 +514,6 @@ class phrases
 				"sv" => "avslå ansökan"
 				,"en" => "reject application"
 				)
-			,"reply to" => array(
-				"sv" => "svar till"
-				,"en" => "reply to"
-				)
 			,"revoke ballot" => array(
 				"sv" => "ångra röst"
 				,"en" => "revoke ballot"
