@@ -5,13 +5,18 @@ class templates
 {
 	public static function create_templates() {
 		return array(
-		'QNA' => 'QNA'
+		'NPN' => 'NPN'
+		,'QNA' => 'QNA'
+		,'ON' => 'ON'
 		,'AN' => 'AN'
 		,'QN' => 'QN'
 		,'VR' => 'VR'
 		,'AP' => 'AP'
 		,'VP' => 'VP'
 		,'NP' => 'NP'
+		,'Npl' => 'Npl'
+		,'V' => 'V'
+		,'N' => 'N'		
 		,'VN' => 'VN'
 		,'VQ' => 'VQ'
 		,'NA' => 'NA'
@@ -19,8 +24,6 @@ class templates
 		,'VV' => 'VV'
 		,'DN' => 'DN'
 		,'NC' => 'NC'
-		,'Npl' => 'Npl'
-		,'V' => 'V'
 		,'W' => 'W'
 		);
 	}
@@ -36,6 +39,7 @@ class templates
 			case 'P': return 'prep';
 			case 'R': return 'pron';
 			case 'D': return 'definite';
+			case 'O': return 'pron-poss';
 			case 'W': return null;
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

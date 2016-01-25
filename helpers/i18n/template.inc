@@ -25,7 +25,11 @@ class template
 		while ($matches_after && $index < count($this->from_sequence)) {
 			$match = array_shift($matches_after);
 			$translator = $match->translator;
-			if (!self::is_compound_noun($translator, $matches_after)) {
+			if (self::is_compound_noun($translator, $matches_after)) {
+				if (!$translator->identifier->match($matches_before, $matches_after))
+					return false;
+			}
+			else {
 				$word_form = $this->from_sequence[$index++];
 				if (!$word_form->matches_in_context($translator, $matches_before, $matches_after))
 					return false;

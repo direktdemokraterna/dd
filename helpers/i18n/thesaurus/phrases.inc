@@ -126,10 +126,6 @@ class phrases
 				"sv" => "finns"
 				,"en" => "can be found"
 				)
-			,"[]candidate in" => array(
-				"sv" => "kandidat in"
-				,"en" => "candidate in"
-				)
 			,"candidate in" => array(
 				"sv" => "kandidat i"
 				,"en" => "candidate in"
@@ -641,10 +637,6 @@ class phrases
 			,"vote started" => array(
 				"sv" => "Omröstningen startad"
 				,"en" => "vote started"
-				)
-			,"vote status" => array(
-				"sv" => "Omröstningens status"
-				,"en" => "vote status"
 				)
 			,"want the activity to be repeated" => array(
 				"sv" => "vill att aktiviteten ska upprepas"
