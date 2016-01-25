@@ -25,6 +25,10 @@ class adjectives
 				"sv" => "beviljad|_t:e"
 				,"en" => "affirmed"
 				)
+			,"alphabetic" => array(
+				"sv" => "alfabetisk"
+				,"en" => "alphabetic"
+				)
 			,"auto-generated:adj" => array(
 				"sv" => "automatiskt skapad|_t:e"
 				,"en" => "auto-generated"

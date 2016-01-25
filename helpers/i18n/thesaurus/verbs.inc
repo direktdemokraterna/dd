@@ -285,7 +285,7 @@ class verbs
 				)
 			,"support:verb" => array(
 				"sv" => "stöd:ja:jer:_tt"
-				,"en" => "support::|s:ed"
+				,"en" => "support::|s|ing:ed"
 				)
 			,"to be subject for:verb" => array(
 				"sv" => "för att gå vidare och bli"

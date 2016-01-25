@@ -27,6 +27,7 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$candidate_matches = self::get_candidate_matches($phrase, $translation_hints);
+		//var_dump($candidate_matches);
 		$template_matches = self::combine_candidate_matches($candidate_matches);
 		if (!$template_matches) return $phrase;
 		$template_match = self::select_best_template($template_matches);

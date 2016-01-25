@@ -34,10 +34,6 @@ class phrases
 				"sv" => "alla"
 				,"en" => "all those"
 				)
-			,"alphabetic" => array(
-				"sv" => "alfabetisk"
-				,"en" => "alphabetic"
-				)
 			,"already" => array(
 				"sv" => "redan"
 				,"en" => "already"
@@ -406,10 +402,6 @@ class phrases
 				"sv" => "ändrades senast"
 				,"en" => "last changed"
 				)
-			,"last login" => array(
-				"sv" => "senast inloggad"
-				,"en" => "last login"
-				)
 			,"me" => array(
 				"sv" => "mig"
 				,"en" => "me"
@@ -553,10 +545,6 @@ class phrases
 			,"superadmin" => array(
 				"sv" => "superadmin"
 				,"en" => "superadmin"
-				)
-			,"supporting" => array(
-				"sv" => "stöder"
-				,"en" => "supporting"
 				)
 			,"thank you" => array(
 				"sv" => "tack"
