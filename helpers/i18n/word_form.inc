@@ -22,6 +22,7 @@ class word_form
 
 	public function matches($translator) 
 	{
+		if ($this->class == '%d') return $translator->identifier->key == '%d';
 		return (!$this->class || $this->class == $translator->identifier->class)
 			&& (!$this->numerus || $this->numerus == $translator->identifier->numerus);
 	}

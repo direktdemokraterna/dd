@@ -14,6 +14,10 @@ class pronouns
 				"sv" => "jag"
 				,"en" => "I"
 				)
+			,"me:pron" => array(
+				"sv" => "mig"
+				,"en" => "me"
+				)
 			,"something:pron" => array(
 				"sv" => "något"
 				,"en" => "something"

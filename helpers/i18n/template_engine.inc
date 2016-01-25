@@ -19,7 +19,10 @@ class template_engine
 
 	private static function translate_original_phrase($original, $translation_hints = null)
 	{
-		$translation = self::translate_phrase($original, $translation_hints);
+		$phrase = $original;
+		$numbers = translation_helper::extract_numbers($phrase);
+		$translation = self::translate_phrase($phrase, $translation_hints);
+		$translation = translation_helper::restore_numbers($translation, $numbers);
 		$translation = translation_helper::preserve_case($translation, $original);
 		return $translation;
 	}	
@@ -27,7 +30,6 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$candidate_matches = self::get_candidate_matches($phrase, $translation_hints);
-		//var_dump($candidate_matches);
 		$template_matches = self::combine_candidate_matches($candidate_matches);
 		if (!$template_matches) return $phrase;
 		$template_match = self::select_best_template($template_matches);

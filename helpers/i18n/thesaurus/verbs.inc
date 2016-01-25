@@ -115,6 +115,10 @@ class verbs
 				"sv" => "uteslut:a:er:it:(en|_t:__na)"
 				,"en" => "exclude::|s:d:(d)"
 				)
+			,"find:verb" => array(
+				"sv" => "finn:a:er:___unnit:(___unnen|_t:__a)"
+				,"en" => "find::|s:___ound:(___ound)"
+				)
 			,"finish:verb" => array(
 				"sv" => "avsluta"
 				,"en" => "finish"
@@ -274,6 +278,10 @@ class verbs
 			,"show:verb" => array(
 				"sv" => "visa::r:t:(d|_t:e)"
 				,"en" => "show::|s|ing:n:(n)"
+				)
+			,"start:verb" => array(
+				"sv" => "starta::r:t:(d|t:e)"
+				,"en" => "start::|s:ed:(ed)"
 				)
 			,"submit:verb" => array(
 				"sv" => "skicka in::r:t"

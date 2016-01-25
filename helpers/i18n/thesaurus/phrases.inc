@@ -218,10 +218,6 @@ class phrases
 				"sv" => "forumtråds-ID"
 				,"en" => "forum topic-ID"
 				)
-			,"found" => array(
-				"sv" => "funna"
-				,"en" => "found"
-				)
 			,"half" => array(
 				"sv" => "halva"
 				,"en" => "half"
@@ -402,10 +398,6 @@ class phrases
 				"sv" => "ändrades senast"
 				,"en" => "last changed"
 				)
-			,"me" => array(
-				"sv" => "mig"
-				,"en" => "me"
-				)
 			,"message not found" => array(
 				"sv" => "meddelandet kunde inte hittas"
 				,"en" => "message not found"
@@ -469,10 +461,6 @@ class phrases
 			,"one of the mandatory fields" => array(
 				"sv" => "något av de obligatoriska fälten"
 				,"en" => "one of the mandatory fields"
-				)
-			,"out" => array(
-				"sv" => "ut"
-				,"en" => "out"
 				)
 			,"other than" => array(
 				"sv" => "annat än"

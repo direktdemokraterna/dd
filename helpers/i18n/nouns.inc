@@ -50,7 +50,8 @@ class noun extends translator
 		return $translations_before
 		? self::is_definite_adjective(end($translations_before)->identifier)
 			|| self::has_definite_marker($translations_before)
-		: $translations_after && $this->identifier->numerus == 'singular' && $translations_after[0]->is_adjective();
+		: $translations_after && $this->identifier->numerus == 'singular' && 
+			($translations_after[0]->is_adjective() || $translations_after[0]->is_verb());
 	}
 
 	private static function is_definite_adjective($identifier) 
