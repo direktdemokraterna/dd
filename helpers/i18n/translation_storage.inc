@@ -4,6 +4,7 @@ namespace I18n;
 class translation_storage 
 {
 	private static $translators = null;
+	private static $phrase_translators = null;
 	private static $stored_translators = array();
 
 	public static function get_stored_translation($phrase_lower) 
@@ -19,9 +20,14 @@ class translation_storage
 		return isset(self::$translators[$phrase_lower]) 
 			? self::$translators[$phrase_lower]
 			: array();
-		return $translation_hints
-			? self::filter_translators($translators, $translation_hints)
-			: $translators;
+	}
+
+	public static function get_phrase_translators($phrase_lower) 
+	{
+		self::init_translations();
+		return isset(self::$phrase_translators[$phrase_lower]) 
+			? self::$phrase_translators[$phrase_lower]
+			: array();
 	}
 
 	public static function store_translation($phrase, $translated_phrase) 
@@ -54,14 +60,15 @@ class translation_storage
 
 	private static function init_translations() 
 	{
-		if (self::$translators == null)
+		if (self::$translators == null) {
 			self::$translators = self::expand_all_translations();
+			self::$phrase_translators = self::expand_phrase_translations();			
+		}
 	}
 
 	private static function expand_all_translations() 
 	{
 		$translators = array();
-		//self::expand_translations($translators, \Thesaurus\phrases::create_translations());
 		self::expand_translations($translators, \Thesaurus\modifiers::create_translations());
 		self::expand_translations($translators, \Thesaurus\conjunctions::create_translations());
 		self::expand_translations($translators, \Thesaurus\interjections::create_translations());
@@ -76,6 +83,14 @@ class translation_storage
 		self::expand_translations($translators, \Thesaurus\abbreviations::create_translations());
 		self::expand_translations($translators, \Thesaurus\adverbs::create_translations());
 		self::expand_translations($translators, \Thesaurus\new_phrases::create_translations());
+		return $translators;
+	}
+
+	private static function expand_phrase_translations() 
+	{
+		$translators = array();
+		self::expand_translations($translators, \Thesaurus\new_phrases::create_translations());
+		self::expand_translations($translators, \Thesaurus\phrases::create_translations());
 		return $translators;
 	}
 

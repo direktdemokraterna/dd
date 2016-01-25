@@ -22,9 +22,16 @@ class word_form
 
 	public function matches($translator) 
 	{
+		//var_dump($this, $translator);
 		if ($this->class == '%d') return $translator->identifier->key == '%d';
 		return (!$this->class || $this->class == $translator->identifier->class)
 			&& (!$this->numerus || $this->numerus == $translator->identifier->numerus);
+
+		if ($this->class && $this->class != $translator->identifier->class)
+			return false;
+		if (/*!$translator->is_adjective() &&*/ $this->numerus && $this->numerus != $translator->identifier->numerus);
+			return false;
+		return true;
 	}
 }
 ?>

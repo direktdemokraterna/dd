@@ -26,7 +26,7 @@ class template_storage
 	{
 		$from_pattern = self::expand_pattern($from);
 		$to_pattern = self::expand_pattern($to);
-		return new template($priority, $from_pattern, $to_pattern);
+		return new template($priority, $from_pattern, $to_pattern, $from);
 	}
 
 	private static function expand_pattern($pattern) 

@@ -70,10 +70,6 @@ class phrases
 				"sv" => "automatiskt"
 				,"en" => "automatically"
 				)
-			,"back" => array(
-				"sv" => "tillbaka"
-				,"en" => "back"
-				)
 			,"be created" => array(
 				"sv" => "skapas"
 				,"en" => "be created"
@@ -173,10 +169,6 @@ class phrases
 			,"does not have" => array(
 				"sv" => "har inte"
 				,"en" => "does not have"
-				)
-			,"don't support" => array(
-				"sv" => "stödjer inte"
-				,"en" => "don't support"
 				)
 			,"do you really want to" => array(
 				"sv" => "vill du verkligen"
@@ -490,10 +482,6 @@ class phrases
 				"sv" => "avslå ansökan"
 				,"en" => "reject application"
 				)
-			,"revoke ballot" => array(
-				"sv" => "ångra röst"
-				,"en" => "revoke ballot"
-				)
 			,"should be reported" => array(
 				"sv" => "ska anmälas"
 				,"en" => "should be reported"
@@ -622,17 +610,9 @@ class phrases
 				"sv" => "synlig för"
 				,"en" => "visible to"
 				)
-			,"vote (yes/no)" => array(
-				"sv" => "votering (ja/nej)"
-				,"en" => "vote (yes/no)"
-				)
 			,"vote[as]" => array(
 				"sv" => "rösta"
 				,"en" => "vote"
-				)
-			,"vote closes" => array(
-				"sv" => "omröstningen avslutas"
-				,"en" => "vote closes"
 				)
 			,"vote started" => array(
 				"sv" => "Omröstningen startad"

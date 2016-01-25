@@ -5,15 +5,8 @@ class adjectives
 {
 	public static function create_translations() {
 		return array(
-			//ADVERBS
-			"temporarily:adverb" => array(
-				"sv" => "tillfälligt"
-				,"en" => "temporarily"
-				)
-
-			//ADJECTIVES
 			//singular_indefinite|non_type2:plural_indefinite:definite
-			,"active:adj" => array(
+			"active:adj" => array(
 				"sv" => "aktiv|t:a"
 				,"en" => "active"
 				)
@@ -96,6 +89,10 @@ class adjectives
 			,"new:adj" => array(
 				"sv" => "ny|tt:a"
 				,"en" => "new"
+				)
+			,"not found:adj" => array(
+				"sv" => "saknas"
+				,"en" => "not found"
 				)
 			,"old:adj" => array(
 				"sv" => "gammal|t:___la"

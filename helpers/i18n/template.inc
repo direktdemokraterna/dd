@@ -6,12 +6,14 @@ class template
 	public $priority;
 	public $from_sequence;
 	public $to_sequence;
+	public $compact_form;
 
-	public function __construct($priority, $from_sequence, $to_sequence) 
+	public function __construct($priority, $from_sequence, $to_sequence, $compact_form) 
 	{
 		$this->priority = $priority;
 		$this->from_sequence = $from_sequence;
 		$this->to_sequence = $to_sequence;
+		$this->compact_form = $compact_form;
 	}
 
 	public function matches($translator_matches) 

@@ -9,31 +9,39 @@ class template_engine
 	{
 //		echo "translate: $original<br>";
 		$trimmed_original = trim($original);
-		$phrases = translation_helper::split_phrases($trimmed_original);
-		$translations = array_map(function($phrase) use ($translation_hints) {
-			return self::translate_original_phrase($phrase, $translation_hints);
-		}, $phrases);
-		$translation = translation_helper::apply_translations($trimmed_original, $phrases, $translations);		
-		return $translation;
-	}
-
-	private static function translate_original_phrase($original, $translation_hints = null)
-	{
-		$phrase = $original;
-		$numbers = translation_helper::extract_numbers($phrase);
-		$translation = self::translate_phrase($phrase, $translation_hints);
+		$numbers = translation_helper::extract_numbers($trimmed_original);
+		$translation = self::translate_whole_phrase(strtolower($trimmed_original), $translation_hints);
+		//var_dump($translation);
+		if (!$translation) {
+			$phrases = translation_helper::split_phrases($trimmed_original);
+			$translations = array_map(function($phrase) use ($translation_hints) {
+				return self::translate_phrase($phrase, $translation_hints);
+			}, $phrases);
+			$translation = translation_helper::apply_translations($trimmed_original, $phrases, $translations);
+		}
 		$translation = translation_helper::restore_numbers($translation, $numbers);
 		$translation = translation_helper::preserve_case($translation, $original);
 		return $translation;
-	}	
+	}
+
+	private static function translate_whole_phrase($lower_phrase) 
+	{
+		$candidates = translation_storage::get_phrase_translators($lower_phrase);
+		//var_dump($candidates);
+		foreach ($candidates as $candidate)
+			if ($candidate->identifier->match(array(), array()))
+				return $candidate->translate($lower_phrase, array(), array());
+		return null;
+	}
 
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$candidate_matches = self::get_candidate_matches($phrase, $translation_hints);
-		//var_dump($candidate_matches);
+		//var_dump($candidate_matches[2]->translator);
 		$template_matches = self::combine_candidate_matches($candidate_matches);
 		if (!$template_matches) return $phrase;
 		$template_match = self::select_best_template($template_matches);
+		//var_dump($template_match->templates);
 		if (!$template_match) return $phrase;
 		return $template_match->translate($translation_hints);
 	}

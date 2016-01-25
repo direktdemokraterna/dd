@@ -10,6 +10,10 @@ class nouns
 				"sv" => "tillgång"
 				,"en" => "access"
 				)
+			,"action:noun1" => array(
+				"sv" => "åtgärd:er:en:na"
+				,"en" => "action:s"
+				)
 			,"active vote:noun1" => array(
 				"sv" => "pågående omröstning:ar"
 				,"en" => "active vote:s"
@@ -81,6 +85,10 @@ class nouns
 			,"category:noun1" => array(
 				"sv" => "kategori:er:n:na:-"
 				,"en" => "category:_ies"
+				)
+			,"change:noun1[made]" => array(
+				"sv" => "ändring:ar"
+				,"en" => "change:s"
 				)
 			,"change:noun1" => array(
 				"sv" => "förändring:ar"
