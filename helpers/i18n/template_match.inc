@@ -3,8 +3,10 @@ namespace I18n;
 
 class template_match
 {
+	public $template;
 	public $templates;
 	public $translator_matches;
+	private $mapped_word_forms;
 	private $matched_word_form_count;
 
 	public static function start($translator_match) 
@@ -45,13 +47,15 @@ class template_match
 	}
 
 	public function match_complete() {
-		$matching_templates = array();
 		foreach ($this->templates as $template) {
-			if ($template->matches($this->translator_matches))
-				$matching_templates[] = $template;
+			$mapped_word_forms = $template->map_to_word_forms($this->translator_matches);
+			if ($mapped_word_forms) {
+				$this->template = $template;
+				$this->mapped_word_forms = $mapped_word_forms;
+				$matched_word_form_count = 0;
+				return;				
+			}
 		}
-		$this->templates = $matching_templates;
-		$matched_word_form_count = 0;
 	}
 
 	private static function match_last_translator($translator) {
@@ -69,12 +73,18 @@ class template_match
 		$translators_after = array_map(function($match) {return $match->translator;}, $this->translator_matches);
 		$translators_before = array();
 		$localized_strings = array();
+		$index = 0;
 		foreach ($this->translator_matches as $match) {
 			$translator = array_shift($translators_after);
-			$localized_strings[] = $match->translate($translators_before, $translators_after, $translation_hints);
+			$word_form = $this->mapped_word_forms[$index++];
+			$hints = $word_form 
+				? $word_form->merge_hints($translation_hints)
+				: $translation_hints;
+			//var_dump($translator, $this->mapped_word_forms[$index++]);
+			$localized_strings[] = $match->translate($translators_before, $translators_after, $hints);
 			$translators_before[] = $translator;
 		}
 		return $localized_strings;
-	}	
+	}
 }
 ?>

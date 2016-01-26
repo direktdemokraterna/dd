@@ -37,8 +37,9 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$candidate_matches = self::get_candidate_matches($phrase, $translation_hints);
-		//var_dump($candidate_matches[2]->translator);
+		//var_dump(array_map(function($match) {return $match->translator;}, $candidate_matches));
 		$template_matches = self::combine_candidate_matches($candidate_matches);
+		//var_dump($template_matches);
 		if (!$template_matches) return $phrase;
 		$template_match = self::select_best_template($template_matches);
 		//var_dump($template_match->templates);
@@ -115,9 +116,8 @@ class template_engine
 		$best_candidate = null;
 		foreach ($candidates as $candidate) {
 			$candidate->match_complete();
-			if (!$candidate->templates) continue;
-			if (!$best_candidate || 
-				$best_candidate->templates[0]->priority > $candidate->templates[0]->priority)
+			if ($candidate->template && (!$best_candidate 
+				|| $best_candidate->template->priority > $candidate->template->priority))
 				$best_candidate = $candidate;
 		}
 		return $best_candidate;

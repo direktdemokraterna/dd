@@ -520,6 +520,10 @@ class nouns
 				"sv" => "nummer::___ret:___en"
 				,"en" => "number:s"
 				)
+			,"number of:noun2" => array(
+				"sv" => "antal::et:en"
+				,"en" => "number:s of"
+				)
 			,"one or more mandatory field:noun2" => array(
 				"sv" => "ett eller fler obligatoriska fält"
 				,"en" => "one or more mandatory field:s"

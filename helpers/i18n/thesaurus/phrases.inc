@@ -434,10 +434,6 @@ class phrases
 				"sv" => "numera utesluten"
 				,"en" => "now excluded"
 				)
-			,"number of" => array(
-				"sv" => "antal"
-				,"en" => "number of"
-				)
 			,"on proposition" => array(
 				"sv" => "på propositionen"
 				,"en" => "on proposition"

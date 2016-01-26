@@ -16,8 +16,9 @@ class template
 		$this->compact_form = $compact_form;
 	}
 
-	public function matches($translator_matches) 
+	public function map_to_word_forms($translator_matches) 
 	{
+		$mapped_word_forms = array();
 		if (count($this->from_sequence) > count($translator_matches))
 			return false;
 		$matches_after = $translator_matches;
@@ -30,15 +31,19 @@ class template
 			if (self::is_compound_noun($translator, $matches_after)) {
 				if (!$translator->identifier->match($matches_before, $matches_after))
 					return false;
+				$mapped_word_forms[] = null;
 			}
 			else {
 				$word_form = $this->from_sequence[$index++];
 				if (!$word_form->matches_in_context($translator, $matches_before, $matches_after))
 					return false;
+				$mapped_word_forms[] = $word_form;
 			}
 			$matches_before[] = $match;
 		}
-		return $index == count($this->from_sequence);
+		return $index == count($this->from_sequence)
+			? $mapped_word_forms
+			: null;
 	}
 
 	public function partially_matches($remaining_matches, $offset) 

@@ -24,14 +24,20 @@ class word_form
 	{
 		//var_dump($this, $translator);
 		if ($this->class == '%d') return $translator->identifier->key == '%d';
-		return (!$this->class || $this->class == $translator->identifier->class)
-			&& (!$this->numerus || $this->numerus == $translator->identifier->numerus);
+		$match = (!$this->class || $this->class == $translator->identifier->class)
+			&& (!$this->numerus || !$translator->identifier->numerus || $this->numerus == $translator->identifier->numerus);
+		//echo 'matches<br>';
+		//var_dump($translator, $this, $match);
+		return $match;
+	}
 
-		if ($this->class && $this->class != $translator->identifier->class)
-			return false;
-		if (/*!$translator->is_adjective() &&*/ $this->numerus && $this->numerus != $translator->identifier->numerus);
-			return false;
-		return true;
+	public function merge_hints($hints) {
+		if ($this->numerus)
+		{
+			if (!$hints) $hints = array();
+			$hints['numerus'] = $this->numerus;
+		}
+		return $hints;
 	}
 }
 ?>

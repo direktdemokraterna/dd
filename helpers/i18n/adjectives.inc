@@ -16,7 +16,7 @@ class adjective extends noun_modifier
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
 	{
-		return !$restrictive ||  $previous_matches;
+		return !$restrictive || $previous_matches;
 	}	
 
 	protected function get_significant_noun($translations_before, $translations_after) 
