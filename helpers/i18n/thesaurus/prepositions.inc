@@ -57,6 +57,10 @@ class prepositions
 				"sv" => "i"
 				,"en" => "of"
 				)
+			,"[name]of:prep" => array(
+				"sv" => "på"
+				,"en" => "of"
+				)
 			,"of:prep" => array(
 				"sv" => "av"
 				,"en" => "of"

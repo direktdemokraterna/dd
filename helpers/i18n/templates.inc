@@ -11,6 +11,9 @@ class templates
 		,'APR' => 'APR'
 		,'VPApl' => 'VPApl'
 		,'VON' => 'VON'
+		,'DNV' => 'DNV'
+		,'XVP' => 'XVP'
+		,'QN' => 'QN'
 		,'QNA' => 'QNA'
 		,'QNV' => 'QNV'
 		,'VQN' => 'VQN'
@@ -19,7 +22,6 @@ class templates
 		,'NAP' => 'NAP'
 		,'ON' => 'ON'
 		,'AN' => 'AN'
-		,'QN' => 'QN'
 		,'VR' => 'VR'
 		,'AP' => 'AP'
 		,'VP' => 'VP'
@@ -54,6 +56,7 @@ class templates
 			case 'Q': return 'quant';
 			case 'R': return 'pron';
 			case 'V': return 'verb';
+			case 'X': return 'verb-aux';
 			case 'W': return null;
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}
