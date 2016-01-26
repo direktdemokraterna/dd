@@ -9,6 +9,10 @@ class adverbs
 				"sv" => "tillbaka"
 				,"en" => "back"
 				)
+			,"here:adverb" => array(
+				"sv" => "här"
+				,"en" => "here"
+				)
 			,"not:adverb" => array(
 				"sv" => "inte"
 				,"en" => "not"
@@ -17,9 +21,9 @@ class adverbs
 				"sv" => "tillfälligt"
 				,"en" => "temporarily"
 				)
-			,"here:adverb" => array(
-				"sv" => "här"
-				,"en" => "here"
+			,"wrong:adverb" => array(
+				"sv" => "fel"
+				,"en" => "wrong"
 				)
 		);
 	}	

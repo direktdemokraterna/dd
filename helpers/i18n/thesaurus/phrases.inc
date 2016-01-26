@@ -386,14 +386,6 @@ class phrases
 				"sv" => "ändrades senast"
 				,"en" => "last changed"
 				)
-			,"message not found" => array(
-				"sv" => "meddelandet kunde inte hittas"
-				,"en" => "message not found"
-				)
-			,"recipient not found" => array(
-				"sv" => "mottagaren kunde inte hittas"
-				,"en" => "recipient not found"
-				)
 			,"must have" => array(
 				"sv" => "måste ha"
 				,"en" => "must have"

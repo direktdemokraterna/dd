@@ -91,7 +91,7 @@ class adjectives
 				,"en" => "new"
 				)
 			,"not found:adj" => array(
-				"sv" => "saknas"
+				"sv" => "hittades inte"
 				,"en" => "not found"
 				)
 			,"old:adj" => array(
