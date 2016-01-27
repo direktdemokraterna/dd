@@ -19,6 +19,11 @@ class template_engine
 		}
 		$translation = translation_helper::restore_numbers($translation, $numbers);
 		$translation = translation_helper::preserve_case($translation, $original);
+
+		echo "word_form->matches: " . word_form::$word_form_counter++ . '<br>';
+		echo "template->partial: " . template::$template_partial_counter++ . '<br>';
+		echo "template->complete: " . template::$template_complete_counter++ . '<br>';
+
 		return $translation;
 	}
 
@@ -34,10 +39,14 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$candidate_matches = self::get_candidate_matches($phrase, $translation_hints);
+		echo "candidate_translators: " . count($candidate_matches) . '<br>';
 		//var_dump(array_map(function($match){return $match->translator;}, $candidate_matches));
-		$template_matches = self::combine_candidate_matches($candidate_matches);
+		$template_matches = self::match_translators_with_templates($candidate_matches);
+		echo "candidate_templates1: " . count($template_matches) . '<br>';
 		if ($template_matches)
 			$template_matches = self::complete_match_templates($template_matches);
+		echo "candidate_templates2: " . count($template_matches) . '<br>';
+		echo '<br>';
 		//var_dump($template_matches);
 		if (!$template_matches) return $phrase;
 		$template_match = self::select_best_template($template_matches);
@@ -83,26 +92,26 @@ class template_engine
 		return $candidates;
 	}
 
-	private static function combine_candidate_matches($candidate_matches) 
+	private static function match_translators_with_templates($phrase_translator_matches) 
 	{
-		$first_match = array_shift($candidate_matches);
-		$first_matches = $first_match->split();
-		if (!$candidate_matches) 
+		$first_translator_match = array_shift($phrase_translator_matches);
+		$first_translator_matches = $first_translator_match->split();
+		if (!$phrase_translator_matches) 
 			return array_map(function ($match) {
 				return template_match::start($match);
-			}, $first_matches);
-		$remainder_matches = self::combine_candidate_matches($candidate_matches);
-		return $remainder_matches
-			? self::combine_matches($first_matches, $remainder_matches)
+			}, $first_translator_matches);
+		$remainder_template_matches = self::match_translators_with_templates($phrase_translator_matches);
+		return $remainder_template_matches
+			? self::combine_matches($first_translator_matches, $remainder_template_matches)
 			: null;
 	}
 
-	private static function combine_matches($first_matches, $remainder_matches) 
+	private static function combine_matches($translator_matches, $template_matches) 
 	{
 		$candidates = array();
-		foreach ($first_matches as $first_match)
-			foreach ($remainder_matches as $remainder_match) {
-				$candidate = $remainder_match->prepend($first_match);
+		foreach ($translator_matches as $translator_match)
+			foreach ($template_matches as $template_match) {
+				$candidate = $template_match->prepend($translator_match);
 				if ($candidate)
 					$candidates[] = $candidate;						
 			}
@@ -113,7 +122,9 @@ class template_engine
 	{
 		foreach ($candidates as $candidate) 
 			$candidate->match_complete();
-		return array_filter($candidates, function($match) {return $match->template;});
+		$unique_candidates = array_filter($candidates, function($match) {return $match->template;});
+		return $unique_candidates;
+		return array_unique($unique_candidates);
 	}
 
 	private static function select_best_template($candidates) 

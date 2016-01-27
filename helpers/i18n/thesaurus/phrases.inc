@@ -1,6 +1,5 @@
 <?php
 namespace Thesaurus; 
-
 class phrases 
 {
 	public static function create_translations() {
@@ -33,6 +32,10 @@ class phrases
 			,"all those" => array(
 				"sv" => "alla"
 				,"en" => "all those"
+				)
+			,"alphabetic" => array(
+				"sv" => "alfabetisk"
+				,"en" => "alphabetic"
 				)
 			,"already" => array(
 				"sv" => "redan"
@@ -69,6 +72,10 @@ class phrases
 			,"automatically" => array(
 				"sv" => "automatiskt"
 				,"en" => "automatically"
+				)
+			,"back" => array(
+				"sv" => "tillbaka"
+				,"en" => "back"
 				)
 			,"be created" => array(
 				"sv" => "skapas"
@@ -122,6 +129,10 @@ class phrases
 				"sv" => "finns"
 				,"en" => "can be found"
 				)
+			,"[]candidate in" => array(
+				"sv" => "kandidat in"
+				,"en" => "candidate in"
+				)
 			,"candidate in" => array(
 				"sv" => "kandidat i"
 				,"en" => "candidate in"
@@ -170,6 +181,10 @@ class phrases
 				"sv" => "har inte"
 				,"en" => "does not have"
 				)
+			,"don't support" => array(
+				"sv" => "stödjer inte"
+				,"en" => "don't support"
+				)
 			,"do you really want to" => array(
 				"sv" => "vill du verkligen"
 				,"en" => "do you really want to"
@@ -194,6 +209,10 @@ class phrases
 				"sv" => "även"
 				,"en" => "even"
 				)
+			,"every" => array(
+				"sv" => "varje"
+				,"en" => "every"
+				)
 			,"for the particular issue" => array(
 				"sv" => "i den frågan"
 				,"en" => "från the particular issue"
@@ -206,9 +225,17 @@ class phrases
 				"sv" => "forumtråds-ID"
 				,"en" => "forum topic-ID"
 				)
+			,"found" => array(
+				"sv" => "funna"
+				,"en" => "found"
+				)
 			,"half" => array(
 				"sv" => "halva"
 				,"en" => "half"
+				)
+			,"given name" => array(
+				"sv" => "förnamn"
+				,"en" => "given name"
 				)
 			,"got" => array(
 				"sv" => "fått"
@@ -289,6 +316,14 @@ class phrases
 			,"have let your delegate vote" => array(
 				"sv" => "har låtit din delegat rösta"
 				,"en" => "have let your delegate vote"
+				)
+			,"hello" => array(
+				"sv" => "hej"
+				,"en" => "hello"
+				)
+			,"here" => array(
+				"sv" => "här"
+				,"en" => "here"
 				)
 			,"here you create" => array(
 				"sv" => "här skapar man"
@@ -386,6 +421,26 @@ class phrases
 				"sv" => "ändrades senast"
 				,"en" => "last changed"
 				)
+			,"last login" => array(
+				"sv" => "senast inloggad"
+				,"en" => "last login"
+				)
+			,"last name" => array(
+				"sv" => "efternamn"
+				,"en" => "last name"
+				)
+			,"me" => array(
+				"sv" => "mig"
+				,"en" => "me"
+				)
+			,"message not found" => array(
+				"sv" => "meddelandet kunde inte hittas"
+				,"en" => "message not found"
+				)
+			,"recipient not found" => array(
+				"sv" => "mottagaren kunde inte hittas"
+				,"en" => "recipient not found"
+				)
 			,"must have" => array(
 				"sv" => "måste ha"
 				,"en" => "must have"
@@ -397,6 +452,10 @@ class phrases
 			,"necessary" => array(
 				"sv" => "nödvändigt"
 				,"en" => "necessary"
+				)
+			,"no[]" => array(
+				"sv" => "nej"
+				,"en" => "no"
 				)
 			,"no change made" => array(
 				"sv" => "ingen ändring gjord"
@@ -426,6 +485,10 @@ class phrases
 				"sv" => "numera utesluten"
 				,"en" => "now excluded"
 				)
+			,"number of" => array(
+				"sv" => "antal"
+				,"en" => "number of"
+				)
 			,"on proposition" => array(
 				"sv" => "på propositionen"
 				,"en" => "on proposition"
@@ -437,6 +500,10 @@ class phrases
 			,"one of the mandatory fields" => array(
 				"sv" => "något av de obligatoriska fälten"
 				,"en" => "one of the mandatory fields"
+				)
+			,"out" => array(
+				"sv" => "ut"
+				,"en" => "out"
 				)
 			,"other than" => array(
 				"sv" => "annat än"
@@ -458,6 +525,10 @@ class phrases
 				"sv" => "propositions"
 				,"en" => "proposition's"
 				)
+			,"re" => array(
+				"sv" => "sv"
+				,"en" => "re"
+				)
 			,"register as candidate for" => array(
 				"sv" => "anmäl dig som kandidat i"
 				,"en" => "register as candidate for"
@@ -469,6 +540,14 @@ class phrases
 			,"reject application" => array(
 				"sv" => "avslå ansökan"
 				,"en" => "reject application"
+				)
+			,"reply to" => array(
+				"sv" => "svar till"
+				,"en" => "reply to"
+				)
+			,"revoke ballot" => array(
+				"sv" => "ångra röst"
+				,"en" => "revoke ballot"
 				)
 			,"should be reported" => array(
 				"sv" => "ska anmälas"
@@ -505,6 +584,10 @@ class phrases
 			,"superadmin" => array(
 				"sv" => "superadmin"
 				,"en" => "superadmin"
+				)
+			,"supporting" => array(
+				"sv" => "stöder"
+				,"en" => "supporting"
 				)
 			,"thank you" => array(
 				"sv" => "tack"
@@ -586,6 +669,10 @@ class phrases
 				"sv" => "för"
 				,"en" => "too"
 				)
+			,"treasurer" => array(
+				"sv" => "kassör"
+				,"en" => "treasurer"
+				)
 			,"unsubscribe for" => array(
 				"sv" => "avanmäl dig till"
 				,"en" => "unsubscribe for"
@@ -598,13 +685,25 @@ class phrases
 				"sv" => "synlig för"
 				,"en" => "visible to"
 				)
+			,"vote (yes/no)" => array(
+				"sv" => "votering (ja/nej)"
+				,"en" => "vote (yes/no)"
+				)
 			,"vote[as]" => array(
 				"sv" => "rösta"
 				,"en" => "vote"
 				)
+			,"vote closes" => array(
+				"sv" => "omröstningen avslutas"
+				,"en" => "vote closes"
+				)
 			,"vote started" => array(
 				"sv" => "Omröstningen startad"
 				,"en" => "vote started"
+				)
+			,"vote status" => array(
+				"sv" => "Omröstningens status"
+				,"en" => "vote status"
 				)
 			,"want the activity to be repeated" => array(
 				"sv" => "vill att aktiviteten ska upprepas"
@@ -625,6 +724,10 @@ class phrases
 			,"was terminated" => array(
 				"sv" => "avslutades"
 				,"en" => "was terminated"
+				)
+			,"welcome" => array(
+				"sv" => "välkommen"
+				,"en" => "welcome"
 				)
 			,"will be activated" => array(
 				"sv" => "kommer aktiveras"
@@ -657,6 +760,10 @@ class phrases
 			,"why" => array(
 				"sv" => "varför"
 				,"en" => "why"
+				)
+			,"yes" => array(
+				"sv" => "ja"
+				,"en" => "yes"
 				)
 			,"you create" => array(
 				"sv" => "skapar du"

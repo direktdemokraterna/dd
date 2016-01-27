@@ -3,6 +3,8 @@ namespace I18n;
 
 class word_form 
 {
+	public static $word_form_counter = 0;
+	
 	public $class;
 	public $numerus;
 	public $tempus;
@@ -28,6 +30,7 @@ class word_form
 
 	public function matches($translator) 
 	{
+		self::$word_form_counter++;
 		if ($this->class == '%d') return $translator->identifier->key == '%d';
 		$match = (!$this->class || $this->class == $translator->identifier->class)
 			&& (!$this->numerus || !$translator->identifier->numerus || $this->numerus == $translator->identifier->numerus)

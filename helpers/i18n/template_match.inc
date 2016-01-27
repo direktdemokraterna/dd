@@ -48,6 +48,7 @@ class template_match
 
 	public function match_complete() {
 		foreach ($this->templates as $template) {
+			echo $template->compact_form . '<br>';
 			$mapped_word_forms = $template->map_to_word_forms($this->translator_matches);
 			if ($mapped_word_forms) {
 				$this->template = $template;

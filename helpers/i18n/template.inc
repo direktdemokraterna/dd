@@ -3,6 +3,9 @@ namespace I18n;
 
 class template
 {
+	public static $template_partial_counter = 0;
+	public static $template_complete_counter = 0;
+
 	public $priority;
 	public $from_sequence;
 	public $to_sequence;
@@ -16,8 +19,13 @@ class template
 		$this->compact_form = $compact_form;
 	}
 
+	public function __toString() {
+        return $this->compact_form;
+    }
+
 	public function map_to_word_forms($translator_matches) 
 	{
+		self::$template_complete_counter++;
 		$mapped_word_forms = array();
 		if (count($this->from_sequence) > count($translator_matches))
 			return false;
@@ -27,6 +35,7 @@ class template
 		$index = 0;
 		while ($matches_after && $index < count($this->from_sequence)) {
 			$match = array_shift($matches_after);
+			echo $match->translator->identifier->key . '<br>';
 			$translator = $match->translator;
 			if (self::is_compound_noun($translator, $matches_after)) {
 				if (!$translator->identifier->match($matches_before, $matches_after))
@@ -48,6 +57,7 @@ class template
 
 	public function partially_matches($remaining_matches, $offset) 
 	{
+		self::$template_partial_counter++;
 		$index = $offset;
 		while ($remaining_matches && $index < count($this->from_sequence)) {
 			$match = array_shift($remaining_matches);
