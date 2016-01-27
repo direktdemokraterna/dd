@@ -41,17 +41,15 @@ class noun extends translator
 			$connector = '';
 			return parent::create_word_form($this->base_translation, $this->connector);
 		}
-		$this->is_definite = self::check_is_definite($translations_before, $translations_after);
+		$this->is_definite = self::check_is_definite($translations_before, $translations_after, $translation_hints);
 		return $this->is_definite ? $this->definite_translation	: $this->translation; 
 	}
 
-	private function check_is_definite($translations_before, $translations_after) 
+	private function check_is_definite($translations_before, $translations_after, $translation_hints) 
 	{
-		return $translations_before
-		? self::is_definite_adjective(end($translations_before)->identifier)
-			|| self::has_definite_marker($translations_before)
-		: $translations_after && $this->identifier->numerus == 'singular' && 
-			($translations_after[0]->is_adjective() || $translations_after[0]->is_verb());
+		if ($translation_hints && isset($translation_hints['definite']))
+			return $translation_hints['definite'];
+		return $translations_before && (self::is_definite_adjective(end($translations_before)->identifier)	|| self::has_definite_marker($translations_before));
 	}
 
 	private static function is_definite_adjective($identifier) 

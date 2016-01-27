@@ -39,7 +39,6 @@ class translation_storage
 	}
 
 	public static function filter_translators($translators, $translation_hints) {
-		//var_dump($translators);
 		if (isset($translation_hints['class']))
 			$translators = array_filter($translators, function ($translator) use ($translation_hints) {
 				return $translator->identifier->class == $translation_hints['class'];
@@ -54,7 +53,6 @@ class translation_storage
 				return !$translator->identifier->tempus 
 					|| $translator->identifier->tempus == $translation_hints['tempus'];
 			});
-		//var_dump($translators);
 		return $translators;
 	}
 
@@ -128,6 +126,7 @@ class translation_storage
 			case 'pron':
 			case 'prep':
 			case 'adverb':
+			case 'verb-pass':
 				$translators[] = new translator($identifier, $compact_translation[$lang]);
 				break;
 			case 'quant':

@@ -5,13 +5,26 @@ class templates
 {
 	public static function create_templates() {
 		return array(
-		'VimDN' => 'VimDN'
+		'VDNPQN' => 'VDNPQN'
+		,'DNVQN' => 'DNVQN'
+		,'DNXVA' => 'DNXVA'
+		,'QNPON' => 'QNPON'
+		,'DNVBA' => 'DNVBA'
+		,'DNAPN' => 'DNAPN'
+		,'VimDN' => 'VimDN'
 		,'BPDN' => 'BPDN'
 		,'DNVA' => 'DNVA'
+		,'VQAN' => 'VQAN'
+		,'ANPN' => 'ANPN'
+		,'ONVA' => 'ONVA'
+		,'VPON' => 'VPON'
+		,'VNPN' => 'VNPN'
+		,'RVprON' => 'RVprON'
+		,'NdeAPN' => 'NdeAPN'
 		,'VAN' => 'VAN'
 		,'APR' => 'APR'
 		,'VPApl' => 'VPApl'
-		,'VON' => 'VON'
+		,'VimON' => 'VimON'
 		,'DNV' => 'DNV'
 		,'OAN' => 'OAN'
 		,'XVP' => 'XVP'
@@ -19,10 +32,13 @@ class templates
 		,'QNA' => 'QNA'
 		,'QNV' => 'QNV'
 		,'VQN' => 'VQN'
+		,'APN' => 'APN'
 		,'VPN' => 'VPN'
 		,'NPN' => 'NPN'
-		,'NAP' => 'NAP'
+		,'NAN' => 'NAN'
+		,'NdeAP' => 'NdeAP'
 		,'RVB' => 'RVB'
+		,'VNP' => 'VNP'
 		,'ON' => 'ON'
 		,'AN' => 'AN'
 		,'VR' => 'VR'
@@ -36,11 +52,11 @@ class templates
 		,'VN' => 'VN'
 		,'PN' => 'PN'
 		,'VQ' => 'VQ'
-		,'NA' => 'NA'
+		//,'NA' => 'NA'
+		,'NdeA' => 'NdeA'
 		,'NBA' => 'NBA'
-		,'NV' => 'NV'
-		//,'NdeVact' => 'NdeVact'
-		//,'NinVpas' => 'NinVpas'
+		,'NdeV' => 'NdeV'
+		,'NinS' => 'NinS'
 		,'VV' => 'VV'
 		,'DN' => 'DN'
 		,'NC' => 'NC'
@@ -60,6 +76,7 @@ class templates
 			case 'P': return 'prep';
 			case 'Q': return 'quant';
 			case 'R': return 'pron';
+			case 'S': return 'verb-pass';
 			case 'V': return 'verb';
 			case 'X': return 'verb-aux';
 			case 'W': return null;
@@ -72,6 +89,9 @@ class templates
 		switch($mod_str) {
 			case 'pl': return array('numerus' => 'plural');
 			case 'im': return array('tempus' => 'imperative');
+			case 'pr': return array('tempus' => 'present');
+			case 'in': return array('definite' => false);
+			case 'de': return array('definite' => true);
 			case '': return array();
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

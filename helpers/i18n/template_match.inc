@@ -80,7 +80,6 @@ class template_match
 			$hints = $word_form 
 				? $word_form->merge_hints($translation_hints)
 				: $translation_hints;
-			//var_dump($translator, $this->mapped_word_forms[$index++]);
 			$localized_strings[] = $match->translate($translators_before, $translators_after, $hints);
 			$translators_before[] = $translator;
 		}

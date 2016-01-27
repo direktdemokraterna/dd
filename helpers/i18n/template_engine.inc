@@ -7,11 +7,9 @@ class template_engine
 
 	public static function translate($original, $translation_hints = null) 
 	{
-//		echo "translate: $original<br>";
 		$trimmed_original = trim($original);
 		$numbers = translation_helper::extract_numbers($trimmed_original);
 		$translation = self::translate_whole_phrase(strtolower($trimmed_original), $translation_hints);
-		//var_dump($translation);
 		if (!$translation) {
 			$phrases = translation_helper::split_phrases($trimmed_original);
 			$translations = array_map(function($phrase) use ($translation_hints) {
@@ -27,7 +25,6 @@ class template_engine
 	private static function translate_whole_phrase($lower_phrase) 
 	{
 		$candidates = translation_storage::get_phrase_translators($lower_phrase);
-		//var_dump($candidates);
 		foreach ($candidates as $candidate)
 			if ($candidate->identifier->match(array(), array()))
 				return $candidate->translate($lower_phrase, array(), array());
@@ -37,12 +34,13 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$candidate_matches = self::get_candidate_matches($phrase, $translation_hints);
-		//var_dump(array_map(function($match) {return $match->translator;}, $candidate_matches));
+		//var_dump(array_map(function($match){return $match->translator;}, $candidate_matches));
 		$template_matches = self::combine_candidate_matches($candidate_matches);
+		if ($template_matches)
+			$template_matches = self::complete_match_templates($template_matches);
 		//var_dump($template_matches);
 		if (!$template_matches) return $phrase;
 		$template_match = self::select_best_template($template_matches);
-		//var_dump($template_match->templates);
 		if (!$template_match) return $phrase;
 		return $template_match->translate($translation_hints);
 	}
@@ -111,13 +109,19 @@ class template_engine
 		return $candidates;
 	}
 
+	private static function complete_match_templates($candidates) 
+	{
+		foreach ($candidates as $candidate) 
+			$candidate->match_complete();
+		return array_filter($candidates, function($match) {return $match->template;});
+	}
+
 	private static function select_best_template($candidates) 
 	{
 		$best_candidate = null;
 		foreach ($candidates as $candidate) {
-			$candidate->match_complete();
-			if ($candidate->template && (!$best_candidate 
-				|| $best_candidate->template->priority > $candidate->template->priority))
+			if (!$best_candidate 
+				|| $best_candidate->template->priority > $candidate->template->priority)
 				$best_candidate = $candidate;
 		}
 		return $best_candidate;

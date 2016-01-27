@@ -159,17 +159,13 @@ class verbs
 				"sv" => "gör:a::__jorde:(__jord|_t:a)"
 				,"en" => "make::|s:__de:(__de)"
 				)
-			,"missing:verb" => array(
-				"sv" => "saknas"
-				,"en" => "missing"
-				)
 			,"moderate:verb" => array(
 				"sv" => "moderera"
 				,"en" => "moderate"
 				)
 			,"move:verb" => array(
-				"sv" => "flytta"
-				,"en" => "move"
+				"sv" => "flytta::r:de:(d|_t:e)"
+				,"en" => "move::|s|ing:d:(d)"
 				)
 			,"motivate:verb" => array(
 				"sv" => "motivera"
@@ -191,6 +187,10 @@ class verbs
 				"sv" => "tryck på"
 				,"en" => "press"
 				)
+			,"process:verb" => array(
+				"sv" => "hantera::r:t:(d|_t:e)"
+				,"en" => "process::|es:ed:(ed)"
+				)				
 			,"promote:verb" => array(
 				"sv" => "främja::r:t:(d|_t:e)"
 				,"en" => "promote::|s:d:(d)"
@@ -350,6 +350,12 @@ class verbs
 			,"write:verb" => array(
 				"sv" => "skriv"
 				,"en" => "write"
+				)
+
+			//PASSIVE FORMS
+			,"missing:verb-pass" => array(
+				"sv" => "saknas"
+				,"en" => "missing"
 				)
 
 			//AUXILIARY VERBS

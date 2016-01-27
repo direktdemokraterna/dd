@@ -187,7 +187,9 @@ class verb_perfect extends translator
 	{
 		$perfect_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 3);
 		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[controller::get_language()]), 3);
-		parent::__construct($identifier->copy(array('key' => $perfect_key)), $perfect_translation);
+		parent::__construct($identifier->copy(array(
+			'key' => $perfect_key
+			,'tempus' => 'perfect')), $perfect_translation);
 	}
 
 	protected function match_static($previous_matches, $following_matches, $restrictive = true) 

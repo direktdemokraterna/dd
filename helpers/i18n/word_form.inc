@@ -5,12 +5,18 @@ class word_form
 {
 	public $class;
 	public $numerus;
+	public $tempus;
+	public $definite;
 
 	public function __construct($class, $modifiers) 
 	{
 		$this->class = $class;
 		if (isset($modifiers['numerus']))
 			$this->numerus = $modifiers['numerus'];
+		if (isset($modifiers['tempus']))
+			$this->tempus = $modifiers['tempus'];
+		if (isset($modifiers['definite']))
+			$this->definite = $modifiers['definite'];
 	}
 
 	public function matches_in_context($translator, $matches_before, $matches_after) 
@@ -22,12 +28,10 @@ class word_form
 
 	public function matches($translator) 
 	{
-		//var_dump($this, $translator);
 		if ($this->class == '%d') return $translator->identifier->key == '%d';
 		$match = (!$this->class || $this->class == $translator->identifier->class)
-			&& (!$this->numerus || !$translator->identifier->numerus || $this->numerus == $translator->identifier->numerus);
-		//echo 'matches<br>';
-		//var_dump($translator, $this, $match);
+			&& (!$this->numerus || !$translator->identifier->numerus || $this->numerus == $translator->identifier->numerus)
+			&& (!$this->tempus || !$translator->identifier->tempus || $this->tempus == $translator->identifier->tempus);
 		return $match;
 	}
 
@@ -36,6 +40,11 @@ class word_form
 		{
 			if (!$hints) $hints = array();
 			$hints['numerus'] = $this->numerus;
+		}
+		if ($this->definite !== null)
+		{
+			if (!$hints) $hints = array();
+			$hints['definite'] = $this->definite;
 		}
 		return $hints;
 	}

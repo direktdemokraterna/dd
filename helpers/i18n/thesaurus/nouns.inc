@@ -246,6 +246,10 @@ class nouns
 				"sv" => "minut:er:en:na"
 				,"en" => "minute:s"
 				)
+			,"moderator:noun1" => array(
+				"sv" => "moderator:er:n:na"
+				,"en" => "moderator:s"
+				)
 			,"month:noun1" => array(
 				"sv" => "månad:er:en:na"
 				,"en" => "month:s"
@@ -318,6 +322,10 @@ class nouns
 				"sv" => "upprepning:ar"
 				,"en" => "repetition:s"
 				)				
+			,"report:noun1" => array(
+				"sv" => "anmälan"
+				,"en" => "report"
+				)				
 			,"role:noun1" => array(
 				"sv" => "roll:er:en:erna"
 				,"en" => "role:s"
@@ -369,6 +377,10 @@ class nouns
 			,"telephone:noun1" => array(
 				"sv" => "telefon:er:en:na:-"
 				,"en" => "telephone:s"
+				)
+			,"text:noun1" => array(
+				"sv" => "text:er:en:na:-"
+				,"en" => "text:s"
 				)
 			,"thread:noun1" => array(
 				"sv" => "tråd:ar:en:na:-"
