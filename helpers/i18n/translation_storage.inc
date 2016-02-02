@@ -80,8 +80,8 @@ class translation_storage
 		self::expand_translations($translators, \Thesaurus\names::create_translations());
 		self::expand_translations($translators, \Thesaurus\abbreviations::create_translations());
 		self::expand_translations($translators, \Thesaurus\adverbs::create_translations());
-		self::expand_translations($translators, \Thesaurus\phrases::create_translations());
-		//self::expand_translations($translators, \Thesaurus\new_phrases::create_translations());
+		//self::expand_translations($translators, \Thesaurus\phrases::create_translations());
+		self::expand_translations($translators, \Thesaurus\new_phrases::create_translations());
 		return $translators;
 	}
 
@@ -89,7 +89,7 @@ class translation_storage
 	{
 		$translators = array();
 		self::expand_translations($translators, \Thesaurus\new_phrases::create_translations());
-		self::expand_translations($translators, \Thesaurus\phrases::create_translations());
+		//self::expand_translations($translators, \Thesaurus\phrases::create_translations());
 		return $translators;
 	}
 
@@ -172,12 +172,11 @@ class translation_storage
 				$translators[] = $verb_imperative;
 				break;
 			case 'noun':
-				$translators[] = new noun_singular($identifier->copy(array('selector' => new singular_noun_selector())), 
-					$compact_translation[$lang]);
-				$translators[] = new noun_plural($identifier->copy(array('selector' => new plural_noun_selector())), 
-					$compact_translation);
-				$translators[] = new noun_singular($identifier, $compact_translation[$lang]);
-				$translators[] = new noun_plural(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
+				$plural = new noun_plural(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
+				$singular = new noun_singular($identifier, $compact_translation[$lang]);
+				$singular->plural_translator = $plural;
+				$translators[] = $singular;
+				$translators[] = $plural;
 				break;
 			default:
 				throw new \Exception("Unknown word class: " . $identifier->class);

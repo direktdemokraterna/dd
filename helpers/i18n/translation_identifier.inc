@@ -12,11 +12,15 @@ class translation_identifier
 	public $numerus;
 	public $definite;
 
-	public $selector;
+	public $pre_selector;
+	public $post_selector;
 
 	public static function create($identifier_str) 
 	{
-		$selector = self::extract_selector($identifier_str);
+		$pre_selector = self::extract_word_selector($identifier_str
+			, word_selector::$previous_word_pattern);
+		$post_selector = self::extract_word_selector($identifier_str
+			, word_selector::$next_word_pattern);
 		$parts = explode(':', $identifier_str);
 		$category = count($parts) == 2 ? $parts[1] : 'phrase';
 		$key = $parts[0];
@@ -24,57 +28,57 @@ class translation_identifier
 		$identifier = $type_matches
 			? new translation_identifier($key, str_replace($type_matches[0], '', $category), (int)$type_matches[0])
 			: new translation_identifier($key, $category, 1);
-		$identifier->selector = $selector;
+		$identifier->pre_selector = $pre_selector;
+		$identifier->post_selector = $post_selector;
 		return $identifier;
 	}
 
-	private static function extract_selector(&$identifier_str) 
+	private static function extract_word_selector(&$identifier_str, $word_pattern) 
 	{
-		preg_match(previous_word_selector::$pattern, $identifier_str, $pre_matches);
-		if ($pre_matches) {
-			$identifier_str = str_replace($pre_matches[0], '', $identifier_str);
-			return new previous_word_selector(translator::strip_parenthesis($pre_matches[0]));
-		}
-		preg_match(next_word_selector::$pattern, $identifier_str, $post_matches);
-		if ($post_matches) {
-			$identifier_str = str_replace($post_matches[0], '', $identifier_str);
-			return new next_word_selector(translator::strip_parenthesis($post_matches[0]));
-		}
-		return null;
+		preg_match($word_pattern, $identifier_str, $matches);
+		if (!$matches)
+			return null;
+		$identifier_str = str_replace($matches[0], '', $identifier_str);
+		return new word_selector(translator::strip_parenthesis($matches[0]));
 	}
 
-	public function match($previous_matches, $following_matches, $restrictive = true) 
+	public function match_selectors($previous_identifier, $next_identifier) 
 	{
-		return !$this->selector || $this->selector->match($previous_matches, $following_matches, $restrictive);
+		return (!$this->pre_selector || $this->pre_selector->match($previous_identifier))
+			&& (!$this->post_selector || $this->post_selector->match($next_identifier));
+	}
+
+	public function is_noun_base_form() 
+	{
+		return $this->class == 'noun'
+			&& $this->numerus == 'singular'
+			&& !$this->definite;
 	}
 
 	public function copy($change_props = null) 
 	{
-		$copy = new translation_identifier($this->key
-			, $this->class
-			, $this->type
-			, $this->tempus
-			, $this->numerus
-			, $this->definite
-			, $this->selector
-			, $this->base_form);
+		$copy = new translation_identifier($this->key, $this->class, $this->type);
+		$copy->tempus = $this->tempus;
+		$copy->numerus = $this->numerus;
+		$copy->definite = $this->definite;
+		$copy->base_form = $this->base_form;
+		$copy->pre_selector = $this->pre_selector;
+		$copy->post_selector = $this->post_selector;
 		if ($change_props)
 			foreach ($change_props as $key => $value)
 				$copy->$key = $value;
 		return $copy;
 	}
 
-	function __construct($key, $class, $type = 1, $tempus = null, $numerus = null, $definite = false
-		, $selector = null, $base_form = null) 
+	function __construct($key, $class, $type = 1) 
 	{
 		$this->key = $key;
-		$this->base_form = $base_form ? $base_form : $key;
+		$this->base_form = $key;
 		$this->class = $class;
 		$this->type = $type;	
-		$this->tempus = $tempus;
-		$this->numerus = $numerus;
-		$this->definite = $definite;
-		$this->selector = $selector;
+		$this->tempus = null;
+		$this->numerus = null;
+		$this->definite = false;
 	}
 }
 ?>

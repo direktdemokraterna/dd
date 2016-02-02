@@ -52,7 +52,7 @@ include(dirname(__FILE__)."/helpers/i18n/template_match.inc");
 include(dirname(__FILE__)."/helpers/i18n/word_form.inc");
 include(dirname(__FILE__)."/helpers/i18n/selectors.inc");
 include(dirname(__FILE__)."/helpers/i18n/translator.inc");
-include(dirname(__FILE__)."/helpers/i18n/translation_match.inc");
+include(dirname(__FILE__)."/helpers/i18n/translator_match.inc");
 include(dirname(__FILE__)."/helpers/i18n/translation_identifier.inc");
 include(dirname(__FILE__)."/helpers/i18n/noun_modifier.inc");
 include(dirname(__FILE__)."/helpers/i18n/translation_helper.inc");

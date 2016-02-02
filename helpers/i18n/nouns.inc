@@ -49,12 +49,9 @@ class noun extends translator
 	{
 		if ($translation_hints && isset($translation_hints['definite']))
 			return $translation_hints['definite'];
-		return $translations_before
- 		? self::is_definite_adjective(end($translations_before)->identifier)
- 			|| self::has_definite_marker($translations_before)
- 		: $translations_after && $this->identifier->numerus == 'singular' && 
- 			($translations_after[0]->is_adjective() || $translations_after[0]->is_verb());
-		return $translations_before && (self::is_definite_adjective(end($translations_before)->identifier)	|| self::has_definite_marker($translations_before));
+		return $translations_before &&
+	 		(self::is_definite_adjective(end($translations_before)->identifier)
+	 			|| self::has_definite_marker($translations_before));
 	}
 
 	private static function is_definite_adjective($identifier) 
@@ -81,6 +78,8 @@ class noun extends translator
 
 class noun_singular extends noun 
 {
+	public $plural_translator;
+
 	function __construct($identifier, $compact_translation) 
 	{
 		parent::__construct($identifier, 'singular', $compact_translation, 0, 2);

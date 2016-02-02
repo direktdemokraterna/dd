@@ -9,9 +9,17 @@ class new_phrases
 				"sv" => "kandidat in"
 				,"en" => "candidate in"
 				)
+			,"doesn't support" => array(
+				"sv" => "stöder ej"
+				,"en" => "doesn't support"
+				)
 			,"don't support" => array(
 				"sv" => "stödjer inte"
 				,"en" => "don't support"
+				)
+			,"forum topic-id" => array(
+				"sv" => "forumtråds-ID"
+				,"en" => "forum topic-ID"
 				)
 			,"last login" => array(
 				"sv" => "senast inloggad"

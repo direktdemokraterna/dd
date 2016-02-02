@@ -3,6 +3,9 @@ namespace I18n;
 
 class word_selector 
 {
+	public static $previous_word_pattern = '/^(\[\w+[\w\|\-]+\w+\]|\[\w*\])/';
+	public static $next_word_pattern = '/(\[\w+[\w\|\-]+\w+\]|\[\w*\])$/';
+
 	public $words;
 	public $classes;
 	public $forms;
@@ -29,121 +32,48 @@ class word_selector
 		}
 	}
 
-	public function match($previous_matches, $following_matches, $restrictive = true) 
+	public function match($identifier) 
 	{
-		$match = $this->get_match($previous_matches, $following_matches);
-		return $this->classes || $this->words
-			? $match && $this->match_translator($match->translator)
-			: !$match;
-	}
-
-	protected function get_match($previous_matches, $following_matches) 
-	{
-		return null;
-	}
-
-	private function match_translator($translator) 
-	{
-		if (is_array($translator)) {
-			foreach ($translator as $candidate)
-				if ($this->match_translator($candidate))
-					return true;
-			return false;
-		}
+		if (!$identifier) return !$this->classes && !$this->words;
+		if (!$this->classes && !$this->words) return false;
 		for ($i = 0; $i < count($this->words); $i++)
-			if (self::match_word($translator, $this->words[$i]) 
-				|| (self::match_class($translator, $this->classes[$i]) 
-				&& (self::match_tempus($translator, $this->forms[$i])
-				|| self::match_numerus($translator, $this->forms[$i])
-				|| self::match_definite($translator, $this->forms[$i] == 'definite'))))
+			if (self::match_word($identifier, $this->words[$i]) 
+				|| self::match_word_form($identifier, $i))
 				return true;
 		return false;
 	}
 
-	public function match_word($translator, $word) 
+	public function match_word_form($identifier, $i) 
 	{
-		return $translator->identifier->base_form == $word; 
+		return self::match_class($identifier, $this->classes[$i])
+		&& (self::match_tempus($identifier, $this->forms[$i])
+			|| self::match_numerus($identifier, $this->forms[$i])
+			|| self::match_definite($identifier, $this->forms[$i] == 'definite'));
 	}
 
-	public function match_class($translator, $class) 
+	public function match_word($identifier, $word) 
 	{
-		return $translator->identifier->class == $class; 
+		return $identifier->base_form == $word; 
 	}
 
-	public function match_tempus($translator, $tempus) 
+	public function match_class($identifier, $class) 
 	{
-		return !$tempus || $translator->identifier->tempus == $tempus; 
+		return $identifier->class == $class; 
 	}
 
-	public function match_numerus($translator, $numerus) 
+	public function match_tempus($identifier, $tempus) 
 	{
-		return !$numerus || $translator->identifier->numerus == $numerus; 
+		return !$tempus || $identifier->tempus == $tempus; 
 	}
 
-	public function match_definite($translator, $definite) 
+	public function match_numerus($identifier, $numerus) 
 	{
-		return $translator->identifier->definite == $definite; 
-	}
-}
-
-class previous_word_selector extends word_selector
-{
-	public static $pattern = '/^(\[\w+[\w\|\-]+\w+\]|\[\w*\])/';
-
-	protected function get_match($previous_matches, $following_matches) 
-	{
-		return $previous_matches ? end($previous_matches) : null;
-	}
-}
-
-class next_word_selector extends word_selector
-{
-	public static $pattern = '/(\[\w+[\w\|\-]+\w+\]|\[\w*\])$/';
-
-	protected function get_match($previous_matches, $following_matches) 
-	{
-		return $following_matches ? $following_matches[0] : null;
-	}
-}
-
-class noun_numerus_selector 
-{
-	protected function get_quantifier($previous_matches, $restrictive) 
-	{
-		$current_is_noun = true;
-		foreach (array_reverse($previous_matches) as $match) {
-			$translator = $match->translator;
-			if ($translator->is_quantifier())
-				return (int)$match->phrase;
-			if ($translator->is_adjective())
-				$current_is_noun = false; 
-			else if ($restrictive || !$translator->is_noun() || !$current_is_noun)
-				break; 
-		}
-		return null; 
+		return !$numerus || $identifier->numerus == $numerus; 
 	}
 
-	protected static function is_one($quantifier) 
+	public function match_definite($identifier, $definite) 
 	{
-		return in_array($quantifier, array("1", "a", "an", "one"));
-	}
-}
-
-class singular_noun_selector extends noun_numerus_selector
-{
-	public function match($previous_matches, $following_matches, $restrictive = true) 
-	{
-		$quantifier = parent::get_quantifier($previous_matches, $restrictive);
-		return $quantifier && self::is_one($quantifier);
-	}
-}
-
-class plural_noun_selector extends noun_numerus_selector
-{
-	public function match($previous_matches, $following_matches, $restrictive = true) 
-	{
-		$quantifier = parent::get_quantifier($previous_matches, $restrictive);
-		return $quantifier && !self::is_one($quantifier);
+		return $identifier->definite == $definite; 
 	}
 }
 ?>

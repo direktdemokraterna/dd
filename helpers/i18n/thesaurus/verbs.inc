@@ -219,6 +219,10 @@ class verbs
 				"sv" => "registrera::r:t:(d|_t:e)"
 				,"en" => "register::|s:ed:(ed)"
 				)				
+			,"reject:verb" => array(
+				"sv" => "avslå"
+				,"en" => "reject"
+				)
 			,"report:verb" => array(
 				"sv" => "anmäl::er:t:(d|t:e)"
 				,"en" => "report::|s:ed:(ed)"

@@ -403,8 +403,8 @@ class nouns
 				,"en" => "treasurer"
 				)
 			,"type:noun1" => array(
-				"sv" => "typ"
-				,"en" => "type"
+				"sv" => "typ:er:en:na"
+				,"en" => "type:s"
 				)
 			,"underline:noun1" => array(
 				"sv" => "understruken"
@@ -442,10 +442,6 @@ class nouns
 				"sv" => "omröstningstid:er:en:na"
 				,"en" => "vote time:s"
 				)
-			,"vote type:noun1" => array(
-				"sv" => "omröstningstyp:er:en:na"
-				,"en" => "vote type:s"
-				)
 			,"vote's:noun1" => array(
 				"sv" => "omröstnings:_ars:_ens"
 				,"en" => "vote's:__s'"
@@ -453,6 +449,10 @@ class nouns
 			,"voter:noun1" => array(
 				"sv" => "röstande"
 				,"en" => "voter"
+				)
+			,"voting:noun1" => array(
+				"sv" => "röstning"
+				,"en" => "voting"
 				)
 			,"week:noun1" => array(
 				"sv" => "vecka:_or:n:na"

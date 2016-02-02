@@ -9,9 +9,11 @@ class word_form
 	public $numerus;
 	public $tempus;
 	public $definite;
+	public $compact_form;
 
-	public function __construct($class, $modifiers) 
+	public function __construct($class, $modifiers, $compact_form) 
 	{
+		$this->compact_form = $compact_form;
 		$this->class = $class;
 		if (isset($modifiers['numerus']))
 			$this->numerus = $modifiers['numerus'];
@@ -21,10 +23,14 @@ class word_form
 			$this->definite = $modifiers['definite'];
 	}
 
-	public function matches_in_context($translator, $matches_before, $matches_after) 
+	public function __toString() {
+		return $this->compact_form;
+	}
+
+	public function matches_in_context($translator, $previous_word_form_match, $next_word_form_match) 
 	{
 		$match = $this->matches($translator) 
-			&& $translator->identifier->match($matches_before, $matches_after);
+			&& $translator->identifier->match($previous_word_form_match, $next_word_form_match);
 		return $match;
 	}
 

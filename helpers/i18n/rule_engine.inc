@@ -57,26 +57,26 @@ class rule_engine
 
 	private static function translate_unknown_phrase($phrase, $numbers, $translation_hints) 
 	{
-		$translation_matches = self::get_translation_matches($phrase, $numbers, $translation_hints);
-		return count($translation_matches) == 1
-			? $translation_matches[0]->translate(array(), array(), $translation_hints)
-			: self::translate_new_phrase($phrase, $translation_matches, $translation_hints);
+		$translator_matches = self::get_translator_matches($phrase, $numbers, $translation_hints);
+		return count($translator_matches) == 1
+			? $translator_matches[0]->translate(array(), array(), $translation_hints)
+			: self::translate_new_phrase($phrase, $translator_matches, $translation_hints);
 	}
 
-	private static function translate_new_phrase($phrase, $translation_matches, $translation_hints) 
+	private static function translate_new_phrase($phrase, $translator_matches, $translation_hints) 
 	{
-		$localized_strings = self::get_translated_parts($translation_matches, $translation_hints);
+		$localized_strings = self::get_translated_parts($translator_matches, $translation_hints);
 		$translated_phrase = implode('', $localized_strings);
 		if (count($localized_strings) > 1)
 			translation_storage::store_translation($phrase, $translated_phrase);			
 		return $translated_phrase;
 	}
 
-	private static function get_translation_matches($phrase, $numbers, $translation_hints) 
+	private static function get_translator_matches($phrase, $numbers, $translation_hints) 
 	{
-		$translation_matches = self::get_candidates_matches($phrase);
-		self::select_matches($translation_matches, $numbers, $translation_hints);
-		return $translation_matches;
+		$translator_matches = self::get_candidates_matches($phrase);
+		self::select_matches($translator_matches, $numbers, $translation_hints);
+		return $translator_matches;
 	}
 
 	private static function get_candidates_matches($phrase) 
@@ -100,11 +100,11 @@ class rule_engine
 				$phrase = implode(' ', $words);
 			$candidates = self::match_phrase($phrase);
 			if (is_array($candidates)) 
-				return new translation_match($phrase, $candidates);
+				return new translator_match($phrase, $candidates);
 			if ($words == null)
 				$words = translation_helper::split_words($phrase);
 			if (count($words) == 1)
-				return new translation_match($phrase, $candidates);
+				return new translator_match($phrase, $candidates);
 			$remaining_words[] = array_shift($words);
 		}
 	}
@@ -131,12 +131,12 @@ class rule_engine
 		}
 	}
 
-	private static function get_translated_parts($translation_matches, $translation_hints) 
+	private static function get_translated_parts($translator_matches, $translation_hints) 
 	{
-		$translators_after = array_map(function($match) {return $match->translator;}, $translation_matches);
+		$translators_after = array_map(function($match) {return $match->translator;}, $translator_matches);
 		$translators_before = array();
 		$localized_strings = array();
-		foreach ($translation_matches as $match) {
+		foreach ($translator_matches as $match) {
 			$translator = array_shift($translators_after);
 			$localized_strings[] = $match->translate($translators_before, $translators_after, $translation_hints);
 			$translators_before[] = $translator;
