@@ -7,22 +7,18 @@ class verb_imperative extends translator
 	public $has_present;
 	public $has_perfect;
 	public $has_perfect_participle;
+	public $has_passive_supinum;
 
 	function __construct($identifier, $compact_translation) 
 	{
 		$identifier->tempus = 'imperative';
 		$words = explode(' ', $compact_translation, 2);
-		$parts = explode(':', $words[0]);
+		$parts = util::split_word_forms($words[0]);
 		$translation = $parts[0];
 		if (count($words) == 2)
 			$translation .= ' ' . $words[1];
 		parent::__construct($identifier, $translation);
 		self::set_form_availability(count($parts));
-	}
-
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return !($restrictive && $previous_matches && self::is_invalid_imperative_modifier(end($previous_matches)->translator));
 	}
 
 	protected function is_invalid_imperative_modifier($translator) 
@@ -36,6 +32,7 @@ class verb_imperative extends translator
 		$this->has_present = $part_count > 2;
 		$this->has_perfect = $part_count > 3;
 		$this->has_perfect_participle = $part_count > 4;
+		$this->has_passive_supinum = $part_count > 5;
 	}
 }
 
@@ -45,17 +42,11 @@ class verb_infinitive extends translator
 	{
 		$identifier->tempus = 'infinitive';
 		$words = explode(' ', $compact_translation, 2);
-		$parts = explode(':', $words[0]);
+		$parts = util::split_word_forms($words[0]);
 		$translation = parent::assemble_word_form($parts, 1);
 		if (count($words) == 2)
 			$translation .= ' ' . $words[1];
 		parent::__construct($identifier, $translation);
-	}
-
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return $previous_matches && 
-		self::has_indefinite_marker($previous_matches);
 	}
 
 	private static function has_indefinite_marker($previous_matches) 
@@ -93,7 +84,7 @@ class verb_present extends translator
 	protected static function get_word_forms($compact_translation) 
 	{
 		$words = explode(' ', $compact_translation, 2);
-		$parts = explode(':', $words[0]);
+		$parts = util::split_word_forms($words[0]);
 		$word = parent::assemble_word_form($parts, 2);
 		$alternatives = self::extract_alternatives($word);
 		return count($words) == 2
@@ -111,13 +102,6 @@ class verb_present extends translator
 				? self::assemble_word_form($parts, $i) 
 				: $parts[0]);
 		return $alternatives;
-	}
-
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return $previous_matches 
-			? self::get_subject(array_map(function($match) {return $match->translator;}, $previous_matches))
-			: !$restrictive && !$following_matches;
 	}
 
 	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
@@ -156,11 +140,6 @@ class verb_present_singular extends translator
 		parent::__construct($identifier, $translation);
 	}
 
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return !$restrictive || ($previous_matches && self::has_subject($previous_matches));
-	}
-
 	private static function has_subject($previous_matches) {
 		foreach (array_reverse($previous_matches) as $match) {
 			if ($match->translator->is_noun() || $match->translator->is_pronoun())
@@ -185,21 +164,11 @@ class verb_perfect extends translator
 {
 	function __construct($identifier, $compact_translation) 
 	{
-		$perfect_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 3);
-		$perfect_translation = self::assemble_word_form(explode(':', $compact_translation[controller::get_language()]), 3);
+		$perfect_key = self::assemble_word_form(util::split_word_forms($compact_translation[BASE_LANG]), 3);
+		$perfect_translation = self::assemble_word_form(util::split_word_forms($compact_translation[controller::get_language()]), 3);
 		parent::__construct($identifier->copy(array(
 			'key' => $perfect_key
 			,'tempus' => 'perfect')), $perfect_translation);
-	}
-
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		if ($restrictive && (!$previous_matches 
-			|| self::has_indefinite_object($previous_matches, $following_matches)))
-			return false;
-		if ($previous_matches && self::is_invalid_verb_perfect_modifier(end($previous_matches)->translator))
-			return false;
-		return true;
 	}
 
 	private static function is_invalid_verb_perfect_modifier($translator) {
@@ -223,9 +192,9 @@ class verb_perfect_participle extends adjective
 {
 	function __construct($identifier, $compact_translation_pair) 
 	{
-		$base_parts = explode(':', $compact_translation_pair[BASE_LANG]);
+		$base_parts = util::split_word_forms($compact_translation_pair[BASE_LANG]);
 		$adjective_key = count($base_parts) > 4 
-			? parent::create_word_form($base_parts[0], self::strip_parenthesis($base_parts[4]))
+			? parent::create_word_form($base_parts[0], $base_parts[4])
 			: $base_parts[0];
 		$adjective_compact_translation = self::make_adjective_compact_translation($compact_translation_pair[controller::get_language()]);
 		parent::__construct(new translation_identifier($adjective_key, 'adj'),
@@ -234,11 +203,24 @@ class verb_perfect_participle extends adjective
 
 	private static function make_adjective_compact_translation($verb_compact_translation) 
 	{
-		$verb_base_form_and_endings = explode(':', $verb_compact_translation, 5);
+		$verb_base_form_and_endings = util::split_word_forms($verb_compact_translation);
 		$verb_base_form = $verb_base_form_and_endings[0];
-		$perfect_participle_endings = parent::strip_parenthesis($verb_base_form_and_endings[4]);
+		$perfect_participle_endings = $verb_base_form_and_endings[4];
 		$adjective_compact_translation = parent::create_word_form($verb_base_form, $perfect_participle_endings);
 		return $adjective_compact_translation;
+	}
+}
+
+class verb_passive_supinum extends translator 
+{
+	function __construct($identifier, $compact_translation) 
+	{
+		$key = self::assemble_word_form(util::split_word_forms($compact_translation[BASE_LANG]), 5);
+		$translation = self::assemble_word_form(util::split_word_forms($compact_translation[controller::get_language()]), 5);
+		parent::__construct($identifier->copy(array(
+			'key' => $key
+			,'tempus' => 'supinum'
+			,'passive' => true)), $translation);
 	}
 }
 ?>

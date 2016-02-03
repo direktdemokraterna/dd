@@ -92,8 +92,8 @@ class verbs
 				,"en" => "delegate::|s:d:(d)"
 				)
 			,"delete:verb" => array(
-				"sv" => "radera::r:t:(d|_t:e)"
-				,"en" => "delete::|s:d:(d)"
+				"sv" => "radera::r:t:(d|_t:e):ts"
+				,"en" => "delete::|s:d:(d):d"
 				)
 			,"demote:verb" => array(
 				"sv" => "mota::r:t:(d|_t:e)"
@@ -156,16 +156,16 @@ class verbs
 				,"en" => "logout"
 				)
 			,"make:verb" => array(
-				"sv" => "gör:a::__jorde:(__jord|_t:a)"
-				,"en" => "make::|s:__de:(__de)"
+				"sv" => "gör:a::__jorde:(__jord|_t:a):__jorts"
+				,"en" => "make::|s:__de:(__de):__de"
 				)
 			,"moderate:verb" => array(
 				"sv" => "moderera"
 				,"en" => "moderate"
 				)
 			,"move:verb" => array(
-				"sv" => "flytta::r:de:(d|_t:e)"
-				,"en" => "move::|s|ing:d:(d)"
+				"sv" => "flytta::r:de:(d|_t:e):ts"
+				,"en" => "move::|s|ing:d:(d):d"
 				)
 			,"motivate:verb" => array(
 				"sv" => "motivera"
@@ -272,8 +272,8 @@ class verbs
 				,"en" => "select::|s|ing:ed:(ed)"
 				)
 			,"send:verb" => array(
-				"sv" => "skicka::r:t:(d|_t:e)"
-				,"en" => "send::|s|ing:_t:(_t)"
+				"sv" => "skicka::r:t:(d|_t:e):ts"
+				,"en" => "send::|s|ing:_t:(_t):_t"
 				)
 			,"set:verb" => array(
 				"sv" => "ställ in"
@@ -372,9 +372,17 @@ class verbs
 				"sv" => "kan"
 				,"en" => "can"
 				)
+			,"has been:verb-aux" => array(
+				"sv" => "har"
+				,"en" => "has been"
+				)
 			,"have:verb-aux" => array(
 				"sv" => "ha::r:ft"
 				,"en" => "have::|__s:__d"
+				)
+			,"have been:verb-aux" => array(
+				"sv" => "har"
+				,"en" => "have been"
 				)
 			,"let:verb-aux" => array(
 				"sv" => "låta"

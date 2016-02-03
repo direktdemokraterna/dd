@@ -61,6 +61,7 @@ include(dirname(__FILE__)."/helpers/i18n/adjectives.inc");
 include(dirname(__FILE__)."/helpers/i18n/nouns.inc");
 include(dirname(__FILE__)."/helpers/i18n/pronouns.inc");
 include(dirname(__FILE__)."/helpers/i18n/verbs.inc");
+include(dirname(__FILE__)."/helpers/i18n/util.inc");
 
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/abbreviations.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/adverbs.inc");

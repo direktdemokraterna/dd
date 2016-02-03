@@ -21,6 +21,7 @@ class templates
 		,'VNPN' => 'VNPN'
 		,'RVprON' => 'RVprON'
 		,'NdeAPN' => 'NdeAPN'
+		,'DNXVps' => 'DNXVps'
 		,'VAN' => 'VAN'
 		,'APR' => 'APR'
 		,'VPApl' => 'VPApl'
@@ -93,6 +94,7 @@ class templates
 			case 'pr': return array('tempus' => 'present');
 			case 'in': return array('definite' => false);
 			case 'de': return array('definite' => true);
+			case 'ps': return array('tempus' => 'supinum', 'passive' => true);
 			case '': return array();
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

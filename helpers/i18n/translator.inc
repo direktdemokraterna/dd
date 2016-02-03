@@ -19,17 +19,6 @@ class translator
 		return $translation ? $translation . $connector : '';
 	}
 
-	public function match($previous_matches, $following_matches, $restrictive = true)
-	{
-		return $this->match_static($previous_matches, $following_matches, $restrictive) 
-		&& $this->identifier->match($previous_matches, $following_matches, $restrictive);
-	}	
-
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return true;
-	}	
-
 	public function is_adjective() 
 	{
 		return $this->identifier->class == 'adj';
@@ -88,11 +77,6 @@ class translator
 		$del_char_count = strlen($ending) - strlen($suffix);
 		$word_stem = substr($base_form, 0, strlen($base_form) - $del_char_count);
 		return $word_stem . $suffix;
-	}
-
-	public static function strip_parenthesis($text_in_parenthesis) 
-	{
-		return substr($text_in_parenthesis, 1, strlen($text_in_parenthesis) - 2);
 	}
 }
 

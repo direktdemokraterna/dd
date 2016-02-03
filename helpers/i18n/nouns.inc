@@ -25,7 +25,7 @@ class noun extends translator
 	}
 
 	private function set_inflections($inflections, $indef_index, $def_index) {
-		$parts = explode(':', $inflections);
+		$parts = util::split_word_forms($inflections);
 		$this->base_translation = $parts[0];
 		$this->translation = $indef_index 
 			? self::assemble_word_form($parts, $indef_index)
@@ -94,7 +94,7 @@ class noun_plural extends noun
 	}
 
 	public static function make_plural_identifier($identifier, $compact_translation) {
-		$key_parts = explode(':', $compact_translation[BASE_LANG]);
+		$key_parts = util::split_word_forms($compact_translation[BASE_LANG]);
 		return $identifier->copy(array('key' => self::assemble_word_form($key_parts, 1)));
 	}
 }

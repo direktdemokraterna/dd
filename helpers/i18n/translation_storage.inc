@@ -169,6 +169,8 @@ class translation_storage
 				}
 				if ($verb_imperative->has_perfect_participle)
 					$translators[] = new verb_perfect_participle($identifier->copy(), $compact_translation);
+				if ($verb_imperative->has_passive_supinum)
+					$translators[] = new verb_passive_supinum($identifier->copy(), $compact_translation);
 				$translators[] = $verb_imperative;
 				break;
 			case 'noun':

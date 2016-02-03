@@ -17,7 +17,7 @@ class noun_modifier extends translator
 	private static function create_word_forms($compact_translation) 
 	{
 		$word_parts = explode(' ', $compact_translation, 2);
-		$form_parts = explode(':', $word_parts[0]);
+		$form_parts = util::split_word_forms($word_parts[0]);
 		$type_parts = explode('|', $form_parts[0]);
 		$singular = $type_parts[0];
 		$forms = array($singular

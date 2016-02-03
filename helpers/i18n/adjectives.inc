@@ -10,14 +10,9 @@ class adjective extends noun_modifier
 		$identifier->numerus = $numerus;
 		$identifier->definite = $definite;
 		parent::__construct($identifier, $compact_translation);
-		$parts = explode(':', $compact_translation);
+		$parts = util::split_word_forms($compact_translation);
 		$this->has_definite_form = (count($parts) > 2);
 	}
-
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return !$restrictive || $previous_matches;
-	}	
 
 	protected function get_significant_noun($translations_before, $translations_after) 
 	{
@@ -96,17 +91,12 @@ class adjective_definite extends translator
 {
 	function __construct($identifier, $compact_translation, $indefinite_translator) 
 	{
-		$definite_key = self::assemble_word_form(explode(':', $compact_translation[BASE_LANG]), 2, 
+		$definite_key = self::assemble_word_form(util::split_word_forms($compact_translation[BASE_LANG]), 2, 
 			$identifier->key);
-		$definite_translation = self::assemble_word_form(explode(':', $compact_translation[controller::get_language()]), 2,
+		$definite_translation = self::assemble_word_form(util::split_word_forms($compact_translation[controller::get_language()]), 2,
 			$indefinite_translator->translation);
 		$definite_identifier = $identifier->copy(array('key' => $definite_key, 'definite' => true));
 		parent::__construct($definite_identifier, $definite_translation);
 	}
-
-	protected function match_static($previous_matches, $following_matches, $restrictive = true) 
-	{
-		return !$restrictive || $previous_matches;
-	}	
 }
 ?>

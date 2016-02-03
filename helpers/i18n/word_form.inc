@@ -9,6 +9,7 @@ class word_form
 	public $numerus;
 	public $tempus;
 	public $definite;
+	public $passive;
 	public $compact_form;
 
 	public function __construct($class, $modifiers, $compact_form) 
@@ -21,6 +22,8 @@ class word_form
 			$this->tempus = $modifiers['tempus'];
 		if (isset($modifiers['definite']))
 			$this->definite = $modifiers['definite'];
+		if (isset($modifiers['passive']))
+			$this->definite = $modifiers['passive'];
 	}
 
 	public function __toString() {
