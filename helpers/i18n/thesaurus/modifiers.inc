@@ -38,7 +38,7 @@ class modifiers
 				)
 
 			//INDEFINITE MODIFIERS
-			,"[]to:indefinite" => array(
+			,"[verb|]to:indefinite" => array(
 				"sv" => "för att"
 				,"en" => "to"
 				)

@@ -151,8 +151,12 @@ class translation_storage
 			case 'verb':
 			case 'verb-aux':
 				$verb_imperative = new verb_imperative($identifier, $compact_translation[$lang]);
-				if ($verb_imperative->has_infinitive)
-					$translators[] = new verb_infinitive($identifier->copy(), $compact_translation[$lang]);
+				$verb_infinitive = null;
+				if ($verb_imperative->has_infinitive) 
+				{
+					$verb_infinitive = new verb_infinitive($identifier->copy(), $compact_translation[$lang]);
+					$translators[] = $verb_infinitive;
+				}
 				if ($verb_imperative->has_perfect)
 					$translators[] = new verb_perfect($identifier->copy(), $compact_translation);
 				if ($verb_imperative->has_present) {
@@ -165,7 +169,7 @@ class translation_storage
 					if ($present->participle_key != $present->identifier->key)
 						$translators[] = new verb_present_participle($identifier->copy(
 							array('key' => $present->participle_key))
-							, $present->participle_translation);
+							, $present->participle_translation, $verb_infinitive->translation);
 				}
 				if ($verb_imperative->has_perfect_participle)
 					$translators[] = new verb_perfect_participle($identifier->copy(), $compact_translation);

@@ -11,7 +11,9 @@ class templates
 		,'QNPON' => 'QNPON'
 		,'DNVBA' => 'DNVBA'
 		,'DNAPN' => 'DNAPN'
+		,'QNPDN' => 'QNPDN'
 		,'VimDN' => 'VimDN'
+		,'VIVVpp' => 'VIVVpp'
 		,'BPDN' => 'BPDN'
 		,'DNVA' => 'DNVA'
 		,'VQAN' => 'VQAN'
@@ -73,6 +75,7 @@ class templates
 			case 'B': return 'adverb';
 			case 'C': return '%d';
 			case 'D': return 'definite';
+			case 'I': return 'indefinite';
 			case 'N': return 'noun';
 			case 'O': return 'pron-poss';
 			case 'P': return 'prep';
@@ -95,6 +98,7 @@ class templates
 			case 'in': return array('definite' => false);
 			case 'de': return array('definite' => true);
 			case 'ps': return array('tempus' => 'supinum', 'passive' => true);
+			case 'pp': return array('tempus' => 'present_participle');
 			case '': return array();
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

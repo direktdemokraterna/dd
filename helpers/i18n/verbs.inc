@@ -153,10 +153,20 @@ class verb_present_singular extends translator
 
 class verb_present_participle extends translator 
 {
-	function __construct($identifier, $translation) 
+	private $base_translation;
+
+	function __construct($identifier, $translation, $base_translation) 
 	{
-		$identifier->tempus = 'present';
+		$this->base_translation = $base_translation;
+		$identifier->tempus = 'present_participle';
 		parent::__construct($identifier, $translation);
+	}
+
+	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
+	{
+		return $translations_before && end($translations_before)->is_verb()
+			? $this->base_translation
+			: parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
 	}
 }
 

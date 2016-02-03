@@ -104,8 +104,8 @@ class verbs
 				,"en" => "discontinue"
 				)
 			,"edit:verb" => array(
-				"sv" => "redigera::r:t:(d|_t:e)"
-				,"en" => "edit::|s:ed:(ed)"
+				"sv" => "redigera::r:t:(d|_t:e):ts"
+				,"en" => "edit::|s:ed:(ed):ed"
 				)
 			,"elect:verb" => array(
 				"sv" => "välj:a:er:___alt:(___ald|_t:a)"
@@ -286,6 +286,10 @@ class verbs
 			,"start:verb" => array(
 				"sv" => "starta::r:t:(d|t:e)"
 				,"en" => "start::|s:ed:(ed)"
+				)
+			,"stop:verb" => array(
+				"sv" => "sluta::r:t"
+				,"en" => "stop::|s:ed"
 				)
 			,"submit:verb" => array(
 				"sv" => "skicka in::r:t"

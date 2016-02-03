@@ -34,9 +34,8 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
-		//var_dump($translator_matches[0]->translators[2]);
+		//var_dump($translator_matches[2]->translators);
 		$template_match = self::get_best_template_match($translator_matches);
-		//var_dump($template_match);
 		return $template_match 
 			? $template_match->translate($translation_hints) 
 			: $phrase;
@@ -199,8 +198,11 @@ class template_candidate
 	private static function convolute_translators(&$translator_matches, $selected_translator_sequense) 
 	{
 		$index = 0;
-		foreach ($translator_matches as $translator_match)
-			$translator_match->translator = $selected_translator_sequense[$index++];
+		foreach ($translator_matches as $translator_match) 
+		{
+			$translator_match->translators = null;
+			$translator_match->translator = $selected_translator_sequense[$index++];			
+		}
 	}
 
 	public function is_potential_double_noun($translator_matches) 
