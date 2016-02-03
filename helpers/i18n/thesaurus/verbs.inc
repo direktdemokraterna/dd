@@ -31,6 +31,10 @@ class verbs
 				"sv" => "administrera::r:t:(d|_t:e)"
 				,"en" => "administrate::|s:d:(d)"
 				)
+			,"append:verb" => array(
+				"sv" => "försätt:a:er:___att:(__dd|__tt:___atta):s med tillägg"
+				,"en" => "append::|s:ed:(ed):ed"
+				)
 			,"apply:verb" => array(
 				"sv" => "ansök:a:er:t"
 				,"en" => "apply::|_ies:_ied"
@@ -302,6 +306,10 @@ class verbs
 			,"subscribe:verb" => array(
 				"sv" => "anmäl:a:er:t:(d|_t:a)"
 				,"en" => "subscribe::|s:d:(d)"
+				)
+			,"subscribe for:verb" => array(
+				"sv" => "anmäl dig till"
+				,"en" => "subscribe for"
 				)
 			,"support:verb" => array(
 				"sv" => "stöd:ja:jer:_tt"

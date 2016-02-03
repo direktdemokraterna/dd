@@ -85,6 +85,10 @@ class prepositions
 				"sv" => "till"
 				,"en" => "to"
 				)
+			,"under:prep" => array(
+				"sv" => "under"
+				,"en" => "under"
+				)
 			,"with:prep" => array(
 				"sv" => "med"
 				,"en" => "with"
