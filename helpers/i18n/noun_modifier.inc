@@ -35,7 +35,7 @@ class noun_modifier extends translator
 		return $forms;
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector
+	public function translate($lower_phrase, $translations_before, $translations_after
 		, $translation_hints = null) 
 	{
 		if ($translation_hints && isset($translation_hints['numerus']) && $translation_hints['numerus'] == 'plural')

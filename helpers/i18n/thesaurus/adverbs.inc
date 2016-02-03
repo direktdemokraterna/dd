@@ -17,6 +17,10 @@ class adverbs
 				"sv" => "inte"
 				,"en" => "not"
 				)
+			,"now:adverb" => array(
+				"sv" => "nu"
+				,"en" => "now"
+				)
 			,"temporarily:adverb" => array(
 				"sv" => "tillfälligt"
 				,"en" => "temporarily"

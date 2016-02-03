@@ -18,7 +18,8 @@ class template_match
 		self::pluralify();
 		$translated_words = $this->template->get_translated_parts($this->translator_matches
 			, $translation_hints, $this->double_noun_indices);
-		return implode('', $translated_words);
+		$translation = implode(' ', $translated_words);
+		return $translation;
 	}
 
 	private function pluralify() 

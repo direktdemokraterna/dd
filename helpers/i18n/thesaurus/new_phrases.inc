@@ -34,8 +34,12 @@ class new_phrases
 				,"en" => "vote (yes/no)"
 				)
 			,"vote status" => array(
-				"sv" => "Omröstningens status"
+				"sv" => "omröstningens status"
 				,"en" => "vote status"
+				)
+			,"workgroup election" => array(
+				"sv" => "personval för arbetsgrupp"
+				,"en" => "workgroup election"
 				)
 		);
 	}	

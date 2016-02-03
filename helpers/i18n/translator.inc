@@ -14,9 +14,7 @@ class translator
 
 	public function translate($lower_phrase, $translations_before, $translations_after, $translation_hints = null) 
 	{
-		$connector = $translations_after ? ' ' : '';
-		$translation = $this->do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
-		return $translation ? $translation . $connector : '';
+		return $this->translation;
 	}
 
 	public function is_adjective() 
@@ -55,11 +53,6 @@ class translator
 		|| $this->identifier->class == 'pron-poss'
 		|| $this->identifier->class == 'definite'
 		|| in_array($this->identifier->key, array('as', 'this'));
-	}
-
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
-	{
-		return $this->translation;
 	}
 
 	protected static function assemble_word_form($parts, $n, $base_form = null) 

@@ -8,15 +8,15 @@ class template
 
 	public $priority;
 	public $from_sequence;
-	public $to_sequence;
+	public $translation_indices;
 	public $compact_form;
 
-	public function __construct($priority, $from_sequence, $to_sequence, $compact_form) 
+	public function __construct($priority, $from_pattern, $to_order) 
 	{
 		$this->priority = $priority;
-		$this->from_sequence = $from_sequence;
-		$this->to_sequence = $to_sequence;
-		$this->compact_form = $compact_form;
+		$this->from_sequence = self::expand_pattern($from_pattern);
+		$this->translation_indices = self::expand_order($this->from_sequence, $to_order);
+		$this->compact_form = $from_pattern;
 	}
 
 	public function __toString() {
@@ -67,21 +67,97 @@ class template
 	public function get_translated_parts($translator_matches, $translation_hints = null
 		, $double_noun_indices) 
 	{
+		$translated_parts = $this->translate_parts($translator_matches, $translation_hints
+			, $double_noun_indices);
+		$ordered_translated_parts = $this->order_translated_parts($translated_parts);
+		return array_filter($ordered_translated_parts, function($word) {return $word;});
+	}
+
+	private static function expand_pattern($pattern) 
+	{
+		$word_parts = self::split_word_patterns($pattern);
+		$word_forms = array_map('self::expand_word_form', $word_parts);
+		return $word_forms;
+	}
+
+	private static function split_word_patterns($pattern) 
+	{
+		$word_parts = array();
+		$word_part = '';
+		foreach (str_split($pattern) as $char) {
+			if (ctype_upper($char) && $word_part) {
+				$word_parts[] = $word_part;
+				$word_part = '';
+			}
+			$word_part .= $char;
+		}
+		$word_parts[] = $word_part;
+		return $word_parts;
+	}
+
+	private static function expand_word_form($word_part) 
+	{
+		$class = templates::expand_class($word_part[0]);
+		$modifiers = templates::expand_modifiers(substr($word_part, 1));
+		return new word_form($class, $modifiers, $word_part);
+	}
+
+	private static function expand_order($from_sequence, $order) 
+	{
+		$indices = array();
+		if ($order) 
+			self::extract_indices($indices, $order);
+		else 
+			self::generate_natural_order($indices, $from_sequence);
+		return $indices;	
+	}
+
+	private static function extract_indices(&$indices, $order) 
+	{
+		foreach (str_split($order) as $index)
+			$indices[] = (int)$index;
+	}
+
+	private static function generate_natural_order(&$indices, $from_sequence) 
+	{
+		for ($index = 0; $index < count($from_sequence); $index++)
+			$indices[] = $index;
+	}
+
+	private function translate_parts($translator_matches, $translation_hints = null
+		, $double_noun_indices) 
+	{
 		$translators_after = array_map(function($match) {return $match->translator;}
 			, $translator_matches);
 		$translators_before = array();
 		$localized_strings = array();
 		$word_index = 0;
     	$translator_index = 0;
+    	$noun_prefix = null;
 		foreach ($translator_matches as $match) {
 			$translator = array_shift($translators_after);
-			$hints = in_array($translator_index++, $double_noun_indices)
+			$is_double_noun = in_array($translator_index++, $double_noun_indices);
+			$hints = $is_double_noun
 				? null
 				: self::merge_hints($translation_hints, $word_index++);
-			$localized_strings[] = $match->translate($translators_before, $translators_after, $hints);
+			if ($is_double_noun){
+				$noun_prefix = $match->make_noun_prefix();
+			}
+			else {
+				$localized_strings[] = $noun_prefix . $match->translate($translators_before, $translators_after, $hints);
+				$noun_prefix = null;
+			}
 			$translators_before[] = $translator;
 		}
 		return $localized_strings;
+	}
+
+	private function order_translated_parts($translated_parts) 
+	{
+		$ordered_translated_parts = array();
+		foreach ($this->translation_indices as $from_index)
+			$ordered_translated_parts[] = $translated_parts[$from_index];
+		return $ordered_translated_parts;
 	}
 
 	private function merge_hints($translation_hints, $word_index) 

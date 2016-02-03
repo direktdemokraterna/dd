@@ -127,6 +127,10 @@ class verbs
 				"sv" => "slutar"
 				,"en" => "finishes"
 				)
+			,"have:verb" => array(
+				"sv" => "ha::r:ft"
+				,"en" => "have::|__s:__d"
+				)
 			,"generate:verb" => array(
 				"sv" => "skapa::r:t"
 				,"en" => "generate::|s:d"
@@ -324,8 +328,8 @@ class verbs
 				,"en" => "view"
 				)
 			,"vote:verb" => array(
-				"sv" => "rösta"
-				,"en" => "vote"
+				"sv" => "rösta::r:t"
+				,"en" => "vote::|s:d"
 				)
 			,"[]vote for:verb" => array(
 				"sv" => "rösta för"

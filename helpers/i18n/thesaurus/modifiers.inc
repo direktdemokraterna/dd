@@ -32,7 +32,7 @@ class modifiers
 				"sv" => "den|_t:_"
 				,"en" => "the"
 				)
-			,"[]this:definite" => array(
+			,"[verb|]this:definite" => array(
 				"sv" => "den|_t:_ här"
 				,"en" => "this:__ese"
 				)

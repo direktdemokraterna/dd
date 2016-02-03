@@ -60,7 +60,7 @@ class translation_storage
 	{
 		if (self::$translators == null) {
 			self::$translators = self::expand_all_translations();
-			self::$phrase_translators = self::expand_phrase_translations();			
+			self::$phrase_translators = self::expand_phrase_translations();	
 		}
 	}
 
@@ -178,16 +178,77 @@ class translation_storage
 				$translators[] = $verb_imperative;
 				break;
 			case 'noun':
-				$plural = new noun_plural(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
-				$singular = new noun_singular($identifier, $compact_translation[$lang]);
+				$plural = noun_plural::create(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
+				$singular = noun_singular::create($identifier, $compact_translation[$lang]);
 				$singular->plural_translator = $plural;
 				$translators[] = $singular;
 				$translators[] = $plural;
+				$translators[] = $singular->make_genitive();
+				$translators[] = $plural->make_genitive();
 				break;
 			default:
 				throw new \Exception("Unknown word class: " . $identifier->class);
 		}
 		return $translators;
+	}
+}
+
+class genitive_translator
+{
+	public static function create_translations() {
+		return array(
+			"sv" => array("s", "'")
+			,"en" => array("'s", "'")
+		);
+	}
+
+	private static $is_initialized = false;
+	private static $org1, $org2, $tran1, $tran2;
+	private static $special_endings = array('s', 'x', 'z');
+
+	private static function init() 
+	{
+		if (!self::$is_initialized) {
+			$translations = self::create_translations();
+			self::$org1 = $translations[BASE_LANG][0];
+			self::$org2 = $translations[BASE_LANG][1];
+			self::$tran1 = $translations[controller::get_language()][0];
+			self::$tran2 = $translations[controller::get_language()][1];
+			self::$is_initialized = true;
+		}
+	}
+
+	public static function make_translated_gentitive(&$translation) 
+	{
+		self::init();
+		$ending = self::get_translated_genitive_ending($translation);
+		$translation .= $ending;
+	}
+
+	public static function make_original_gentitive(&$original) 
+	{
+		self::init();
+		$ending = self::get_original_genitive_ending($original);
+		$original .= $ending;
+	}
+
+	private static function get_translated_genitive_ending($translation) 
+	{
+		$last_character = self::get_last($translation);
+		return in_array($last_character, self::$special_endings)
+			? self::$tran2 : self::$tran1;
+	}
+	
+	private static function get_original_genitive_ending($original) 
+	{
+		$last_character = self::get_last($original);
+		return in_array($last_character, self::$special_endings)
+			? self::$org2 : self::$org1;
+	}
+	
+	private static function get_last($text) 
+	{
+		return strtolower(substr($text, strlen($text) - 1));
 	}
 }
 ?>

@@ -17,13 +17,18 @@ class translator_match
 	{
 		foreach ($this->translators as $translator)
 			if ($translator->identifier->is_noun_base_form())
-				return true;
+				return true;				
 		return false;
 	}
 
 	public function translate($translators_before, $translators_after, $translation_hints) 
 	{
 		return $this->translator->translate(strtolower($this->phrase), $translators_before, $translators_after, $translation_hints);
+	}
+
+	public function make_noun_prefix() 
+	{
+		return $this->translator->make_noun_prefix(strtolower($this->phrase));
 	}
 }
 ?>

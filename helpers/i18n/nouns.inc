@@ -4,19 +4,49 @@ namespace I18n;
 class noun extends translator 
 {
 	public  $is_definite;
-
 	private $base_translation;
 	private $definite_translation;
-	private $connector;
+	public $connector;
 
-	function __construct($identifier, $numerus, $compact_translation, $indef_index, $def_index) 
+	protected function init($numerus, $compact_translation, $indef_index, $def_index) 
 	{
-		$identifier->numerus = $numerus;
-		parent::__construct($identifier);
+		$this->identifier->numerus = $numerus;
 		$this->connector = self::extract_connector($compact_translation);
 		self::set_inflections($compact_translation, $indef_index, $def_index);
 	}
-	
+
+	protected function copy_from($template) 
+	{
+		$this->translation = $template->translation;
+		$this->base_translation = $template->base_translation;
+		$this->definite_translation = $template->definite_translation;
+	}
+
+	public function translate($lower_phrase, $translations_before, $translations_after, $translation_hints = null) 
+	{
+		$this->is_definite = self::check_is_definite($translations_before, $translations_after, $translation_hints);
+		return $this->is_definite ? $this->definite_translation	: $this->translation; 
+	}
+
+	public function make_noun_prefix($lower_phrase) 
+	{
+		return self::create_word_form($this->base_translation, $this->connector);
+	}
+
+	public function make_genitive() 
+	{
+		$genitive = $this->copy(); 
+		$genitive->identifier->class = 'noun-gen';
+		genitive_translator::make_translated_gentitive($genitive->translation);
+		genitive_translator::make_translated_gentitive($genitive->definite_translation);
+		genitive_translator::make_original_gentitive($genitive->identifier->key);
+		return $genitive;
+	}
+
+	protected function copy() 
+	{
+	}
+
 	private static function extract_connector(&$compact_translation) 
 	{
 		$parts = explode(':-', $compact_translation);
@@ -33,16 +63,6 @@ class noun extends translator
 		$this->definite_translation = count($parts) > $def_index
 			? self::create_word_form($this->translation, $parts[$def_index])
 			: $this->translation;
-	}
-
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
-	{
-		if ($this->is_compound($translations_after)) {
-			$connector = '';
-			return parent::create_word_form($this->base_translation, $this->connector);
-		}
-		$this->is_definite = self::check_is_definite($translations_before, $translations_after, $translation_hints);
-		return $this->is_definite ? $this->definite_translation	: $this->translation; 
 	}
 
 	private function check_is_definite($translations_before, $translations_after, $translation_hints) 
@@ -69,28 +89,41 @@ class noun extends translator
 		}
 		return false;
 	}
-
-	protected function is_compound($translations_after) 
-	{
-		return $this->connector !== null && $translations_after && $translations_after[0]->is_noun();
-	}
 }
 
 class noun_singular extends noun 
 {
 	public $plural_translator;
 
-	function __construct($identifier, $compact_translation) 
+	public static function create($identifier, $compact_translation) 
 	{
-		parent::__construct($identifier, 'singular', $compact_translation, 0, 2);
+		$noun = new noun_singular($identifier);
+		$noun->init('singular', $compact_translation, 0, 2);
+		return $noun;
+	}
+
+	protected function copy() 
+	{
+		$noun = new noun_singular($this->identifier->copy());
+		$noun->copy_from($this);
+		$noun->plural_translator = $this->plural_translator;
+		return $noun;
 	}
 }
 
 class noun_plural extends noun 
 {
-	function __construct($identifier, $compact_translation) 
+	public static function create($identifier, $compact_translation) 
 	{
-		parent::__construct($identifier, 'plural', $compact_translation[controller::get_language()], 1, 3);
+		$noun = new noun_plural($identifier);
+		$noun->init('plural', $compact_translation[controller::get_language()], 1, 3);
+		return $noun;
+	}
+
+	protected function copy() {
+		$noun = new noun_plural($this->identifier->copy());
+		$noun->copy_from($this);
+		return $noun;
 	}
 
 	public static function make_plural_identifier($identifier, $compact_translation) {

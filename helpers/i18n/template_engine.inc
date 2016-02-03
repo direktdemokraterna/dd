@@ -8,17 +8,17 @@ class template_engine
 	public static function translate($original, $translation_hints = null) 
 	{
 		$trimmed_original = trim($original);
-		$numbers = translation_helper::extract_numbers($trimmed_original);
+		$numbers = util::extract_numbers($trimmed_original);
 		$translation = self::translate_whole_phrase(strtolower($trimmed_original), $translation_hints);
 		if (!$translation) {
-			$phrases = translation_helper::split_phrases($trimmed_original);
+			$phrases = util::split_phrases($trimmed_original);
 			$translations = array_map(function($phrase) use ($translation_hints) {
 				return self::translate_phrase($phrase, $translation_hints);
 			}, $phrases);
-			$translation = translation_helper::apply_translations($trimmed_original, $phrases, $translations);
+			$translation = util::apply_translations($trimmed_original, $phrases, $translations);
 		}
-		$translation = translation_helper::restore_numbers($translation, $numbers);
-		$translation = translation_helper::preserve_case($translation, $original);
+		$translation = util::restore_numbers($translation, $numbers);
+		$translation = util::preserve_case($translation, $original);
 		return $translation;
 	}
 
@@ -34,7 +34,11 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
-		//var_dump($translator_matches[2]->translators);
+/*		var_dump(array_map(function($match) {
+			return array_map(function($translator) {return $translator->identifier;}
+				, $match->translators);
+		}, $translator_matches));
+		*/
 		$template_match = self::get_best_template_match($translator_matches);
 		return $template_match 
 			? $template_match->translate($translation_hints) 
@@ -64,7 +68,7 @@ class template_engine
 			if ($translators) 
 				return new translator_match($fragment, $translators);
 			if ($words == null)
-				$words = translation_helper::split_words($fragment);
+				$words = util::split_words($fragment);
 			if (count($words) == 1)
 				return new translator_match($fragment, array(new untranslated($fragment)));
 			$remaining_words[] = array_shift($words);

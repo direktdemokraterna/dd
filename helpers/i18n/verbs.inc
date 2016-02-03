@@ -104,14 +104,14 @@ class verb_present extends translator
 		return $alternatives;
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
+	public function translate($lower_phrase, $translations_before, $translations_after, $translation_hints = null) 
 	{
 		if ($this->singular_translation) {
 			$subject = self::get_subject($translations_before);
 			if ($subject && $subject->identifier->numerus == 'singular')
 				return $this->singular_translation;
 		}
-		return parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
+		return parent::translate($lower_phrase, $translations_before, $translations_after, $translation_hints);
 	}
 
 	private static function get_subject($translators_before) 
@@ -162,11 +162,11 @@ class verb_present_participle extends translator
 		parent::__construct($identifier, $translation);
 	}
 
-	protected function do_translate($lower_phrase, $translations_before, $translations_after, &$connector, $translation_hints = null) 
+	public function translate($lower_phrase, $translations_before, $translations_after, $translation_hints = null) 
 	{
 		return $translations_before && end($translations_before)->is_verb()
 			? $this->base_translation
-			: parent::do_translate($lower_phrase, $translations_before, $translations_after, $connector, $translation_hints);
+			: parent::translate($lower_phrase, $translations_before, $translations_after, $translation_hints);
 	}
 }
 

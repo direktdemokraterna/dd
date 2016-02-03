@@ -521,10 +521,12 @@ class phrases
 				"sv" => "propositionen skapad"
 				,"en" => "proposition created"
 				)
+			/*
 			,"proposition's" => array(
 				"sv" => "propositions"
 				,"en" => "proposition's"
 				)
+				*/
 			,"re" => array(
 				"sv" => "sv"
 				,"en" => "re"

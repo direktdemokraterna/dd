@@ -22,6 +22,10 @@ class pronouns
 				"sv" => "något"
 				,"en" => "something"
 				)
+			,"who:pron" => array(
+				"sv" => "som"
+				,"en" => "who"
+				)
 			,"[to]you:pron" => array(
 				"sv" => "dig"
 				,"en" => "you"
