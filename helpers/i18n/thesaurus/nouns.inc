@@ -126,10 +126,6 @@ class nouns
 				"sv" => "delegat:er:-"
 				,"en" => "delegate:s"
 				)
-			,"delegate's:noun1" => array(
-				"sv" => "delegats"
-				,"en" => "delegate's"
-				)
 			,"delegate setting:noun1" => array(
 				"sv" => "delegatinställning:ar"
 				,"en" => "delegate setting:s"
@@ -225,10 +221,6 @@ class nouns
 			,"member:noun1" => array(
 				"sv" => "medlem:mar:men:na:-s"
 				,"en" => "member:s"
-				)
-			,"member's:noun1" => array(
-				"sv" => "medlemmens"
-				,"en" => "member's"
 				)
 			,"member admin:noun1" => array(
 				"sv" => "medlemsansvarig:a"
@@ -442,10 +434,6 @@ class nouns
 				"sv" => "omröstningstid:er:en:na"
 				,"en" => "vote time:s"
 				)
-			,"vote's:noun1" => array(
-				"sv" => "omröstnings:_ars:_ens"
-				,"en" => "vote's:__s'"
-				)
 			,"voter:noun1" => array(
 				"sv" => "röstande"
 				,"en" => "voter"
@@ -528,13 +516,13 @@ class nouns
 				"sv" => "nyhetsbrev::et:en"
 				,"en" => "news letter:s"
 				)
+			,"number:noun2[of]" => array(
+				"sv" => "antal::et:en"
+				,"en" => "number:s of"
+				)
 			,"number:noun2" => array(
 				"sv" => "nummer::___ret:___en"
 				,"en" => "number:s"
-				)
-			,"number of:noun2" => array(
-				"sv" => "antal::et:en"
-				,"en" => "number:s of"
 				)
 			,"one or more mandatory field:noun2" => array(
 				"sv" => "ett eller fler obligatoriska fält"
