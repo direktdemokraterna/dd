@@ -9,6 +9,7 @@ class templates
 		,'RXprVQAN' => ''
 		,'VQNPON' => ''
 		,'ONVBQN' => ''
+		,'VANPON' => ''
 		,'DNVQN' => ''
 		,'DNXVA' => ''
 		,'QNPON' => ''
