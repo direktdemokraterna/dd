@@ -7,6 +7,7 @@ class noun extends translator
 	private $base_translation;
 	private $definite_translation;
 	public $connector;
+	public $has_plural;
 
 	protected function init($numerus, $compact_translation, $indef_index, $def_index) 
 	{
@@ -56,6 +57,7 @@ class noun extends translator
 
 	private function set_inflections($inflections, $indef_index, $def_index) {
 		$parts = util::split_word_forms($inflections);
+		$this->has_plural = count($parts) > 1;
 		$this->base_translation = $parts[0];
 		$this->translation = $indef_index 
 			? self::assemble_word_form($parts, $indef_index)

@@ -128,6 +128,7 @@ class translation_storage
 			case 'prep':
 			case 'adverb':
 			case 'verb-pass':
+			case 'interjection':
 				$translators[] = new translator($identifier, $compact_translation[$lang]);
 				break;
 			case 'quant':
@@ -151,10 +152,10 @@ class translation_storage
 			case 'verb':
 			case 'verb-aux':
 				$verb_imperative = new verb_imperative($identifier, $compact_translation[$lang]);
+				$translators[] = $verb_imperative;
 				$verb_infinitive = null;
-				if ($verb_imperative->has_infinitive) 
-				{
-					$verb_infinitive = new verb_infinitive($identifier->copy(), $compact_translation[$lang]);
+				if ($verb_imperative->has_infinitive) {
+					$verb_infinitive = new verb_infinitive($identifier->copy(), $compact_translation[$lang]);					
 					$translators[] = $verb_infinitive;
 				}
 				if ($verb_imperative->has_perfect)
@@ -175,16 +176,17 @@ class translation_storage
 					$translators[] = new verb_perfect_participle($identifier->copy(), $compact_translation);
 				if ($verb_imperative->has_passive_supinum)
 					$translators[] = new verb_passive_supinum($identifier->copy(), $compact_translation);
-				$translators[] = $verb_imperative;
 				break;
 			case 'noun':
-				$plural = noun_plural::create(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
 				$singular = noun_singular::create($identifier, $compact_translation[$lang]);
-				$singular->plural_translator = $plural;
 				$translators[] = $singular;
-				$translators[] = $plural;
 				$translators[] = $singular->make_genitive();
-				$translators[] = $plural->make_genitive();
+				if ($singular->has_plural) {
+					$plural = noun_plural::create(noun_plural::make_plural_identifier($identifier, $compact_translation), $compact_translation);
+					$singular->plural_translator = $plural;
+					$translators[] = $plural;
+					$translators[] = $plural->make_genitive();					
+				}
 				break;
 			default:
 				throw new \Exception("Unknown word class: " . $identifier->class);

@@ -131,10 +131,6 @@ class verbs
 				"sv" => "slutar"
 				,"en" => "finishes"
 				)
-			,"have:verb" => array(
-				"sv" => "ha::r:ft"
-				,"en" => "have::|__s:__d"
-				)
 			,"generate:verb" => array(
 				"sv" => "skapa::r:t"
 				,"en" => "generate::|s:d"
@@ -146,6 +142,14 @@ class verbs
 			,"handle:verb" => array(
 				"sv" => "hantera"
 				,"en" => "handle"
+				)
+			,"have:verb" => array(
+				"sv" => "ha::r:ft"
+				,"en" => "have::|__s:__d"
+				)
+			,"get:verb" => array(
+				"sv" => "få::r:tt"
+				,"en" => "get::|s:__ot"
 				)
 			,"leave:verb" => array(
 				"sv" => "lämna"
@@ -327,9 +331,13 @@ class verbs
 				"sv" => "ångra"
 				,"en" => "undo"
 				)
+			,"unsubscribe for:verb" => array(
+				"sv" => "avanmäl dig till"
+				,"en" => "unsubscribe for"
+				)
 			,"update:verb" => array(
-				"sv" => "uppdatera::r:t:(d|_t:e)"
-				,"en" => "update::|s:d:(d)"
+				"sv" => "uppdatera::r:t:(d|_t:e):ts"
+				,"en" => "update::|s:d:(d):d"
 				)
 			,"view:verb" => array(
 				"sv" => "visa"

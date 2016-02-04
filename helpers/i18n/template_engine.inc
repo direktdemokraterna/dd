@@ -34,11 +34,12 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
-/*		var_dump(array_map(function($match) {
+/*
+		var_dump(array_map(function($match) {
 			return array_map(function($translator) {return $translator->identifier;}
 				, $match->translators);
 		}, $translator_matches));
-		*/
+*/
 		$template_match = self::get_best_template_match($translator_matches);
 		return $template_match 
 			? $template_match->translate($translation_hints) 

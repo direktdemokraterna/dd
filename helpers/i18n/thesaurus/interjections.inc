@@ -5,19 +5,19 @@ class interjections
 {
 	public static function create_translations() {
 		return array(
-			"hello" => array(
+			"hello:interjection" => array(
 				"sv" => "hej"
 				,"en" => "hello"
 				)
-			,"no[]" => array(
+			,"no:interjection[]" => array(
 				"sv" => "nej"
 				,"en" => "no"
 				)
-			,"welcome" => array(
+			,"welcome:interjection" => array(
 				"sv" => "välkommen"
 				,"en" => "welcome"
 				)
-			,"yes" => array(
+			,"yes:interjection" => array(
 				"sv" => "ja"
 				,"en" => "yes"
 				)

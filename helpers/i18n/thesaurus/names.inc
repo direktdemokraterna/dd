@@ -9,6 +9,10 @@ class names
 				"sv" => "Skype:--"
 				,"en" => "Skype"
 				)
+			,"direktdemokraterna:noun" => array(
+				"sv" => "Direktdemokraterna"
+				,"en" => "Direktdemokraterna"
+				)
 		);
 	}	
 } 

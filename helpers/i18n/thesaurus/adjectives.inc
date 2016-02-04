@@ -150,6 +150,10 @@ class adjectives
 				"sv" => "oläst:a"
 				,"en" => "unread"
 				)
+			,"upcoming:adj" => array(
+				"sv" => "kommande"
+				,"en" => "upcoming"
+				)
 			,"visible:adj" => array(
 				"sv" => "synlig|_t:a"
 				,"en" => "visible"

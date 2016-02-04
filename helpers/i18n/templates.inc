@@ -6,6 +6,9 @@ class templates
 	public static function create_templates() {
 		return array(
 		'VDNPQN' => ''
+		,'RXprVQAN' => ''
+		,'VQNPON' => ''
+		,'ONVBQN' => ''
 		,'DNVQN' => ''
 		,'DNXVA' => ''
 		,'QNPON' => ''
@@ -29,6 +32,8 @@ class templates
 		,'DNXVps' => ''
 		,'NPAN' => ''
 		,'NPON' => ''
+		,'NPDN' => ''
+		,'ONXVps' => ''
 		,'VAN' => ''
 		,'APR' => ''
 		,'VPApl' => ''
@@ -48,6 +53,7 @@ class templates
 		,'RVB' => ''
 		,'VNP' => ''
 		,'QAN' => ''
+		,'JPN' => ''
 		,'ON' => ''
 		,'AN' => ''
 		,'BN' => ''
@@ -63,6 +69,7 @@ class templates
 		,'PN' => ''
 		,'VQ' => ''
 		//,'NA' => ''
+		,'NplA' => ''
 		,'NdeA' => ''
 		,'NBA' => ''
 		,'NdeV' => ''
@@ -85,6 +92,7 @@ class templates
 			case 'D': return 'definite';
 			case 'G': return 'noun-gen';
 			case 'I': return 'indefinite';
+			case 'J': return 'interjection';
 			case 'N': return 'noun';
 			case 'O': return 'pron-poss';
 			case 'P': return 'prep';
