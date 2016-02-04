@@ -47,6 +47,10 @@ class verbs
 				"sv" => "var:a:___är:it:(ande)"
 				,"en" => "be::__are|___is:en:(ing)"
 				)
+			,"be created:verb" => array(
+				"sv" => "skapas"
+				,"en" => "be created"
+				)
 			,"become:verb" => array(
 				"sv" => "bli::r:vit"
 				,"en" => "become::|s:___ame"
@@ -393,8 +397,8 @@ class verbs
 				,"en" => "be able to"
 				)
 			,"can:verb-aux" => array(
-				"sv" => "kan"
-				,"en" => "can"
+				"sv" => "kan:::__unde"
+				,"en" => "can:::__ould"
 				)
 			,"has been:verb-aux" => array(
 				"sv" => "har"

@@ -9,7 +9,7 @@ class template_engine
 	{
 		$trimmed_original = trim($original);
 		$numbers = util::extract_numbers($trimmed_original);
-		$translation = self::translate_whole_phrase(strtolower($trimmed_original), $translation_hints);
+		$translation = self::translate_whole_phrase($trimmed_original, $translation_hints);
 		if (!$translation) {
 			$phrases = util::split_phrases($trimmed_original);
 			$translations = array_map(function($phrase) use ($translation_hints) {
@@ -18,16 +18,25 @@ class template_engine
 			$translation = util::apply_translations($trimmed_original, $phrases, $translations);
 		}
 		$translation = util::restore_numbers($translation, $numbers);
-		$translation = util::preserve_case($translation, $original);
 		return $translation;
 	}
 
-	private static function translate_whole_phrase($lower_phrase) 
+	private static function translate_whole_phrase($phrase) 
+	{
+		$lower_phrase = strtolower($phrase);
+		$candidate = self::get_candidate_for_whole_phrase($lower_phrase);
+		if (!$candidate) return null;
+		$translation = $candidate->translate($lower_phrase, array(), array());
+		$translation = util::preserve_case($translation, $phrase);
+		return $translation;
+	}
+
+	private static function get_candidate_for_whole_phrase($lower_phrase) 
 	{
 		$candidates = translation_storage::get_phrase_translators($lower_phrase);
 		foreach ($candidates as $candidate)
 			if ($candidate->identifier->match_selectors(null, null))
-				return $candidate->translate($lower_phrase, array(), array());
+				return $candidate;
 		return null;
 	}
 
@@ -41,9 +50,11 @@ class template_engine
 		}, $translator_matches));
 */
 		$template_match = self::get_best_template_match($translator_matches);
-		return $template_match 
+		$translation = $template_match 
 			? $template_match->translate($translation_hints) 
 			: $phrase;
+		$translation = util::preserve_case($translation, $phrase);
+		return $translation;
 	}
 
 	private static function get_translator_matches($phrase, $translation_hints = null) 

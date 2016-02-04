@@ -18,6 +18,8 @@ class templates
 		,'RBVprPN' => '12034'
 		,'NRVDN' => ''
 		,'NPOGN' => ''
+		,'DNXBV' => ''
+		,'ANPDN' => ''
 		,'VimDN' => ''
 		,'VIVVpp' => ''
 		,'BPDN' => ''
