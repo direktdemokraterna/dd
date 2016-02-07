@@ -149,8 +149,8 @@ class vote
 			case "active": return "Ongoing";
 			case "del_ended": return "Closed for delegates";
 			case "ended": return "Finished";
-			case "continuous": return "Continous";
-			case "finished": return "Finished continous";
+			case "continuous": return "continuous";
+			case "finished": return "Finished continuous";
 			default: throw new \Exception("unknown status: " . $status);
 		} 
 	}
@@ -161,7 +161,7 @@ class vote
 			case "active": return array(
 				"end_vote" => "Finish the vote"
 				, "end_delegate_vote" => "Finish the delegate vote"
-				, "make_continuous" => "Transform to continous");
+				, "make_continuous" => "Transform to continuous");
 			case "del_ended": return array(
 				"end_vote" => "Finish the vote"
 				, "restore_delegate_vote" => "Resume the delegate vote");

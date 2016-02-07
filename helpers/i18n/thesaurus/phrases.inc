@@ -5,9 +5,9 @@ class phrases
 	public static function create_translations() {
 		return array(
 			// UNCLASSIFIED
-			"a continous vote will also be created" => array(
+			"a continuous vote will also be created" => array(
 				"sv" => "kommer det också att skapas en kontinuerlig omröstning"
-				,"en" => "a continous vote will also be created"
+				,"en" => "a continuous vote will also be created"
 				)
 			,"a member of" => array(
 				"sv" => "medlem i"

@@ -76,7 +76,7 @@ class member
 	}
 
 	private static function get_county_region_pairs_for_javascript($county_rows) {
-		$pairs = [];
+		$pairs = Array();
 		foreach($county_rows as $row) {
 			$county_id = $row['county_id'];
 			$county_name = $row['county_name'];

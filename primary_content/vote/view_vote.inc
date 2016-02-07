@@ -39,7 +39,7 @@
 			. _t('. For delegates the possibility to vote closed ') 
 			. general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . '.';
 	elseif($voteinfo['status'] == "continuous")
-		__t("This is a continous vote and it continues until it is ended through a new yes/no vote.");
+		__t("This is a continuous vote and it continues until it is ended through a new yes/no vote.");
 	else
 		echo _t("The vote finishes ") . general_helpers::show_date($voteinfo['timestamp_ended'])
 			. _t(". For delegates the possibility to vote closes ") . general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . ".";
@@ -79,7 +79,7 @@
 	echo general_helpers::show_date($voteinfo['timestamp_created']);
 	__br();	
 	if($voteinfo['status'] == "continuous"){
-		__strong(_t("The vote is continous."));
+		__strong(_t("The vote is continuous."));
 		__br();
 	}
 	else {

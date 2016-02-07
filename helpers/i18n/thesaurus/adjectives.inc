@@ -38,9 +38,9 @@ class adjectives
 				"sv" => "inte ifyllt"
 				,"en" => "blank"
 				)
-			,"continous:adj" => array(
+			,"continuous:adj" => array(
 				"sv" => "kontinuerlig|t:a"
-				,"en" => "continous"
+				,"en" => "continuous"
 				)
 			,"correct:adj" => array(
 				"sv" => "korrekt"

@@ -1794,7 +1794,7 @@
 	</case>
 	<case hints="" success="true">
 		<when lang="en">
-			Here you create restricted workgroups, workgroups whose membership is not free and with a restricted number of members. In association with the creation of this workgroup a continous vote will also be created where the members of this workgroup are appointed.
+			Here you create restricted workgroups, workgroups whose membership is not free and with a restricted number of members. In association with the creation of this workgroup a continuous vote will also be created where the members of this workgroup are appointed.
 		</when>
 		<then lang="sv">
 			Här skapar man stängda arbetsgrupper, arbetsgrupper vars medlemskap inte är öppet och vars medlemsantal är begränsat. I samband med att arbetsgruppen skapas kommer det också att skapas en kontinuerlig omröstning där medlemmarna i denna arbetsgrupp utses.
@@ -4511,7 +4511,7 @@
 	</case>
 	<case hints="" success="true">
 		<when lang="en">
-			The vote is continous.
+			The vote is continuous.
 		</when>
 		<then lang="sv">
 			Omröstningen är kontinuerlig.
@@ -4632,7 +4632,7 @@
 	</case>
 	<case hints="" success="true">
 		<when lang="en">
-			This is a continous vote and it continues until it is ended through a new yes/no vote.
+			This is a continuous vote and it continues until it is ended through a new yes/no vote.
 		</when>
 		<then lang="sv">
 			Det här är en kontinuerlig omröstning och den fortsätter tills en votering bestämmer att den ska avslutas.
