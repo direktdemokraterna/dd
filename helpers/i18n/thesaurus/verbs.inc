@@ -131,6 +131,10 @@ class verbs
 				"sv" => "avsluta"
 				,"en" => "finish"
 				)
+			,"finished:verb" => array(
+				"sv" => "avslutades"
+				,"en" => "finished"
+				)
 			,"finishes:verb" => array(
 				"sv" => "slutar"
 				,"en" => "finishes"

@@ -15,9 +15,13 @@ class translator_match
 
 	public function is_potentially_first_of_double_noun() 
 	{
+		//echo 'is_potentially_first_of_double_noun:<br>';
 		foreach ($this->translators as $translator)
+		{
+			//var_dump($translator->identifier, $translator->identifier->is_noun_base_form());
 			if ($translator->identifier->is_noun_base_form())
-				return true;				
+				return true;							
+		}
 		return false;
 	}
 

@@ -43,16 +43,10 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
-/*
-		var_dump(array_map(function($match) {
-			return array_map(function($translator) {return $translator->identifier;}
-				, $match->translators);
-		}, $translator_matches));
-*/
-		$template_match = self::get_best_template_match($translator_matches);
-		$translation = $template_match 
-			? $template_match->translate($translation_hints) 
-			: $phrase;
+		$template_match = self::get_template_match($translator_matches);
+		if (!$template_match)
+			return $phrase;
+		$translation = $template_match->translate($translation_hints);
 		$translation = util::preserve_case($translation, $phrase);
 		return $translation;
 	}
@@ -95,39 +89,113 @@ class template_engine
 		return $candidates;
 	}
 
-	private static function get_best_template_match($translator_matches) 
+	private static function get_template_match($translator_matches) 
 	{
-		$candidate_queue = self::get_template_candidates(template_storage::get_templates());
-		while ($candidate_queue) {
-			$next_candidate = array_shift($candidate_queue);
-			if ($next_candidate->template_node->template) // leaf node
-			{
-				$next_candidate->word_index--;
-				$template_match = $next_candidate->match_complete($translator_matches);
-				if ($template_match)
-					return $template_match;
-				continue;			
-			}
-			if ($next_candidate->matches($translator_matches)) {
-				$new_candidates = self::get_template_candidates($next_candidate->template_node->children, $next_candidate->word_index + 1, $next_candidate->double_noun_indices);
-				foreach ($new_candidates as $new_candidate)
-					self::add_template_candidate($new_candidate, $candidate_queue);
-			}
-			if ($next_candidate->is_potential_double_noun($translator_matches)) {
-				$next_candidate->double_noun_indices[] = $next_candidate->word_index;
-				$next_candidate->word_index++;
-				array_unshift($candidate_queue, $next_candidate);
-			}
-		}
+		foreach (self::get_template_matches($translator_matches, array()) as $match)
+			return $match;
 		return null;
 	}
 
-	private static function get_template_candidates($template_nodes, $word_index = 0, $double_noun_indices = null) 
+	private static function get_template_matches($translator_matches, $parent_candidate) 
 	{
-		return array_map(function($template_node) use ($word_index, $double_noun_indices) {
-				return new template_candidate($template_node, $word_index
-					, $double_noun_indices ? $double_noun_indices : array());
-			}, $template_nodes);
+		//echo 'get_template_matches: <br>';
+		//var_dump($translator_matches, $parent_candidate);
+		$new_candidates = self::get_next_template_candidates($translator_matches, $parent_candidate);
+		foreach ($new_candidates as $candidate) {
+			//echo 'candidate: <br>';
+			//var_dump($candidate);
+			if ($candidate->word_index == count($translator_matches) - 1) {
+				//echo 'found template match: <br>';
+				$template_match = $candidate->match_complete($translator_matches);
+				//var_dump($candidate, $template_match);
+				if ($template_match)
+					yield $template_match;				
+			}
+			else {
+				//continue;
+				foreach (self::get_template_matches($translator_matches, $candidate) as $match)
+					yield $match;
+			}
+		}
+	}
+
+	private static function get_next_template_candidates($translator_matches, $parent_candidate) 
+	{
+		$candidate_queue = self::get_base_template_candidates($parent_candidate
+			, template_storage::get_templates());
+		while ($candidate_queue) {
+			$next_candidate = array_shift($candidate_queue);
+			if ($next_candidate->last_template_node->template) // leaf node
+			{
+				//echo 'template:<br>';
+				//var_dump($next_candidate->last_template_node->template->compact_form
+				//	, $next_candidate->double_noun_indices);
+				yield $next_candidate;									
+			}
+			else {
+				if ($next_candidate->matches($translator_matches)) {
+					//echo 'word:<br>';
+					//var_dump($next_candidate->last_template_node->word_form->compact_form);
+					$new_candidates = self::get_template_candidates($next_candidate
+						, $next_candidate->last_template_node->children);
+					self::add_template_candidates($new_candidates, $candidate_queue, $next_candidate);
+				}
+				if ($next_candidate->is_potential_double_noun($translator_matches)) {
+					$next_candidate->double_noun_indices[] = $next_candidate->word_index;
+					$next_candidate->word_index++;
+					//echo 'double noun:<br>';
+					//var_dump($next_candidate);
+					array_unshift($candidate_queue, $next_candidate);
+					//var_dump($candidate_queue);
+				}				
+			}
+		}
+	}
+
+	private static function get_base_template_candidates($parent_candidate, $new_template_nodes) 
+	{
+		$previous_template_nodes = $parent_candidate 
+			? $parent_candidate->template_nodes
+			: array();
+		$word_index = $parent_candidate 
+			? $parent_candidate->word_index + 1
+			: 0;
+		$double_noun_indices = $parent_candidate && $parent_candidate->double_noun_indices
+			? $parent_candidate->double_noun_indices
+			: array();
+		return array_map(function($template_node) 
+			use ($previous_template_nodes, $word_index, $double_noun_indices, $parent_candidate)
+			{
+				$template_nodes = $previous_template_nodes;
+				$template_nodes[] = $template_node;
+				return new template_candidate($template_nodes, $word_index, $double_noun_indices, $parent_candidate);
+			}, $new_template_nodes);
+	}
+
+	private static function get_template_candidates($parent_candidate, $new_template_nodes) 
+	{
+		//echo 'next_candidate: ' . (string)$parent_candidate . '<br>';
+		$previous_template_nodes = $parent_candidate->template_nodes;
+		array_pop($previous_template_nodes);
+		$parent_word_index = $parent_candidate->word_index;
+		$double_noun_indices = $parent_candidate->double_noun_indices
+			? $parent_candidate->double_noun_indices
+			: array();
+		//echo 'get_template_candidates<br>';
+		//var_dump($parent_candidate, $double_noun_indices);
+		return array_map(function($template_node) 
+			use ($previous_template_nodes, $parent_word_index, $double_noun_indices, $parent_candidate) {
+				$template_nodes = $previous_template_nodes;
+				$template_nodes[] = $template_node;
+				$word_index = $template_node->template ? $parent_word_index : $parent_word_index + 1;
+				return new template_candidate($template_nodes, $word_index, $double_noun_indices, $parent_candidate);
+			}, $new_template_nodes);
+	}
+
+	private static function add_template_candidates($new_candidates, &$candidate_queue) 
+	{
+		foreach ($new_candidates as $new_candidate)
+			self::add_template_candidate($new_candidate, $candidate_queue);			
 	}
 
 	private static function add_template_candidate($new_candidate, &$candidate_queue) {
@@ -139,98 +207,13 @@ class template_engine
 	}
 
 	private static function get_insertion_index($new_candidate, &$candidate_queue) {
+		$priority = $new_candidate->priority;
 		for ($index = 0; $index < count($candidate_queue); $index++) {
 			$candidate = $candidate_queue[$index];
-			if ($candidate->template_node->best_priority > 
-				$new_candidate->template_node->best_priority)
+			if ($priority < $candidate->priority)
 				return $index;	
 		}
 		return -1;
-	}
-}
-
-class template_candidate 
-{
-	public $template_node;
-	public $word_index;
-	public $double_noun_indices;
-
-	public function __construct($template_node, $word_index, $double_noun_indices) 
-	{
-		$this->template_node = $template_node;
-		$this->word_index = $word_index;
-		$this->double_noun_indices = $double_noun_indices;
-	}
-
-	public function matches($translator_matches) 
-	{
-		if (count($translator_matches) <= $this->word_index)
-			return false;
-		$translator_match = $translator_matches[$this->word_index];
-		$word_form = $this->template_node->word_form;
-		foreach ($translator_match->translators as $translator) 
-			if ($word_form->matches($translator))
-				return true;
-		return false;
-	}
-
-	public function match_complete($translator_matches) 
-	{
-		if (!$this->is_full_match($translator_matches)) return null;
-		$template = $this->template_node->template;
-		$filtered_translator_matches = $template->filter_translator_matches($translator_matches
-			, $this->double_noun_indices);
-		if (!$filtered_translator_matches) return null;
-		$alternative_translator_sequences = self::expand_translator_sequences($filtered_translator_matches);
-		$selected_translator_sequense = $template->select_translator_sequence($alternative_translator_sequences);
-		if (!$selected_translator_sequense) return null;
-		self::convolute_translators($filtered_translator_matches
-			, $selected_translator_sequense);
-		return new template_match($this->template_node->template, $filtered_translator_matches
-			, $this->double_noun_indices);
-	}
-
-	private static function expand_translator_sequences($translator_matches) 
-	{
-		if (!$translator_matches) return array();
-		$first_translators = $translator_matches[0]->translators;
-		$sequencies = count($translator_matches) == 1
-			? array(array())
-			: self::expand_translator_sequences(array_slice($translator_matches, 1));
-		return self::combine_translator_sequences($first_translators, $sequencies);
-	}
-
-	private static function combine_translator_sequences($first_translators, $sequenses) 
-	{
-		foreach ($sequenses as $sequense) {
-			foreach ($first_translators as $first_translator) {
-				$next_sequence = $sequense;
-				array_unshift($next_sequence, $first_translator);
-				yield $next_sequence;				
-			}			
-		}
-	}
-
-	private static function convolute_translators(&$translator_matches, $selected_translator_sequense) 
-	{
-		$index = 0;
-		foreach ($translator_matches as $translator_match) 
-		{
-			$translator_match->translators = null;
-			$translator_match->translator = $selected_translator_sequense[$index++];			
-		}
-	}
-
-	public function is_potential_double_noun($translator_matches) 
-	{
-		return $this->word_index < count($translator_matches) - 1
-			&& $this->template_node->word_form->class == 'noun'
-			&& $translator_matches[$this->word_index]->is_potentially_first_of_double_noun();
-	}
-
-	private function is_full_match($translator_matches) 
-	{
-		return $this->template_node->template && $this->word_index == count($translator_matches) - 1;
 	}
 }
 ?>

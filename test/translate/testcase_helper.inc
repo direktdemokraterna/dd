@@ -8,6 +8,9 @@ class testcase_helper
 	{
 		$xml_nodes = xml_parser::parse(TEST_FILENAME);
 		$testcases = testcase_helper::generate($xml_nodes);
+		//$testcases = array_slice($testcases, 57,1);
+		//var_dump($testcases);
+		//die();
 		return $testcases;
 	}
 

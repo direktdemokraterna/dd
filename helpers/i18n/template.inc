@@ -23,19 +23,10 @@ class template
         return $this->compact_form;
     }
 
-    public function select_translator_sequence($matching_translator_sequences) 
-    {
-    	foreach ($matching_translator_sequences as $translators) 
-    	{
-    		if ($translators && $this->match_selectors($translators))
-    			return $translators;    		
-    	}
-    }
-
-    public function filter_translator_matches($translator_matches, $double_noun_indices) 
+    public function filter_translator_matches($translator_matches, $double_noun_indices
+    	, &$translator_index) 
     {
     	$filtered_translator_matches = array();
-    	$translator_index = 0;
     	foreach ($this->from_sequence as $word_form) {
     		if (in_array($translator_index, $double_noun_indices)){
 	    		$translator_match = $translator_matches[$translator_index++];
@@ -65,10 +56,10 @@ class template
     }
 
 	public function get_translated_parts($translator_matches, $translation_hints = null
-		, $double_noun_indices) 
+		, $double_noun_indices, &$translator_index, &$translators_before, &$translators_after) 
 	{
 		$translated_parts = $this->translate_parts($translator_matches, $translation_hints
-			, $double_noun_indices);
+			, $double_noun_indices, $translator_index, $translators_before, $translators_after);
 		$ordered_translated_parts = $this->order_translated_parts($translated_parts);
 		return array_filter($ordered_translated_parts, function($word) {return $word;});
 	}
@@ -125,30 +116,27 @@ class template
 	}
 
 	private function translate_parts($translator_matches, $translation_hints = null
-		, $double_noun_indices) 
+		, $double_noun_indices, &$translator_index, &$translators_before, &$translators_after) 
 	{
-		$translators_after = array_map(function($match) {return $match->translator;}
-			, $translator_matches);
-		$translators_before = array();
 		$localized_strings = array();
 		$word_index = 0;
-    	$translator_index = 0;
     	$noun_prefix = null;
-		foreach ($translator_matches as $match) {
-			$translator = array_shift($translators_after);
+    	do {
+    		$match = $translator_matches[$translator_index];
 			$is_double_noun = in_array($translator_index++, $double_noun_indices);
+			$translator = array_shift($translators_after);
 			$hints = $is_double_noun
 				? null
 				: self::merge_hints($translation_hints, $word_index++);
-			if ($is_double_noun){
+			if ($is_double_noun)
 				$noun_prefix = $match->make_noun_prefix();
-			}
 			else {
 				$localized_strings[] = $noun_prefix . $match->translate($translators_before, $translators_after, $hints);
 				$noun_prefix = null;
 			}
 			$translators_before[] = $translator;
 		}
+		while ($word_index < count($this->from_sequence));
 		return $localized_strings;
 	}
 
@@ -165,21 +153,6 @@ class template
 		$word_form = $this->from_sequence[$word_index];
 		return $word_form->merge_hints($translation_hints);
 	}
-
-    private function match_selectors($translators) 
-    {
-    	$previous_identifier = null;
-    	$current_identifier = null;
-    	foreach ($translators as $next_translator) {
-    		if ($current_identifier 
-    			&& !$current_identifier->match_selectors($previous_identifier
-    				, $next_translator->identifier))
-    			return false;
-    		$previous_identifier = $current_identifier;
-    		$current_identifier = $next_translator->identifier;
-    	}
-    	return $current_identifier->match_selectors($previous_identifier, null);
-    }
 }
 
 class word_form_match 

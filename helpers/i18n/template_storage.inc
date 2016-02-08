@@ -17,8 +17,10 @@ class template_storage
 		$templates = array();
 		$compact_templates = templates::create_templates();
 		$priority = 0;
-		foreach ($compact_templates as $from_pattern => $to_order)
-			$templates[] = new template($priority++, $from_pattern, $to_order);
+		foreach ($compact_templates as $from_pattern => $to_order) {
+			//echo 'create node: ' . $priority . '<br>';
+			$templates[] = new template($priority++, $from_pattern, $to_order);			
+		}
 		return self::make_children($templates);
 	}
 

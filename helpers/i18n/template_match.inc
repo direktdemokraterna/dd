@@ -3,21 +3,33 @@ namespace I18n;
 
 class template_match
 {
-	public $template;
+	public $templates;
 	public $translator_matches;
 	public $double_noun_indices;
 	
-	public function __construct($template, $translator_matches, $double_noun_indices) 
+	public function __construct($templates, $translator_matches, $double_noun_indices) 
 	{
-		$this->template = $template;
+		$this->templates = $templates;
 		$this->translator_matches = $translator_matches;
 		$this->double_noun_indices = $double_noun_indices;
 	}
 
-	public function translate($translation_hints = null) {
+	public function translate($translation_hints = null) 
+	{
 		self::pluralify();
-		$translated_words = $this->template->get_translated_parts($this->translator_matches
-			, $translation_hints, $this->double_noun_indices);
+		$translator_index = 0;
+		$translated_words = null;
+		$translators_before = array();
+		$translators_after = array_map(function($match) {return $match->translator;}
+			, $this->translator_matches);
+		foreach ($this->templates as $template) {
+			$next_translated_words = $template->get_translated_parts($this->translator_matches
+				, $translation_hints, $this->double_noun_indices, $translator_index
+				, $translators_before, $translators_after);
+			$translated_words = $translated_words
+				? array_merge($translated_words, $next_translated_words)
+				: $next_translated_words;
+		}
 		$translation = implode(' ', $translated_words);
 		return $translation;
 	}

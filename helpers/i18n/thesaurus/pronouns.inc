@@ -34,10 +34,8 @@ class pronouns
 				"sv" => "du"
 				,"en" => "you"
 				)
-
-			//PRONOUN: it
-			,"it:pron-it" => array(
-				"sv" => "den|det"
+			,"it:pron" => array(
+				"sv" => "den"
 				,"en" => "it"
 				)
 
