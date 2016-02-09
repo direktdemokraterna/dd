@@ -319,11 +319,11 @@ class nouns
 				,"en" => "report"
 				)				
 			,"role:noun1" => array(
-				"sv" => "roll:er:en:erna"
+				"sv" => "roll:er:en:na"
 				,"en" => "role:s"
 				)
 			,"search:noun1" => array(
-				"sv" => "sök:ningar:ningen:ningarna:-"
+				"sv" => "sök:ningar:ningen:na:-"
 				,"en" => "search:es"
 				)
 			,"sender:noun1" => array(

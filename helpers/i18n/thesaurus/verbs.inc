@@ -327,6 +327,10 @@ class verbs
 				"sv" => "stöd:ja:jer:_tt"
 				,"en" => "support::|s|ing:ed"
 				)
+			,"terminate:verb" => array(
+				"sv" => "avsluta::r:t:(d|_t:e):ts"
+				,"en" => "terminate::|s:d:(d):d"
+				)
 			,"to be subject for:verb" => array(
 				"sv" => "för att gå vidare och bli"
 				,"en" => "to be subject for"
