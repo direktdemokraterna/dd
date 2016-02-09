@@ -48,13 +48,6 @@ class translation_identifier
 			&& (!$this->post_selector || $this->post_selector->match($next_identifier));
 	}
 
-	public function is_noun_base_form() 
-	{
-		return $this->class == 'noun'
-			&& $this->numerus == 'singular'
-			&& !$this->definite;
-	}
-
 	public function copy($change_props = null) 
 	{
 		$copy = new translation_identifier($this->key, $this->class, $this->type);

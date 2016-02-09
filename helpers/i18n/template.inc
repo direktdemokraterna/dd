@@ -31,7 +31,10 @@ class template
     		if (in_array($translator_index, $double_noun_indices)){
 	    		$translator_match = $translator_matches[$translator_index++];
 	    		$filtered_match = self::filter_translator_match($translator_match
-	    			, function($translator) {return $translator->identifier->is_noun_base_form();});
+	    			, function($translator) {
+	    				return $translator instanceof noun 
+	    					&& $translator->is_potentially_first_of_double_noun();
+	    			});
 	    		if (!$filtered_match) return null;
 				$filtered_translator_matches[] = $filtered_match;
     		}

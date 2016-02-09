@@ -44,6 +44,7 @@ class template_engine
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
 		$template_match = self::get_template_match($translator_matches);
+		//var_dump($template_match);
 		if (!$template_match)
 			return $phrase;
 		$translation = $template_match->translate($translation_hints);
@@ -125,9 +126,12 @@ class template_engine
 
 	private static function get_next_template_candidates($translator_matches, $parent_candidate) 
 	{
+		$translator_count = count($translator_matches);
 		$candidate_queue = self::get_base_template_candidates($parent_candidate
-			, template_storage::get_templates());
+			, template_storage::get_templates(), $translator_count);
 		while ($candidate_queue) {
+			//echo 'next_candidate:<br>';
+			//self::print_candidates($candidate_queue);
 			$next_candidate = array_shift($candidate_queue);
 			if ($next_candidate->last_template_node->template) // leaf node
 			{
@@ -141,8 +145,9 @@ class template_engine
 					//echo 'word:<br>';
 					//var_dump($next_candidate->last_template_node->word_form->compact_form);
 					$new_candidates = self::get_template_candidates($next_candidate
-						, $next_candidate->last_template_node->children);
-					self::add_template_candidates($new_candidates, $candidate_queue, $next_candidate);
+						, $next_candidate->last_template_node->children, $translator_count);
+					self::add_template_candidates($new_candidates, $candidate_queue
+						, $translator_count);
 				}
 				if ($next_candidate->is_potential_double_noun($translator_matches)) {
 					$next_candidate->double_noun_indices[] = $next_candidate->word_index;
@@ -156,7 +161,20 @@ class template_engine
 		}
 	}
 
-	private static function get_base_template_candidates($parent_candidate, $new_template_nodes) 
+	private static function print_candidates($candidates) 
+	{
+		foreach ($candidates as $candidate) {
+			$node = $candidate->last_template_node;
+			if ($node->template)
+				echo 'T:' . $node->template->compact_form;
+			else if ($node->word_form)
+				echo 'W:' . $node->word_form->compact_form;
+			echo '<br>';
+		}
+	}
+
+	private static function get_base_template_candidates($parent_candidate, $new_template_nodes
+		, $translator_count) 
 	{
 		$previous_template_nodes = $parent_candidate 
 			? $parent_candidate->template_nodes
@@ -167,16 +185,18 @@ class template_engine
 		$double_noun_indices = $parent_candidate && $parent_candidate->double_noun_indices
 			? $parent_candidate->double_noun_indices
 			: array();
-		return array_map(function($template_node) 
-			use ($previous_template_nodes, $word_index, $double_noun_indices, $parent_candidate)
-			{
-				$template_nodes = $previous_template_nodes;
-				$template_nodes[] = $template_node;
-				return new template_candidate($template_nodes, $word_index, $double_noun_indices, $parent_candidate);
-			}, $new_template_nodes);
+		$candidates = array();
+		foreach (array_reverse($new_template_nodes) as $template_node) {
+			if ($template_node->min_length > $translator_count) continue;
+			$new_candidate = new template_candidate($previous_template_nodes, $template_node
+				, $word_index, $double_noun_indices);
+			self::add_template_candidate($new_candidate, $candidates, $translator_count);
+		}
+		return $candidates;
 	}
 
-	private static function get_template_candidates($parent_candidate, $new_template_nodes) 
+	private static function get_template_candidates($parent_candidate, $new_template_nodes
+		, $translator_count) 
 	{
 		//echo 'next_candidate: ' . (string)$parent_candidate . '<br>';
 		$previous_template_nodes = $parent_candidate->template_nodes;
@@ -187,34 +207,41 @@ class template_engine
 			: array();
 		//echo 'get_template_candidates<br>';
 		//var_dump($parent_candidate, $double_noun_indices);
-		return array_map(function($template_node) 
-			use ($previous_template_nodes, $parent_word_index, $double_noun_indices, $parent_candidate) {
-				$template_nodes = $previous_template_nodes;
-				$template_nodes[] = $template_node;
-				$word_index = $template_node->template ? $parent_word_index : $parent_word_index + 1;
-				return new template_candidate($template_nodes, $word_index, $double_noun_indices, $parent_candidate);
-			}, $new_template_nodes);
+		$candidates = array();
+		foreach ($new_template_nodes as $template_node) {
+			if ($template_node->min_length > $translator_count) continue;
+			$word_index = $template_node->template ? $parent_word_index : $parent_word_index + 1;
+			$candidates[] = new template_candidate($previous_template_nodes, $template_node
+				, $word_index, $double_noun_indices);
+		}
+		return $candidates;
 	}
 
-	private static function add_template_candidates($new_candidates, &$candidate_queue) 
+	private static function add_template_candidates($new_candidates, &$candidate_queue, $translator_count) 
 	{
 		foreach ($new_candidates as $new_candidate)
-			self::add_template_candidate($new_candidate, $candidate_queue);			
+			self::add_template_candidate($new_candidate, $candidate_queue, $translator_count);
 	}
 
-	private static function add_template_candidate($new_candidate, &$candidate_queue) {
-		$index = self::get_insertion_index($new_candidate, $candidate_queue);
+	private static function add_template_candidate($new_candidate, &$candidate_queue
+		, $translator_count) {
+		$index = self::get_insertion_index($new_candidate, $candidate_queue, $translator_count);
+		//var_dump($new_candidate->last_template_node, $index);
 		if ($index < 0) 
 			$candidate_queue[] = $new_candidate;
 		else 
 			array_splice($candidate_queue, $index, 0, array($new_candidate));
 	}
 
-	private static function get_insertion_index($new_candidate, &$candidate_queue) {
-		$priority = $new_candidate->priority;
+	private static function get_insertion_index($new_candidate, &$candidate_queue
+		, $translator_count) {
+		//$priority = $new_candidate->priority;
+		//echo 'get_insertion_index:<br>';
+		//self::print_candidates($candidate_queue);
 		for ($index = 0; $index < count($candidate_queue); $index++) {
 			$candidate = $candidate_queue[$index];
-			if ($priority < $candidate->priority)
+			if ($new_candidate->is_better_than($candidate, $translator_count))
+			//if ($priority < $candidate->priority)
 				return $index;	
 		}
 		return -1;

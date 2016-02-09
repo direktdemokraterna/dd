@@ -6,18 +6,16 @@ class template_candidate
 	public $template_nodes;
 	public $last_template_node;
 	public $word_index;
-	public $template_count;
 	public $double_noun_indices;
-	public $priority;
 
-	public function __construct($template_nodes, $word_index, $double_noun_indices) 
+	public function __construct($previous_template_nodes, $template_node, $word_index
+		, $double_noun_indices) 
 	{
-		$this->template_nodes = $template_nodes;
-		$this->template_count = count($template_nodes);
-		$this->last_template_node = end($template_nodes);
+		$this->template_nodes = $previous_template_nodes;
+		$this->template_nodes[] = $template_node;
+		$this->last_template_node = $template_node;
 		$this->word_index = $word_index;
 		$this->double_noun_indices = $double_noun_indices;
-		$this->priority = $this->last_template_node->best_priority - $word_index;
 	}
 
 	public function __toString() {
@@ -31,6 +29,23 @@ class template_candidate
 		}
 		return $str . $this->priority;
 	}
+
+	public function is_better_than($candidate, $translator_count) 
+	{
+		//echo 'who is better?<br>';
+		//var_dump($this, $candidate, $translator_count);
+		$my_max_length = $this->compute_max_length($translator_count);
+		$other_max_length = $candidate->compute_max_length($translator_count);
+		return ($my_max_length > $other_max_length) 
+			|| ($my_max_length == $other_max_length
+				&& $this->last_template_node->best_priority < $candidate->last_template_node->best_priority);
+	}
+
+	private function compute_max_length($translator_count) 
+	{
+		return min($this->last_template_node->max_length + count($this->double_noun_indices)
+			, $translator_count);
+	} 
 
 	public function matches($translator_matches) 
 	{

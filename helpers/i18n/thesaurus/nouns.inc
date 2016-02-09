@@ -378,6 +378,12 @@ class nouns
 				"sv" => "tråd:ar:en:na:-"
 				,"en" => "thread:s"
 				)
+			/*
+			,"thread start:noun1" => array(
+				"sv" => "trådstart:er:en:na"
+				,"en" => "thread start:s"
+				)
+			*/
 			,"time:noun1" => array(
 				"sv" => "tidpunkt:er:_____en:na"
 				,"en" => "time:s"

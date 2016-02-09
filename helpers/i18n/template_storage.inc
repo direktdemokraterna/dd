@@ -17,10 +17,8 @@ class template_storage
 		$templates = array();
 		$compact_templates = templates::create_templates();
 		$priority = 0;
-		foreach ($compact_templates as $from_pattern => $to_order) {
-			//echo 'create node: ' . $priority . '<br>';
+		foreach ($compact_templates as $from_pattern => $to_order)
 			$templates[] = new template($priority++, $from_pattern, $to_order);			
-		}
 		return self::make_children($templates);
 	}
 
@@ -44,9 +42,11 @@ class template_storage
 	{
 		$word_form = $template->from_sequence[$level];
 		foreach ($nodes as $node)
-			if ($node->word_form == $word_form)
-				return $node;
-		$node = self::make_branch_node($template, $word_form);
+			if ($node->word_form == $word_form) {
+				$node->update_lengths($template, $level);
+				return $node;				
+			}
+		$node = self::make_branch_node($template, $word_form, $level);
 		$nodes[] = $node;
 		return $node;
 	}
@@ -56,14 +56,17 @@ class template_storage
 		$node = new template_node();
 		$node->template = $template;
 		$node->best_priority = $template->priority;
+		$node->max_length = $node->min_length = count($template->from_sequence);
+		$node->best_priority = $template->priority;
 		return $node;
 	}
 
-	private static function make_branch_node($template, $word_form) 
+	private static function make_branch_node($template, $word_form, $level) 
 	{
 		$node = new template_node();
 		$node->word_form = $word_form;
 		$node->best_priority = $template->priority;
+		$node->update_lengths($template, $level);
 		return $node;
 	}
 }
@@ -74,5 +77,24 @@ class template_node
 	public $children = array();
 	public $template;
 	public $best_priority;
+	public $max_length = 0;
+	public $min_length = PHP_INT_MAX;
+
+	public function update_lengths($template, $level) 
+	{
+		$template_length = count($template->from_sequence);
+		$this->min_length = min($this->min_length, $template_length);
+		$this->max_length = max($this->max_length, $template_length
+			+ self::count_nouns(array_slice($template->from_sequence, $level)));		
+	}
+
+	private static function count_nouns($word_forms) 
+	{
+		$sum = 0;
+		foreach ($word_forms as $word_form)
+			if ($word_form->class == 'noun')
+				$sum++;
+		return $sum;
+	}
 }
 ?>

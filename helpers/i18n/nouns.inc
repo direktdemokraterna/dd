@@ -3,7 +3,7 @@ namespace I18n;
 
 class noun extends translator 
 {
-	public  $is_definite;
+	public $is_definite;
 	private $base_translation;
 	private $definite_translation;
 	public $connector;
@@ -42,6 +42,11 @@ class noun extends translator
 		genitive_translator::make_translated_gentitive($genitive->definite_translation);
 		genitive_translator::make_original_gentitive($genitive->identifier->key);
 		return $genitive;
+	}
+
+	public function is_potentially_first_of_double_noun() 
+	{
+		return $this->connector !== null &&	!$this->identifier->definite;
 	}
 
 	protected function copy() 
@@ -120,6 +125,11 @@ class noun_plural extends noun
 		$noun = new noun_plural($identifier);
 		$noun->init('plural', $compact_translation[controller::get_language()], 1, 3);
 		return $noun;
+	}
+
+	public function is_potentially_first_of_double_noun() 
+	{
+		return false;
 	}
 
 	protected function copy() {
