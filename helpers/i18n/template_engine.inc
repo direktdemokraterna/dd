@@ -96,7 +96,8 @@ class template_engine
 		return null;
 	}
 
-	private static function get_template_matches($translator_matches, $parent_candidate) 
+	private static function get_template_matches($translator_matches, $parent_candidate
+		, $depth = 0, &$attempts = 0) 
 	{
 		//echo 'get_template_matches: <br>';
 		//var_dump($translator_matches, $parent_candidate);
@@ -105,17 +106,20 @@ class template_engine
 			//echo 'candidate: <br>';
 			//var_dump($candidate);
 			if ($candidate->word_index == count($translator_matches) - 1) {
-				//echo 'found template match: <br>';
+				$attempts++;
 				$template_match = $candidate->match_complete($translator_matches);
 				//var_dump($candidate, $template_match);
 				if ($template_match)
-					yield $template_match;				
+					yield $template_match;
 			}
-			else {
+			else if ($depth < 5){
 				//continue;
-				foreach (self::get_template_matches($translator_matches, $candidate) as $match)
+				foreach (self::get_template_matches($translator_matches, $candidate
+					, $depth + 1, $attempts) as $match)
 					yield $match;
 			}
+			if ($attempts > 2)
+				break;					
 		}
 	}
 
