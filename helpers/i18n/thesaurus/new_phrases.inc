@@ -17,6 +17,10 @@ class new_phrases
 				"sv" => "matchade inte"
 				,"en" => "didn't match"
 				)
+			,"do you really want to" => array(
+				"sv" => "vill du verkligen"
+				,"en" => "do you really want to"
+				)
 			,"doesn't support" => array(
 				"sv" => "stöder ej"
 				,"en" => "doesn't support"

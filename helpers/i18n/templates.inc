@@ -63,6 +63,7 @@ class templates
 		,'VNP' => ''
 		,'QAN' => ''
 		,'JPN' => ''
+		,'DGN' => ''
 		,'OGN' => ''
 		,'ON' => ''
 		,'AN' => ''
