@@ -45,6 +45,10 @@ class quantifiers
 				"sv" => "flera"
 				,"en" => "several"
 				)
+			,"a:quant[member]" => array( //change to "a:quant[member][of]" when needed, and add handling of more than one post selector
+				"sv" => ""
+				,"en" => "a"
+				)
 			,"a:quant" => array(
 				"sv" => "en|_tt"
 				,"en" => "a"

@@ -34,12 +34,19 @@ class word_selector
 
 	public function match($identifier) 
 	{
-		if (!$identifier) return !$this->classes && !$this->words;
-		if (!$this->classes && !$this->words) return false;
-		for ($i = 0; $i < count($this->words); $i++)
-			if (self::match_word($identifier, $this->words[$i]) 
-				|| self::match_word_form($identifier, $i))
-				return true;
+		if ($identifier) {
+			if ($this->words)
+				for ($i = 0; $i < count($this->words); $i++)
+					if (self::match_word($identifier, $this->words[$i]) 
+						|| self::match_word_form($identifier, $i))
+						return true;
+		}
+		else if (!$this->words)
+			return true;
+		else
+			foreach ($this->words as $word)
+					if (!$word) 
+						return true;			
 		return false;
 	}
 

@@ -114,6 +114,10 @@ class verbs
 				"sv" => "avsluta"
 				,"en" => "discontinue"
 				)
+			,"don't have" => array(
+				"sv" => "har inte"
+				,"en" => "don't have"
+				)
 			,"edit:verb" => array(
 				"sv" => "redigera::r:de:t:(d|_t:e):s"
 				,"en" => "edit::|s:ed"
@@ -332,8 +336,12 @@ class verbs
 				"sv" => "anmäl:a:er:de:t:(d|_t:a):s"
 				,"en" => "subscribe::|s:d"
 				)
-			,"subscribe to:verb" => array(
+			,"[]subscribe to:verb" => array(
 				"sv" => "anmäl dig till"
+				,"en" => "subscribe to"
+				)
+			,"subscribe to:verb" => array(
+				"sv" => "prenumerera på"
 				,"en" => "subscribe to"
 				)
 			,"support:verb" => array(

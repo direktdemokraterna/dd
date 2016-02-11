@@ -37,6 +37,10 @@ class new_phrases
 				"sv" => "svar till"
 				,"en" => "reply to"
 				)
+			,"signed up for" => array(
+				"sv" => "anmäld till"
+				,"en" => "signed up for"
+				)
 			,"vote (yes/no)" => array(
 				"sv" => "votering (ja/nej)"
 				,"en" => "vote (yes/no)"
