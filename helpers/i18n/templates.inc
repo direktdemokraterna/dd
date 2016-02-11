@@ -11,6 +11,9 @@ class templates
 		,'ONVBQN' => ''
 		,'VANPON' => ''
 		,'DNVQN' => ''
+		,'DNXprXpeVpes' => ''
+		,'ONXprXpeVpes' => ''
+		,'DNXBXVprs' => ''
 		,'DNXVA' => ''
 		,'QNPON' => ''
 		,'DNVBA' => ''
@@ -33,11 +36,11 @@ class templates
 		,'VNPN' => ''
 		,'RVprON' => ''
 		,'NdeAPN' => ''
-		,'DNXVps' => ''
+		,'DNXVpts' => ''
 		,'NPAN' => ''
 		,'NPON' => ''
 		,'NPDN' => ''
-		,'ONXVps' => ''
+		,'ONXVpts' => ''
 		,'VAN' => ''
 		,'APR' => ''
 		,'VPApl' => ''
@@ -69,16 +72,19 @@ class templates
 		,'NplA' => ''
 		,'NdeA' => ''
 		,'VimN' => ''
+		,'NVs' => ''
 		,'NdeV' => ''
 		,'VN' => ''
+		,'PNCN' => ''
 		,'PN' => ''
 		,'VQ' => ''
 		,'NBA' => ''
-		,'NinS' => ''
+		,'NinVs' => ''
+		,'XpeVpes' => ''
 		,'VA' => ''
 		,'VV' => ''
 		,'DN' => ''
-		,'NC' => ''
+		,'NF' => ''
 		,'RVpr' => ''
 		,'RV' => ''
 		,'V' => ''
@@ -92,8 +98,9 @@ class templates
 		switch($class_code) {
 			case 'A': return 'adj';
 			case 'B': return 'adverb';
-			case 'C': return '%d';
+			case 'C': return 'conj';
 			case 'D': return 'definite';
+			case 'F': return '%d';
 			case 'G': return 'noun-gen';
 			case 'I': return 'indefinite';
 			case 'J': return 'interjection';
@@ -102,7 +109,6 @@ class templates
 			case 'P': return 'prep';
 			case 'Q': return 'quant';
 			case 'R': return 'pron';
-			case 'S': return 'verb-pass';
 			case 'V': return 'verb';
 			case 'X': return 'verb-aux';
 			case 'W': return null;
@@ -116,10 +122,15 @@ class templates
 			case 'pl': return array('numerus' => 'plural');
 			case 'im': return array('tempus' => 'imperative');
 			case 'pr': return array('tempus' => 'present');
+			case 'prs': return array('tempus' => 'present', 'passive' => true);
+			case 'pt': return array('tempus' => 'preteritum');
+			case 'pts': return array('tempus' => 'preteritum', 'passive' => true);
+			case 'pe': return array('tempus' => 'perfect');
+			case 'pes': return array('tempus' => 'perfect', 'passive' => true);
 			case 'in': return array('definite' => false);
 			case 'de': return array('definite' => true);
-			case 'ps': return array('tempus' => 'supinum', 'passive' => true);
 			case 'pp': return array('tempus' => 'present_participle');
+			case 's': return array('passive' => true);
 			case '': return array();
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

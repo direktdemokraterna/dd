@@ -55,13 +55,29 @@ class translator
 		|| in_array($this->identifier->key, array('as', 'this'));
 	}
 
+	protected static function generate_word($compact_form, $inflection_num, $passive = false
+		, $passive_infl_num = 0) 
+	{
+		$words = explode(' ', $compact_form, 2);
+		$word_forms = util::split_word_forms($words[0]);
+		$word = $inflection_num
+			? self::assemble_word_form($word_forms, $inflection_num)
+			: $word_forms[0];
+		if ($passive && count($word_forms) > $passive_infl_num) 
+			$word = self::assemble_word_form($word_forms, $passive_infl_num, $word);
+		if (count($words) > 1)
+			$word = $word . ' ' . $words[1];
+		return $word;
+	}	
+
 	protected static function assemble_word_form($parts, $n, $base_form = null) 
 	{
 		if (!$base_form)
 			$base_form = $parts[0];
-		return count($parts) > $n 
-			? self::create_word_form($base_form, $parts[$n])
-			: $base_form;
+		$n = min($n, count($parts) - 1);
+		return $n == 0 
+			? $base_form 
+			: self::create_word_form($base_form, $parts[$n]);
 	}
 
 	protected static function create_word_form($base_form, $ending) 

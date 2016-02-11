@@ -11,6 +11,7 @@ class translation_identifier
 	public $tempus;
 	public $numerus;
 	public $definite;
+	public $passive;
 
 	public $pre_selector;
 	public $post_selector;
@@ -54,6 +55,7 @@ class translation_identifier
 		$copy->tempus = $this->tempus;
 		$copy->numerus = $this->numerus;
 		$copy->definite = $this->definite;
+		$copy->passive = $this->passive;
 		$copy->base_form = $this->base_form;
 		$copy->pre_selector = $this->pre_selector;
 		$copy->post_selector = $this->post_selector;
@@ -76,7 +78,8 @@ class translation_identifier
 		$this->type = $type;	
 		$this->tempus = null;
 		$this->numerus = null;
-		$this->definite = false;
+		//$this->definite = false;
+		//$this->passive = false;
 	}
 }
 ?>

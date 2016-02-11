@@ -4016,7 +4016,7 @@
 	</case>
 	<case hints="" success="true">
 		<when lang="en">
-			Subscribe for this activity
+			Subscribe to this activity
 		</when>
 		<then lang="sv">
 			Anmäl dig till denna aktivitet

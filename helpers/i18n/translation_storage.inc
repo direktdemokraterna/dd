@@ -151,31 +151,54 @@ class translation_storage
 				break;
 			case 'verb':
 			case 'verb-aux':
-				$verb_imperative = new verb_imperative($identifier, $compact_translation[$lang]);
-				$translators[] = $verb_imperative;
-				$verb_infinitive = null;
-				if ($verb_imperative->has_infinitive) {
-					$verb_infinitive = new verb_infinitive($identifier->copy(), $compact_translation[$lang]);					
-					$translators[] = $verb_infinitive;
+				$imperative = new verb_imperative($identifier, $compact_translation[$lang]);
+				$translators[] = $imperative;
+				$infinitive = null;
+				$perfect = null;
+				if ($imperative->has_infinitive) {
+					$infinitive = new verb_infinitive($identifier->copy(), $compact_translation[$lang]);					
+					$translators[] = $infinitive;
 				}
-				if ($verb_imperative->has_perfect)
-					$translators[] = new verb_perfect($identifier->copy(), $compact_translation);
-				if ($verb_imperative->has_present) {
+				if ($imperative->has_perfect){
+					$perfect = new verb_perfect($identifier->copy(), $compact_translation);
+					$translators[] = $perfect;
+				}
+				if ($imperative->has_preteritum) {
+					$preteritum = new verb_preteritum($identifier->copy(), $compact_translation);
+					$translators[] = $preteritum;
+					if ($preteritum->singular_key)
+						$translators[] = new verb_preteritum_singular($identifier->copy()
+							, $preteritum->singular_key, $preteritum->translation);
+				}
+				if ($imperative->has_present) {
 					$present = new verb_present($identifier->copy(), $compact_translation);
 					$translators[] = $present;
 					if ($present->singular_key != $present->identifier->key)
 						$translators[] = new verb_present_singular($identifier->copy(
 							array('key' => $present->singular_key))
 							, $present->singular_translation);
-					if ($present->participle_key != $present->identifier->key)
-						$translators[] = new verb_present_participle($identifier->copy(
-							array('key' => $present->participle_key))
-							, $present->participle_translation, $verb_infinitive->translation);
+					if ($present->participle_key != $present->identifier->key) {
+						$translators[] = new verb_present_participle($identifier, $present
+							, $infinitive);						
+					}
 				}
-				if ($verb_imperative->has_perfect_participle)
+				if ($imperative->has_perfect_participle)
 					$translators[] = new verb_perfect_participle($identifier->copy(), $compact_translation);
-				if ($verb_imperative->has_passive_supinum)
-					$translators[] = new verb_passive_supinum($identifier->copy(), $compact_translation);
+				if ($imperative->has_passive) {
+					$translators[] = new verb_preteritum($identifier->copy(), $compact_translation,
+						true);
+					$translators[] = new verb_perfect($identifier->copy(), $compact_translation,
+						true);
+					if ($present->participle_key != $present->identifier->key) {
+						$present_participle_passive = new verb_present_participle($identifier, $present
+							, $infinitive, true);
+						$translators[] = $present_participle_passive;
+					}
+					if ($infinitive && $present && $perfect) {
+						$translators[] = new verb_present_passive($identifier, $infinitive
+						, $present, $perfect);	
+					}
+				}
 				break;
 			case 'noun':
 				$singular = noun_singular::create($identifier, $compact_translation[$lang]);

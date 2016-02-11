@@ -34,11 +34,11 @@
 				__hidden("id", $row['event_id']);
 				if($is_participant) {
 					__hidden("type", "cancel_participate");
-					__submit_and_close(_t("Unsubscribe for this activity"));
+					__submit_and_close(_t("Unsubscribe from this activity"));
 				}
 				else {
 					__hidden("type", "participate");
-					__submit_and_close(_t("Subscribe for this activity"));
+					__submit_and_close(_t("Subscribe to this activity"));
 				}
 			}
 			if($row['user_id'] == $_SESSION['id'] && $row['timestamp'] > time()) 
