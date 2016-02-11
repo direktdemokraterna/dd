@@ -407,7 +407,7 @@ class verbs
 				)
 				*/
 			,"withdraw:verb" => array(
-				"sv" => "dra::r:_og:git tillbaka"
+				"sv" => "dra::r:_og:git:():s tillbaka"
 				,"en" => "withdraw::|s:__ew:n"
 				)
 			,"write:verb" => array(
@@ -434,6 +434,10 @@ class verbs
 			,"can:verb-aux" => array(
 				"sv" => "kan:__unna::__unde"
 				,"en" => "can:::__ould"
+				)
+			,"cannot:verb-aux" => array(
+				"sv" => "kan inte"
+				,"en" => "cannot"
 				)
 /*			,"has been:verb-aux" => array(
 				"sv" => "har"

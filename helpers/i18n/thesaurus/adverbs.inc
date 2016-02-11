@@ -21,6 +21,10 @@ class adverbs
 				"sv" => "nu"
 				,"en" => "now"
 				)
+			,"personally:adverb" => array(
+				"sv" => "personligt"
+				,"en" => "personally"
+				)
 			,"temporarily:adverb" => array(
 				"sv" => "tillfälligt"
 				,"en" => "temporarily"

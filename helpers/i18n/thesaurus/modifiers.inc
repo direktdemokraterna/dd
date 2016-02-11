@@ -24,12 +24,12 @@ class modifiers
 				"sv" => "den|_t"
 				,"en" => "that"
 				)
-			,"the:definite" => array(
-				"sv" => ""
-				,"en" => "the"
-				)
 			,"the:definite[adj|quant]" => array(
 				"sv" => "den|_t:_"
+				,"en" => "the"
+				)
+			,"the:definite" => array(
+				"sv" => ""
 				,"en" => "the"
 				)
 			,"[verb|]this:definite" => array(

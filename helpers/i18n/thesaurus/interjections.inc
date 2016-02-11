@@ -13,6 +13,10 @@ class interjections
 				"sv" => "nej"
 				,"en" => "no"
 				)
+			,"thank you:interjection" => array(
+				"sv" => "tack"
+				,"en" => "thank you"
+				)
 			,"welcome:interjection" => array(
 				"sv" => "välkommen"
 				,"en" => "welcome"

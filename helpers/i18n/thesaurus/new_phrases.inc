@@ -5,9 +5,17 @@ class new_phrases
 {
 	public static function create_translations() {
 		return array(
-			"[]candidate in" => array(
+			"as follows" => array(
+				"sv" => "följande"
+				,"en" => "as follows"
+				)
+			,"[]candidate in" => array(
 				"sv" => "kandidat in"
 				,"en" => "candidate in"
+				)
+			,"didn't match" => array(
+				"sv" => "matchade inte"
+				,"en" => "didn't match"
 				)
 			,"doesn't support" => array(
 				"sv" => "stöder ej"
@@ -36,6 +44,10 @@ class new_phrases
 			,"vote status" => array(
 				"sv" => "omröstningens status"
 				,"en" => "vote status"
+				)
+			,"whereof" => array(
+				"sv" => "varav"
+				,"en" => "whereof"
 				)
 			,"workgroup election" => array(
 				"sv" => "personval för arbetsgrupp"
