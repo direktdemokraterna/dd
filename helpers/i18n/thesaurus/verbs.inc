@@ -114,7 +114,7 @@ class verbs
 				"sv" => "avsluta"
 				,"en" => "discontinue"
 				)
-			,"don't have" => array(
+			,"don't have:verb" => array(
 				"sv" => "har inte"
 				,"en" => "don't have"
 				)

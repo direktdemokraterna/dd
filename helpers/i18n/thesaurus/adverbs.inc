@@ -13,6 +13,10 @@ class adverbs
 				"sv" => "här"
 				,"en" => "here"
 				)
+			,"no longer:adverb" => array(
+				"sv" => "inte längre"
+				,"en" => "no longer"
+				)
 			,"not:adverb" => array(
 				"sv" => "inte"
 				,"en" => "not"
