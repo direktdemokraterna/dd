@@ -10,12 +10,13 @@ class templates
 		,'RXprVQAN' => ''
 		,'VQNPON' => ''
 		,'ONVBQN' => ''
-		,'VANPON' => ''
+//		,'VANPON' => ''
 		,'DNVQN' => ''
 		,'DNXprXpeVpes' => ''
 		,'ONXprXpeVpes' => ''
 		,'DNXBXVprs' => ''
-		,'DNXVA' => ''
+		,'DNXptBVpts' => '01243'
+//		,'DNXVA' => ''
 		,'QNPON' => ''
 		,'DNVBA' => ''
 		,'DNAPN' => ''
@@ -29,10 +30,12 @@ class templates
 		,'VimDN' => ''
 		,'VIVVpp' => ''
 		,'BPDN' => ''
-		,'DNVA' => ''
+//		,'DNVA' => ''
+		,'DNSA' => ''
 		,'VQAN' => ''
 		,'ANPN' => ''
-		,'ONVA' => ''
+//		,'ONVA' => ''
+		,'ONSA' => ''
 		,'VPON' => ''
 		,'VNPN' => ''
 		,'RVBQN' => ''
@@ -42,7 +45,8 @@ class templates
 		,'NPAN' => ''
 		,'NPON' => ''
 		,'NPDN' => ''
-		,'QNVA' => ''
+//		,'QNVA' => ''
+		,'QNSA' => ''
 		,'RXprBV' => ''
 		,'ONXVpts' => ''
 		,'VAN' => ''
@@ -73,7 +77,8 @@ class templates
 		,'XBV' => ''
 		,'XVifVprs' => '02'
 		,'XXpeVpes' => '02'
-		,'NdeVA' => ''
+//		,'NdeVA' => ''
+		,'NdeSA' => ''
 		,'ON' => ''
 		,'AN' => ''
 		,'BN' => ''
@@ -93,11 +98,15 @@ class templates
 		,'PN' => ''
 		,'VQ' => ''
 		,'NBA' => ''
+		,'XXVprs' => ''
 		,'NidVs' => ''
 		,'XptVpts' => ''
+		,'SA' => ''
+		,'XprVpe' => ''
 		,'VA' => ''
 		,'VV' => ''
 		,'DN' => ''
+		,'OS' => ''
 		,'NF' => ''
 		,'RVpr' => ''
 		,'RV' => ''
@@ -116,7 +125,7 @@ class templates
 			case 'C': return 'conj';
 			case 'D': return 'definite';
 			case 'F': return '%d';
-			case 'G': return 'noun-gen';
+			case 'G': return 'noun_gen';
 			case 'I': return 'indefinite';
 			case 'J': return 'interjection';
 			case 'N': return 'noun';
@@ -124,8 +133,9 @@ class templates
 			case 'P': return 'prep';
 			case 'Q': return 'quant';
 			case 'R': return 'pron';
+			case 'S': return 'verb_state';
 			case 'V': return 'verb';
-			case 'X': return 'verb-aux';
+			case 'X': return 'verb_aux';
 			case 'W': return null;
 			default: throw new \Exception("Unknown class_code: " . $class_code);
 		}

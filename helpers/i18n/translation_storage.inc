@@ -139,7 +139,6 @@ class translation_storage
 			case 'pron':
 			case 'prep':
 			case 'adverb':
-			case 'verb-pass':
 			case 'interjection':
 				$translators[] = new translator($identifier, $compact_translation[$lang]);
 				break;
@@ -162,7 +161,8 @@ class translation_storage
 					$translators[] = new adjective_definite($identifier->copy(), $compact_translation, $adjective_indefinite);
 				break;
 			case 'verb':
-			case 'verb-aux':
+			case 'verb_aux':
+			case 'verb_state':
 				$imperative = new verb_imperative($identifier, $compact_translation[$lang]);
 				$translators[] = $imperative;
 				$infinitive = null;

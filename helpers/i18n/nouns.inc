@@ -37,7 +37,7 @@ class noun extends translator
 	public function make_genitive() 
 	{
 		$genitive = $this->copy(); 
-		$genitive->identifier->class = 'noun-gen';
+		$genitive->identifier->class = 'noun_gen';
 		genitive_translator::make_translated_gentitive($genitive->translation);
 		genitive_translator::make_translated_gentitive($genitive->definite_translation);
 		genitive_translator::make_original_gentitive($genitive->identifier->key);

@@ -4,7 +4,7 @@ namespace I18n;
 class word_selector 
 {
 	public static $previous_word_pattern = '/^(\[\w+[\w\|\-]+\w*\]|\[\w*\])/';
-	public static $next_word_pattern = '/(\[\w+[\w\|\-]+\w+\]|\[\w*\])$/';
+	public static $next_word_pattern = '/(\[\w+[\w\|\-]+\w*\]|\[\w*\])$/';
 
 	public $words;
 	public $classes;

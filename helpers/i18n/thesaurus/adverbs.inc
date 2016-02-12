@@ -5,7 +5,11 @@ class adverbs
 {
 	public static function create_translations() {
 		return array(
-			"already:adverb" => array(
+			"again:adverb" => array(
+				"sv" => "igen"
+				,"en" => "again"
+				)
+			,"already:adverb" => array(
 				"sv" => "redan"
 				,"en" => "already"
 				)
@@ -40,6 +44,10 @@ class adverbs
 			,"temporarily:adverb" => array(
 				"sv" => "tillfälligt"
 				,"en" => "temporarily"
+				)
+			,"too:adverb" => array(
+				"sv" => "för"
+				,"en" => "too"
 				)
 			,"wrong:adverb" => array(
 				"sv" => "fel"

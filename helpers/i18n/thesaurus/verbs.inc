@@ -44,16 +44,6 @@ class verbs
 				"sv" => "utse::r:_åg:tt"
 				,"en" => "appoint::|s:ed"
 				)
-			,"be:verb" => array(
-				"sv" => "var:a:___är::it"
-				,"en" => "be::__are|___is:__were|___as:en"
-				)
-			/*
-			,"be created:verb" => array(
-				"sv" => "skapas"
-				,"en" => "be created"
-				)
-			*/
 			,"become:verb" => array(
 				"sv" => "bli::r:_ev:vit"
 				,"en" => "become::|s:___ame:"
@@ -396,22 +386,6 @@ class verbs
 				"sv" => "gå::r:_ick"
 				,"en" => "go::|es:__went"
 				)
-			/*
-			,"was:verb" => array(
-				"sv" => "var"
-				,"en" => "was"
-				)
-			,"were:verb" => array(
-				"sv" => "var"
-				,"en" => "were"
-				)
-			*/
-/*
-			,"will:verb" => array(
-				"sv" => "kommer"
-				,"en" => "will"
-				)
-				*/
 			,"withdraw:verb" => array(
 				"sv" => "dra::r:_og:git:():s tillbaka"
 				,"en" => "withdraw::|s:__ew:n"
@@ -420,75 +394,65 @@ class verbs
 				"sv" => "skriv"
 				,"en" => "write"
 				)
-/*
-			//PASSIVE FORMS
-			,"missing:verb-pass" => array(
-				"sv" => "saknas"
-				,"en" => "missing"
+
+			//STATE VERBS
+			//imperative:infinitive:present:perfect
+			,"be:verb_state" => array(
+				"sv" => "var:a:___är::it"
+				,"en" => "be::__are|___is:__were|___as:en"
 				)
-*/
+
 			//AUXILIARY VERBS
 			//imperative:infinitive:present:perfect
-			,"be:verb-aux" => array(
+			,"be:verb_aux" => array(
 				"sv" => "::::"
 				,"en" => "be::__are|___is:__were|___as:en"
 				)
-			,"be able to:verb-aux" => array(
+			,"be able to:verb_aux" => array(
 				"sv" => "kunna"
 				,"en" => "be able to"
 				)
-			,"can:verb-aux" => array(
+			,"can:verb_aux" => array(
 				"sv" => "kan:__unna::__unde"
 				,"en" => "can:::__ould"
 				)
-			,"cannot:verb-aux" => array(
+			,"cannot:verb_aux" => array(
 				"sv" => "kan inte"
 				,"en" => "cannot"
 				)
-/*			,"has been:verb-aux" => array(
-				"sv" => "har"
-				,"en" => "has been"
-				)
-				*/
-			,"have:verb-aux" => array(
+			,"have:verb_aux" => array(
 				"sv" => "ha::r:de:ft"
 				,"en" => "have::|__s:__d"
 				)
-			/*
-			,"have been:verb-aux" => array(
-				"sv" => "har"
-				,"en" => "have been"
-				)
-			*/
-			,"let:verb-aux" => array(
+			,"let:verb_aux" => array(
 				"sv" => "låta"
 				,"en" => "let"
 				)
-			,"must:verb-aux" => array(
+			,"must:verb_aux" => array(
 				"sv" => "måste"
 				,"en" => "must"
 				)
-			,"[pron]may:verb-aux" => array(
+			,"[pron]may:verb_aux" => array(
 				"sv" => "kan"
 				,"en" => "may"
 				)
-			,"shall:verb-aux" => array(
+			,"shall:verb_aux" => array(
 				"sv" => "ska"
 				,"en" => "shall"
 				)
-			,"should:verb-aux" => array(
+			,"should:verb_aux" => array(
 				"sv" => "ska"
 				,"en" => "should"
 				)
-			,"want to:verb-aux" => array(
+			,"want to:verb_aux" => array(
 				"sv" => "vill"
 				,"en" => "want::|s to"
 				)
-			,"[]you can:verb-aux" => array(
+			,"[]you can:verb_aux" => array(
 				"sv" => "du kan"
 				,"en" => "you can"
 				)
-			,"you can:verb-aux" => array(
+			,"you can:verb_aux" => array(
 				"sv" => "kan du"
 				,"en" => "you can"
 				)

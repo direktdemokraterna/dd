@@ -18,6 +18,10 @@ class pronouns
 				"sv" => "den"
 				,"en" => "it"
 				)
+			,"own:pron" => array(
+				"sv" => "egen"
+				,"en" => "own"
+				)
 			,"me:pron" => array(
 				"sv" => "mig"
 				,"en" => "me"
@@ -47,6 +51,10 @@ class pronouns
 			,"its:pron-poss" => array(
 				"sv" => "dess"
 				,"en" => "its"
+				)
+			,"[]this:pron-poss[verb|verb_state]" => array(
+				"sv" => "det här"
+				,"en" => "this"
 				)
 			,"this:pron-poss" => array(
 				"sv" => "denna|___tta"
