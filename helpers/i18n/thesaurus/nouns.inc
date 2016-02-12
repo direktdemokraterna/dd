@@ -460,6 +460,10 @@ class nouns
 				"sv" => "arbetsgrupp:er:en:na"
 				,"en" => "workgroup:s"
 				)
+			,"yes/no vote:noun1" => array(
+				"sv" => "votering"
+				,"en" => "yes/no vote"
+				)
 
 			//NOUNS, variation 2
 			,"addition:noun2" => array(
@@ -505,6 +509,10 @@ class nouns
 			,"last name:noun2" => array(
 				"sv" => "efternamn"
 				,"en" => "last name"
+				)
+			,"id:noun2" => array(
+				"sv" => "id"
+				,"en" => "id"
 				)
 			,"line:noun2" => array(
 				"sv" => "streck::et:en"

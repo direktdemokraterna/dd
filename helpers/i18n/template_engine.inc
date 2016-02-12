@@ -1,6 +1,9 @@
 <?php
 namespace I18n;
 
+define("MAX_ATTEMPTS", 3);
+define("MAX_TEMPLATES", 5);
+
 class template_engine 
 {
 	private static $templates = null;
@@ -124,13 +127,13 @@ class template_engine
 				if ($template_match)
 					yield $template_match;
 			}
-			else if ($depth < 5){
+			else if ($depth < MAX_TEMPLATES){
 				//continue;
 				foreach (self::get_template_matches($translator_matches, $candidate
 					, $depth + 1, $attempts) as $match)
 					yield $match;
 			}
-			if ($attempts > 2)
+			if ($attempts >= MAX_ATTEMPTS)
 				break;					
 		}
 	}

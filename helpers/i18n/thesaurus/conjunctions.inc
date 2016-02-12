@@ -21,6 +21,10 @@ class conjunctions
 				"sv" => "eller"
 				,"en" => "or"
 				)
+			,"until:conj" => array(
+				"sv" => "tills"
+				,"en" => "until"
+				)
 		);
 	}	
 } 

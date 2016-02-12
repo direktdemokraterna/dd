@@ -80,6 +80,10 @@ class verbs
 				"sv" => "stäng:a:er:de:t:(d|_t:a):s"
 				,"en" => "close::|s:d"
 				)
+			,"continue:verb" => array(
+				"sv" => "fortsätt:a:er:___atte:___att"
+				,"en" => "continue::|s:d"
+				)
 			,"create:verb" => array(
 				"sv" => "skapa::r:de:t:(d|_t:e):s"
 				,"en" => "create::|s:d"
@@ -112,6 +116,10 @@ class verbs
 				"sv" => "finns inte"
 				,"en" => "doesn't exist"
 				)
+			,"doesn't match:verb" => array(
+				"sv" => "matchar inte"
+				,"en" => "doesn't match"
+				)
 			,"don't have:verb" => array(
 				"sv" => "har inte"
 				,"en" => "don't have"
@@ -123,6 +131,10 @@ class verbs
 			,"elect:verb" => array(
 				"sv" => "välj:a:er:___alde:___alt:(___ald|_t:a):s"
 				,"en" => "elect::|s:ed"
+				)
+			,"end:verb" => array(
+				"sv" => "avsluta::r:de:t:(d|_t:e):s"
+				,"en" => "end::|s:ed"
 				)
 			,"exclude:verb" => array(
 				"sv" => "uteslut:a:er:__öt:it:(en|_t:__na):s"
@@ -419,6 +431,10 @@ class verbs
 			,"cannot:verb_aux" => array(
 				"sv" => "kan inte"
 				,"en" => "cannot"
+				)
+			,"does not have:verb" => array(
+				"sv" => "har inte"
+				,"en" => "does not have"
 				)
 			,"have:verb_aux" => array(
 				"sv" => "ha::r:de:ft"
