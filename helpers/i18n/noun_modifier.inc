@@ -63,16 +63,22 @@ class noun_modifier extends translator
 
 	protected function get_translation_for_noun($noun_identifier) 
 	{
-		if ($noun_identifier->numerus == 'plural')
-			return $this->translation_plural;
-		if ($noun_identifier->numerus == 'singular') {
-			if ($noun_identifier->type == 1)
-				return $this->translation;
-			if ($noun_identifier->type == 2)
-				return $this->translation_noun2;
-			throw new \Exception('Invalid noun type: ' . $noun_identifier->type);
+		switch ($noun_identifier->numerus) {
+			case 'plural':
+				if ($this->identifier->numerus != 'singular')
+					return $this->translation_plural;
+			case 'singular':
+				switch ($noun_identifier->type) {
+					case 1:
+						return $this->translation;
+					case 2:
+						return $this->translation_noun2;
+					default:
+						throw new \Exception('Invalid noun type: ' . $noun_identifier->type);
+				}
+			default:
+				throw new \Exception('Invalid numerus: ' . $noun_identifier->numerus);
 		}
-		throw new \Exception('Invalid numerus: ' . $noun_identifier->numerus);
 	}
 	
 	protected function get_significant_noun($translations_before, $translations_after) 
@@ -81,7 +87,8 @@ class noun_modifier extends translator
 		foreach ($translations_after as $translation) {
 			if ($translation->is_noun())
 				$found_noun = $translation;				
-			else if ($found_noun || !$translation->is_noun_modifier()) break;
+			else if ($found_noun || !($translation->is_conjunction() 
+				|| $translation->is_noun_modifier())) break;
 		}
 		return $found_noun;
 	}
@@ -89,6 +96,17 @@ class noun_modifier extends translator
 
 class quantifier extends noun_modifier 
 {
+	function __construct($identifier, $compact_translation) 
+	{
+		parent::__construct($identifier, $compact_translation);
+		if (self::is_one($identifier->key))
+			$identifier->numerus = 'singular';
+	}
+
+	private static function is_one($quantifier) 
+	{
+		return in_array($quantifier, array("1", "a", "an", "one"));
+	}	
 }
 
 class definite_marker extends noun_modifier 

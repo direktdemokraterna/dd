@@ -5,7 +5,11 @@ class adverbs
 {
 	public static function create_translations() {
 		return array(
-			"back:adverb" => array(
+			"already:adverb" => array(
+				"sv" => "redan"
+				,"en" => "already"
+				)
+			,"back:adverb" => array(
 				"sv" => "tillbaka"
 				,"en" => "back"
 				)

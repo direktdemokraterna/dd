@@ -274,6 +274,10 @@ class nouns
 				"sv" => "fras:er:en:na"
 				,"en" => "phrase:s"
 				)
+			,"possibility:noun1" => array(
+				"sv" => "möjlighet:er:en:na"
+				,"en" => "possibility:_ies"
+				)
 			,"popularity:noun1" => array(
 				"sv" => "populäritet"
 				,"en" => "popularity"

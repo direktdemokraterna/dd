@@ -130,12 +130,10 @@ class verbs
 				"sv" => "uteslut:a:er:__öt:it:(en|_t:__na):s"
 				,"en" => "exclude::|s:d"
 				)
-			/*
-			,"find:verb" => array(
-				"sv" => "finn:a:er:___ann:___unnit:(___unnen|_t:__a):s"
-				,"en" => "find::|s:___ound"
+			,"exist:verb" => array(
+				"sv" => "finns:_as::____anns:____unnits"
+				,"en" => "exist::|s:ed"
 				)
-			*/
 			,"find:verb" => array(
 				"sv" => "hitta::r:de:t:(_____funnen|_t:__a):s"
 				,"en" => "find::|s:___ound"

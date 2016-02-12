@@ -5,7 +5,8 @@ class templates
 {
 	public static function create_templates() {
 		return array(
-		'VDNPQN' => ''
+		'PNDNIVV' => '0162345'
+		,'VDNPQN' => ''
 		,'RXprVQAN' => ''
 		,'VQNPON' => ''
 		,'ONVBQN' => ''
@@ -66,6 +67,7 @@ class templates
 		,'JPN' => ''
 		,'DGN' => ''
 		,'OGN' => ''
+		,'RBV' => '021'
 		,'XVifVprs' => '02'
 		,'XXpeVpes' => '02'
 		,'NdeVA' => ''

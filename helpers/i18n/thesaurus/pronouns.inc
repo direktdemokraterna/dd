@@ -14,6 +14,10 @@ class pronouns
 				"sv" => "jag"
 				,"en" => "I"
 				)
+			,"it:pron" => array(
+				"sv" => "den"
+				,"en" => "it"
+				)
 			,"me:pron" => array(
 				"sv" => "mig"
 				,"en" => "me"
@@ -21,6 +25,10 @@ class pronouns
 			,"something:pron" => array(
 				"sv" => "något"
 				,"en" => "something"
+				)
+			,"there:pron" => array(
+				"sv" => "det"
+				,"en" => "there"
 				)
 			,"who:pron" => array(
 				"sv" => "som"
@@ -33,10 +41,6 @@ class pronouns
 			,"you:pron" => array(
 				"sv" => "du"
 				,"en" => "you"
-				)
-			,"it:pron" => array(
-				"sv" => "den"
-				,"en" => "it"
 				)
 
 			//POSSESSIVE PRONOUN

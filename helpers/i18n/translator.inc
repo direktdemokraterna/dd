@@ -47,6 +47,11 @@ class translator
 		return $this->identifier->class == 'quant';
 	}
 
+	public function is_conjunction() 
+	{
+		return $this->identifier->class == 'conj';
+	}
+
 	public function is_noun_modifier() {
 		return $this->is_adjective() 
 		|| $this->is_quantifier() 
