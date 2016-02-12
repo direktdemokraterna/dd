@@ -43,13 +43,13 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
-		/*
+		$template_match = self::get_template_match($translator_matches);
+/*
 		var_dump(array_map(function ($tm) {
 			return array_map(function ($t) {return $t->identifier;}, $tm->translators);
 			}, $translator_matches));
-			*/
-		$template_match = self::get_template_match($translator_matches);
-		//var_dump($template_match);
+		var_dump($template_match);
+		*/
 		//var_dump($template_match->templates[0], $template_match->translator_matches[1]->translator);
 		if (!$template_match)
 			return $phrase;

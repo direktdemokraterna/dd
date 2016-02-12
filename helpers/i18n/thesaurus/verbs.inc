@@ -424,6 +424,10 @@ class verbs
 				"sv" => "ha::r:de:ft"
 				,"en" => "have::|__s:__d"
 				)
+			,"have let:verb_aux" => array(
+				"sv" => "har låtit"
+				,"en" => "have let"
+				)
 			,"let:verb_aux" => array(
 				"sv" => "låta"
 				,"en" => "let"

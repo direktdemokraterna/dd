@@ -49,9 +49,17 @@ class new_phrases
 				"sv" => "anmäld till"
 				,"en" => "signed up for"
 				)
+			,"the activation of this workgroup" => array(
+				"sv" => "denna arbetsgrupps aktivering"
+				,"en" => "the activation of this workgroup"
+				)
 			,"there are" => array(
 				"sv" => "det finns"
 				,"en" => "there are"
+				)
+			,"to the calendar" => array(
+				"sv" => "i kalendern"
+				,"en" => "to the calendar"
 				)
 			,"vote (yes/no)" => array(
 				"sv" => "votering (ja/nej)"

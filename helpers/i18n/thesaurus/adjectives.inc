@@ -58,6 +58,10 @@ class adjectives
 				"sv" => "avslutad|_t:e"
 				,"en" => "finished"
 				)
+			,"included:adj" => array(
+				"sv" => "upptagen"
+				,"en" => "included"
+				)
 			,"invalid:adj" => array(
 				"sv" => "ogiltig|t"
 				,"en" => "invalid"

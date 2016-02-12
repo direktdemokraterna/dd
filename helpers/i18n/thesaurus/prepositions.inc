@@ -21,6 +21,10 @@ class prepositions
 				"sv" => "nedan"
 				,"en" => "below"
 				)
+			,"by:prep[email]" => array(
+				"sv" => "via"
+				,"en" => "by"
+				)
 			,"by:prep" => array(
 				"sv" => "av"
 				,"en" => "by"
