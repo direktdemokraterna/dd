@@ -25,6 +25,10 @@ class adverbs
 				"sv" => "inte"
 				,"en" => "not"
 				)
+			,"not yet:adverb" => array(
+				"sv" => "ännu inte"
+				,"en" => "not yet"
+				)
 			,"now:adverb" => array(
 				"sv" => "nu"
 				,"en" => "now"

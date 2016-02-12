@@ -81,6 +81,10 @@ class prepositions
 				"sv" => "utanför"
 				,"en" => "outside"
 				)
+			,"through:prep" => array(
+				"sv" => "via"
+				,"en" => "through"
+				)
 			,"to:prep" => array(
 				"sv" => "till"
 				,"en" => "to"

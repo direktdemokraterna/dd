@@ -43,7 +43,7 @@ class template_engine
 	private static function translate_phrase($phrase, $translation_hints = null) 
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
-/*
+		/*
 		var_dump(array_map(function ($tm) {
 			return array_map(function ($t) {return $t->identifier;}, $tm->translators);
 			}, $translator_matches));

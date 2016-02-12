@@ -267,7 +267,7 @@ class verbs
 				,"en" => "remember"
 				)				
 			,"remove:verb" => array(
-				"sv" => "ta::r:_og:git bort"
+				"sv" => "ta::r:_og:git:():s bort"
 				,"en" => "remove::|s:d"
 				)				
 			,"repeat:verb" => array(
@@ -283,8 +283,8 @@ class verbs
 				,"en" => "reply::|_ies:_ied"
 				)				
 			,"restore:verb" => array(
-				"sv" => "återställ"
-				,"en" => "restore"
+				"sv" => "återställ:a:er:de:t:(d|t:a):s"
+				,"en" => "restore::|s:d"
 				)				
 			,"resume:verb" => array(
 				"sv" => "återuppta"
@@ -463,6 +463,10 @@ class verbs
 			,"let:verb-aux" => array(
 				"sv" => "låta"
 				,"en" => "let"
+				)
+			,"must:verb-aux" => array(
+				"sv" => "måste"
+				,"en" => "must"
 				)
 			,"[pron]may:verb-aux" => array(
 				"sv" => "kan"
