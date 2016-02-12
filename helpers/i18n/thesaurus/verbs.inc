@@ -88,6 +88,10 @@ class verbs
 				"sv" => "avaktivera::r:de:t:(d|_t:e):s"
 				,"en" => "deactivate::|s:d"
 				)
+			,"decide:verb" => array(
+				"sv" => "bestämm:a:er:_de:_t:(_d|_t:e):s"
+				,"en" => "decide::|s:d"
+				)
 			,"delegate:verb" => array(
 				"sv" => "delegera::r:de:t:(d|_t:e):s"
 				,"en" => "delegate::|s:d"
@@ -103,6 +107,10 @@ class verbs
 			,"discontinue:verb" => array(
 				"sv" => "avsluta"
 				,"en" => "discontinue"
+				)
+			,"doesn't exist:verb" => array(
+				"sv" => "finns inte"
+				,"en" => "doesn't exist"
 				)
 			,"don't have:verb" => array(
 				"sv" => "har inte"
@@ -196,6 +204,10 @@ class verbs
 				"sv" => "motivera"
 				,"en" => "motivate"
 				)
+			,"need:verb" => array(
+				"sv" => "behöv:a:er:de:t:(d|t:a):s"
+				,"en" => "need::|s:ed"
+				)
 			,"note:verb" => array(
 				"sv" => "notera"
 				,"en" => "note"
@@ -281,8 +293,8 @@ class verbs
 				,"en" => "resume"
 				)				
 			,"revoke:verb" => array(
-				"sv" => "återta"
-				,"en" => "revoke"
+				"sv" => "ångra::r:de:t:(d|_t:e):s"
+				,"en" => "revoke::|s:d"
 				)				
 			,"search:verb" => array(
 				"sv" => "sök"
@@ -370,18 +382,6 @@ class verbs
 				"sv" => "rösta::r:de:t"
 				,"en" => "vote::|s:d"
 				)
-			/*
-			,"[]vote for:verb" => array(
-				"sv" => "rösta för"
-				,"en" => "vote for"
-				)
-			*/
-/*
-			,"voted:verb" => array(
-				"sv" => "röstat"
-				,"en" => "voted"
-				)
-				*/
 			,"go:verb" => array(
 				"sv" => "gå::r:_ick"
 				,"en" => "go::|es:__went"

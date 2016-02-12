@@ -13,6 +13,10 @@ class new_phrases
 				"sv" => "kandidat in"
 				,"en" => "candidate in"
 				)
+			,"did never read it" => array(
+				"sv" => "hann aldrig läsa det"
+				,"en" => "did never read it"
+				)
 			,"didn't match" => array(
 				"sv" => "matchade inte"
 				,"en" => "didn't match"

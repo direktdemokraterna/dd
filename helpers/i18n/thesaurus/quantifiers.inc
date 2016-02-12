@@ -21,6 +21,10 @@ class quantifiers
 				"sv" => "varje"
 				,"en" => "every"
 				)
+			,"more:quant[support]" => array(
+				"sv" => "mer"
+				,"en" => "more"
+				)
 			,"more:quant" => array(
 				"sv" => "fler"
 				,"en" => "more"

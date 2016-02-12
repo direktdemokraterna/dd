@@ -474,6 +474,10 @@ class nouns
 				"sv" => "personval::et:en"
 				,"en" => "candidate election:s"
 				)
+			,"content:noun2" => array(
+				"sv" => "innehåll"
+				,"en" => "content"
+				)
 			,"date:noun2" => array(
 				"sv" => "datum::et:en"
 				,"en" => "date:s"

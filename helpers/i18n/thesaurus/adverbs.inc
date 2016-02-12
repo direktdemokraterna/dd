@@ -21,6 +21,10 @@ class adverbs
 				"sv" => "här"
 				,"en" => "here"
 				)
+			,"just:adverb" => array(
+				"sv" => "bara"
+				,"en" => "just"
+				)
 			,"no longer:adverb" => array(
 				"sv" => "inte längre"
 				,"en" => "no longer"
@@ -40,6 +44,10 @@ class adverbs
 			,"personally:adverb" => array(
 				"sv" => "personligt"
 				,"en" => "personally"
+				)
+			,"still:adverb" => array(
+				"sv" => "fortfarande"
+				,"en" => "still"
 				)
 			,"temporarily:adverb" => array(
 				"sv" => "tillfälligt"
