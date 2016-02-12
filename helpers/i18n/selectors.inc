@@ -50,6 +50,16 @@ class word_selector
 		return false;
 	}
 
+	public function rough_match($word_expected) 
+	{
+		if (!$this->words)
+			return !$word_expected;
+		foreach ($this->words as $word)
+			if (!$word == !$word_expected) 
+				return true;			
+		return false;
+	}
+
 	public function match_word_form($identifier, $i) 
 	{
 		return self::match_class($identifier, $this->classes[$i])

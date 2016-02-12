@@ -47,9 +47,9 @@ class template_engine
 		var_dump(array_map(function ($tm) {
 			return array_map(function ($t) {return $t->identifier;}, $tm->translators);
 			}, $translator_matches));
-		*/
+			*/
 		$template_match = self::get_template_match($translator_matches);
-//		var_dump($template_match);
+		//var_dump($template_match);
 		//var_dump($template_match->templates[0], $template_match->translator_matches[1]->translator);
 		if (!$template_match)
 			return $phrase;
@@ -74,10 +74,13 @@ class template_engine
 
 	private static function get_next_translator_match($fragment, &$words, &$remaining_words, $translation_hints) 
 	{
+		$is_first_in_phrase = true;
+		$is_last_in_phrase = !$words;
 		while (true) {
 			if ($words)
 				$fragment = implode(' ', $words);
-			$translators = self::match_translator($fragment, $translation_hints);
+			$translators = self::match_translator($fragment, $is_first_in_phrase, $is_last_in_phrase
+				, $translation_hints);
 			if ($translators) 
 				return new translator_match($fragment, $translators);
 			if ($words == null)
@@ -85,12 +88,14 @@ class template_engine
 			if (count($words) == 1)
 				return new translator_match($fragment, array(new untranslated($fragment)));
 			$remaining_words[] = array_shift($words);
+			$is_first_in_phrase = false;
 		}
 	}
 
-	private static function match_translator($fragment, $translation_hints = null) 
+	private static function match_translator($fragment, $is_first_in_phrase, $is_last_in_phrase
+		, $translation_hints) 
 	{
-		$candidates = translation_storage::get_translators(strtolower($fragment));
+		$candidates = translation_storage::get_translators(strtolower($fragment), $is_first_in_phrase, $is_last_in_phrase);
 		if ($translation_hints && $candidates)
 			$candidates = translation_storage::filter_translators($candidates, $translation_hints);
 		return $candidates;

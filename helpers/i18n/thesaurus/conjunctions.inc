@@ -9,6 +9,10 @@ class conjunctions
 				"sv" => "och"
 				,"en" => "and"
 				)
+			,"if:conj" => array(
+				"sv" => "om"
+				,"en" => "if"
+				)
 			,"or:conj" => array(
 				"sv" => "eller"
 				,"en" => "or"

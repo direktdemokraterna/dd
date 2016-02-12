@@ -34,6 +34,7 @@ class templates
 		,'ONVA' => ''
 		,'VPON' => ''
 		,'VNPN' => ''
+		,'RVBQN' => ''
 		,'RVprON' => ''
 		,'NdeAPN' => ''
 		,'DNXVpts' => ''
@@ -65,6 +66,8 @@ class templates
 		,'JPN' => ''
 		,'DGN' => ''
 		,'OGN' => ''
+		,'XVifVprs' => '02'
+		,'NdeVA' => ''
 		,'ON' => ''
 		,'AN' => ''
 		,'BN' => ''
@@ -83,7 +86,7 @@ class templates
 		,'PN' => ''
 		,'VQ' => ''
 		,'NBA' => ''
-		,'NinVs' => ''
+		,'NidVs' => ''
 		,'XptVpts' => ''
 		,'VA' => ''
 		,'VV' => ''
@@ -91,6 +94,7 @@ class templates
 		,'NF' => ''
 		,'RVpr' => ''
 		,'RV' => ''
+		,'XVif' => ''
 		,'V' => ''
 		,'N' => ''		
 		,'W' => ''
@@ -125,14 +129,15 @@ class templates
 		switch($mod_str) {
 			case 'pl': return array('numerus' => 'plural');
 			case 'im': return array('tempus' => 'imperative');
+			case 'if': return array('tempus' => 'infinitive');
 			case 'pr': return array('tempus' => 'present');
 			case 'prs': return array('tempus' => 'present', 'passive' => true);
 			case 'pt': return array('tempus' => 'preteritum');
 			case 'pts': return array('tempus' => 'preteritum', 'passive' => true);
 			case 'pe': return array('tempus' => 'perfect');
 			case 'pes': return array('tempus' => 'perfect', 'passive' => true);
-			case 'in': return array('definite' => false);
 			case 'de': return array('definite' => true);
+			case 'id': return array('definite' => false);
 			case 'pp': return array('tempus' => 'present_participle');
 			case 's': return array('passive' => true);
 			case '': return array();

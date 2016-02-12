@@ -261,7 +261,7 @@ class verbs
 				,"en" => "reject"
 				)
 			,"report:verb" => array(
-				"sv" => "anmäl::er:de:t:(d|t:e)"
+				"sv" => "anmäl:a:er:de:t:(d|t:e):s"
 				,"en" => "report::|s:ed"
 				)				
 			,"remember:verb" => array(
@@ -363,8 +363,8 @@ class verbs
 				,"en" => "transform"
 				)
 			,"undo:verb" => array(
-				"sv" => "ångra"
-				,"en" => "undo"
+				"sv" => "ångra::r:de:t:(d|t:e):s"
+				,"en" => "undo::|es:_id:ne"
 				)
 			,"unsubscribe from:verb" => array(
 				"sv" => "avanmäl dig från"
@@ -473,6 +473,10 @@ class verbs
 			,"shall:verb-aux" => array(
 				"sv" => "ska"
 				,"en" => "shall"
+				)
+			,"should:verb-aux" => array(
+				"sv" => "ska"
+				,"en" => "should"
 				)
 			,"want to:verb-aux" => array(
 				"sv" => "vill"

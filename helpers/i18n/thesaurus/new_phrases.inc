@@ -37,6 +37,10 @@ class new_phrases
 				"sv" => "senast inloggad"
 				,"en" => "last login"
 				)
+			,"one of the mandatory fields" => array(
+				"sv" => "något av de obligatoriska fälten"
+				,"en" => "one of the mandatory fields"
+				)
 			,"reply to" => array(
 				"sv" => "svar till"
 				,"en" => "reply to"
@@ -44,6 +48,10 @@ class new_phrases
 			,"signed up for" => array(
 				"sv" => "anmäld till"
 				,"en" => "signed up for"
+				)
+			,"there are" => array(
+				"sv" => "det finns"
+				,"en" => "there are"
 				)
 			,"vote (yes/no)" => array(
 				"sv" => "votering (ja/nej)"

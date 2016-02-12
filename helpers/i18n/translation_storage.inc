@@ -14,11 +14,11 @@ class translation_storage
 			: null;
 	}
 
-	public static function get_translators($phrase_lower) 
+	public static function get_translators($phrase_lower, $is_first_in_phrase, $is_last_in_phrase) 
 	{
 		self::init_translations();
 		return isset(self::$translators[$phrase_lower]) 
-			? self::$translators[$phrase_lower]
+			? self::pre_filter_translators(self::$translators[$phrase_lower], $is_first_in_phrase, $is_last_in_phrase) 
 			: array();
 	}
 
@@ -54,6 +54,18 @@ class translation_storage
 					|| $translator->identifier->tempus == $translation_hints['tempus'];
 			});
 		return $translators;
+	}
+
+	private static function pre_filter_translators($translators, $is_first_in_phrase, $is_last_in_phrase) 
+	{
+		if (!$translators)
+			return $translators;
+		$filtered_translators = array();
+		foreach ($translators as $translator)
+			if ($translator->identifier->rough_match_selectors($is_first_in_phrase
+				, $is_last_in_phrase))
+				$filtered_translators[] = $translator;
+		return $filtered_translators;
 	}
 
 	private static function init_translations() 

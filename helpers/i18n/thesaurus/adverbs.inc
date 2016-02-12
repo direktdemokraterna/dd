@@ -33,6 +33,10 @@ class adverbs
 				"sv" => "fel"
 				,"en" => "wrong"
 				)
+			,"why:adverb" => array(
+				"sv" => "varför"
+				,"en" => "why"
+				)
 		);
 	}	
 } 

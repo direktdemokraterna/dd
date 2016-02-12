@@ -49,6 +49,12 @@ class translation_identifier
 			&& (!$this->post_selector || $this->post_selector->match($next_identifier));
 	}
 
+	public function rough_match_selectors($is_first_in_phrase, $is_last_in_phrase) 
+	{
+		return (!$this->pre_selector || $this->pre_selector->rough_match(!$is_first_in_phrase))
+			&& (!$this->post_selector || $this->post_selector->rough_match(!$is_last_in_phrase));
+	}
+
 	public function copy($change_props = null) 
 	{
 		$copy = new translation_identifier($this->key, $this->class, $this->type);
