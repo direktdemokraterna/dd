@@ -5,7 +5,11 @@ class new_phrases
 {
 	public static function create_translations() {
 		return array(
-			"as follows" => array(
+			"a continuous vote will also be created" => array(
+				"sv" => "kommer det också att skapas en kontinuerlig omröstning"
+				,"en" => "a continuous vote will also be created"
+				)
+			,"as follows" => array(
 				"sv" => "följande"
 				,"en" => "as follows"
 				)
@@ -45,13 +49,25 @@ class new_phrases
 				"sv" => "forumtråds-ID"
 				,"en" => "forum topic-ID"
 				)
+			,"here you create" => array(
+				"sv" => "här skapar man"
+				,"en" => "here you create"
+				)
 			,"in a row" => array(
 				"sv" => "i rad"
 				,"en" => "in a row"
 				)
+			,"in association with" => array(
+				"sv" => "i samband med"
+				,"en" => "in association with"
+				)
 			,"in the same way" => array(
 				"sv" => "på samma sätt"
 				,"en" => "in the same way"
+				)
+			,"is not free" => array(
+				"sv" => "inte är öppet"
+				,"en" => "is not free"
 				)
 			,"it cannot be removed" => array(
 				"sv" => "kan det inte tas bort"
@@ -88,6 +104,10 @@ class new_phrases
 			,"the activation of this workgroup" => array(
 				"sv" => "denna arbetsgrupps aktivering"
 				,"en" => "the activation of this workgroup"
+				)
+			,"the creation of this workgroup" => array(
+				"sv" => "att arbetsgruppen skapas"
+				,"en" => "the creation of this workgroup"
 				)
 			,"there are" => array(
 				"sv" => "det finns"

@@ -138,6 +138,10 @@ class adjectives
 				"sv" => "borttagen|_t:__na"
 				,"en" => "removed"
 				)
+			,"restricted:adj[number]" => array(
+				"sv" => "begränsad|_t:e"
+				,"en" => "restricted"
+				)
 			,"restricted:adj" => array(
 				"sv" => "stängd|_t:a"
 				,"en" => "restricted"

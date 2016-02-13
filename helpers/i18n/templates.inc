@@ -34,6 +34,7 @@ class templates
 		,'OSQAN' => ''
 		,'RSBAP' => ''
 		,'NXBXVprs' => ''
+		,'PONXVprs' => ''
 		,'VimDN' => ''
 		,'VIVVpp' => ''
 		,'BPDN' => ''

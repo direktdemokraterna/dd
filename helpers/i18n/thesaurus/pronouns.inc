@@ -42,6 +42,10 @@ class pronouns
 				"sv" => "de"
 				,"en" => "those"
 				)
+			,"where:pron" => array(
+				"sv" => "där"
+				,"en" => "where"
+				)
 			,"which:pron" => array(
 				"sv" => "vilka"
 				,"en" => "which"
