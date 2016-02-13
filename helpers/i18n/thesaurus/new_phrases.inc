@@ -41,6 +41,10 @@ class new_phrases
 				"sv" => "forumtråds-ID"
 				,"en" => "forum topic-ID"
 				)
+			,"in a row" => array(
+				"sv" => "i rad"
+				,"en" => "in a row"
+				)
 			,"last login" => array(
 				"sv" => "senast inloggad"
 				,"en" => "last login"

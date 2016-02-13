@@ -416,6 +416,10 @@ class verbs
 				"sv" => "gå::r:_ick"
 				,"en" => "go::|es:__went"
 				)
+			,"want the activity to be repeated:verb" => array(
+				"sv" => "vill att aktiviteten ska upprepas"
+				,"en" => "want the activity to be repeated"
+				)
 			,"withdraw:verb" => array(
 				"sv" => "dra::r:_og:git:():s tillbaka"
 				,"en" => "withdraw::|s:__ew:n"
