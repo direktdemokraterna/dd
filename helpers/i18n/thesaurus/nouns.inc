@@ -498,6 +498,10 @@ class nouns
 				"sv" => "fält::et:en"
 				,"en" => "field:s"
 				)
+			,"form:noun2" => array(
+				"sv" => "formulär::et:en"
+				,"en" => "form:s"
+				)
 			,"forum:noun2" => array(
 				"sv" => "forum::et:en:-"
 				,"en" => "forum:s"

@@ -9,6 +9,10 @@ class new_phrases
 				"sv" => "följande"
 				,"en" => "as follows"
 				)
+			,"by filling" => array(
+				"sv" => "genom att fylla i"
+				,"en" => "by filling"
+				)
 			,"[]candidate in" => array(
 				"sv" => "kandidat in"
 				,"en" => "candidate in"
@@ -49,6 +53,10 @@ class new_phrases
 				"sv" => "kan det inte tas bort"
 				,"en" => "it cannot be removed"
 				)
+			,"it is possible" => array(
+				"sv" => "finns möjligheten"
+				,"en" => "it is possible"
+				)
 			,"last login" => array(
 				"sv" => "senast inloggad"
 				,"en" => "last login"
@@ -72,6 +80,10 @@ class new_phrases
 			,"there are" => array(
 				"sv" => "det finns"
 				,"en" => "there are"
+				)
+			,"this is not appropriate" => array(
+				"sv" => "detta inte är lämpligt"
+				,"en" => "this is not appropriate"
 				)
 			,"to the calendar" => array(
 				"sv" => "i kalendern"

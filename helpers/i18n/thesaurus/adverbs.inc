@@ -9,6 +9,10 @@ class adverbs
 				"sv" => "efter att"
 				,"en" => "after"
 				)
+			,"after half:adverb" => array(
+				"sv" => "efter halva"
+				,"en" => "after half"
+				)
 			,"again:adverb" => array(
 				"sv" => "igen"
 				,"en" => "again"
@@ -80,6 +84,10 @@ class adverbs
 			,"temporarily:adverb" => array(
 				"sv" => "tillfälligt"
 				,"en" => "temporarily"
+				)
+			,"together:adverb" => array(
+				"sv" => "tillsammans"
+				,"en" => "together"
 				)
 			,"too:adverb" => array(
 				"sv" => "för"

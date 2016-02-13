@@ -13,6 +13,10 @@ class conjunctions
 				"sv" => "både"
 				,"en" => "both"
 				)
+			,"in case:conj" => array(
+				"sv" => "ifall"
+				,"en" => "in case"
+				)
 			,"if:conj" => array(
 				"sv" => "om"
 				,"en" => "if"

@@ -2,7 +2,7 @@
 namespace I18n;
 
 define("MAX_ATTEMPTS", 5);
-define("MAX_TEMPLATES", 5);
+define("MAX_TEMPLATES", 6);
 
 class template_engine 
 {

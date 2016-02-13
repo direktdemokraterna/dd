@@ -18,9 +18,13 @@ class adjectives
 				"sv" => "beviljad|_t:e"
 				,"en" => "affirmed"
 				)
-			,"alphabetic" => array(
+			,"alphabetic:adj" => array(
 				"sv" => "alfabetisk"
 				,"en" => "alphabetic"
+				)
+			,"appropriate:adj" => array(
+				"sv" => "lämplig|t:a"
+				,"en" => "appropriate"
 				)
 			,"auto-generated:adj" => array(
 				"sv" => "automatiskt skapad|_t:e"
@@ -57,6 +61,10 @@ class adjectives
 			,"finished:adj" => array(
 				"sv" => "avslutad|_t:e"
 				,"en" => "finished"
+				)
+			,"half:adj" => array(
+				"sv" => "halv|t:a"
+				,"en" => "half"
 				)
 			,"included:adj" => array(
 				"sv" => "upptagen"
