@@ -45,7 +45,7 @@ class verbs
 				,"en" => "apply::|_ies:_ied"
 				)
 			,"appoint:verb" => array(
-				"sv" => "utse::r:_åg:tt"
+				"sv" => "utse::r:_åg:tt:(dd|tt:a):s"
 				,"en" => "appoint::|s:ed"
 				)
 			,"become:verb" => array(

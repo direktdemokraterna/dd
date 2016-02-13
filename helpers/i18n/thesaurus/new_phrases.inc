@@ -49,9 +49,17 @@ class new_phrases
 				"sv" => "i rad"
 				,"en" => "in a row"
 				)
+			,"in the same way" => array(
+				"sv" => "på samma sätt"
+				,"en" => "in the same way"
+				)
 			,"it cannot be removed" => array(
 				"sv" => "kan det inte tas bort"
 				,"en" => "it cannot be removed"
+				)
+			,"it is not possible" => array(
+				"sv" => "det går inte"
+				,"en" => "it is not possible"
 				)
 			,"it is possible" => array(
 				"sv" => "finns möjligheten"
