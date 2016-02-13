@@ -17,9 +17,21 @@ class adverbs
 				"sv" => "redan"
 				,"en" => "already"
 				)
+			,"also:adverb" => array(
+				"sv" => "också"
+				,"en" => "also"
+				)
 			,"back:adverb" => array(
 				"sv" => "tillbaka"
 				,"en" => "back"
+				)
+			,"completely:adverb" => array(
+				"sv" => "fullständigt"
+				,"en" => "completely"
+				)
+			,"currently:adverb" => array(
+				"sv" => "för närvarande"
+				,"en" => "currently"
 				)
 			,"here:adverb" => array(
 				"sv" => "här"
@@ -52,6 +64,10 @@ class adverbs
 			,"personally:adverb" => array(
 				"sv" => "personligt"
 				,"en" => "personally"
+				)
+			,"[pron]still:adverb" => array(
+				"sv" => "ändå"
+				,"en" => "still"
 				)
 			,"still:adverb" => array(
 				"sv" => "fortfarande"

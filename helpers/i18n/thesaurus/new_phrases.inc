@@ -13,6 +13,10 @@ class new_phrases
 				"sv" => "kandidat in"
 				,"en" => "candidate in"
 				)
+			,"currently members" => array(
+				"sv" => "medlemmar för närvarande"
+				,"en" => "currently members"
+				)
 			,"did never read it" => array(
 				"sv" => "hann aldrig läsa det"
 				,"en" => "did never read it"

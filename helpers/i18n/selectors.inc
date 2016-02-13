@@ -90,7 +90,7 @@ class word_selector
 
 	public function match_definite($identifier, $definite) 
 	{
-		return $identifier->definite == $definite; 
+		return $identifier->definite === $definite; 
 	}
 }
 ?>

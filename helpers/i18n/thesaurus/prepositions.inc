@@ -5,13 +5,17 @@ class prepositions
 {
 	public static function create_translations() {
 		return array(
-			"above:prep" => array(
+			"above:prep[definite]" => array(
+				"sv" => "ovanför"
+				,"en" => "above"
+				)
+			,"above:prep" => array(
 				"sv" => "ovan"
 				,"en" => "above"
 				)
-			,"above:prep[definite]" => array(
-				"sv" => "ovanför"
-				,"en" => "above"
+			,"above the line:prep" => array(
+				"sv" => "ovanför strecket"
+				,"en" => "above the line"
 				)
 			,"as:prep" => array(
 				"sv" => "som"

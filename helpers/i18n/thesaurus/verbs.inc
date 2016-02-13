@@ -124,6 +124,10 @@ class verbs
 				"sv" => "avsluta"
 				,"en" => "discontinue"
 				)
+			,"does not have:verb" => array(
+				"sv" => "har inte"
+				,"en" => "does not have"
+				)
 			,"doesn't exist:verb" => array(
 				"sv" => "finns inte"
 				,"en" => "doesn't exist"
@@ -446,9 +450,9 @@ class verbs
 				"sv" => "kan inte"
 				,"en" => "cannot"
 				)
-			,"does not have:verb" => array(
-				"sv" => "har inte"
-				,"en" => "does not have"
+			,"do:verb_aux" => array(
+				"sv" => "gör:a:"
+				,"en" => "do::|es"
 				)
 			,"have:verb_aux" => array(
 				"sv" => "ha::r:de:ft"
@@ -481,6 +485,10 @@ class verbs
 			,"want to:verb_aux" => array(
 				"sv" => "vill"
 				,"en" => "want::|s to"
+				)
+			,"will:verb_aux" => array(
+				"sv" => "kommer att"
+				,"en" => "will"
 				)
 			,"[]you can:verb_aux" => array(
 				"sv" => "du kan"
