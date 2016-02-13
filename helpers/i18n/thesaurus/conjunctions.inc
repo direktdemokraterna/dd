@@ -21,9 +21,17 @@ class conjunctions
 				"sv" => "eller"
 				,"en" => "or"
 				)
+			,"that:conj" => array(
+				"sv" => "att"
+				,"en" => "that"
+				)
 			,"until:conj" => array(
 				"sv" => "tills"
 				,"en" => "until"
+				)
+			,"when:conj" => array(
+				"sv" => "när"
+				,"en" => "when"
 				)
 		);
 	}	

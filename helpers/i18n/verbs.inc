@@ -129,7 +129,10 @@ class verb_present_passive extends translator
 {
 	function __construct($identifier, $infinitive, $present, $perfect) 
 	{
-		$translation = self::create_word_form($infinitive->translation, $present->passive_translation_ending);
+		$words = explode(' ', $infinitive->translation, 2);
+		$translation = self::create_word_form($words[0], $present->passive_translation_ending);
+		if (count($words) > 1)
+			$translation .= ' ' . $words[1];
 		parent::__construct($identifier->copy(array(
 			'key' => $perfect->identifier->key
 			,'tempus' => 'present'

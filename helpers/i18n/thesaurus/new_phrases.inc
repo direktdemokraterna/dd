@@ -45,6 +45,10 @@ class new_phrases
 				"sv" => "i rad"
 				,"en" => "in a row"
 				)
+			,"it cannot be removed" => array(
+				"sv" => "kan det inte tas bort"
+				,"en" => "it cannot be removed"
+				)
 			,"last login" => array(
 				"sv" => "senast inloggad"
 				,"en" => "last login"

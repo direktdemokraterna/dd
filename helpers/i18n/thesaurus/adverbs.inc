@@ -57,6 +57,10 @@ class adverbs
 				"sv" => "nu"
 				,"en" => "now"
 				)
+			,"other than:adverb" => array(
+				"sv" => "annat än"
+				,"en" => "other than"
+				)
 			,"only:adverb" => array(
 				"sv" => "bara"
 				,"en" => "only"
