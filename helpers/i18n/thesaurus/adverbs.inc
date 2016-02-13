@@ -37,6 +37,10 @@ class adverbs
 				"sv" => "för närvarande"
 				,"en" => "currently"
 				)
+			,"even:adverb" => array(
+				"sv" => "även"
+				,"en" => "even"
+				)
 			,"here:adverb" => array(
 				"sv" => "här"
 				,"en" => "here"

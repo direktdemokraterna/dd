@@ -117,6 +117,14 @@ class new_phrases
 				"sv" => "personval för arbetsgrupp"
 				,"en" => "workgroup election"
 				)
+			,"you don't have to" => array(
+				"sv" => "behöver du inte"
+				,"en" => "you don't have to"
+				)
+			,"you press" => array(
+				"sv" => "trycker du på"
+				,"en" => "you press"
+				)
 		);
 	}	
 } 

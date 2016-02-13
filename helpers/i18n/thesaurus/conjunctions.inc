@@ -25,6 +25,10 @@ class conjunctions
 				"sv" => "eller"
 				,"en" => "or"
 				)
+			,"so:conj" => array(
+				"sv" => "så"
+				,"en" => "so"
+				)
 			,"that:conj" => array(
 				"sv" => "att"
 				,"en" => "that"
