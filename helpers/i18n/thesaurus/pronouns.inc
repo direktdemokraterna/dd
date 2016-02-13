@@ -34,6 +34,10 @@ class pronouns
 				"sv" => "det"
 				,"en" => "there"
 				)
+			,"which:pron" => array(
+				"sv" => "vilka"
+				,"en" => "which"
+				)
 			,"who:pron" => array(
 				"sv" => "som"
 				,"en" => "who"

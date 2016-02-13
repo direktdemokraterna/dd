@@ -16,6 +16,10 @@ class verbs
 				"sv" => "avstår"
 				,"en" => "abstain"
 				)
+			,"accept:verb" => array(
+				"sv" => "anta::r:_og:git:(gen|_t:__na):s"
+				,"en" => "accept::|s:ed"
+				)
 			,"act:verb" => array(
 				"sv" => "agera::r:de:t"
 				,"en" => "act::|s:ed"
@@ -47,6 +51,10 @@ class verbs
 			,"become:verb" => array(
 				"sv" => "bli::r:_ev:vit"
 				,"en" => "become::|s:___ame:"
+				)
+			,"been accepted:verb" => array(
+				"sv" => "blivit antagen"
+				,"en" => "been accepted"
 				)
 			,"cancel:verb" => array(
 				"sv" => "avbryt"

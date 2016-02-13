@@ -53,6 +53,10 @@ class prepositions
 				"sv" => "från"
 				,"en" => "from"
 				)
+			,"in:prep[which]" => array(
+				"sv" => "inom"
+				,"en" => "in"
+				)
 			,"in:prep" => array(
 				"sv" => "i"
 				,"en" => "in"
