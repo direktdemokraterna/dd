@@ -389,8 +389,8 @@ class verbs
 				,"en" => "to be subject for"
 				)
 			,"transform:verb" => array(
-				"sv" => "gör om"
-				,"en" => "transform"
+				"sv" => "omvandla::r:de:t:(d|t:e):s"
+				,"en" => "transform::|s:ed"
 				)
 			,"undo:verb" => array(
 				"sv" => "ångra::r:de:t:(d|t:e):s"

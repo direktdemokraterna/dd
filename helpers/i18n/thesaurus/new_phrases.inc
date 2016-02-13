@@ -57,6 +57,10 @@ class new_phrases
 				"sv" => "finns möjligheten"
 				,"en" => "it is possible"
 				)
+			,"it will be transformed" => array(
+				"sv" => "kommer den att omvandlas"
+				,"en" => "will be transformed"
+				)
 			,"last login" => array(
 				"sv" => "senast inloggad"
 				,"en" => "last login"
