@@ -56,6 +56,10 @@ class verbs
 				"sv" => "blivit antagen"
 				,"en" => "been accepted"
 				)
+			,"can be found:verb" => array(
+				"sv" => "finns"
+				,"en" => "can be found"
+				)
 			,"cancel:verb" => array(
 				"sv" => "avbryt"
 				,"en" => "cancel"
@@ -240,6 +244,10 @@ class verbs
 				"sv" => "passera::r:de:t"
 				,"en" => "pass::|es:ed"
 				)
+			,"post:verb" => array(
+				"sv" => "posta::r:de:t:(d|t:e):s"
+				,"en" => "post::|s:ed"
+				)
 			,"press:verb" => array(
 				"sv" => "tryck på"
 				,"en" => "press"
@@ -372,12 +380,10 @@ class verbs
 				"sv" => "avsluta::r:de:t:(d|_t:e):s"
 				,"en" => "terminate::|s:d"
 				)
-			/*
 			,"to be subject for:verb" => array(
 				"sv" => "för att gå vidare och bli"
 				,"en" => "to be subject for"
 				)
-			*/
 			,"transform:verb" => array(
 				"sv" => "gör om"
 				,"en" => "transform"

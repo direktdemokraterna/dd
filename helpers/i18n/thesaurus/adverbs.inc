@@ -5,7 +5,11 @@ class adverbs
 {
 	public static function create_translations() {
 		return array(
-			"again:adverb" => array(
+			"after:adverb" => array(
+				"sv" => "efter att"
+				,"en" => "after"
+				)
+			,"again:adverb" => array(
 				"sv" => "igen"
 				,"en" => "again"
 				)
@@ -40,6 +44,10 @@ class adverbs
 			,"now:adverb" => array(
 				"sv" => "nu"
 				,"en" => "now"
+				)
+			,"only:adverb" => array(
+				"sv" => "bara"
+				,"en" => "only"
 				)
 			,"personally:adverb" => array(
 				"sv" => "personligt"
