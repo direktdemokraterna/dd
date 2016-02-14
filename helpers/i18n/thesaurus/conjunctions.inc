@@ -13,13 +13,17 @@ class conjunctions
 				"sv" => "både"
 				,"en" => "both"
 				)
+			,"if:conj" => array(
+				"sv" => "om"
+				,"en" => "if"
+				)
 			,"in case:conj" => array(
 				"sv" => "ifall"
 				,"en" => "in case"
 				)
-			,"if:conj" => array(
-				"sv" => "om"
-				,"en" => "if"
+			,"instead of:conj" => array(
+				"sv" => "istället för"
+				,"en" => "instead of"
 				)
 			,"or:conj" => array(
 				"sv" => "eller"

@@ -38,6 +38,10 @@ class pronouns
 				"sv" => "de"
 				,"en" => "they"
 				)
+			,"[all]those:pron" => array(
+				"sv" => ""
+				,"en" => "those"
+				)
 			,"those:pron" => array(
 				"sv" => "de"
 				,"en" => "those"

@@ -76,7 +76,6 @@ include(dirname(__FILE__)."/helpers/i18n/thesaurus/pronouns.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/quantifiers.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/time_and_date.inc");
 include(dirname(__FILE__)."/helpers/i18n/thesaurus/verbs.inc");
-include(dirname(__FILE__)."/helpers/i18n/thesaurus/new_phrases.inc");
 
 include(dirname(__FILE__)."/helpers/logic/calendar.inc");
 include(dirname(__FILE__)."/helpers/logic/constituency.inc");

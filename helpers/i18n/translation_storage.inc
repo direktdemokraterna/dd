@@ -92,16 +92,14 @@ class translation_storage
 		self::expand_translations($translators, \Thesaurus\names::create_translations());
 		self::expand_translations($translators, \Thesaurus\abbreviations::create_translations());
 		self::expand_translations($translators, \Thesaurus\adverbs::create_translations());
-		//self::expand_translations($translators, \Thesaurus\phrases::create_translations());
-		self::expand_translations($translators, \Thesaurus\new_phrases::create_translations());
+		self::expand_translations($translators, \Thesaurus\phrases::create_translations());
 		return $translators;
 	}
 
 	private static function expand_phrase_translations() 
 	{
 		$translators = array();
-		self::expand_translations($translators, \Thesaurus\new_phrases::create_translations());
-		//self::expand_translations($translators, \Thesaurus\phrases::create_translations());
+		self::expand_translations($translators, \Thesaurus\phrases::create_translations());
 		return $translators;
 	}
 

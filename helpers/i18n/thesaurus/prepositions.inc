@@ -45,6 +45,10 @@ class prepositions
 				"sv" => "till"
 				,"en" => "for"
 				)
+			,"for:prep[all]" => array(
+				"sv" => "för"
+				,"en" => "for"
+				)
 			,"for:prep[quant]" => array(
 				"sv" => "under"
 				,"en" => "for"
