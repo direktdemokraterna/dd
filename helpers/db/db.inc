@@ -3,11 +3,17 @@ class db
 {
 	public static function connect ()
 	{
-		$data_source = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME;
-		$conn = new PDO($data_source, DB_USERNAME, DB_PASSWORD);
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-		return $conn;
+		global $conn;
+		if($conn){
+			return $conn;
+		}
+		else{
+			$data_source = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME;
+			$conn = new PDO($data_source, DB_USERNAME, DB_PASSWORD);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+			return $conn;
+		}
 	}
 
 	// returns a result array from a select query
@@ -154,5 +160,24 @@ class db
 			$counter = $counter + $stmt->rowCount();
 		}
 		return $counter;
+	}
+
+	// transaction functions
+	public static function begintransaction()
+	{
+		$db = self::connect();
+		return $db->beginTransaction();
+	}
+
+	public static function commit()
+	{
+		$db = self::connect();
+		return $db->commit();
+	}
+
+	public static function rollback()
+	{
+		$db = self::connect();
+		return $db->rollBack();
 	}
 }
