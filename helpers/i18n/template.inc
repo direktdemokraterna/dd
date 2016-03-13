@@ -63,7 +63,9 @@ class template
 	{
 		$translated_parts = $this->translate_parts($translator_matches, $translation_hints
 			, $double_noun_indices, $translator_index, $translators_before, $translators_after);
-		$ordered_translated_parts = $this->order_translated_parts($translated_parts);
+		$ordered_translated_parts = (controller::get_language() == BASE_LANG)
+			? $translated_parts
+			: $this->order_translated_parts($translated_parts);
 		return array_filter($ordered_translated_parts, function($word) {return $word;});
 	}
 

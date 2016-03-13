@@ -18,7 +18,6 @@ class util
 		$translation = $original;
 		for ($i = 0; $i < count($phrases); $i++)
 			$translation = str_replace($phrases[$i], $translations[$i], $translation);
-		$translation = self::preserve_space($original, $translation);
 		return $translation;
 	}
 
