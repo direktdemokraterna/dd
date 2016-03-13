@@ -73,6 +73,10 @@ class adverbs
 				"sv" => "bara"
 				,"en" => "only"
 				)
+			,"personally:adverb[verb]" => array(
+				"sv" => "själv"
+				,"en" => "personally"
+				)
 			,"personally:adverb" => array(
 				"sv" => "personligt"
 				,"en" => "personally"
