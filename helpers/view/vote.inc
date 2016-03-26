@@ -45,7 +45,7 @@ class vote
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
 		$options = self::get_selectable_vote_type_descriptions();
-		echo \View\controls::generate_control_label("type_of_vote", _t("Type of vote", array('class' => 'noun')));
+		echo \View\controls::generate_control_label("type_of_vote", _t("Type of vote"));
 		\View\controls::output_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
@@ -228,8 +228,12 @@ class vote
 	{
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
-			$columns = array(_t("Vote", array('class' => 'noun')), _t('Vote type')
-				, _t("Vote started"), _t("Result"), _t("Number of ballots"));
+			$columns = array(
+				_t("Vote", array('class' => 'noun'))
+				, _t('Vote type', array('class' => 'noun'))
+				, _t("Vote started")
+				, _t("Result")
+				, _t("Number of ballots"));
 			$rows = array_map(function($vote) use ($type, $action, $from_action) {
 				return array(
 					_link($vote['title'], $type, $action

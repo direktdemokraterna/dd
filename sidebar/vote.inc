@@ -35,8 +35,7 @@
 			\View\controls::output_link_list("vote", array(
 			"list_delegates" => _t("List delegates")
 			,"delegations" => _t("Handle delegations")
-			,"delegate_settings" => _t(($is_delegate ? "Handle" : "Become a") . " delegate"
-				, array('class' => 'noun'))
+			,"delegate_settings" => _t(($is_delegate ? "Handle" : "Become a") . " delegate")
 			));
 		?>
 	</li>

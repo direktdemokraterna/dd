@@ -74,6 +74,10 @@ class adjectives
 				"sv" => "ogiltig|t"
 				,"en" => "invalid"
 				)
+			,"last:adj" => array(
+				"sv" => "senast"
+				,"en" => "last"
+				)
 			,"late:adj" => array(
 				"sv" => "sen|t:a:aste"
 				,"en" => "late::st"
@@ -97,6 +101,10 @@ class adjectives
 			,"my:adj" => array(
 				"sv" => "min|_tt:a"
 				,"en" => "my"
+				)
+			,"necessary:adj" => array(
+				"sv" => "nödvändig|t:a"
+				,"en" => "necessary"
 				)
 			,"new:adj" => array(
 				"sv" => "ny|tt:a"

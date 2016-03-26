@@ -110,7 +110,7 @@ class workgroup
 		$workgroup_membership_changes = \db_workgroup::get_workgroup_election_changes($_GET['id']);
 		if(!empty($workgroup_membership_changes)) {
 			echo '<p>';
-			__strong(_t("Upcoming changes in membership", array('class' => 'noun')));
+			__strong(_t("Upcoming changes in membership"));
 			__br();
 			echo '<table>';
 			echo '<tr><th>' . _t("Time") . '</th><th>' . _t("Member out") . '</th><th>' 

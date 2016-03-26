@@ -79,7 +79,7 @@ class time_and_date
 				,"en" => "march"
 				)
 			,"april" => array(
-				"sv" => "aprill"
+				"sv" => "april"
 				,"en" => "april"
 				)
 			,"may" => array(

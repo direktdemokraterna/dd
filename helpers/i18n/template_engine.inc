@@ -48,7 +48,7 @@ class template_engine
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
 		$template_match = self::get_template_match($translator_matches);
-/*
+		/*
 		var_dump(array_map(function ($tm) {
 			return array_map(function ($t) {return $t->identifier;}, $tm->translators);
 			}, $translator_matches));

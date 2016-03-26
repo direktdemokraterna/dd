@@ -384,8 +384,8 @@ class verbs
 				"sv" => "avsluta::r:de:t:(d|_t:e):s"
 				,"en" => "terminate::|s:d"
 				)
-			,"to be subject for:verb" => array(
-				"sv" => "för att gå vidare och bli"
+			,"for it to be subject for:verb" => array(
+				"sv" => "för att den ska gå vidare och bli"
 				,"en" => "to be subject for"
 				)
 			,"transform:verb" => array(

@@ -33,6 +33,10 @@ class phrases
 				"sv" => "medlemmar för närvarande"
 				,"en" => "currently members"
 				)
+			,"delete selected" => array(
+				"sv" => "radera valda"
+				,"en" => "delete selected"
+				)
 			,"did never read it" => array(
 				"sv" => "hann aldrig läsa det"
 				,"en" => "did never read it"

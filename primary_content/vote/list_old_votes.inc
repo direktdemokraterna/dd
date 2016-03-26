@@ -1,5 +1,5 @@
 <?php 
-	__h1(_t("Closed votes", array('class' => 'adj')));
+	__h1(_t("Closed votes"));
 	$statuses = array('ended', 'finished');
 	$vote_count = db_vote::list_votes_count($_SESSION['id'], $statuses);
 	if ($vote_count) {

@@ -105,6 +105,10 @@ class prepositions
 				"sv" => "via"
 				,"en" => "through"
 				)
+			,"[visible]to:prep" => array(
+				"sv" => "för"
+				,"en" => "to"
+				)
 			,"to:prep" => array(
 				"sv" => "till"
 				,"en" => "to"
