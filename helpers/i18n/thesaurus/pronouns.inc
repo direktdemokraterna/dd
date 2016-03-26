@@ -14,6 +14,10 @@ class pronouns
 				"sv" => "jag"
 				,"en" => "I"
 				)
+			,"[]it:pron[verb_state]" => array(
+				"sv" => "det"
+				,"en" => "it"
+				)
 			,"it:pron" => array(
 				"sv" => "den"
 				,"en" => "it"
