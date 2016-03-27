@@ -79,12 +79,11 @@ class forum
 	{
 		try {
 			self::make_html_from_post_text($processed_text);
+			return true;
 		}
 		catch (\Exception $ex) {
-			\Logic\util::report_error(_t("Malformed text in post"));
-			return null;
+			return false;
 		}
-		return $processed_text;
 	}
 
 	private static function replace_quotes($wiki_text)
