@@ -69,8 +69,16 @@ class forum
 	{
 		$processed_text = \Logic\text::process_text($text);
 		$processed_text = str_replace("[/quote]\r\n\r\n", "[/quote]\r\n", $processed_text);
+		if (self::is_post_text_valid($processed_text))
+			return $processed_text;
+		\Logic\util::report_error(_t("Malformed text in post"));
+		return null;
+	}
+
+	private static function is_post_text_valid ($processed_text)
+	{
 		try {
-			$processed_text = self::make_html_from_post_text($processed_text);
+			self::make_html_from_post_text($processed_text);
 		}
 		catch (\Exception $ex) {
 			\Logic\util::report_error(_t("Malformed text in post"));
