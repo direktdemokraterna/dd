@@ -103,6 +103,12 @@ class quantifier extends noun_modifier
 			$identifier->numerus = 'singular';
 	}
 
+	public function translate($lower_phrase, $translations_before, $translations_after
+		, $translation_hints = null) 
+	{
+		return $this->translation;
+	}
+
 	private static function is_one($quantifier) 
 	{
 		return in_array($quantifier, array("1", "a", "an", "one"));

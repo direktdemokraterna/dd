@@ -42,6 +42,11 @@ class translator
 		return $this->identifier->class == 'prep';
 	}
 
+	public function is_number() 
+	{
+		return $this->is_quantifier() && $this->identifier->key == '%d';
+	}
+
 	public function is_quantifier() 
 	{
 		return $this->identifier->class == 'quant';

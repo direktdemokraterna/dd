@@ -13,14 +13,16 @@ class template_engine
 		$trimmed_original = trim($original);
 		$numbers = util::extract_numbers($trimmed_original);
 		$translation = self::translate_whole_phrase($trimmed_original, $translation_hints);
-		if (!$translation) {
+		if ($translation) {
+			$translation = util::restore_numbers($translation, $numbers);
+		}
+		else {
 			$phrases = util::split_phrases($trimmed_original);
-			$translations = array_map(function($phrase) use ($translation_hints) {
-				return self::translate_phrase($phrase, $translation_hints);
+			$translations = array_map(function($phrase) use (&$numbers, $translation_hints) {
+				return self::translate_phrase($phrase, $numbers, $translation_hints);
 			}, $phrases);
 			$translation = util::apply_translations($trimmed_original, $phrases, $translations);
 		}
-		$translation = util::restore_numbers($translation, $numbers);
 		$translation = util::preserve_space($original, $translation);
 		return $translation;
 	}
@@ -44,7 +46,7 @@ class template_engine
 		return null;
 	}
 
-	private static function translate_phrase($phrase, $translation_hints = null) 
+	private static function translate_phrase($phrase, &$numbers, $translation_hints = null) 
 	{
 		$translator_matches = self::get_translator_matches($phrase, $translation_hints);
 		$template_match = self::get_template_match($translator_matches);
@@ -55,8 +57,11 @@ class template_engine
 		var_dump($template_match);
 		*/
 		//var_dump($template_match->templates[0], $template_match->translator_matches[1]->translator);
-		if (!$template_match)
-			return $phrase;
+		if (!$template_match) {
+			util::restore_numbers($phrase, $numbers);
+			return $phrase;			
+		}
+		$template_match->apply_numbers($numbers);
 		$translation = $template_match->translate($translation_hints);
 		$translation = util::preserve_case($translation, $phrase);
 		return $translation;

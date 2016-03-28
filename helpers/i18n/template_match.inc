@@ -14,6 +14,17 @@ class template_match
 		$this->double_noun_indices = $double_noun_indices;
 	}
 
+	public function apply_numbers(&$numbers) {
+		for ($index = 0; $index < count($this->translator_matches); $index++) {
+			$match = $this->translator_matches[$index];
+			$translator = $match->translator;
+			if ($translator->is_number()) {
+				$translator->translation = $numbers[0];				
+				array_shift($numbers);
+			}
+		}
+	}
+
 	public function translate($translation_hints = null) 
 	{
 		self::pluralify();
@@ -61,8 +72,10 @@ class template_match
 		$current_is_noun = true;
 		foreach (array_reverse($previous_matches) as $match) {
 			$translator = $match->translator;
+			if ($translator->is_number())
+				return (int)$translator->translation;
 			if ($translator->is_quantifier())
-				return (int)$match->phrase;
+				return $match->phrase;
 			if ($translator->is_adjective())
 				$current_is_noun = false; 
 			else if (!$translator->is_noun() || !$current_is_noun)
