@@ -26,6 +26,8 @@ include(dirname(__FILE__)."/helpers/crypt_helpers.inc");
 include(dirname(__FILE__)."/helpers/class-phpass.php");
 include(dirname(__FILE__)."/helpers/session.inc");
 
+include(dirname(__FILE__)."/helpers/cache/shmop_cache.inc");
+
 include(dirname(__FILE__)."/helpers/db/db.inc");
 include(dirname(__FILE__)."/helpers/db/db_general.inc");
 include(dirname(__FILE__)."/helpers/db/db_user.inc");
