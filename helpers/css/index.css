@@ -56,8 +56,8 @@ a:hover {
     cursor:pointer;
 }
 
-strong { 
-    font-weight: bold; 
+strong {
+    font-weight: bold;
 }
 
 /* HEADER */
@@ -66,6 +66,7 @@ strong {
     position: relative;
     padding-left: 2%;
     padding-bottom: 30px;
+    padding-top: 20px;
 }
 
 #header-logo {
@@ -75,7 +76,7 @@ strong {
 
 #header-lang {
     position: absolute;
-    top: 10px;
+    top: 30px;
     right: 20px;
     width: 20%;
     max-width: 100px;
@@ -102,8 +103,8 @@ strong {
 
 #wrap {
   margin: auto;
-  padding: 10px 10px;
-  width: 100%;
+  padding: 1%;
+  width: 98%;
   max-width: 1200px;
 }
 
@@ -132,10 +133,10 @@ strong {
 
 @media screen and (min-width: 801px) and (max-width: 1200px) {
     #wrap {
-        max-width: calc(100% - 20px);
+        max-width: calc(98% - 200px);
     }
     #main-content {
-        max-width: calc(100% - 255px);
+        max-width: calc(98% - 255px);
     }
 }
 
@@ -294,7 +295,7 @@ strong {
   font-size: 12px;
   color: #2b2b2b;
   font-family: "Open Sans",sans-serif;
-  font-weight: 300; 
+  font-weight: 300;
 }
 
 .list_counter {
@@ -357,7 +358,5 @@ tr.unread {
   margin-left: 5px;
   font-size: 12px;
   color: #2b2b2b;
-  font-family: "Open Sans",sans-serif;font-weight: 300; 
+  font-family: "Open Sans",sans-serif;font-weight: 300;
 }
-
-

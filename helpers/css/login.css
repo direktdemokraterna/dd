@@ -11,8 +11,8 @@
 }
 
 .login_image{
-   margin-left: auto; 
-   margin-right: auto; 
+   margin-left: auto;
+   margin-right: auto;
    width: 120px;
 }
 
@@ -54,4 +54,13 @@
 , .login-form input[type="url"]:focus, .login-form select:focus, .login-form textarea:focus {
   border-color: #5b9dd9;
   box-shadow: 0 0 2px rgba(30, 140, 190, 0.8);
+}
+
+@media only screen and (max-width: 768px)  {
+  .login-column {width: 70%;}
+  .login-form {
+    padding: 0 2%;
+    margin: 25px auto;
+    width: 50%;
+    }
 }

@@ -7,54 +7,54 @@
 		<?php endif; ?>
 		<a onClick="toggle_mobile_user_menu()"><span class="fa fa-user alt-header-button right" id="alt-user-menu"></span></a>
 	</div>
-	<ul id="hide_menu">
-		<li><?php 
-			__link(_t("User"), "member"); 
+	<ul id="hide_menu" class="clearfix">
+		<li><?php
+			__link(_t("User"), "member");
 			\View\controls::output_link_list("member", array(
 				"calendar" => _t("Calendar")
 				,"settings" => _t("My profile")
 				,"memberlist" => _t("Members")
 				,"admin_list" => _t("Administrators")
-				)); 
+				));
 			?>
 		</li>
 		<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>
-			<li id="unread-mail"><a href="index.php?type=message&action=inbox" style="min-width: 10px; padding: 0 0 0 0;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-envelope-o" id="fa-envelope-o"></span></a>
+			<li id="unread-mail"><a href="index.php?type=message&action=inbox" style="min-width: 15px; padding: 0 5px 0 5px;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-envelope-o" id="fa-envelope-o"></span></a>
 			</li>
 		<?php endif; ?>
-		<li><?php 
-			__link(_t("Messages"), "message"); 
+		<li><?php
+			__link(_t("Messages"), "message");
 			\View\controls::output_link_list("message", array(
 				"inbox" => _t("Inbox")
 				,"outbox" => _t("Outbox")
 				,"write" => _t("Write message")
-				)); 
+				));
 			?>
 		</li>
-		<li><?php 
+		<li><?php
 			__link(_t("Workgroups"), "workgroup");
 			echo '<ul>';
 				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
 				foreach($workgroups as $row)
-					__li(_link($row['title'], "workgroup", "view", "id=" . 
+					__li(_link($row['title'], "workgroup", "view", "id=" .
 						$row['id']));
 			echo '</ul>';
 			?>
 		</li>
-		<li><?php 
+		<li><?php
 			__link(_t("Votes"), "vote");
 			\View\controls::output_link_list("vote", array(
 				"list_props" => _t("Propositions")
 				,"list_active_votes" => _t("Votes")
 				,"delegations" => _t("Delegates")
-				)); 
+				));
 			?>
 		</li>
-		<li><?php __link(_t("Forum"), "forum"); ?></li>
+		<li class="forum"><?php __link(_t("Forum"), "forum"); ?></li>
 		<?php if(isset($_SESSION['admin'])) : ?>
 		<li><a href="#"><?php __t("Admin"); ?></a>
 			<ul>
-				<?php 
+				<?php
 					if(isset($_SESSION['is_member_admin']))
 						__li(_link(_t("Member admin"), "member_admin"));
 					if(isset($_SESSION['is_forum_admin']))
@@ -76,7 +76,7 @@
 				$user_label = db_user::get_user_full_name($_SESSION['id']);
 				$hello = _span(_t("Hello, "), "large_screen");
 				$user_label = $hello . $user_label;
-				if ($_SESSION['delegate_id']) $user_label .= 
+				if ($_SESSION['delegate_id']) $user_label .=
 					_t(" (delegate)", array('class' => 'noun'));
 				__link($user_label, "member", "view");
 			?>
