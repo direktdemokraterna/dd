@@ -53,7 +53,7 @@ class forum
 		echo '<span class="subject_column">';
 		__link($row['topic_title'], 'forum', 'show_posts', 'topic_id=' . $row['topic_id']);
 		if($number_of_pages > 1) 
-			__link("($number_of_pages)", 'forum', 'sho_posts', 'id=' . $row['topic_id'] 
+			__link(" ($number_of_pages)", 'forum', 'sho_posts', 'id=' . $row['topic_id'] 
 				. '&page=' . $number_of_pages);
 		__br();
 		echo '<span class="list_sub_text">' . _t("Started by: ");

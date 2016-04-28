@@ -304,12 +304,13 @@ strong {
 
 .list_sort_alternative {
     padding-left: 30px;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 /* GRID VIEW */
 
 .grid_view{
-    max-width: 800px;
     width: 95%;
     border: 1px solid #e5e5e5;
     border-bottom: none;
@@ -360,3 +361,16 @@ tr.unread {
   color: #2b2b2b;
   font-family: "Open Sans",sans-serif;font-weight: 300;
 }
+
+@media screen and (max-width: 800px) {
+    .hide-800 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .hide-400 {
+        display: none;
+    }
+}
+

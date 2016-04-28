@@ -11,11 +11,12 @@
 
 .user_presentation_right {
 	margin: 0px 0px 0px 20px;
-    float: left;
+    overflow: hidden;
     text-align: left;
 }
 
 .user_presentation_right p{margin: 0px 0px 5px 20px}
+.user_presentation_right form{margin: 0px 0px 5px 20px}
 
 .image150 {
     width: 150px;

@@ -27,7 +27,7 @@ class db_user
 		$public_forums = db_forum::get_public_forum_ids();
 		foreach($public_forums as $row)
 			db_forum_admin::add_forum_access($user_id, $row['id']);
-		$local_county_forum = db_forum::get_local_county_forum($_POST['county_id']);
+		$local_county_forum = db_forum::get_local_county_forum($county_id);
 		db_forum_admin::add_forum_access($user_id, $local_county_forum);
 		$local_region_forum = db_forum::get_local_region_forum($region_id);
 		db_forum_admin::add_forum_access($user_id, $local_region_forum);
@@ -36,7 +36,7 @@ class db_user
 		$public_constituencies = db_constituency::get_public_constituency_ids();
 		foreach($public_constituencies as $row)
 			db_constituency::add_constituency_access($user_id, $row['id']);
-		db_constituency::add_constituency_access($user_id, $_POST['county_id']);
+		db_constituency::add_constituency_access($user_id, $county_id);
 		db_constituency::add_constituency_access($user_id, $region_id);
 		return $user_id;
 	}
@@ -49,8 +49,8 @@ class db_user
 		$visible_columns = implode(", ", self::$members_visible_columns);
 		$query = "select u.id, $visible_columns, u.deletion_time
 			from user u
-				join constituency cr on cr.id = u.region_id
-				join constituency cc on cc.id = u.county_id
+				left join constituency cr on cr.id = u.region_id
+				left join constituency cc on cc.id = u.county_id
 				" . $where_clause . "
 				" . $order_by_clause . " 
 				" . $limit_clause;
@@ -64,7 +64,7 @@ class db_user
 	}
 
 	private static $members_visible_columns =
-		array("concat(u.first_name, ' ', u.last_name) as full_name", "u.username"
+		array("concat(if(u.activation_first_name is null, u.first_name, if(u.activation_first_name = '', 'Inget', u.activation_first_name)), ' ', if(u.activation_last_name is null, u.last_name, if(u.activation_last_name = '', 'namn', u.activation_last_name))) as full_name", "u.username"
 			, "cr.title as region", "cc.title as county");
 
 	public static function get_all_users_count ($where_filters)
@@ -178,6 +178,13 @@ class db_user
 		return db::select_single_value($query, $values);
 	}
 
+	public static function get_activation_first_name ($user_id)
+	{
+		$query = "select activation_first_name from user where id = ?";
+		$values = Array($user_id);
+		return db::select_single_value($query, $values);
+	}
+
 	public static function get_user_full_name ($user_id)
 	{
 		$query = "select concat(first_name, ' ', last_name) as full_name from user where id = ?";
@@ -209,8 +216,8 @@ class db_user
 	public static function search_users ($search, $page = 1, $limit = LIST_ITEMS_PER_PAGE)
 	{
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select id, concat(first_name, ' ', last_name) as full_name from user 
-					where match(first_name, last_name, description) against (? in boolean mode) 
+		$query = "select id, concat(if(activation_first_name is null, first_name, if(activation_first_name = '', 'Inget', activation_first_name)), ' ', if(activation_last_name is null, last_name, if(activation_last_name = '', 'namn', activation_last_name))) as full_name from user 
+					where match(first_name, last_name, description, activation_first_name, activation_last_name) against (? in boolean mode) 
 					" . $limit_clause;
 		$values = Array($search);
 		return db::select($query, $values);
@@ -244,12 +251,63 @@ class db_user
 		return db::delete($query, $values);
 	}
 
+	public static function get_first_name_from_activation_code ($activation_code)
+	{
+		$query = "select first_name from user where activation_code = ?";
+		$values = Array($activation_code);
+		return db::select_single_value($query, $values);
+	}
+
+	public static function activate_user ($user_id)
+	{
+		$user_data = self::get_user_data($user_id);
+
+		// Adding forum accesses for new user
+		$public_forums = db_forum::get_public_forum_ids();
+		foreach($public_forums as $row)
+			db_forum_admin::add_forum_access($user_id, $row['id']);
+		$local_county_forum = db_forum::get_local_county_forum($user_data['county_id']);
+		db_forum_admin::add_forum_access($user_id, $local_county_forum);
+		$local_region_forum = db_forum::get_local_region_forum($user_data['region_id']);
+		db_forum_admin::add_forum_access($user_id, $local_region_forum);
+
+		// Adding constituency access for new user
+		$public_constituencies = db_constituency::get_public_constituency_ids();
+		foreach($public_constituencies as $row)
+			db_constituency::add_constituency_access($user_id, $row['id']);
+		db_constituency::add_constituency_access($user_id, $user_data['county_id']);
+		db_constituency::add_constituency_access($user_id, $user_data['region_id']);
+
+		$query = "update user set activation_code = ?, activation_time = ?, first_name = activation_first_name, last_name = activation_last_name where id = ?";
+		$values = Array(null, time(), $user_id);
+		return db::update($query, $values);
+	}
+
+	public static function get_activation_code_from_email ($user_email)
+	{
+		$query = "select activation_code from user where email = ?";
+		$values = Array($user_email);
+		return db::select_single_value($query, $values);
+	}
+
+	public static function is_user_active ($user_id){
+		$query = "select activation_code from user where id = ?";
+		$values = Array($user_id);
+		$result = db::select_single_value($query, $values);
+		if(empty($result)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 	public static function check_if_personnummer_exists ($personnummer, $exclude_user_id = 0)
 	{
 		return self::check_if_key_property_exists('social_security_number', $personnummer, $exclude_user_id);
 	}
 
-	public static function check_if_email_exists ($email, $exclude_user_id = 0)
+		public static function check_if_email_exists ($email, $exclude_user_id = 0)
 	{
 		return self::check_if_key_property_exists('email', $email, $exclude_user_id);
 	}

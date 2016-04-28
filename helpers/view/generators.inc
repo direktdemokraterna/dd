@@ -39,14 +39,14 @@
 		echo _li($html);
 	}
 	
-	function __th($html) 
+	function __th($html, $class = null) 
 	{
-		echo _th($html);
+		echo _th($html, $class);
 	}
 
-	function __td($html) 
+	function __td($html, $class = null) 
 	{
-		echo _td($html);
+		echo _td($html, $class);
 	}
 
 	function __open_form($class = "standard-form") {
@@ -141,14 +141,16 @@
 		return '<li>' . $html . '</li>';
 	}
 
-	function _th($html) 
+	function _th($html, $class = null) 
 	{
-		return '<th>' . $html . '</th>';
+		if($class) return '<th class="' . $class . '">' . $html . '</th>';
+		else return '<th>' . $html . '</th>';
 	}
 
-	function _td($html) 
+	function _td($html, $class = null) 
 	{
-		return '<td>' . $html . '</td>';
+		if($class) return '<td class="' . $class . '">' . $html . '</td>';
+		else return '<td>' . $html . '</td>';
 	}
 
 	function _strong($text) 

@@ -17,7 +17,7 @@ class db_forum
 		$query = "select c.id as cat_id, c.title as cat_name, f.id as forum_id, f.title as forum_name, f.description as description, f.last_posted_time as last_posted_time, f.					last_posted_post as last_posted_id, f.number_of_topics as number_of_topics, f.number_of_posts as number_of_posts
 					from forum f, category c, forum_user fu 
 					where c.id = f.category_id and f.id = fu.forum_id and fu.user_id = ?
-					order by field(f.access_type, 'public', 'workgroup', 'local_region', 'local_county'), f.id asc";
+					order by field(f.access_type, 'public', 'workgroup', 'local_region', 'local_county'), f.category_id asc, f.id asc";
 		$values = Array($_SESSION['id']);
 		return db::select($query, $values);
 	}

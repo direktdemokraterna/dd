@@ -43,6 +43,7 @@ include(dirname(__FILE__)."/helpers/db/db_vote.inc");
 include(dirname(__FILE__)."/helpers/db/db_prop.inc");
 include(dirname(__FILE__)."/helpers/db/db_delegate.inc");
 include(dirname(__FILE__)."/helpers/db/db_constituency.inc");
+include(dirname(__FILE__)."/helpers/db/db_treasurer.inc");
 
 include(dirname(__FILE__)."/helpers/i18n/controller.inc");
 include(dirname(__FILE__)."/helpers/i18n/selectors.inc");

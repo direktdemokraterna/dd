@@ -46,16 +46,16 @@ class controls
 		general::close_div();
 	}
 
-	public static function output_grid_view($columns, $rows, $row_styles = null) 
+	public static function output_grid_view($columns, $rows, $row_styles = null, $column_classes = null) 
 	{
 		$col_count = count($columns);
 		echo '<table class="grid_view">';
-		self::output_grid_view_header($columns);
-		self::output_grid_view_rows(count($columns), $rows, $row_styles);
+		self::output_grid_view_header($columns, $column_classes);
+		self::output_grid_view_rows(count($columns), $rows, $row_styles, $column_classes);
 		echo '</table>';
 	}	
 
-	private static function output_grid_view_header($columns) 
+	private static function output_grid_view_header($columns, $column_classes) 
 	{
 		echo '<tr>';
 		$query_params = \Logic\util::get_request_params();
@@ -70,7 +70,7 @@ class controls
 					: ($col == -$old_sort ? ' &#x25BC' : ''))
 					, $query_params['type']
 					, isset($query_params['action']) ? $query_params['action'] : null
-					, $params_except_sort_value . ($col == $old_sort ? -$col : $col)));
+					, $params_except_sort_value . ($col == $old_sort ? -$col : $col)), isset($column_classes[$col-1]) ? $column_classes[$col-1] : null);
 			}
 			else 
 				__th("");
@@ -84,7 +84,7 @@ class controls
 		return $param_str ? $param_str . "&sort=" : "sort=";
 	}	
 
-	private static function output_grid_view_rows($col_count, $rows, $row_styles = null) 
+	private static function output_grid_view_rows($col_count, $rows, $row_styles = null, $column_classes) 
 	{
 		$i = 0;
 		foreach($rows as $row) {
@@ -93,7 +93,7 @@ class controls
 				$classes .= ' ' . $row_styles[$i];
 			echo "<tr class='$classes'>";
 			for ($col = 0; $col < $col_count; $col++)
-				__td($row[$col]);
+				__td($row[$col], isset($column_classes[$col]) ? $column_classes[$col] : null);
 			echo '</tr>';
 			$i++;			
 		}
@@ -146,7 +146,7 @@ class controls
 		$value = isset($_SESSION[$search_input_name]) ? $_SESSION[$search_input_name] : '';
 		echo '<form method="post" class="sidebar_search_form" action="index.php?type=' 
 		. $type . '&action=' . $action . '">';
-		echo '<input tabindex="' . $tab_index++ . '" type="text" value="' . 
+		echo '<input onClick="this.select();" tabindex="' . $tab_index++ . '" type="text" value="' . 
 		$value . '" name="' . $search_input_name . '" class="sidebar_search_input">';
 		echo '<input tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="' 
 		. _t('Search') . '">';
@@ -202,7 +202,7 @@ class controls
 	{
 		$query = \Logic\util::get_request_params();
 		unset($query['page']);
-		$params_except_page_number = \Logic\util::make_param_string($query) . "page=";
+		$params_except_page_number = \Logic\util::make_param_string($query) . "&page=";
 		echo "<span class=\"float-right\">";
 		if($page > 1)
 			self::output_page_link('<', $query, $params_except_page_number . ($page - 1));
@@ -224,7 +224,7 @@ class controls
 	{
 		if (isset($query['type'])) {
 			__link($label, $query['type'], isset($query['action']) ? $query['action'] : null
-				, "&$params_string");
+				, "$params_string");
 		}
 		else {
 			$url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?$params_string";

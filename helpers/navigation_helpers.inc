@@ -206,7 +206,11 @@ class navigation_helpers {
 			, "votelist.inc", "is_vote_admin")
 
 			,"treasurer" => Division_info::create(array(
-				"treasurer" => Page_info::create("treasurer.inc"))
+				"overview" => Page_info::create("treasurer.inc")
+				,"ny_inbetalning" => Page_info::create("ny_inbetalning.inc", Page_info::VIEW_AND_EXECUTE)
+				,"ny_utbetalning" => Page_info::create("ny_utbetalning.inc", Page_info::VIEW_AND_EXECUTE)
+				,"medlemsavgifter" => Page_info::create("medlemsavgifter.inc"))
+				,"transaktion" => Page_info::create("transaktion.inc"))
 			, "treasurer.inc", "is_treasurer")
 
 			,"superadmin" => Division_info::create(array(

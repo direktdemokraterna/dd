@@ -315,7 +315,9 @@ class vote
 					, $voteinfo['from_proposition_id']);
 			case "median": 
 				return \vote_helpers::generate_median_result($ballots_to_count);
-			default: throw new \Exception("Unknonw vote type: " . $voteinfo['type']);
+			case "budget": 
+				return 0;
+			default: throw new \Exception("Unknown vote type: " . $voteinfo['type']);
 		}
 	}
 

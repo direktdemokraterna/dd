@@ -47,18 +47,11 @@ class general_helpers {
 		// https://github.com/PHPMailer/PHPMailer
 		require_once('PHPMailer-master/PHPMailerAutoload.php');
 		$mail = new PHPMailer();
-		$mail->From = 'direktdemokraterna@hotmail.com';
-		$mail->FromName = 'Direktdemokraterna';
+		$mail->setFrom('admin@direktdemokraterna.se', 'Direktdemokraterna Admin');
+		$mail->addReplyTo('no-reply@direktdemokraterna.se', 'Direktdemokraterna Admin');
 		$mail->AddAddress($receiver);
 		$mail->Subject = $title;
 		$mail->Body = $text;
-		$mail->IsSMTP();
-		$mail->SMTPAuth = true;
-		$mail->SMTPSecure = 'tls';
-		$mail->Port = 587;
-		$mail->Host = 'smtp-mail.outlook.com';
-		$mail->Username = 'direktdemokraterna@hotmail.com';
-		$mail->Password = '475954952T13bwy';
 		$ok = $mail->send();
 		return $ok 
 			? "success" 

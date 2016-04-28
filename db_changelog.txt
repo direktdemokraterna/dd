@@ -1,3 +1,30 @@
+/**************/
+/* 2016-04-20 */
+/**************/
+Adding support for inactivated users
+
+ALTER TABLE `dd`.`user` ADD COLUMN `activation_code` VARCHAR(20) DEFAULT NULL AFTER `description`,
+ ADD COLUMN `activation_time` INTEGER UNSIGNED DEFAULT 1460019477 AFTER `activation_code`,
+ ADD COLUMN `activation_first_name` VARCHAR(45) AFTER `activation_time`,
+ ADD COLUMN `activation_last_name` VARCHAR(45) AFTER `activation_first_name`;
+
+Adding accounting table
+
+CREATE TABLE `dd`.`accounting` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `type_of_transaction` VARCHAR(45) NOT NULL,
+  `amount` FLOAT NOT NULL,
+  `timestamp_accounting` INTEGER UNSIGNED NOT NULL,
+  `timestamp_insertion` INTEGER UNSIGNED NOT NULL,
+  `user_id` INTEGER UNSIGNED,
+  `comment_from_bank` VARCHAR(255),
+  `comment_from_admin` VARCHAR(255),
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB;
+
+********************************************************************************
+
 ALTER TABLE `dd`.`ballots` ADD COLUMN `ballot` TEXT AFTER `constituency_id`;
 UPDATE `dd`.`ballots` SET `ballot` = `ballot_alternative` WHERE `ballot_alternative` IS NOT NULL;
 UPDATE `dd`.`ballots` SET `ballot` = `prio_ranking` WHERE `prio_ranking` IS NOT NULL;

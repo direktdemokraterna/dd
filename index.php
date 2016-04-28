@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<?php
+		ini_set('display_errors', '1');
 			include("init.inc");
 			include("helpers/load_css.inc");
 			include("helpers/load_js.inc");
@@ -16,7 +17,18 @@
 			session::update_acting_as_delegate();
 			navigation_helpers::handle_action_request();
 			session::login_logout();
-			require(isset($_SESSION['id']) ? "index_logged_in.inc" : "index_logged_out.inc");
+			if(isset($_SESSION['id'])){
+				$is_active = db_user::is_user_active($_SESSION['id']);
+				if($is_active){
+					require("index_logged_in.inc");
+				}
+				else{
+					require("index_inactive.inc");
+				}
+			}
+			else{
+				require("index_logged_out.inc");
+			}
 		?>
 	</body>
 </html>

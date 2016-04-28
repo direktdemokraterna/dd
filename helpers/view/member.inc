@@ -36,9 +36,9 @@ class member
 	}
 
 	public static function output_member_list ($members, $page, $member_count) {
-		\View\controls::output_paging_row($page, $member_count);
+		\View\controls::output_paging_row($page, $member_count, null, LIST_ITEMS_PER_PAGE);
 		self::output_member_grid($members);
-		\View\controls::output_paging_row($page, $member_count);
+		\View\controls::output_paging_row($page, $member_count, null, LIST_ITEMS_PER_PAGE);
 	}
 
 	private static function output_member_grid ($members) {
@@ -52,7 +52,8 @@ class member
 			);
 		}, $members);
 		$row_styles = array_map(function($member) {return $member['deletion_time'] ? 'deleted' : '';}, $members);
-		\View\controls::output_grid_view($columns, $rows, $row_styles);
+		$column_classes = array("1" => "hide-800", "2" => "hide-400");
+		\View\controls::output_grid_view($columns, $rows, $row_styles, $column_classes);
 	}
 
 	public static function link($user, $id_prop = 'id', $name_prop = 'full_name') {
