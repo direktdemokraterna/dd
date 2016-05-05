@@ -75,7 +75,7 @@ class template_match
 			if ($translator->is_number())
 				return (int)$translator->translation;
 			if ($translator->is_quantifier())
-				return $match->phrase;
+				return strtolower($match->phrase);
 			if ($translator->is_adjective())
 				$current_is_noun = false; 
 			else if (!$translator->is_noun() || !$current_is_noun)
@@ -86,7 +86,7 @@ class template_match
 
 	private static function is_one($quantifier) 
 	{
-		return in_array($quantifier, array("1", "a", "an", "one"));
+		return in_array($quantifier, array("1", "a", "an", "one", "no"));
 	}
 }
 ?>

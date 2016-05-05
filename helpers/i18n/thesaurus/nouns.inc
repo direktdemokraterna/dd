@@ -382,12 +382,6 @@ class nouns
 				"sv" => "tråd:ar:en:na:-"
 				,"en" => "thread:s"
 				)
-			/*
-			,"thread start:noun1" => array(
-				"sv" => "trådstart:er:en:na"
-				,"en" => "thread start:s"
-				)
-			*/
 			,"time:noun1" => array(
 				"sv" => "tidpunkt:er:_____en:na"
 				,"en" => "time:s"
@@ -599,8 +593,8 @@ class nouns
 				,"en" => "username:s"
 				)
 			,"value:noun2" => array(
-				"sv" => "värde"
-				,"en" => "value"
+				"sv" => "värde:n"
+				,"en" => "value:s"
 				)
 			,"vote alternative:noun2" => array(
 				"sv" => "omröstningsalternativ::et:en"
