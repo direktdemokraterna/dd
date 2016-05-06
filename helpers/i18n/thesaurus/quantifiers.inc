@@ -29,10 +29,6 @@ class quantifiers
 				"sv" => "fler"
 				,"en" => "more"
 				)
-			,"no:quant" => array(
-				"sv" => "ingen|_t:__a"
-				,"en" => "no"
-				)
 			,"one:quant" => array(
 				"sv" => "en|_tt"
 				,"en" => "one"

@@ -110,6 +110,10 @@ class adjectives
 				"sv" => "ny|tt:a"
 				,"en" => "new"
 				)
+			,"no:adj" => array(
+				"sv" => "ingen|_t:__a"
+				,"en" => "no"
+				)
 			,"not found:adj" => array(
 				"sv" => "hittades inte"
 				,"en" => "not found"
