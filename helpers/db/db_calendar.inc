@@ -39,7 +39,7 @@ class db_calendar
 		$query = "select c.time as time, c.timestamp_added as timestamp_added, c.added_by_user as added_by_user, concat(u.first_name, ' ', u.last_name) as full_name, c.location as 			location, c.title as title, c.content as content 
 					from calendar c 
 					where c.added_by_user = u.id and c.year = ? and c.month = ? and c.day = ?";
-		$values = Array($year, $month, $day);
+		$values = Array($year, $month, $day); //todo: day null?
 		return db::select($query, $values);
 	}
 

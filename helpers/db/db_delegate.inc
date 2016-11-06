@@ -388,7 +388,7 @@ class db_delegate
 					(select d.title from delegate d where vd.delegate_id = d.id) as delegate_name 
 					from voter_delegate vd 
 					where user_code is not null";
-		$values = Array($vote_id);
+		$values = Array($vote_id); //todo: null?
 		return db::select($query, $values);
 	}
 

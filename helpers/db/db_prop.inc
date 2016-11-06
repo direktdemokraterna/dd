@@ -212,10 +212,10 @@ class db_prop
 			db::delete($del_query, $values);
 			foreach ($deleted_prop_ballots as $prop_ballot) {
 				if ($prop_ballot['user_code'])
-					$affected_prop_ids[] = $ballot['proposition_id'];
+					$affected_prop_ids[] = $ballot['proposition_id']; //todo: ballot undefined?
 				else {
 					$new_affected_prop_ids = self::remove_prop_ballots_no_recount(null, null, $voter_id
-						, $constituency_id, $ballot['proposition_id']);
+						, $constituency_id, $ballot['proposition_id']); //todo: ballot undefined?
 					$affected_prop_ids = array_merge($affected_prop_ids, $new_affected_prop_ids);
 				}
 			}
