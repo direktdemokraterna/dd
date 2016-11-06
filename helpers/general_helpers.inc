@@ -115,8 +115,8 @@ class general_helpers {
 		return ($control_digit == $personnummer[9]);
 	}
 
-	public static function clean ($data) { 
-		return htmlspecialchars($data, ENT_COMPAT,'ISO-8859-1', true);
+	public static function clean ($data, $flags = ENT_COMPAT, $charset = 'ISO-8859-1', $dblencode = true ) {
+		return htmlspecialchars($data, $flags, $charset, $dblencode);
 	}
 	
 	///////////////////////////////////
