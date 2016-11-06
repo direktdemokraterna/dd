@@ -1,7 +1,7 @@
 <?php 
 if(isset($_POST['delete'])){
 	if(db_workgroup::is_restricted($_GET['id']))
-		db_workgroup::make_unrestricted($_GET['id']);
+		db_workgroup::make_unrestricted($_GET['id']); //todo: doesn't exist yet
 	$ok = db_workgroup::delete($_GET['id']);
 	if($ok){
 		$_SESSION['report_message'] = _t("Workgroup removed");

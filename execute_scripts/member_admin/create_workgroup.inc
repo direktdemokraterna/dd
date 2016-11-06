@@ -15,7 +15,7 @@
 			}
 		}
 		else{
-			$_SESSION['report_message'] = _t("There already exists a workgroup with that name";
+			$_SESSION['report_message'] = _t("There already exists a workgroup with that name");
 			$_SESSION['red_report_message'] = 1;
 		}
 	}

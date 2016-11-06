@@ -18,7 +18,7 @@
 		$text = $_POST['edit_post_content'] . "\n\n" . _t("The topic changed by moderator ") . date("Y-m-d G:i");
 		$ok = Logic\forum::set_post_content($_GET['id'], $text, "edit"); 
 		if($ok){
-			$_SESSION['report_message'] = _t("The post has been edited."(); 
+			$_SESSION['report_message'] = _t("The post has been edited.");
 			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $_GET['id'];
 		}
 	}

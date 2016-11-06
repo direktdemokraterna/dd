@@ -25,7 +25,7 @@ elseif(isset($_POST['user_email'])){
 			$mail_result = general_helpers::admin_mail($_POST['user_email'], $mail_title, $mail_content);
 
 			if($mail_result == "success"){
-				$system_message = "Ett mejl med aktiveringskod har skickats till den angivna adressen. Följ instruktionerna i mejlet för att aktivera ditt konto."
+				$system_message = "Ett mejl med aktiveringskod har skickats till den angivna adressen. Följ instruktionerna i mejlet för att aktivera ditt konto.";
 			}
 			else{
 				$system_message = "Adressen du angav finns i systemet men något gick fel när mejlet skulle skickas. Gå tillbaka till föregående sida och försök igen eller försök få tag på någon som har insyn i systemet om problemet kvarstår.";

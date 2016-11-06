@@ -511,6 +511,7 @@ class db_delegate
 				return false;
 			$delegate_vote = self::get_delegate_prop_ballot_for_prop($prop_id, $delegate_id);
 			if(!empty($delegate_vote)){
+				//todo: insert_prop_ballot doesn't exist yet
 				db_vote::insert_prop_ballot($prop_id, $delegate_vote['support'], $user_code, $voter_id, $delegate_id, $delegation_level, 1);
 				return true;
 			}
