@@ -45,7 +45,7 @@ class vote
 		if(!$ok)
 			throw new \Exception(_t("Something went wrong. No vote created."));
 		$_SESSION['report_message'] = _t("The vote is created.");
-		$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;			
+		$redirect = "index.php?type=vote&action=view_vote&id=" . $ok;		// todo: redirect not used
 	}
 
 	public static function update_proposition_support($prop_id, $ballot) 
@@ -186,7 +186,7 @@ class vote
 
 	private static function invoke_action($vote_id, $status, $action) {
 		if (!self::is_action_valid_for_status($action, $status))
-			throw new Exception('Invalid action: ' . $action . ' for status: ' . $status);
+			throw new \Exception('Invalid action: ' . $action . ' for status: ' . $status);
 		switch ($action) {
 			case 'end_vote':
 				return \db_vote_admin::end_vote($vote_id);

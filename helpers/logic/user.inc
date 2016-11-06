@@ -13,6 +13,8 @@ class user
 			return "There already exists a user with that social security number";
 		if(\db_user::check_if_email_exists($email, $exclude_user_id))
 			return "There already exists a user with that email address";
+
+		return false;
 	}
 
 	public static function delete_user ($user_id)

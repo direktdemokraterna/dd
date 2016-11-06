@@ -102,7 +102,7 @@ class forum
 	private static function replace_named_open_quotes($html_text, &$count) {
 		$html_text = preg_replace_callback("/\\[quote=(\d+)\\]/i", 
 			function ($matches) {
-				return "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.	php?type=forum&action=show_posts&post_id=$matches[1]#post$matches[1]\">" .
+				return "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&post_id=$matches[1]#post$matches[1]\">" .
 				self::get_name_of_poster($matches[1]) . " skrev:</a><br><br>";
 			}, $html_text, -1, $count);
 		return $html_text;	
@@ -123,7 +123,7 @@ class forum
 		$ok = \db_forum::add_content_to_post($post_id, $processed_content);
 		if($ok){
 			$_SESSION['report_message'] = _t("Post created.");
-			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id;
+			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id; // todo: redirect not used
 		}
 		else 
 			\Logic\util::report_error(_t("The post could not be created."));
