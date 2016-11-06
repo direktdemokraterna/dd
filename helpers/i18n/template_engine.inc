@@ -12,7 +12,7 @@ class template_engine
 	{
 		$trimmed_original = trim($original);
 		$numbers = util::extract_numbers($trimmed_original);
-		$translation = self::translate_whole_phrase($trimmed_original, $translation_hints);
+		$translation = self::translate_whole_phrase($trimmed_original, $translation_hints); // todo: wrong parameter counts
 		if ($translation) {
 			$translation = util::restore_numbers($translation, $numbers);
 		}

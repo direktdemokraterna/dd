@@ -280,7 +280,7 @@ class vote
 	}
 
 	public static function output_vote_result_with_header($voteinfo, $ballots_to_count) {
-		echo self::generate_vote_result_header($voteinfo, $ballots_to_count);
+		echo self::generate_vote_result_header($voteinfo, $ballots_to_count); // todo: wrong parameter count
 		echo self::generate_vote_result($voteinfo);
 	}
 

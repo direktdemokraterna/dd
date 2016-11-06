@@ -1,4 +1,4 @@
-<?php $last_posts = db_forum::get_last_posts(10); // todo: wrong parameter count ?>
+<?php $last_posts = db_forum::get_last_posts(10); ?>
 
 <ul>
 	<li>
