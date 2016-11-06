@@ -2,12 +2,13 @@
 
 class db_forum 
 {
-	public static function get_last_posts ()
+	public static function get_last_posts ($num_posts = 10)
 	{
+		$limit_posts = (int) $num_posts;
 		$query = "select p.id as post_id, p.title as post_title, p.posted_time as posted_time, u.id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, 
 					f.id as forum_id, f.title as forum_title, c.id as cat_id, c.title as cat_title, (select id from post t where t.id = p.topic_id) as topic_id 
 					from post p, user u, category c, forum f, forum_user fu 
-					where p.user_id = u.id and p.forum_id = f.id and f.category_id = c.id and f.id = fu.forum_id and fu.user_id = ? order by p.posted_time desc limit 10";
+					where p.user_id = u.id and p.forum_id = f.id and f.category_id = c.id and f.id = fu.forum_id and fu.user_id = ? order by p.posted_time desc limit ".$limit_posts;
 		$values = Array($_SESSION['id']);
 		return db::select($query, $values);
 	}
