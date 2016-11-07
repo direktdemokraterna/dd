@@ -239,4 +239,3 @@ class verb_perfect_participle extends adjective
 		return $adjective_compact_translation;
 	}
 }
-?>

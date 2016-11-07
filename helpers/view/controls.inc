@@ -227,7 +227,7 @@ class controls
 				, "$params_string");
 		}
 		else {
-			$url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?$params_string";
+			$url = "//" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?$params_string";
 			echo "<a href='$url'>$label</a>";
 		}
 	}

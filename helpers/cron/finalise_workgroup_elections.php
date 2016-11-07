@@ -14,4 +14,3 @@ foreach($changes_to_execute as $row){
 	db_workgroup::delete_workgroup_election_changes($row['id']);
 }
 
-?>
