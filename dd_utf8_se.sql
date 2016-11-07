@@ -411,6 +411,10 @@ CREATE TABLE `user` (
   `admin_notes` varchar(255) default '',
   `image` varchar(90) NOT NULL default 'no_image.png',
   `description` text,
+  `activation_code` varchar(20) default NULL,
+  `activation_time` integer unsigned default 1460019477,
+  `activation_first_name` varchar(45) default NULL,
+  `activation_last_name` varchar(45) default NULL,
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
@@ -683,8 +687,8 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`id`,`title`,`description`) VALUES 
  (4,'Testkategorin','Bara ett test. '),
  (5,'Andra testkategorin','Ännu ett test. '),
- (8,'Interna arbetsgruppsforum','Dessa forum har bara medlemmarna i den respektive arbetsgrupperna tillg†ng till.'),
- (9,'Arbetsgrupper','Publika forum f”r de olika arbetsgrupperna.'),
+ (8,'Interna arbetsgruppsforum','Dessa forum har bara medlemmarna i den respektive arbetsgrupperna tillgång till.'),
+ (9,'Arbetsgrupper','Publika forum för de olika arbetsgrupperna.'),
  (2,'Lokala forum','');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
