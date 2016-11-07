@@ -214,4 +214,4 @@
 			? substr($text, 0, $limit - 3) . '...'
 			: $text;
 	}
-?>
+
