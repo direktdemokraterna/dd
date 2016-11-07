@@ -73,7 +73,7 @@ class translation_identifier
 
 	private static function strip_parenthesis($text_in_parenthesis) 
 	{
-		return substr($text_in_parenthesis, 1, strlen($text_in_parenthesis) - 2);
+		return mb_substr($text_in_parenthesis, 1, mb_strlen($text_in_parenthesis) - 2);
 	}
 
 	function __construct($key, $class, $type = 1) 
@@ -88,4 +88,3 @@ class translation_identifier
 		//$this->passive = false;
 	}
 }
-?>

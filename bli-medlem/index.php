@@ -32,16 +32,15 @@ if($is_all_mandatory_set){
 }
 
 ?>
-<html><head>
-
-<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
-<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
-
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="shortcut icon" href="images/favicon.ico">
-
-<title>DD Medlemssystem ver <?php echo VERSION ?></title>
-
+<html>
+<head>
+	<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
+	<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<title>DD Medlemssystem ver <?php echo VERSION ?></title>
 </head>
 
 <body>
@@ -72,7 +71,7 @@ if($is_all_mandatory_set){
 ?>
 <h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; "><?php __t("Membership application"); ?>
 </h1>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="../helpers/js/constituency.js"></script>
 <script src="../helpers/js/session.js"></script>
 

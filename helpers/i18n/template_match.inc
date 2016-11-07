@@ -75,7 +75,7 @@ class template_match
 			if ($translator->is_number())
 				return (int)$translator->translation;
 			if ($translator->is_quantifier())
-				return strtolower($match->phrase);
+				return mb_strtolower($match->phrase);
 			if ($translator->is_adjective())
 				$current_is_noun = false; 
 			else if (!$translator->is_noun() || !$current_is_noun)

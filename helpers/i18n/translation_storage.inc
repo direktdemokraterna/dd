@@ -32,8 +32,8 @@ class translation_storage
 
 	public static function store_translation($phrase, $translated_phrase) 
 	{
-		$key = strtolower($phrase);
-		$translation = strtolower($translated_phrase);
+		$key = mb_strtolower($phrase);
+		$translation = mb_strtolower($translated_phrase);
 		$identifier = translation_identifier::create($key);
 		self::$stored_translators[$phrase] = new translator($identifier, $translation);
 	}
@@ -283,7 +283,6 @@ class genitive_translator
 	
 	private static function get_last($text) 
 	{
-		return strtolower(substr($text, strlen($text) - 1));
+		return mb_strtolower(mb_substr($text, mb_strlen($text) - 1));
 	}
 }
-?>

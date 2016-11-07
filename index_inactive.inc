@@ -2,7 +2,7 @@
 	if (isset($_POST['activation'])) {
 		$ok = db_user::activate_user($_SESSION['id']);
 		if($ok){
-			$_SESSION['report_message'] = "Din användare är nu aktiverad.";
+			$_SESSION['report_message'] = "Din anvÃ¤ndare Ã¤r nu aktiverad.";
 			$redirect = "index.php";
 		}
 	}	
@@ -21,18 +21,18 @@
 
 	<p>Hej <?php echo $user_first_name; ?>!</p>
 
-	<p>För att din användare ska aktiveras i det nya medlemssystemet måste du godkänna följande villkor: </p>
+	<p>FÃ¶r att din anvÃ¤ndare ska aktiveras i det nya medlemssystemet mÃ¥ste du godkÃ¤nna fÃ¶ljande villkor: </p>
 
 	<ul>
 		<li>Dina personuppgifter lagras i systemets databas i enlighet med PUL</li>
-		<li>Medlemsadministratören kan se dina personuppgifter i databasen</li>
-		<li>Ditt för- och efternamn samt din folkbokföringskommun visas för andra medlemmar</li>
+		<li>MedlemsadministratÃ¶ren kan se dina personuppgifter i databasen</li>
+		<li>Ditt fÃ¶r- och efternamn samt din folkbokfÃ¶ringskommun visas fÃ¶r andra medlemmar</li>
 	</ul>
 
-	<p>Om du godkänner detta kommer du att få tillgång till systemet och du blir synlig för andra medlemmar i systemet.</p>
+	<p>Om du godkÃ¤nner detta kommer du att fÃ¥ tillgÃ¥ng till systemet och du blir synlig fÃ¶r andra medlemmar i systemet.</p>
 
 	<input type="hidden" name="activation_code" value="<?php echo $_GET['code']; ?>">
-	<input type="submit" value="Jag godkänner">
+	<input type="submit" value="Jag godkÃ¤nner">
 </form>
 
 </div>

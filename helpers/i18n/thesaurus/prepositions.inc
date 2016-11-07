@@ -6,7 +6,7 @@ class prepositions
 	public static function create_translations() {
 		return array(
 			"above:prep[definite]" => array(
-				"sv" => "ovanför"
+				"sv" => "ovanfÃ¶r"
 				,"en" => "above"
 				)
 			,"above:prep" => array(
@@ -14,7 +14,7 @@ class prepositions
 				,"en" => "above"
 				)
 			,"above the line:prep" => array(
-				"sv" => "ovanför strecket"
+				"sv" => "ovanfÃ¶r strecket"
 				,"en" => "above the line"
 				)
 			,"as:prep" => array(
@@ -46,7 +46,7 @@ class prepositions
 				,"en" => "for"
 				)
 			,"for:prep[all]" => array(
-				"sv" => "för"
+				"sv" => "fÃ¶r"
 				,"en" => "for"
 				)
 			,"for:prep[quant]" => array(
@@ -54,11 +54,11 @@ class prepositions
 				,"en" => "for"
 				)
 			,"for:prep" => array(
-				"sv" => "för"
+				"sv" => "fÃ¶r"
 				,"en" => "for"
 				)
 			,"from:prep" => array(
-				"sv" => "från"
+				"sv" => "frÃ¥n"
 				,"en" => "from"
 				)
 			,"in:prep[which]" => array(
@@ -74,7 +74,7 @@ class prepositions
 				,"en" => "of"
 				)
 			,"[name]of:prep" => array(
-				"sv" => "på"
+				"sv" => "pÃ¥"
 				,"en" => "of"
 				)
 			,"[number]of:prep" => array(
@@ -86,7 +86,7 @@ class prepositions
 				,"en" => "of"
 				)
 			,"on:prep" => array(
-				"sv" => "på"
+				"sv" => "pÃ¥"
 				,"en" => "on"
 				)
 			,"out:prep" => array(
@@ -94,7 +94,7 @@ class prepositions
 				,"en" => "out"
 				)
 			,"outside:prep" => array(
-				"sv" => "utanför"
+				"sv" => "utanfÃ¶r"
 				,"en" => "outside"
 				)
 			,"[end]through:prep" => array(
@@ -106,7 +106,7 @@ class prepositions
 				,"en" => "through"
 				)
 			,"[visible]to:prep" => array(
-				"sv" => "för"
+				"sv" => "fÃ¶r"
 				,"en" => "to"
 				)
 			,"to:prep" => array(
@@ -127,5 +127,5 @@ class prepositions
 				)
 		);
 	}	
-} 
-?>
+}
+

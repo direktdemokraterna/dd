@@ -7,15 +7,15 @@ class nouns
 		return array(
 			//singular_indefinite:plural_indefinite:singular_definite:plural_definite
 			"access:noun1" => array(
-				"sv" => "tillgång"
+				"sv" => "tillgÃ¥ng"
 				,"en" => "access"
 				)
 			,"action:noun1" => array(
-				"sv" => "åtgärd:er:en:na"
+				"sv" => "Ã¥tgÃ¤rd:er:en:na"
 				,"en" => "action:s"
 				)
 			,"active vote:noun1" => array(
-				"sv" => "pågående omröstning:ar"
+				"sv" => "pÃ¥gÃ¥ende omrÃ¶stning:ar"
 				,"en" => "active vote:s"
 				)
 			,"activity:noun1" => array(
@@ -27,23 +27,23 @@ class nouns
 				,"en" => "address:es"
 				)
 			,"admin:noun1" => array(
-				"sv" => "admin:istratörer"
+				"sv" => "admin:istratÃ¶rer"
 				,"en" => "admin:istrators"
 				)
 			,"administrator:noun1" => array(
-				"sv" => "administratör:er:-s"
+				"sv" => "administratÃ¶r:er:-s"
 				,"en" => "administrator:s"
 				)
 			,"application:noun1" => array(
-				"sv" => "ansökan:__ningar"
+				"sv" => "ansÃ¶kan:__ningar"
 				,"en" => "application:s"
 				)
 			,"authorisation:noun1" => array(
-				"sv" => "behörighet:er"
+				"sv" => "behÃ¶righet:er"
 				,"en" => "authorisation:s"
 				)
 			,"ballot:noun1" => array(
-				"sv" => "röst:er:en:na"
+				"sv" => "rÃ¶st:er:en:na"
 				,"en" => "ballot:s"
 				)
 			,"[]bold:noun1" => array(
@@ -87,11 +87,11 @@ class nouns
 				,"en" => "category:_ies"
 				)
 			,"change:noun1[made]" => array(
-				"sv" => "ändring:ar"
+				"sv" => "Ã¤ndring:ar"
 				,"en" => "change:s"
 				)
 			,"change:noun1" => array(
-				"sv" => "förändring:ar"
+				"sv" => "fÃ¶rÃ¤ndring:ar"
 				,"en" => "change:s"
 				)
 			,"city:noun1" => array(
@@ -127,7 +127,7 @@ class nouns
 				,"en" => "delegate:s"
 				)
 			,"delegate setting:noun1" => array(
-				"sv" => "delegatinställning:ar"
+				"sv" => "delegatinstÃ¤llning:ar"
 				,"en" => "delegate setting:s"
 				)
 			,"delegation:noun1" => array(
@@ -155,15 +155,15 @@ class nouns
 				,"en" => "filtering"
 				)
 			,"forum access:noun1" => array(
-				"sv" => "forumbehörighet"
+				"sv" => "forumbehÃ¶righet"
 				,"en" => "forum access"
 				)
 			,"forum admin:noun1" => array(
-				"sv" => "forumadministratör:er"
+				"sv" => "forumadministratÃ¶r:er"
 				,"en" => "forum admin:s"
 				)
 			,"front page:noun1" => array(
-				"sv" => "första-sida"
+				"sv" => "fÃ¶rsta-sida"
 				,"en" => "front page"
 				)
 			,"group:noun1" => array(
@@ -175,7 +175,7 @@ class nouns
 				,"en" => "history"
 				)
 			,"hit:noun1" => array(
-				"sv" => "träff:ar"
+				"sv" => "trÃ¤ff:ar"
 				,"en" => "hit:s"
 				)
 			,"image:noun1" => array(
@@ -199,7 +199,7 @@ class nouns
 				,"en" => "italic"
 				)
 			,"link:noun1" => array(
-				"sv" => "länk:ar"
+				"sv" => "lÃ¤nk:ar"
 				,"en" => "link:es"
 				)
 			,"list:noun1" => array(
@@ -231,7 +231,7 @@ class nouns
 				,"en" => "member-page:s"
 				)
 			,"membership application:noun1" => array(
-				"sv" => "medlemsansökan"
+				"sv" => "medlemsansÃ¶kan"
 				,"en" => "membership application"
 				)
 			,"minute:noun1" => array(
@@ -243,7 +243,7 @@ class nouns
 				,"en" => "moderator:s"
 				)
 			,"month:noun1" => array(
-				"sv" => "månad:er:en:na"
+				"sv" => "mÃ¥nad:er:en:na"
 				,"en" => "month:s"
 				)
 			,"municipality:noun1" => array(
@@ -267,7 +267,7 @@ class nouns
 				,"en" => "participant:s"
 				)
 			,"permission:noun1" => array(
-				"sv" => "behörighet:er:en:na"
+				"sv" => "behÃ¶righet:er:en:na"
 				,"en" => "permission:s"
 				)
 			,"phrase:noun1" => array(
@@ -275,11 +275,11 @@ class nouns
 				,"en" => "phrase:s"
 				)
 			,"possibility:noun1" => array(
-				"sv" => "möjlighet:er:en:na"
+				"sv" => "mÃ¶jlighet:er:en:na"
 				,"en" => "possibility:_ies"
 				)
 			,"popularity:noun1" => array(
-				"sv" => "populäritet"
+				"sv" => "populÃ¤ritet"
 				,"en" => "popularity"
 				)
 			,"presentation:noun1" => array(
@@ -295,7 +295,7 @@ class nouns
 				,"en" => "profile:s"
 				)
 			,"proposed vote:noun1" => array(
-				"sv" => "föreslagen omröstning"
+				"sv" => "fÃ¶reslagen omrÃ¶stning"
 				,"en" => "proposed vote"
 				)
 			,"proposition:noun1" => array(
@@ -303,7 +303,7 @@ class nouns
 				,"en" => "proposition:s"
 				)
 			,"question:noun1" => array(
-				"sv" => "fråga:_or:n:na"
+				"sv" => "frÃ¥ga:_or:n:na"
 				,"en" => "question:s"
 				)
 			,"recipient:noun1" => array(
@@ -319,7 +319,7 @@ class nouns
 				,"en" => "repetition:s"
 				)				
 			,"report:noun1" => array(
-				"sv" => "anmälan"
+				"sv" => "anmÃ¤lan"
 				,"en" => "report"
 				)				
 			,"role:noun1" => array(
@@ -327,11 +327,11 @@ class nouns
 				,"en" => "role:s"
 				)
 			,"search:noun1" => array(
-				"sv" => "sök:ningar:ningen:na:-"
+				"sv" => "sÃ¶k:ningar:ningen:na:-"
 				,"en" => "search:es"
 				)
 			,"sender:noun1" => array(
-				"sv" => "avsändare::n:_na"
+				"sv" => "avsÃ¤ndare::n:_na"
 				,"en" => "sender:s"
 				)
 			,"session:noun1" => array(
@@ -339,7 +339,7 @@ class nouns
 				,"en" => "session:s"
 				)
 			,"setting:noun1" => array(
-				"sv" => "inställning:ar"
+				"sv" => "instÃ¤llning:ar"
 				,"en" => "setting:s"
 				)
 			,"sort order:noun1" => array(
@@ -359,15 +359,15 @@ class nouns
 				,"en" => "subforum:s"
 				)
 			,"subscription:noun1" => array(
-				"sv" => "anmälan"
+				"sv" => "anmÃ¤lan"
 				,"en" => "subscription"
 				)
 			,"support-ballot:noun1" => array(
-				"sv" => "stöd-röst:er:en:na"
+				"sv" => "stÃ¶d-rÃ¶st:er:en:na"
 				,"en" => "support-ballot:s"
 				)
 			,"supporter:noun1" => array(
-				"sv" => "stödjare::n:_na"
+				"sv" => "stÃ¶djare::n:_na"
 				,"en" => "supporter:s"
 				)
 			,"telephone:noun1" => array(
@@ -379,7 +379,7 @@ class nouns
 				,"en" => "text:s"
 				)
 			,"thread:noun1" => array(
-				"sv" => "tråd:ar:en:na:-"
+				"sv" => "trÃ¥d:ar:en:na:-"
 				,"en" => "thread:s"
 				)
 			,"time:noun1" => array(
@@ -387,7 +387,7 @@ class nouns
 				,"en" => "time:s"
 				)
 			,"time of vote:noun1" => array(
-				"sv" => "Röstningstidpunkt"
+				"sv" => "RÃ¶stningstidpunkt"
 				,"en" => "Time of vote"
 				)
 			,"title:noun1" => array(
@@ -395,7 +395,7 @@ class nouns
 				,"en" => "title"
 				)
 			,"treasurer:noun1" => array(
-				"sv" => "kassör"
+				"sv" => "kassÃ¶r"
 				,"en" => "treasurer"
 				)
 			,"type:noun1" => array(
@@ -411,39 +411,39 @@ class nouns
 				,"en" => "update:s"
 				)
 			,"user:noun1" => array(
-				"sv" => "användare::n:_na:-_"
+				"sv" => "anvÃ¤ndare::n:_na:-_"
 				,"en" => "user:s"
 				)
 			,"user information:noun1" => array(
-				"sv" => "användaruppgifter"
+				"sv" => "anvÃ¤ndaruppgifter"
 				,"en" => "user information"
 				)
 			,"[your]vote:noun1" => array(
-				"sv" => "röst:er:en:na"
+				"sv" => "rÃ¶st:er:en:na"
 				,"en" => "vote:s"
 				)
 			,"vote:noun1" => array(
-				"sv" => "omröstning:ar:en:na:-s"
+				"sv" => "omrÃ¶stning:ar:en:na:-s"
 				,"en" => "vote:s"
 				)
 			,"vote admin:noun1" => array(
-				"sv" => "valadministratör:er"
+				"sv" => "valadministratÃ¶r:er"
 				,"en" => "vote admin:s"
 				)
 			,"vote count:noun1" => array(
-				"sv" => "ställningen i denna omröstning"
+				"sv" => "stÃ¤llningen i denna omrÃ¶stning"
 				,"en" => "vote count:s"
 				)
 			,"vote time:noun1" => array(
-				"sv" => "omröstningstid:er:en:na"
+				"sv" => "omrÃ¶stningstid:er:en:na"
 				,"en" => "vote time:s"
 				)
 			,"voter:noun1" => array(
-				"sv" => "röstande"
+				"sv" => "rÃ¶stande"
 				,"en" => "voter"
 				)
 			,"voting:noun1" => array(
-				"sv" => "röstning"
+				"sv" => "rÃ¶stning"
 				,"en" => "voting"
 				)
 			,"week:noun1" => array(
@@ -461,7 +461,7 @@ class nouns
 
 			//NOUNS, variation 2
 			,"addition:noun2" => array(
-				"sv" => "tillägg"
+				"sv" => "tillÃ¤gg"
 				,"en" => "addition"
 				)
 			,"alternative:noun2" => array(
@@ -473,7 +473,7 @@ class nouns
 				,"en" => "candidate election:s"
 				)
 			,"content:noun2" => array(
-				"sv" => "innehåll"
+				"sv" => "innehÃ¥ll"
 				,"en" => "content"
 				)
 			,"date:noun2" => array(
@@ -489,11 +489,11 @@ class nouns
 				,"en" => "error:s"
 				)
 			,"field:noun2" => array(
-				"sv" => "fält::et:en"
+				"sv" => "fÃ¤lt::et:en"
 				,"en" => "field:s"
 				)
 			,"form:noun2" => array(
-				"sv" => "formulär::et:en"
+				"sv" => "formulÃ¤r::et:en"
 				,"en" => "form:s"
 				)
 			,"forum:noun2" => array(
@@ -501,7 +501,7 @@ class nouns
 				,"en" => "forum:s"
 				)
 			,"given name:noun2" => array(
-				"sv" => "förnamn"
+				"sv" => "fÃ¶rnamn"
 				,"en" => "given name"
 				)
 			,"last name:noun2" => array(
@@ -545,19 +545,19 @@ class nouns
 				,"en" => "number:s"
 				)
 			,"one or more mandatory field:noun2" => array(
-				"sv" => "ett eller fler obligatoriska fält"
+				"sv" => "ett eller fler obligatoriska fÃ¤lt"
 				,"en" => "one or more mandatory field:s"
 				)
 			,"password:noun2" => array(
-				"sv" => "lösenord::et:en"
+				"sv" => "lÃ¶senord::et:en"
 				,"en" => "password:s"
 				)
 			,"post:noun2" => array(
-				"sv" => "inlägg::et:en"
+				"sv" => "inlÃ¤gg::et:en"
 				,"en" => "post:s"
 				)
 			,"proposal:noun2" => array(
-				"sv" => "förslag::et:en"
+				"sv" => "fÃ¶rslag::et:en"
 				,"en" => "proposal:s"
 				)
 			,"quote:noun2" => array(
@@ -565,7 +565,7 @@ class nouns
 				,"en" => "quote:s"
 				)
 			,"region:noun2" => array(
-				"sv" => "län::et:en"
+				"sv" => "lÃ¤n::et:en"
 				,"en" => "region:s"
 				)
 			,"result:noun2" => array(
@@ -573,7 +573,7 @@ class nouns
 				,"en" => "result:s"
 				)
 			,"subject:noun2" => array(
-				"sv" => "ämne"
+				"sv" => "Ã¤mne"
 				,"en" => "subject"
 				)
 			,"social security number:noun2" => array(
@@ -581,23 +581,23 @@ class nouns
 				,"en" => "social security number"
 				)
 			,"support:noun2" => array(
-				"sv" => "stöd"
+				"sv" => "stÃ¶d"
 				,"en" => "support"
 				)
 			,"topic:noun2" => array(
-				"sv" => "ämne:n:t:a:-s"
+				"sv" => "Ã¤mne:n:t:a:-s"
 				,"en" => "topic:s"
 				)
 			,"username:noun2" => array(
-				"sv" => "användarnamn::et:en"
+				"sv" => "anvÃ¤ndarnamn::et:en"
 				,"en" => "username:s"
 				)
 			,"value:noun2" => array(
-				"sv" => "värde:n"
+				"sv" => "vÃ¤rde:n"
 				,"en" => "value:s"
 				)
 			,"vote alternative:noun2" => array(
-				"sv" => "omröstningsalternativ::et:en"
+				"sv" => "omrÃ¶stningsalternativ::et:en"
 				,"en" => "vote alternative:s"
 				)
 			,"wrong:noun2" => array(
@@ -605,7 +605,7 @@ class nouns
 				,"en" => "wrong"
 				)
 			,"year:noun2" => array(
-				"sv" => "år"
+				"sv" => "Ã¥r"
 				,"en" => "year"
 				)
 			,"zip code:noun2" => array(
@@ -614,5 +614,4 @@ class nouns
 				)
 		);
 	}	
-} 
-?>
+}

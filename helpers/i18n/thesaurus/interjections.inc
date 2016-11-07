@@ -18,7 +18,7 @@ class interjections
 				,"en" => "thank you"
 				)
 			,"welcome:interjection" => array(
-				"sv" => "välkommen"
+				"sv" => "vÃ¤lkommen"
 				,"en" => "welcome"
 				)
 			,"yes:interjection" => array(
@@ -27,5 +27,4 @@ class interjections
 				)
 		);
 	}	
-} 
-?>
+}

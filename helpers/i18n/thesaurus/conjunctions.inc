@@ -10,7 +10,7 @@ class conjunctions
 				,"en" => "and"
 				)
 			,"both:conj" => array(
-				"sv" => "både"
+				"sv" => "bÃ¥de"
 				,"en" => "both"
 				)
 			,"if:conj" => array(
@@ -22,7 +22,7 @@ class conjunctions
 				,"en" => "in case"
 				)
 			,"instead of:conj" => array(
-				"sv" => "istället för"
+				"sv" => "istÃ¤llet fÃ¶r"
 				,"en" => "instead of"
 				)
 			,"or:conj" => array(
@@ -30,7 +30,7 @@ class conjunctions
 				,"en" => "or"
 				)
 			,"so:conj" => array(
-				"sv" => "så"
+				"sv" => "sÃ¥"
 				,"en" => "so"
 				)
 			,"that:conj" => array(
@@ -42,10 +42,9 @@ class conjunctions
 				,"en" => "until"
 				)
 			,"when:conj" => array(
-				"sv" => "när"
+				"sv" => "nÃ¤r"
 				,"en" => "when"
 				)
 		);
 	}	
-} 
-?>
+}

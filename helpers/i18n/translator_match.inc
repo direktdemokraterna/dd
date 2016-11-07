@@ -23,12 +23,11 @@ class translator_match
 
 	public function translate($translators_before, $translators_after, $translation_hints) 
 	{
-		return $this->translator->translate(strtolower($this->phrase), $translators_before, $translators_after, $translation_hints);
+		return $this->translator->translate(mb_strtolower($this->phrase), $translators_before, $translators_after, $translation_hints);
 	}
 
 	public function make_noun_prefix() 
 	{
-		return $this->translator->make_noun_prefix(strtolower($this->phrase));
+		return $this->translator->make_noun_prefix(mb_strtolower($this->phrase));
 	}
 }
-?>

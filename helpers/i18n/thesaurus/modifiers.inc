@@ -17,7 +17,7 @@ class modifiers
 
 			// DEFINITE MARKERS
 			,"once every:definite" => array(
-				"sv" => "en gång i"
+				"sv" => "en gÃ¥ng i"
 				,"en" => "once every"
 				)
 			,"that:definite[noun]" => array(
@@ -33,13 +33,13 @@ class modifiers
 				,"en" => "the"
 				)
 			,"[verb|]this:definite[adj|noun|noun_gen]" => array(
-				"sv" => "den|_t:_ här"
+				"sv" => "den|_t:_ hÃ¤r"
 				,"en" => "this:__ese"
 				)
 
 			//INDEFINITE MODIFIERS
 			,"[verb-imperative|]to:indefinite" => array(
-				"sv" => "för att"
+				"sv" => "fÃ¶r att"
 				,"en" => "to"
 				)
 			,"to:indefinite[verb|adverb]" => array(
@@ -48,5 +48,5 @@ class modifiers
 				)
 		);
 	}	
-} 
-?>
+}
+

@@ -6,15 +6,15 @@ class phrases
 	public static function create_translations() {
 		return array(
 			"a continuous vote will also be created" => array(
-				"sv" => "kommer det också att skapas en kontinuerlig omröstning"
+				"sv" => "kommer det ocksÃ¥ att skapas en kontinuerlig omrÃ¶stning"
 				,"en" => "a continuous vote will also be created"
 				)
 			,"it also means" => array(
-				"sv" => "det innebär också"
+				"sv" => "det innebÃ¤r ocksÃ¥"
 				,"en" => "it also means"
 				)
 			,"as follows" => array(
-				"sv" => "följande"
+				"sv" => "fÃ¶ljande"
 				,"en" => "as follows"
 				)
 			,"be seen" => array(
@@ -30,7 +30,7 @@ class phrases
 				,"en" => "candidate in"
 				)
 			,"currently members" => array(
-				"sv" => "medlemmar för närvarande"
+				"sv" => "medlemmar fÃ¶r nÃ¤rvarande"
 				,"en" => "currently members"
 				)
 			,"delete selected" => array(
@@ -38,7 +38,7 @@ class phrases
 				,"en" => "delete selected"
 				)
 			,"did never read it" => array(
-				"sv" => "hann aldrig läsa det"
+				"sv" => "hann aldrig lÃ¤sa det"
 				,"en" => "did never read it"
 				)
 			,"didn't match" => array(
@@ -50,27 +50,27 @@ class phrases
 				,"en" => "do you really want to"
 				)
 			,"doesn't support" => array(
-				"sv" => "stöder ej"
+				"sv" => "stÃ¶der ej"
 				,"en" => "doesn't support"
 				)
 			,"don't support" => array(
-				"sv" => "stödjer inte"
+				"sv" => "stÃ¶djer inte"
 				,"en" => "don't support"
 				)
 			,"for the particular issue" => array(
-				"sv" => "i den frågan"
-				,"en" => "från the particular issue"
+				"sv" => "i den frÃ¥gan"
+				,"en" => "frÃ¥n the particular issue"
 				)
 			,"for which you have registerered your delegacy" => array(
-				"sv" => "som du angivit för din delegat"
+				"sv" => "som du angivit fÃ¶r din delegat"
 				,"en" => "for which you have registerered your delegacy"
 				)
 			,"forum topic-id" => array(
-				"sv" => "forumtråds-ID"
+				"sv" => "forumtrÃ¥ds-ID"
 				,"en" => "forum topic-ID"
 				)
 			,"here you create" => array(
-				"sv" => "här skapar man"
+				"sv" => "hÃ¤r skapar man"
 				,"en" => "here you create"
 				)
 			,"in a row" => array(
@@ -82,11 +82,11 @@ class phrases
 				,"en" => "in association with"
 				)
 			,"in the same way" => array(
-				"sv" => "på samma sätt"
+				"sv" => "pÃ¥ samma sÃ¤tt"
 				,"en" => "in the same way"
 				)
 			,"is not free" => array(
-				"sv" => "inte är öppet"
+				"sv" => "inte Ã¤r Ã¶ppet"
 				,"en" => "is not free"
 				)
 			,"it cannot be removed" => array(
@@ -94,11 +94,11 @@ class phrases
 				,"en" => "it cannot be removed"
 				)
 			,"it is not possible" => array(
-				"sv" => "det går inte"
+				"sv" => "det gÃ¥r inte"
 				,"en" => "it is not possible"
 				)
 			,"it is possible" => array(
-				"sv" => "finns möjligheten"
+				"sv" => "finns mÃ¶jligheten"
 				,"en" => "it is possible"
 				)
 			,"it will be transformed" => array(
@@ -110,7 +110,7 @@ class phrases
 				,"en" => "last login"
 				)
 			,"one of the mandatory fields" => array(
-				"sv" => "något av de obligatoriska fälten"
+				"sv" => "nÃ¥got av de obligatoriska fÃ¤lten"
 				,"en" => "one of the mandatory fields"
 				)
 			,"reply to" => array(
@@ -118,7 +118,7 @@ class phrases
 				,"en" => "reply to"
 				)
 			,"signed up for" => array(
-				"sv" => "anmäld till"
+				"sv" => "anmÃ¤ld till"
 				,"en" => "signed up for"
 				)
 			,"the activation of this workgroup" => array(
@@ -130,7 +130,7 @@ class phrases
 				,"en" => "the creation of this workgroup"
 				)
 			,"their vote" => array(
-				"sv" => "sin röst"
+				"sv" => "sin rÃ¶st"
 				,"en" => "their vote"
 				)
 			,"there are" => array(
@@ -138,11 +138,11 @@ class phrases
 				,"en" => "there are"
 				)
 			,"this is not appropriate" => array(
-				"sv" => "detta inte är lämpligt"
+				"sv" => "detta inte Ã¤r lÃ¤mpligt"
 				,"en" => "this is not appropriate"
 				)
 			,"this means" => array(
-				"sv" => "det innebär"
+				"sv" => "det innebÃ¤r"
 				,"en" => "this means"
 				)
 			,"to the calendar" => array(
@@ -154,7 +154,7 @@ class phrases
 				,"en" => "vote (yes/no)"
 				)
 			,"vote status" => array(
-				"sv" => "omröstningens status"
+				"sv" => "omrÃ¶stningens status"
 				,"en" => "vote status"
 				)
 			,"whereof" => array(
@@ -162,18 +162,17 @@ class phrases
 				,"en" => "whereof"
 				)
 			,"workgroup election" => array(
-				"sv" => "personval för arbetsgrupp"
+				"sv" => "personval fÃ¶r arbetsgrupp"
 				,"en" => "workgroup election"
 				)
 			,"you don't have to" => array(
-				"sv" => "behöver du inte"
+				"sv" => "behÃ¶ver du inte"
 				,"en" => "you don't have to"
 				)
 			,"you press" => array(
-				"sv" => "trycker du på"
+				"sv" => "trycker du pÃ¥"
 				,"en" => "you press"
 				)
 		);
 	}	
-} 
-?>
+}

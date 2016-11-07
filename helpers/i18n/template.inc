@@ -94,7 +94,7 @@ class template
 	private static function expand_word_form($word_part) 
 	{
 		$class = templates::expand_class($word_part[0]);
-		$modifiers = templates::expand_modifiers(substr($word_part, 1));
+		$modifiers = templates::expand_modifiers(mb_substr($word_part, 1));
 		return new word_form($class, $modifiers, $word_part);
 	}
 
@@ -171,4 +171,3 @@ class word_form_match
 		$this->word = $word;
 	}
 }
-?>

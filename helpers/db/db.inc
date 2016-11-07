@@ -9,7 +9,7 @@ class db
 		}
 		else{
 			$data_source = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME;
-			$conn = new PDO($data_source, DB_USERNAME, DB_PASSWORD);
+			$conn = new PDO($data_source, DB_USERNAME, DB_PASSWORD,array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 			return $conn;

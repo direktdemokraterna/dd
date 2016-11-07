@@ -13,7 +13,7 @@ class verbs
 				,"en" => "abort"
 				)
 			,"abstain:verb" => array(
-				"sv" => "avstår"
+				"sv" => "avstÃ¥r"
 				,"en" => "abstain"
 				)
 			,"accept:verb" => array(
@@ -29,7 +29,7 @@ class verbs
 				,"en" => "activate::|s:d"
 				)
 			,"add:verb" => array(
-				"sv" => "lägg till"
+				"sv" => "lÃ¤gg till"
 				,"en" => "add"
 				)
 			,"administrate:verb" => array(
@@ -37,15 +37,15 @@ class verbs
 				,"en" => "administrate::|s:d"
 				)
 			,"append:verb" => array(
-				"sv" => "försett:a:er:___atte:___ett:(__dd|__tt:a):s med tillägg"
+				"sv" => "fÃ¶rsett:a:er:___atte:___ett:(__dd|__tt:a):s med tillÃ¤gg"
 				,"en" => "append::|s:ed"
 				)
 			,"apply:verb" => array(
-				"sv" => "ansök:a:er:te:t"
+				"sv" => "ansÃ¶k:a:er:te:t"
 				,"en" => "apply::|_ies:_ied"
 				)
 			,"appoint:verb" => array(
-				"sv" => "utse::r:_åg:tt:(dd|tt:a):s"
+				"sv" => "utse::r:_Ã¥g:tt:(dd|tt:a):s"
 				,"en" => "appoint::|s:ed"
 				)
 			,"become:verb" => array(
@@ -69,11 +69,11 @@ class verbs
 				,"en" => "candidate"
 				)
 			,"cast:verb" => array(
-				"sv" => "lägg::er:___ade:___agt:(___agd|_t:a):s"
+				"sv" => "lÃ¤gg::er:___ade:___agt:(___agd|_t:a):s"
 				,"en" => "cast::|s:"
 				)
 			,"change:verb" => array(
-				"sv" => "ändra::r:de:t:(d|_t:e):s"
+				"sv" => "Ã¤ndra::r:de:t:(d|_t:e):s"
 				,"en" => "change::|s:d"
 				)
 			,"check:verb" => array(
@@ -81,7 +81,7 @@ class verbs
 				,"en" => "check::|s:ed"
 				)
 			,"choose:verb" => array(
-				"sv" => "välj:a:er:___alde:___alt:(___ald|_t:a):s"
+				"sv" => "vÃ¤lj:a:er:___alde:___alt:(___ald|_t:a):s"
 				,"en" => "choose::|s:___se:n"
 				)
 			,"click:verb" => array(
@@ -89,11 +89,11 @@ class verbs
 				,"en" => "click::|s:ed"
 				)
 			,"close:verb" => array(
-				"sv" => "stäng:a:er:de:t:(d|_t:a):s"
+				"sv" => "stÃ¤ng:a:er:de:t:(d|_t:a):s"
 				,"en" => "close::|s:d"
 				)
 			,"continue:verb" => array(
-				"sv" => "fortsätt:a:er:___atte:___att"
+				"sv" => "fortsÃ¤tt:a:er:___atte:___att"
 				,"en" => "continue::|s:d"
 				)
 			,"create:verb" => array(
@@ -105,7 +105,7 @@ class verbs
 				,"en" => "deactivate::|s:d"
 				)
 			,"decide:verb" => array(
-				"sv" => "bestämm:a:er:_de:_t:(_d|_t:e):s"
+				"sv" => "bestÃ¤mm:a:er:_de:_t:(_d|_t:e):s"
 				,"en" => "decide::|s:d"
 				)
 			,"delegate:verb" => array(
@@ -145,7 +145,7 @@ class verbs
 				,"en" => "edit::|s:ed"
 				)
 			,"elect:verb" => array(
-				"sv" => "välj:a:er:___alde:___alt:(___ald|_t:a):s"
+				"sv" => "vÃ¤lj:a:er:___alde:___alt:(___ald|_t:a):s"
 				,"en" => "elect::|s:ed"
 				)
 			,"end:verb" => array(
@@ -153,7 +153,7 @@ class verbs
 				,"en" => "end::|s:ed"
 				)
 			,"exclude:verb" => array(
-				"sv" => "uteslut:a:er:__öt:it:(en|_t:__na):s"
+				"sv" => "uteslut:a:er:__Ã¶t:it:(en|_t:__na):s"
 				,"en" => "exclude::|s:d"
 				)
 			,"exist:verb" => array(
@@ -193,11 +193,11 @@ class verbs
 				,"en" => "have::|__s:__d"
 				)
 			,"get:verb" => array(
-				"sv" => "få::r:_ick:tt"
+				"sv" => "fÃ¥::r:_ick:tt"
 				,"en" => "get::|s:__ot"
 				)
 			,"leave:verb" => array(
-				"sv" => "lämna"
+				"sv" => "lÃ¤mna"
 				,"en" => "leave"
 				)
 			,"list:verb" => array(
@@ -213,7 +213,7 @@ class verbs
 				,"en" => "logout"
 				)
 			,"make:verb" => array(
-				"sv" => "gör:a::__jorde:__jort:(__jord|_t:a):s"
+				"sv" => "gÃ¶r:a::__jorde:__jort:(__jord|_t:a):s"
 				,"en" => "make::|s:__de"
 				)
 			,"miss:verb" => array(
@@ -233,7 +233,7 @@ class verbs
 				,"en" => "motivate"
 				)
 			,"need:verb" => array(
-				"sv" => "behöv:a:er:de:t:(d|t:a):s"
+				"sv" => "behÃ¶v:a:er:de:t:(d|t:a):s"
 				,"en" => "need::|s:ed"
 				)
 			,"note:verb" => array(
@@ -253,7 +253,7 @@ class verbs
 				,"en" => "post::|s:ed"
 				)
 			,"press:verb" => array(
-				"sv" => "tryck på"
+				"sv" => "tryck pÃ¥"
 				,"en" => "press"
 				)
 			,"process:verb" => array(
@@ -261,11 +261,11 @@ class verbs
 				,"en" => "process::|es:ed"
 				)				
 			,"promote:verb" => array(
-				"sv" => "främja::r:de:t:(d|_t:e):s"
+				"sv" => "frÃ¤mja::r:de:t:(d|_t:e):s"
 				,"en" => "promote::|s:d"
 				)				
 			,"propose:verb" => array(
-				"sv" => "föreslå::r:_og:_agit:(_agen|_t:__na):s"
+				"sv" => "fÃ¶reslÃ¥::r:_og:_agit:(_agen|_t:__na):s"
 				,"en" => "propose::|s:d"
 				)				
 			,"quote:verb" => array(
@@ -277,11 +277,11 @@ class verbs
 				,"en" => "receive::|s:d"
 				)				
 			,"read:verb" => array(
-				"sv" => "läs:a:er:te:t:(t:a):s"
+				"sv" => "lÃ¤s:a:er:te:t:(t:a):s"
 				,"en" => "read::|s:"
 				)				
 			,"reach:verb" => array(
-				"sv" => "uppnå::r:dde:tt"
+				"sv" => "uppnÃ¥::r:dde:tt"
 				,"en" => "reach::|es:ed"
 				)				
 			,"register:verb" => array(
@@ -289,15 +289,15 @@ class verbs
 				,"en" => "register::|s:ed"
 				)				
 			,"reject:verb" => array(
-				"sv" => "avslå"
+				"sv" => "avslÃ¥"
 				,"en" => "reject"
 				)
 			,"report:verb" => array(
-				"sv" => "anmäl:a:er:de:t:(d|t:e):s"
+				"sv" => "anmÃ¤l:a:er:de:t:(d|t:e):s"
 				,"en" => "report::|s:ed"
 				)				
 			,"remember:verb" => array(
-				"sv" => "kom ihåg"
+				"sv" => "kom ihÃ¥g"
 				,"en" => "remember"
 				)				
 			,"remove:verb" => array(
@@ -309,7 +309,7 @@ class verbs
 				,"en" => "repeat::|s:ed"
 				)				
 			,"replace:verb" => array(
-				"sv" => "ersätta::_er:____atte:____att"
+				"sv" => "ersÃ¤tta::_er:____atte:____att"
 				,"en" => "replace::|s:d"
 				)				
 			,"reply:verb" => array(
@@ -317,19 +317,19 @@ class verbs
 				,"en" => "reply::|_ies:_ied"
 				)				
 			,"restore:verb" => array(
-				"sv" => "återställ:a:er:de:t:(d|t:a):s"
+				"sv" => "Ã¥terstÃ¤ll:a:er:de:t:(d|t:a):s"
 				,"en" => "restore::|s:d"
 				)				
 			,"resume:verb" => array(
-				"sv" => "återuppta"
+				"sv" => "Ã¥teruppta"
 				,"en" => "resume"
 				)				
 			,"revoke:verb" => array(
-				"sv" => "ångra::r:de:t:(d|_t:e):s"
+				"sv" => "Ã¥ngra::r:de:t:(d|_t:e):s"
 				,"en" => "revoke::|s:d"
 				)				
 			,"search:verb" => array(
-				"sv" => "sök"
+				"sv" => "sÃ¶k"
 				,"en" => "search"
 				)
 			,"see:verb" => array(
@@ -337,7 +337,7 @@ class verbs
 				,"en" => "see"
 				)
 			,"select:verb" => array(
-				"sv" => "välj::er:___alde:___alt:(___ald|_t:a):s"
+				"sv" => "vÃ¤lj::er:___alde:___alt:(___ald|_t:a):s"
 				,"en" => "select::|s|ing:ed"
 				)
 			,"send:verb" => array(
@@ -345,7 +345,7 @@ class verbs
 				,"en" => "send::|s|ing:_t"
 				)
 			,"set:verb" => array(
-				"sv" => "ställ in"
+				"sv" => "stÃ¤ll in"
 				,"en" => "set"
 				)
 			,"show:verb" => array(
@@ -365,19 +365,19 @@ class verbs
 				,"en" => "submit::|s:ted"
 				)
 			,"subscribe:verb" => array(
-				"sv" => "anmäl:a:er:de:t:(d|_t:a):s"
+				"sv" => "anmÃ¤l:a:er:de:t:(d|_t:a):s"
 				,"en" => "subscribe::|s:d"
 				)
 			,"[]subscribe to:verb" => array(
-				"sv" => "anmäl dig till"
+				"sv" => "anmÃ¤l dig till"
 				,"en" => "subscribe to"
 				)
 			,"subscribe to:verb" => array(
-				"sv" => "prenumerera på"
+				"sv" => "prenumerera pÃ¥"
 				,"en" => "subscribe to"
 				)
 			,"support:verb" => array(
-				"sv" => "stöd:ja:jer:de:_tt"
+				"sv" => "stÃ¶d:ja:jer:de:_tt"
 				,"en" => "support::|s|ing:ed"
 				)
 			,"terminate:verb" => array(
@@ -385,7 +385,7 @@ class verbs
 				,"en" => "terminate::|s:d"
 				)
 			,"for it to be subject for:verb" => array(
-				"sv" => "för att den ska gå vidare och bli"
+				"sv" => "fÃ¶r att den ska gÃ¥ vidare och bli"
 				,"en" => "to be subject for"
 				)
 			,"transform:verb" => array(
@@ -393,11 +393,11 @@ class verbs
 				,"en" => "transform::|s:ed"
 				)
 			,"undo:verb" => array(
-				"sv" => "ångra::r:de:t:(d|t:e):s"
+				"sv" => "Ã¥ngra::r:de:t:(d|t:e):s"
 				,"en" => "undo::|es:_id:ne"
 				)
 			,"unsubscribe from:verb" => array(
-				"sv" => "avanmäl dig från"
+				"sv" => "avanmÃ¤l dig frÃ¥n"
 				,"en" => "unsubscribe from"
 				)
 			,"update:verb" => array(
@@ -409,11 +409,11 @@ class verbs
 				,"en" => "view"
 				)
 			,"vote:verb" => array(
-				"sv" => "rösta::r:de:t"
+				"sv" => "rÃ¶sta::r:de:t"
 				,"en" => "vote::|s:d"
 				)
 			,"go:verb" => array(
-				"sv" => "gå::r:_ick"
+				"sv" => "gÃ¥::r:_ick"
 				,"en" => "go::|es:__went"
 				)
 			,"want the activity to be repeated:verb" => array(
@@ -432,7 +432,7 @@ class verbs
 			//STATE VERBS
 			//imperative:infinitive:present:perfect
 			,"be:verb_state" => array(
-				"sv" => "var:a:___är::it"
+				"sv" => "var:a:___Ã¤r::it"
 				,"en" => "be::__are|___is:__were|___as:en"
 				)
 
@@ -455,7 +455,7 @@ class verbs
 				,"en" => "cannot"
 				)
 			,"do:verb_aux" => array(
-				"sv" => "gör:a:"
+				"sv" => "gÃ¶r:a:"
 				,"en" => "do::|es"
 				)
 			,"have:verb_aux" => array(
@@ -463,15 +463,15 @@ class verbs
 				,"en" => "have::|__s:__d"
 				)
 			,"have let:verb_aux" => array(
-				"sv" => "har låtit"
+				"sv" => "har lÃ¥tit"
 				,"en" => "have let"
 				)
 			,"let:verb_aux" => array(
-				"sv" => "låta"
+				"sv" => "lÃ¥ta"
 				,"en" => "let"
 				)
 			,"must:verb_aux" => array(
-				"sv" => "måste"
+				"sv" => "mÃ¥ste"
 				,"en" => "must"
 				)
 			,"[pron]may:verb_aux" => array(

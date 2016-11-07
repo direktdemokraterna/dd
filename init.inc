@@ -107,7 +107,7 @@ switch (\I18n\controller::get_language()) {
 		setlocale(LC_ALL, NULL);
 		break;
 	case 'sv': 
-		setlocale(LC_ALL, 'swedish', 'sv_SE', 'sv_SE.ISO8859-1');
+		setlocale(LC_ALL, 'swedish', 'sv_SE', 'sv_SE.UTF-8');
 		break;
 }
 

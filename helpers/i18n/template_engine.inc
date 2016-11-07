@@ -29,7 +29,7 @@ class template_engine
 
 	private static function translate_whole_phrase($phrase) 
 	{
-		$lower_phrase = strtolower($phrase);
+		$lower_phrase = mb_strtolower($phrase);
 		$candidate = self::get_candidate_for_whole_phrase($lower_phrase);
 		if (!$candidate) return null;
 		$translation = $candidate->translate($lower_phrase, array(), array());
@@ -104,7 +104,7 @@ class template_engine
 	private static function match_translator($fragment, $is_first_in_phrase, $is_last_in_phrase
 		, $translation_hints) 
 	{
-		$candidates = translation_storage::get_translators(strtolower($fragment), $is_first_in_phrase, $is_last_in_phrase);
+		$candidates = translation_storage::get_translators(mb_strtolower($fragment), $is_first_in_phrase, $is_last_in_phrase);
 		if ($translation_hints && $candidates)
 			$candidates = translation_storage::filter_translators($candidates, $translation_hints);
 		return $candidates;

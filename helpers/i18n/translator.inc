@@ -93,8 +93,8 @@ class translator
 	protected static function create_word_form($base_form, $ending) 
 	{
 		$suffix = ltrim($ending, '_');
-		$del_char_count = strlen($ending) - strlen($suffix);
-		$word_stem = substr($base_form, 0, strlen($base_form) - $del_char_count);
+		$del_char_count = mb_strlen($ending) - mb_strlen($suffix);
+		$word_stem = mb_substr($base_form, 0, mb_strlen($base_form) - $del_char_count);
 		return $word_stem . $suffix;
 	}
 }
@@ -106,5 +106,3 @@ class untranslated extends translator
 		parent::__construct(new translation_identifier('', 'untranslated'), $phrase);
 	}
 }
-
-?>

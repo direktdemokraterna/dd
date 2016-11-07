@@ -31,7 +31,7 @@ class pronouns
 				,"en" => "me"
 				)
 			,"something:pron" => array(
-				"sv" => "något"
+				"sv" => "nÃ¥got"
 				,"en" => "something"
 				)
 			,"there:pron" => array(
@@ -51,7 +51,7 @@ class pronouns
 				,"en" => "those"
 				)
 			,"where:pron" => array(
-				"sv" => "där"
+				"sv" => "dÃ¤r"
 				,"en" => "where"
 				)
 			,"which:pron" => array(
@@ -77,7 +77,7 @@ class pronouns
 				,"en" => "its"
 				)
 			,"[]this:pron-poss[verb|verb_state]" => array(
-				"sv" => "det här"
+				"sv" => "det hÃ¤r"
 				,"en" => "this"
 				)
 			,"this:pron-poss" => array(
@@ -94,5 +94,5 @@ class pronouns
 				)
 		);
 	}	
-} 
-?>
+}
+

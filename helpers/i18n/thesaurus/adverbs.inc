@@ -22,7 +22,7 @@ class adverbs
 				,"en" => "already"
 				)
 			,"also:adverb" => array(
-				"sv" => "också"
+				"sv" => "ocksÃ¥"
 				,"en" => "also"
 				)
 			,"back:adverb" => array(
@@ -30,19 +30,19 @@ class adverbs
 				,"en" => "back"
 				)
 			,"completely:adverb" => array(
-				"sv" => "fullständigt"
+				"sv" => "fullstÃ¤ndigt"
 				,"en" => "completely"
 				)
 			,"currently:adverb" => array(
-				"sv" => "för närvarande"
+				"sv" => "fÃ¶r nÃ¤rvarande"
 				,"en" => "currently"
 				)
 			,"even:adverb" => array(
-				"sv" => "även"
+				"sv" => "Ã¤ven"
 				,"en" => "even"
 				)
 			,"here:adverb" => array(
-				"sv" => "här"
+				"sv" => "hÃ¤r"
 				,"en" => "here"
 				)
 			,"just:adverb" => array(
@@ -50,7 +50,7 @@ class adverbs
 				,"en" => "just"
 				)
 			,"no longer:adverb" => array(
-				"sv" => "inte längre"
+				"sv" => "inte lÃ¤ngre"
 				,"en" => "no longer"
 				)
 			,"not:adverb" => array(
@@ -58,7 +58,7 @@ class adverbs
 				,"en" => "not"
 				)
 			,"not yet:adverb" => array(
-				"sv" => "ännu inte"
+				"sv" => "Ã¤nnu inte"
 				,"en" => "not yet"
 				)
 			,"now:adverb" => array(
@@ -66,7 +66,7 @@ class adverbs
 				,"en" => "now"
 				)
 			,"other than:adverb" => array(
-				"sv" => "annat än"
+				"sv" => "annat Ã¤n"
 				,"en" => "other than"
 				)
 			,"only:adverb" => array(
@@ -74,7 +74,7 @@ class adverbs
 				,"en" => "only"
 				)
 			,"personally:adverb[verb]" => array(
-				"sv" => "själv"
+				"sv" => "sjÃ¤lv"
 				,"en" => "personally"
 				)
 			,"personally:adverb" => array(
@@ -82,7 +82,7 @@ class adverbs
 				,"en" => "personally"
 				)
 			,"[pron]still:adverb" => array(
-				"sv" => "ändå"
+				"sv" => "Ã¤ndÃ¥"
 				,"en" => "still"
 				)
 			,"still:adverb" => array(
@@ -90,7 +90,7 @@ class adverbs
 				,"en" => "still"
 				)
 			,"temporarily:adverb" => array(
-				"sv" => "tillfälligt"
+				"sv" => "tillfÃ¤lligt"
 				,"en" => "temporarily"
 				)
 			,"together:adverb" => array(
@@ -98,7 +98,7 @@ class adverbs
 				,"en" => "together"
 				)
 			,"too:adverb" => array(
-				"sv" => "för"
+				"sv" => "fÃ¶r"
 				,"en" => "too"
 				)
 			,"wrong:adverb" => array(
@@ -106,10 +106,10 @@ class adverbs
 				,"en" => "wrong"
 				)
 			,"why:adverb" => array(
-				"sv" => "varför"
+				"sv" => "varfÃ¶r"
 				,"en" => "why"
 				)
 		);
 	}	
 } 
-?>
+

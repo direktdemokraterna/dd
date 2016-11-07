@@ -7,7 +7,7 @@ class time_and_date
 		return array(
 			//DAYS SHORT
 			"mon" => array(
-				"sv" => "mån"
+				"sv" => "mÃ¥n"
 				,"en" => "mon"
 				)
 			,"tue" => array(
@@ -27,17 +27,17 @@ class time_and_date
 				,"en" => "fri"
 				)
 			,"sat" => array(
-				"sv" => "lör"
+				"sv" => "lÃ¶r"
 				,"en" => "sat"
 				)
 			,"sun" => array(
-				"sv" => "sön"
+				"sv" => "sÃ¶n"
 				,"en" => "sun"
 				)
 
 			//DAYS
 			,"monday" => array(
-				"sv" => "måndag"
+				"sv" => "mÃ¥ndag"
 				,"en" => "monday"
 				)
 			,"tuesday" => array(
@@ -57,11 +57,11 @@ class time_and_date
 				,"en" => "friday"
 				)
 			,"saturday" => array(
-				"sv" => "lördag"
+				"sv" => "lÃ¶rdag"
 				,"en" => "saturday"
 				)
 			,"sunday" => array(
-				"sv" => "söndag"
+				"sv" => "sÃ¶ndag"
 				,"en" => "sunday"
 				)
 
@@ -121,7 +121,7 @@ class time_and_date
 				,"en" => "today"
 				)
 			,"yesterday" => array(
-				"sv" => "igår"
+				"sv" => "igÃ¥r"
 				,"en" => "yesterday"
 				)
 			,"tomorrow" => array(
@@ -131,5 +131,4 @@ class time_and_date
 
 		);
 	}	
-} 
-?>
+}
