@@ -187,6 +187,8 @@ class vote
 				return "/vote_types/candidate-election.inc";
 			case "median":
 				return "/vote_types/median.inc";
+			case "budget":
+				return "/vote_types/budget.inc";
 			default:
 				throw new \Exception("Unknown vote type: " . $vote_type);
 		}
@@ -202,6 +204,8 @@ class vote
 				return "/vote_types/prio-vote_js.inc";
 			case "median":
 				return "/vote_types/median_js.inc";
+			case "budget":
+				return "/vote_types/budget_js.inc";
 			default:
 				return null;
 		}
@@ -286,6 +290,7 @@ class vote
 
 	public static function generate_vote_result_header($voteinfo) {
 		switch ($voteinfo['type']) {
+			case "budget":
 			case "candidate-election": 
 			case "median": 
 			case "prio-vote": 
