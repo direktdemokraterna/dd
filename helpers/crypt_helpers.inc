@@ -6,6 +6,9 @@ class crypt_helpers
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, ANON_SERVER_URL . $anon_server_script);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+		curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
 		if ($sign)
 			$post_vars = self::sign($post_vars);
 		if ($post_vars) {
@@ -14,6 +17,7 @@ class crypt_helpers
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);			
 		}
 		$reply = curl_exec($ch);
+		$info = curl_getinfo($ch);
 		curl_close($ch);
 		return $reply;
 	}
@@ -37,7 +41,7 @@ class crypt_helpers
 		$rsa->loadKey(DD_PRIVATE_KEY);
 		$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
 		$signature = $rsa->encrypt($hash);
-		$post_vars = array('sign' => $signature, 'data' => $serial_data);
+		$post_vars = array('sign' => ($signature), 'data' => ($serial_data));
 		return $post_vars;
 	}
 
@@ -105,4 +109,3 @@ class crypt_helpers
 		return $ballot_aes_decrypted_decoded;
 	}
 }
-?>

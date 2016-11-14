@@ -1,10 +1,10 @@
 <?php 
 
 // Defines constants
-include("../config.inc");
+include("../../config.inc");
 
 // Includes files
-include("../helpers.inc");
+include("../../helpers.inc");
 include("../db/db.inc");
 include("../db/db_user.inc");
 include("../db/db_admin.inc");

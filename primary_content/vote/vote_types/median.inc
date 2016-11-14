@@ -12,4 +12,3 @@
 		echo '<input type="submit" class="vote_button" id="white_vote" value="' . _t("Revoke ballot") . '" style="display: ' . (!empty($delegate_ballot) ? "inline-block" : "none") . '" onmousedown="return encrypt_median_ballot(\'cancel\')">';		
 		echo '</form>';
 	}
-?>

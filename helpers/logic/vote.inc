@@ -51,13 +51,15 @@ class vote
 	public static function update_proposition_support($prop_id, $ballot) 
 	{
 		$prop_info = \db_prop::get_prop_info($prop_id);
+
 		if($_SESSION['delegate_id'])
 			$delegate_constituency_access = \db_constituency::check_voter_constituency_access($_SESSION['delegate_id'], $prop_info['constituency_id']);
 		if(!empty($delegate_constituency_access) && $prop_info['status'] == "pending"){
 			$ballot_decoded = \json_decode($ballot, true);
 			$ok = \db_delegate::register_prop_ballot($prop_id, $_SESSION['delegate_id'], $ballot_decoded['support']);
+
 			if($ok)
-				$_SESSION['report_message'] = _t("Your delegate's ballot is registered.");
+				$_SESSION['report_message'] = _t("Your delegate's ballot is registered.")." in register_prop_ballot";
 			else
 				throw new \Exception(_t("Something went wrong. The ballot was not registered."));
 		}
@@ -65,11 +67,13 @@ class vote
 			$check_user_access = \db_constituency::check_voter_constituency_access($_SESSION['id'], $prop_info['constituency_id']);
 			if($check_user_access){
 				$post_vars = Array("user_id" => $_SESSION['id'], "prop_id" => $prop_id, "ballot" => $ballot);
+
 				$reply = \crypt_helpers::curl_to_anon_server("anonymise_prop_ballot.php", $post_vars);
-				if($reply == "success")
+
+				if(mb_stristr($reply , "success"))
 					$_SESSION['report_message'] = _t("Your ballot is registered.");
 				else
-					throw new \Exception(_t("Something went wrong. The ballot was not registered."));
+					throw new \Exception(_t("Something went wrong. The ballot was not registered.")." in anonymise_prop_ballot");
 			}
 			else
 				die("no constituency access");
@@ -87,21 +91,21 @@ class vote
 		//return;
 		$post_vars = array("user_id" => $user_id, "constituency_id" => $constituency_id);
 		$reply = \crypt_helpers::curl_to_anon_server("remove_ballots.php", $post_vars);
-		if ($reply != 'success')
+		if(!mb_stristr($reply , "success"))
 			throw new \Exception('Failed to remove ballots with reply: ' . $reply);
 	}
 
 	public static function remove_prop_ballots($user_id, $constituency_id = null) {
 		$post_vars = Array("user_id" => $user_id, "constituency_id" => $constituency_id);
 		$reply = \crypt_helpers::curl_to_anon_server("remove_prop_ballots.php", $post_vars);
-		if ($reply != 'success')
+		if(!mb_stristr($reply , "success"))
 			throw new \Exception('Failed to remove prop ballots with reply: ' . $reply);
 	}
 
 	public static function remove_delegations($user_id, $constituency_id = null) {
 		$post_vars = Array("user_id" => $user_id, "constituency_id" => $constituency_id);
 		$reply = \crypt_helpers::curl_to_anon_server("remove_delegations.php", $post_vars);
-		if ($reply != 'success')
+		if(!mb_stristr($reply , "success"))
 			throw new \Exception('Failed to remove delegations with reply: ' . $reply);
 	}
 
