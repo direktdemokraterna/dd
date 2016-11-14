@@ -10,3 +10,4 @@ test/translate/testcases1.xml
 test/translate/testcases_before_phrase_templates.xml
 .idea
 dd_anon
+debug.php
