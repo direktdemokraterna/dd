@@ -11,7 +11,7 @@
 	if (!file_exists($pk_foreign_key_path))
     	mkdir($pk_foreign_key_path, 0777, true);
 	file_put_contents($pk_filename, '-- KEY MISSING --');
-	include("../init.inc");
+	require_once("../init.inc");
 	$post_vars = array('key' => DD_PUBLIC_KEY);
 	$reply = crypt_helpers::curl_to_anon_server("receive_public_key.php", $post_vars, false);
 	if ($reply != 'success')
