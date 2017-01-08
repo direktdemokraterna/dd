@@ -441,7 +441,7 @@ INSERT INTO `user` (`id`,`username`,`password`,`remember_me_token`
   ,`first_name`,`last_name`,`street_address`,`zip_code`,`city_address`
   ,`region_id`,`county_id`,`social_security_number`,`email`
   ,`telephone1`,`telephone2`,`skype_name`,`show_email`,`show_telephone`,`show_skype`
-  ,`number_of_posts`,`number_of_topics`,`membership_fee_payed`,`last_contact_with_admin`
+  ,`number_of_posts`,`number_of_topics`,`membership_fee_last_payed`,`last_contact_with_admin`
   ,`acting_as_delegate`,`user_role`,`admin_notes`,`image`,`description`) 
 VALUES 
  (13,'skutt','$2a$08$.D/rwa/4GMuDX6toO6f0S.k0l6NbHYOd5riJqLbtiNeklXN7WRtQe'
