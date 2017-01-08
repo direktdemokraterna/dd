@@ -117,3 +117,6 @@ DEFINE('BASE_URL', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://'
 
 define_if_undefined("USERIMG_PATH", BASE_URL . "images/userimg/");
 
+define_if_undefined("DD_PRIVATE_KEY", file_get_contents(__DIR__ . "/helpers/keys/dd_private_key.txt"));
+define_if_undefined("DD_PUBLIC_KEY", file_get_contents(__DIR__ . "/helpers/keys/dd_public_key.txt"));
+define_if_undefined("DD_ANON_PUBLIC_KEY", file_get_contents(__DIR__ . "/helpers/keys/dd_anon/dd_anon_public_key.txt"));
