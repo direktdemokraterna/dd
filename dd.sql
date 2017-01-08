@@ -357,9 +357,7 @@ VALUES
 (310,'Västra Götaland','',0,320,2,313),
 (311,'Örebro','',0,321,2,313),
 (312,'Östergötland','',0,322,2,313),
-(313,'Allmant','',4,1,1,NULL),
-(314,'Utomlands','',0,322,2,313),
-(315,'Utomlands','',0,322,2,313);
+(313,'Allmant','',4,1,1,NULL);
 /*!40000 ALTER TABLE `constituency` ENABLE KEYS */;
 
 --
@@ -404,13 +402,18 @@ CREATE TABLE `user` (
   `show_skype` tinyint(1) unsigned NOT NULL default '0',
   `number_of_posts` int(10) unsigned NOT NULL default '0',
   `number_of_topics` int(10) unsigned NOT NULL default '0',
-  `membership_fee_payed` int(10) unsigned default NULL,
+  `membership_fee_last_payed` int(10) unsigned default NULL,
+  `membership_fee_payed_until` int(10) unsigned default NULL,
   `last_contact_with_admin` int(10) unsigned default NULL,
   `acting_as_delegate` tinyint(1) unsigned default '0',
   `user_role` int(10) unsigned NOT NULL default '2',
   `admin_notes` varchar(255) default '',
   `image` varchar(90) NOT NULL default 'no_image.png',
   `description` text,
+  `activation_code` VARCHAR(20) DEFAULT NULL,
+  `activation_time` INTEGER UNSIGNED DEFAULT 1460019477,
+  `activation_first_name` VARCHAR(45),
+  `activation_last_name` VARCHAR(45),
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
