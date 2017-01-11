@@ -714,7 +714,7 @@ body {
 }
 
 .styled-select.slate {
-   background: url(/dev/images/select-chevrons.gif) no-repeat right center;
+   background: url(/images/select-chevrons.gif) no-repeat right center;
    height: 35px;
    width: 240px;
    float: left;

@@ -41,9 +41,13 @@
 		$delegate_options = array("null" => _t("Remove delegate"));
 		foreach ($delegates_for_constituency as $delegate)
 			$delegate_options[$delegate['id']] = $delegate['title'];
+			echo '<div class="styled-select slate">';
 		\View\controls::output_selector('select' . $row['id'], $delegate_options);
-		echo '<input type="submit" value="' . _t("Delegate") . '" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
-			. $row['id'] . ')">';
+		echo '</div>';
+		// echo '<input type="submit" value="' . _t("Delegate") . '" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
+		//	. $row['id'] . ')">';
+		echo '<button type="submit" value="' . _t("Delegate") . '" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
+			. $row['id'] . ')">' . _t("Delegate") . '</button>';
 		echo '</div>';
 	}
 	echo '</form>';
