@@ -14,7 +14,7 @@ class forum
 	public static function show_topic_breadcrumbs($post_id) 
 	{
 		self::start_topic_breadcrumbs($post_id);
-		echo '</div>';
+		echo '<a href="#new_post_form"><span class="btn-blue">Svara i tråden</span></a></div>';
 	} 
 
 	public static function output_category_selector($selected_category = null) {
@@ -170,7 +170,7 @@ class forum
 	private static function make_post_user_tag($post_info) 
 	{
 		general::open_div("post_user_info");
-		__link('<img src="' . USERIMG_PATH . 'userimg_80_width/' . $post_info['user_image'] . '" class="post_user_image" width="80">', "member", "view", "id=" . 
+		__link('<img src="' . USERIMG_PATH . $post_info['user_image'] . '" class="post_user_image">', "member", "view", "id=" . 
 			$post_info['user_id'], "user_name_link");
 		echo '<br>';
 		__link($post_info['user_full_name'], "member", "view", "id=" . 

@@ -85,12 +85,13 @@
 			__open_form("yes-no");
 			__hidden("prop_id", $prop_id);
 			__hidden("ballot", "");
+			echo '<div class="vote-buttons">';
 			echo '<input type="submit" class="vote_button" style="display: none" id="green_vote" value="' 
 			. _t("Support") . '" onmousedown="return encrypt_prop_ballot(true)">';
 			echo '<input type="submit" class="vote_button" style="display: none" title="' 
 			. _t("Click to stop supporting") . '" id="yellow_vote" value="' . _t("Supporting") 
 			. '" onmousedown="return encrypt_prop_ballot(false)">';
-			echo '</form>';
+			echo '</div></form>';
 			echo '</div>';
 			__t($is_voting_as_delegate ? "You vote as delegate." : "You vote as individual.");
 		}

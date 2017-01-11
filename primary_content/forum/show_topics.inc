@@ -4,11 +4,11 @@
 		__p(_t("Forum not found."));
 	else {
 		$forum_id = $forum_info['id'];
-		echo '<div class="forum_info">';
-		__link(_t("Forums"), 'forum', 'show_forums');
-		echo '</div>';
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		__h1($forum_info['title']);
+		echo '<div class="forum_info">';
+		__link(_t("Forums"), 'forum', 'show_forums');
+		echo '<a href="#new_topic_form"><span class="btn-blue">Starta ny tråd</span></a></div>';
 		$topics = db_forum::list_topics($forum_id, $_SESSION['id'], $page);
 		if(empty($topics))
 			__p(_t("No topics in this forum."));

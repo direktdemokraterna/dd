@@ -41,8 +41,10 @@
 	elseif($voteinfo['status'] == "continuous")
 		__t("This is a continuous vote and it continues until it is ended through a new yes/no vote.");
 	else
-		echo _t("The vote finishes ") . general_helpers::show_date($voteinfo['timestamp_ended'])
-			. _t(". For delegates the possibility to vote closes ") . general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . ".";
+		echo _t("The vote finishes ") .' <span class="vote-end-date">'
+			. general_helpers::show_date($voteinfo['timestamp_ended']) 
+			. '</span>'
+			. _t(". For delegates the possibility to vote closes ") . ' <span class="vote-end-date">' . general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . "</span>.";
 	\View\general::close_div();
 
 	\View\general::open_div("vote_result_box", "user_vote_box");
@@ -118,4 +120,3 @@
 	if ($vote_script_include)
 		include(dirname(__FILE__) . $vote_script_include);
 ?>
-

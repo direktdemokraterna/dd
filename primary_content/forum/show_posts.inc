@@ -6,8 +6,9 @@
 	if (isset($_GET['from_action']))
 		\View\controls::output_search_back_link();
 	else
-		\View\forum::show_topic_breadcrumbs($topic_id);		
-	\View\forum::show_topic_title($topic_id);
+		\View\forum::show_topic_title($topic_id);
+		\View\forum::show_topic_breadcrumbs($topic_id);	
+	
 	if(empty($posts))
 		__p(_t("The thread doesn't exist or you don't have permission to read it."));
 	else {

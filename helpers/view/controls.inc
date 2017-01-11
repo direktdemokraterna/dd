@@ -34,10 +34,10 @@ class controls
 		, $page_size = POSTS_PER_PAGE) 
 	{
 		$paging_info = Paging_info::create($page, $list_count, $page_size);
-		general::open_div("paging_info principal_list");
+		general::open_div("paging_info");
 		echo _span(_t("Showing ") . ($label ? "$label " : "") 
 			. $paging_info->first_showed_post_number . " - " 
-			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);
+			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);		
 		if ($paging_info->post_count > $page_size) {
 			general::open_span();
 			self::output_page_links($paging_info->number_of_pages, $paging_info->page);
@@ -148,8 +148,10 @@ class controls
 		. $type . '&action=' . $action . '">';
 		echo '<input onClick="this.select();" tabindex="' . $tab_index++ . '" type="text" value="' . 
 		$value . '" name="' . $search_input_name . '" class="sidebar_search_input">';
+		echo '<div class="align-right">';
 		echo '<input tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="' 
 		. _t('Search') . '">';
+		echo '</div>';
 		echo '</form>';
 	}
 
@@ -175,8 +177,8 @@ class controls
 			? $_POST[$content_name] 
 			: (isset($options['content']) ? $options['content'] : '');
 
-		echo '<form method="post" action="" id="' . $form_name . '" class="text-editor">';
-		echo '<fieldset>';
+		echo '<form method="post" action="" id="' . $form_name . '" class="text-editor anchor-form scroll">';
+		echo '<fieldset>';		
 		echo '<legend>' . $legend . '</legend>';
 		__hidden("target_id", $target_id);
 		if ($title_label) 
@@ -188,8 +190,10 @@ class controls
 		echo '</div>';
 		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
 			. $tab_index . '">' . $content . '</textarea><br>';
+		echo '<div class="align-center">';
 		echo '<input type="submit" id="' . $submit_name . '" value="' . $submit_text 
 			. '" tabindex="' . ($tab_index + 1) . '">';
+		echo '</div>';
 		echo '</fieldset>';
 		echo '</form>';
 	}

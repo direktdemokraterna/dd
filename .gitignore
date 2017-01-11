@@ -12,3 +12,5 @@ test/translate/testcases_before_phrase_templates.xml
 *.iml
 /helpers/keys/dd_anon
 debug.php
+
+helpers/view/_notes/dwsync.xml
