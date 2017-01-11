@@ -3,18 +3,18 @@
 #Direktdemokraternas Medlemssystem
 ----
 
-H�r beskrivs det medlemssystem f�r Direktdemokraterna som varit under utveckling sedan januari f�rra �ret. Beslut om byte av medlemssystem kommer att tas i v�rt nuvarande Medlemsforum n�r systemet och medlemmarna �r redo f�r det.
+Här beskrivs det medlemssystem för Direktdemokraterna som varit under utveckling sedan januari förra året. Beslut om byte av medlemssystem kommer att tas i vårt nuvarande Medlemsforum när systemet och medlemmarna är redo för det.
 
-##F�r versionshantering anv�nds GitHub
+##För versionshantering används GitHub
 ----
 
 * <https://github.com/anderslonnfalt/dd>
 * <https://github.com/anderslonnfalt/dd_anon>
 
-Utvecklare: Joakim Sigvald och Anders L�nnf�lt
+Utvecklare: Joakim Sigvald och Anders Lönnfält
 
 #Demo
-Applikationen kan k�ras f�r test p� adressen:
+Applikationen kan köras för test på adressen:
 http://198.50.180.191/master/
 
 #Beskrivning
@@ -25,16 +25,16 @@ https://docs.google.com/document/d/1pn4kcZWrJZh8nZEder-oDbGRM67DvYZpQIrNTEIFjIk/
 
 #Projekt
 ------------
-Projektmodellen �r KanBan.
+Projektmodellen är KanBan.
 
-Det finns �ven en board som beskriver projektet:
+Det finns även en board som beskriver projektet:
 https://trello.com/b/Si4VO1a3/dd-medlemssystem-projekthantering
 
-Trello anv�nds f�r projekthantering
+Trello används för projekthantering
 https://trello.com/b/oiTQ4yni/dd-medlemssystem-utveckling
 
-Utvecklingstavlan �r uppdelad i stegen:
-* Id�er
+Utvecklingstavlan är uppdelad i stegen:
+* Idéer
 * Utvecklingspunkter
 * Omstrukturering
 * Brister
@@ -43,7 +43,7 @@ Utvecklingstavlan �r uppdelad i stegen:
 * Granskning
 * Test
 * Klart
-* Ingen �tg�rd
+* Ingen åtgärd
 
 # Utveckling via docker
 Build docker image
@@ -60,13 +60,13 @@ Set up database in docker container this should be run inside container
 
 #Feedback
 ------------
-Medlemmar kan ge f�ljande feedback p� systemet via f�ljande l�nk:
+Medlemmar kan ge följande feedback på systemet via följande länk:
 
 https://docs.google.com/spreadsheets/d/1EM-6HONBCUbahUX1Vzxuz-Fq_-Bw3MqAQbZtUtxvT3A/edit?usp=sharing
 
 * (BUG)Bugg
-* (FR�)Fr�ga
-* (F�R)F�r�ndringsf�rslag
+* (FRÅ)Fråga
+* (FÖR)Förändringsförslag
 * (KOM)Kommentar
 
-Utvecklare: Joakim Sigvald och Anders L�nnf�lt
+Utvecklare: Joakim Sigvald och Anders Lönnfält
