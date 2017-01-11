@@ -260,4 +260,16 @@ class general_helpers {
 		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $label . "</a>";
 	}
 
+	public static function resize_image($file, $w) { // modifierad från http://stackoverflow.com/questions/14649645/resize-image-in-php
+		list($width, $height) = getimagesize($file);
+		$r = $width / $height;
+		$newheight = $w/$r;
+		$newwidth = $w;
+		$src = imagecreatefromjpeg($file);
+		$dst = imagecreatetruecolor($newwidth, $newheight);
+		imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+		return $dst;
+	}
+
 } //End of class

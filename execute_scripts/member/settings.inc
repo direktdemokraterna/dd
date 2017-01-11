@@ -44,7 +44,23 @@
 		else
 			\Logic\util::report_error(_t("Wrong file type.")); 
 		if(isset($image_filename)){ // Execute file upload and database update
-			move_uploaded_file($_FILES['image']['tmp_name'], USERIMG_PATH . $image_filename);
+			$image_80_width = general_helpers::resize_image($_FILES['image']['tmp_name'], 80);
+			$image_150_width = general_helpers::resize_image($_FILES['image']['tmp_name'], 150);
+			move_uploaded_file($_FILES['image']['tmp_name'], USERIMG_FOLDER . $image_filename);
+
+			if($image_info['2']==1){  // if gif
+				imagegif($image_80_width, USERIMG_FOLDER . 'userimg_80_width/' . $image_filename);
+				imagegif($image_150_width, USERIMG_FOLDER . 'userimg_150_width/' . $image_filename);
+			}
+			elseif($image_info['2']==2){  // if jpg
+				imagejpeg($image_80_width, USERIMG_FOLDER . 'userimg_80_width/' . $image_filename);
+				imagejpeg($image_150_width, USERIMG_FOLDER . 'userimg_150_width/' . $image_filename);
+			}
+			elseif($image_info['2']==3){  // if png
+				imagepng($image_80_width, USERIMG_FOLDER . 'userimg_80_width/' . $image_filename);
+				imagepng($image_150_width, USERIMG_FOLDER . 'userimg_150_width/' . $image_filename);
+			}
+
 			$ok = db_user::update_image($image_filename, $_SESSION['id']);
 			if($ok)
 				$_SESSION['report_message'] = _t("Image updated."); 

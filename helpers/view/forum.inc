@@ -170,7 +170,9 @@ class forum
 	private static function make_post_user_tag($post_info) 
 	{
 		general::open_div("post_user_info");
-		echo '<img src="' . USERIMG_PATH . $post_info['user_image'] . '" class="post_user_image" width="80"><br>';
+		__link('<img src="' . USERIMG_PATH . 'userimg_80_width/' . $post_info['user_image'] . '" class="post_user_image" width="80">', "member", "view", "id=" . 
+			$post_info['user_id'], "user_name_link");
+		echo '<br>';
 		__link($post_info['user_full_name'], "member", "view", "id=" . 
 			$post_info['user_id'], "user_name_link");
 		general::close_div();

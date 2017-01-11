@@ -21,12 +21,12 @@ define_if_undefined("LIST_ITEMS_PER_PAGE", 50);
 define_if_undefined("LIST_ITEMS_PER_PAGE_SHORT", 20);
 define_if_undefined("MAX_ACTIVE_PROPOSITION_COUNT", 5);
 define_if_undefined("DEFAULT_CONSTITUENCY_ID", 313);
-
 define_if_undefined("PROP_TO_VOTE_SUPPORT", 0.2);
 define_if_undefined("PROP_REMOVAL_TIME", 14*24*60*60);
 define_if_undefined("STANDARD_VOTE_LENGTH", 14*24*60*60);
 define_if_undefined("BUFFER_TIME_FOR_CONTINUOUS_ELECTIONS", 1*24*60*60);
 define_if_undefined("EDIT_POST_TIME_WINDOW_IN_MINUTES", 10);
+define_if_undefined("MEMBERSHIP_FEE", 50);
 
 define_if_undefined("BASE_DIR", __DIR__);
 ?>

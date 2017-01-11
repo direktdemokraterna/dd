@@ -2,12 +2,12 @@
 	$user_id = isset($_GET['id']) ? $_GET['id'] : $_SESSION['id']; 
 	$userinfo = db_user::get_user_data($user_id); 
 	if($userinfo['full_name'] == "Inte aktiverad" && !$_SESSION['is_member_admin']){
-		echo "Den är medlemmen är inte aktiverad ännu.";
+		echo "Den här medlemmen är inte aktiverad ännu.";
 	}
 	else{
 		__h1($userinfo['full_name']);
 		echo '<div class="user_presentation_left">';
-		echo '<img class="image150" src="' . USERIMG_PATH . $userinfo['image'] . '">';
+		echo '<img class="image150" src="' . USERIMG_PATH . 'userimg_150_width/' . $userinfo['image'] . '">';
 		__br();
 		__p(_link(_t("Thread starts (") 
 			. $userinfo['number_of_topics'] . ")", 'forum', 'topics_by_user', 'id=' 

@@ -1,4 +1,12 @@
 /**************/
+/* 2016-04-29 */
+/**************/
+Adding extra column for handling membership fees
+
+ALTER TABLE `dd`.`user` CHANGE COLUMN `membership_fee_payed` `membership_fee_last_payed` INT(10) UNSIGNED DEFAULT NULL,
+ ADD COLUMN `membership_fee_payed_until` INTEGER UNSIGNED AFTER `membership_fee_last_payed`;
+
+/**************/
 /* 2016-04-20 */
 /**************/
 Adding support for inactivated users

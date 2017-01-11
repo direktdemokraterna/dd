@@ -213,6 +213,13 @@ class db_user
 		return db::select($query, $values);
 	}
 
+	public static function get_all_ids_full_names_and_social_security_numbers ()
+	{
+		$query = "select u.id as id, concat(if(u.activation_first_name is null, u.first_name, if(u.activation_first_name = '', 'Inget', u.activation_first_name)), ' ', if(u.activation_last_name is null, u.last_name, if(u.activation_last_name = '', 'namn', u.activation_last_name))) as full_name, u.social_security_number as social_security_number from user u order by full_name asc";
+		$values = Array();
+		return db::select($query, $values);
+	}
+
 	public static function search_users ($search, $page = 1, $limit = LIST_ITEMS_PER_PAGE)
 	{
 		$limit_clause = db_general::get_limit_clause($page, $limit);
@@ -300,6 +307,13 @@ class db_user
 		else{
 			return false;
 		}
+	}
+
+	public static function get_membership_until ($user_id)
+	{
+		$query = "select membership_fee_payed_until from user where id = ?";
+		$values = Array($user_id);
+		return db::select_single_value($query, $values);
 	}
 
 	public static function check_if_personnummer_exists ($personnummer, $exclude_user_id = 0)
