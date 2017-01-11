@@ -2,13 +2,13 @@
 	db_user::update_last_activity_time($_SESSION['id']);
 	include("menubar.inc");
 ?>
+<div id="header-lang">
+	<?php \View\index::output_language_buttons(); ?>
+</div>
 <div id="wrap">
 	<div class="header">
 		<div id="header-logo">
 			<a href="index.php"><img id="dd-logo" src="images/direktdemokraterna-logotyp.png"></a>
-		</div>
-		<div id="header-lang">
-			<?php \View\index::output_language_buttons(); ?>
 		</div>
 	</div>
 	<div class="main">
@@ -18,3 +18,7 @@
 		?>
 	</div>
 </div>
+</div>
+<?php 
+	include("footer.inc");
+?>
