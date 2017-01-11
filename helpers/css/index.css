@@ -1,31 +1,52 @@
-@import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+/* 	BASE STYLE SHEET 
+	Description: CSS Member System for Direktdemokraterna
+	Authors: Anders Lönnfält, Peter Hjorthammar
+*/
 
-body, table, tr, td {
+/* FONT IMPORTS */
+
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
+@import url(//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900);
+
+/* COLORS 
+Orange: #f67520
+Blue: #15a4ff
+Body text: #444
+Boxes grey: #636363
+Icons grey: 7a7a7a
+Box borders faint: #e3e3e3
+*/
+
+/* GENERAL */
+body, table, tr, td, 
+textarea, fieldset input[type="text"], .sidebar_search_form input[type="text"] {
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    font-size:13px;
-    color: #111;
+    font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;
+	font-family: Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    color: #444;  
     border-spacing: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3 {
     margin: 0;
     padding: 0;
     margin-bottom: 10px;
-    font-family: 'Open Sans', sans-serif;
-    color: #F49500;
+    /*color: #F49500;*/
 }
 
 h1 {
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-size: 24px;
-    color: #000;
 }
 
 h2 {
     color: #000;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-size: 18px;
 }
 
@@ -38,7 +59,7 @@ h3 {
 p, blockquote, ul, ol {
     max-width: 900px;
     line-height: 18px;
-    text-align: justify;
+    
 }
 
 blockquote {
@@ -46,8 +67,8 @@ blockquote {
     background: url(images/img05.gif) repeat-y;
 }
 
-a {
-    color: #f67520;
+a, a.quote_in_post_link {
+    color: #444;
     text-decoration: none;
 }
 
@@ -56,43 +77,276 @@ a:hover {
     cursor:pointer;
 }
 
-strong {
+.post_content a {
+    color: #005689;
+	text-decoration: underline;
+}
+
+a.quote_in_post_link,
+.list_sub_text a {
+    color: #6b6b6b;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+a.quote_in_post_link,
+.list_sub_text a {
+    color: #6b6b6b;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+a.quote_in_post_link {
+	display: block;
+}
+
+b, strong {
     font-weight: bold;
+}
+em, i {
+	font-style: italic;
+	}
+
+textarea, input[type="text"] {
+	border: 1px solid #ddd;
+	padding: 2em;
+}
+.post_content span {
+    word-wrap: break-word;
+}
+.post_content span {
+    word-wrap: break-word;
+}
+.quote_in_post + br,
+.quote_in_post br + br {
+	display: none;
+	}
+.forum_info + p {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+/* CONTAINERS (Layout topography) */
+
+.main {
+    padding-left: 10px;
+}
+
+#main-content, .principal_list {
+    float: left;
+    width: 100%;
+    max-width: 900px;
+}
+#sidebar {
+    float: right;
+    width: 250px;
+    margin-left: 0;
+    font-size: 14px;
+	background: #f7f7f7;
+}
+
+#main-content h1 {
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom: 20px;
+	letter-spacing: -1px;
+	line-height: 1.25;
+}
+.post_content,
+form#report_post_form,
+form#new_post_form,
+form#new_topic_form,
+form#edit_post_form  {
+	float: right;
+    max-width: 720px;
+    width: 100%;
+}
+form#new_topic_form  {
+	float: right;
+    max-width: 720px;
+    width: 100%;
+}
+form.scroll {
+    padding-top: 80px;
+    margin-top: -30px;
+    /* display: block; */
+}
+/* TYPOGRAPHY */
+
+.post_content {
+	font-size: 17px;
+	}
+.forum_info, .list_sub_text, .quote_in_post, .post_alternatives,
+input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message  {
+	font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;
+	}
+.forum_info {
+	font-size: 13px;
+	}
+.topic_list_row {
+}
+.topic_list_row span.numerical_column,
+.topic_list_row span.last_post_column {
+    font-size: 14px;
+}
+.post_content span, textarea {
+	line-height: 1.5;
+	font-size: 17px;
+}
+.quote_in_post:before {
+	content: '”';
+    font-size: 59px;
+    color: #ccc;
+    display: block;
+    float: left;
+    font-family: "Times New Roman", Times, serif;
+    margin-left: -20px;
+    font-weight: 600;
+    margin: -22px 0 0 -36px;		
+	}
+.quote_in_post > .quote_in_post:before {
+	content:'';
+	}
+	
+/* BUTTONS */
+
+
+
+/* FORMS, FIELDSETS & INPUTS */
+
+input[type="submit"],
+button[type="submit"]  {
+    border-radius: 0;
+    line-height: 1.25;
+    padding: 10px 15px;
+    background: #2098F6;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+	letter-spacing: .5;
+	font-weight: 600;
+	width: 100px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.login-form input[type="submit"]:hover {
+    background: #f67520;
+}
+textarea#new_post_content,
+textarea#edit_post_content,
+textarea#new_topic_content {
+    border: 1px dashed #ccc;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+}
+fieldset, .post_content {
+	border: 1px solid #e3e3e3;
+    border-radius: 20px;
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+}
+fieldset textarea {
+	margin: 0 0 20px;
+    /*width: calc(100% - 48px);*/
+	width: 100%;
+	max-width: 670px;
+    min-height: 300px;
+	height: 300px;
+    overflow: scroll;
+    border-radius: 10px;
+    line-height: 1.5;
+}
+form .fa.fa-paper-plane {
+	font: normal normal normal 28px/1 FontAwesome;
+    color: #2098F6;
+    vertical-align: middle;
+    margin-right: 5px;
+	}
+#sidebar li i.fa {
+    font-style: normal;
+    font-size: 17px;
+    margin-right: -32px;
+    color: #fff;
+}
+.post_content, #new_post_form fieldset,
+#new_topic_form fieldset, #edit_post_form fieldset {
+	position: relative;
+	}
+#new_post_form fieldset,
+#new_topic_form fieldset,
+#edit_post_form fieldset {
+	padding: 0 24px 20px;
+	}
+fieldset {
+	padding: 0 24px 20px;
+	}
+	
+.post_content:before, #new_post_form fieldset:before,
+#new_topic_form fieldset:before { /* Speech Bubble Arrow */
+    content: "";
+    position: absolute;
+    border-style: solid;
+    display: block;
+    width: 0;
+    top: 43px;
+    bottom: auto;
+    left: -25px;
+    border-width: 10px 25px 11px 0;
+    border-color: transparent #e3e3e3;
+}
+
+.post_content:after, #new_post_form fieldset:after,
+#new_topic_form fieldset:after {
+    content: "";
+    position: absolute;
+    bottom: -13px;
+    left: 47px;
+    border-width: 13px 13px 0;
+    border-style: solid;
+    border-color: #fff transparent;
+    display: block;
+    width: 0;
+	top: 44px;
+    bottom: auto;
+    left: -21px;
+    border-width: 9px 21px 9px 0;
+    border-color: transparent #fff;
 }
 
 /* HEADER */
 
 .header {
-    position: relative;
-    padding-left: 2%;
-    padding-bottom: 30px;
-    padding-top: 20px;
+   	min-height: 80px;
 }
 
 #header-logo {
-    width: 80%;
-    max-width: 359px;
+	float: left;
 }
 
 #header-lang {
+    float: right;
     position: absolute;
-    top: 30px;
-    right: 20px;
-    width: 20%;
-    max-width: 100px;
+    top: 40px;
+    right: 10px;
+}
+
+a.lang-flag {
+    margin-left: 5px;
+	display: block;
+	margin-bottom: 0;
+	margin-top: -5px;
+}
+
+#header-lang img {
+    width: 25px;
 }
 
 #dd-logo {
     width: auto;
-    height: 60px;
-}
-
-@media screen and (max-width: 400px) {
-    #dd-logo {
-        width: 200px;
-        height: auto;
-        max-width: 100%;
-    }
+    height: 50px;
 }
 
 .right {
@@ -102,45 +356,31 @@ strong {
 /* CONTENT */
 
 #wrap {
-  margin: auto;
-  padding: 1%;
-  width: 98%;
+  margin: 0 auto 5em;
+  width: 100%;
   max-width: 1200px;
+  clear:both;
+  padding-top: 2em;
 }
-
-
 #wrap-area{
     background: #fff;
     height: 100% auto;
     padding-top:40px;
-
+}
+.main:after, #footer:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    zoom: 1;
 }
 
-/* MAIN (LEFT) CONTAINER */
+/* STANDARD FORM */
 
-#main-content {
-    float: left;
-    width: 95%;
-    max-width: 925px;
-}
-
-#main-content h1 {
-    font-size: 40px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-    margin-bottom: 30px
-}
-
-@media screen and (min-width: 801px) and (max-width: 1200px) {
-    #wrap {
-        max-width: calc(98% - 200px);
-    }
-    #main-content {
-        max-width: calc(98% - 255px);
-    }
-}
-
-/* Standard form */
+/*p + form, div + form {
+	margin-top: 50px!important;
+}*/
 
 .standard-form label {
     display: inline-block;
@@ -154,19 +394,6 @@ strong {
     display: inline;
 }
 
-.standard-form input{
-    max-width: 400px;
-    width: 95%;
-    margin: 8px 0px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
-    color: #333;
-    transition: border-color 0.05s ease-in-out 0s;
-    line-height: 15px;
-    padding: 3px 5px;
-}
-
 .standard-form select{
     max-width: 400px;
     width: 95%;
@@ -175,34 +402,13 @@ strong {
     padding: 3px 5px;
 }
 
-.standard-form input[type="submit"]{
-    background: none repeat scroll 0 0 #2ea2cc;
-    border-color: #0074a2;
-    box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.15);
-    color: #fff;
-    text-decoration: none;
-    margin-top: 5px;
-    border-radius: 3px;
-    height: 28px;
-    width: auto;
-    min-width: 10em;
-    cursor: pointer;
-}
-
 .standard-form textarea {
     margin-left: 10px;
     margin-bottom: 20px;
     width: 95%;
     margin-top: 5px;
     height: 250px;
-    display: table;
-}
-
-.standard-form input[type="submit"]:hover{
-    background: none repeat scroll 0 0 #1b7aa6;
-    border-color: #005684;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1) inset;
-    color: rgba(255, 255, 255, 0.95);
+    display: block;
 }
 
 .standard-form input[type="checkbox"]{
@@ -221,8 +427,59 @@ strong {
 .short-input {
     width: 60px;
 }
+/* FORM REPLY, POST */
 
-/* Checkbox grid */
+#new_post_form legend,
+#new_topic_form legend,
+#report_post_form legend,
+#edit_post_form legend {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: -43px;
+    margin-left: -18px;
+    display: block;
+    position: absolute;
+}
+#report_post_form textarea {
+	margin-top: 22px;
+}
+#new_topic_form label {
+    color: #2b2b2b;
+    font-size: 16px;
+    padding: 10px 10px 10px 0;
+    clear: both;
+    display: block;
+}
+.btn-blue {
+    float: right;
+    display: block;
+    font-size: 14px;
+    margin-right: 21px;
+	margin-bottom: 10px;
+    background: #f65c20;
+	background: #2098F6;
+    color: #fff;
+	padding: 7px 10px 5px;
+	font-weight: bold;
+}
+.btn-blue:before {
+    font: normal normal normal 17px/1 FontAwesome;
+    content: "\f044";
+    margin-right: 5px;
+    display: block;
+    float: left;
+    margin-top: -1px;
+}
+.btn-blue > a:hover {
+	color: #fff!important;
+	text-decoration: none;
+	}
+.btn-blue:hover {
+    /*background: #636363;*/
+}
+
+/* CHECKBOX GRID */
 
 .checkbox-grid li {
     display: block;
@@ -230,17 +487,38 @@ strong {
     width: 25%;
 }
 
-/* Footer */
+/* FOOTER */
 
 #footer {
-    height: 100px;
     padding: 20px;
-    background: #2D2D2D url(helpers/img/img07.gif) repeat-x;
+    background: #636363;
+	display: block;
+	clear: both;
 }
-
-#footer p {
+.footer:before {
+	display: block;
+	clear: both;
+	margin-top: 2em;
+}
+footer {
+	min-height: 200px;
+	margin: 0 auto;
+	padding: 1%;
+	width: 98%;
+	max-width: 1200px;
+	color: #fff;
+	}
+footer h2 {
+	color: #fff;
+	}
+footer p {
     text-align: center;
     color: #999999;
+}
+.footer-widget {
+	width: 25%;
+	float: left;
+	display: block;
 }
 
 /* GENERAL ATTRIBUTES */
@@ -252,35 +530,47 @@ strong {
 .float-right {
     float: right;
 }
-
+.float-left {
+    float: left;
+}
+.align-center {
+	text-align: center;	
+	}
+.align-right {
+	text-align: right;	
+	}
+.align-left {
+	text-align: left;	
+	}
 .invisible-link {
     color: inherit;
 }
 
+.green_message, .red_message {
+    /*max-width: 800px;*/
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 10px;
+    color: #fff;
+	font-weight: 700;
+}
 .green_message {
-    max-width: 800px;
-    width: 95%;
-    border: 1px solid #999;
-    border-left: 4px solid #7ad03a;
-    padding: 1px 12px;
-    margin-bottom: 10px;
+    background: #7ad03a;
 }
-
 .red_message {
-    max-width: 800px;
-    width: 95%;
-    border: 1px solid #999;
-    border-left: 4px solid #dd3d36;
-    padding: 1px 12px;
-    margin-bottom: 10px;
+    background:  #dd3d36;
 }
+.green_message:before, .red_message:before {
+	display: inline-block;
+    font: normal normal normal 16px/1 FontAwesome;
+	content: "\f05a";
+	margin-right: 5px;
+    vertical-align: top;
+	}
 
 /* NORMAL LIST */
 
-.principal_list {
-  max-width: 800px;
-  width: 95%;
-}
+
 
 .list_of_links {
     font-size: 14px;
@@ -311,7 +601,7 @@ strong {
 /* GRID VIEW */
 
 .grid_view{
-    width: 95%;
+    width: 100%;
     border: 1px solid #e5e5e5;
     border-bottom: none;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
@@ -319,22 +609,22 @@ strong {
     margin-bottom: 15px
 }
 
-.grid_view tbody td{
+.grid_view tbody td {
     border-bottom: 1px solid #e1e1e1;
     padding: 10px 5px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400px;
-    font-family: "Open Sans",sans-serif;
+    line-height: 1.25;
 }
 
-.grid_view tbody th{
+.grid_view tbody th {
     border-bottom: 1px solid #e1e1e1;
     background: #eee;border-spacing: 0;
     padding: 10px 5px;
 }
 
 .grid_view tbody > tr > th > a {
-    color: black;
+    color: #000;
 }
 
 tr.even_row {
@@ -350,27 +640,104 @@ tr.unread {
     font-style: italic;
 }
 
-/* Paging */
+/* PAGING */
 
-.paging_info{
+.paging_info {
   clear: both;
-  margin-bottom: 15px;
-  margin-top:10px;
-  margin-left: 5px;
+  margin: 10px 21px 15px 5px;
   font-size: 12px;
   color: #2b2b2b;
   font-family: "Open Sans",sans-serif;font-weight: 300;
 }
 
-@media screen and (max-width: 800px) {
-    .hide-800 {
-        display: none;
-    }
+#dd-to-top {
+	text-align: right;
+	margin: 0 20px 5px 0;
 }
 
-@media screen and (max-width: 400px) {
-    .hide-400 {
-        display: none;
-    }
+#site-scroll-top {
+    display: block;
+    height: 35px;
+    width: 35px;
+    border-radius: 0;
+    background: #f7f7f7;
+    text-align: center;
+    z-index: 999;
+    transition: all 0.25s ease-in-out;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+	line-height: 30px;
+	color: #444;
+	background: transparent;
+	float: right;
+}
+#site-scroll-top:hover {
+	color: #fff;
+	background: #2098F6;
+}
+#site-scroll-top i.fa{
+    font: normal normal normal 14px/2.5 FontAwesome;
 }
 
+html {
+  height: 100%;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+#wrap {
+  flex: 1;
+}
+
+/* Responsive in responsive.css */
+
+
+/* SELECT OPTION DROP DOWNS */
+.styled-select {
+   height: 29px;
+   overflow: hidden;
+   width: 240px;
+   margin-right: 10px;
+   margin-bottom: 10px;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 268px;
+}
+
+.styled-select.slate {
+   background: url(/dev/images/select-chevrons.gif) no-repeat right center;
+   height: 35px;
+   width: 240px;
+   float: left;
+}
+
+.styled-select.slate select {
+   border: 1px solid #ccc;
+   height: 35px;
+   width: 268px;
+}
+
+/* -------------------- Rounded Corners */
+.rounded {
+   -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   border-radius: 20px;
+}
+
+.semi-square {
+   -webkit-border-radius: 0;
+   -moz-border-radius: 0;
+   border-radius: 0;
+}
+
+.slate   { background-color: #ddd; }
+.slate select   { color: #000; }

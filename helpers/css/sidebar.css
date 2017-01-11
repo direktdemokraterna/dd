@@ -1,14 +1,6 @@
 
 /* sidebar */
 
-#sidebar {
-    float: left;
-    width: 215px;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 14px;
-}
-
 #sidebar ul {
     margin: 0;
     padding: 0;
@@ -20,7 +12,7 @@
 }
 
 #sidebar li li {
-  padding: 0 0 15px;
+	padding: 0 17px 15px 28px;
     text-align: left;
 }
 
@@ -29,7 +21,8 @@
 }
 
 #sidebar li a:hover {
-    color: #FC6E51;
+    /*color: #000;*/
+	text-decoration: underline;
 }
 
 #sidebar li i {
@@ -38,34 +31,74 @@
 }
 
 #sidebar li h2 {
-  color: #444;
-  font-size: 14px;
-  font-weight: normal;
+  color: #fff;
+  font-size: 16px;
+  /*font-weight: 600;*/
+  /*text-transform: uppercase;
+  font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;*/
+  background-color: #636363;
+  padding: 10px 14px 9px;
+  -webkit-font-smoothing: normal;
+	-moz-osx-font-smoothing: normal;
+	margin-bottom: 1.2em;
 }
-
-@media screen and (max-width: 800px) {
-  #sidebar ul:first-child {
-    padding-top: 40px;
-  }
+/*#sidebar li.search-forums h2 {
+    -webkit-margin-after: 0;
+}*/
+#sidebar li.latest-posts {
+	background: #f7f7f7;	
 }
+#sidebar li.latest-posts ul li > a:first-child:before {
+	display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  content: "\f138";
+  margin-right: 5px;
+  margin-left: -17px;
+  color: #aaa;
+}
+#sidebar li.latest-posts ul li > a:first-child {
+	font-size: 15px;
+	letter-spacing: -.3;
+	line-height: 1.25;
+}
+#sidebar li.latest-posts ul li > a:first-child:after {
+	content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    zoom: 1;
+}
+.post-meta-sidebar, .post-meta-sidebar a {
+	font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;
+    color: #919191;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-top: -3px;
+    display: inline-block;
+	}
 
 .sidebar_search_form{
     margin-bottom: 35px;
 }
-.sidebar_search_form input{
 
+.sidebar_search_form input[type="text"] {
+    height: 33px;
+    width: calc(100% - 10px);
+    padding: 10px;
+    font-size: 14px;
+	margin-left: 5px;
 }
-.sidebar_search_form input[type="text"]{
-    height: 35px;
-    width: 145px;
-}
-.sidebar_search_form input[type="submit"] {
-    height: 36px;
-    margin-left: -5px;
+
+.sidebar_search_form input[type="submit"] { /* Orange search button */
+    height: auto;
     background: #f67520;
     border: none;
-    padding: 0px 15px;
+    padding: 10px 20px;
     cursor: pointer;
     color: #fff;
+	width: auto;
+	margin-top: 5px;
+	margin-right: 5px;
 }
 

@@ -1,0 +1,91 @@
+/* Responsive CSS */
+
+
+@media screen and (min-width: 801px) and (max-width: 1200px) {
+    #wrap {
+        max-width: calc(100% - 60px);
+    }
+    #main-content {
+        max-width: calc(100% - 275px);
+    }
+	.principal_list {
+	    width: 100%;
+	}
+	.vote-buttons {
+		margin: 0px 0 10px 0;
+		width: 96%;
+	}
+}
+@media screen and (max-width: 1100px) {
+	#header-lang {
+    position: absolute;
+    top: 45px;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.hide-800 {
+		display: none;
+	}
+	.header {
+		padding: 0 5px;
+	}
+	#header-logo {
+		float: none;
+		margin: 0 auto;
+		text-align: center;
+	}
+	#header-lang {
+		/*top: 38px;*/
+	}
+	#main-content, #sidebar {
+		width: 96%;
+		padding-left: 2%;
+		padding-right: 2%;
+		float: none;
+		clear: both;
+	}
+
+	#sidebar ul:first-child {
+		padding-top: 40px;
+	}
+	#main-content h1 {
+		font-size: 30px;
+	}
+	.vote-buttons {
+		margin: 0px -2% 10px -2%;
+		width: 104%;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+
+}
+@media only screen and (max-width: 606px) {
+	#white_vote {
+	margin-top: 0;
+	}
+	.median-vote input[type="text"] {
+    width: 88%;
+	}
+	input.vote_button, button.vote_button {
+		min-width: 94%;
+		width: auto;
+		margin: 5px auto;
+		display: block;
+	}
+}
+@media only screen and (max-width: 550px) {
+	
+}
+
+@media screen and (max-width: 400px) {
+	.hide-400 {
+		display: none;
+	}
+    #dd-logo {
+        width: 250px;
+        height: auto;
+        max-width: 100%;
+    }
+}

@@ -19,10 +19,15 @@
 .user_presentation_right form{margin: 0px 0px 5px 20px}
 
 .image150 {
-    width: 150px;
+    width: 150px;	
+	border-radius: 10px;
+	-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+	border: 1px solid #7d7d7d;
 }
 
-#main-content h2{margin-top: 40px;font-size: 1.3em;font-weight: 600}
+#main-content h2{margin-top: 40px;font-size: 1.3em;font-weight: normal;}
 
 #settings_county{width: 15em}
 #settings_submit{margin-top: 20px;border-radius: 3px;height: 28px;width: 10em;cursor: pointer;border-color: #0074a2;}
