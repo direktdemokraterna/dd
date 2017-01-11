@@ -8,6 +8,9 @@
 		<legend class="report_post"><?php __t("Motivate why this post should be reported"); ?></legend>
 		<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
 		<textarea name="report_post_argument" id="report_post_argument" rows="32" cols="30"></textarea><br>
+        <div class="align-center">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
 		<input type="submit" id="report_post_submit" value="<?php __t('Report'); ?>">
+        </div>
 	</fieldset>
 </form>
