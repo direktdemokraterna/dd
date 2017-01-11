@@ -3,18 +3,18 @@
 #Direktdemokraternas Medlemssystem
 ----
 
-Här beskrivs det medlemssystem för Direktdemokraterna som varit under utveckling sedan januari förra året. Beslut om byte av medlemssystem kommer att tas i vårt nuvarande Medlemsforum när systemet och medlemmarna är redo för det.
+Hï¿½r beskrivs det medlemssystem fï¿½r Direktdemokraterna som varit under utveckling sedan januari fï¿½rra ï¿½ret. Beslut om byte av medlemssystem kommer att tas i vï¿½rt nuvarande Medlemsforum nï¿½r systemet och medlemmarna ï¿½r redo fï¿½r det.
 
-##För versionshantering används GitHub
+##Fï¿½r versionshantering anvï¿½nds GitHub
 ----
 
 * <https://github.com/anderslonnfalt/dd>
 * <https://github.com/anderslonnfalt/dd_anon>
 
-Utvecklare: Joakim Sigvald och Anders Lönnfält
+Utvecklare: Joakim Sigvald och Anders Lï¿½nnfï¿½lt
 
 #Demo
-Applikationen kan köras för test på adressen:
+Applikationen kan kï¿½ras fï¿½r test pï¿½ adressen:
 http://198.50.180.191/master/
 
 #Beskrivning
@@ -25,16 +25,16 @@ https://docs.google.com/document/d/1pn4kcZWrJZh8nZEder-oDbGRM67DvYZpQIrNTEIFjIk/
 
 #Projekt
 ------------
-Projektmodellen är KanBan.
+Projektmodellen ï¿½r KanBan.
 
-Det finns även en board som beskriver projektet:
+Det finns ï¿½ven en board som beskriver projektet:
 https://trello.com/b/Si4VO1a3/dd-medlemssystem-projekthantering
 
-Trello används för projekthantering
+Trello anvï¿½nds fï¿½r projekthantering
 https://trello.com/b/oiTQ4yni/dd-medlemssystem-utveckling
 
-Utvecklingstavlan är uppdelad i stegen:
-* Idéer
+Utvecklingstavlan ï¿½r uppdelad i stegen:
+* Idï¿½er
 * Utvecklingspunkter
 * Omstrukturering
 * Brister
@@ -43,17 +43,30 @@ Utvecklingstavlan är uppdelad i stegen:
 * Granskning
 * Test
 * Klart
-* Ingen åtgärd
+* Ingen ï¿½tgï¿½rd
+
+# Utveckling via docker
+Build docker image
+
+``docker build -t dd/dd_image .``
+
+Start docker container
+
+``docker run --name dd_web -d -p 8080:80 dd/dd_image``
+
+Set up database in docker container this should be run inside container
+
+``./install.sh``
 
 #Feedback
 ------------
-Medlemmar kan ge följande feedback på systemet via följande länk:
+Medlemmar kan ge fï¿½ljande feedback pï¿½ systemet via fï¿½ljande lï¿½nk:
 
 https://docs.google.com/spreadsheets/d/1EM-6HONBCUbahUX1Vzxuz-Fq_-Bw3MqAQbZtUtxvT3A/edit?usp=sharing
 
 * (BUG)Bugg
-* (FRÅ)Fråga
-* (FÖR)Förändringsförslag
+* (FRï¿½)Frï¿½ga
+* (Fï¿½R)Fï¿½rï¿½ndringsfï¿½rslag
 * (KOM)Kommentar
 
-Utvecklare: Joakim Sigvald och Anders Lönnfält
+Utvecklare: Joakim Sigvald och Anders Lï¿½nnfï¿½lt
