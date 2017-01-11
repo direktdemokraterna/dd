@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<?php
@@ -8,7 +9,10 @@
 		?>
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-title" content="DD Medlem">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="apple-touch-icon" href="images/touch-icon.png">
 		<link rel="shortcut icon" href="images/favicon.ico">
 		<title>DD Medlemssystem ver <?php echo VERSION ?></title>
 	</head>
