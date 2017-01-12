@@ -138,7 +138,8 @@ button.blue-button#green_vote {
     background: radial-gradient(ellipse at center, #ededed 0%,#bcbcbc 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#bcbcbc',GradientType=1 );
 }
-.blue_vote:hover {
+.blue_vote:hover,
+button.blue-button#green_vote:hover {
 	border: 3px solid #2098F6;
 	}
 #red_vote:hover {

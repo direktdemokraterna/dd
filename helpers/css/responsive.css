@@ -23,6 +23,24 @@
 	}
 }
 
+@media screen and (max-width: 1000px) {
+.drop-boxes-prio-vote-wrapper {
+		min-width: 100%;
+		margin: 0 1px 18px;
+		padding: 0px 14px 18px;
+		border-bottom: 5px dashed #ccc;
+	}
+	.prio-vote-buttons-wrapper {
+		width: 100%;
+		float: none;
+		margin: 0;
+	}
+	.prio-vote-buttons-wrapper button.vote_button {
+		min-width: calc(100% - 20px);
+		width: auto;
+	}
+}
+
 @media screen and (max-width: 800px) {
 	.hide-800 {
 		display: none;
@@ -59,17 +77,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-	.drop-boxes-prio-vote-wrapper {
-		width: 100%;
-		margin: 0 0 18px;
-		padding: 0px 4% 18px;
-		border-bottom: 5px solid #ccc;
-	}
-	.prio-vote-buttons-wrapper {
-		width: 100%;
-		float: none;
-		margin: 0;
-	}
+	
 }
 @media only screen and (max-width: 606px) {
 	#white_vote {
