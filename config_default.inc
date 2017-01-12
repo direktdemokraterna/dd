@@ -29,4 +29,5 @@ define_if_undefined("EDIT_POST_TIME_WINDOW_IN_MINUTES", 10);
 define_if_undefined("MEMBERSHIP_FEE", 50);
 
 define_if_undefined("BASE_DIR", __DIR__);
+define_if_undefined("BASE_URL", "http://localhost/");
 ?>

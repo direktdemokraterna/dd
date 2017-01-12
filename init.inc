@@ -112,8 +112,6 @@ switch (\I18n\controller::get_language()) {
 }
 
 $app_folder_name = str_replace('index.php', '', $_SERVER['PHP_SELF']);
-DEFINE('BASE_URL', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' 
-	. $_SERVER['HTTP_HOST'] . $app_folder_name);
 DEFINE('BASE_FOLDER', $_SERVER['DOCUMENT_ROOT'] . $app_folder_name);
 
 define_if_undefined("USERIMG_PATH", BASE_URL . "images/userimg/");
