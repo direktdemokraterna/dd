@@ -149,8 +149,8 @@ class controls
 		echo '<input onClick="this.select();" tabindex="' . $tab_index++ . '" type="text" value="' . 
 		$value . '" name="' . $search_input_name . '" class="sidebar_search_input">';
 		echo '<div class="align-right">';
-		echo '<input tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="' 
-		. _t('Search') . '">';
+		echo '<button tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="' 
+		. _t('Search') . '">' . _t('Search') . '</button>';
 		echo '</div>';
 		echo '</form>';
 	}
@@ -191,8 +191,8 @@ class controls
 		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
 			. $tab_index . '">' . $content . '</textarea><br>';
 		echo '<div class="align-center">';
-		echo '<input type="submit" id="' . $submit_name . '" value="' . $submit_text 
-			. '" tabindex="' . ($tab_index + 1) . '">';
+		echo '<button type="submit" id="' . $submit_name . '" value="' . $submit_text 
+			. '" tabindex="' . ($tab_index + 1) . '">' . $submit_text . '</button>';
 		echo '</div>';
 		echo '</fieldset>';
 		echo '</form>';

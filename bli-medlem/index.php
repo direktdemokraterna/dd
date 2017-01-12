@@ -93,7 +93,7 @@ if($is_all_mandatory_set){
 ?>
 <input type="checkbox" name="news_letter" value="1" id="news_letter">
 	<label for "news_letter"><?php __t("I want to subscribe to the news letter"); ?></label>
-<input type="submit" value="<?php __t("Send"); ?>">
+<button type="submit" value="<?php __t("Send"); ?>"><?php __t("Send"); ?></button>
 </form>
 
 <script type="text/javascript" language="JavaScript">

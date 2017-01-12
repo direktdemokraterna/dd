@@ -99,7 +99,7 @@ elseif(isset($_POST['user_email'])){
 		<p>Fyll i den mejladress som finns registrerad i systemet för dig i fältet här under. Ett mejl med en aktiveringskod kommer att skickas till den adressen och med hjälp av den kan du sedan aktivera din användare och börja använda det nya systemet.</p>
 		<label for "user_email">Mejladress</label>
 		<input type="text" name="user_email" id="user_email" value="">
-		<input type="submit" value="Skicka">'
+		<button type="submit" value="Skicka">Skicka</button>'
 	</form>
 <?php endif; ?>
 
