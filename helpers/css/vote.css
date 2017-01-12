@@ -43,6 +43,8 @@
 	color: #444;
 }
 
+/* VOTE BUTTONS */
+
 .vote-buttons {
 	clear: both;
     margin: 0 0 10px 0;
@@ -52,6 +54,11 @@
 	border: 5px dashed #ccc;
 	background: #f7f7f7;
 	}
+.vote-buttons:after {
+    clear: both;
+    display: block;
+    content: '';
+}
 
 .vote_button {
 	margin-left: 10px;
@@ -85,7 +92,8 @@ button.vote_button i {
 	margin-right: 7px;
 	}
 	
-button.blue_vote {
+button.blue_vote,
+button.blue-button#green_vote {
     background: #2098F6;
     background: #19c5ff;
     background: -moz-radial-gradient(center, ellipse cover, #19c5ff 0%, #049bce 100%);
@@ -94,7 +102,7 @@ button.blue_vote {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#19c5ff', endColorstr='#049bce',GradientType=1 );
 }
 
-#green_vote {
+#green_vote, .support-box {
     background: #3aca02;
     background: -moz-radial-gradient(center, ellipse cover, #3aca02 0%, #268a00 100%);
     background: -webkit-radial-gradient(center, ellipse cover, #3aca02 0%,#268a00 100%);
@@ -102,7 +110,7 @@ button.blue_vote {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3aca02', endColorstr='#268a00',GradientType=1 );
 }
 
-#red_vote {
+#red_vote, .reject-box {
     background: #ff3019;
     background: -moz-radial-gradient(center, ellipse cover, #ff3019 0%, #cf0404 100%);
     background: -webkit-radial-gradient(center, ellipse cover, #ff3019 0%,#cf0404 100%);
@@ -119,7 +127,7 @@ button.blue_vote {
 	color: #666;
 }
 
-#white_vote {
+#white_vote, .unsorted-box {
     background: #bbb;
     font-size: 1.2em;
     width: 253px;
@@ -171,36 +179,48 @@ button.blue_vote {
 
 /* Prio-vote sorting list */
 
+.drop-boxes-prio-vote-wrapper {
+    width: 50%;
+	display: block;
+	float:	left;
+	margin-left: 20px;
+	padding-top: 5px;
+}
+.prio-vote-buttons-wrapper {
+    width: 45%;
+    float: right;
+}
+
 .prio-vote-box {
-	list-style-type: none;
-	border: 1px solid #330000;
-	padding: 10px;
-	min-height: 20px;
-	width: 40%;
-	min-width: 200px;
+    list-style-type: none;
+    border: 3px solid #666;
+    padding: 10px;
+    min-height: 60px;
+    min-width: 100%;
 }
 
-.support-box {
-	background: #7CD429;
-}
-
-.unsorted-box {
-	background: #eeeeee;
-	margin-top: 10px;
+.unsorted-box, .reject-box, .support-box {
 	margin-bottom: 10px;
 }
 
-.reject-box {
-	background: #e3372c;
+.support-box {
+	border: 3px solid #065a01;
+	}
+.unsorted-box {
+    border: 3px solid #5a5a5a;
 }
+.reject-box {
+	border: 3px solid #8a1f1f;
+	}
 
 .sortable {
-	cursor: move;
-	border: 1px solid rgba(255, 255, 255, .1);
-	background: rgba(255, 255, 255, 0.3);
-	padding: 5px;
-	margin-top: 5px;
-	min-height: 20px;
+    cursor: move;
+    border: 1px solid rgba(255, 255, 255, .5);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 5px;
+    margin-top: 5px;
+    min-height: 20px;
+    font-size: 18px;
 }
 
 .sortable-dragging {

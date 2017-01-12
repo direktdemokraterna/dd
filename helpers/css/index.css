@@ -177,7 +177,8 @@ form.scroll {
 	font-size: 17px;
 	}
 .forum_info, .list_sub_text, .quote_in_post, .post_alternatives,
-input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message  {
+input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message,
+.sortable {
 	font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;
 	}
 .forum_info {

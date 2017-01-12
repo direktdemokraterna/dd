@@ -59,7 +59,17 @@
 }
 
 @media only screen and (max-width: 767px) {
-
+	.drop-boxes-prio-vote-wrapper {
+		width: 100%;
+		margin: 0 0 18px;
+		padding: 0px 4% 18px;
+		border-bottom: 5px solid #ccc;
+	}
+	.prio-vote-buttons-wrapper {
+		width: 100%;
+		float: none;
+		margin: 0;
+	}
 }
 @media only screen and (max-width: 606px) {
 	#white_vote {

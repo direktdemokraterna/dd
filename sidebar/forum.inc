@@ -7,7 +7,7 @@ Description: Sidebar for forums
 <?php $last_posts = db_forum::get_last_posts(10); ?>
 
 <ul>
-	<li class="search-forums">
+	<li class="search-forums"> 
 		<?php
 		\View\controls::output_search_box("in forum", "forum", "search", 111);
 		?>

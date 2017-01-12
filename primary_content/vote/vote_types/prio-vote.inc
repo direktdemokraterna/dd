@@ -6,6 +6,7 @@
     __open_form("prio-vote");
     __hidden("vote_id", $voteinfo['id']);
     __hidden("ballot");
+	echo '<div class="vote-buttons">';
     echo '<ul class="prio-vote-box support-box" id="support-list"></ul>';
     echo '<ul class="prio-vote-box unsorted-box">';
     foreach($votes_alternatives as $row)
@@ -13,14 +14,14 @@
         . $row['description'] . '">' . $row['title'] . '</span></li>';
     echo '</ul>';
     echo '<ul class="prio-vote-box reject-box" id="reject-list"></ul>';
-    echo '<input type="submit" class="vote_button" id="green_vote" value="' . _t('Vote') . '"><br>';
+    echo '<input type="submit" class="vote_button" id="green_vote" value="' . _t('Vote') . '">';
     echo '<input type="submit" class="vote_button" id="yellow_vote" value="' . _t('Abstain') 
       . '" onmousedown="return prio_abstain()">';
     echo '<input type="submit" class="vote_button" id="white_vote" value="' . _t('Revoke ballot') 
       . '" style="display: ' . ($_SESSION['delegate_id'] && !empty($delegate_ballot) ? "inline-block" : "none") 
       . ';" onmousedown="return prio_cancel()">';
     echo '<br><span id="if_delegate_vote" class="p"></span>';
-    echo '</form>';
+    echo '</div></form>';
     echo '</div>';
     echo '<div>';
     __p(_link(_t("Add alternative to this vote"), 'vote', 'add_alternative', 'id=' . $voteinfo['id']));
