@@ -183,6 +183,27 @@ button.blue-button#green_vote:hover {
     margin-bottom: 14px;
 	font-weight: 900;
 	}
+#green_vote:before,
+#red_vote:before,
+#yellow_vote:before,
+#white_vote:before {
+    font-size: 26px;
+    margin-right: 7px;
+}	
+#green_vote:before {
+    content: '\f164';
+	content: '\f087';
+}
+#red_vote:before {
+	content: '\f088';
+    /*content: '\f165';*/
+}
+#yellow_vote:before {
+    content: '\f05e';
+}
+#white_vote:before {
+    content: '\f112';
+}
 
 /* Prio-vote sorting list */
 
