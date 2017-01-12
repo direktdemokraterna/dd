@@ -112,6 +112,8 @@ switch (\I18n\controller::get_language()) {
 }
 
 $app_folder_name = str_replace('index.php', '', $_SERVER['PHP_SELF']);
+$app_folder_name = str_replace('bli-medlem/', '', $app_folder_name);
+$app_folder_name = str_replace('aktivering/', '', $app_folder_name);
 DEFINE('BASE_URL', (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' 
 	. $_SERVER['HTTP_HOST'] . $app_folder_name);
 DEFINE('BASE_FOLDER', $_SERVER['DOCUMENT_ROOT'] . $app_folder_name);
