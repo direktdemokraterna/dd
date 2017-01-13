@@ -50,6 +50,11 @@ class vote
 			__strong(_t("Vote ", array('class' => 'noun')) . _t("created by administrator", array('class' => 'adj')));
 	}
 
+	public static function output_vote_started_info($voteinfo) {
+		__strong(_t("Vote started: "));
+		echo \general_helpers::show_date($voteinfo['timestamp_created']);
+	}
+
 	public static function output_number_of_cast_ballots_info($voteinfo, $number_of_delegate_ballots) {
 		__info(_t("Number of cast ballots"), $voteinfo['number_of_ballots']);
 		__info(_t("Whereof personally cast ballots"), $voteinfo['number_of_direct_ballots']);

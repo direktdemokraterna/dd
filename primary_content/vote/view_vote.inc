@@ -27,28 +27,30 @@
 </script>
 
 <?php 
-	if (isset($_GET['from_action']))
-		\View\controls::output_search_back_link();
+	\View\controls::output_search_back_link();
 	\View\vote::output_vote_header($voteinfo);
+
 	\View\general::open_div("vote_result_box");
 	\View\vote::output_vote_result_with_header($voteinfo, $ballots_to_count);
 	__br();
 	\View\vote::output_vote_finish_status($voteinfo);
 	\View\general::close_div();
+
 	\View\general::open_div("vote_result_box", "user_vote_box");
 	\View\vote::output_ballot_info($voteinfo, $delegate_ballot);
 	\View\general::close_div();
+
 	echo '<p>';
 	__strong(_t("Constituency: ") . $voteinfo['constituency_name']);
 	__br();
 	\View\vote::output_proposition_creation_info($voteinfo);
 	__br();
-	__strong(_t("Vote started: "));
-	echo general_helpers::show_date($voteinfo['timestamp_created']);
+	\View\vote::output_vote_started_info($voteinfo);
 	__br();	
 	\View\vote::output_number_of_cast_ballots_info($voteinfo, $number_of_delegate_ballots);
 	\View\vote::output_vote_description($voteinfo);
 	echo '</p>';
+
 	\View\vote::output_view_cast_ballots($voteinfo);
 	\View\vote::output_vote_debate_link($voteinfo);
 	\View\vote::output_vote_buttons($voteinfo, $user_allowed_to_vote);

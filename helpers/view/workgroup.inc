@@ -19,8 +19,7 @@ class workgroup
 	}
 
 	public static function output_workgroup_info($workgroup, $is_member, $is_candidate) {
-		if (isset($_GET['from_action']))
-			\View\controls::output_search_back_link();
+		\View\controls::output_search_back_link();
 		__h1($workgroup['title']);
 		if($workgroup['is_active']==0)
 			__p(_t("This workgroup is proposed. It needs at least three members to be activated. Currently the number of members is " . $workgroup['number_of_members'] . "."));

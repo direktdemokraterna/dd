@@ -3,11 +3,11 @@
 	$page = \Logic\forum::get_requested_page($topic_id);	
 	$posts = db_forum::get_posts($topic_id, $_SESSION['id'], $page);
 	$post_count = db_forum::get_post_count($topic_id);
-	if (isset($_GET['from_action']))
-		\View\controls::output_search_back_link();
-	else
+	if !(\View\controls::output_search_back_link())
+	{
 		\View\forum::show_topic_title($topic_id);
-		\View\forum::show_topic_breadcrumbs($topic_id);	
+		\View\forum::show_topic_breadcrumbs($topic_id);			
+	}
 	
 	if(empty($posts))
 		__p(_t("The thread doesn't exist or you don't have permission to read it."));

@@ -156,8 +156,11 @@ class controls
 	}
 
 	public static function output_search_back_link() {
+		if (!isset($_GET['from_action']))
+			return false;
 		__link(_t("Back to the search result"), $_GET['type'], $_GET['from_action']);
-		__br();
+		__br();		
+		return true;
 	}
 
 	public static function output_text_editor($options)
