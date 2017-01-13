@@ -3,6 +3,104 @@ namespace View;
 
 class vote 
 {
+	public static function output_vote_finish_status($voteinfo) {
+		if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished")
+			echo _t("The vote is finished. It finished ") 
+			. \general_helpers::show_date($voteinfo['timestamp_ended']) . '.';
+		elseif($voteinfo['status'] == "del_ended")
+			echo _t("The vote finishes ") . \general_helpers::show_date($voteinfo['timestamp_ended']) 
+				. _t('. For delegates the possibility to vote closed ') 
+				. \general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . '.';
+		elseif($voteinfo['status'] == "continuous")
+			__t("This is a continuous vote and it continues until it is ended through a new yes/no vote.");
+		else
+			echo _t("The vote finishes ") .' <span class="vote-end-date">'
+				. \general_helpers::show_date($voteinfo['timestamp_ended']) 
+				. '</span>'
+				. _t(". For delegates the possibility to vote closes ") . ' <span class="vote-end-date">' . \general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . "</span>.";
+	}
+
+	public static function output_ballot_info($voteinfo, $delegate_ballot) {
+		if($_SESSION['delegate_id']) {
+			if(empty($delegate_ballot))
+				__t("You have not yet voted in this vote as delegate.");
+			else {
+				if(isset($delegate_ballot['delegate_id']))
+					__t("You as delegate have let your delegate vote in this vote.");
+				else
+					__t("You as delegate have cast your own ballot in this vote.");
+				__br();
+				__t("Your ballot:");
+				__br();
+				echo self::get_ballot_content($voteinfo['type'], $delegate_ballot['ballot']);
+			}
+		}
+		else __t("No ballot has been cast in your name in this vote.");
+	}
+
+	public static function output_proposition_creation_info($voteinfo) {
+		if($voteinfo['proposition_created']) {
+			__strong(_t("Proposition created: "));
+			echo \general_helpers::show_date($voteinfo['proposition_created']);
+			__br();
+			__strong(_t("Proposition created by: "));
+			__link($voteinfo['user_full_name'], 'member', 'view', 'id=' . $voteinfo['user_id']);
+		}
+	  	else 
+			__strong(_t("Vote ", array('class' => 'noun')) . _t("created by administrator", array('class' => 'adj')));
+	}
+
+	public static function output_number_of_cast_ballots_info($voteinfo, $number_of_delegate_ballots) {
+		__info(_t("Number of cast ballots"), $voteinfo['number_of_ballots']);
+		__info(_t("Whereof personally cast ballots"), $voteinfo['number_of_direct_ballots']);
+		__info(_t("Number of delegates who has voted"), $number_of_delegate_ballots);
+	}
+
+	public static function output_vote_description($voteinfo) {
+		__info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($voteinfo['description']));
+	}
+
+	public static function output_view_cast_ballots($voteinfo) {
+		if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
+			&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {
+			echo '<div class="" id="delegate_votes_box">';
+			echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'' . $voteinfo['type'] . '\')">' . _t("See delegate ballots for this vote") . '</a>';
+			echo '</div>';
+		}
+		echo '<p>';
+		__link(_t("See all ballots for this vote"), 'vote', 'view_ballots', 'id=' . $voteinfo['id']);
+		echo '</p>';
+	}
+
+	public static function output_vote_debate_link($voteinfo) {
+		echo '<p>';
+		__link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id']);
+		echo '</p>';
+	}
+
+	public static function output_vote_buttons($voteinfo, $user_allowed_to_vote) {
+		if($user_allowed_to_vote) {
+			echo '<div class="vote_box">';
+			include(__DIR__ . self::get_vote_form_include($voteinfo['type']));
+			echo '</div>';
+			__t($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
+		}
+	}
+
+	public static function output_javascript_vote_localized_texts() {
+		echo '<script>';
+		\View\vote::output_common_delegate_vote_box_translations_for_js();
+		echo 'var yes_text = "' . _t("Yes") . '";';
+		echo 'var no_text = "' . _t("No") . '";';
+		echo '</script>';
+	}
+
+	public static function output_javascript_vote_handlers($voteinfo) {
+		$vote_script_include = self::get_vote_script_include($voteinfo['type']);
+		if ($vote_script_include)
+			include(__DIR__ . $vote_script_include);
+	}
+
 	public static function make_add_alternative_form($voteinfo) {
 		if($voteinfo['type'] == "prio-vote") {
 			self::open_add_alternative_form("Add alternative to", $voteinfo);
