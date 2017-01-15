@@ -40,7 +40,7 @@ elseif(isset($_POST['user_email'])){
 	}
 }
 
-?>
+?><!DOCTYPE html>
 <html>
 <head>
 	<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">

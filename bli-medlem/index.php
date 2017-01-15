@@ -31,7 +31,7 @@ if($is_all_mandatory_set){
 		, general_helpers::clean($telephone2));
 }
 
-?>
+?><!DOCTYPE html>
 <html>
 <head>
 	<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
