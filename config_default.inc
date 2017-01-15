@@ -9,6 +9,15 @@ define_if_undefined("DB_PASSWORD", "");
 define_if_undefined("ANON_SERVER_URL", "http://localhost/dd_anon/");
 define_if_undefined("ANON_SERVER_BROWSER_URL", "http://localhost/dd_anon/");
 
+// Mail configuration
+define_if_undefined("MAIL_HOST", "");
+define_if_undefined("MAIL_FROM_ADDRESS", "admin@direktdemokraterna.se");
+define_if_undefined("MAIL_FROM_NAME", "Direktdemokraterna Admin");
+define_if_undefined("MAIL_REPLY_TO_ADDRESS", "no-reply@direktdemokraterna.se");
+define_if_undefined("MAIL_REPLY_TO_NAME", "Direktdemokraterna Admin");
+define_if_undefined("MAIL_USERNAME", "");
+define_if_undefined("MAIL_PASSWORD", "");
+
 // Language
 define_if_undefined("BASE_LANG", "en");
 define_if_undefined("LANG", "sv");
