@@ -19,6 +19,6 @@
 		<label for "comment_from_admin">Beskrivning av utbetalningen</label>
 		<input type="text" name="comment_from_admin" id="comment_from_admin">
 		<br>
-		<input type="submit" value="Registrera">
+		<button type="submit" value="Registrera">Registrera</button>
 	</fieldset>
 </form>

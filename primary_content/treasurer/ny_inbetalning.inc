@@ -28,6 +28,6 @@
 			?>
 		</select>
 		<br>
-		<input type="submit" value="Registrera">
+		<button type="submit" value="Registrera">Registrera</button>
 	</fieldset>
 </form>

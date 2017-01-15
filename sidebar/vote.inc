@@ -1,5 +1,5 @@
 <ul>
-	<li>
+	<li class="sidebar-propositions">
 		<?php 
 			__h2(_t("Propositions"));
 			\View\controls::output_link_list("vote", array(
@@ -9,7 +9,7 @@
 			));
 		?>
 	</li>
-	<li>
+	<li class="">
 		<?php 
 			\View\controls::output_search_box("propositions", "vote", "search_prop", 101);
 		?>

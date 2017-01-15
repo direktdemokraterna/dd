@@ -16,7 +16,6 @@
     echo '</ul>';
     echo '<ul class="prio-vote-box reject-box" id="reject-list"></ul></div>';
 	echo '<div class="prio-vote-buttons-wrapper">';
-    // echo '<input type="submit" class="vote_button blue-button" id="green_vote" value="' . _t('Vote') . '">';
     echo '<button type="submit" class="vote_button blue-button" id="green_vote" value="' . _t('Vote') . '">' . _t('Vote') . '</button>';    
 	echo '<button type="submit" class="vote_button" id="yellow_vote" value="' . _t('Abstain') 
       	. '" onmousedown="return prio_abstain()">' . _t('Abstain') . '</button>';

@@ -14,7 +14,7 @@
 				}
 			?>
 		</select>
-		<input type="submit" value="Välj">
+		<button type="submit" value="Välj">Välj</button>
 	</fieldset>
 </form>
 

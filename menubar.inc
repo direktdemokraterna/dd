@@ -82,13 +82,13 @@
 			?>
 			<ul>
 				<?php if ($_SESSION['delegate_id']) : ?>
-					<li><a onClick="set_acting_as_delegate(0)">
+					<li class="mb-individual"><a onClick="set_acting_as_delegate(0)">
 						<?php __t("Act as individual"); ?></a></li>
 				<?php elseif (db_delegate::is_user_delegate($_SESSION['id'])) : ?>
-					<li><a onClick="set_acting_as_delegate(1)">
+					<li class="mb-delegate"><a onClick="set_acting_as_delegate(1)">
 						<?php __t("Act as delegate"); ?></a></li>
 				<?php endif; ?>
-				<li><a href="index.php?logout=1"><?php __t("Logout"); ?></a></li>
+				<li class="mb-logout"><a href="index.php?logout=1"><?php __t("Logout"); ?></a></li>
 			</ul>
 		</li>
 	</ul>

@@ -44,8 +44,6 @@
 			echo '<div class="styled-select slate">';
 		\View\controls::output_selector('select' . $row['id'], $delegate_options);
 		echo '</div>';
-		// echo '<input type="submit" value="' . _t("Delegate") . '" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
-		//	. $row['id'] . ')">';
 		echo '<button type="submit" value="' . _t("Delegate") . '" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
 			. $row['id'] . ')">' . _t("Delegate") . '</button>';
 		echo '</div>';

@@ -32,8 +32,7 @@
 </script>
 
 <?php 
-	if (isset($_GET['from_action']))
-		\View\controls::output_search_back_link();
+	\View\controls::output_search_back_link();
 	__h1(_t("Proposition: ") . $propinfo['title']);
 	echo '<div class="vote_result_box">';
 	if($propinfo['status'] == "pending") {

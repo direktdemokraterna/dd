@@ -110,7 +110,8 @@ em, i {
 
 textarea, input[type="text"] {
 	border: 1px solid #ddd;
-	padding: 2em;
+	padding: 5px;
+	font-size: 14px;
 }
 .post_content span {
     word-wrap: break-word;
@@ -173,13 +174,13 @@ form.scroll {
 }
 /* TYPOGRAPHY */
 
-.post_content {
-	font-size: 17px;
-	}
 .forum_info, .list_sub_text, .quote_in_post, .post_alternatives,
 input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message,
-.sortable {
+.sortable, textarea, input[type="text"] { /* Standard font for all sans-serif elements */
 	font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;
+	}
+.post_content {
+	font-size: 17px;
 	}
 .forum_info {
 	font-size: 13px;
@@ -211,6 +212,39 @@ input.vote_button, button.vote_button, .median-vote input[type="text"], .green_m
 	
 /* BUTTONS */
 
+button[type="submit"]:before {
+	content: '\f139';
+	font: normal normal normal 14px/1 FontAwesome;
+	margin-right: 5px;
+	}
+button[type="submit"].btn-login {
+    float: right;
+	width: auto;
+	}
+button[type="submit"].btn-login:before {
+	content: '\f090';
+	}
+	
+/* FONT AWESOME ICONS */
+
+li.mb-delegate a:before, 
+li.mb-individual a:before, 
+li.mb-logout a:before {
+	font: normal normal normal 14px/1 FontAwesome;
+	margin-right: 5px;
+	}
+
+li.mb-delegate a:before {
+	content: '\f0c0';
+	}
+li.mb-individual a:before {
+	content: '\f007';
+	}
+li.mb-logout a:before {
+	content: '\f08b';
+	}
+	
+	
 
 
 /* FORMS, FIELDSETS & INPUTS */
@@ -227,7 +261,6 @@ button[type="submit"]  {
     font-size: 12px;
 	letter-spacing: .5;
 	font-weight: 600;
-	width: 100px;
     cursor: pointer;
     text-transform: uppercase;
 }

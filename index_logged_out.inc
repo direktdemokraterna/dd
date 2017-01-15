@@ -22,7 +22,7 @@
 <br><label for "password"><?php __t("Password"); ?></label>
 <input type="password" name="password" id="password" tabindex="2"></p>
 <p><label for "rememberme"><?php __t("Remember me"); ?><input type="checkbox" name="rememberme" id="rememberme"></label>
-<span><input type="submit" value="<?php __t("Login"); ?>"></span>
+<span><button type="submit" value="<?php __t("Login"); ?>" class="btn-login"><?php __t("Login"); ?></button></span>
 </p>
 </form>
 

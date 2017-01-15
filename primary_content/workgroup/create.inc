@@ -7,7 +7,7 @@
 		<label for "description"><?php __t("Description of the workgroup"); ?></label>
 		<textarea name="description" id="description" cols="60" rows="10"></textarea>
 		<br>
-		<input type="submit" value="<?php __t("Create"); ?>">
+		<button type="submit" value="<?php __t("Create"); ?>"><?php __t("Create"); ?></button>
 	</fieldset>
 </form>
 <?php

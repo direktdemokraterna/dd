@@ -137,8 +137,8 @@ class text
 			{
 				$completeUrl = \Logic\util::starts_With($link_text, "http") 
 					? $link_text 
-					: "http://$url"; // todo: url is defined where?
-				return "<a href=\"$completeUrl\" target=\"_blank\">$url</a>";
+					: "http://$link_text";
+				return "<a href=\"$completeUrl\" target=\"_blank\">$link_text</a>";
 			});
 	}
 

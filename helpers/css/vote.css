@@ -100,35 +100,40 @@ button.blue-button#green_vote {
     background: -webkit-radial-gradient(center, ellipse cover, #19c5ff 0%,#049bce 100%);
     background: radial-gradient(ellipse at center, #19c5ff 0%,#049bce 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#19c5ff', endColorstr='#049bce',GradientType=1 );
+	background: #19c5ff;
 }
 
 #green_vote, .support-box {
-    background: #3aca02;
+    
     background: -moz-radial-gradient(center, ellipse cover, #3aca02 0%, #268a00 100%);
     background: -webkit-radial-gradient(center, ellipse cover, #3aca02 0%,#268a00 100%);
     background: radial-gradient(ellipse at center, #3aca02 0%,#268a00 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3aca02', endColorstr='#268a00',GradientType=1 );
+	background: #3aca02;
 }
 
 #red_vote, .reject-box {
-    background: #ff3019;
+    
     background: -moz-radial-gradient(center, ellipse cover, #ff3019 0%, #cf0404 100%);
     background: -webkit-radial-gradient(center, ellipse cover, #ff3019 0%,#cf0404 100%);
     background: radial-gradient(ellipse at center, #ff3019 0%,#c10202 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=1 );
+	background: #ff3019;
 }
 
 #yellow_vote {
-    background: #ffe822;
+    
     background: -moz-radial-gradient(center, ellipse cover, #ffe822 37%, #d6c000 100%);
     background: -webkit-radial-gradient(center, ellipse cover, #ffe822 37%,#d6c000 100%);
     background: radial-gradient(ellipse at center, #ffe822 37%,#d6c000 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe822', endColorstr='#d6c000',GradientType=1 );
+	background: #ffe822;
+	
 	color: #666;
 }
 
 #white_vote, .unsorted-box {
-    background: #bbb;
+    
     font-size: 1.2em;
     width: 253px;
     padding: 25px 0;
@@ -137,6 +142,7 @@ button.blue-button#green_vote {
     background: -webkit-radial-gradient(center, ellipse cover, #ededed 0%,#bcbcbc 100%);
     background: radial-gradient(ellipse at center, #ededed 0%,#bcbcbc 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#bcbcbc',GradientType=1 );
+	background: #ededed;
 }
 .blue_vote:hover,
 button.blue-button#green_vote:hover {
@@ -177,6 +183,27 @@ button.blue-button#green_vote:hover {
     margin-bottom: 14px;
 	font-weight: 900;
 	}
+#green_vote:before,
+#red_vote:before,
+#yellow_vote:before,
+#white_vote:before {
+    font-size: 26px;
+    margin-right: 7px;
+}	
+#green_vote:before {
+    content: '\f164';
+	content: '\f087';
+}
+#red_vote:before {
+	content: '\f088';
+    /*content: '\f165';*/
+}
+#yellow_vote:before {
+    content: '\f05e';
+}
+#white_vote:before {
+    content: '\f112';
+}
 
 /* Prio-vote sorting list */
 
@@ -198,6 +225,7 @@ button.blue-button#green_vote:hover {
     padding: 10px;
     min-height: 60px;
     min-width: 100%;
+	
 }
 
 .unsorted-box, .reject-box, .support-box {
@@ -213,6 +241,23 @@ button.blue-button#green_vote:hover {
 .reject-box {
 	border: 3px solid #8a1f1f;
 	}
+#support-list:before {
+    content: 'Dra och släpp kandidater du prioriterar upp, i det gröna fältet. Sortera även individuellt i den ordning du föredrar kandidaterna.';
+    font-size: 11px;
+    font-family: 'Lato';
+	color: #eee;
+}
+.unsorted-box:before {
+    content: 'De kandidater du inte har någon åsikt om - låter du vara kvar i det grå, neutrala fältet.';
+    font-size: 11px;
+    font-family: 'Lato';
+}
+#reject-list:before {
+    content: 'Dra och släpp kandidater du prioriterar ner, i det röda fältet. Sortera även individuellt i den ordning du föredrar kandidaterna.';
+    font-size: 11px;
+    font-family: 'Lato';
+	color: #ddd;
+}
 
 .sortable {
     cursor: move;
