@@ -133,7 +133,7 @@ class general_helpers {
 	///////////////////////////////////
 
 	private static function is_genitive ($str){
-		return strlen($str) > 0 && strtolower(substr($str, -1)) == "s";
+		return mb_strlen($str) > 0 && mb_strtolower(substr($str, -1)) == "s";
 	}
 
 	private static function generate_report_message (){
