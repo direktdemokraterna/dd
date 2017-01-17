@@ -186,6 +186,10 @@ class nouns
 				"sv" => "inkorgen"
 				,"en" => "inbox"
 				)
+			,"incoming payment:noun1" => array(
+				"sv" => "inbetalning"
+				,"en" => "incoming payment"
+				)
 			,"individual:noun1" => array(
 				"sv" => "privatperson"
 				,"en" => "individual"
@@ -226,6 +230,10 @@ class nouns
 				"sv" => "medlemsansvarig:a"
 				,"en" => "member admin:s"
 				)
+			,"member fee:noun1" => array(
+				"sv" => "medlemsavgift:er"
+				,"en" => "member fee:s"
+				)
 			,"member-page:noun1" => array(
 				"sv" => "medlems-sida:_or:n:na"
 				,"en" => "member-page:s"
@@ -254,9 +262,17 @@ class nouns
 				"sv" => "skickade"
 				,"en" => "outbox"
 				)
+			,"outgoing payment:noun1" => array(
+				"sv" => "utbetalning"
+				,"en" => "outgoing payment"
+				)
 			,"other:noun1" => array(
 				"sv" => "annan:___dra"
 				,"en" => "other:s"
+				)
+			,"overview:noun1" => array(
+				"sv" => "översikt"
+				,"en" => "overview"
 				)
 			,"page:noun1" => array(
 				"sv" => "sida:_or:n:na"
