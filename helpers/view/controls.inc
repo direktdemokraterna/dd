@@ -193,7 +193,7 @@ class controls
 		echo '</div>';
 		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
 			. $tab_index . '">' . $content . '</textarea><br>';
-		echo '<div class="align-center">';
+		echo '<div class="align">';
 		echo '<button type="submit" id="' . $submit_name . '" value="' . $submit_text 
 			. '" tabindex="' . ($tab_index + 1) . '">' . $submit_text . '</button>';
 		echo '</div>';

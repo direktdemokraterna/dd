@@ -28,32 +28,60 @@
 
 <?php 
 	\View\controls::output_search_back_link();
-	\View\vote::output_vote_header($voteinfo);
-
-	\View\general::open_div("vote_result_box");
-	\View\vote::output_vote_result_with_header($voteinfo, $ballots_to_count);
-	__br();
-	\View\vote::output_vote_finish_status($voteinfo);
-	\View\general::close_div();
-
-	\View\general::open_div("vote_result_box", "user_vote_box");
-	\View\vote::output_ballot_info($voteinfo, $delegate_ballot);
-	\View\general::close_div();
-
-	echo '<p>';
-	__strong(_t("Constituency: ") . $voteinfo['constituency_name']);
-	__br();
-	\View\vote::output_proposition_creation_info($voteinfo);
-	__br();
-	\View\vote::output_vote_started_info($voteinfo);
-	__br();	
-	\View\vote::output_number_of_cast_ballots_info($voteinfo, $number_of_delegate_ballots);
-	\View\vote::output_vote_description($voteinfo);
-	echo '</p>';
-
-	\View\vote::output_view_cast_ballots($voteinfo);
-	\View\vote::output_vote_debate_link($voteinfo);
-	\View\vote::output_vote_buttons($voteinfo, $user_allowed_to_vote);
-	\View\vote::output_javascript_vote_localized_texts();
-	\View\vote::output_javascript_vote_handlers($voteinfo);
+	\View\vote::output_vote_header($voteinfo); /* Heading */	
+	\View\general::open_div(null, "vote_wrapper");		
+		\View\general::open_div("vote-container float-left");
+				
+			\View\general::open_div("vote_result_box");			
+			\View\vote::output_vote_result_with_header($voteinfo, $ballots_to_count); /* Results */			
+			\View\general::close_div();			
+			\View\general::open_div("vote-description"); 
+			\View\vote::output_vote_description($voteinfo);
+			\View\general::close_div();			
+		\View\general::close_div(); /* Close vote_container float-left */		
+		\View\general::open_div("vote-container float-right");
+			
+			\View\general::open_div(null, "vote_container_grey_box");
+				echo '<a class="no-line"><h2 class="h2-information">Information</h2></a>';
+				echo '<table cellpadding="0"><tr>';
+				__td(_t("Constituency: "));
+				__td($voteinfo['constituency_name']);
+				echo '</tr>';
+				\View\vote::output_vote_finish_status($voteinfo); /* Vote ends date  */
+				\View\vote::output_proposition_creation_info($voteinfo);
+				\View\vote::output_vote_started_info($voteinfo);
+				echo '</table>';
+				
+				echo '<a class="no-line"><h2 class="h2-stats">Statistik</h2></a>';
+				echo '<table cellpadding="0">';
+				\View\vote::output_number_of_cast_ballots_info($voteinfo, $number_of_delegate_ballots);
+				
+				echo '</tr></table>';
+				echo '<a class="no-line"><h2 class="h2-tools">Verktyg</h2></a>';
+				echo '<table cellpadding="0">';
+				echo '<tr><td colspan="2">';
+				\View\vote::output_view_cast_ballots($voteinfo);
+				echo '</td></tr>';
+				echo '</table>';
+				
+			\View\general::close_div();	/* Close vote_container_grey_box */	
+			\View\vote::output_vote_debate_link($voteinfo); /* Discussion button */
+				
+				
+				echo '<img width="250" src="/dev/images/mall-vote-info.png" style="margin-top: 10em; display: block;">';
+		\View\general::close_div(); /* Close vote_container float-right */	
+		
+		\View\general::open_div("clear");
+		\View\general::close_div();
+		
+		\View\general::open_div("vote_buttons_wrapper");
+			\View\vote::output_ballot_info($voteinfo, $delegate_ballot); /* Your vote */	
+			\View\vote::output_vote_buttons($voteinfo, $user_allowed_to_vote); /* Vote buttons */
+			\View\vote::output_javascript_vote_localized_texts();
+			\View\vote::output_javascript_vote_handlers($voteinfo);
+		\View\general::close_div(); /* Close vote_buttons_wrapper */
+		
+	\View\general::close_div(); /* Close vote_wrapper */
+	
+	
 ?>

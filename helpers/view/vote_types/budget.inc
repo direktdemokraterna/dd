@@ -1,7 +1,6 @@
 <?php
 if (\Logic\vote::is_active_vote($voteinfo['status'])) {
     __t("Cast your vote:");
-    __br();
     __open_form("yes-no");
     __hidden("vote_id", $voteinfo['id']);
     __hidden("ballot");
