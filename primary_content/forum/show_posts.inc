@@ -3,7 +3,7 @@
 	$page = \Logic\forum::get_requested_page($topic_id);	
 	$posts = db_forum::get_posts($topic_id, $_SESSION['id'], $page);
 	$post_count = db_forum::get_post_count($topic_id);
-	if !(\View\controls::output_search_back_link())
+	if (! \View\controls::output_search_back_link())
 	{
 		\View\forum::show_topic_title($topic_id);
 		\View\forum::show_topic_breadcrumbs($topic_id);			
