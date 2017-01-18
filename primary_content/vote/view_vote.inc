@@ -68,7 +68,7 @@
 			\View\vote::output_vote_debate_link($voteinfo); /* Discussion button */
 				
 				
-				echo '<img width="250" src="/dev/images/mall-vote-info.png" style="margin-top: 10em; display: block;">';
+				// echo '<img width="250" src="/dev/images/mall-vote-info.png" style="margin-top: 10em; display: block;">';
 		\View\general::close_div(); /* Close vote_container float-right */	
 		
 		\View\general::open_div("clear");
