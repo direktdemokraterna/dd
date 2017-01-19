@@ -9,6 +9,10 @@ class phrases
 				"sv" => "kommer det också att skapas en kontinuerlig omröstning"
 				,"en" => "a continuous vote will also be created"
 				)
+			,"an email" => array(
+				"sv" => "ett email"
+				,"en" => "an email"
+				)
 			,"it also means" => array(
 				"sv" => "det innebär också"
 				,"en" => "it also means"
@@ -56,6 +60,14 @@ class phrases
 			,"don't support" => array(
 				"sv" => "stödjer inte"
 				,"en" => "don't support"
+				)
+			,"enter the email address" => array(
+				"sv" => "fyll i e-postadressen"
+				,"en" => "enter the email address"
+				)
+			,"enter a new password to reset your password" => array(
+				"sv" => "fyll i ett nytt lösenord för att återställa ditt lösenord"
+				,"en" => "enter a new password to reset your password"
 				)
 			,"for the particular issue" => array(
 				"sv" => "i den frågan"
@@ -125,6 +137,10 @@ class phrases
 				"sv" => "denna arbetsgrupps aktivering"
 				,"en" => "the activation of this workgroup"
 				)
+			,"the password must be at least 8 characters" => array(
+				"sv" => "måste vara minst"
+				,"en" => "must be at least"
+				)
 			,"the creation of this workgroup" => array(
 				"sv" => "att arbetsgruppen skapas"
 				,"en" => "the creation of this workgroup"
@@ -160,6 +176,10 @@ class phrases
 			,"whereof" => array(
 				"sv" => "varav"
 				,"en" => "whereof"
+				)
+			,"with help of that token you can then change the password for your user" => array(
+				"sv" => "med hjälp av den återställningskoden kan du sedan byta lösenord för din användare"
+				,"en" => "with help of that token you can then change the password for your user"
 				)
 			,"workgroup election" => array(
 				"sv" => "personval för arbetsgrupp"

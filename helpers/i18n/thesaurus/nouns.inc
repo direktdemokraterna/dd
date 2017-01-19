@@ -338,6 +338,10 @@ class nouns
 				"sv" => "anmälan"
 				,"en" => "report"
 				)				
+			,"reset token:noun1" => array(
+				"sv" => "återställningskod:er:en:erna"
+				,"en" => "reset token:s"
+				)
 			,"role:noun1" => array(
 				"sv" => "roll:er:en:na"
 				,"en" => "role:s"

@@ -316,6 +316,10 @@ class verbs
 				"sv" => "svara::r:de:t"
 				,"en" => "reply::|_ies:_ied"
 				)				
+			,"reset:verb" => array(
+				"sv" => "återställ:a:er:de:t:(d|t:a):s"
+				,"en" => "reset::|s:d"
+				)
 			,"restore:verb" => array(
 				"sv" => "återställ:a:er:de:t:(d|t:a):s"
 				,"en" => "restore::|s:d"

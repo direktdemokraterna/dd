@@ -122,10 +122,10 @@ class db_user
 		return db::update($query, $values);
 	}
 
-	public static function update_password ($password_hash, $id)
+	public static function update_password ($password_hash, $user_id)
 	{
 		$query = "update user set password = ? where id = ?";
-		$values = Array($password_hash, $id);
+		$values = Array($password_hash, $user_id);
 		return db::update($query, $values);
 	}
 
@@ -177,6 +177,13 @@ class db_user
 		$values = Array($username);
 		return db::select_single_value($query, $values);
 	}
+
+    public static function get_user_id_from_email ($email)
+    {
+        $query = "select id from user where email = ?";
+        $values = Array($email);
+        return db::select_single_value($query, $values);
+    }
 
 	public static function get_activation_first_name ($user_id)
 	{
