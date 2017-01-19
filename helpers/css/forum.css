@@ -73,6 +73,11 @@
 	font-weight: normal;
 	font-weight: 400;
 }
+.post_top_row:after {
+    content: '';
+    clear: both;
+    display: table;
+}
 .post_date {
 	color: #2b2b2b;
 	width: 25%;
@@ -155,7 +160,7 @@
 legend {
 	font-size: 16px;
 	font-weight: bold;
-	padding: 10px;
+	padding: 0;
 }
 fieldset label {
 	color: #2b2b2b;

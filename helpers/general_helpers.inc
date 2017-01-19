@@ -47,11 +47,20 @@ class general_helpers {
 		// https://github.com/PHPMailer/PHPMailer
 		require_once('PHPMailer-master/PHPMailerAutoload.php');
 		$mail = new PHPMailer();
-		$mail->setFrom('admin@direktdemokraterna.se', 'Direktdemokraterna Admin');
-		$mail->addReplyTo('no-reply@direktdemokraterna.se', 'Direktdemokraterna Admin');
+		$mail->setFrom(MAIL_FROM_ADDRESS, MAIL_FROM_NAME);
+		$mail->addReplyTo(MAIL_REPLY_TO_ADDRESS, MAIL_REPLY_TO_NAME);
 		$mail->AddAddress($receiver);
 		$mail->Subject = $title;
 		$mail->Body = $text;
+        $mail->IsSMTP();
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+        $mail->Host = MAIL_HOST;
+        $mail->Username = MAIL_USERNAME;
+        $mail->Password = MAIL_PASSWORD;
+        $mail->CharSet = 'utf-8';
+
 		$ok = $mail->send();
 		return $ok 
 			? "success" 
@@ -102,17 +111,17 @@ class general_helpers {
 		return $personnummer;
 	}
 
-	public static function check_personnummer ($personnummer) { 
-		if(strlen($personnummer) != 10) return false;
-		$n = 2; 
+	public static function check_personnummer ($personal_identity_number) {
+		if(strlen($personal_identity_number) != 10) return false;
+		$one_two = 2;
 		$control_sum = 0;
 		for ($i=0; $i<9; $i++){ 
-			$temp = $personnummer[$i] * $n;
+			$temp = $personal_identity_number[$i] * $one_two;
 			$control_sum += ($temp > 9 ? 1 + ($temp % 10) : $temp);
-			$n = $n == 2 ? 1 : 2;
+			$one_two = $one_two == 2 ? 1 : 2;
 		}
 		$control_digit = (10 - $control_sum % 10) % 10;
-		return ($control_digit == $personnummer[9]);
+		return ($control_digit == $personal_identity_number[9]);
 	}
 
 	public static function clean ($data, $flags = ENT_COMPAT, $charset = 'ISO-8859-1', $dblencode = true ) {
@@ -124,7 +133,7 @@ class general_helpers {
 	///////////////////////////////////
 
 	private static function is_genitive ($str){
-		return strlen($str) > 0 && strtolower(substr($str, -1)) == "s";
+		return mb_strlen($str) > 0 && mb_strtolower(substr($str, -1)) == "s";
 	}
 
 	private static function generate_report_message (){
@@ -260,7 +269,7 @@ class general_helpers {
 		echo "<a href=\"index.php?" . http_build_query($get_parameters) . "\">" . $label . "</a>";
 	}
 
-	public static function resize_image($file, $w) { // modifierad från http://stackoverflow.com/questions/14649645/resize-image-in-php
+	public static function resize_image($file, $w) { // modifierad frÃ¥n http://stackoverflow.com/questions/14649645/resize-image-in-php
 		list($width, $height) = getimagesize($file);
 		$r = $width / $height;
 		$newheight = $w/$r;

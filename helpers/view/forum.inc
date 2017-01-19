@@ -171,7 +171,7 @@ class forum
 	{
 		general::open_div("post_user_info");
 		__link('<img src="' . USERIMG_PATH . $post_info['user_image'] . '" class="post_user_image">', "member", "view", "id=" . 
-			$post_info['user_id'], "user_name_link");
+			$post_info['user_id'], "user_name_link_img");
 		echo '<br>';
 		__link($post_info['user_full_name'], "member", "view", "id=" . 
 			$post_info['user_id'], "user_name_link");

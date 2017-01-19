@@ -10,16 +10,91 @@
 	background: #7788ff;
 	color: white;
 	margin-bottom: 15px;
+	font-size: 18px;
+	font-weight: 900;
+	line-height: 2;
+}
+.vote-container.float-left {
+	float: left;
+    width: 71%;
+    padding: 0 30px 0 0;
 }
 
-.vote-end-date {
-	color: #444;
-	background: #fff;
-	padding: 0 5px;	
+.vote-container.float-right {
+	float: right;
+	width: 29%;
+	font-size: 12px;
 }
 
-#user_vote_box {
+#vote_container_grey_box {
+    background: #f7f7f7;
+    padding: 0 10px;
+	}
+#vote_container_grey_box h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: #555;
+	background: #e0e0e0;
+	padding: 10px 10px;
+	margin: 0 -10px;
+	text-align: right;
 }
+#vote_container_grey_box h2.h2-information:after,
+#vote_container_grey_box h2.h2-stats:after,
+#vote_container_grey_box h2.h2-tools:after {	
+	margin-left: 7px;
+	font-size: 17px;
+	}
+#vote_container_grey_box h2.h2-information:after {
+	content: '\f075';
+	}
+#vote_container_grey_box h2.h2-stats:after {	
+	content: '\f080';
+	}
+#vote_container_grey_box h2.h2-tools:after {	
+	content: '\f013';
+	}
+#vote_container_grey_box h2:before {
+	content: '\f056';
+	float: left;
+	color: #9b9b9b;
+	}
+a.link-icon:before {
+	content: '\f0c1';
+	display: inline-block;
+	}
+#vote_container_grey_box table {
+	margin: 5px 0;
+	}
+#vote_container_grey_box table td {
+	font-size: 12px;
+    padding: 2px;
+    text-align: left;
+	border-bottom: 1px solid #eee;
+	vertical-align: middle;
+	line-height: 1.25;
+}
+#vote_container_grey_box table td:first-child {
+	width: 60%;
+	}
+.vote-description {
+	line-height: 1.25;
+	width: 90%;
+	}
+a.btn-blue.bubble {
+	color: #fff;
+	margin: 20px 0 0 0;
+	padding: 10px 20px;
+	}
+a.btn-blue.bubble:before {
+	content: '\f075';
+}
+
+a.btn-blue.bubble:hover {
+	text-decoration: none;
+}
+
 
 .yes-no {
 	width: 100%;
@@ -47,12 +122,12 @@
 
 .vote-buttons {
 	clear: both;
-    margin: 0 0 10px 0;
+    margin: 0;
     text-align: center;
     width: 100%;
     padding: 23px 0 28px;
-	border: 5px dashed #ccc;
-	background: #f7f7f7;
+	/*border: 5px dashed #ccc;*/
+	/*background: #f7f7f7;*/
 	}
 .vote-buttons:after {
     clear: both;
@@ -73,16 +148,14 @@
 
 input.vote_button, button.vote_button {
     padding: 25px 50px;
-    /*-webkit-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.3);
-    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.3);*/
     font-size: 26px;
-    min-width: 260px;
+    min-width: 295px;
     width: auto;
-    border-radius: 10px;
-    margin: 2px;
-	border: 3px solid #fff;
-	font-weight: 900;
+    border-radius: 0;
+    margin: 0 5px 5px 0;
+    /* border: 3px solid #fff; */
+    font-weight: 900;
+    float: left;
 }
 input.vote_button:hover {
 	
@@ -144,22 +217,23 @@ button.blue-button#green_vote {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#bcbcbc',GradientType=1 );
 	background: #ededed;
 }
-.blue_vote:hover,
+/*.blue_vote:hover,
 button.blue-button#green_vote:hover {
-	border: 3px solid #2098F6;
+	
 	}
 #red_vote:hover {
-	border: 3px solid #cf0404;
+	background-color: #f40501;
+	
 	}
 #green_vote:hover {
-	border: 3px solid #268a00;
+	background-color: #2ead00;
 	}
 #yellow_vote:hover {
-	border: 3px solid #d6c000;
+	background-color: #eed700;
 	}
 #white_vote:hover {
-	border: 3px solid #bbb;
-	}
+	background-color: #a4a4a4;
+	}*/
 
 .median-vote-divider {
 	height: 20px;
@@ -212,7 +286,6 @@ button.blue-button#green_vote:hover {
 	display: block;
 	float:	left;
 	margin-left: 20px;
-	padding-top: 5px;
 }
 .prio-vote-buttons-wrapper {
     width: 45%;

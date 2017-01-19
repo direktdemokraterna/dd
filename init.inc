@@ -44,6 +44,7 @@ include(dirname(__FILE__)."/helpers/db/db_prop.inc");
 include(dirname(__FILE__)."/helpers/db/db_delegate.inc");
 include(dirname(__FILE__)."/helpers/db/db_constituency.inc");
 include(dirname(__FILE__)."/helpers/db/db_treasurer.inc");
+include(dirname(__FILE__)."/helpers/db/db_user_password_reset_tokenuser.inc");
 
 include(dirname(__FILE__)."/helpers/i18n/controller.inc");
 include(dirname(__FILE__)."/helpers/i18n/selectors.inc");
@@ -85,6 +86,7 @@ include(dirname(__FILE__)."/helpers/logic/constituency.inc");
 include(dirname(__FILE__)."/helpers/logic/delegate.inc");
 include(dirname(__FILE__)."/helpers/logic/forum.inc");
 include(dirname(__FILE__)."/helpers/logic/global.inc");
+include(dirname(__FILE__)."/helpers/logic/resetpassword.inc");
 include(dirname(__FILE__)."/helpers/logic/text.inc");
 include(dirname(__FILE__)."/helpers/logic/user.inc");
 include(dirname(__FILE__)."/helpers/logic/util.inc");

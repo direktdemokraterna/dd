@@ -5,19 +5,28 @@ class vote
 {
 	public static function output_vote_finish_status($voteinfo) {
 		if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished")
-			echo _t("The vote is finished. It finished ") 
-			. \general_helpers::show_date($voteinfo['timestamp_ended']) . '.';
+			// echo _t("The vote is finished. It finished ");
+			echo '<tr><td>Avslutad:</td><td>'
+			. \general_helpers::show_date($voteinfo['timestamp_ended']) . '</td>';
 		elseif($voteinfo['status'] == "del_ended")
-			echo _t("The vote finishes ") . \general_helpers::show_date($voteinfo['timestamp_ended']) 
-				. _t('. For delegates the possibility to vote closed ') 
-				. \general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . '.';
+			// echo _t("The vote finishes ") 
+			echo '<tr><td>Avslutas:</td><td>'
+				. \general_helpers::show_date($voteinfo['timestamp_ended']) . '</td></tr><tr><td>'
+				. _t('. For delegates the possibility to vote closed ') . '</td></td>'
+				. \general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . '</td></tr>';
 		elseif($voteinfo['status'] == "continuous")
-			__t("This is a continuous vote and it continues until it is ended through a new yes/no vote.");
+			echo '	<tr><td>Avslutas: </td><td>' . _t(' Continuous ') . '</td></tr>
+					<tr><td>Delegatröstning: </td><td>' . _t(' Continuous ') . '</td></tr>';
+			//	. _t("This is a continuous vote and it continues until it is ended through a new yes/no vote.") . '</td></tr>';
+			
 		else
-			echo _t("The vote finishes ") .' <span class="vote-end-date">'
-				. \general_helpers::show_date($voteinfo['timestamp_ended']) 
-				. '</span>'
-				. _t(". For delegates the possibility to vote closes ") . ' <span class="vote-end-date">' . \general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . "</span>.";
+			echo //_t("The vote finishes ") 
+				'<tr><td>Avslutas:</td><td>' 
+				. \general_helpers::show_date($voteinfo['timestamp_ended']) . '</td></tr>';
+				// . _t(". For delegates the possibility to vote closes ") 
+			echo '<tr><td>Delegatröstning avslutas:</td><td>'
+				. \general_helpers::show_date($voteinfo['timestamp_delegate_ended'])
+				. '</td></tr>';
 	}
 
 	public static function output_ballot_info($voteinfo, $delegate_ballot) {
@@ -40,25 +49,30 @@ class vote
 
 	public static function output_proposition_creation_info($voteinfo) {
 		if($voteinfo['proposition_created']) {
-			__strong(_t("Proposition created: "));
+			echo '<tr><td>' . _t("Proposition created: ") . '</td><td>';
 			echo \general_helpers::show_date($voteinfo['proposition_created']);
-			__br();
-			__strong(_t("Proposition created by: "));
+			echo '</td></tr>';
+			echo '<tr><td>' . _t("Proposition created by: ") . '</td><td>';
 			__link($voteinfo['user_full_name'], 'member', 'view', 'id=' . $voteinfo['user_id']);
+			echo '</td></tr>';
 		}
 	  	else 
-			__strong(_t("Vote ", array('class' => 'noun')) . _t("created by administrator", array('class' => 'adj')));
+			echo '<tr><td colspan="2">'
+				. _t("Vote ", array('class' => 'noun')) 
+				. _t("created by administrator", array('class' => 'adj'));
+			echo '</td></tr>';
 	}
 
 	public static function output_vote_started_info($voteinfo) {
-		__strong(_t("Vote started: "));
+		echo '<tr><td>' . _t("Vote started: ") . '</td><td>';
 		echo \general_helpers::show_date($voteinfo['timestamp_created']);
+		echo '</td></tr>';
 	}
 
 	public static function output_number_of_cast_ballots_info($voteinfo, $number_of_delegate_ballots) {
-		__info(_t("Number of cast ballots"), $voteinfo['number_of_ballots']);
-		__info(_t("Whereof personally cast ballots"), $voteinfo['number_of_direct_ballots']);
-		__info(_t("Number of delegates who has voted"), $number_of_delegate_ballots);
+		echo '<tr><td>' . _t("Number of cast ballots") . '</td><td>' . $voteinfo['number_of_ballots'] . '</td></tr>';
+		echo '<tr><td>' . _t("Whereof personally cast ballots") . '</td><td>' . $voteinfo['number_of_direct_ballots'] . '</td></tr>';
+		echo '<tr><td>' . _t("Number of delegates who has voted") . '</td><td>' . $number_of_delegate_ballots . '</td></tr>';
 	}
 
 	public static function output_vote_description($voteinfo) {
@@ -68,19 +82,16 @@ class vote
 	public static function output_view_cast_ballots($voteinfo) {
 		if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
 			&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {
-			echo '<div class="" id="delegate_votes_box">';
-			echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'' . $voteinfo['type'] . '\')">' . _t("See delegate ballots for this vote") . '</a>';
-			echo '</div>';
+			echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'' . $voteinfo['type'] . '\')" class="link-icon">' . _t("See delegate ballots for this vote") . '</a>';
 		}
-		echo '<p>';
-		__link(_t("See all ballots for this vote"), 'vote', 'view_ballots', 'id=' . $voteinfo['id']);
-		echo '</p>';
+		echo '<tr><td>';
+		__link(_t("See all ballots for this vote"), 'vote', 'view_ballots', 'id=' . $voteinfo['id'], 'link-icon');
+		echo '</td></tr>';
+		
 	}
 
 	public static function output_vote_debate_link($voteinfo) {
-		echo '<p>';
-		__link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id']);
-		echo '</p>';
+		__link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id'], 'btn-blue bubble');
 	}
 
 	public static function output_vote_buttons($voteinfo, $user_allowed_to_vote) {

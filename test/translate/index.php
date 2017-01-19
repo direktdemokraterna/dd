@@ -32,11 +32,12 @@
 	}
 	else if (isset($_GET['page']) || isset($_POST['showing_testcases']))
 		$testcases = testcase_helper::load();
-?>
+?><!DOCTYPE html>
 <html>
 <head>
 	<link href="../../helpers/css/index.css" rel="stylesheet" type="text/css">
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="shortcut icon" href="images/favicon.ico">
 	<title>DD Test - Translation</title>
 	<style>
@@ -58,19 +59,19 @@
 			<input type="text" name="hints" id="hints" tabindex="2" value="<?php 
 				echo $testcase->hints; ?>">
 			<br>
-			<label for "expected">Förväntad översättning</label>
+			<label for "expected">FÃ¶rvÃ¤ntad Ã¶versÃ¤ttning</label>
 			<input type="text" name="expected" id="expected" tabindex="3" value="<?php 
 				echo $testcase->to_text; ?>">
 			<br>
-			<label for "actual">Översättning</label>
+			<label for "actual">Ã–versÃ¤ttning</label>
 			<input type="text" class="<?php echo $testcase->get_output_class(); ?>" name="actual" id="actual" tabindex="4" readonly value="<?php 
 				echo $testcase->actual; ?>">
 			<br>
-			<input type="submit" name="translate" value="Översätt">
+			<input type="submit" name="translate" value="Ã–versÃ¤tt">
 			<input type="submit" name="save" value="Spara testfall">
-			<input type="submit" name="run" value="Kör testfall">
+			<input type="submit" name="run" value="KÃ¶r testfall">
 			<br>
-			<input type="submit" name="extract" value="Extrahera från applikationen">
+			<input type="submit" name="extract" value="Extrahera frÃ¥n applikationen">
 <?php
 	if ($testcases) {
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;

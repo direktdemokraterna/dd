@@ -1,28 +1,32 @@
-/* 	BASE STYLE SHEET 
+/*	BASE STYLE SHEET 
 	Description: CSS Member System for Direktdemokraterna
 	Authors: Anders Lönnfält, Peter Hjorthammar
 */
 
-/* FONT IMPORTS */
+/* 	FONT IMPORTS */
 
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
 @import url(//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900);
 
 /* COLORS 
-Orange: #f67520
-Blue: #15a4ff
-Body text: #444
-Boxes grey: #636363
-Icons grey: 7a7a7a
-Box borders faint: #e3e3e3
+	Orange: #f67520
+	Blue: #15a4ff
+	Body text: #444
+	Boxes grey: #636363
+	Icons grey: 7a7a7a
+	Box borders faint: #e3e3e3
 */
 
-/* GENERAL */
+/* 	Font Awesome Icon Reference
+	http://fontawesome.io/icons/
+
+
+/* 	GENERAL */
 body, table, tr, td, 
-textarea, fieldset input[type="text"], .sidebar_search_form input[type="text"] {
+textarea, fieldset input[type="text"], .sidebar_search_form input[type="text"],
+textarea#new_post_content, textarea#edit_post_content, textarea#new_topic_content  {
     margin: 0;
     padding: 0;
-    font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;
 	font-family: Georgia, Times, 'Times New Roman', serif;
     font-size: 16px;
     color: #444;  
@@ -101,6 +105,19 @@ a.quote_in_post_link {
 	display: block;
 }
 
+a.user_name_link_img {
+    float: left;
+}
+
+.post_user_info a.user_name_link {
+	text-transform: uppercase;
+	font-size: 11px;
+	}
+
+.no-line:hover {
+	text-decoration: none;
+	}
+
 b, strong {
     font-weight: bold;
 }
@@ -167,18 +184,24 @@ form#new_topic_form  {
     max-width: 720px;
     width: 100%;
 }
-form.scroll {
+
+form#new_post_form.scroll {
     padding-top: 80px;
     margin-top: -30px;
-    /* display: block; */
 }
+form.text-editor {
+    padding: 1em 0 0 0;
+    margin: 0;
+}
+
 /* TYPOGRAPHY */
 
 .forum_info, .list_sub_text, .quote_in_post, .post_alternatives,
 input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message,
-.sortable, textarea, input[type="text"] { /* Standard font for all sans-serif elements */
-	font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif;
-	}
+.sortable, textarea, input[type="text"],
+.btn-blue, .vote-container.float-right, #vote_container_grey_box td, .vote_result_box, .post_user_info
+	{ font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif; } /* Standard font for all sans-serif elements */
+	
 .post_content {
 	font-size: 17px;
 	}
@@ -229,9 +252,16 @@ button[type="submit"].btn-login:before {
 
 li.mb-delegate a:before, 
 li.mb-individual a:before, 
-li.mb-logout a:before {
+li.mb-logout a:before,
+#vote_container_grey_box h2.h2-information:before,
+#vote_container_grey_box h2.h2-stats:before,
+#vote_container_grey_box h2.h2-tools:before,
+a.link-icon:before, .post_user_info a.user_name_link:before {
 	font: normal normal normal 14px/1 FontAwesome;
 	margin-right: 5px;
+	}
+#vote_container_grey_box h2:after {
+	font: normal normal normal 14px/1 FontAwesome;
 	}
 
 li.mb-delegate a:before {
@@ -242,6 +272,11 @@ li.mb-individual a:before {
 	}
 li.mb-logout a:before {
 	content: '\f08b';
+	}
+.post_user_info a.user_name_link:before {
+	content: '\f007';
+	display: inline-block;
+	color: #ccc;
 	}
 	
 	
@@ -263,7 +298,11 @@ button[type="submit"]  {
 	font-weight: 600;
     cursor: pointer;
     text-transform: uppercase;
+	margin-top: 10px;
 }
+.delegation_box button[type="submit"] {
+	margin: 0;
+	}
 .login-form input[type="submit"]:hover {
     background: #f67520;
 }
@@ -275,7 +314,15 @@ textarea#new_topic_content {
     border-left: none;
     border-radius: 0;
 }
-fieldset, .post_content {
+#new_post_form fieldset,
+fieldset .post_content {
+	border: 1px solid #e3e3e3;
+    border-radius: 20px;
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+}
+.post_content {
 	border: 1px solid #e3e3e3;
     border-radius: 20px;
 	-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
@@ -284,14 +331,19 @@ fieldset, .post_content {
 }
 fieldset textarea {
 	margin: 0 0 20px;
-    /*width: calc(100% - 48px);*/
 	width: 100%;
 	max-width: 670px;
     min-height: 300px;
 	height: 300px;
     overflow: scroll;
-    border-radius: 10px;
+    border-radius: 0;
     line-height: 1.5;
+}
+form .align {
+    text-align: left;
+}
+form#new_post_form .align {
+    text-align: center;
 }
 form .fa.fa-paper-plane {
 	font: normal normal normal 28px/1 FontAwesome;
@@ -315,7 +367,7 @@ form .fa.fa-paper-plane {
 	padding: 0 24px 20px;
 	}
 fieldset {
-	padding: 0 24px 20px;
+	/*padding: 0 24px 20px; Changed for delegates */
 	}
 	
 .post_content:before, #new_post_form fieldset:before,
@@ -401,13 +453,12 @@ a.lang-flag {
     height: 100% auto;
     padding-top:40px;
 }
-.main:after, #footer:after {
+.main:after, #footer:after, .vote_container.float-right:after {
     content: "";
     display: block;
     height: 0;
     clear: both;
     visibility: hidden;
-    zoom: 1;
 }
 
 /* STANDARD FORM */
@@ -485,7 +536,8 @@ a.lang-flag {
     clear: both;
     display: block;
 }
-.btn-blue {
+.btn-blue,
+.span.btn-blue.bubble {
     float: right;
     display: block;
     font-size: 14px;
@@ -516,9 +568,9 @@ a.lang-flag {
 /* CHECKBOX GRID */
 
 .checkbox-grid li {
-    display: block;
+    /*display: block;
     float: left;
-    width: 25%;
+    width: 25%;*/
 }
 
 /* FOOTER */

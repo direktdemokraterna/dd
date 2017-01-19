@@ -80,8 +80,8 @@ class template
 	{
 		$word_parts = array();
 		$word_part = '';
-		foreach (str_split($pattern) as $char) {
-			if (ctype_upper($char) && $word_part) {
+		foreach (preg_split('//u', $pattern, null, PREG_SPLIT_NO_EMPTY) as $char) {
+			if (self::starts_with_uppercase($char) && $word_part) {
 				$word_parts[] = $word_part;
 				$word_part = '';
 			}
@@ -91,7 +91,12 @@ class template
 		return $word_parts;
 	}
 
-	private static function expand_word_form($word_part) 
+    private static function starts_with_uppercase($str) {
+        $first_character = mb_substr($str, 0, 1);
+        return mb_strtolower($first_character) !== $first_character;
+    }
+
+    private static function expand_word_form($word_part)
 	{
 		$class = templates::expand_class($word_part[0]);
 		$modifiers = templates::expand_modifiers(mb_substr($word_part, 1));

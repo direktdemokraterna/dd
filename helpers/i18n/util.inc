@@ -33,14 +33,13 @@ class util
 		}
 		return $phrase;
 	}
-	public static function preserve_case($target, $source) 
-	{
-		$ret_val = (ctype_upper($source[0]) 
-				? strtoupper($target[0]) 
-				: strtolower($target[0]))
-		. substr($target, 1);
-		return $ret_val;
-	}		
+    public static function preserve_case($target, $source)
+    {
+        return (self::starts_with_uppercase($source)
+                ? mb_strtoupper(mb_substr($target, 0, 1))
+                : mb_strtolower(mb_substr($target, 0, 1)))
+            . mb_substr($target, 1);
+    }
 	public static function preserve_space($original, $translation) {
 		preg_match('/^\s+/', $original, $leading_space_matches);
 		preg_match('/\s+$/', $original, $trailing_space_mathes);
@@ -59,7 +58,12 @@ class util
 		$retval[] = $parts[0];
 		return count($parts) == 1
 			? $retval
-			: array_merge($retval, self::split_word_forms(substr($parts[1], 1)));
+			: array_merge($retval, self::split_word_forms(mb_substr($parts[1], 1)));
 	}
+
+    private static function starts_with_uppercase($str) {
+        $first_character = mb_substr($str, 0, 1);
+        return mb_strtolower($first_character) !== $first_character;
+    }
 }
 ?>
