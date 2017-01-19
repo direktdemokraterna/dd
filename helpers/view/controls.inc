@@ -202,7 +202,7 @@ class controls
 	}
 
 	public static function generate_control_label($control_name, $control_label) {
-		return '<br><label for "' . $control_name . '">' . $control_label . '</label>';
+		return '<br><label for="' . $control_name . '">' . $control_label . '</label>';
 	}	
 
 	private static function output_page_links ($number_of_pages, $page)
