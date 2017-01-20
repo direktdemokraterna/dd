@@ -24,8 +24,10 @@ elseif (isset($_POST['user_email'])) {
 ?><!DOCTYPE html>
 <html>
 <head>
-	<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
 	<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +36,7 @@ elseif (isset($_POST['user_email'])) {
 </head>
 <body>
 
-<div class="wrap">
+<div id="wrap">
 <div class="login-column">
 <div>
 	<?php \View\index::output_language_buttons(); ?>
@@ -63,7 +65,7 @@ elseif (isset($_POST['user_email'])) {
 	<?php echo $system_message; ?>
 <?php elseif(!empty($_GET['reset_token']) && !isset($_POST['password'])) : ?>
 	<?php if(\Logic\resetpassword::is_valid_reset_token($_GET['reset_token'])) : ?>
-		<form name="change_password" method="post" action="" class="standard-form" onsubmit="return validateForm()">
+		<form name="change_password" method="post" action="" class="login-form" onsubmit="return validateForm()">
 			<p><?php __t("Enter a new password to reset your password."); ?></p>
 
 			<input type="hidden" name="reset_token" value="<?php echo $_GET['reset_token']; ?>">
@@ -75,11 +77,11 @@ elseif (isset($_POST['user_email'])) {
         <?php __t("The reset token is invalid"); ?>
 	<?php endif; ?>
 <?php else : ?>
-	<form method="post" action="" class="standard-form">
-		<p><?php __t("Enter the email address you want to reset the password for. An email with a reset token will be sent to that address. With help of that token you can then change the password for your user."); ?></p>
+	<form method="post" action="" class="login-form">
+		<p><?php __t("Enter the email address you want to reset the password for. An email with a reset token will be sent to that address. With help of that token you can then change the password for your user."); ?></p><br>
 		<label for="user_email"><?php __t("Email"); ?></label>
-		<input type="email" name="user_email" id="user_email" value="" autofocus required>
-		<input type="submit" value="<?php __t("Send"); ?>">
+		<input type="text" name="user_email" id="user_email" value="" autofocus required><br>
+        <button type="submit" value="<?php __t("Send"); ?>"><?php __t("Send"); ?></button>
 	</form>
 <?php endif; ?>
 

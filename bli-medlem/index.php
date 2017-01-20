@@ -34,8 +34,10 @@ if($is_all_mandatory_set){
 ?><!DOCTYPE html>
 <html>
 <head>
-	<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
 	<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +47,7 @@ if($is_all_mandatory_set){
 
 <body>
 
-<div class="wrap">
+<div id="wrap">
 <div class="login-column">
 <div>
 	<?php \View\index::output_language_buttons(); ?>
@@ -91,14 +93,10 @@ if($is_all_mandatory_set){
 	__textfield("email*", _t("Email"), $tab_index++);
 	__textfield("skype_name", _t("Skype name"), $tab_index++);
 ?>
-<input type="checkbox" name="news_letter" value="1" id="news_letter">
-	<label for "news_letter"><?php __t("I want to subscribe to the news letter"); ?></label>
+    <input type="checkbox" name="news_letter" value="1" id="news_letter">
+	<label for="news_letter"><?php __t("I want to subscribe to the news letter"); ?></label>
 <button type="submit" value="<?php __t("Send"); ?>"><?php __t("Send"); ?></button>
 </form>
-
-<script type="text/javascript" language="JavaScript">
-window.setTimeout(function() { document.forms["login-form"]["first_name"].focus(); },0);
-</script>
 
 </div>
 </div>
