@@ -15,6 +15,7 @@
 </div>
 
 <form method="post" class="login-form" action="index.php?login=1">
+<<<<<<< HEAD
 <input type="hidden" name="login" value="1">
 <p>
 <label for "username">Användarnamn</label>
@@ -24,11 +25,18 @@
 <p><label for "rememberme">Kom ihåg mig<input type="checkbox" name="rememberme" id="rememberme"></label>
 <span><button type="submit" value="Login" class="btn-login">Logga in</button></span>
 </p>
+=======
+    <input type="hidden" name="login" value="1">
+    <p>
+    <label for="username"><?php __t("Username"); ?></label>
+    <input type="text" name="username" id="username" tabindex="1" autofocus required>
+    <br><label for="password"><?php __t("Password"); ?></label>
+    <input type="password" name="password" id="password" tabindex="2"required></p>
+    <p><label for="rememberme"><?php __t("Remember me"); ?><input type="checkbox" name="rememberme" id="rememberme"></label>
+    <span><button type="submit" value="<?php __t("Login"); ?>" class="btn-login"><?php __t("Login"); ?></button></span>
+    </p>
+>>>>>>> b096e3262cdccead646eaa09eb9fec05190a380d
 </form>
 
 </div>
 </div>
-
-<script type="text/javascript" language="JavaScript">
-window.setTimeout(function() { document.forms["login-form"]["username"].focus(); },0);
-</script>

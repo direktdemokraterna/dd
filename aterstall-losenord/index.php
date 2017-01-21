@@ -24,8 +24,10 @@ elseif (isset($_POST['user_email'])) {
 ?><!DOCTYPE html>
 <html>
 <head>
-	<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
 	<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +36,7 @@ elseif (isset($_POST['user_email'])) {
 </head>
 <body>
 
-<div class="wrap">
+<div id="wrap">
 <div class="login-column">
 <div>
 	<?php \View\index::output_language_buttons(); ?>
@@ -63,8 +65,8 @@ elseif (isset($_POST['user_email'])) {
 	<?php echo $system_message; ?>
 <?php elseif(!empty($_GET['reset_token']) && !isset($_POST['password'])) : ?>
 	<?php if(\Logic\resetpassword::is_valid_reset_token($_GET['reset_token'])) : ?>
-		<form name="change_password" method="post" action="" class="standard-form" onsubmit="return validateForm()">
-			<p>Välj ett nytt lösenord</p>
+		<form name="change_password" method="post" action="" class="login-form" onsubmit="return validateForm()">
+			<p>Skriv in ett nytt lösenord</p>
 
 			<input type="hidden" name="reset_token" value="<?php echo $_GET['reset_token']; ?>">
             <label for="password">Nytt lösenord</label>
@@ -75,11 +77,11 @@ elseif (isset($_POST['user_email'])) {
         Återställningskoden är ogiltig
 	<?php endif; ?>
 <?php else : ?>
-	<form method="post" action="" class="standard-form">
-		<p>Skriv i mejladressen till kontot du vill återställa lösenordet till. En kod kommer skickas till denna adress med vilken du kan återställa ditt lösenord.</p>
+	<form method="post" action="" class="login-form">
+		<p>Skriv in mejladressen som hör till kontot. Ett mejl med en återställningskod kommer att skickas till denna adress. Med hjälp av koden kan du återställa ditt lösenord.</p><br>
 		<label for="user_email">Mejladress</label>
-		<input type="email" name="user_email" id="user_email" value="" autofocus required>
-		<input type="submit" value="Skicka">
+		<input type="text" name="user_email" id="user_email" value="" autofocus required><br>
+        <button type="submit" value="Skicka">Skicka</button>
 	</form>
 <?php endif; ?>
 

@@ -37,9 +37,8 @@ textarea#new_post_content, textarea#edit_post_content, textarea#new_topic_conten
 }
 
 h1, h2, h3 {
-    margin: 0;
     padding: 0;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
     /*color: #F49500;*/
 }
 
@@ -63,7 +62,6 @@ h3 {
 p, blockquote, ul, ol {
     max-width: 900px;
     line-height: 18px;
-    
 }
 
 blockquote {

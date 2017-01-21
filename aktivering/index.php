@@ -43,9 +43,11 @@ elseif(isset($_POST['user_email'])){
 ?><!DOCTYPE html>
 <html>
 <head>
-	<link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
 	<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
-	<meta charset="UTF-8" />
+    <link href="../helpers/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="../images/favicon.ico">
@@ -53,7 +55,7 @@ elseif(isset($_POST['user_email'])){
 </head>
 <body>
 
-<div class="wrap">
+<div id="wrap">
 <div class="login-column">
 <div>
 	<?php \View\index::output_language_buttons(); ?>
@@ -76,7 +78,7 @@ elseif(isset($_POST['user_email'])){
 	<?php $user_first_name = db_user::get_first_name_from_activation_code($_GET['code']); ?>
 	
 	<?php if(!empty($user_first_name)) : ?>
-		<form method="post" action="" class="standard-form">
+		<form method="post" action="" class="login-form">
 			<p>Hej <?php echo $user_first_name; ?>!</p>
 
 			<p>För att din användare ska aktiveras i det nya medlemssystemet måste du godkänna följande villkor: </p>
@@ -95,18 +97,13 @@ elseif(isset($_POST['user_email'])){
 		Aktiveringskoden verkar inte höra ihop med någon användare i systemet. Kanske har du redan blivit aktiverad eller så är koden helt enkelt fel.
 	<?php endif; ?>
 <?php else : ?>
-	<form method="post" action="" class="standard-form">
-		<p>Fyll i den mejladress som finns registrerad i systemet för dig i fältet här under. Ett mejl med en aktiveringskod kommer att skickas till den adressen och med hjälp av den kan du sedan aktivera din användare och börja använda det nya systemet.</p>
-		<label for "user_email">Mejladress</label>
-		<input type="text" name="user_email" id="user_email" value="">
-		<button type="submit" value="Skicka">Skicka</button>'
+	<form method="post" action="" class="login-form">
+		<p>Fyll i den mejladress som finns registrerad i systemet för dig i fältet här under. Ett mejl med en aktiveringskod kommer att skickas till den adressen och med hjälp av den kan du sedan aktivera din användare och börja använda det nya systemet.</p><br>
+		<label for="user_email">Mejladress</label>
+		<input type="text" name="user_email" id="user_email" value="" autofocus required>
+		<button type="submit" value="<?php __t("Send"); ?>"><?php __t("Send"); ?></button>
 	</form>
 <?php endif; ?>
-
-
-<script type="text/javascript" language="JavaScript">
-window.setTimeout(function() { document.forms["login-form"]["first_name"].focus(); },0);
-</script>
 
 </div>
 </div>
