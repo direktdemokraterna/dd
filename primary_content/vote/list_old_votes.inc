@@ -1,5 +1,5 @@
 <?php 
-	__h1(_t("Closed votes"));
+	__h1("Avslutade omröstningar");
 	$statuses = array('ended', 'finished');
 	$vote_count = db_vote::list_votes_count($_SESSION['id'], $statuses);
 	if ($vote_count) {
@@ -7,5 +7,5 @@
 		\View\vote::make_vote_list($vote_groups, $vote_count, "vote", "view_vote");
 	}
 	else 
-		__t("There are no closed votes in your constituencies");
+		echo "Det finns inga avslutade omröstningar i dina valkretsar";
 ?>

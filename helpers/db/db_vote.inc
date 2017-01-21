@@ -20,8 +20,8 @@ class db_vote
 			$query = "update proposition set status = 'affirmed', timestamp_ended = ? where id = ?";
 			$values = Array(time(), $prop_id);
 			db::update($query, $values);
-			$post_title = _t("Vote: ", array('class' => 'noun')) . $prop_data['title'];
-			$post_content = _t("This is an auto-generated forum thread for the vote: ") 
+			$post_title = "Omröstning: " . $prop_data['title'];
+			$post_content = "Det här är en automatiskt skapad diskussionstråd till omröstningen: " 
 				. '<a href="index.php?type=vote&action=view_vote&id=' . $vote_id . '">' . $prop_data['title'] . "</a>\n\n" . $prop_data['description'];
 			db_forum_admin::edit_title($post_title, $prop_data['forum_topic_id']);
 			db_forum_admin::edit_content($post_content, $prop_data['forum_topic_id']);
@@ -40,7 +40,7 @@ class db_vote
 			, v.number_of_ballots, v.number_of_direct_ballots
 			, v.from_proposition_id, p.timestamp_created as proposition_created, v.status  
 		from vote v
-			join constituency c on c.id = constituency_id
+			join constituency c on c.id = v.constituency_id
 			left join proposition p on p.id = v.from_proposition_id
 			left join user initiator on initiator.id = p.created_by_voter
 		where c.id = v.constituency_id and v.id = ?";

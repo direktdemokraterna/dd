@@ -4,5 +4,5 @@
 	else
 		$ok = db_admin::remove_all_admin_roles_for_user($_GET['id']);
 	if($ok)
-		$_SESSION['report_message'] = _t("Administrator roles updated.");
+		$_SESSION['report_message'] = "Adminroller uppdaterade";
 ?>

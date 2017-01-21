@@ -76,7 +76,7 @@ class crypt_helpers
 	{
 		echo '<script>' . PHP_EOL;
 		echo 'session_too_old_message = "' 
-			. _t("Your user session is too old. Logout and login again.") . '";' . PHP_EOL;
+			. "Din session är för gammal. Logga ut och logga in igen" . '";' . PHP_EOL;
 		echo 'is_session_active = sessionStorage.user_code ? 1 : 0;' . PHP_EOL;
  		self::output_get_user_code_cross_domain_call($user_id, $_SESSION['temp_code']);
  		echo '</script>' . PHP_EOL;

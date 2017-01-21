@@ -301,8 +301,8 @@ class db_workgroup
 	private static function create_workgroup_forums($title)
 	{
 		$ret_val = array();
-		$ret_val['public'] = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, _t("Public forum for the workgroup ") . $title . ".", "public");
-		$ret_val['private'] = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, _t("Private forum for the workgroup ") . $title . ".", "workgroup");
+		$ret_val['public'] = db_forum_admin::add_forum(WORKGROUP_PUBLIC_FORUMS_CATEGORY, $title, "Publikt forum för arbetsgruppen " . $title . ".", "public");
+		$ret_val['private'] = db_forum_admin::add_forum(WORKGROUP_PRIVATE_FORUMS_CATEGORY, $title, "Privat forum för arbetsgruppen " . $title . ".", "workgroup");
 		return $ret_val;
 	}
 
@@ -453,9 +453,9 @@ class db_workgroup
 
 	private static function create_vote_for_restricted ($workgroup_id, $title, $public_forum_id, $constituency_id, $user_id)
 	{
-		$vote_title = _t("Election of members to the workgroup ") . $title;
-		$vote_description = _t("This vote appoints the members to the workgroup ") . '<a href="index.php?type=workgroup&action=view&id=' . $workgroup_id . '">' . $title . "</a>.";
-		$forum_topic_id = db_forum::new_topic($user_id, $public_forum_id, _t("Election of members to the workgroup ") . $title);
+		$vote_title = "Val av medlemmar till arbetsgruppen " . $title;
+		$vote_description = "Den här omröstningen utser medlemmar till arbetsgruppen " . '<a href="index.php?type=workgroup&action=view&id=' . $workgroup_id . '">' . $title . "</a>.";
+		$forum_topic_id = db_forum::new_topic($user_id, $public_forum_id, "Val av medlemmar till arbetsgruppen " . $title);
 		db_forum::add_content_to_post($forum_topic_id, $vote_description);
 		$vote_id = db_vote_admin::create_workgroup_election($workgroup_id, $constituency_id, $vote_title, $vote_description, $forum_topic_id);
 		$query = "update workgroup set membership_vote_id = ? where id = ?";

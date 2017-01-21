@@ -44,7 +44,7 @@
 			\View\general::open_div(null, "vote_container_grey_box");
 				echo '<a class="no-line"><h2 class="h2-information">Information</h2></a>';
 				echo '<table cellpadding="0"><tr>';
-				__td(_t("Constituency: "));
+				__td("Valkrets: ");
 				__td($voteinfo['constituency_name']);
 				echo '</tr>';
 				\View\vote::output_vote_finish_status($voteinfo); /* Vote ends date  */

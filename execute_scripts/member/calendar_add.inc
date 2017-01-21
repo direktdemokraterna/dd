@@ -34,16 +34,16 @@
 			}
 		}
 		if(isset($insert_counter)){
-			$message = _t($insert_counter . " activity is added to the calendar.");
+			$message = $insert_counter . " aktiviteter lagda till kalendern.";
 			$redirect = "index.php?type=member&action=calendar";
 		}
 		else {
-			$_SESSION['report_message'] = _t("Something went wrong. No activity added to the calendar.");
+			$_SESSION['report_message'] = "Något gick fel. Ingen aktivitet lagd i kalendern";
 			$_SESSION['red_report_message'] = 1;
 		}	
 	}
 	else{
-		$_SESSION['report_message'] = _t("One or more mandatory fields are not filled in."); 
+		$_SESSION['report_message'] = "Ett eller flera obligatoriska fält är inte ifyllda"; 
 		$_SESSION['red_report_message'] = 1;
 	}
 ?>

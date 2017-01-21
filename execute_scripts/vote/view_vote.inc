@@ -18,9 +18,9 @@
 			else
 				$ok = false;
 			if($ok)
-				$_SESSION['report_message'] = _t("Your delegate's ballot is registered.");
+				$_SESSION['report_message'] = "Din delegats röst är registrerad.";
 			else
-				\Logic\util::report_error(_t("Something went wrong. The ballot was not registered."));
+				\Logic\util::report_error("Något gick fel. Din röst har inte registrerats.");
 		}
 		elseif(in_array($voteinfo['status'], array("active", "del_ended", "continuous"))){
 			$check_user_access = db_constituency::check_voter_constituency_access($_SESSION['id'], $voteinfo['constituency_id']);
@@ -28,14 +28,14 @@
 				$post_vars = Array("user_id" => $_SESSION['id'], "vote_id" => $_POST['vote_id'], "ballot" => $_POST['ballot']);
 				$reply = crypt_helpers::curl_to_anon_server("anonymise_ballot.php", $post_vars);
 				if($reply == "success")
-					$_SESSION['report_message'] = _t("Your ballot is registered.");
+					$_SESSION['report_message'] = "Din röst har registrerats.";
 				else
-					\Logic\util::report_error(_t("Something went wrong. The ballot was not registered."));
+					\Logic\util::report_error("Något gick fel. Din röst har inte registrerats.");
 			}
 			else
-				die("No constituency access");
+				die("Ingen valkretsbehörighet");
 		}
 		else
-			\Logic\util::report_error(_t("Something went wrong. The ballot was not registered."));
+			\Logic\util::report_error("Något gick fel. Din röst har inte registrerats.");
 	}
 ?>

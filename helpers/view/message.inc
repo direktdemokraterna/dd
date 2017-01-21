@@ -12,7 +12,7 @@ class message
 
 	public static function output_inbox_grid($messages) 
 	{
-		$columns = array("", _t("Sender"), _t("Subject"), _t("Date"));
+		$columns = array("", "Avsändare", "Ämne", "Tidpunkt");
 		$rows = array_map(function($message) {
 			return array('<input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $message['id'] . '">'
 				, _link($message['full_name'], 'member', 'view', 'id=' . $message['sender_id'])
@@ -34,7 +34,7 @@ class message
 
 	private static function output_outbox_grid($messages) 
 	{
-		$columns = array("", _t("Recipient"), _t("Subject"), _t("Date"));
+		$columns = array("", "Mottagare", "Ämne", "Tidpunkt");
 		$rows = array_map(function($message) {
 			return array('<input type="checkbox" name="check_list[]" class="delete_checkbox" value="' . $message['id'] . '">'
 				, _link($message['full_name'], 'member', 'view', 'id=' . $message['recipient_id'])
@@ -55,26 +55,26 @@ class message
 		echo '<tr>';
 		echo '<td class="message_box_left">';
 		if($user_is_sender) {
-			__strong(_t("Recipient: "));
+			__strong("Mottagare: ");
 			__link($message['recipient_name'], 'member', 'view', 'id=' . $message['recipient_id']);
 			__br();
 		}
 		if($user_is_recipient) {
-			__strong(_t("Sender: "));
+			__strong("Avsändare: ");
 			__link($message['sender_name'], 'member', 'view', 'id=' . $message['sender_id']);
 			__br();
 		}
-		__strong(_t("Sent: "));
+		__strong("Skickat: ");
 		echo \general_helpers::show_date($message['sent_time']);
 		__br();
-		__strong(_t("Read: ", array('class' => 'adj')));
+		__strong("Läst: ");
 		if($message['read_time']) 
 			echo \general_helpers::show_date($message['read_time']);
 		else 
-			__t("Unread"); 
+			echo "Oläst"; 
 		__br(2);
 		if ($user_is_recipient && $include_reply_link) {
-			__link(_t("Reply"), 'message', 'write', 'reply=' . $message['id']);
+			__link("Svara", 'message', 'write', 'reply=' . $message['id']);
 		}
 		echo '</td>';
 		echo '<td>';

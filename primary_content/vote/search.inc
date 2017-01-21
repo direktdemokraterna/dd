@@ -3,9 +3,9 @@
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$search_query = \Logic\util::update_search_query("vote");
 	$votes = db_vote::search_votes($search_query, $_SESSION['id'], $sort, $page);
-	__h1(_t("Found votes"));
+	__h1("Funna omröstningar");
 	if(empty($votes)) {
-		__p(_t("No votes with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption were found."));
+		__p("Inga omröstningar med sökfrasen: " . "<b><i>$search_query</i></b>" . " i rubrik eller beskrivning.");
 	}
 	else {
 		$result_count = db_vote::search_votes_count($search_query, $_SESSION['id']);

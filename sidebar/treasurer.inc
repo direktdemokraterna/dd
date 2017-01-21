@@ -1,12 +1,12 @@
 <ul>
 	<li>
 		<?php
-			__h2(_t("Alternatives"));
+			__h2("Alternativ");
 			$links = array(
-				"overview" => _t("Overview")
-				,"ny_inbetalning" => _t("Incoming payment")
-				,"ny_utbetalning" => _t("Outgoing payment")
-				,"medlemsavgifter" => _t("Member fees")
+				"overview" => "Översikt"
+				,"ny_inbetalning" => "Inkommande betalningar"
+				,"ny_utbetalning" => "Utgående betalningar"
+				,"medlemsavgifter" => "Medlemsavgifter"
 				);
 			\View\controls::output_link_list("treasurer", $links);
 		?>

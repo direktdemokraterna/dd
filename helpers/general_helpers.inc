@@ -11,7 +11,7 @@ class general_helpers {
 	}
 
 	public static function make_genitive ($string){
-		return $string . _t(self::is_genitive($string) ? "'" : "'s");
+		return $string . (self::is_genitive($string) ? "" : "s");
 	}
 
 	public static function show_report_messages (){
@@ -33,14 +33,14 @@ class general_helpers {
 		$weekday = $timestamp > 0 
 			? date("w", $timestamp) 
 			: $weekday;
-		return _t(\Logic\calendar::$week_day_names[$weekday]);
+		return \Logic\calendar::$week_day_names[$weekday];
 	}
 
 	public static function get_month($timestamp, $month = 0){
 		$month = $timestamp > 0 
 			? date("n", $timestamp) 
 			: $month;
-		return _t(\Logic\calendar::$months[$month]);
+		return \Logic\calendar::$months[$month];
 	}
 
 	public static function admin_mail ($receiver, $title, $text) {
@@ -70,7 +70,7 @@ class general_helpers {
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
 	public static function make_list_of_links_header ($page, $result_counter, $sort_alternatives = null, $filter_title = null, $filter_alternatives = null){
 		if (!$filter_title)
-			$filter_title = _t("Filtrering:");
+			$filter_title = "Filtrering:";
 		$get_parameters = $_GET;
 		self::make_list_paging_and_sorting($get_parameters, $page, $result_counter, $sort_alternatives);
 		self::make_generic_list_filter($get_parameters, $filter_title, $filter_alternatives);
@@ -161,11 +161,11 @@ class general_helpers {
 		$tested_time_next_day = getdate($time+DAY_IN_SECONDS);
 		$tested_time_previous_day = getdate($time-DAY_IN_SECONDS);
 		if(self::is_same_day($tested_time, $present_time))
-		return _t("Today");
+		return "Idag";
 		if(self::is_same_day($tested_time_next_day, $present_time))
-		return _t("Yesterday");
+		return "Igår";
 		if(self::is_same_day($tested_time_previous_day, $present_time))
-		return _t("Tomorrow");
+		return "Imorgon";
 		return date("j/n", $time);
 	}
 	
@@ -183,7 +183,7 @@ class general_helpers {
 	// makes the top links for choosing page and sorting alternatives for a list_of_links
 	private static function make_generic_list_filter ($get_parameters, $filter_title = null, $filter_alternatives = null){
 		if (!$filter_title)
-			$filter_title = _t("Filtering:");
+			$filter_title = "Filtrering:";
 		if($filter_alternatives){
 			echo "<div class=\"list_of_link_menu\">";
 			echo "<span class=\"list_sort_alternative\">" . $filter_title . "</span>";
@@ -204,12 +204,12 @@ class general_helpers {
 		echo '<input type="hidden" name="type" value="' . $_GET['type'] . '"/>';
 		echo '<input type="hidden" name="action" value="' . $_GET['action'] . '"/>';
 		echo '<div class="list_of_link_menu">';
-		echo '<span class="list_sort_alternative">' . _t("Region: ");
-		self::makeSelectBox('region', $region_id, \db_constituency::get_regions(), _t("All regions")
+		echo '<span class="list_sort_alternative">' . "Län: ";
+		self::makeSelectBox('region', $region_id, \db_constituency::get_regions(), "Alla län"
 			, 'set_default_county_if_region_set();');
 		echo '</span>';
-		echo '<span class="list_sort_alternative">' . _t("Municipality: ");
-		self::makeSelectBox('county', $county_id, self::getCounties($region_id), _t("All municipalities"));
+		echo '<span class="list_sort_alternative">' . "Kommun: ";
+		self::makeSelectBox('county', $county_id, self::getCounties($region_id), "Alla kommuner");
 		echo "</span>";
 		if ($extra_filter_controls_html)
 			echo ($extra_filter_controls_html);
@@ -230,13 +230,13 @@ class general_helpers {
 			: 0;
 		$last_showed_item_number = min($page * LIST_ITEMS_PER_PAGE, $result_counter);
 		echo "<span class=\"list_counter\">";
-		echo _t("Showing ") . $first_showed_item_number . " - " . $last_showed_item_number . _t(" of ") . $result_counter;
+		echo "Visar " . $first_showed_item_number . " - " . $last_showed_item_number . " av " . $result_counter;
 		echo "</span>";
 	}
 	
 	private static function make_list_sorting ($get_parameters, $sort_alternatives = null){
 		if($sort_alternatives){
-			echo '<span class="list_sort_alternative">' . _t("Sort order: ") . '</span>';
+			echo '<span class="list_sort_alternative">' . "Sortering: " . '</span>';
 			foreach($sort_alternatives as $key => $value){
 				echo "<span class=\"list_sort_alternative\">";
 				$get_parameters['sort'] = $key;

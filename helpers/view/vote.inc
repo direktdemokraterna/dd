@@ -12,11 +12,11 @@ class vote
 			// echo _t("The vote finishes ") 
 			echo '<tr><td>Avslutas:</td><td>'
 				. \general_helpers::show_date($voteinfo['timestamp_ended']) . '</td></tr><tr><td>'
-				. _t('. For delegates the possibility to vote closed ') . '</td></td>'
+				. '. Delegatröstning avslutades ' . '</td></td>'
 				. \general_helpers::show_date($voteinfo['timestamp_delegate_ended']) . '</td></tr>';
 		elseif($voteinfo['status'] == "continuous")
-			echo '	<tr><td>Avslutas: </td><td>' . _t(' Continuous ') . '</td></tr>
-					<tr><td>Delegatröstning: </td><td>' . _t(' Continuous ') . '</td></tr>';
+			echo '	<tr><td>Avslutas: </td><td>Kontinuerlig</td></tr>
+					<tr><td>Delegatröstning: </td><td>Kontinuerlig</td></tr>';
 			//	. _t("This is a continuous vote and it continues until it is ended through a new yes/no vote.") . '</td></tr>';
 			
 		else
@@ -32,66 +32,64 @@ class vote
 	public static function output_ballot_info($voteinfo, $delegate_ballot) {
 		if($_SESSION['delegate_id']) {
 			if(empty($delegate_ballot))
-				__t("You have not yet voted in this vote as delegate.");
+				echo "Du som delegat har ännu inte röstat i denna omröstning.";
 			else {
 				if(isset($delegate_ballot['delegate_id']))
-					__t("You as delegate have let your delegate vote in this vote.");
+					echo "Du som delegat har röstat i denna omröstning.";
 				else
-					__t("You as delegate have cast your own ballot in this vote.");
+					echo "Du som delegat har själv röstat i denna omröstning.";
 				__br();
-				__t("Your ballot:");
+				echo "Din röst:";
 				__br();
 				echo self::get_ballot_content($voteinfo['type'], $delegate_ballot['ballot']);
 			}
 		}
-		else __t("No ballot has been cast in your name in this vote.");
+		else echo "Ingen röst har lämnats i ditt namn i denna omröstning.";
 	}
 
 	public static function output_proposition_creation_info($voteinfo) {
 		if($voteinfo['proposition_created']) {
-			echo '<tr><td>' . _t("Proposition created: ") . '</td><td>';
+			echo '<tr><td>Proposition skapad: </td><td>';
 			echo \general_helpers::show_date($voteinfo['proposition_created']);
 			echo '</td></tr>';
-			echo '<tr><td>' . _t("Proposition created by: ") . '</td><td>';
+			echo '<tr><td>Proposition skapad av: </td><td>';
 			__link($voteinfo['user_full_name'], 'member', 'view', 'id=' . $voteinfo['user_id']);
 			echo '</td></tr>';
 		}
 	  	else 
-			echo '<tr><td colspan="2">'
-				. _t("Vote ", array('class' => 'noun')) 
-				. _t("created by administrator", array('class' => 'adj'));
+			echo '<tr><td colspan="2">Omröstning skapad av administratör';
 			echo '</td></tr>';
 	}
 
 	public static function output_vote_started_info($voteinfo) {
-		echo '<tr><td>' . _t("Vote started: ") . '</td><td>';
+		echo '<tr><td>Omröstning startad: </td><td>';
 		echo \general_helpers::show_date($voteinfo['timestamp_created']);
 		echo '</td></tr>';
 	}
 
 	public static function output_number_of_cast_ballots_info($voteinfo, $number_of_delegate_ballots) {
-		echo '<tr><td>' . _t("Number of cast ballots") . '</td><td>' . $voteinfo['number_of_ballots'] . '</td></tr>';
-		echo '<tr><td>' . _t("Whereof personally cast ballots") . '</td><td>' . $voteinfo['number_of_direct_ballots'] . '</td></tr>';
-		echo '<tr><td>' . _t("Number of delegates who has voted") . '</td><td>' . $number_of_delegate_ballots . '</td></tr>';
+		echo '<tr><td>Antal röster</td><td>' . $voteinfo['number_of_ballots'] . '</td></tr>';
+		echo '<tr><td>Antal personligt lagda röster</td><td>' . $voteinfo['number_of_direct_ballots'] . '</td></tr>';
+		echo '<tr><td>Antal delegatröster</td><td>' . $number_of_delegate_ballots . '</td></tr>';
 	}
 
 	public static function output_vote_description($voteinfo) {
-		__info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($voteinfo['description']));
+		__info("Beskrivning", '<br>' . \Logic\text::make_html_from_wiki_text($voteinfo['description']));
 	}
 
 	public static function output_view_cast_ballots($voteinfo) {
 		if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
 			&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {
-			echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'' . $voteinfo['type'] . '\')" class="link-icon">' . _t("See delegate ballots for this vote") . '</a>';
+			echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'' . $voteinfo['type'] . '\')" class="link-icon">Se delegatröster för den här omröstningen</a>';
 		}
 		echo '<tr><td>';
-		__link(_t("See all ballots for this vote"), 'vote', 'view_ballots', 'id=' . $voteinfo['id'], 'link-icon');
+		__link("Se alla röster för denna omröstning", 'vote', 'view_ballots', 'id=' . $voteinfo['id'], 'link-icon');
 		echo '</td></tr>';
 		
 	}
 
 	public static function output_vote_debate_link($voteinfo) {
-		__link(_t("Link to this vote's forum debate"), 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id'], 'btn-blue bubble');
+		__link("Länk till denna omröstnings diskussionstråd", 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id'], 'btn-blue bubble');
 	}
 
 	public static function output_vote_buttons($voteinfo, $user_allowed_to_vote) {
@@ -99,15 +97,15 @@ class vote
 			echo '<div class="vote_box">';
 			include(__DIR__ . self::get_vote_form_include($voteinfo['type']));
 			echo '</div>';
-			__t($_SESSION['delegate_id'] ? "You vote as delegate." : "You vote as individual.");
+			echo $_SESSION['delegate_id'] ? "Du röstar som delegat." : "Du röstar som individ.";
 		}
 	}
 
 	public static function output_javascript_vote_localized_texts() {
 		echo '<script>';
 		\View\vote::output_common_delegate_vote_box_translations_for_js();
-		echo 'var yes_text = "' . _t("Yes") . '";';
-		echo 'var no_text = "' . _t("No") . '";';
+		echo 'var yes_text = "Ja";';
+		echo 'var no_text = "Nej";';
 		echo '</script>';
 	}
 
@@ -120,34 +118,30 @@ class vote
 	public static function make_add_alternative_form($voteinfo) {
 		if($voteinfo['type'] == "prio-vote") {
 			self::open_add_alternative_form("Add alternative to", $voteinfo);
-			__p(_t("Here you can create more vote alternatives to the priority vote above. Note that when you have created an alternative it cannot be removed other than by a vote admin."));
-			__textfield("alternative_title", _t("Title"), 1);
-			__textarea("alternative_description", _t("Description"), 2);
-			self::close_add_alternative_form(_t("Create alternative"), 3);
+			__p("Här kan du skapa alternativ till prioritetsomröstningen. Notera att du kan bara skapa alternativ, endast valadministratörer kan ta bort alternativ igen.");
+			__textfield("alternative_title", "Titel", 1);
+			__textarea("alternative_description", "Beskrivning", 2);
+			self::close_add_alternative_form("Skapa alternativ", 3);
 		}
 		elseif(\db_vote::is_user_candidate_in_vote($_SESSION['id'], $voteinfo['id'])){
-			self::open_add_alternative_form("Remove your candidacy in", $voteinfo);
-			self::close_add_alternative_form(_t("Remove candidacy"));
+			self::open_add_alternative_form("Dra tillbaka din kandidatur till", $voteinfo);
+			self::close_add_alternative_form("Dra tillbaka kandidatur");
 		}
 		else {
-			self::open_add_alternative_form("Register as candidate for", $voteinfo);
-			__textarea("alternative_description", _t("Candidate description", array('class' => 'noun')), 1);
-			self::close_add_alternative_form(_t("Candidate", array('class' => 'verb')), 2);
+			self::open_add_alternative_form("Kandidera till", $voteinfo);
+			__textarea("alternative_description", "Kandidatbeskrivning", 1);
+			self::close_add_alternative_form("Kandidat", 2);
 		}
 	}
 
 	public static function output_common_delegate_vote_box_translations_for_js() {
-		echo 'var delegate_vote_box_header = "' . _t("Delegate ballots:", array('class' => 'noun')) 
-		. '<table><tr style=\'color: white\'><th>' 
-		. _t("Delegate", array('class' => 'noun')) . '</th><th>' 
-		. _t("Ballot") . '</th><th>' 
-		. _t("Ballot cast by", array('class' => 'adj')) . '</th></tr>";';
-		echo 'var abstain_text = "' . _t("Abstain") . '";';
+		echo 'var delegate_vote_box_header = "Delegatröster<table><tr style=\'color: white\'><th>Delegat</th><th>Röst</th><th>Röst lagd av</th></tr>";';
+		echo 'var abstain_text = "Avstå";';
 	}
 
 	private static function open_add_alternative_form($caption_prefix, $voteinfo) {
-		__h1(_t($caption_prefix) . _t(" the vote: ") . $voteinfo['title']);
-		__p(_link(_t("Back to the vote"), 'vote', 'view_vote', 'id=' . $voteinfo['id']));
+		__h1($caption_prefix . " omröstningen: " . $voteinfo['title']);
+		__p(_link("Tillbaka till omröstningen", 'vote', 'view_vote', 'id=' . $voteinfo['id']));
 		__open_form();
 		__hidden("vote_id", $voteinfo['id']);
 	}
@@ -159,7 +153,7 @@ class vote
 
 	public static function make_vote_type_selector($selected_option = null, $tab_index = 1) {
 		$options = self::get_selectable_vote_type_descriptions();
-		echo \View\controls::generate_control_label("type_of_vote", _t("Type of vote"));
+		echo \View\controls::generate_control_label("type_of_vote", "Omröstningstyp");
 		\View\controls::output_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
@@ -176,10 +170,10 @@ class vote
 
 	public static function make_vote_time_type_selector($selected_option = null, $tab_index = 1) {
 		$options = array(
-			"active" => _t("Time limited")
-			, "continuous" => _t("Continuous")
+			"active" => "Tidsbegränsad"
+			, "continuous" => "Kontinuerlig"
 			); 
-		echo \View\controls::generate_control_label("vote_status", _t("Vote time"));
+		echo \View\controls::generate_control_label("vote_status", "Omröstningstid");
 		\View\controls::output_selector("vote_status", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
 	}	
 
@@ -197,15 +191,15 @@ class vote
 	public static function output_vote_status($status) 
 	{
 		__br();
-		__label(_t("Vote status: "), "vote_status");
+		__label("Omröstningsstatus: ", "vote_status");
 		$status_text = self::get_vote_status_text($status);
-		__t($status_text);
+		echo $status_text;
 		__br();
 		$buttons = self::get_vote_status_buttons($status);
 		foreach ($buttons as $key => $value) {
 			__space();
 			echo '<button type="submit" name="action" value="' . $key . '">' 
-			. _t($value, array('class' => 'noun')) . '</button>';			
+			. $value . '</button>';			
 			__space();
 		}
 	}
@@ -213,16 +207,14 @@ class vote
 	public static function list_ballots($vote_type, $ballots, $content_prop = 'ballot') 
 	{
 		if(empty($ballots))
-			__t("No ballots cast.", array('class'=>'adj'));
+			echo "Inga röster lagda";
 		else {
 			echo '<table class="responsive">';
-			echo '<tr><th>' . _t("Voter") . '</th><th>' . _t("Ballot") 
-			. '</th><th>' . _t("Delegate", array('class' => 'noun')) . '</th><th>' 
-			. _t("Time of vote") . '</th></tr>';
+			echo '<tr><th>Röstande</th><th></th><th>Delegat</th><th>Tidpunkt</th></tr>';
 			foreach ($ballots as $ballot){
 				echo '<tr><td>';
 				if($ballot['user_code'])
-					__t("User");
+					echo "Användare";
 				else 
 					__link($ballot['voter_is_delegate_name'], 'vote', 'view_delegate', 'id=' . $ballot['voter_id']);
 				echo '</td><td>';
@@ -240,10 +232,10 @@ class vote
 
 	public static function get_ballot_content($vote_type, $ballot) {
 		if($ballot == "abstain")
-			return _t("Abstain");
+			return "Avstår";
 		switch ($vote_type) {
 			case 'yes-no':
-				return _t($ballot == "yes" ? "Yes" : "No");
+				return $ballot == "yes" ? "Ja" : "Nej";
 			case 'prio-vote':
 			case 'candidate-election':
 			case 'workgroup-election':
@@ -252,7 +244,7 @@ class vote
 			case 'median':
 				return $ballot;
 			case 'proposition':
-				return $ballot ? _t('Supports') : _t("Doesn't support");
+				return $ballot ? "Stöder" : "Stöder inte";
 			default:
 				return '';
 		}
@@ -260,11 +252,11 @@ class vote
 
 	private static function get_vote_status_text($status) {
 		switch ($status) {
-			case "active": return "Ongoing";
-			case "del_ended": return "Closed for delegates";
-			case "ended": return "Finished";
-			case "continuous": return "continuous";
-			case "finished": return "Finished continuous";
+			case "active": return "Pågående";
+			case "del_ended": return "Avslutad för delegater";
+			case "ended": return "Avslutad";
+			case "continuous": return "Kontinuerlig";
+			case "finished": return "Avslutad kontinuerlig";
 			default: throw new \Exception("unknown status: " . $status);
 		} 
 	}
@@ -273,19 +265,19 @@ class vote
 	{
 		switch ($status) {
 			case "active": return array(
-				"end_vote" => "Finish the vote"
-				, "end_delegate_vote" => "Finish the delegate vote"
-				, "make_continuous" => "Transform to continuous");
+				"end_vote" => "Avsluta omröstningen"
+				, "end_delegate_vote" => "Avsluta delegatomröstningen"
+				, "make_continuous" => "Gör om till kontinuerlig");
 			case "del_ended": return array(
-				"end_vote" => "Finish the vote"
-				, "restore_delegate_vote" => "Resume the delegate vote");
+				"end_vote" => "Avsluta omröstningen"
+				, "restore_delegate_vote" => "Återuppta delegatomröstningen");
 			case "ended": return array(
-				"restore_vote" => "Resume the vote");
+				"restore_vote" => "Återuppta omröstningen");
 			case "continuous": return array(
-				"end_vote" => "Finish the vote"
-				, "restore_delegate_vote" => "Transform to time limited");
+				"end_vote" => "Avsluta omröstningen"
+				, "restore_delegate_vote" => "Gör om till tidsbegränsad omröstning");
 			case "finished": return array(
-				"restore_finished_vote" => "Resume the vote");
+				"restore_finished_vote" => "Återuppta omröstningen");
 			default: throw new \Exception("unknown status: " . $status);
 		} 
 	}
@@ -326,11 +318,11 @@ class vote
 	}
 
 	public static function make_title_input() {
-		__textfield("new_prop_title", _t("Title"), 3);
+		__textfield("new_prop_title", "Titel", 3);
 	}	
 
 	public static function make_description_input() {
-		__textarea("new_prop_description", _t("Description"), 4);
+		__textarea("new_prop_description", "Beskrivning", 4);
 	}
 
 	public static function make_vote_list($vote_groups, $vote_count, $type, $action, $from_action = null) 
@@ -347,11 +339,11 @@ class vote
 		foreach($vote_groups as $vote_group) {
 			echo '<h2>' . $vote_group->constituency . '</h2>';
 			$columns = array(
-				_t("Vote", array('class' => 'noun'))
-				, _t('Vote type', array('class' => 'noun'))
-				, _t("Vote started")
-				, _t("Result")
-				, _t("Number of ballots"));
+				"Omröstning"
+				, "Omröstningstyp"
+				, "Omröstning startad"
+				, "Resultat"
+				, "Antal röster");
 			$rows = array_map(function($vote) use ($type, $action, $from_action) {
 				return array(
 					_link($vote['title'], $type, $action
@@ -381,9 +373,9 @@ class vote
 	{
 		foreach($prop_groups as $prop_group) {
 			echo '<h2>' . $prop_group->constituency . '</h2>';
-			$columns = array(_t("Proposition", array('class' => 'noun'))
-				, _t("Created", array('class' => 'adj'))
-				, _t("Support", array('class' => 'noun')));
+			$columns = array("Proposition"
+				, "Skapad"
+				, "Stöd");
 			$rows = array_map(function($prop) use ($type, $action, $from_action) {
 				return array(
 					_link($prop['title'], $type, $action
@@ -409,10 +401,10 @@ class vote
 			case "median": 
 			case "prio-vote": 
 			case "yes-no": 
-				return _t("The vote count is:") . '<br>';
+				return "Resultatet är:" . '<br>';
 			case "workgroup-election": 
-				return _t("Candidates above the line are elected to the workgroup, candidates in bold are those who are currently members: ") . '<br>';
-			default: throw new \Exception("Unknonw vote type: " . $voteinfo['type']);
+				return 'Kandidater ovanför linjen är valda till platserna i arbetsgruppen, kandidater i fetstil är nuvarande medlemmar: <br>';
+			default: throw new \Exception("Unknown vote type: " . $voteinfo['type']);
 		}
 	}
 
@@ -471,14 +463,14 @@ class vote
 			$workgroup_id = $voteinfo['from_proposition_id'];
 			$workgroup_title = \db_workgroup::get_name_from_id($workgroup_id);
 			echo '<p>';
-			__t("This vote appoints members to the workgroup ");
+			echo "Den här omröstningen utser medlemmar till arbetsgruppen ";
 			__link($workgroup_title, 'workgroup', 'view', 'id=' . $workgroup_id);
 			echo '</p>';
 		}		
 	}
 
 	private static function get_vote_header_prefix($type) {
-		if ($type == "yes-no") return _t("Vote: ");
+		if ($type == "yes-no") return "Omröstning: ";
 		if ($type == "workgroup-election") return '';
 		$type_descriptions = self::get_vote_type_descriptions();
 		return $type_descriptions[$type] . ": ";
@@ -486,12 +478,12 @@ class vote
 	
 	public static function get_vote_type_descriptions() {
 		return array(
-			"yes-no" => _t("Vote (yes/no)")
-			, "prio-vote" => _t("Priority vote", array('class' => 'noun'))
-			, "candidate-election" => _t("Candidate election")
-			, "workgroup-election" => _t("Workgroup election")
-			, "median" => _t("Median vote", array('class' => 'noun'))
-			, "budget" => _t("Budget vote", array('class' => 'noun'))
+			"yes-no" => "Omröstning (ja/nej)"
+			, "prio-vote" => "prioritetsomröstning"
+			, "candidate-election" => "Personval"
+			, "workgroup-election" => "Val till arbetsgrupp"
+			, "median" => "Medianomröstning"
+			, "budget" => "Budgetomröstning"
 			); 
 	}	
 }

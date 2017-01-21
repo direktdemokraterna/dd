@@ -18,7 +18,7 @@ class delegate
 	
 	private static function output_delegate_grid($delegates) 
 	{
-		$columns = array(_t("Title"), _t("Description"), _t("Delegands"));
+		$columns = array("Rubrik", "Beskrivning", "Delegander");
 		$rows = array_map(function($delegate) {
 			return array(_link($delegate['title'], 'vote', 'view_delegate', 'id=' . $delegate['id'])
 				, _limit_with_ellipsis(\Logic\text::make_plaintext_from_wiki_text($delegate['description']), 30)
@@ -33,7 +33,7 @@ class delegate
 		$html = '<input type="checkbox" name="show_all"' .
 			($show_all ? ' checked' : '') 
 			. ' id="show_all" onchange="this.form.submit()"><label for "show_all">' 
-			. _t("Show delegates from all constituencies") . '</label>';
+			. "Visa delegater från alla valkretsar" . '</label>';
 		return _span($html, "list_sort_alternative");
 	}
 }

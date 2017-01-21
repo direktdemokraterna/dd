@@ -58,7 +58,7 @@ class session
 		$user_data = db_user::get_user_data($_COOKIE['user_id']);
 		if(self::is_user_suspended($user_data)) {
 			self::destroy_session();
-			echo '<div class="red_message">' . _t("The user is temporarily suspended.") . '</div>';
+			echo '<div class="red_message">' . "Användaren är tillfälligt avstängd." . '</div>';
 			return;
 		}
 		$hasher = new PasswordHash(8, FALSE);
@@ -70,19 +70,19 @@ class session
 
 	private static function create_session() {
 		if (!isset($_POST['username']) || !isset($_POST['password'])) {
-			\Logic\util::report_error("Username or password is blank.", false);
+			\Logic\util::report_error("Användarnamn eller lösenord saknas.", false);
 			return;
 		}
 		$user_data = db_user::get_user_data_from_username($_POST['username']);
 		if(self::is_user_suspended($user_data)) {
-			\Logic\util::report_error("The user is temporarily suspended.", false);
+			\Logic\util::report_error("Användaren är tillfälligt avstängd.", false);
 			return;
 		}
 		$hasher = new PasswordHash(8, FALSE);
 		if($hasher->CheckPassword($_POST['password'], $user_data['password']))
 			self::open_session($user_data);
 		else
-			\Logic\util::report_error("Invalid username or password.", false);
+			\Logic\util::report_error("Felaktigt användarnamn eller lösenord.", false);
 	}
 
 	private static function is_user_suspended($user_data) 

@@ -43,9 +43,9 @@ class delegate
 				$delegate_id = $ballot['delegate_id'];
 				$ok = \db_delegate::register_delegation(null, $voter_id, $delegate_id, $constituency_id);
 				if($ok)
-					$_SESSION['report_message'] = _t("Your delegate's delegation is registered.");
+					$_SESSION['report_message'] = "Din delegats delegering är registrerad.";
 				else
-					\Logic\util::report_error(_t("Something went wrong. No delegation registered."));
+					\Logic\util::report_error("Något gick fel. Ingen delegering registrerad.");
 			}
 			else{
 				$user_constituencies = \db_constituency::get_constituencies_for_voter($_SESSION['id']);
@@ -56,10 +56,9 @@ class delegate
 				$post_vars = array("user_id" => $_SESSION['id'], "user_constituencies" => $user_constituency_ids_serialized, "ballot" => $_POST['ballot']);
 				$reply = \crypt_helpers::curl_to_anon_server("anonymise_delegation_ballot.php", $post_vars);
 				if($reply == "success")
-					$_SESSION['report_message'] = _t("Your delegation is registered.");
+					$_SESSION['report_message'] = "Din delegering är registrerad.";
 				else
-					\Logic\util::report_error(_t("Something went wrong. No delegation registered") 
-						. " because: " . $reply);
+					\Logic\util::report_error("Något gick fel. Ingen delegering registrerad eftersom: " . $reply);
 			}
 		}		
 	}

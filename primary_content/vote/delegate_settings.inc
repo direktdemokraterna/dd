@@ -1,28 +1,28 @@
 <?php
 	$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
-	__h1(_t("Delegate settings"));
+	__h1("Delegatinställningar");
 	if($is_delegate) {
 		$delegate_settings = db_delegate::get_delegate_settings($_SESSION['id']);
 		__open_form("standard-form");
-		__h2(_t("Vote as delegate"));
-		__label(_t("Act as delegate"), "acting_as_delegate");
+		__h2("Rösta som delegat");
+		__label("Agera som delegat", "acting_as_delegate");
 		echo '<input type="checkbox" id="acting_as_delegate" name="acting_as_delegate"' 
 			. ($_SESSION['delegate_id'] ? ' checked>' : '>');
 		__br();
-		__p(_t("If the box above is checked you act as delegate instead of as individual. This means that you vote for all those who have delegated their vote to you for the particular issue. It also means that your ballot is public and can be seen by others. You can only vote as delegate in those constituencies for which you have registerered your delegacy below. In all other constituencies you vote as individual even if the box above is checked."));
-		__submit_and_close(_t("Change"), "act_as_delegate");
+		__p("Om rutan ovan är markerad agerar du som delegat istället för som privatperson. Det innebär att du röstar för alla som har delegerat sin röst till dig i den frågan. Det innebär också att din röst är offentlig och kan ses av andra. Du kan bara rösta som delegat i de valkretsar som du angivit för din delegat nedan. I alla andra valkretsar röstar du som privatperson även om rutan ovan är markerad.");
+		__submit_and_close("Ändra", "act_as_delegate");
 
-		__h2(_t("Presentation"));
+		__h2("Presentation");
 		\View\controls::output_text_editor(array(
 			'name' => 'description'
-			,'legend' => _t('Description of your delegate')
+			,'legend' => "Beskrivning av din delegat"
 			,'target_id' => $delegate_settings['id']
-			,'submit_text' => _t("Change")
+			,'submit_text' => "Ändra"
 			,'content' => $delegate_settings['description']));
 
-		__h2(_t("constituencies for your delegate"));
+		__h2("Valkretsar för din delegat");
 		$constituencies = db_delegate::get_constituencies_for_user_and_delegate_activity($_SESSION['id'], $delegate_settings['id']);
-		__p(_t("Here you can choose in which constituencies other users shall be able to delegate to you."));
+		__p("Här kan du välja inom vilka valkretsar andra användare ska kunna delegera till dig.");
 		__open_form("standard-form");
 		echo '<ul class="checkbox-grid">';
 		foreach($constituencies as $row) {
@@ -33,16 +33,16 @@
 		}
 		echo '</ul><div class="clear">';
 		echo '</div><br>';
-		__submit_and_close(_t("Update"), "change_constituencies");
+		__submit_and_close("Uppdatera", "change_constituencies");
 		__open_form("standard-form");
 		__br();
-		__link(_t("View delegate"), "vote", "view_delegate", "id=" . $delegate_settings['id']);
-		__h2(_t("Remove delegate"));
-		__submit_and_close(_t("Remove delegate"), "delete", _t("Your delegate will be completely deleted. You may also choose to temporarily deactivate your delegate. Do you still want to continue?"));
+		__link("Visa delegat", "vote", "view_delegate", "id=" . $delegate_settings['id']);
+		__h2("Ta bort delegat");
+		__submit_and_close("Ta bort delegat", "delete", "Din delegat kommer att raderas fullständigt. Du kan också välja att tillfälligt avaktivera din delegat. Vill du fortsätta ändå?");
 	}
 	else {
 		__open_form("standard-form");
-		__p(_t("You are not yet registred as a delegate. If you want to create a delegate profile you press the button below. Even if you have created a delegate profile you don't have to vote as delegate (so your ballots become public) or let other users delegate to you."));
-		__submit_and_close(_t("Create delegate"), "register_delegate");
+		__p("Du är ännu inte registred som en delegat. Om du vill skapa en delegatprofil trycker du på knappen nedan. Även om du har skapat en delegatprofil behöver du inte rösta som delegat (så dina röster blir offentliga) eller låta andra användare delegera till dig.");
+		__submit_and_close("Skapa delegat", "register_delegate");
 	}
 ?>

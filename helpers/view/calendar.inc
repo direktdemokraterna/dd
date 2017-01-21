@@ -4,21 +4,21 @@ namespace View;
 class calendar 
 {
 	public static function output_time_fields($calendar_info = null) {
-		__textfield("year", _t("Date"), 1, $calendar_info);
+		__textfield("year", "Datum", 1, $calendar_info);
 		$month_options = self::generate_month_options();
 		\View\controls::output_selector("month", $month_options, $calendar_info);
 		$day_options = array();
 		for($i=1; $i<32; $i++)
 			$day_options[$i] = $i;
 		\View\controls::output_selector("day", $day_options, $calendar_info);
-		__textfield("time", _t("Time"), 4, $calendar_info,
+		__textfield("time", "Tid", 4, $calendar_info,
 			array("style"=>"width: 200px;"));
 	}
 
 	public static function generate_month_options() {
 		$month_options = array();
 		foreach (\Logic\calendar::$months as $index => $month)
-			if ($index) $month_options[$index] = _t($month);
+			if ($index) $month_options[$index] = $month;
 		return $month_options;
 	}
 
@@ -27,13 +27,13 @@ class calendar
 		$location_options = array("internet" => "Internet");
 		foreach($counties as $row)
 			$location_options[$row['title']] = $row['title'];
-		\View\controls::output_labeled_selector("location", _t("Location"), $location_options, $calendar_info);
+		\View\controls::output_labeled_selector("location", "Plats", $location_options, $calendar_info);
 	}
 
 	public static function output_description_fields($calendar_info = null) {
-		__textfield("title", _t("Caption"), 6, $calendar_info
+		__textfield("title", "Titel", 6, $calendar_info
 			, array("style"=>"width: 200px;"));
-		__textarea("content", _t("Description"), 7, $calendar_info
+		__textarea("content", "Beskrivning", 7, $calendar_info
 			, array("cols"=>"60", "rows"=>"5"));
 	}
 
@@ -71,7 +71,7 @@ class calendar
 	public static function output_calendar_header_days($day) {
 		echo '<tr class="calendar_row">';
 		foreach (\Logic\calendar::$days_short as $day)
-			echo '<td class="calendar_weekday_cell">' . _t($day). '</td>';
+			echo '<td class="calendar_weekday_cell">' . $day. '</td>';
 		echo '</tr>';
 	}
 
@@ -91,7 +91,7 @@ class calendar
 		if($events_for_this_day) {
 			$events_presentation = "<span>";
 			foreach ($events_for_this_day as $row) {
-				$events_presentation .= "<strong>" . $row['title'] . '</strong><br>' . _t('Time: ') . $row['time'] . "<br>" . _t("Location: ") . $row['location'] . "<br><br>";
+				$events_presentation .= "<strong>" . $row['title'] . '</strong><br>Tid: ' . $row['time'] . "<br>Plats: " . $row['location'] . "<br><br>";
 			}
 			$events_presentation .= "</span>";
 			return $events_presentation;

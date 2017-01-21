@@ -3,7 +3,7 @@
 if(isset($_POST['delete_user'])){
 	$ok = \Logic\user::delete_user($_GET['id']);
 	if($ok)
-		$_SESSION['report_message'] = _t("The user has been removed from the list of members");
+		$_SESSION['report_message'] = "Användaren har tagits bort från medlemslistan";
 }
 elseif(isset($_POST['restore_user'])){
 	$user_data = db_user::get_user_data($_GET['id']);
@@ -13,7 +13,7 @@ elseif(isset($_POST['restore_user'])){
 	else {
 		$ok = \Logic\user::restore_user($_GET['id']);
 		if($ok)
-			$_SESSION['report_message'] = _t("The user has been restored in the list of member");
+			$_SESSION['report_message'] = "Användaren har lagts till medlemslistan";
 	}
 }
 

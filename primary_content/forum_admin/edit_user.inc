@@ -1,7 +1,7 @@
 <?php 
 	$userdata = db_user::get_user_data($_GET['id']);
 	__h1(\View\member::link($userdata));
-	__strong(_t('Forum permissions for this user'));
+	__strong("Forumbehörigheter för denna användare");
 	__br();
 	__open_form("");
 	echo '<ul class="checkbox-grid">';
@@ -14,5 +14,5 @@
 	}
 	echo '</ul><div class="clear"></div>';
 	__br();
-	__submit_and_close(_t("Change"));
+	__submit_and_close("Ändra");
 ?>

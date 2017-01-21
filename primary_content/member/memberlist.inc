@@ -1,5 +1,5 @@
 <?php 
-	__h1(_t("Members"));
+	__h1("Medlemmar");
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : 0;
 	$where_filters = array();
@@ -15,7 +15,7 @@
 		$where_filters[] = "u.activation_code is null";
 	$members = db_user::get_all_users($page, LIST_ITEMS_PER_PAGE, $sort, $where_filters);
 	$member_count = db_user::get_all_users_count($where_filters);
-	$sort_alternatives = Array("last_login" => _t("Last login"), "alphabetic" => _t("Alphabetic"));
+	$sort_alternatives = Array("last_login" => "Senaste inloggning", "alphabetic" => "Alfabetisk");
 	\View\member::output_member_list_filter();
 	\View\member::output_member_list($members, $page, $member_count);
 ?>

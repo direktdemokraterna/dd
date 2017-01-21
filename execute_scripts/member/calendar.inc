@@ -5,15 +5,15 @@
 			if($_POST['type'] == "participate"){
 				$ok = db_calendar::participate($_POST['id'], $_SESSION['id']);
 				if($ok)
-					$_SESSION['report_message'] = _t("You are signed up for this activity.");
+					$_SESSION['report_message'] = "Du är anmäld till denna aktivitet";
 			}
 			elseif($_POST['type'] == "cancel_participate"){
 				$ok = db_calendar::cancel_participate($_POST['id'], $_SESSION['id']);
 				if($ok)
-					$_SESSION['report_message'] = _t("You are no longer signed up for this activity.");
+					$_SESSION['report_message'] = "Du är inte längre anmäld till denna aktivitet";
 			}
 		}
 		else
-			\Logic\util::report_error(_t("Subscription is closed for this activity."));
+			\Logic\util::report_error("Anmälningar är inte längre möjliga för denna aktivitet");
 	}
 ?>	

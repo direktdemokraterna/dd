@@ -19,7 +19,7 @@ class forum
 
 	public static function output_category_selector($selected_category = null) {
 		$category_options = \db_general::make_hash(\db_forum_admin::list_categories(), 'id', 'title');
-		\View\controls::output_labeled_selector("category", _t("Category"), $category_options, $selected_category);
+		\View\controls::output_labeled_selector("category", "Kategori", $category_options, $selected_category);
 	}	
 
 	public static function output_topic_list($topics, $page, $topic_count) {
@@ -33,16 +33,16 @@ class forum
 	}
 
 	private static function output_topic_paging_row($page, $list_count) {
-		\View\controls::output_paging_row($page, $list_count, _t("topic"));
+		\View\controls::output_paging_row($page, $list_count, "ämne");
 	}
 
 	private static function output_topic_list_top_row() {
 		echo '<div class="topic_list_top_row">';
 		echo '<span class="subject_column">' 
-			. _t("Topic") . '</span><span class="numerical_column">' 
-			. _t("Participants") . '</span><span class="numerical_column">' 
-			. _t("Posts") . '</span><span class="last_post_column">' 
-			. _t("Latest post") . '</span>';
+			. "Ämne" . '</span><span class="numerical_column">' 
+			. "Deltagare" . '</span><span class="numerical_column">' 
+			. "Inlägg" . '</span><span class="last_post_column">' 
+			. "Senaste inlägg" . '</span>';
 		echo '<div style="clear: both;"></div>';
 		echo '</div>';
 	}
@@ -56,7 +56,7 @@ class forum
 			__link(" ($number_of_pages)", 'forum', 'sho_posts', 'id=' . $row['topic_id'] 
 				. '&page=' . $number_of_pages);
 		__br();
-		echo '<span class="list_sub_text">' . _t("Started by: ");
+		echo '<span class="list_sub_text">' . "Startad av: ";
 		echo \View\member::link($row, 'topic_user_id', 'topic_user_full_name');
 		echo '</span>';
 		echo '</span>';
@@ -65,7 +65,7 @@ class forum
 		echo '<span class="last_post_column">';
 		echo \general_helpers::show_date($row['last_posted_time']);
 		__br();
-		echo '<span class="list_sub_text">' . _t("By: ") . \View\member::link($row, 'last_user_id', 'last_user_full_name');
+		echo '<span class="list_sub_text">' . "Av: " . \View\member::link($row, 'last_user_id', 'last_user_full_name');
 		echo '</span>';
 		echo '</span>';
 		echo '<div style="clear: both;"></div>';
@@ -76,7 +76,7 @@ class forum
 	{
 		$forum_info = \db_forum::get_forum_from_post($post_id);
 		general::open_div("forum_info");
-		__link(_t("Forums"), "forum", "show_forums");
+		__link("Forum", "forum", "show_forums");
 		echo _space() . '>' . _space();
 		__link($forum_info['forum_title'], "forum", "show_topics", "id=" . $forum_info['forum_id']);
 	} 
@@ -96,7 +96,7 @@ class forum
 	}
 
 	private static function output_post_paging_row($page, $post_count) {
-		\View\controls::output_paging_row($page, $post_count, _t("post"));
+		\View\controls::output_paging_row($page, $post_count, "inlägg");
 	}
 
 	public static function output_post($post_info, $show_action_buttons = true) 
@@ -137,25 +137,25 @@ class forum
 		$post_id = $post_info['post_id'];
 		$user_id = $post_info['user_id'];
 		if(isset($_SESSION['is_forum_admin'])) {
-			__link(_t("Moderate"), "forum_admin", "edit_post", "id=" . $post_id);
+			__link("Moderera", "forum_admin", "edit_post", "id=" . $post_id);
 			__space();
 		}
 		if($user_id == $_SESSION['id']) {
 			if(\Logic\forum::is_recent_post($post_info)) {
-				__link(_t("Delete"), "forum", "delete", "id=$post_id"
-					, null, _t("Do you really want to delete the post?"));
+				__link("Radera", "forum", "delete", "id=$post_id"
+					, null, "Vill du verkligen radera det här inlägget?");
 				__space();
-				__link(_t("Edit"), "forum", "edit", "id=" . $post_id);
+				__link("Ändra", "forum", "edit", "id=" . $post_id);
 				__space();
 			}
 			else{
-				__link(_t("Addition"), "forum", "add", "id=" . $post_id);
+				__link("Tillägg", "forum", "add", "id=" . $post_id);
 				__space();
 			}
 		}
-		__link(_t("Report"), "forum", "report", "id=" . $post_id);
+		__link("Rapportera", "forum", "report", "id=" . $post_id);
 		__space();
-		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">' . _t('Quote') . '</a>&nbsp;'; 
+		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">' . 'Citera' . '</a>&nbsp;'; 
 	}
 
 	private static function make_post_body($post_info) 
@@ -185,7 +185,7 @@ class forum
 		$html = \Logic\forum::make_html_from_post_text($post_info['content']);
 		__span($html);
 		if(isset($post_info['last_edited_time']))
-			__span(_t('Last changed ') . 
+			__span('Senast ändrad ' . 
 				strtolower(\general_helpers::show_date($post_info['last_edited_time']))
 				, "post_last_edited");
 		general::close_div();
@@ -205,7 +205,7 @@ class forum
 	private static function output_topic_link_for_post($post_info)
 	{
 		$is_first_post = $post_info['topic_id'] == $post_info['post_id'];
-		echo $is_first_post ? _t(' thread start: ') : ' ' . _t('reply to: ');
+		echo $is_first_post ? ' tråden startad: ' : ' ' . 'svara till: ';
 		__link($post_info['title'], "forum", "show_posts", "topic_id=" . 
 			$post_info['topic_id'] . \View\general::get_from_action_for_url(array('search')));
 		__space();

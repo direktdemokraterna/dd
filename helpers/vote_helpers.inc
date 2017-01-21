@@ -23,7 +23,7 @@ class vote_helpers
    				$array_of_values[] = $ballot['ballot'];
 		$count = count($array_of_values);
 		if($count == 0)
-			return _t("No value");
+			return "Inget värde";
 		$middle_index = floor($count / 2);
 		sort($array_of_values, SORT_NUMERIC);
 		$median = $array_of_values[$middle_index]; // assume an odd # of items
@@ -199,9 +199,9 @@ class vote_helpers
 		$no_percentage = $ballot_counter['no']
 			? 100 - $yes_percentage
 			: 0;
-		return _t("Yes: ") . $ballot_counter['yes'] . " (" . $yes_percentage . " %)<br>"
-			. _t("No: ") . $ballot_counter['no'] . " (" . $no_percentage . " %)<br>"
-			. _t("Abstain: ") . $ballot_counter['abstain'] . "<br>";
+		return "Ja: " . $ballot_counter['yes'] . " (" . $yes_percentage . " %)<br>"
+			. "Nej: " . $ballot_counter['no'] . " (" . $no_percentage . " %)<br>"
+			. "Avstår: " . $ballot_counter['abstain'] . "<br>";
 	}
 
 	public static function generate_median_result ($ballots_to_count)
@@ -214,7 +214,7 @@ class vote_helpers
 	{
 		$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
 		return empty($prio_vote_result)
-			? __t("No alternatives")
+			? "Inga alternativ"
 			: self::get_formatted_prio_vote_result($prio_vote_result);
 	}
 
@@ -222,7 +222,7 @@ class vote_helpers
 	{
 		$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
 		return empty($prio_vote_result)
-			? _t("No candidates")
+			? "Inga kandidater"
 			: self::get_formatted_candidate_election_result($prio_vote_result);
 	}
 
@@ -230,7 +230,7 @@ class vote_helpers
 	{
 		$prio_vote_result = vote_helpers::calculate_prio_vote_result($vote_id);
 		return empty($prio_vote_result)
-			? _t("No candidates")
+			? "Inga kandidater"
 			: self::get_formatted_workgroup_election_result($prio_vote_result, $workgroup_id);
 	}
 

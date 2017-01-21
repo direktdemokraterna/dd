@@ -1,12 +1,12 @@
 <ul>
 	<li>
 		<?php 
-			__h2(_t("Vote admin"));
+			__h2("Valadministratör");
 			\View\controls::output_link_list("vote_admin", array(
-			"constituencylist" => _t("List constituencies")
-			,"create_constituency" => _t("Create new constituency")
-			,"votelist" => _t("List votes")
-			,"create_new_vote" => _t("Create new vote")
+			"constituencylist" => "Visa valkretsar"
+			,"create_constituency" => "Skapa ny valkrets"
+			,"votelist" => "Visa omröstningar"
+			,"create_new_vote" => "Skapa ny omröstning"
 			));
 		?>
 	</li>

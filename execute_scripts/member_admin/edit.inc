@@ -9,10 +9,10 @@ if(isset($_POST['edit_user'])){
 		if($ok){
 			\Logic\forum::update_county_region_forum_access($_GET['id'], $_POST['county_id']);
 			\Logic\constituency::update_county_region_constituencies($_SESSION['id'], $_POST['county_id']);
-			$_SESSION['report_message'] = _t("User updated");
+			$_SESSION['report_message'] = "Användare uppdaterad";
 		}
 		else
-			\Logic\util::report_error(_t("No update made"));
+			\Logic\util::report_error("Ingen ändring utförd");
 	}
 }
 
@@ -25,14 +25,14 @@ elseif(isset($_POST['change_password'])){
 
 	$username = $_POST['username'];
 	$mail_receiver = $_POST['user_email'];
-	$mail_title = _t("You have got a new password");
-	$mail_text = _t("Your new credentials are as follows:") . "\n\n" . _t("User name: ") . $username . "\n" . _t("Password: ") . $random_password;
+	$mail_title = "Du har fått ett nytt lösenord";
+	$mail_text = "Dina nya användaruppgifter är:" . "\n\n" . "Användarnamn" . $username . "\n" . "Lösenord" . $random_password;
 
 	$mail_response = general_helpers::admin_mail($mail_receiver, $mail_title, $mail_text);
 	if($mail_response != "success"){
 		die($mail_response);
 	}
 
-	$_SESSION['report_message'] = _t("The member has got a new password. Email with username and new password has been sent to the member.");
+	$_SESSION['report_message'] = "Användaren har fått ett nytt lösenord. Användarnamn och det nya lösenordet har mejlats till användaren.";
 }
 ?>

@@ -45,7 +45,7 @@ elseif (isset($_POST['user_email'])) {
 
 <br>
 
-<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; "><?php __t("Reset password"); ?></h1>
+<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">Återställ lösenord</h1>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="../helpers/js/constituency.js"></script>
 <script src="../helpers/js/session.js"></script>
@@ -53,7 +53,7 @@ elseif (isset($_POST['user_email'])) {
     function validateForm() {
         var password = document.forms["change_password"]["password"].value;
         if (password.length < 8) {
-            alert("<?php __t("The password must be at least 8 characters."); ?>");
+            alert("Lösenordet måste vara åtminstone 8 tecken långt");
             return false;
         }
     }
@@ -64,22 +64,22 @@ elseif (isset($_POST['user_email'])) {
 <?php elseif(!empty($_GET['reset_token']) && !isset($_POST['password'])) : ?>
 	<?php if(\Logic\resetpassword::is_valid_reset_token($_GET['reset_token'])) : ?>
 		<form name="change_password" method="post" action="" class="standard-form" onsubmit="return validateForm()">
-			<p><?php __t("Enter a new password to reset your password."); ?></p>
+			<p>Välj ett nytt lösenord</p>
 
 			<input type="hidden" name="reset_token" value="<?php echo $_GET['reset_token']; ?>">
-            <label for="password"><?php __t("New password"); ?></label>
-			<input type="password" name="password" id="password" value="" placeholder="<?php __t("New password"); ?>" required autofocus>
-			<input type="submit" value="<?php __t("Reset password"); ?>">
+            <label for="password">Nytt lösenord</label>
+			<input type="password" name="password" id="password" value="" placeholder="Nytt lösenord" required autofocus>
+			<input type="submit" value="Återställ lösenord">
 		</form>
 	<?php else : ?>
-        <?php __t("The reset token is invalid"); ?>
+        Återställningskoden är ogiltig
 	<?php endif; ?>
 <?php else : ?>
 	<form method="post" action="" class="standard-form">
-		<p><?php __t("Enter the email address you want to reset the password for. An email with a reset token will be sent to that address. With help of that token you can then change the password for your user."); ?></p>
-		<label for="user_email"><?php __t("Email"); ?></label>
+		<p>Skriv i mejladressen till kontot du vill återställa lösenordet till. En kod kommer skickas till denna adress med vilken du kan återställa ditt lösenord.</p>
+		<label for="user_email">Mejladress</label>
 		<input type="email" name="user_email" id="user_email" value="" autofocus required>
-		<input type="submit" value="<?php __t("Send"); ?>">
+		<input type="submit" value="Skicka">
 	</form>
 <?php endif; ?>
 

@@ -6,11 +6,11 @@ define("DAY_IN_SECONDS", 24*60*60);
 
 class calendar 
 {
-	public static $months = array("NO_MONTH", "January", "February", "March", "April"
-		, "May", "June", "July", "August"
-		, "September", "October", "November", "December");	
-	public static $week_day_names = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-	public static $days_short = array("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun");	
+	public static $months = array("INGEN_MÅNAD", "Januari", "Februari", "Mars", "April"
+		, "Maj", "Juni", "Juli", "Augusti"
+		, "September", "Oktober", "November", "December");	
+	public static $week_day_names = array("Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag");
+	public static $days_short = array("Mån", "Tis", "Ons", "Tor", "Fre", "Lör", "Sön");	
 
 	public static function get_repeat_time($repeat_type) 
 	{

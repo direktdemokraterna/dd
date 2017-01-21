@@ -35,9 +35,9 @@ class controls
 	{
 		$paging_info = Paging_info::create($page, $list_count, $page_size);
 		general::open_div("paging_info");
-		echo _span(_t("Showing ") . ($label ? "$label " : "") 
+		echo _span("Visar " . ($label ? "$label " : "") 
 			. $paging_info->first_showed_post_number . " - " 
-			. $paging_info->last_showed_post_number . _t(" of ") . $paging_info->post_count);		
+			. $paging_info->last_showed_post_number . " av " . $paging_info->post_count);		
 		if ($paging_info->post_count > $page_size) {
 			general::open_span();
 			self::output_page_links($paging_info->number_of_pages, $paging_info->page);
@@ -129,7 +129,7 @@ class controls
 		. (empty($params) ? '' : '&' . $params);
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
-		$onclick = ($confirm ? " onclick=\"return confirm('" . _t($confirm) . "')\"" : "");
+		$onclick = ($confirm ? " onclick=\"return confirm('" . $confirm . "')\"" : "");
 		return '<a ' . $classAttr . $href . $onclick . '>' . $label . '</a>'; 
 	}	
 
@@ -141,7 +141,7 @@ class controls
 	}
 
 	public static function output_search_box($label, $type, $action, $tab_index = 1) {
-		__h2(_t("Search " . $label));
+		__h2("Sök " . $label);
 		$search_input_name = \Logic\util::get_search_input_name($type, $action);
 		$value = isset($_SESSION[$search_input_name]) ? $_SESSION[$search_input_name] : '';
 		echo '<form method="post" class="sidebar_search_form" action="index.php?type=' 
@@ -149,8 +149,7 @@ class controls
 		echo '<input onClick="this.select();" tabindex="' . $tab_index++ . '" type="text" value="' . 
 		$value . '" name="' . $search_input_name . '" class="sidebar_search_input">';
 		echo '<div class="align-right">';
-		echo '<button tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="' 
-		. _t('Search') . '">' . _t('Search') . '</button>';
+		echo '<button tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="Sök">Sök</button>';
 		echo '</div>';
 		echo '</form>';
 	}
@@ -158,7 +157,7 @@ class controls
 	public static function output_search_back_link() {
 		if (!isset($_GET['from_action']))
 			return false;
-		__link(_t("Back to the search result"), $_GET['type'], $_GET['from_action']);
+		__link("Tillbaka till sökresultatet", $_GET['type'], $_GET['from_action']);
 		__br();		
 		return true;
 	}
@@ -187,9 +186,9 @@ class controls
 		if ($title_label) 
 			__textfield($name . '_title', $title_label, $tab_index++);
 		echo '<div id="format_buttons_div">';
-		echo '<input type="button" id="format_buttons_b" accesskey="b" title="'. _t("Bold") .'" value="b" onClick="make_bold(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_i" accesskey="i" title="'. _t("Italic") .'" value="i" onClick="make_italic(\'' . $content_name . '\')">';
-		echo '<input type="button" id="format_buttons_u" accesskey="u" title="'. _t("Underline") .'" value="u" onClick="make_underline(\'' . $content_name . '\')">';
+		echo '<input type="button" id="format_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold(\'' . $content_name . '\')">';
+		echo '<input type="button" id="format_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic(\'' . $content_name . '\')">';
+		echo '<input type="button" id="format_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline(\'' . $content_name . '\')">';
 		echo '</div>';
 		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
 			. $tab_index . '">' . $content . '</textarea><br>';

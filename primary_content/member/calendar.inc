@@ -10,17 +10,17 @@
 		foreach($events as $row) {
 			echo '<div class="event">';
 			__h2($row['title']);
-			__info(_t("Time"), $row['time']);
-			__info(_t("Location"), $row['location']);
-			__info(_t("Added by"), \View\member::link($row, 'user_id'));
-			__info(_t("Description"), \Logic\text::make_html_from_wiki_text($row['content']));
+			__info("Tid", $row['time']);
+			__info("Plast", $row['location']);
+			__info("Tillagd av", \View\member::link($row, 'user_id'));
+			__info("Beskrivning", \Logic\text::make_html_from_wiki_text($row['content']));
 			__br();
-			__strong(_t("Subscribed participants:", array('class' => 'adj')));
+			__strong("Anmälda deltagare:");
 			__br();
 			$participants = db_calendar::get_participants($row['event_id']);
 			$is_participant = db_calendar::is_participant($row['event_id'], $_SESSION['id']);
 			if(empty($participants)) {
-				__t("No subscribed participants");
+				echo "Inga anmälda deltagare";
 				__br();
 			}
 			else 
@@ -34,15 +34,15 @@
 				__hidden("id", $row['event_id']);
 				if($is_participant) {
 					__hidden("type", "cancel_participate");
-					__submit_and_close(_t("Unsubscribe from this activity"));
+					__submit_and_close("Avanmäl dig från denna aktivitet");
 				}
 				else {
 					__hidden("type", "participate");
-					__submit_and_close(_t("Subscribe to this activity"));
+					__submit_and_close("Anmäl dig till denna aktivitet");
 				}
 			}
 			if($row['user_id'] == $_SESSION['id'] && $row['timestamp'] > time()) 
-				__link(_t("Edit activity"), 'member', 'calendar_edit', 'id=' . $row['event_id']);
+				__link("Ändra aktivitet", 'member', 'calendar_edit', 'id=' . $row['event_id']);
 			echo '</div>';
 		}
 	}
@@ -76,5 +76,5 @@
 	}
 	echo '</table>';
 	__br();
-	__p(_link(_t("Add activity to calendar"), 'member', 'calendar_add'));
+	__p(_link("Lägg till aktivitet till kalendern", 'member', 'calendar_add'));
 ?>

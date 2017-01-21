@@ -4,7 +4,7 @@
 
 <form method="post" action="" class="standard-form">
 	<fieldset>
-		<legend>V‰lj anv‰ndare</legend>
+		<legend>V√§lj anv√§ndare</legend>
 		<select name="user_id" id="user_id">
 			<option value=""></option>
 			<?php
@@ -14,7 +14,7 @@
 				}
 			?>
 		</select>
-		<button type="submit" value="V‰lj">V‰lj</button>
+		<button type="submit" value="V√§lj">V√§lj</button>
 	</fieldset>
 </form>
 

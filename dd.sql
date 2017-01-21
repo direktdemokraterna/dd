@@ -537,10 +537,10 @@ CREATE TABLE `admin_role` (
 /*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
 INSERT INTO `admin_role` (`id`,`title`,`description`,`type`) VALUES 
  (1,'Superadmin','','superadmin'),
- (2,'Member admin','','member_admin'),
- (3,'Forum admin','','forum_admin'),
- (4,'Vote admin','','vote_admin'),
- (5,'Treasurer','','treasurer');
+ (2,'Medlemsadministratör','','member_admin'),
+ (3,'Forumadministratör','','forum_admin'),
+ (4,'Valadministratör','','vote_admin'),
+ (5,'Kassör','','treasurer');
 /*!40000 ALTER TABLE `admin_role` ENABLE KEYS */;
 
 --

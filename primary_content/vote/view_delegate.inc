@@ -6,7 +6,7 @@
 	$delegate_info = db_delegate::get_delegate_info($_GET['id']);
 	$is_own_delegate = $delegate_info['user_id'] == $_SESSION['id'];
 	if(empty($delegate_info['description'])) 
-		$delegate_info['description'] = _t("No description");
+		$delegate_info['description'] = "Ingen beskrivning";
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$where_filter = isset($_GET['filter']) 
 		? "constituency_id = " . (int)$_GET['filter'] 
@@ -26,43 +26,46 @@
 	var acting_as_delegate = <?php echo $acting_as_delegate ? "true" : "false"; ?>;
 </script>
 <?php
-	__h1(_t(($is_own_delegate ? "Your delegate" : "Delegate") . ": "
-		, array('class' => 'noun')) . $delegate_info['title']);
-	__h2(_t("Description"));
+	__h1(($is_own_delegate ? "Din delegat" : "Delegat") . ": " . $delegate_info['title']);
+	__h2("Beskrivning");
 	echo \Logic\text::make_html_from_wiki_text($delegate_info['description']);
-	__h2(_t("Vote history", array('class' => 'noun')));
+	__h2("Omröstningshistorik");
 ?>
 
-<table class="responsive">
-<tr><th><?php __t("Vote", array('class' => 'noun')); ?></th><th><?php __t("Type"); ?></th><th><?php __t("Ballot"); ?></th></tr>
-<?php foreach($delegate_ballots as $row) : ?>
-	<tr>
-		<td><a href="index.php?type=vote&action=view_vote&id=<?php echo $row['vote_id']; ?>">
-			<?php echo $row['title']; ?></a></td>
-		<td><?php echo \View\vote::get_vote_type_description($row['type']); ?></td>
-		<td><?php echo \View\vote::get_ballot_content($row['type'], $row['ballot']); ?></td>
-	</tr>
-<?php endforeach; ?>
-</table>
+<?php if(empty($delegate_ballots)) : ?>
+	Inga röster lagda
+<?php else : ?>
+	<table class="responsive">
+	<tr><th>Omröstning</th><th>Typ</th><th>Röst</th></tr>
+	<?php foreach($delegate_ballots as $row) : ?>
+		<tr>
+			<td><a href="index.php?type=vote&action=view_vote&id=<?php echo $row['vote_id']; ?>">
+				<?php echo $row['title']; ?></a></td>
+			<td><?php echo \View\vote::get_vote_type_description($row['type']); ?></td>
+			<td><?php echo \View\vote::get_ballot_content($row['type'], $row['ballot']); ?></td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
 
 <?php
-	__h2(general_helpers::make_genitive($delegate_info['title']) . _t(" delegations"));
+	__h2(general_helpers::make_genitive($delegate_info['title']) . " delegeringar");
 	$delegate_delegations = db_delegate::get_delegate_delegates($_GET['id']);
 	if(empty($delegate_delegations)) {
-		__t("No delegations");
+		echo "Inga delegeringar";
 		__br();		
 	}
 	else {
-		echo $delegate_info['title'] . _t(" has delegated to:") . '<br>'; 
+		echo $delegate_info['title'] . " har delegerat till:" . '<br>'; 
 		foreach($delegate_delegations as $row)
 		{
 			__link($row['delegate_title'], 'vote', 'view_delegate', 'id=' . $row['delegate_id']); 
-			echo _t(" in constituency ") . $row['constituency_title'] . '<br>'; 
+			echo " i valkretsen " . $row['constituency_title'] . '<br>'; 
 		}		
 	}
 	if ($is_own_delegate) {
 		__br();
-		__link(_t("Handle delegate"), "vote", "delegate_settings");		
+		__link("Hantera delegat", "vote", "delegate_settings");		
 	}
 ?>
 <?php if ($shared_constituencies && $_SESSION['delegate_id'] != $delegate_id) : ?>
@@ -70,30 +73,29 @@
 		__br(2);
 		echo '<hr>';
 		echo '<script>';
-		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+		echo 'var dynamic_delegation_info_text = "Du har delegerat din rösträtt i denna valkrets till";';
 		echo '</script>';
-		__h2(_t("Delegate your vote" . ($acting_as_delegate ? " as delegate" : "") . " to ") 
+		__h2("Delegera din rösträtt" . ($acting_as_delegate ? " som delegat" : "") . " till " 
 			. $delegate_info['title']);
 		__open_form("prio-vote");
 		__hidden("ballot");
 		foreach($shared_constituencies as $row) {
 			$constituency_id = $row['id'];
 			echo '<div class="delegation_box">';
-			echo _t("Constituency: ");
+			echo "Valkrets: ";
 			__strong($row['name']);
 			__br();
-			echo '<span id="constituency' . $constituency_id . '">' . _t("You have no delegate in this constituency") . '</span>';
+			echo '<span id="constituency' . $constituency_id . '">Du har ingen delegat i denna valkrets</span>';
 			__br(2);
-			echo '<input id="delegate_in_' . $constituency_id . '" style="display: inline" type="submit" value="' . _t("Delegate to ", array('class' => 'prep')) . $delegate_info['title'] 
+			echo '<input id="delegate_in_' . $constituency_id . '" style="display: inline" type="submit" value="Delegera till ' . $delegate_info['title'] 
 				. '" onmousedown="return encrypt_single_delegation(' . $constituency_id
 					. ', ' . $_GET['id'] . ')">';
-			echo '<input id="undelegate_in_' . $constituency_id . '" style="display: none" type="submit" value="' . _t("Remove delegate ") 
-				. '" onmousedown="return encrypt_single_delegation(' . $constituency_id . ', 0)">';
+			echo '<input id="undelegate_in_' . $constituency_id . '" style="display: none" type="submit" value="Ta bort delegat" onmousedown="return encrypt_single_delegation(' . $constituency_id . ', 0)">';
 			echo '</div>';
 		}
 		echo '</form>';
 		echo '<script>';
-		echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+		echo 'var dynamic_delegation_info_text = "Du har delegerat din röst i denna valkrets till";';
 		echo '</script>';		
 	?>
 	<script>

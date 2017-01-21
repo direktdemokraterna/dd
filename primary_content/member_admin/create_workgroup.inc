@@ -1,9 +1,9 @@
 <?php
-	__h1(_t("Create a new workgroup"));
+	__h1("Skapa ny arbetsgrupp");
 	__open_form();
-	__textfield("title", _t("Name"), 1);
-	__textfield("number_of_members", _t("Number of members"), 2);
-	__textarea("description", _t("Description"), 3);
-	__submit_and_close(_t("Create"), null, null, 4);
-	__p(_t("Here you create restricted workgroups, workgroups whose membership is not free and with a restricted number of members. In association with the creation of this workgroup a continuous vote will also be created where the members of this workgroup are appointed."));
+	__textfield("title", "Namn", 1);
+	__textfield("number_of_members", "Antal medlemmar", 2);
+	__textarea("description", "Beskrivning", 3);
+	__submit_and_close("Skapa", null, null, 4);
+	__p("Här skapar du stängda arbetsgrupper, grupper vars medlemskap inte är öppna för alla. Samtidigt som du skapar en stängd arbetsgrupp skapas också en kontinuerlig omröstning genom vilken medlemmarna i denna grupp tillsätts.");
 ?>

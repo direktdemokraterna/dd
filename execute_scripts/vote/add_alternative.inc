@@ -8,20 +8,20 @@ if(isset($_POST['vote_id'])){
 					, $_POST['alternative_title'], $_POST['alternative_description']
 					, $_SESSION['delegate_id'] ? $_SESSION['delegate_id'] : $_SESSION['id']);
 				if($ok)
-					$_SESSION['report_message'] = _t("The alternative has been created.");
+					$_SESSION['report_message'] = "Alternativet har skapats.";
 				else
-					\Logic\util::report_error(_t("Soething went wrong. No alternative created."));
+					\Logic\util::report_error("Något gick fel. Inget alternativ skapat.");
 			}
 		}
 		elseif(db_vote::is_user_candidate_in_vote($_SESSION['id'], $_GET['id'])){
 			$ok = db_vote::remove_candidate($_GET['id'], $_SESSION['id']);
 			if($ok)
-				$_SESSION['report_message'] = _t("Your candidacy has been withdrawn.");
+				$_SESSION['report_message'] = "Din kandidatur har dragits tillbaka.";
 		}
 		else{
 			$ok = db_vote::add_candidate($_GET['id'], $_SESSION['id'], $_POST['alternative_description']);
 			if($ok)
-				$_SESSION['report_message'] = _t("you are now a candidate in the election: ") . $voteinfo['title'] . ".";
+				$_SESSION['report_message'] = "Du är nu en kandidat i omröstningen: " . $voteinfo['title'] . ".";
 		}
 		if($ok)
 			$redirect = "index.php?type=vote&action=view_vote&id=" . $_POST['vote_id'];

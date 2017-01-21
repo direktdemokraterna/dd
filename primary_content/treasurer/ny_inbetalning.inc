@@ -14,10 +14,10 @@
 		<label for "comment_from_admin">Beskrivning av inbetalningen</label>
 		<input type="text" name="comment_from_admin" id="comment_from_admin">
 		<br>
-		<label for "comment_from_bank">Beskrivning från avsändaren (texten på bankutdraget)</label>
+		<label for "comment_from_bank">Beskrivning frÃ¥n avsÃ¤ndaren (texten pÃ¥ bankutdraget)</label>
 		<input type="text" name="comment_from_bank" id="comment_from_bank">
 		<br>
-		<label for "user_id">Användare (lämna blankt om inbetalningen inte kommer från en specifik användare)</label>
+		<label for "user_id">AnvÃ¤ndare (lÃ¤mna blankt om inbetalningen inte kommer frÃ¥n en specifik anvÃ¤ndare)</label>
 		<select name="user_id" id="user_id">
 			<option value=""></option>
 			<?php

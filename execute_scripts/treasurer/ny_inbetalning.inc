@@ -5,7 +5,7 @@
 		$comment_from_bank = general_helpers::clean($_POST['comment_from_bank']);
 		$accounting_day = strtotime($_POST['accounting_day']);
 		if(!$accounting_day){
-			$_SESSION['report_message'] = "Bokföringsdatumet är inte rätt formaterat."; 
+			$_SESSION['report_message'] = "BokfÃ¶ringsdatumet Ã¤r inte rÃ¤tt formaterat."; 
 			$_SESSION['red_report_message'] = 1;
 		}
 
@@ -13,7 +13,7 @@
 			$user_id = null;
 		}
 		elseif(empty(db_user::get_username($_POST['user_id']))){
-			$_SESSION['report_message'] = "Användaren finns inte."; 
+			$_SESSION['report_message'] = "AnvÃ¤ndaren finns inte."; 
 			$_SESSION['red_report_message'] = 1;
 		}
 		else{
@@ -46,14 +46,14 @@
 		}
 
 		if($ok){
-			$_SESSION['report_message'] = "Inbetalningen är bokförd"; 
+			$_SESSION['report_message'] = "Inbetalningen Ã¤r bokfÃ¶rd"; 
 		}
 		else{
-			$_SESSION['report_message'] = "Något gick fel, inbetalningen kunde inte bokföras"; 
+			$_SESSION['report_message'] = "NÃ¥got gick fel, inbetalningen kunde inte bokfÃ¶ras"; 
 			$_SESSION['red_report_message'] = 1;
 		}
 	}
 	else{
-		$_SESSION['report_message'] = _t("One or more mandatory fields are not filled in."); 
+		$_SESSION['report_message'] = "Ett eller flera obligatoriska fÃ¤lt Ã¤r inte ifyllda"; 
 		$_SESSION['red_report_message'] = 1;
 	}

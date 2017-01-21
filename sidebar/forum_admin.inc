@@ -1,12 +1,12 @@
 <ul>
 	<li>
 		<?php
-			__h2(_t("Alternatives"));
+			__h2("Alternativ");
 			\View\controls::output_link_list("forum_admin", array(
-				"list_categories" => _t("List categories")
-				,"new_category" => _t("Create new category")
-				,"list_forums" => _t("List forums")
-				,"new_forum" => _t("Create new forum")
+				"list_categories" => "Visa kategorier"
+				,"new_category" => "Skapa ny kategori"
+				,"list_forums" => "Visa forum"
+				,"new_forum" => "Skapa nytt forum"
 				));
 		?>
 	</li>

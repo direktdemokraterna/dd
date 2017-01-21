@@ -17,7 +17,7 @@ class forum
 			self::insert_post_content($post_insert_id, $post_content);
 		}
 		else
-			\Logic\util::report_error(_t("You don't have access to that forum."));
+			\Logic\util::report_error("Du har inte behörighet till det forumet.");
 	}
 
 	public static function update_county_region_forum_access ($user_id, $county_id)
@@ -71,7 +71,7 @@ class forum
 		$processed_text = str_replace("[/quote]\r\n\r\n", "[/quote]\r\n", $processed_text);
 		if (self::is_post_text_valid($processed_text))
 			return $processed_text;
-		\Logic\util::report_error(_t("Malformed text in post"));
+		\Logic\util::report_error("Felaktig text i inlägget.");
 		return null;
 	}
 
@@ -95,7 +95,7 @@ class forum
 		$html_text = self::replace_named_open_quotes($html_text, $number_of_named_quotes);	
 		$html_text = str_replace("[/quote]", "</div>", $html_text, $number_of_closed_quotes);
 		if ($number_of_unnamed_quotes + $number_of_named_quotes != $number_of_closed_quotes)
-			throw new \Exception('Malformed quotes, mismatching open and close tags');
+			throw new \Exception("Felaktiga citat. Öppna och stängda taggar matchar inte.");
 		return $html_text;
 	}
 
@@ -122,10 +122,10 @@ class forum
 		$processed_content = \Logic\text::process_text($post_content);
 		$ok = \db_forum::add_content_to_post($post_id, $processed_content);
 		if($ok){
-			$_SESSION['report_message'] = _t("Post created.");
+			$_SESSION['report_message'] = "Inlägg skapat.";
 			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id; // todo: redirect not used
 		}
 		else 
-			\Logic\util::report_error(_t("The post could not be created."));
+			\Logic\util::report_error("Inlägget kunde inte skapas.");
 	}
 }

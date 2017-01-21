@@ -1,5 +1,5 @@
 <?php 
-	__h1(_t("Delegates"));
+	__h1("Delegater");
 	$show_all_delegates = isset($_GET['show_all']) && $_GET['show_all'];
 	$where_filter = array();
 	$filter_values = array();
@@ -21,6 +21,6 @@
 		\View\delegate::output_delegate_list($rows, $page, $delegate_count);		
 	}
 	else
-		__t("There are no " . ($show_all_delegates ? "" : "available ") 
-			. "delegates in the selected constituencies.");
+		echo "Det finns inga " . ($show_all_delegates ? "" : "tillgängliga ") 
+			. "delegater i de valda valkretsarna.";
 ?>

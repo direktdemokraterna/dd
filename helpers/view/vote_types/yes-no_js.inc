@@ -1,10 +1,10 @@
 <script>
-	var you_voted_yes = "<?php __t('You have voted yes.'); ?>";
-	var you_voted_no = "<?php __t('You have voted no.'); ?>";
-	var you_voted_abstain = "<?php __t('You have voted abstain.'); ?>";
-	var you_voted = "<?php __t('You have personally cast this ballot.'); ?>";
-	var your_delegate = "<?php __t('Your delegate'); ?>";
-	var voted_for_you = "<?php __t('has voted for you.'); ?>";
+	var you_voted_yes = "Du har röstat ja";
+	var you_voted_no = "Du har röstat nej";
+	var you_voted_abstain = "Du har röstat avstår";
+	var you_voted = "Du har personligen lagt denna röst";
+	var your_delegate = "Din delegat";
+	var voted_for_you = "har röstat åt dig.";
 	if (acting_as_delegate ? false : true)
 		ballots_to_count.map(function (ballot){
 			if(ballot.user_code == sessionStorage.user_code){

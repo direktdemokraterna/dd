@@ -16,7 +16,7 @@ if($is_all_mandatory_set){
 		die($error);
 	$region_id = db_constituency::get_region_id_from_county_id($_POST['county']);
 	if(!$region_id)
-		die(_t("Select your municipality."));
+		die("Välj kommun");
 	$form_data_has_been_processed = db_user::enter_user_application(
 		general_helpers::clean($_POST['first_name'])
 		, general_helpers::clean($_POST['last_name'])
@@ -59,41 +59,39 @@ if($is_all_mandatory_set){
 <?php 
 	if(isset($form_data_has_been_processed)) {
 		echo '<p>';
-		__h1(_t("Thank you for your application."));		
+		__h1("Tack för din ansökan");
 		echo '</p>';
 		die();
 	}
 	if ($_POST) {
-		echo '<p>';
-		__t("One or more mandatory fields are not filled in.");		
-		echo '</p>';
+		echo '<p>Ett eller flera fält är inte ifyllda</p>';
 	}
 ?>
-<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; "><?php __t("Membership application"); ?>
+<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">Medlemsansökan
 </h1>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="../helpers/js/constituency.js"></script>
 <script src="../helpers/js/session.js"></script>
 
 <?php
-	__t("* mandatory");
+	echo "* obligatoriskt";
 	__br();
 	__open_form("login-form");
 	$tab_index = 1;
-	__textfield('first_name', _t("Given name"), $tab_index++);
-	__textfield('last_name', _t("Last name*"), $tab_index++);
-	__textfield('street_address', _t("Street address*"), $tab_index++);
-	__textfield('zip_code', _t("Zip code*"), $tab_index++);
-	__textfield('city_address', _t("City*"), $tab_index++);
+	__textfield('first_name', "Förnamn", $tab_index++);
+	__textfield('last_name', "Efternamn*", $tab_index++);
+	__textfield('street_address', "Gatuadress*", $tab_index++);
+	__textfield('zip_code', "Postnummer*", $tab_index++);
+	__textfield('city_address', "Postort*", $tab_index++);
 	\View\member::output_county_selectors();
-	__textfield("telephone1", _t("Telephone 1"), $tab_index++);
-	__textfield("telephone2", _t("Telephone 2"), $tab_index++);
-	__textfield("email*", _t("Email"), $tab_index++);
-	__textfield("skype_name", _t("Skype name"), $tab_index++);
+	__textfield("telephone1", "Telefonnummer", $tab_index++);
+	__textfield("telephone2", "Alternativt telefonnummer", $tab_index++);
+	__textfield("email*", "Mejladress", $tab_index++);
+	__textfield("skype_name", "Skype-namn", $tab_index++);
 ?>
 <input type="checkbox" name="news_letter" value="1" id="news_letter">
-	<label for "news_letter"><?php __t("I want to subscribe to the news letter"); ?></label>
-<button type="submit" value="<?php __t("Send"); ?>"><?php __t("Send"); ?></button>
+	<label for "news_letter">Jag vill prenumerera på nyhetsbrevet</label>
+<button type="submit" value="Skicka">Skicka</button>
 </form>
 
 <script type="text/javascript" language="JavaScript">

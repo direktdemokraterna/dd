@@ -1,5 +1,5 @@
 <?php 
-	__h1(_t("Active votes"));
+	__h1("Pågående omröstningar");
 	$statuses = array('active', 'del_ended', 'continuous');
 	$vote_count = db_vote::list_votes_count($_SESSION['id'], $statuses);
 	if ($vote_count) {
@@ -7,5 +7,5 @@
 		\View\vote::make_vote_list($vote_groups, $vote_count, "vote", "view_vote");
 	}
 	else 
-		__t("There are no active votes in your constituencies");
+		echo "Det finns inga pågående omröstningar i dina valkretsar.";
 ?>

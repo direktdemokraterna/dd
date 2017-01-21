@@ -12,14 +12,14 @@
 	if ($user_is_sender || $user_is_recipient) {
 		\View\message::output_message($message, $user_is_sender, $user_is_recipient, "", true);
 		if ($user_is_recipient)
-			__action(_t("Remove from received"), 'recipient_delete', array('message_id' => $message['id']));
+			__action("Ta bort från mottagna", 'recipient_delete', array('message_id' => $message['id']));
 		if($user_is_sender) {
 			if($message['read_time'])
-				__action(_t("Remove from sent"), 'sender_delete', array('message_id' => $message['id']));
+				__action("Ta bort från skickade", 'sender_delete', array('message_id' => $message['id']));
 			else
-				__action(_t("Undo send"), 'cancel', array('message_id' => $message['id']));
+				__action("Ångra skicka", 'cancel', array('message_id' => $message['id']));
 		}
 	}
 	else
-		__t("Message not found");
+		echo "Meddelandet kunde inte hittas";
 ?>

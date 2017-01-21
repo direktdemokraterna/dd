@@ -3,9 +3,9 @@
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$props = db_prop::search_props($search_query, $_SESSION['id'], $sort, $page);
-	__h1(_t("Found propositions"));
+	__h1("Hittade propositioner");
 	if(empty($props)) {
-		__p(_t("No propositions with the phrase: ") . "<b><i>$search_query</i></b>" . _t(" in text or caption were found."));
+		__p("Inga propositioner med sökfrasen : " . "<b><i>$search_query</i></b>" . " i rubrik eller beskrivning kunde hittas.");
 	}
 	else {
 		$result_count = db_prop::search_props_count($search_query, $_SESSION['id'], $page);

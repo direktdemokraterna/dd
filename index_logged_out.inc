@@ -17,12 +17,12 @@
 <form method="post" class="login-form" action="index.php?login=1">
 <input type="hidden" name="login" value="1">
 <p>
-<label for "username"><?php __t("Username"); ?></label>
+<label for "username">Användarnamn</label>
 <input type="text" name="username" id="username" tabindex="1">
-<br><label for "password"><?php __t("Password"); ?></label>
+<br><label for "password">Lösenord</label>
 <input type="password" name="password" id="password" tabindex="2"></p>
-<p><label for "rememberme"><?php __t("Remember me"); ?><input type="checkbox" name="rememberme" id="rememberme"></label>
-<span><button type="submit" value="<?php __t("Login"); ?>" class="btn-login"><?php __t("Login"); ?></button></span>
+<p><label for "rememberme">Kom ihåg mig<input type="checkbox" name="rememberme" id="rememberme"></label>
+<span><button type="submit" value="Login" class="btn-login">Logga in</button></span>
 </p>
 </form>
 

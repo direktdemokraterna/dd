@@ -4,20 +4,20 @@ namespace View;
 class member 
 {
 	public static function output_edit_fields($user_data = null, $include_social_security_number = true, &$tab_index = 1) {
-		__textfield("username", _t("Username"), $tab_index++, $user_data);
-		__textfield("first_name", _t("Given name"), $tab_index++, $user_data);
-		__textfield("last_name", _t("Last name"), $tab_index++, $user_data);
+		__textfield("username", "Användarnamn", $tab_index++, $user_data);
+		__textfield("first_name", "Förnamn", $tab_index++, $user_data);
+		__textfield("last_name", "Efternamn", $tab_index++, $user_data);
 		if ($include_social_security_number)
-			__textfield("social_security_number", _t("Social security number"), 
+			__textfield("social_security_number", "Personnummer", 
 				$tab_index++, $user_data);			
-		__textfield("email", _t("Email address"), $tab_index++, $user_data);
-		__textfield("street_address", _t("Street address"), $tab_index++, $user_data);
-		__textfield("zip_code", _t("Zip code"), $tab_index++, $user_data);
-		__textfield("city_address", _t("City"), $tab_index++, $user_data);
+		__textfield("email", "Mejladress", $tab_index++, $user_data);
+		__textfield("street_address", "Gatuadress", $tab_index++, $user_data);
+		__textfield("zip_code", "Postnummer", $tab_index++, $user_data);
+		__textfield("city_address", "Postort", $tab_index++, $user_data);
 		self::output_county_selectors($user_data, $tab_index);
-		__textfield("telephone1", _t("Telephone 1"), $tab_index++, $user_data);
-		__textfield("telephone2", _t("Telephone 2"), $tab_index++, $user_data);
-		__textfield("skype_name", _t("Skype name"), $tab_index++, $user_data);
+		__textfield("telephone1", "Telefon 1", $tab_index++, $user_data);
+		__textfield("telephone2", "Telefon 2", $tab_index++, $user_data);
+		__textfield("skype_name", "Skype-namn", $tab_index++, $user_data);
 	}
 	
 	public static function output_county_selectors($user_data = null, &$tab_index = 1) {
@@ -42,7 +42,7 @@ class member
 	}
 
 	private static function output_member_grid ($members) {
-		$columns = array(_t("Name"), _t("Username"), _t("Region"), _t("Municipality"));
+		$columns = array("Namn", "Användarnamn", "Län", "Kommun");
 		$rows = array_map(function($member) {
 			return array(
 				_link($member['full_name'], "member", "view", "id=" . $member['id'])
@@ -67,7 +67,7 @@ class member
 		$html = '<input type="checkbox" name="show_deleted"' .
 			($show_deleted ? ' checked' : '') 
 			. ' id="show_deleted" onchange="this.form.submit()"><label for "show_deleted">' 
-			. _t("Show removed members") . '</label>';
+			. "Visa borttagna medlemmar" . '</label>';
 		return _span($html, "list_sort_alternative");
 	}
 
@@ -96,15 +96,15 @@ class member
 			: null;
 		$regions = \db_constituency::get_regions();
 		$region_options = \db_general::make_hash($regions, 'id', 'title');
-		$region_options = array(0 => _t('All regions')) + $region_options;
-		\View\controls::output_labeled_selector("region_id", _t("Region")
+		$region_options = array(0 => 'Alla län') + $region_options;
+		\View\controls::output_labeled_selector("region_id", "Län"
 			, $region_options, $selected_region
 			, 'onchange="region_changed()" tabindex="' . $tab_index . '"');
 	}
 
 	private static function output_county_selector($user_data, $counties, $tab_index) {
 		$county_options = \db_general::make_hash($counties, 'county_id', 'county_name');
-		\View\controls::output_labeled_selector("county_id", _t("Municipality"), $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
+		\View\controls::output_labeled_selector("county_id", "Kommun", $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
 	}
 }
 ?>

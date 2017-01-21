@@ -13,44 +13,44 @@
 </script>
 
 <?php 
-	__h1(_t("Your current delegations" . ($_SESSION['delegate_id'] ? " as delegate" : '')));
+	__h1("Dina nuvarande delegeringar" . ($_SESSION['delegate_id'] ? " som delegat" : ''));
 	__open_form("prio-vote");
 	__hidden("ballot");
 	foreach($constituencies as $row) {
 		echo '<div class="delegation_box">';
-		echo _t("Constituency: ");
+		echo "Valkrets: ";
 		__strong($row['name']);
 		__br();
 		if($_SESSION['delegate_id']) {
 			echo '<span>';
 			$delegate_delegate_for_constituency = db_delegate::get_delegates_delegate_for_constituency($_SESSION['delegate_id'], $row['id']);
 			if($delegate_delegate_for_constituency) {
-				__t("You have delegated your vote in this constituency to ");
+				echo "Du har delegerat din röst i denna valkrets till ";
 				__link($delegate_delegate_for_constituency['delegate_title'], 'vote', 'view_delegate', 'id=' 
 					. $delegate_delegate_for_constituency['delegate_id']);
 			}
 			else
-				__t("You have no delegate in this constituency");
+				echo "Du har ingen delegat i denna valkrets";
 			echo '</span>';
 		}
 		else 
-			echo '<span id="constituency' . $row['id'] . '">' . _t("You have no delegate in this constituency") . '</span>';
+			echo '<span id="constituency' . $row['id'] . '">Du har ingen delegat i denna valkrets</span>';
 		__br(2);
 		$delegates_for_constituency = db_delegate::get_available_delegates($row['id']
 			, $_SESSION['delegate_id']);
-		$delegate_options = array("null" => _t("Remove delegate"));
+		$delegate_options = array("null" => "Ta bort delegat");
 		foreach ($delegates_for_constituency as $delegate)
 			$delegate_options[$delegate['id']] = $delegate['title'];
 			echo '<div class="styled-select slate">';
 		\View\controls::output_selector('select' . $row['id'], $delegate_options);
 		echo '</div>';
-		echo '<button type="submit" value="' . _t("Delegate") . '" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
-			. $row['id'] . ')">' . _t("Delegate") . '</button>';
+		echo '<button type="submit" value="Delegera" onmousedown="return encrypt_delegation_get_delegate_from_form(' 
+			. $row['id'] . ')">Delegera</button>';
 		echo '</div>';
 	}
 	echo '</form>';
 	echo '<script>';
-	echo 'var dynamic_delegation_info_text = "' . _t("You have delegated your vote in this constituency to") . '";';
+	echo 'var dynamic_delegation_info_text = "Du har delegerat din rösträtt i denna valkrets till ";';
 	echo '</script>';
 ?>
 <script>

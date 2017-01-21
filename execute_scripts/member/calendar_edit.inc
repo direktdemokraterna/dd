@@ -22,18 +22,18 @@
 		$location = general_helpers::clean($_POST['location']);
 		
 		if(db_calendar::edit_event($timestamp, $year, $month, $day, $time, $location, $title, $content, $_GET['id'])){
-			$_SESSION['report_message'] = _t("The activity has been updated.");
+			$_SESSION['report_message'] = "Aktiviteten har uppdaterats";
 			$redirect = "index.php?type=member&action=calendar&year=" . $year . "&month=" . $month . "&day=" . $day;
 		}
 		else {
-			$_SESSION['report_message'] = _t("Something went wrong. No change made.");
+			$_SESSION['report_message'] = Något gick fel. Inga ändringar utförda.;
 			$_SESSION['red_report_message'] = 1;
 		}
 		
 	}
 
 	else{
-		$_SESSION['report_message'] = _t("One or more mandatory fields are not filled in."); 
+		$_SESSION['report_message'] = "Ett eller flera obligatoriska fält är inte ifyllda"; 
 		$_SESSION['red_report_message'] = 1;
 	}
 

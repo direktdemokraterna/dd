@@ -1,15 +1,15 @@
 <ul>
 	<li>
 		<?php
-			__h2(_t("Members"));
+			__h2("Medlemmar");
 			\View\controls::output_link_list("member", array(
-				"list" => _t("See all members")
-				,"settings" => _t("Change settings")
-				,"calendar" => _t("Calendar")
+				"list" => "Visa alla medlemmar"
+				,"settings" => "Ändra inställningar"
+				,"calendar" => "Kalender"
 				));
 		?>
 	</li>
 	<li>
-		<?php \View\controls::output_search_box("member", "member", "search", 101); ?>
+		<?php \View\controls::output_search_box("medlemmar", "member", "search", 101); ?>
 	</li>
 </ul>

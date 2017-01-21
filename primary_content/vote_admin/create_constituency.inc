@@ -1,1 +1,1 @@
-<?php __h1(_t("Create constituency")); ?>
+<?php __h1("Skapa valkrets"); ?>

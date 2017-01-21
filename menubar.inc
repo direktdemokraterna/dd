@@ -9,12 +9,12 @@
 	</div>
 	<ul id="hide_menu" class="clearfix">
 		<li><?php
-			__link(_t("User"), "member");
+			__link("Användare", "member");
 			\View\controls::output_link_list("member", array(
-				"calendar" => _t("Calendar")
-				,"settings" => _t("My profile")
-				,"memberlist" => _t("Members")
-				,"admin_list" => _t("Administrators")
+				"calendar" => "Kalender"
+				,"settings" => "Profil"
+				,"memberlist" => "Medlemmar"
+				,"admin_list" => "Administratörer"
 				));
 			?>
 		</li>
@@ -23,16 +23,16 @@
 			</li>
 		<?php endif; ?>
 		<li><?php
-			__link(_t("Messages"), "message");
+			__link("Meddelanden", "message");
 			\View\controls::output_link_list("message", array(
-				"inbox" => _t("Inbox")
-				,"outbox" => _t("Outbox")
-				,"write" => _t("Write message")
+				"inbox" => "Inbox"
+				,"outbox" => "Outbox"
+				,"write" => "Skriv meddelande"
 				));
 			?>
 		</li>
 		<li><?php
-			__link(_t("Workgroups"), "workgroup");
+			__link("Arbetsgrupper", "workgroup");
 			echo '<ul>';
 				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
 				foreach($workgroups as $row)
@@ -42,29 +42,29 @@
 			?>
 		</li>
 		<li><?php
-			__link(_t("Votes"), "vote");
+			__link("Omröstningar", "vote");
 			\View\controls::output_link_list("vote", array(
-				"list_props" => _t("Propositions")
-				,"list_active_votes" => _t("Votes")
-				,"delegations" => _t("Delegates")
+				"list_props" => "Propositioner"
+				,"list_active_votes" => "Omröstningar"
+				,"delegations" => "Delegater"
 				));
 			?>
 		</li>
-		<li class="forum"><?php __link(_t("Forum"), "forum"); ?></li>
+		<li class="forum"><?php __link("Forum", "forum"); ?></li>
 		<?php if(isset($_SESSION['admin'])) : ?>
-		<li><a href="#"><?php __t("Admin"); ?></a>
+		<li><a href="#">Admin</a>
 			<ul>
 				<?php
 					if(isset($_SESSION['is_member_admin']))
-						__li(_link(_t("Member admin"), "member_admin"));
+						__li(_link("Medlemsadministratör", "member_admin"));
 					if(isset($_SESSION['is_forum_admin']))
-						__li(_link(_t("Forum admin"), "forum_admin"));
+						__li(_link("Forumadministratör", "forum_admin"));
 					if(isset($_SESSION['is_vote_admin']))
-						__li(_link(_t("Vote admin"), "vote_admin"));
+						__li(_link("Valadministratör", "vote_admin"));
 					if(isset($_SESSION['is_treasurer']))
-						__li(_link(_t("Treasurer"), "treasurer"));
+						__li(_link("Kassör", "treasurer"));
 					if(isset($_SESSION['is_superadmin']))
-						__li(_link(_t("Superadmin"), "superadmin"));
+						__li(_link("Superadmin", "superadmin"));
 				?>
 			</ul>
 		</li>
@@ -74,21 +74,21 @@
 		<li><?php
 				$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);
 				$user_label = db_user::get_user_full_name($_SESSION['id']);
-				$hello = _span(_t("Hello, "), "large_screen");
+				$hello = _span("Hallå ", "large_screen");
 				$user_label = $hello . $user_label;
 				if ($_SESSION['delegate_id']) $user_label .=
-					_t(" (delegate)", array('class' => 'noun'));
+					" (delegat)";
 				__link($user_label, "member", "view");
 			?>
 			<ul>
 				<?php if ($_SESSION['delegate_id']) : ?>
 					<li class="mb-individual"><a onClick="set_acting_as_delegate(0)">
-						<?php __t("Act as individual"); ?></a></li>
+						Agera som individ</a></li>
 				<?php elseif (db_delegate::is_user_delegate($_SESSION['id'])) : ?>
 					<li class="mb-delegate"><a onClick="set_acting_as_delegate(1)">
-						<?php __t("Act as delegate"); ?></a></li>
+						Agera som delegat</a></li>
 				<?php endif; ?>
-				<li class="mb-logout"><a href="index.php?logout=1"><?php __t("Logout"); ?></a></li>
+				<li class="mb-logout"><a href="index.php?logout=1">Logga ut</a></li>
 			</ul>
 		</li>
 	</ul>

@@ -33,51 +33,50 @@
 
 <?php 
 	\View\controls::output_search_back_link();
-	__h1(_t("Proposition: ") . $propinfo['title']);
+	__h1("Proposition: " . $propinfo['title']);
 	echo '<div class="vote_result_box">';
 	if($propinfo['status'] == "pending") {
-		__t("It is " . $propinfo['number_of_supporters'] . " member who support this proposition.");
+		echo "Det är " . $propinfo['number_of_supporters'] . " användare som stöder denna proposition.";
 		__br();
-		__t("The necessary number of supporters for it to be subject for vote is " . (ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT)) . ".");
+		echo "Nödvändigt antal stöd för att den ska bli en omröstning är " . (ceil($propinfo['number_of_voters'] * PROP_TO_VOTE_SUPPORT)) . ".";
 	}
 	elseif($propinfo['status'] == "affirmed"){
 		$vote_id = db_vote::get_vote_id_from_prop_id($prop_id);
-		__t("This proposition has reached sufficient support to be subject for vote. The vote can be found ");
-		__link(_t("here"), 'vote', 'view_vote', 'id=' . $vote_id);
+		echo "Den här propositionen har uppnått tillräckligt stöd och har blivit en omröstning. Omröstningen kan ses ";
+		__link("här", 'vote', 'view_vote', 'id=' . $vote_id);
 	}
 	echo '</div>';
 	if($voter_allowed_to_vote && $propinfo['status'] == "pending") {
 		echo '<div class="vote_result_box" id="user_vote_box">';
 			if(isset($delegate_ballot) && $delegate_ballot['support']) {
-				__t(isset($delegate_ballot['delegate_id'])
-					? 'You as delegate support this proposition through your delegate.'
-					: 'You as delegate support this proposition yourself.');
+				echo (isset($delegate_ballot['delegate_id'])
+					? 'Du som delegat stöder denna proposition genom din delegat.'
+					: 'Du som delegat stöder denna proposition själv.');
 			}
 		echo '</div>';
 	}
 	echo '<p>';
-	__info(_t("Type of proposed vote"), \View\vote::get_vote_type_description($propinfo['type']));
-	__info(_t("Constituency"), $propinfo['constituency_name']);
-	__info(_t("Created", array('class' => 'adj')), general_helpers::show_date($propinfo['timestamp_created']));
-	__info(_t("Proposed by"), _link($propinfo['user_full_name'],
+	__info("Föreslagen omröstning", \View\vote::get_vote_type_description($propinfo['type']));
+	__info("Valkrets", $propinfo['constituency_name']);
+	__info("Skapad", general_helpers::show_date($propinfo['timestamp_created']));
+	__info("Föreslagen av", _link($propinfo['user_full_name'],
 		'member', 'view', 'id=' . $propinfo['user_id']));
-	__info(_t("Number of support-ballots"), $number_of_ballots['total_number_of_ballots']);
-	__info(_t("Whereof personally cast ballots"), $number_of_ballots['number_of_direct_ballots']);
-	__info(_t("Number of delegates who has voted"), $number_of_ballots['number_of_delegate_ballots']);
-	__info(_t("Description"), '<br>' . \Logic\text::make_html_from_wiki_text($propinfo['description']));
+	__info("Antal stöd", $number_of_ballots['total_number_of_ballots']);
+	__info("Antal personligt lagda stöd", $number_of_ballots['number_of_direct_ballots']);
+	__info("Antal delegatstöd", $number_of_ballots['number_of_delegate_ballots']);
+	__info("Beskrivning", '<br>' . \Logic\text::make_html_from_wiki_text($propinfo['description']));
 	echo '</p>';
 	if($number_of_ballots['number_of_delegate_ballots']){
 		echo '<div class="" id="delegate_votes_box">';
-		echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'support\')">' 
-		. _t("See delegate ballots for this proposition") . '</a>';
+		echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'support\')">Se delegatstöd för denna proposition</a>';
 		echo '</div>';
 	}
 	echo '<p>';
-	__link(_t("See all support-ballots for this proposition"), 'vote', 'view_prop_ballots', 'id=' . $_GET['id']);
+	__link("Se alla stöd för denna proposition", 'vote', 'view_prop_ballots', 'id=' . $_GET['id']);
 	echo '</p>';
 	if($voter_allowed_to_vote) {
 		echo '<p>';
-		__link(_t("Link to this proposition's forum debate"), 'forum', 'show_posts', 'topic_id=' . $propinfo['forum_topic_id']);
+		__link("Länk till denna propositions diskussionstråd", 'forum', 'show_posts', 'topic_id=' . $propinfo['forum_topic_id']);
 		echo '</p>';
 		if($propinfo['status'] == "pending") {
 			echo '<div class="vote_box">';
@@ -85,27 +84,23 @@
 			__hidden("prop_id", $prop_id);
 			__hidden("ballot", "");
 			echo '<div class="vote-buttons">';
-			echo '<input type="submit" class="vote_button" style="display: none" id="green_vote" value="' 
-			. _t("Support") . '" onmousedown="return encrypt_prop_ballot(true)">';
-			echo '<input type="submit" class="vote_button" style="display: none" title="' 
-			. _t("Click to stop supporting") . '" id="yellow_vote" value="' . _t("Supporting") 
-			. '" onmousedown="return encrypt_prop_ballot(false)">';
+			echo '<input type="submit" class="vote_button" style="display: none" id="green_vote" value="Stöd" onmousedown="return encrypt_prop_ballot(true)">';
+			echo '<input type="submit" class="vote_button" style="display: none" title="Tryck för att sluta stödja" id="yellow_vote" value="Stödjer" onmousedown="return encrypt_prop_ballot(false)">';
 			echo '</div></form>';
 			echo '</div>';
-			__t($is_voting_as_delegate ? "You vote as delegate." : "You vote as individual.");
+			echo ($is_voting_as_delegate ? "Du röstar som delegat." : "Du röstar som individ.");
 		}
 	}
 
 	echo '<script>';
-	echo 'var support_hint = "' . _t("Click on") . " \\\"" . _t("Support") . "\\\" " 
-		. _t("if you want to support this proposition") . '";';
-	echo 'var delegate_supporting = "' . _t("You support this proposition through your delegate ") . '";';
-	echo 'var supporting = "' . _t("You support this proposition.") . '";';
-	echo 'var stop_supporting_hint = " ' . _t("Click on") . " \\\"" . _t("Supporting") . "\\\" " 
-		. _t("to stop supporting this proposition.") . '";';
-	echo 'var support_withdrawn = "' . _t("You have withdrawn your support for this proposition.") . '";';
-	echo 'var support_text = "' . _t("Support", array("form" => "present")) . '";';
-	echo 'var not_support_text = "' . _t("Don't support") . '";';
+	echo 'var support_hint = "Klicka på \\\"Stöd\\\" Om du vill stödja den här propositionen";';
+	echo 'var delegate_supporting = "Du stödjer den här propositionen genom din delegat ";';
+	echo 'var supporting = "Du stödjer den här propositionen.";';
+	echo 'var stop_supporting_hint = " ' . "Klicka på" . " \\\"" . "Stödjer" . "\\\" " 
+		. "för att sluta stödja denna proposition." . '";';
+	echo 'var support_withdrawn = "' . "Du har tagit tillbaka ditt stöd för denna proposition" . '";';
+	echo 'var support_text = "' . "Stöd" . '";';
+	echo 'var not_support_text = "' . "Stöd inte" . '";';
 	\View\vote::output_common_delegate_vote_box_translations_for_js();
 	echo '</script>';
 	if($voter_allowed_to_vote && $propinfo['status'] == "pending")

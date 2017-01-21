@@ -2,7 +2,7 @@
 	if(!empty($_POST['check_list']))
 		$ok = \Logic\constituency::update_constituencies_for_user($_POST['check_list'], $_GET['id']);
 	if($ok)
-		$_SESSION['report_message'] = _t("Constituency permissions updated.");
+		$_SESSION['report_message'] = "Valkretsbehörigheter uppdaterade.";
 	else
-		$_SESSION['report_message'] = _t("No changes made.");
+		$_SESSION['report_message'] = "Inga ändringar utförda";
 ?>
