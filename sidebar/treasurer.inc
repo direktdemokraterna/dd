@@ -6,7 +6,7 @@
 				"overview" => "Översikt"
 				,"ny_inbetalning" => "Inkommande betalningar"
 				,"ny_utbetalning" => "Utgående betalningar"
-				,"medlemsavgifter" => "Medlemsavgifter"
+//				,"medlemsavgifter" => "Medlemsavgifter"
 				);
 			\View\controls::output_link_list("treasurer", $links);
 		?>
