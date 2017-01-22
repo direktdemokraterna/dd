@@ -14,7 +14,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="apple-touch-icon" href="images/touch-icon.png">
 		<link rel="shortcut icon" href="images/favicon.ico">
-		<title>DD Medlemssystem ver <?php echo VERSION ?></title>
+		<title>Direktdemokraterna Medlemssystem. Version <?php echo VERSION ?></title>
 	</head>
 	<body>
 		<?php

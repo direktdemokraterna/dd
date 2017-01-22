@@ -50,7 +50,7 @@ elseif(isset($_POST['user_email'])){
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="../images/favicon.ico">
-	<title>DD Medlemssystem ver <?php echo VERSION ?></title>
+	<title>Direktdemokraterna Medlemssystem - Aktivering av konto. Version <?php echo VERSION ?></title>
 </head>
 <body>
 
