@@ -20,7 +20,7 @@ class navigation_helpers {
 			return;
 		$divisionName = $_GET['type'];
 		$execute_page = self::get_execute_page($divisionName);
-		if ($execute_page && !self::is_view_request($execute_page)) 
+		if ($execute_page && !self::is_view_request($execute_page))
 			self::execute_action($divisionName, $execute_page);
 	}
 
