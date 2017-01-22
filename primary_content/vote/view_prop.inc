@@ -93,16 +93,16 @@
 	}
 
 	echo '<script>';
-	echo 'var support_hint = "Klicka på \\\"Stöd\\\" Om du vill stödja den här propositionen";';
+	echo 'var support_hint = "Klicka på \\"Stöd\\" Om du vill stödja den här propositionen";';
 	echo 'var delegate_supporting = "Du stödjer den här propositionen genom din delegat ";';
 	echo 'var supporting = "Du stödjer den här propositionen.";';
-	echo 'var stop_supporting_hint = " ' . "Klicka på" . " \\\"" . "Stödjer" . "\\\" " 
-		. "för att sluta stödja denna proposition." . '";';
-	echo 'var support_withdrawn = "' . "Du har tagit tillbaka ditt stöd för denna proposition" . '";';
-	echo 'var support_text = "' . "Stöd" . '";';
-	echo 'var not_support_text = "' . "Stöd inte" . '";';
+	echo 'var stop_supporting_hint = "Klicka på \\"Stödjer\\" för att sluta stödja denna proposition.";';
+	echo 'var support_withdrawn = "Du har tagit tillbaka ditt stöd för denna proposition";';
+	echo 'var support_text = "Stöd";';
+	echo 'var not_support_text = "Stöd inte";';
 	\View\vote::output_common_delegate_vote_box_translations_for_js();
 	echo '</script>';
 	if($voter_allowed_to_vote && $propinfo['status'] == "pending")
 		include(dirname(__FILE__) . "/view_prop_user_vote_box_js.inc");
+
 ?>
