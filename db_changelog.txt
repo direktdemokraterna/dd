@@ -1,4 +1,16 @@
 /**************/
+/* 2017-01-19
+/* Add table `user_password_reset_token` used for page to reset user password
+/**************/
+
+CREATE TABLE `user_password_reset_token` (
+  `reset_token` varchar(20) NOT NULL,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `timestamp_insertion` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY  (`reset_token`)
+) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+
+/**************/
 /* 2016-04-29 */
 /**************/
 Adding extra column for handling membership fees

@@ -1016,6 +1016,18 @@ CREATE TABLE `accounting` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Definition of table `user_password_reset_token`
+--
+DROP TABLE IF EXISTS `user_password_reset_token`;
+CREATE TABLE `user_password_reset_token` (
+  `reset_token` varchar(20) NOT NULL,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `timestamp_insertion` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY  (`reset_token`)
+) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
