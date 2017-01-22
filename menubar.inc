@@ -11,8 +11,7 @@
 		<li><?php
 			__link("Användare", "member");
 			\View\controls::output_link_list("member", array(
-				"calendar" => "Kalender"
-				,"settings" => "Profil"
+				"settings" => "Profil"
 				,"memberlist" => "Medlemmar"
 				,"admin_list" => "Administratörer"
 				));
@@ -29,16 +28,6 @@
 				,"outbox" => "Outbox"
 				,"write" => "Skriv meddelande"
 				));
-			?>
-		</li>
-		<li><?php
-			__link("Arbetsgrupper", "workgroup");
-			echo '<ul>';
-				$workgroups = db_workgroup::list_workgroups_where_user_is_member($_SESSION['id']);
-				foreach($workgroups as $row)
-					__li(_link($row['title'], "workgroup", "view", "id=" .
-						$row['id']));
-			echo '</ul>';
 			?>
 		</li>
 		<li><?php

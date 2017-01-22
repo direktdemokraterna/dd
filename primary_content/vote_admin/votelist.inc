@@ -1,5 +1,5 @@
 <?php 
-	__h1("Alla omröstningar"));
+	__h1("Alla omröstningar");
 	$vote_count = db_vote::list_votes_count($_SESSION['id']);
 	if ($vote_count) {
 		$vote_groups = \Logic\vote::get_vote_groups();

@@ -133,7 +133,7 @@ function show_delegate_votes (vote_type)
 		else if(vote_type == 'yes-no')
 			delegate_votes_box_content += ballot.ballot == "abstain"
 				? abstain_text
-				: (ballot.ballot == "yes" ? yes_text : no_text);
+				: (ballot.ballot == "yes" ? "Ja" : "Nej");
 		else if(vote_type == 'median')
 			delegate_votes_box_content += ballot.ballot == "abstain"
 				? abstain_text

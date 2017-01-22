@@ -34,6 +34,9 @@
 				
 			\View\general::open_div("vote_result_box");			
 			\View\vote::output_vote_result_with_header($voteinfo, $ballots_to_count); /* Results */			
+			\View\general::open_div("vote_result_box", "user_vote_box");
+			\View\vote::output_ballot_info($voteinfo, $delegate_ballot); /* Your vote */	
+			\View\general::close_div();
 			\View\general::close_div();			
 			\View\general::open_div("vote-description"); 
 			\View\vote::output_vote_description($voteinfo);
@@ -75,10 +78,12 @@
 		\View\general::close_div();
 		
 		\View\general::open_div("vote_buttons_wrapper");
-			\View\vote::output_ballot_info($voteinfo, $delegate_ballot); /* Your vote */	
-			\View\vote::output_vote_buttons($voteinfo, $user_allowed_to_vote); /* Vote buttons */
-			\View\vote::output_javascript_vote_localized_texts();
-			\View\vote::output_javascript_vote_handlers($voteinfo);
+
+		\View\vote::output_vote_buttons($voteinfo, $user_allowed_to_vote); /* Vote buttons */
+		echo '<script>';
+		\View\vote::output_common_delegate_vote_box_translations_for_js();
+		echo '</script>';
+		\View\vote::output_javascript_vote_handlers($voteinfo);
 		\View\general::close_div(); /* Close vote_buttons_wrapper */
 		
 	\View\general::close_div(); /* Close vote_wrapper */
