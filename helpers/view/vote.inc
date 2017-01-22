@@ -95,14 +95,6 @@ class vote
 		}
 	}
 
-	public static function output_javascript_vote_localized_texts() {
-		echo '<script>';
-		\View\vote::output_common_delegate_vote_box_translations_for_js();
-		echo 'var yes_text = "Ja";';
-		echo 'var no_text = "Nej";';
-		echo '</script>';
-	}
-
 	public static function output_javascript_vote_handlers($voteinfo) {
 		$vote_script_include = self::get_vote_script_include($voteinfo['type']);
 		if ($vote_script_include)
