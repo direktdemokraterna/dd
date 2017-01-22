@@ -15,7 +15,7 @@ if($is_all_mandatory_set){
 		die($error);
 	$region_id = db_constituency::get_region_id_from_county_id($_POST['county']);
 	if(!$region_id)
-		die("Välj kommun");
+		die("VÃ¤lj kommun");
 	$form_data_has_been_processed = db_user::enter_user_application(
 		general_helpers::clean($_POST['first_name'])
 		, general_helpers::clean($_POST['last_name'])
@@ -60,15 +60,15 @@ if($is_all_mandatory_set){
 <?php 
 	if(isset($form_data_has_been_processed)) {
 		echo '<p>';
-		__h1("Tack för din ansökan");
+		__h1("Tack fÃ¶r din ansÃ¶kan");
 		echo '</p>';
 		die();
 	}
 	if ($_POST) {
-		echo '<p>Ett eller flera fält är inte ifyllda</p>';
+		echo '<p>Ett eller flera fÃ¤lt Ã¤r inte ifyllda</p>';
 	}
 ?>
-<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">Medlemsansökan
+<h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">MedlemsansÃ¶kan
 </h1>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="../helpers/js/constituency.js"></script>
@@ -79,7 +79,7 @@ if($is_all_mandatory_set){
 	__br();
 	__open_form("login-form");
 	$tab_index = 1;
-	__textfield('first_name', "Förnamn", $tab_index++);
+	__textfield('first_name', "FÃ¶rnamn", $tab_index++);
 	__textfield('last_name', "Efternamn*", $tab_index++);
 	__textfield('street_address', "Gatuadress*", $tab_index++);
 	__textfield('zip_code', "Postnummer*", $tab_index++);
@@ -91,7 +91,7 @@ if($is_all_mandatory_set){
 	__textfield("skype_name", "Skype-namn", $tab_index++);
 ?>
 <input type="checkbox" name="news_letter" value="1" id="news_letter">
-	<label for "news_letter">Jag vill prenumerera på nyhetsbrevet</label>
+	<label for "news_letter">Jag vill prenumerera pÃ¥ nyhetsbrevet</label>
 <button type="submit" value="Skicka">Skicka</button>
 </form>
 
