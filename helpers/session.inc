@@ -1,17 +1,6 @@
 <?php
 class session 
 {
-	public static function update_language() 
-	{
-		preg_match('/[\?|&]lang=(\w+)$/', $_SERVER['REQUEST_URI'], $lang_param_match);
-		if ($lang_param_match) {
-			$param = $lang_param_match[0];
-			$lang = $lang_param_match[1];
-			\I18n\controller::update_language($lang);
-			self::continue_to_page($param);
-		}		
-	}
-
 	public static function update_acting_as_delegate() 
 	{
 		preg_match('/[\?|&]act_as_delegate=(1|0)$/', $_SERVER['REQUEST_URI'], $act_as_delegate_param_match);

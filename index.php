@@ -6,7 +6,6 @@
 			include("init.inc");
 			include("helpers/load_css.inc");
 			include("helpers/load_js.inc");
-			session::update_language();
 		?>
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

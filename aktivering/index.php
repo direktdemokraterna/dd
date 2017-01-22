@@ -1,6 +1,5 @@
 <?php 
 include("../init.inc");
-session::update_language();
 
 if(isset($_POST['activation_code'])){
 	$ok = db_user::activate_user($_POST['activation_code']);
@@ -101,7 +100,7 @@ elseif(isset($_POST['user_email'])){
 		<p>Fyll i den mejladress som finns registrerad i systemet för dig i fältet här under. Ett mejl med en aktiveringskod kommer att skickas till den adressen och med hjälp av den kan du sedan aktivera din användare och börja använda det nya systemet.</p><br>
 		<label for="user_email">Mejladress</label>
 		<input type="text" name="user_email" id="user_email" value="" autofocus required>
-		<button type="submit" value="<?php __t("Send"); ?>"><?php __t("Send"); ?></button>
+		<button type="submit" value="Skicka">Skicka</button>
 	</form>
 <?php endif; ?>
 

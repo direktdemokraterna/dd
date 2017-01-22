@@ -1,6 +1,5 @@
 <?php 
 include("../init.inc");
-session::update_language();
 
 // Processing data if form has been posted
 $mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county_id', 'email', 'social_security_number');
@@ -91,15 +90,9 @@ if($is_all_mandatory_set){
 	__textfield("email*", "Mejladress", $tab_index++);
 	__textfield("skype_name", "Skype-namn", $tab_index++);
 ?>
-<<<<<<< HEAD
 <input type="checkbox" name="news_letter" value="1" id="news_letter">
 	<label for "news_letter">Jag vill prenumerera på nyhetsbrevet</label>
 <button type="submit" value="Skicka">Skicka</button>
-=======
-    <input type="checkbox" name="news_letter" value="1" id="news_letter">
-	<label for="news_letter"><?php __t("I want to subscribe to the news letter"); ?></label>
-<button type="submit" value="<?php __t("Send"); ?>"><?php __t("Send"); ?></button>
->>>>>>> b096e3262cdccead646eaa09eb9fec05190a380d
 </form>
 
 </div>

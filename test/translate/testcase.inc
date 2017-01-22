@@ -13,7 +13,7 @@ class Testcase {
 		$translation_hints = $this->hints 
 			? self::get_translation_hints($this->hints) 
 			: null;
-		$this->actual = _t($this->from_text, $translation_hints);		
+		$this->actual = \i18n\rule_engine::translate($this->from_text, $translation_hints);		
 		$this->success = $this->to_text
 			? $this->to_text == $this->actual
 			: null;

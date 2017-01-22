@@ -1,9 +1,4 @@
 <?php
-	function __t($text, $hints = null) 
-	{
-		echo _t($text, $hints);
-	}
-
 	function __h1($text)
 	{
 		echo _h1($text);
@@ -108,13 +103,6 @@
 		foreach ($params as $key => $value)
 			__hidden($key, $value);
 		__submit_and_close($label, $action, $confirm);
-	}
-
-	function _t($text, $hints = null) 
-	{
-		//return \i18n\rule_engine::translate($text, $hints);
-		//return \i18n\template_engine::translate($text, $hints);
-		return $text;
 	}
 
 	function _h1($text) 

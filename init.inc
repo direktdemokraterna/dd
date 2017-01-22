@@ -104,14 +104,7 @@ include(dirname(__FILE__)."/helpers/view/message.inc");
 include(dirname(__FILE__)."/helpers/view/vote.inc");
 include(dirname(__FILE__)."/helpers/view/workgroup.inc");
 
-switch (\I18n\controller::get_language()) {
-	case 'en': 
-		setlocale(LC_ALL, NULL);
-		break;
-	case 'sv': 
-		setlocale(LC_ALL, 'swedish', 'sv_SE', 'sv_SE.UTF-8');
-		break;
-}
+setlocale(LC_ALL, 'swedish', 'sv_SE', 'sv_SE.UTF-8');
 
 $app_folder_name = str_replace('index.php', '', $_SERVER['PHP_SELF']);
 $app_folder_name = str_replace('bli-medlem/', '', $app_folder_name);

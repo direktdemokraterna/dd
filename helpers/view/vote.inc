@@ -5,11 +5,9 @@ class vote
 {
 	public static function output_vote_finish_status($voteinfo) {
 		if($voteinfo['status'] == "ended" || $voteinfo['status'] == "finished")
-			// echo _t("The vote is finished. It finished ");
 			echo '<tr><td>Avslutad:</td><td>'
 			. \general_helpers::show_date($voteinfo['timestamp_ended']) . '</td>';
 		elseif($voteinfo['status'] == "del_ended")
-			// echo _t("The vote finishes ") 
 			echo '<tr><td>Avslutas:</td><td>'
 				. \general_helpers::show_date($voteinfo['timestamp_ended']) . '</td></tr><tr><td>'
 				. '. Delegatröstning avslutades ' . '</td></td>'
@@ -17,13 +15,9 @@ class vote
 		elseif($voteinfo['status'] == "continuous")
 			echo '	<tr><td>Avslutas: </td><td>Kontinuerlig</td></tr>
 					<tr><td>Delegatröstning: </td><td>Kontinuerlig</td></tr>';
-			//	. _t("This is a continuous vote and it continues until it is ended through a new yes/no vote.") . '</td></tr>';
-			
 		else
-			echo //_t("The vote finishes ") 
-				'<tr><td>Avslutas:</td><td>' 
+			echo '<tr><td>Avslutas:</td><td>' 
 				. \general_helpers::show_date($voteinfo['timestamp_ended']) . '</td></tr>';
-				// . _t(". For delegates the possibility to vote closes ") 
 			echo '<tr><td>Delegatröstning avslutas:</td><td>'
 				. \general_helpers::show_date($voteinfo['timestamp_delegate_ended'])
 				. '</td></tr>';

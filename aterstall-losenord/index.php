@@ -1,6 +1,5 @@
 <?php 
 include("../init.inc");
-session::update_language();
 
 if(isset($_POST['reset_token']) && isset($_POST['password'])) {
 	$ok = \Logic\resetpassword::change_password($_POST['reset_token'], $_POST['password']);
