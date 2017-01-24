@@ -24,8 +24,8 @@
 		<li><?php
 			__link("Meddelanden", "message");
 			\View\controls::output_link_list("message", array(
-				"inbox" => "Inbox"
-				,"outbox" => "Outbox"
+				"inbox" => "Inkorg"
+				,"outbox" => "Utkorg"
 				,"write" => "Skriv meddelande"
 				));
 			?>
