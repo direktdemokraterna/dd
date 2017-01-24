@@ -26,7 +26,7 @@
 	__br();
 	__label("Nuvarande bild:", "");
 	__br();
-	echo '<img class="image150" src="' . USERIMG_PATH . $user_settings['image'] . '">';
+	echo '<img class="image150" src="' . USERIMG_PATH . 'userimg_150_width/' . $user_settings['image'] . '">';
 	__br();
 	__submit_and_close("Ändra", "image");
 	

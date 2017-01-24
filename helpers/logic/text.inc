@@ -16,7 +16,7 @@ class text
 	public static function make_html_from_wiki_text($wiki_text) {
 		try {
 			$html_text = self::replace_brackets_with_html_tags($wiki_text);
-			$html_text = nl2br($html_text);
+			$html_text = nl2br($html_text, false);
 		}
 		catch (\Exception $ex) {
 			return "ERROR WHEN PARSING TEXT: " . $ex;

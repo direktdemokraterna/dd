@@ -11,10 +11,12 @@ class forum
 		echo '</div>';
 	} 
 
-	public static function show_topic_breadcrumbs($post_id) 
+	public static function show_topic_breadcrumbs($post_id, $show_reply_button = TRUE) 
 	{
 		self::start_topic_breadcrumbs($post_id);
-		echo '<a href="#new_post_form"><span class="btn-blue">Svara i tråden</span></a></div>';
+		if($show_reply_button) 
+			echo '<span class="btn-blue" onClick="focus_on_textarea()">Svara i tråden</span>';
+		echo '</div>';
 	} 
 
 	public static function output_category_selector($selected_category = null) {
@@ -194,10 +196,13 @@ class forum
 	private static function make_post_content_bbcode($post_info) 
 	{
 		$post_id = $post_info['post_id'];
-		__hidden("post_content_$post_id", self::escape_double_quotes($post_info['content']));
+		__hidden("post_content_$post_id", self::clean_out_post_content($post_info['content']));
 	}
 
-	private static function escape_double_quotes($text) {
+	private static function clean_out_post_content($text) {
+		$text = str_replace("<br>", "", $text);
+		$text = str_replace("<br />", "", $text);
+		$text = str_replace("<br>", "", $text);
 		$text = str_replace("\"", "&quot;", $text);
 		return $text;
 	}

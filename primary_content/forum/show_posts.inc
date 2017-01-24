@@ -5,8 +5,12 @@
 	$post_count = db_forum::get_post_count($topic_id);
 	if (! \View\controls::output_search_back_link())
 	{
+		if(empty($posts))
+			$show_reply_button = FALSE;
+		else
+			$show_reply_button = TRUE;
 		\View\forum::show_topic_title($topic_id);
-		\View\forum::show_topic_breadcrumbs($topic_id);			
+		\View\forum::show_topic_breadcrumbs($topic_id, $show_reply_button);
 	}
 	
 	if(empty($posts))

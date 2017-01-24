@@ -318,4 +318,15 @@ class db_forum
 		$values = Array($region_id);
 		return db::select_single_value($query, $values);
 	}
+
+	public static function check_quote_validity ($post_id, $quote_text)
+	{
+		$query = "select * from post where id = ? and content like ?";
+		$values = Array($post_id, '%' . $quote_text . '%');
+		if(empty(db::select($query, $values)))
+			return false;
+		else
+			return true;
+	}
+
 }

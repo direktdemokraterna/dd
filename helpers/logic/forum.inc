@@ -18,6 +18,7 @@ class forum
 		}
 		else
 			\Logic\util::report_error("Du har inte behörighet till det forumet.");
+		return $post_insert_id;
 	}
 
 	public static function update_county_region_forum_access ($user_id, $county_id)
@@ -94,8 +95,6 @@ class forum
 			, $html_text, $number_of_unnamed_quotes);	
 		$html_text = self::replace_named_open_quotes($html_text, $number_of_named_quotes);	
 		$html_text = str_replace("[/quote]", "</div>", $html_text, $number_of_closed_quotes);
-		if ($number_of_unnamed_quotes + $number_of_named_quotes != $number_of_closed_quotes)
-			throw new \Exception("Felaktiga citat. Öppna och stängda taggar matchar inte.");
 		return $html_text;
 	}
 
@@ -120,12 +119,43 @@ class forum
 	private static function insert_post_content($post_id, $post_content) 
 	{
 		$processed_content = \Logic\text::process_text($post_content);
-		$ok = \db_forum::add_content_to_post($post_id, $processed_content);
-		if($ok){
-			$_SESSION['report_message'] = "Inlägg skapat.";
-			$redirect = "index.php?type=forum&action=show_posts&post_id=" . $post_id . "#post" . $post_id; // todo: redirect not used
+		$are_quotes_valid = self::check_quote_sanity($processed_content);
+		if(!$are_quotes_valid){
+			\db_forum::delete_post($post_id);
+			\Logic\util::report_error("Citaten i ditt inlägg är inte korrekta.");
 		}
-		else 
-			\Logic\util::report_error("Inlägget kunde inte skapas.");
+		else{
+			$ok = \db_forum::add_content_to_post($post_id, $processed_content);
+			if($ok){
+				$_SESSION['report_message'] = "Inlägg skapat.";
+			}
+			else{
+				\db_forum::delete_post($post_id);
+				\Logic\util::report_error("Inlägget kunde inte skapas.");
+			}
+		}
+	}
+
+	private static function check_quote_sanity($post_content)
+	{
+		$number_of_quotes_in_post = substr_count($post_content, "[quote=");
+		for($i=0; $i<$number_of_quotes_in_post; $i++){
+			$quote_start = strpos($post_content, "[quote=");
+			$text_starting_at_post_id = substr($post_content, $quote_start+7);
+			$end_pos_of_post_id = strpos($text_starting_at_post_id, "]");
+			$post_id = substr($text_starting_at_post_id, 0, $end_pos_of_post_id);
+			$quote_stop = strpos($post_content, "[/quote]");
+
+			$old_full_quote_text = substr($post_content, $quote_start, $quote_stop-$quote_start+8); 
+
+			$quote_text_with_end_bracket = substr($old_full_quote_text, 8 + strlen((string)$post_id));
+			$quote_text = substr($quote_text_with_end_bracket, 0, -8);
+
+			// Checking quote validity in db.
+			$valid_quote = \db_forum::check_quote_validity($post_id, $quote_text);
+			if(!$valid_quote)
+				return false;
+ 		}
+		return true;
 	}
 }

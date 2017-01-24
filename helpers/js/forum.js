@@ -49,16 +49,39 @@ function make_underline (element) {
 	}
 }
 
-function get_text_to_quote (post_id) {
-	var post_content_post_id = 'post_content_' + post_id;
-	var str = document.getElementById(post_content_post_id).value;
-	return str;
-}
-
 function quote_post (post_id) {
 	var textarea = document.getElementById("new_post_content");
-	var text_to_quote = get_text_to_quote(post_id);
-	var newlines = textarea.value.length ? '\n\n' : '';
-	textarea.value += newlines + '[quote=' + post_id + ']' + text_to_quote + '[/quote]\n\n';
+
+	var selection = document.getSelection();
+
+	if (textarea.value.length == 0 || textarea.value.slice(-2) == '\n\n'){
+		var newlines = '';
+	}
+	else {
+		var newlines = '\n\n';
+	}
+
+	if (selection && selection != '') {
+		textarea.value = textarea.value + newlines + '[quote=' + post_id + ']' + selection + '[/quote]\n\n';
+	}
+	else {
+		var post_content_post_id = 'post_content_' + post_id;
+		var str = window[post_content_post_id].value;
+		var post_content = str.replace(/\[quote[\s\S]*\/quote\]\n\n/, '');
+
+		textarea.value = textarea.value + newlines + '[quote=' + post_id + ']' + post_content + '[/quote]\n\n';
+	}
+
 	window.setTimeout(function() { textarea.focus(); },10);
+	textarea.focus();
+}
+
+function focus_on_textarea () {
+	var textarea = document.getElementById("new_post_content");	
+	textarea.focus();
+}
+
+function focus_on_new_topic_title () {
+	var topic_title = document.getElementById("new_topic_title");	
+	topic_title.focus();
 }
