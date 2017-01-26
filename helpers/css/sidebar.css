@@ -48,13 +48,20 @@
 #sidebar li.latest-posts {
 	background: #f7f7f7;	
 }
-#sidebar li.latest-posts ul li > a:first-child:before {
+#sidebar li.latest-posts ul li > a:first-child:before,
+#sidebar ul li > a:first-child:before,
+#sidebar h2:before  {
 	display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   content: "\f138";
   margin-right: 5px;
   margin-left: -17px;
   color: #aaa;
+}
+#sidebar h2:before  {
+  content: "\f02e";
+  margin-left: 0;
+  color: #fff;
 }
 #sidebar li.latest-posts ul li > a:first-child {
 	font-size: 15px;

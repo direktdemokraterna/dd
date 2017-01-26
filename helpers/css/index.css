@@ -304,13 +304,12 @@ button[type="submit"]  {
 .login-form input[type="submit"]:hover {
     background: #f67520;
 }
-textarea#new_post_content,
-textarea#edit_post_content,
-textarea#new_topic_content {
+textarea#new_post_content, textarea#edit_post_content, textarea#new_topic_content {
     border: 1px dashed #ccc;
     border-right: none;
     border-left: none;
     border-radius: 0;
+	padding: 30px 50px;
 }
 #new_post_form fieldset,
 fieldset .post_content {
@@ -546,6 +545,7 @@ a.lang-flag {
     color: #fff;
 	padding: 7px 10px 5px;
 	font-weight: bold;
+	cursor: pointer;
 }
 .btn-blue:before {
     font: normal normal normal 17px/1 FontAwesome;
