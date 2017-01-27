@@ -9,8 +9,8 @@ function county_changed() {
 }
 
 function region_changed() {
-	var region_id = $("#region").val();
-	var county_id = $("#county").val();
+	var region_id = $("#region_id").val();
+	var county_id = $("#county_id").val();
 	var counties = filter_counties_by_region(region_id);
 	var optionsAsString = "";
 	for(var i = 0; i < counties.length; i++) {

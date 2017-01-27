@@ -1,38 +1,24 @@
 function make_bold (element) {
-	var textarea = document.getElementById(element);
-
-	var len = textarea.value.length;
-	var start = textarea.selectionStart;
-	var end = textarea.selectionEnd;
-	var selection = textarea.value.substring(start, end);
-
-	if (selection.length > 0) {
-		var replace = '[b]' + selection + '[/b]';
-		textarea.value = textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
-	}
-	else {
-		textarea.value = textarea.value + '[b][/b]';
-	}
+	make_tag(element, 'b', 1);
 }
 
 function make_italic (element) {
-	var textarea = document.getElementById(element);
-
-	var len = textarea.value.length;
-	var start = textarea.selectionStart;
-	var end = textarea.selectionEnd;
-	var selection = textarea.value.substring(start, end);
-
-	if (selection.length > 0) {
-		var replace = '[i]' + selection + '[/i]';
-		textarea.value = textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
-	}
-	else {
-		textarea.value = textarea.value + '[i][/i]';
-	}
+	make_tag(element, 'i', 1);
 }
 
 function make_underline (element) {
+	make_tag(element, 'u', 1);
+}
+
+function make_quote (element) {
+	make_tag(element, 'quote', 5);
+}
+
+function make_li (element) {
+	make_tag(element, 'li', 2);
+}
+
+function make_list (element, type) {
 	var textarea = document.getElementById(element);
 
 	var len = textarea.value.length;
@@ -40,13 +26,26 @@ function make_underline (element) {
 	var end = textarea.selectionEnd;
 	var selection = textarea.value.substring(start, end);
 
-	if (selection.length > 0) {
-		var replace = '[u]' + selection + '[/u]';
-		textarea.value = textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
-	}
-	else {
-		textarea.value = textarea.value + '[u][/u]';
-	}
+	var replace = '[' + type + ']\n\t[li]' + selection + '[/li]\n[/' + type + ']\n';
+	textarea.value = textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+	textarea.focus();
+	textarea.setSelectionRange(start+10, start+10+selection.length);
+}
+
+function make_tag (element, tag_content, tag_content_length){
+	var textarea = document.getElementById(element);
+	var starttag = '[' + tag_content + ']';
+	var endtag = '[/' + tag_content + ']';
+
+	var len = textarea.value.length;
+	var start = textarea.selectionStart;
+	var end = textarea.selectionEnd;
+	var selection = textarea.value.substring(start, end);
+
+	var replace = starttag + selection + endtag;
+	textarea.value = textarea.value.substring(0,start) + replace + textarea.value.substring(end,len);
+	textarea.focus();
+	textarea.setSelectionRange(start+tag_content_length+2, start+tag_content_length+2+selection.length);
 }
 
 function quote_post (post_id) {

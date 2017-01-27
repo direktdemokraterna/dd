@@ -49,6 +49,12 @@ class text
 		,"[/i]" => "</i>"
 		,"[u]" => "<u>"
 		,"[/u]" => "</u>"
+		,"[ul]" => "<ul>"
+		,"[/ul]" => "</ul>"
+		,"[ol]" => "<ol>"
+		,"[/ol]" => "</ol>"
+		,"[li]" => "<li>"
+		,"[/li]" => "</li>"
 		);
 
 	private static function replace_format_tags_with_brackets($text)
@@ -59,6 +65,12 @@ class text
 		$text = str_replace("</i>", "[/i]", $text);
 		$text = str_replace("<u>", "[u]", $text);
 		$text = str_replace("</u>", "[/u]", $text);
+		$text = str_replace("<ul>", "[ul]", $text);
+		$text = str_replace("</ul>", "[/ul]", $text);
+		$text = str_replace("<ol>", "[ol]", $text);
+		$text = str_replace("</ol>", "[/ol]", $text);
+		$text = str_replace("<li>", "[li]", $text);
+		$text = str_replace("</li>", "[/li]", $text);
 		return $text;
 	}
 

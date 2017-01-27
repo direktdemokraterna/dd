@@ -189,6 +189,10 @@ class controls
 		echo '<input type="button" id="format_buttons_b" accesskey="b" title="Fet" value="b" onClick="make_bold(\'' . $content_name . '\')">';
 		echo '<input type="button" id="format_buttons_i" accesskey="i" title="Kursiv" value="i" onClick="make_italic(\'' . $content_name . '\')">';
 		echo '<input type="button" id="format_buttons_u" accesskey="u" title="Understruken" value="u" onClick="make_underline(\'' . $content_name . '\')">';
+		echo '<input type="button" accesskey="q" title="Citerad text" value="quote" onClick="make_quote(\'' . $content_name . '\')">';
+		echo '<input type="button" accesskey="l" title="Listrad" value="li" onClick="make_li(\'' . $content_name . '\')">';
+		echo '<input type="button" accesskey="o" title="Punktlista" value="ol" onClick="make_list(\'' . $content_name . '\', \'ol\')">';
+		echo '<input type="button" accesskey="u" title="Numrerad lista" value="ul" onClick="make_list(\'' . $content_name . '\', \'ul\')">';
 		echo '</div>';
 		echo '<textarea name="' . $content_name . '" id="' . $content_name . '" tabindex="' 
 			. $tab_index . '">' . $content . '</textarea><br>';
