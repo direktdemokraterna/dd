@@ -153,6 +153,9 @@ textarea, input[type="text"] {
     width: 100%;
     max-width: 900px;
 }
+#new_topic_form {
+	margin-top: 5em;
+	}
 #sidebar {
     float: right;
     width: 250px;
@@ -305,11 +308,14 @@ button[type="submit"]  {
     background: #f67520;
 }
 textarea#new_post_content, textarea#edit_post_content, textarea#new_topic_content {
-    border: 1px dashed #ccc;
+    border: 1px dashed #ddd;
     border-right: none;
     border-left: none;
     border-radius: 0;
 	padding: 30px 50px;
+}
+textarea#new_topic_content {
+    border: 1px solid #ddd;
 }
 #new_post_form fieldset,
 fieldset .post_content {
@@ -367,8 +373,7 @@ fieldset {
 	/*padding: 0 24px 20px; Changed for delegates */
 	}
 	
-.post_content:before, #new_post_form fieldset:before,
-#new_topic_form fieldset:before { /* Speech Bubble Arrow */
+.post_content:before, #new_post_form fieldset:before { /* Speech Bubble Arrow */
     content: "";
     position: absolute;
     border-style: solid;

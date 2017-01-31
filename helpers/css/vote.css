@@ -65,8 +65,9 @@ a.link-icon:before {
 	display: inline-block;
 	}
 #vote_container_grey_box table {
-	margin: 5px 0;
-	}
+    margin: 5px 0;
+    width: 100%;
+}
 #vote_container_grey_box table td {
 	font-size: 12px;
     padding: 2px;
@@ -117,6 +118,16 @@ a.btn-blue.bubble:hover {
 	font-weight: bold;
 	color: #444;
 }
+table.view-ballots {
+	width: 100%;
+	}
+table.view-ballots th {
+	font-weight: bold;
+	border-bottom: 1px solid #ddd;
+	}
+table.view-ballots td {
+	border-bottom: 1px solid #ddd;
+	}
 
 /* VOTE BUTTONS */
 

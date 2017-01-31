@@ -91,6 +91,17 @@
 		min-width: calc(100% - 20px);
 		width: auto;
 	}
+	.vote-container.float-left {
+    float: none;
+    width: 100%;
+    padding: 0;
+	}
+	.vote-container.float-right {
+    float: none;
+    width: 100%;
+    padding: 0;
+	margin: 2em 0;
+	}
 }
 
 @media screen and (max-width: 800px) {
@@ -117,7 +128,7 @@
 	}
 
 	#sidebar ul:first-child {
-		padding-top: 40px;
+		padding-top: 0;
 	}
 	#main-content h1 {
 		font-size: 30px;

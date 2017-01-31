@@ -63,6 +63,21 @@
   margin-left: 0;
   color: #fff;
 }
+#sidebar li.search-forums h2:before,
+#sidebar li.latest-posts h2:before {
+  content: "\f14b";
+}
+#sidebar li.sidebar-propositions h2:before,
+#sidebar li.sidebar-search-propositions h2:before {
+  content: "\f059";
+}
+#sidebar li.sidebar-votes h2:before,
+#sidebar li.sidebar-search-votes h2:before {
+  content: "\f058";
+}
+#sidebar li.sidebar-delegates h2:before  {
+  content: "\f0c0";
+}
 #sidebar li.latest-posts ul li > a:first-child {
 	font-size: 15px;
 	letter-spacing: -.3;

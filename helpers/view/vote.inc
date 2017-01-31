@@ -195,8 +195,8 @@ class vote
 		if(empty($ballots))
 			echo "Inga röster lagda";
 		else {
-			echo '<table class="responsive">';
-			echo '<tr><th>Röstande</th><th></th><th>Delegat</th><th>Tidpunkt</th></tr>';
+			echo '<table class="view-ballots responsive">';
+			echo '<tr><th>Röstande</th><th>Röst</th><th>Delegat</th><th>Tidpunkt</th></tr>';
 			foreach ($ballots as $ballot){
 				echo '<tr><td>';
 				if($ballot['user_code'])
