@@ -201,7 +201,7 @@ form.text-editor {
 
 /* TYPOGRAPHY */
 
-.forum_info, .list_sub_text, .quote_in_post, .post_alternatives,
+.forum_info, .list_sub_text, .quote_in_post, .post_alternatives, span.perma-link, .post_content span.post_date,
 input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message,
 .sortable, textarea, input[type="text"],
 .btn-blue, .vote-container.float-right, #vote_container_grey_box td, .vote_result_box, .post_user_info,
@@ -241,6 +241,9 @@ input.vote_button, button.vote_button, .median-vote input[type="text"], .green_m
 .small {
 	font-size: 1.3rem;
 	}
+.post_content span.post-user-full-name {
+	font-size: 2.2rem;
+	}
 	
 /* BUTTONS */
 
@@ -269,14 +272,24 @@ li.mb-logout a:before,
 #vote_container_grey_box h2.h2-information:before,
 #vote_container_grey_box h2.h2-stats:before,
 #vote_container_grey_box h2.h2-tools:before,
-a.link-icon:before, .post_user_info a.user_name_link:before {
+a.link-icon:before, .post_user_info a.user_name_link:before,
+li.mb-members a:before, li.mb-messages a:before, li.mb-votes a:before, li.mb-forum a:before, li.mb-admin a:before,
+.social-media-icons-dd .fa:before {
 	font: normal normal normal 14px/1 FontAwesome;
 	margin-right: 5px;
 	}
 #vote_container_grey_box h2:after {
 	font: normal normal normal 14px/1 FontAwesome;
 	}
-
+/* Menubar icons */
+li.mb-members a:before 		{ content: '\f007'; }
+li.mb-messages a:before 	{ content: '\f003'; }
+li.mb-votes a:before 		{ content: '\f00c'; }
+li.mb-forum a:before 		{ content: '\f0e5'; }
+li.mb-admin a:before 		{ content: '\f0ad'; }
+li[class^="mb-"]  ul li a:before { 
+	content: none;
+	}	
 li.mb-delegate a:before {
 	content: '\f0c0';
 	}
@@ -292,6 +305,25 @@ li.mb-logout a:before {
 	color: #ccc;
 	}
 	
+.social-media-icons-dd {
+	text-align: right;
+    margin-left: -10px;
+	margin-top: -32px;
+	
+}
+.social-media-icons-dd span.fa {
+    background-color: #a4a5a5;
+	font-size: 20px;
+    color: #fff;
+    width: 40px;
+    text-align: center;
+    padding-top: 10px;
+	padding-bottom: 10px;
+}
+.social-media-icons-dd .fa:before {
+	font: normal normal normal 20px/1 FontAwesome;
+	margin-left: 5px;
+	}	
 	
 
 
@@ -745,7 +777,7 @@ tr.unread {
 
 .paging_info {
   clear: both;
-  margin: 10px 21px 15px 5px;
+  margin: 0 21px 0 5px;
   font-size: 12px;
   color: #2b2b2b;
   font-family: "Open Sans",sans-serif;font-weight: 300;

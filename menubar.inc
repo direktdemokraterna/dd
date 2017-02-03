@@ -8,7 +8,7 @@
 		<a onClick="toggle_mobile_user_menu()"><span class="fa fa-user alt-header-button right" id="alt-user-menu"></span></a>
 	</div>
 	<ul id="hide_menu" class="clearfix">
-		<li><?php
+		<li class="mb-members"><?php
 			__link("Användare", "member");
 			\View\controls::output_link_list("member", array(
 				"settings" => "Profil"
@@ -21,7 +21,7 @@
 			<li id="unread-mail"><a href="index.php?type=message&action=inbox" style="min-width: 15px; padding: 0 5px 0 5px;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-envelope-o" id="fa-envelope-o"></span></a>
 			</li>
 		<?php endif; ?>
-		<li><?php
+		<li class="mb-messages"><?php
 			__link("Meddelanden", "message");
 			\View\controls::output_link_list("message", array(
 				"inbox" => "Inkorg"
@@ -30,7 +30,7 @@
 				));
 			?>
 		</li>
-		<li><?php
+		<li class="mb-votes"><?php
 			__link("Omröstningar", "vote");
 			\View\controls::output_link_list("vote", array(
 				"list_props" => "Propositioner"
@@ -39,9 +39,9 @@
 				));
 			?>
 		</li>
-		<li class="forum"><?php __link("Forum", "forum"); ?></li>
+		<li class="mb-forum"><?php __link("Forum", "forum"); ?></li>
 		<?php if(isset($_SESSION['admin'])) : ?>
-		<li><a href="#">Admin</a>
+		<li class="mb-admin"><a href="#">Admin</a>
 			<ul>
 				<?php
 					if(isset($_SESSION['is_member_admin']))

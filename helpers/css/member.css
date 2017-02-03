@@ -27,7 +27,7 @@
 	border: 1px solid #7d7d7d;
 }
 
-#main-content h2{ margin-top: 40px;font-size: 1.3em;font-weight: normal; padding: 10px; background: #eee; }
+#main-content h2{ margin-top: 40px;font-size: 1.3em;font-weight: normal; padding: 10px 10px 0 10px; /*background: #eee;*/ }
 
 #settings_county{width: 15em}
 #settings_submit{margin-top: 20px;border-radius: 3px;height: 28px;width: 10em;cursor: pointer;border-color: #0074a2;}
