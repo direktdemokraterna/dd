@@ -1,18 +1,16 @@
 .login-column {
-  width: 320px;
+  	width: 320px;
     margin: 10% auto auto;
 }
 
 .login-form {
-  padding: 26px 24px 46px;
+  padding: 0 2px 46px;
   font-weight: 400;font-family: 'Open Sans', sans-serif;
   overflow: hidden
 }
-
-.login_image{
-   margin-left: auto;
-   margin-right: auto;
-   width: 120px;
+.login_image {
+    width: 120px;
+	margin: 0 auto 2em;
 }
 
 .login-form > input{
@@ -23,7 +21,7 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
   color: #333;
   transition: border-color 0.05s ease-in-out 0s;
-  height: 35px;
+  /*height: 35px;*/
 }
 
 .login-form form, .login-form input[type="text"], .login-form input[type="password"], .login-form select {
@@ -43,22 +41,34 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
 
-/*.login-form input[type="email"], .login-form input[type="number"], .login-form input[type="password"]
-, .login-form input[type="search"], .login-form input[type="tel"], .login-form input[type="text"]
-, .login-form input[type="url"], .login-form select, .login-form textarea {
-  border: 1px solid #ddd;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
-  color: #333;
-  transition: border-color 0.05s ease-in-out 0s;
-    outline: 0 none;
-}*/
-
 .login-form input[type="submit"] {
     float: right;
 }
 .login-form input[type="submit"]:hover {
     background: #f67520;
 }
+.login-column p.small label {
+    margin-right: 10px;
+    min-width: 35%;
+    display: inline-block;
+}
+.login-column p {
+	line-height: 1.5;
+	font-size: 1.4rem;
+	}
+.login-column p.small {
+	line-height: 2;
+	}
+.login-column p.small i.fa {
+	margin-right: 5px;
+	}
+.login-column p.small a {
+	color: #444;
+	}
+input#rememberme {
+	float: left;
+	margin-right: 6px;
+	}
 
 
 /*.login-form input[type="checkbox"]:focus, .login-form input[type="email"]:focus
@@ -73,6 +83,7 @@ input:-webkit-autofill:active {
 div.login-column div {
 	text-align: right;
 	}
+
 
 
 @media only screen and (max-width: 768px)  {
