@@ -37,6 +37,7 @@ textarea#new_post_content, textarea#edit_post_content, textarea#new_topic_conten
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
+	font-family: "Georgia", "Times New Roman", Times, serif;
 }
 
 h1, h2, h3 {
