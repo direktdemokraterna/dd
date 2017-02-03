@@ -286,7 +286,7 @@ li.mb-members a:before 		{ content: '\f007'; }
 li.mb-messages a:before 	{ content: '\f003'; }
 li.mb-votes a:before 		{ content: '\f00c'; }
 li.mb-forum a:before 		{ content: '\f0e5'; }
-li.mb-admin a:before 		{ content: '\f0ad'; }
+li.mb-admin a:before 		{ content: '\f013'; }
 li[class^="mb-"]  ul li a:before { 
 	content: none;
 	}	

@@ -1,5 +1,5 @@
 <ul>
-	<li>
+	<li class="alternatives">
 		<?php
 			__h2("Alternativ");
 			$links = array(

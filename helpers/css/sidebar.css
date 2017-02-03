@@ -63,18 +63,15 @@
   margin-left: 0;
   color: #fff;
 }
-#sidebar li.latest-posts h2:before {
-  content: "\f14b";
-}
-#sidebar li.sidebar-propositions h2:before {
-  content: "\f059";
-}
-#sidebar li.sidebar-votes h2:before {
-  content: "\f058";
-}
-#sidebar li.sidebar-delegates h2:before  {
-  content: "\f0c0";
-}
+/* Sidebar icons */
+#sidebar li.latest-posts h2:before 			{ content: "\f0e5"; }
+#sidebar li.alternatives h2:before 			{ content: "\f013"; }
+#sidebar li.messages h2:before 				{ content: "\f003"; }
+#sidebar li.sidebar-propositions h2:before 	{ content: "\f128"; }
+#sidebar li.sidebar-votes h2:before 		{ content: "\f00c"; }
+#sidebar li.sidebar-delegates h2:before  	{ content: "\f0c0"; }
+#sidebar li.members h2:before 				{ content: '\f007'; }
+
 #sidebar li.latest-posts ul li > a:first-child {
 	font-size: 15px;
 	letter-spacing: -.3;
@@ -125,7 +122,8 @@
 .sidebar_search_form button[type="submit"]:before,
 #sidebar li.search-forums h2:before,
 #sidebar li.sidebar-search-propositions h2:before,
-#sidebar li.sidebar-search-votes h2:before  {
+#sidebar li.sidebar-search-votes h2:before,
+#sidebar li.search-members h2:before  {
 	content: '\f002';
 	font: normal normal normal 14px/1 FontAwesome;
 	margin-right: 5px;
