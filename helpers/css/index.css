@@ -320,6 +320,11 @@ li.mb-logout a:before {
     padding-top: 10px;
 	padding-bottom: 10px;
 }
+span.fa.fa-facebook:hover {  background-color: #3b5998; }
+span.fa.fa-twitter:hover {  background-color: #4099ff; }
+span.fa.fa-google-plus:hover {  background-color: #d34836; }
+span.fa.fa-youtube:hover {  background-color: #e52d27; }
+
 .social-media-icons-dd .fa:before {
 	font: normal normal normal 20px/1 FontAwesome;
 	margin-left: 5px;
