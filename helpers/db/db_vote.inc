@@ -78,7 +78,7 @@ class db_vote
 				values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = Array($vote_id, $constituency_id, $ballot, $user_code, $voter_id, $delegate_id, $delegation_level, $delegate_priority, time());
 		$return = db::insert($query, $values);
-		self::count_ballots_for_vote($vote_id);
+		self::update_ballot_count_for_vote($vote_id);
 		return $return;
 	}
 
@@ -88,7 +88,7 @@ class db_vote
 		$values = Array($vote_id, $user_code);
 		$result = db::delete($query, $values);
 		db_delegate::find_and_insert_delegate_vote_for_user($user_code, null, $vote_id);
-		self::count_ballots_for_vote($vote_id);
+		self::update_ballot_count_for_vote($vote_id);
 		return $result;
 	}
 
@@ -96,7 +96,7 @@ class db_vote
 		, $constituency_id = null, $vote_id = null) {
 		$affected_vote_ids = array_unique(self::remove_ballots_no_recount($user_code, $voter_id, $delegate_id, $constituency_id, $vote_id));
 		foreach ($affected_vote_ids as $id)
-			self::count_ballots_for_vote($id);
+			self::update_ballot_count_for_vote($id);
 		return true;
 	}
 
@@ -269,7 +269,27 @@ class db_vote
 		return db::select_single_row($query, $values);
 	}
 
-	public static function count_ballots_for_vote ($vote_id)
+	public static function update_ballot_count_for_active_votes ()
+	{
+		$query = "update vote vo
+			left join
+			(
+				select
+					vi.id,
+					(select count(*) from ballot where vote_id = vi.id and user_code is not null) vote_count,
+					(select count(*) from ballot where vote_id = vi.id and user_code is not null and delegate_id is null) direct_vote_cont 
+			    from vote vi    
+			) vc
+			on vc.id = vo.id
+			set vo.number_of_direct_ballots = vc.direct_vote_cont, vo.number_of_ballots = vc.vote_count
+			where 
+				vo.status in ('continuous', 'active', 'del_ended')";
+		$values = Array();
+		return db::update($query, $values);
+	}
+
+
+	public static function update_ballot_count_for_vote ($vote_id)
 	{
 		$query = "update vote 
 				set number_of_ballots = 
@@ -282,27 +302,6 @@ class db_vote
 				) 
 				where id = ?";
 		$values = Array($vote_id, $vote_id, $vote_id);
-		return db::update($query, $values);
-	}
-
-	public static function count_ballots_for_active_votes_for_constituency ($constituency_id)
-	{
-		$query = "update vote v 
-					set number_of_ballots = 
-					(
-						select count(*) 
-						from ballot b1 
-						where b1.vote_id = v.id and user_code is not null
-					)
-					, number_of_direct_ballots = 
-					(
-						select count(*) 
-						from ballot b2 
-						where b2.vote_id = v.id and user_code is not null and delegate_id is null
-					) 
-					where (v.status = 'active' or v.status = 'del_ended' or v.status = 'continuous') 
-						and v.constituency_id = ?";
-		$values = Array($constituency_id);
 		return db::update($query, $values);
 	}
 

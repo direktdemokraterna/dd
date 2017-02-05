@@ -91,6 +91,7 @@ class vote
 		$reply = \crypt_helpers::curl_to_anon_server("remove_ballots.php", $post_vars);
 		if(!mb_stristr($reply , "success"))
 			throw new \Exception('Failed to remove ballots with reply: ' . $reply);
+		\db_vote::update_ballot_count_for_active_votes();
 	}
 
 	public static function remove_prop_ballots($user_id, $constituency_id = null) {
@@ -98,6 +99,7 @@ class vote
 		$reply = \crypt_helpers::curl_to_anon_server("remove_prop_ballots.php", $post_vars);
 		if(!mb_stristr($reply , "success"))
 			throw new \Exception('Failed to remove prop ballots with reply: ' . $reply);
+		\db_prop::update_support_count_for_pending_propositions();
 	}
 
 	public static function remove_delegations($user_id, $constituency_id = null) {
