@@ -200,7 +200,8 @@ class db_prop
 	}
 
 	private static function remove_prop_ballots_no_recount($user_code, $voter_id, $delegate_id = null
-		, $constituency_id = null, $prop_id = null) {
+		, $constituency_id = null, $prop_id = null) 
+	{
 		$values = array();
 		$from_where = self::get_prop_ballots_from_where_fragment($values, $user_code, $voter_id
 			, $delegate_id, $constituency_id, $prop_id);
@@ -208,14 +209,14 @@ class db_prop
 		$deleted_prop_ballots = db::select($sel_query, $values);
 		$affected_prop_ids = array();
 		if ($deleted_prop_ballots) {
-			$del_query = "delete " . $from_where;
+			$del_query = "delete ps " . $from_where;
 			db::delete($del_query, $values);
 			foreach ($deleted_prop_ballots as $prop_ballot) {
 				if ($prop_ballot['user_code'])
-					$affected_prop_ids[] = $ballot['proposition_id']; //todo: ballot undefined?
+					$affected_prop_ids[] = $prop_ballot['proposition_id'];
 				else {
 					$new_affected_prop_ids = self::remove_prop_ballots_no_recount(null, null, $voter_id
-						, $constituency_id, $ballot['proposition_id']); //todo: ballot undefined?
+						, $constituency_id, $prop_ballot['proposition_id']); 
 					$affected_prop_ids = array_merge($affected_prop_ids, $new_affected_prop_ids);
 				}
 			}
