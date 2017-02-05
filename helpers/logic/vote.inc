@@ -87,8 +87,6 @@ class vote
 	}
 
 	public static function remove_ballots($user_id, $constituency_id = null) {
-		//\db_vote::remove_ballots('iiT8ol4mWekOXkSOdPPO', null, null, $constituency_id);
-		//return;
 		$post_vars = array("user_id" => $user_id, "constituency_id" => $constituency_id);
 		$reply = \crypt_helpers::curl_to_anon_server("remove_ballots.php", $post_vars);
 		if(!mb_stristr($reply , "success"))

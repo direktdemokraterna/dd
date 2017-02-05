@@ -56,7 +56,7 @@
 				__p(_link("Ställ in forumbehörigheter för denna användare", 
 					"forum_admin", "edit_user", "id=" . $user_id));
 			if(isset($_SESSION['is_vote_admin']))
-				__p(_link("Ställ inte valkretsbehörigheter för denna användare", 
+				__p(_link("Ställ in valkretsbehörigheter för denna användare", 
 					"vote_admin", "edit_user", "id=" . $user_id));
 			if(isset($_SESSION['is_superadmin']))
 				__p(_link("Ställ in admin-rättigheter för denna användare", 
