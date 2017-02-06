@@ -250,7 +250,7 @@ class controls
 	private static function add_attributes(&$element, $attributes) {
 		if ($attributes)
 			foreach ($attributes as $key => $value)
-				$element .= ' ' . $key . '="' . $value . '"';
+				$element .= isset($value) ? ' ' . $key . '="' . $value . '"' : ' ' . $key;
 	}
 
 	private static function open_select($control_name, $attributes) {
