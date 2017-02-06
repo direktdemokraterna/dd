@@ -97,14 +97,14 @@ class member
 		$regions = \db_constituency::get_regions();
 		$region_options = \db_general::make_hash($regions, 'id', 'title');
 		$region_options = array(0 => 'Alla län') + $region_options;
-		\View\controls::output_labeled_selector("region", "Län"
+		\View\controls::output_labeled_selector("region_id", "Län"
 			, $region_options, $selected_region
 			, 'onchange="region_changed()" tabindex="' . $tab_index . '"');
 	}
 
 	private static function output_county_selector($user_data, $counties, $tab_index) {
 		$county_options = \db_general::make_hash($counties, 'county_id', 'county_name');
-		\View\controls::output_labeled_selector("county", "Kommun", $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
+		\View\controls::output_labeled_selector("county_id", "Kommun", $county_options, $user_data ? $user_data['county_id'] : null, 'onchange="county_changed()" tabindex="' . $tab_index . '"');
 	}
 }
 ?>

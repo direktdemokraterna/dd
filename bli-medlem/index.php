@@ -10,9 +10,9 @@ $last_name = getPostValueOrEmpty('last_name');
 $street_address = getPostValueOrEmpty('street_address');
 $zip_code = str_replace(" ", "", getPostValueOrEmpty('zip_code'));
 $city_address = getPostValueOrEmpty('city_address');
-$county = getPostValueOrEmpty('county');
+$county_id = getPostValueOrEmpty('county_id');
 $user_data = [
-    'county_id' => $county
+    'county_id' => $county_id
 ];
 $telephone1 = str_replace(" ", "", str_replace("-", "", getPostValueOrEmpty('telephone1')));
 $telephone2 = str_replace(" ", "", str_replace("-", "", getPostValueOrEmpty('telephone2')));
@@ -20,7 +20,7 @@ $personal_identity_number = general_helpers::clean_personnummer(getPostValueOrEm
 $email = getPostValueOrEmpty('email');
 
 // Processing data if form has been posted
-$mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county', 'email', 'personal_identity_number');
+$mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county_id', 'email', 'personal_identity_number');
 $is_all_mandatory_set = true;
 foreach ($mandatory_fields as $mandatory) {
     $is_all_mandatory_set &= !empty($_POST[$mandatory]);
@@ -29,7 +29,7 @@ $region_id = true;
 if ($is_all_mandatory_set) {
     $error_message = \Logic\user::validate_user($personal_identity_number, $email);
     if (!$error_message)
-        $region_id = db_constituency::get_region_id_from_county_id($county);
+        $region_id = db_constituency::get_region_id_from_county_id($county_id);
 	if (!$region_id) {
         $error_message = "Välj kommun";
     } else {

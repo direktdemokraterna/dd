@@ -23,7 +23,7 @@
 	__textfield("city_address", "Postort", 6, $application_data);
 	$counties = db_constituency::get_counties();
 	$county_options = \db_general::make_hash($counties, 'id', 'title');
-	\View\controls::output_labeled_selector("county", "Kommun", $county_options, $application_data['county_id']
+	\View\controls::output_labeled_selector("county_id", "Kommun", $county_options, $application_data['county_id']
 		, 'tabindex="7"');
 	__textfield("telephone", "Telefonnummer", 8, $application_data['telephone1']);
 	__textfield("email", "Mejladress", 9, $application_data);
