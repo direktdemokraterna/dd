@@ -6,9 +6,17 @@
 		<div class="footer-widget">
         	<h2>Viktiga länkar</h2>
 			<ul>
-			<li>Länk</li>
-			<li>Länk</li>
-			<li>Länk</li>
+			<li><a href="http://direktdemokraterna.se">Offentlig hemsida</a></li>
+			<li><a href="http://direktdemokraterna.se/organisation">Organisation</a></li>
+			<li><a href="http://direktdemokraterna.se/medlemsansvariga/">Medlemssupport</a></li>
+			<li><a href="http://direktdemokraterna.se/medlem.pdf">Medlemsinformation (pdf)</a></li>
+			</ul>
+			<h2>Mina sidor</h2>
+			<ul>
+			<li><a href="index.php?type=member&action=view">Profil</a></li>
+			<li><a href="index.php?type=member&action=settings">Kontoinställningar</a></li>
+			<li><a href="index.php?type=vote&action=delegations">Mina delegater</a></li>
+			<li><a href="index.php?type=message&action=inbox">Inkorg</a></li>
 			</ul>
         </div>
         <div class="footer-widget">
@@ -28,18 +36,29 @@
 			</ul>
 			<h2>Sociala media</h2>
 			<ul>
-			<li><a href="https://www.facebook.com/direktdemokraterna" target="_blank" alt="Besök vår Facebooksida" title="Besök vår Facebooksida">Facebook</li>
-			<li><a href="https://twitter.com/DDemokraterna" target="_blank" alt="Besök vår Twitter" title="Besök vår Twitter">Twitter</li>
-			<li><a href="https://plus.google.com/+Direktdemokraterna/posts" target="_blank" alt="Besök vår Google Plus-sida" title="Besök vår Google Plus-sida">Google Plus</li>
-			<li><a href="http://youtube.com/Direktdemokraterna" target="_blank" alt="Besök vår Youtube-kanal" title="Besök vår Youtube-kanal">Youtube</li>
+			<li><a href="https://www.facebook.com/direktdemokraterna" target="_blank" alt="Besök vår Facebooksida" title="Besök vår Facebooksida">Facebook</a></li>
+			<li><a href="https://twitter.com/DDemokraterna" target="_blank" alt="Besök vår Twitter" title="Besök vår Twitter">Twitter</a></li>
+			<li><a href="https://plus.google.com/+Direktdemokraterna/posts" target="_blank" alt="Besök vår Google Plus-sida" title="Besök vår Google Plus-sida">Google Plus</a></li>
+			<li><a href="http://youtube.com/Direktdemokraterna" target="_blank" alt="Besök vår Youtube-kanal" title="Besök vår Youtube-kanal">Youtube</a></li>
 			</ul>
         </div>
         <div class="footer-widget">
-        	<h2>Sök i forumen</h2>
 			<ul>
-			<li>Länk</li>
-			<li>Länk</li>
-			<li>Länk</li>
+			<li class="search-forums"> 
+				<?php
+				\View\controls::output_search_box("i forum", "forum", "search", 111);
+				?>
+			</li>
+			<li class="sidebar-search-propositions">
+		<?php 
+			\View\controls::output_search_box("propositioner", "vote", "search_prop", 101);
+		?>
+			</li>
+			<li class="sidebar-search-votes">
+			<?php 
+				\View\controls::output_search_box("omröstningar", "vote", "search", 103);
+			?>
+			</li>
 			</ul>
         </div>
 	</footer>

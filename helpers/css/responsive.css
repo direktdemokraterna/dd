@@ -53,13 +53,7 @@
     background: #f4f4f4;
 	}
 	.post_user_image {
-    /*margin: 0;*/
     max-width: 150px;
-    /*border-radius: 0;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    border: none;*/
 	}
 	.post_user_info a.user_name_link {
     text-transform: uppercase;
@@ -208,6 +202,11 @@
 		padding: 0;
 		margin: 0;
 	}
+	.footer-widget {
+	float: none;
+	width: 100%;
+	margin: 1em 0 2.5em;	
+	}
 }
 
 @media screen and (max-width: 400px) {
@@ -219,4 +218,9 @@
         height: auto;
         max-width: 100%;
     }
+	.footer-widget {
+	float: none;
+	width: 100%;
+	margin: 1em 0 2.5em;	
+	}
 }

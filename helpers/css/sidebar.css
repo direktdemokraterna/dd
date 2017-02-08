@@ -129,3 +129,24 @@
 	margin-right: 5px;
 	}
 
+.footer-widget input[type="text"], 
+.footer-widget button[type="text"] {
+    height: 35px;
+    width: calc(100% - 120px);
+    padding: 10px;
+    font-size: 14px;
+    margin-left: 0;
+	display: inline-block;
+}
+.footer-widget form .align-right {
+    width: 85px;
+	height: 33px;
+	display: inline-block;
+	margin: 0;
+}
+.footer-widget form input[type="submit"],
+.footer-widget form button[type="submit"] {
+    margin: 0;
+	border: none;
+	width: 85px;
+}
