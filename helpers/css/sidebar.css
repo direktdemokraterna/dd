@@ -131,16 +131,18 @@
 
 .footer-widget input[type="text"], 
 .footer-widget button[type="text"] {
-    height: 35px;
+    height: 37px;
     width: calc(100% - 120px);
     padding: 10px;
     font-size: 14px;
     margin-left: 0;
 	display: inline-block;
+	border: 1px solid #ccc;
+	border-right: none;
 }
 .footer-widget form .align-right {
     width: 85px;
-	height: 33px;
+	height: 31px;
 	display: inline-block;
 	margin: 0;
 }
@@ -149,4 +151,21 @@
     margin: 0;
 	border: none;
 	width: 85px;
+	background: transparent;
+	border: 1px solid #ccc;
+	border-left: none;
+	color: #ccc;
 }
+.footer-widget form input[type="submit"]:hover,
+.footer-widget form button[type="submit"]:hover {
+	border: 1px solid #fff;
+	border-left: none;
+	color: #fff;
+}
+.footer-widget li ul {
+	margin-left: 15px;	
+	margin-top: 7px;
+	}
+.footer-widget li ul li:before {
+	content: '- ';
+	}
