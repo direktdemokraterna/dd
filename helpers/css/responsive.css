@@ -160,6 +160,11 @@
 	.social-media-icons-dd {
 		display: none;
 	}
+	.footer-widget {
+	float: left;
+	width: 50%;
+	margin: 1em auto;	
+	}
 }
 
 @media only screen and (max-width: 767px) {
@@ -188,6 +193,11 @@
 	}
 	.last_post_column {
 		width: 45%;
+	}
+	.footer-widget {
+	float: none;
+	width: 75%;
+	margin: 1em auto 2.5em;	
 	}
 }
 @media only screen and (max-width: 550px) {

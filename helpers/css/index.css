@@ -24,7 +24,7 @@
 /* 	GENERAL */
 
 html { font-size: 62.5%; } 
-body { font-size: 16px; font-size: 1.6rem; } /* =14px */
+body { font-size: 16px; font-size: 1.6rem; } /* =16px */
 h1   { font-size: 24px; font-size: 2.4rem; } /* =24px */
 
 body, table, tr, td, 
@@ -205,7 +205,7 @@ form.text-editor {
 input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message,
 .sortable, textarea, input[type="text"],
 .btn-blue, .vote-container.float-right, #vote_container_grey_box td, .vote_result_box, .post_user_info,
-.login-column
+.login-column, .footer-widget
 	{ font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif; } /* Standard font for all sans-serif elements */
 	
 .post_content {
@@ -243,6 +243,12 @@ input.vote_button, button.vote_button, .median-vote input[type="text"], .green_m
 	}
 .post_content span.post-user-full-name {
 	font-size: 2.2rem;
+	}
+footer h2 {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bold;
+	color: #ddd;
 	}
 	
 /* BUTTONS */
@@ -644,10 +650,7 @@ footer {
 	padding: 1%;
 	width: 98%;
 	max-width: 1200px;
-	color: #fff;
-	}
-footer h2 {
-	color: #fff;
+	color: #ddd;
 	}
 footer p {
     text-align: center;

@@ -266,7 +266,21 @@ fieldset input[type="submit"] {
     /* background: #eee; */
 	color: #6b6b6b;
 }
+.user-info-details p {
+	line-height: 1.5;
+	}
 .user-info-details strong {
     min-width: 130px;
     display: inline-block;
+}
+footer a, footer li {
+	color: #ddd;
+	font-size: 1.4rem;
+	}
+footer li {
+	margin-bottom: .75em;
+	}
+.footer-widget ul + h2 {
+    margin-top: 2em;
+	margin-bottom: 1em;		
 }
