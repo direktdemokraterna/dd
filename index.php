@@ -19,6 +19,7 @@
 	<body>
 		<?php
 			session::update_acting_as_delegate();
+			general_helpers::remove_notices();
 			navigation_helpers::handle_action_request();
 			session::login_logout();
 			if(isset($_SESSION['id'])){

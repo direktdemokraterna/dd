@@ -83,4 +83,11 @@
 		else
 			\Logic\util::report_error("Ett eller flera obligatoriska fält är inte ifyllda"); 
 	}
+	elseif(isset($_POST["notice"])){
+		$ok = db_notice::update_user_settings($_SESSION['id'], $_POST['view_quoting_post'], $_POST['email_quoting_post'], $_POST['view_subscribed_topic'], $_POST['email_subscribed_topic'], $_POST['view_vote_started'], $_POST['email_vote_started'], $_POST['view_vote_finished'], $_POST['email_vote_finished'], $_POST['view_proposition_created'], $_POST['email_proposition_created'], $_POST['email_message'], $_POST['email_notification_interval']);
+		if($ok)
+			$_SESSION['report_message'] = "Notifieringsinställningarna har uppdaterats";
+		else
+			\Logic\util::report_error("Inga ändringar gjorda"); 
+	}
 ?>

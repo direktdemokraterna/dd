@@ -45,6 +45,7 @@ include(dirname(__FILE__)."/helpers/db/db_delegate.inc");
 include(dirname(__FILE__)."/helpers/db/db_constituency.inc");
 include(dirname(__FILE__)."/helpers/db/db_treasurer.inc");
 include(dirname(__FILE__)."/helpers/db/db_user_password_reset_tokenuser.inc");
+include(dirname(__FILE__)."/helpers/db/db_notice.inc");
 
 include(dirname(__FILE__)."/helpers/i18n/controller.inc");
 include(dirname(__FILE__)."/helpers/i18n/selectors.inc");

@@ -25,6 +25,7 @@ class db_vote
 				. '<a href="index.php?type=vote&action=view_vote&id=' . $vote_id . '">' . $prop_data['title'] . "</a>\n\n" . $prop_data['description'];
 			db_forum_admin::edit_title($post_title, $prop_data['forum_topic_id']);
 			db_forum_admin::edit_content($post_content, $prop_data['forum_topic_id']);
+			db_notice::make_vote_started_notice($vote_id);
 		}
 		return $vote_id;
 	}

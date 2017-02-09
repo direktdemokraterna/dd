@@ -426,6 +426,33 @@ ALTER TABLE `dd`.`user`
 CREATE UNIQUE INDEX ux_user_username ON `dd`.`user` (`username`);
 
 --
+-- Definition of table `notice_user_setting`
+--
+
+DROP TABLE IF EXISTS `notice_user_setting`;
+CREATE TABLE `notice_user_setting` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `view_quoting_post` BOOLEAN NOT NULL DEFAULT 0,
+  `email_quoting_post` BOOLEAN NOT NULL DEFAULT 0,
+  `view_subscribed_topic` BOOLEAN NOT NULL DEFAULT 0,
+  `email_subscribed_topic` BOOLEAN NOT NULL DEFAULT 0,
+  `view_vote_started` BOOLEAN NOT NULL DEFAULT 0,
+  `email_vote_started` BOOLEAN NOT NULL DEFAULT 0,
+  `view_vote_finished` BOOLEAN NOT NULL DEFAULT 0,
+  `email_vote_finished` BOOLEAN NOT NULL DEFAULT 0,
+  `view_proposition_created` BOOLEAN NOT NULL DEFAULT 0,
+  `email_proposition_created` BOOLEAN NOT NULL DEFAULT 0,
+  `email_message` BOOLEAN NOT NULL DEFAULT 0,
+  `email_notification_interval` INTEGER UNSIGNED NOT NULL,
+  `last_email_notification` INTEGER UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+ALTER TABLE `dd`.`notice_user_setting`
+  ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
+
+
+--
 -- Dumping data for table `user`
 --
 INSERT INTO `voter` (`id`,`voter_type`) 
@@ -461,6 +488,13 @@ VALUES
   ,1444585621,1444729438,'Suddis','Katt','','','',291,165,''
   ,'suddis@katt.se','','','',1,1,1,3,2,NULL,NULL,0,2,'','no_image.png',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+INSERT INTO `notice_user_setting` (`user_id`) 
+VALUES 
+ (13)
+ ,(4)
+ ,(5)
+ ,(6);
 
 --
 -- Definition of table `delegate`
@@ -1446,6 +1480,22 @@ CREATE TABLE `user_password_reset_token` (
   `timestamp_insertion` INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY  (`reset_token`)
 ) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+
+
+--
+-- Definition of table `notice`
+--
+
+DROP TABLE IF EXISTS `notice`;
+CREATE TABLE `notice` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `timestamp_created` INTEGER UNSIGNED NOT NULL,
+  `view_or_email` VARCHAR(5) NOT NULL,
+  `type_of_notification` VARCHAR(45) NOT NULL,
+  `action_id` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

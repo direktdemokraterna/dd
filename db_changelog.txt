@@ -1,4 +1,41 @@
 /**************/
+/* 2017-01-29
+/* Add table for notice function and notice function settings
+/**************/
+
+CREATE TABLE `dd`.`notice` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `timestamp_created` INTEGER UNSIGNED NOT NULL,
+  `view_or_email` VARCHAR(5) NOT NULL,
+  `type_of_notification` VARCHAR(45) NOT NULL,
+  `action_id` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `dd`.`notice_user_setting` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `view_quoting_post` BOOLEAN NOT NULL DEFAULT 0,
+  `email_quoting_post` BOOLEAN NOT NULL DEFAULT 0,
+  `view_subscribed_topic` BOOLEAN NOT NULL DEFAULT 0,
+  `email_subscribed_topic` BOOLEAN NOT NULL DEFAULT 0,
+  `view_vote_started` BOOLEAN NOT NULL DEFAULT 0,
+  `email_vote_started` BOOLEAN NOT NULL DEFAULT 0,
+  `view_vote_finished` BOOLEAN NOT NULL DEFAULT 0,
+  `email_vote_finished` BOOLEAN NOT NULL DEFAULT 0,
+  `view_proposition_created` BOOLEAN NOT NULL DEFAULT 0,
+  `email_proposition_created` BOOLEAN NOT NULL DEFAULT 0,
+  `email_message` BOOLEAN NOT NULL DEFAULT 0,
+  `email_notification_interval` INTEGER UNSIGNED NOT NULL,
+  `last_email_notification` INTEGER UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB;
+
+
+/**************/
 /* 2017-01-19
 /* Add table `user_password_reset_token` used for page to reset user password
 /**************/

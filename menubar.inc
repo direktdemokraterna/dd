@@ -58,6 +58,20 @@
 			</ul>
 		</li>
 		<?php endif; ?>
+		<?php
+			$notices = db_notice::get_view_notices_for_user($_SESSION['id']);
+			if(!empty($notices)){
+				echo '<li id="unread-mail"><a href="index.php?type=member&action=notice" style="min-width: 15px; padding: 0 5px 0 5px;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-bell-o" id="fa-bell-o"></span></a><ul>';
+				foreach ($notices as $notice) {
+					echo "<li>";
+					echo general_helpers::output_notice_link($notice['id']);
+					echo "</li>";
+				}
+				if(count($notices) > 1)
+					echo "<li style=\"border-top: dotted;\"><a href=\"" . $_SERVER['REQUEST_URI'] . "&remove_all_notices=1\">Ta bort alla notifieringar</a></li>";
+				echo "</ul></li>";
+			}
+		 ?>
 	</ul>
 	<ul id="logout-link">
 		<li><?php

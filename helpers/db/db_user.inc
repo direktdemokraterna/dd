@@ -23,6 +23,9 @@ class db_user
 		$values = Array($user_id, $username, $password, time(), $first_name, $last_name, $street_address, $zip_code, $city_address, $county_id, $region_id, $social_security_number, $email, $skype_name);
 		db::insert($query, $values);
 
+		// Adding user notice settings
+		db_notice::create_user_settings($user_id);
+
 		// Adding forum accesses for new user
 		$public_forums = db_forum::get_public_forum_ids();
 		foreach($public_forums as $row)
@@ -195,6 +198,13 @@ class db_user
 	public static function get_user_full_name ($user_id)
 	{
 		$query = "select concat(first_name, ' ', last_name) as full_name from user where id = ?";
+		$values = Array($user_id);
+		return db::select_single_value($query, $values);
+	}
+
+	public static function get_user_email ($user_id)
+	{
+		$query = "select email from user where id = ?";
 		$values = Array($user_id);
 		return db::select_single_value($query, $values);
 	}

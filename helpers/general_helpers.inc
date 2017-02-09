@@ -281,4 +281,33 @@ class general_helpers {
 		return $dst;
 	}
 
+	public static function output_notice_link($id) {
+		$notice_info = db_notice::get_notice_info($id);
+		if($notice_info['type_of_notification'] == "quoting_post"){
+			$post_info = db_forum::get_post_info($notice_info['action_id']);
+			return _link($post_info['full_name'] . " har citerat ditt inlägg i " . $post_info['title'], 'forum', 'show_posts', 'post_id=' . $post_info['post_id'] . '&remove_notice=' . $id . '#post' . $post_info['post_id']);
+		}
+		elseif($notice_info['type_of_notification'] == "vote_started"){
+			$vote_info = db_vote::get_vote_info($notice_info['action_id']);
+			return _link("Omröstningen " . $vote_info['title'] . " har startat", 'vote', 'view_vote', 'id=' . $vote_info['id'] . '&remove_notice=' . $id);
+		}
+		elseif($notice_info['type_of_notification'] == "vote_finished"){
+			$vote_info = db_vote::get_vote_info($notice_info['action_id']);
+			return _link("Omröstningen " . $vote_info['title'] . " har avslutats", 'vote', 'view_vote', 'id=' . $vote_info['id'] . '&remove_notice=' . $id);
+		}
+		elseif($notice_info['type_of_notification'] == "proposition_created"){
+			$prop_info = db_prop::get_prop_info($notice_info['action_id']);
+			return _link($prop_info['user_full_name'] . " har skapat propositionen " . $prop_info['title'], 'vote', 'view_prop', 'id=' . $prop_info['prop_id'] . '&remove_notice=' . $id);
+		}
+	}
+
+	public static function remove_notices() {
+		if(isset($_REQUEST['remove_all_notices'])){
+			db_notice::remove_all_view_notices($_SESSION['id']);
+		}
+		if(isset($_REQUEST['remove_notice'])){
+			db_notice::remove_own_notice($_REQUEST['remove_notice']);
+		}
+	}
+
 } //End of class
