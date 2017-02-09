@@ -168,4 +168,5 @@
 	}
 .footer-widget li ul li:before {
 	content: '- ';
+	margin-right: 7px;
 	}
