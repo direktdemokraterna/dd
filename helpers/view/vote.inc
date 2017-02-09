@@ -68,24 +68,28 @@ class vote
 	}
 
 	public static function output_vote_description($voteinfo) {
-		__info("Beskrivning", '<br>' . \Logic\text::make_html_from_wiki_text($voteinfo['description']));
+		__info("<h2>Beskrivning</h2>", \Logic\text::make_html_from_wiki_text($voteinfo['description']));
 	}
 
 	public static function output_view_cast_ballots($voteinfo) {
 		if($voteinfo['number_of_ballots'] > $voteinfo['number_of_direct_ballots']
 			&& ($voteinfo['type'] == "yes-no" || $voteinfo['type'] == "median")) {
-			echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'' . $voteinfo['type'] . '\')" class="link-icon">Se delegatröster för den här omröstningen</a>';
+			echo '<a href="javascript:void(0)" onclick="show_delegate_votes(\'' . $voteinfo['type'] . '\')" class="link-icon">Se delegatröster</a>';
 		}
 		echo '<tr><td>';
-		__link("Se alla röster för denna omröstning", 'vote', 'view_ballots', 'id=' . $voteinfo['id'], 'link-icon');
+		__link("Se alla röster", 'vote', 'view_ballots', 'id=' . $voteinfo['id'], 'link-icon');
 		echo '</td></tr>';
 		
 	}
 
 	public static function output_vote_debate_link($voteinfo) {
-		__link("Länk till denna omröstnings diskussionstråd", 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id'], 'btn-blue bubble');
+		__link("<span>Länk till diskussion</span>", 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id'], 'btn-blue bubble');
 	}
 
+	public static function output_proposition_debate_link($voteinfo) {
+		__link("<span>Länk till diskussion</span>", 'forum', 'show_posts', 'topic_id=' . $voteinfo['forum_topic_id'], 'btn-blue bubble');
+	}
+	
 	public static function output_vote_buttons($voteinfo, $user_allowed_to_vote) {
 		if($user_allowed_to_vote) {
 			echo '<div class="vote_box">';

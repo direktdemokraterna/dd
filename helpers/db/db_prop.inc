@@ -11,7 +11,7 @@ class db_prop
 		$values = Array($type, $created_by_voter, time(), $constituency_id, $title, $description, $forum_topic_id);
 		$prop_id = db::insert($query, $values);
 		$post_content = "Det här är en automatiskt skapad tråd till propositionen: "
-			. '<a href="index.php?type=vote&action=view_prop&id=' . $prop_id . '">' . $title . '</a>\n\n' . $description;
+			. '<a href="index.php?type=vote&action=view_prop&id=' . $prop_id . '">' . $title . '</a><br><br><strong>Beskrivning:</strong> ' . $description;
 		db_forum::add_content_to_post($forum_topic_id, $post_content);
 		return $prop_id;
 	}

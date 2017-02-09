@@ -807,7 +807,7 @@ tr.unread {
 
 .paging_info {
   clear: both;
-  margin: 0 21px 0 5px;
+  margin: 10px 21px 10px 5px;
   font-size: 12px;
   color: #2b2b2b;
   font-family: "Open Sans",sans-serif;font-weight: 300;

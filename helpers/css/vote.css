@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* VOTE CSS */
 
 #list_of_votes {
@@ -79,23 +80,30 @@ a.link-icon:before {
 #vote_container_grey_box table td:first-child {
 	width: 60%;
 	}
+#vote_container_grey_box strong {
+    font-weight: inherit;
+}
 .vote-description {
 	line-height: 1.25;
 	width: 90%;
 	}
 a.btn-blue.bubble {
-	color: #fff;
-	margin: 20px 0 0 0;
-	padding: 10px 20px;
-	}
+    color: #fff;
+    margin: 20px 0 0 0;
+    padding: 10px 20px;
+    line-height: 1.5;
+}
 a.btn-blue.bubble:before {
 	content: '\f075';
+	display: table;
 }
 
 a.btn-blue.bubble:hover {
 	text-decoration: none;
 }
-
+a.btn-blue.bubble span {
+	display: table-cell;
+}
 
 .yes-no {
 	width: 100%;
