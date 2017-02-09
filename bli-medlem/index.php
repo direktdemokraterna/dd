@@ -1,33 +1,56 @@
 <?php 
 include("../init.inc");
 
+function getPostValueOrEmpty($name) {
+    return isset($_POST[$name]) ? general_helpers::clean($_POST[$name]) : "";
+}
+
+$first_name = getPostValueOrEmpty('first_name');
+$last_name = getPostValueOrEmpty('last_name');
+$street_address = getPostValueOrEmpty('street_address');
+$zip_code = str_replace(" ", "", getPostValueOrEmpty('zip_code'));
+$city_address = getPostValueOrEmpty('city_address');
+$county_id = getPostValueOrEmpty('county_id');
+$user_data = [
+    'county_id' => $county_id
+];
+$telephone1 = str_replace(" ", "", str_replace("-", "", getPostValueOrEmpty('telephone1')));
+$telephone2 = str_replace(" ", "", str_replace("-", "", getPostValueOrEmpty('telephone2')));
+$personal_identity_number = general_helpers::clean_personnummer(getPostValueOrEmpty('personal_identity_number'));
+$email = getPostValueOrEmpty('email');
+
 // Processing data if form has been posted
-$mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county_id', 'email', 'social_security_number');
+$mandatory_fields = array('first_name', 'last_name', 'street_address', 'zip_code', 'city_address', 'county_id', 'email', 'personal_identity_number');
 $is_all_mandatory_set = true;
-foreach ($mandatory_fields as $mandatory) 
-	$is_all_mandatory_set &= isset($_POST[$mandatory]);
-if($is_all_mandatory_set){
-	$telephone1 = str_replace(" ", "", str_replace("-", "", $_POST['telephone1']));
-	$telephone2 = str_replace(" ", "", str_replace("-", "", $_POST['telephone2']));
-	$personnummer = general_helpers::clean_personnummer($_POST['social_security_number']);
-	$error = \Logic\user::validate_user($personnummer, $_POST['email']);
-	if ($error)
-		die($error);
-	$region_id = db_constituency::get_region_id_from_county_id($_POST['county']);
-	if(!$region_id)
-		die("Välj kommun");
-	$form_data_has_been_processed = db_user::enter_user_application(
-		general_helpers::clean($_POST['first_name'])
-		, general_helpers::clean($_POST['last_name'])
-		, general_helpers::clean($_POST['street_address'])
-		, (int)$_POST['zip_code']
-		, general_helpers::clean($_POST['city_address'])
-		, $_POST['county_id']
-		, $region_id
-		, $personnummer
-		, $_POST['email']
-		, general_helpers::clean($telephone1)
-		, general_helpers::clean($telephone2));
+foreach ($mandatory_fields as $mandatory) {
+    $is_all_mandatory_set &= !empty($_POST[$mandatory]);
+}
+$region_id = true;
+if ($is_all_mandatory_set) {
+    $error_message = \Logic\user::validate_user($personal_identity_number, $email);
+    if (!$error_message)
+        $region_id = db_constituency::get_region_id_from_county_id($county_id);
+	if (!$region_id) {
+        $error_message = "Välj kommun";
+    } else {
+	    $user_data['region_id'] = $region_id;
+    }
+    if (!$error_message) {
+        $form_data_has_been_processed = db_user::enter_user_application(
+            $first_name
+            , $last_name
+            , $street_address
+            , (int)$zip_code
+            , $city_address
+            , $user_data['county_id']
+            , $region_id
+            , $personal_identity_number
+            , $email
+            , $telephone1
+            , $telephone2);
+    }
+} else if ($_POST) {
+    $error_message = "Ett eller flera fält är inte ifyllda";
 }
 
 ?><!DOCTYPE html>
@@ -64,8 +87,8 @@ if($is_all_mandatory_set){
 		echo '</p>';
 		die();
 	}
-	if ($_POST) {
-		echo '<p>Ett eller flera fält är inte ifyllda</p>';
+	if (isset($error_message)) {
+		echo '<p>' . $error_message .'</p>';
 	}
 ?>
 <h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">Medlemsansökan
@@ -79,16 +102,16 @@ if($is_all_mandatory_set){
 	__br();
 	__open_form("login-form");
 	$tab_index = 1;
-	__textfield('first_name', "Förnamn", $tab_index++);
-	__textfield('last_name', "Efternamn*", $tab_index++);
-	__textfield('street_address', "Gatuadress*", $tab_index++);
-	__textfield('zip_code', "Postnummer*", $tab_index++);
-	__textfield('city_address', "Postort*", $tab_index++);
-	\View\member::output_county_selectors();
-	__textfield("telephone1", "Telefonnummer", $tab_index++);
-	__textfield("telephone2", "Alternativt telefonnummer", $tab_index++);
-	__textfield("email*", "Mejladress", $tab_index++);
-	__textfield("skype_name", "Skype-namn", $tab_index++);
+	__textfield('first_name', "Förnamn*", $tab_index++, $first_name, ['autofocus' => null, 'required' => null]);
+	__textfield('last_name', "Efternamn*", $tab_index++, $last_name, ['required' => null]);
+	__textfield('street_address', "Gatuadress*", $tab_index++, $street_address, ['required' => null]);
+	__textfield('zip_code', "Postnummer*", $tab_index++, $zip_code, ['required' => null]);
+	__textfield('city_address', "Postort*", $tab_index++, $city_address, ['required' => null]);
+	\View\member::output_county_selectors($user_data, $tab_index);
+	__textfield("telephone1", "Telefonnummer", $tab_index++, $telephone1);
+	__textfield("telephone2", "Alternativt telefonnummer", $tab_index++, $telephone2);
+	__textfield("email", "Mejladress*", $tab_index++, $email, ['required' => null]);
+	__textfield("personal_identity_number", "Personnummer*", $tab_index++, $personal_identity_number, ['required' => null]);
 ?>
 <input type="checkbox" name="news_letter" value="1" id="news_letter">
 	<label for "news_letter">Jag vill prenumerera på nyhetsbrevet</label>

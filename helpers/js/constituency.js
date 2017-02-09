@@ -1,11 +1,11 @@
 var county_name_and_region_by_id = {}; // Set this value in PHP before using these functions
 
 function county_changed() {
-	var county_id = $("#county").val();
+	var county_id = $("#county_id").val();
 	var region_id = (county_id in county_name_and_region_by_id) 
 		? county_name_and_region_by_id[county_id].region_id 
 		: 0;
-	$("#region").val(region_id);
+	$("#region_id").val(region_id);
 }
 
 function region_changed() {
@@ -17,7 +17,7 @@ function region_changed() {
 		var county = counties[i];
 		optionsAsString += "<option value=\'" + county['id'] + "\'>" + county['name'] + "</option>";
 	}
-	$("#county").find("option")
+	$("#county_id").find("option")
 		.remove()
 		.end()
 		.append(optionsAsString);
@@ -38,7 +38,7 @@ function filter_counties_by_region(region_id) {
 }
 
 function set_default_county_if_region_set() {
-	var selected_region = $("#region").val();
+	var selected_region = $("#region_id").val();
 	if (selected_region && selected_region != 0)
-		$("#county").val(0);			
+		$("#county_id").val(0);
 }

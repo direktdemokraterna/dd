@@ -141,7 +141,7 @@ class vote
 		$options = self::get_selectable_vote_type_descriptions();
 		echo \View\controls::generate_control_label("type_of_vote", "Omröstningstyp");
 		\View\controls::output_selector("type_of_vote", $options, $selected_option, 'tabindex = "' . $tab_index . '"');
-	}	
+	}
 
 	public static function get_vote_type_description($type) {
 		$type_descriptions = self::get_vote_type_descriptions();
@@ -195,8 +195,8 @@ class vote
 		if(empty($ballots))
 			echo "Inga röster lagda";
 		else {
-			echo '<table class="responsive">';
-			echo '<tr><th>Röstande</th><th></th><th>Delegat</th><th>Tidpunkt</th></tr>';
+			echo '<table class="view-ballots responsive">';
+			echo '<tr><th>Röstande</th><th>Röst</th><th>Delegat</th><th>Tidpunkt</th></tr>';
 			foreach ($ballots as $ballot){
 				echo '<tr><td>';
 				if($ballot['user_code'])
@@ -465,7 +465,7 @@ class vote
 	public static function get_vote_type_descriptions() {
 		return array(
 			"yes-no" => "Omröstning (ja/nej)"
-			, "prio-vote" => "prioritetsomröstning"
+			, "prio-vote" => "Prioritetsomröstning"
 			, "candidate-election" => "Personval"
 			, "workgroup-election" => "Val till arbetsgrupp"
 			, "median" => "Medianomröstning"

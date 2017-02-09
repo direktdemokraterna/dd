@@ -53,13 +53,7 @@
     background: #f4f4f4;
 	}
 	.post_user_image {
-    margin: 0;
     max-width: 150px;
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    border: none;
 	}
 	.post_user_info a.user_name_link {
     text-transform: uppercase;
@@ -67,11 +61,27 @@
     float: left;
     margin-left: 1em;
 	}
+	.post-meta, .post-meta-2 {
+		margin: 0;
+		display: none;
+	}
+	.post_top_row {
+		display: block;
+	}
+	.paging_info {
+		margin: 10px 21px 10px 5px;
+	}
+	.single_post_container {
+    	padding-bottom: 35px;
+	}
 }
 @media screen and (max-width: 1100px) {
 	#header-lang {
     position: absolute;
     top: 45px;
+	}
+	.social-media-icons-dd {
+		margin-top: -25px;
 	}
 }
 
@@ -90,6 +100,17 @@
 	.prio-vote-buttons-wrapper button.vote_button {
 		min-width: calc(100% - 20px);
 		width: auto;
+	}
+	.vote-container.float-left {
+    float: none;
+    width: 100%;
+    padding: 0;
+	}
+	.vote-container.float-right {
+    float: none;
+    width: 100%;
+    padding: 0;
+	margin: 2em 0;
 	}
 }
 
@@ -115,9 +136,13 @@
 		float: none;
 		clear: both;
 	}
+	#sidebar {
+		margin-top: 4em;
+		display: inline-block;
+	}
 
 	#sidebar ul:first-child {
-		padding-top: 40px;
+		padding-top: 0;
 	}
 	#main-content h1 {
 		font-size: 30px;
@@ -125,6 +150,14 @@
 	.vote-buttons {
 		margin: 0px -2% 10px -2%;
 		width: 104%;
+	}
+	.social-media-icons-dd {
+		display: none;
+	}
+	.footer-widget {
+	float: left;
+	width: 50%;
+	margin: 1em auto;	
 	}
 }
 
@@ -145,8 +178,35 @@
 		display: block;
 	}
 }
+ @media screen and (max-width: 600px) {
+	.numerical_column {
+		display: none;
+	}
+	.subject_column {
+		width: 50%;
+	}
+	.last_post_column {
+		width: 45%;
+	}
+	.footer-widget {
+	float: none;
+	width: 75%;
+	margin: 1em auto 2.5em;	
+	}
+}
 @media only screen and (max-width: 550px) {
-	
+	.post_user_image {
+    	max-width: 80px;
+	}
+	.post_content {
+		padding: 0;
+		margin: 0;
+	}
+	.footer-widget {
+	float: none;
+	width: 100%;
+	margin: 1em 0 2.5em;	
+	}
 }
 
 @media screen and (max-width: 400px) {
@@ -158,4 +218,9 @@
         height: auto;
         max-width: 100%;
     }
+	.footer-widget {
+	float: none;
+	width: 100%;
+	margin: 1em 0 2.5em;	
+	}
 }

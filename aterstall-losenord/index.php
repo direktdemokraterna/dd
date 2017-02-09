@@ -30,7 +30,7 @@ elseif (isset($_POST['user_email'])) {
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="shortcut icon" href="../images/favicon.ico">
 	<title>Direktdemokraterna Medlemssystem - Återställ lösenord. Version <?php echo VERSION ?></title>
 </head>
 <body>
@@ -72,16 +72,22 @@ elseif (isset($_POST['user_email'])) {
 			<input type="password" name="password" id="password" value="" placeholder="Nytt lösenord" required autofocus>
 			<input type="submit" value="Återställ lösenord">
 		</form>
+        <p class="">
+        	<a href="/">Logga in utan att återställa lösenordet</a>
+        </p>
 	<?php else : ?>
         Återställningskoden är ogiltig
 	<?php endif; ?>
 <?php else : ?>
 	<form method="post" action="" class="login-form">
-		<p>Skriv in mejladressen som hör till kontot. Ett mejl med en återställningskod kommer att skickas till denna adress. Med hjälp av koden kan du återställa ditt lösenord.</p><br>
+		<p>Skriv in din mejladress. Ett mejl med en återställningskod kommer att skickas till dig. Med hjälp av koden kan du återställa ditt lösenord.</p><br>
 		<label for="user_email">Mejladress</label>
 		<input type="text" name="user_email" id="user_email" value="" autofocus required><br>
         <button type="submit" value="Skicka">Skicka</button>
 	</form>
+    <p>
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i><a href="/">Gå tillbaka</a>
+    </p>
 <?php endif; ?>
 
 

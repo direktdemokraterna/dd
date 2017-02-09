@@ -1,5 +1,5 @@
 <ul>
-	<li>
+	<li class="alternatives">
 		<?php
 			__h2("Alternativ");
 			\View\controls::output_link_list("forum_admin", array(

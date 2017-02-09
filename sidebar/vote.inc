@@ -9,12 +9,12 @@
 			));
 		?>
 	</li>
-	<li class="">
+	<li class="sidebar-search-propositions">
 		<?php 
 			\View\controls::output_search_box("propositioner", "vote", "search_prop", 101);
 		?>
 	</li>
-	<li>
+	<li class="sidebar-votes">
 		<?php 
 			__h2("Omröstningar");
 			\View\controls::output_link_list("vote", array(
@@ -23,12 +23,12 @@
 			));
 		?>
 	</li>
-	<li>
+	<li class="sidebar-search-votes">
 		<?php 
 			\View\controls::output_search_box("omröstningar", "vote", "search", 103);
 		?>
 	</li>
-	<li>
+	<li class="sidebar-delegates">
 		<?php
 			__h2("Delegater");
 			$is_delegate = db_delegate::is_user_delegate($_SESSION['id']);

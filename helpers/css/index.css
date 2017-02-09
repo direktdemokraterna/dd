@@ -22,18 +22,22 @@
 
 
 /* 	GENERAL */
+
+html { font-size: 62.5%; } 
+body { font-size: 16px; font-size: 1.6rem; } /* =16px */
+h1   { font-size: 24px; font-size: 2.4rem; } /* =24px */
+
 body, table, tr, td, 
 textarea, fieldset input[type="text"], .sidebar_search_form input[type="text"],
 textarea#new_post_content, textarea#edit_post_content, textarea#new_topic_content  {
     margin: 0;
     padding: 0;
-	font-family: Georgia, Times, 'Times New Roman', serif;
-    font-size: 16px;
     color: #444;  
     border-spacing: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
+	font-family: "Georgia", "Times New Roman", Times, serif;
 }
 
 h1, h2, h3 {
@@ -44,19 +48,19 @@ h1, h2, h3 {
 
 h1 {
     /*text-transform: uppercase;*/
-    font-size: 24px;
+    font-size: 2.4rem;
 }
 
 h2 {
     color: #000;
     /*text-transform: uppercase;*/
-    font-size: 18px;
+    font-size: 1.8rem;
 }
 
 h3 {
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-size: 11px;
+    font-size: 1.1rem;
 }
 
 p, blockquote, ul, ol {
@@ -89,14 +93,14 @@ a.quote_in_post_link,
     color: #6b6b6b;
 	text-decoration: none;
 	text-transform: uppercase;
-	font-size: 12px;
+	font-size: 1.2rem;
 }
 a.quote_in_post_link,
 .list_sub_text a {
     color: #6b6b6b;
 	text-decoration: none;
 	text-transform: uppercase;
-	font-size: 12px;
+	font-size: 1.2rem;
 	margin-bottom: 5px;
 }
 a.quote_in_post_link {
@@ -109,7 +113,7 @@ a.user_name_link_img {
 
 .post_user_info a.user_name_link {
 	text-transform: uppercase;
-	font-size: 11px;
+	font-size: 1.1rem;
 	}
 
 .no-line:hover {
@@ -126,7 +130,7 @@ em, i {
 textarea, input[type="text"] {
 	border: 1px solid #ddd;
 	padding: 5px;
-	font-size: 14px;
+	font-size: 1.4rem;
 }
 .post_content span {
     word-wrap: break-word;
@@ -153,6 +157,9 @@ textarea, input[type="text"] {
     width: 100%;
     max-width: 900px;
 }
+#new_topic_form {
+	margin-top: 5em;
+	}
 #sidebar {
     float: right;
     width: 250px;
@@ -162,7 +169,7 @@ textarea, input[type="text"] {
 }
 
 #main-content h1 {
-    font-size: 40px;
+    font-size: 4.0rem;
     font-weight: 300;
     margin-bottom: 20px;
 	letter-spacing: -1px;
@@ -194,31 +201,32 @@ form.text-editor {
 
 /* TYPOGRAPHY */
 
-.forum_info, .list_sub_text, .quote_in_post, .post_alternatives,
+.forum_info, .list_sub_text, .quote_in_post, .post_alternatives, span.perma-link, .post_content span.post_date,
 input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message,
 .sortable, textarea, input[type="text"],
-.btn-blue, .vote-container.float-right, #vote_container_grey_box td, .vote_result_box, .post_user_info
+.btn-blue, .vote-container.float-right, #vote_container_grey_box td, .vote_result_box, .post_user_info,
+.login-column, .footer-widget
 	{ font-family: 'Lato','Open Sans', Helvetica, Arial, sans-serif; } /* Standard font for all sans-serif elements */
 	
 .post_content {
-	font-size: 17px;
+	font-size: 1.7rem;
 	}
 .forum_info {
-	font-size: 13px;
+	font-size: 1.3rem;
 	}
 .topic_list_row {
 }
 .topic_list_row span.numerical_column,
 .topic_list_row span.last_post_column {
-    font-size: 14px;
+    font-size: 1.4rem;
 }
 .post_content span, textarea {
 	line-height: 1.5;
-	font-size: 17px;
+	font-size: 1.7rem;
 }
 .quote_in_post:before {
 	content: '”';
-    font-size: 59px;
+    font-size: 5.9rem;
     color: #ccc;
     display: block;
     float: left;
@@ -229,6 +237,18 @@ input.vote_button, button.vote_button, .median-vote input[type="text"], .green_m
 	}
 .quote_in_post > .quote_in_post:before {
 	content:'';
+	}
+.small {
+	font-size: 1.3rem;
+	}
+.post_content span.post-user-full-name {
+	font-size: 2.2rem;
+	}
+footer h2 {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bold;
+	color: #ddd;
 	}
 	
 /* BUTTONS */
@@ -248,20 +268,34 @@ button[type="submit"].btn-login:before {
 	
 /* FONT AWESOME ICONS */
 
+i.fa {
+	margin-right: 5px;
+	}
+
 li.mb-delegate a:before, 
 li.mb-individual a:before, 
 li.mb-logout a:before,
 #vote_container_grey_box h2.h2-information:before,
 #vote_container_grey_box h2.h2-stats:before,
 #vote_container_grey_box h2.h2-tools:before,
-a.link-icon:before, .post_user_info a.user_name_link:before {
+a.link-icon:before, .post_user_info a.user_name_link:before,
+li.mb-members a:before, li.mb-messages a:before, li.mb-votes a:before, li.mb-forum a:before, li.mb-admin a:before,
+.social-media-icons-dd .fa:before {
 	font: normal normal normal 14px/1 FontAwesome;
 	margin-right: 5px;
 	}
 #vote_container_grey_box h2:after {
 	font: normal normal normal 14px/1 FontAwesome;
 	}
-
+/* Menubar icons */
+li.mb-members a:before 		{ content: '\f007'; }
+li.mb-messages a:before 	{ content: '\f003'; }
+li.mb-votes a:before 		{ content: '\f00c'; }
+li.mb-forum a:before 		{ content: '\f0e5'; }
+li.mb-admin a:before 		{ content: '\f013'; }
+li[class^="mb-"]  ul li a:before { 
+	content: none;
+	}	
 li.mb-delegate a:before {
 	content: '\f0c0';
 	}
@@ -277,6 +311,30 @@ li.mb-logout a:before {
 	color: #ccc;
 	}
 	
+.social-media-icons-dd {
+	text-align: right;
+    margin-left: -10px;
+	margin-top: -32px;
+	
+}
+.social-media-icons-dd span.fa {
+    background-color: #a4a5a5;
+	font-size: 20px;
+    color: #fff;
+    width: 40px;
+    text-align: center;
+    padding-top: 10px;
+	padding-bottom: 10px;
+}
+span.fa.fa-facebook:hover {  background-color: #3b5998; }
+span.fa.fa-twitter:hover {  background-color: #4099ff; }
+span.fa.fa-google-plus:hover {  background-color: #d34836; }
+span.fa.fa-youtube:hover {  background-color: #e52d27; }
+
+.social-media-icons-dd .fa:before {
+	font: normal normal normal 20px/1 FontAwesome;
+	margin-left: 5px;
+	}	
 	
 
 
@@ -305,11 +363,14 @@ button[type="submit"]  {
     background: #f67520;
 }
 textarea#new_post_content, textarea#edit_post_content, textarea#new_topic_content {
-    border: 1px dashed #ccc;
+    border: 1px dashed #ddd;
     border-right: none;
     border-left: none;
     border-radius: 0;
 	padding: 30px 50px;
+}
+textarea#new_topic_content {
+    border: 1px solid #ddd;
 }
 #new_post_form fieldset,
 fieldset .post_content {
@@ -367,8 +428,7 @@ fieldset {
 	/*padding: 0 24px 20px; Changed for delegates */
 	}
 	
-.post_content:before, #new_post_form fieldset:before,
-#new_topic_form fieldset:before { /* Speech Bubble Arrow */
+.post_content:before, #new_post_form fieldset:before { /* Speech Bubble Arrow */
     content: "";
     position: absolute;
     border-style: solid;
@@ -398,6 +458,7 @@ fieldset {
     border-width: 9px 21px 9px 0;
     border-color: transparent #fff;
 }
+
 
 /* HEADER */
 
@@ -590,10 +651,7 @@ footer {
 	padding: 1%;
 	width: 98%;
 	max-width: 1200px;
-	color: #fff;
-	}
-footer h2 {
-	color: #fff;
+	color: #ddd;
 	}
 footer p {
     text-align: center;
@@ -728,7 +786,7 @@ tr.unread {
 
 .paging_info {
   clear: both;
-  margin: 10px 21px 15px 5px;
+  margin: 0 21px 0 5px;
   font-size: 12px;
   color: #2b2b2b;
   font-family: "Open Sans",sans-serif;font-weight: 300;

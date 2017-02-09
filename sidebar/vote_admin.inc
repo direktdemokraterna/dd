@@ -1,5 +1,5 @@
 <ul>
-	<li>
+	<li class="alternatives">
 		<?php 
 			__h2("Valadministratör");
 			\View\controls::output_link_list("vote_admin", array(

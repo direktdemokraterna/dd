@@ -171,7 +171,7 @@ class db_delegate
 		$values = Array($vote_id, $constituency_id, $ballot, $delegate_id, time());
 		$ok = db::insert($query, $values);
 		self::register_ballot_for_delegands($delegate_id, $constituency_id, $vote_id, $ballot, $delegate_id, 0);
-		db_vote::count_ballots_for_vote($vote_id);
+		db_vote::update_ballot_count_for_vote($vote_id);
 		return $ok;
 	}
 
@@ -184,7 +184,7 @@ class db_delegate
 		foreach($delegand_ballots as $row)
 			if($row['user_code'])
 				self::find_and_insert_delegate_vote_for_user($row['user_code'], null, $vote_id);
-		db_vote::count_ballots_for_vote($vote_id);
+		db_vote::update_ballot_count_for_vote($vote_id);
 		return $return;
 	}
 
@@ -214,7 +214,7 @@ class db_delegate
 		$values = Array($prop_id, $constituency_id, $delegate_id, $support, time());
 		$ok = db::insert($query, $values);
 		self::register_prop_ballot_for_delegands($delegate_id, $constituency_id, $prop_id, $support, $delegate_id, 0);
-		db_prop::count_prop_support($prop_id);
+		db_prop::update_prop_support_count($prop_id);
 		return $ok;
 	}
 
@@ -227,7 +227,7 @@ class db_delegate
 		foreach($delegand_ballots as $row)
 			if($row['user_code'])
 				$new_ballot = self::find_and_insert_delegate_prop_vote_for_user($row['user_code'], null, $prop_id);
-		db_prop::count_prop_support($prop_id);
+		db_prop::update_prop_support_count($prop_id);
 		return $return;
 	}
 

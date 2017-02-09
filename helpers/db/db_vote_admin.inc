@@ -154,6 +154,6 @@ class db_vote_admin
 		$query = "delete from ballot 
 			where vote_id = ?";
 		if (db::delete($query, array($vote_id)))
-			db_vote::count_ballots_for_vote($vote_id);			
+			db_vote::update_ballot_count_for_vote($vote_id);			
 	}
 }

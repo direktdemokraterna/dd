@@ -31,8 +31,8 @@ if($_POST['accept']){
 			$mail_receiver = $_POST['email'];
 			$mail_title = "Välkommen till Direktdemokraterna";
 			$mail_text = "Du är nu medlem i Direktdemokraterna och kan logga in på medlemssidorna" . "\n\n" . "Dina användaruppgifter är:" 
-				. "\n\n" . "Användarnamn" . $username . "\n" 
-				. "Lösenord" . $random_password;
+				. "\n\n" . "Användarnamn: " . $username . "\n"
+				. "Lösenord: " . $random_password;
 
 			$mail_response = general_helpers::admin_mail($mail_receiver, $mail_title, $mail_text);
 			if($mail_response != "success"){

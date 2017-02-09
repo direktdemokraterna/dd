@@ -180,10 +180,22 @@ class forum
 		general::close_div();
 	}
 
-	private static function make_post_content($post_info) 
+	private static function make_post_content($post_info, $show_action_buttons = true) 
 	{
 		$post_id = $post_info['post_id'];
 		general::open_div("post_content");
+		echo '<div class="post-meta">';
+		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']) . ' skrev:</span>';
+		echo '<span class="perma-link" style="float: right;">';
+		self::make_post_reference_link($post_id);
+		echo '</span><div class="clear"></div></div>';
+		echo '<div class="post-meta-2">';
+		echo '<span class="post-user-full-name">' . $post_info['user_full_name'] . '</span>';
+		general::open_span("post_alternatives");
+		if ($show_action_buttons)
+			self::make_post_actions($post_info);
+		general::close_span();
+		echo '<div class="clear"></div></div>';
 		$html = \Logic\forum::make_html_from_post_text($post_info['content']);
 		__span($html);
 		if(isset($post_info['last_edited_time']))

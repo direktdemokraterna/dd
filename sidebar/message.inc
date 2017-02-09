@@ -1,5 +1,5 @@
 <ul>
-	<li>
+	<li class="messages">
 		<?php
 			__h2("Meddelanden");
 			\View\controls::output_link_list("message", array(

@@ -104,10 +104,10 @@ class general_helpers {
 	}
 
 	public static function clean_personnummer ($personnummer) { 
-		$personnummer = str_replace("-", "", $_POST['social_security_number']);
-		if(strlen($personnummer) == 12)
-		$personnummer = substr($personnummer, 2);
-		if(strlen($personnummer) != 10) return null;
+		$personnummer = str_replace("-", "", $personnummer);
+		if (strlen($personnummer) === 12)
+		    $personnummer = substr($personnummer, 2);
+		if (strlen($personnummer) !== 10) return null;
 		return $personnummer;
 	}
 

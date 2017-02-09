@@ -187,7 +187,7 @@ class db_prop
 			$values = Array($prop_id, $constituency_id, $user_code, $support, time());
 			$ok = db::insert($query, $values);
 		}
-		self::count_prop_support($prop_id);
+		self::update_prop_support_count($prop_id);
 		return $ok >= 0;
 	}
 
@@ -195,12 +195,13 @@ class db_prop
 		, $constituency_id = null, $prop_id = null) {
 		$affected_prop_ids = array_unique(self::remove_prop_ballots_no_recount($user_code, $voter_id, $delegate_id, $constituency_id, $prop_id));
 		foreach ($affected_prop_ids as $id)
-			self::count_prop_support($id);
+			self::update_prop_support_count($id);
 		return true;
 	}
 
 	private static function remove_prop_ballots_no_recount($user_code, $voter_id, $delegate_id = null
-		, $constituency_id = null, $prop_id = null) {
+		, $constituency_id = null, $prop_id = null) 
+	{
 		$values = array();
 		$from_where = self::get_prop_ballots_from_where_fragment($values, $user_code, $voter_id
 			, $delegate_id, $constituency_id, $prop_id);
@@ -208,14 +209,14 @@ class db_prop
 		$deleted_prop_ballots = db::select($sel_query, $values);
 		$affected_prop_ids = array();
 		if ($deleted_prop_ballots) {
-			$del_query = "delete " . $from_where;
+			$del_query = "delete ps " . $from_where;
 			db::delete($del_query, $values);
 			foreach ($deleted_prop_ballots as $prop_ballot) {
 				if ($prop_ballot['user_code'])
-					$affected_prop_ids[] = $ballot['proposition_id']; //todo: ballot undefined?
+					$affected_prop_ids[] = $prop_ballot['proposition_id'];
 				else {
 					$new_affected_prop_ids = self::remove_prop_ballots_no_recount(null, null, $voter_id
-						, $constituency_id, $ballot['proposition_id']); //todo: ballot undefined?
+						, $constituency_id, $prop_ballot['proposition_id']); 
 					$affected_prop_ids = array_merge($affected_prop_ids, $new_affected_prop_ids);
 				}
 			}
@@ -254,11 +255,11 @@ class db_prop
 		$query = "delete from proposition_support where proposition_id = ? and user_code = ? and delegate_id is null";
 		$values = Array($prop_id, $user_code);
 		$return = db::delete($query, $values);
-		self::count_prop_support($prop_id);
+		self::update_prop_support_count($prop_id);
 		return $return;
 	}
 
-	public static function count_prop_support ($prop_id)
+	public static function update_prop_support_count ($prop_id)
 	{
 		$query = "update proposition set number_of_supporters = 
 				(
@@ -273,6 +274,24 @@ class db_prop
 		if($prop_info['number_of_supporters'] >= ceil($prop_info['number_of_voters'] * PROP_TO_VOTE_SUPPORT))
 			db_vote::make_vote_from_prop($prop_id);
 		return $ok;
+	}
+
+	public static function update_support_count_for_pending_propositions ()
+	{
+		$query = "update proposition po
+			left join
+			(
+				select
+					pi.id,
+					(select count(*) from proposition_support where proposition_id = pi.id and support = 1 and user_code is not null) support
+			    from proposition pi    
+			) pc
+			on pc.id = po.id
+			set po.number_of_supporters = pc.support
+			where 
+				po.status in ('pending', 'affirmed')";
+		$values = Array();
+		return db::update($query, $values);
 	}
 
 	public static function get_old_props ()

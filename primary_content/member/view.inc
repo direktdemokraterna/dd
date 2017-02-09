@@ -28,23 +28,27 @@
 			}
 		}
 		else {
-			$admin_roles = db_admin::get_admin_roles_for_user($user_id);
+			echo '<div class="user-info-details">';
+			__p('<strong>Roll i Direktdemokraterna:</strong>');
+			$admin_roles = db_admin::get_admin_roles_for_user($user_id);			
 			foreach($admin_roles as $row)
-				__p("Är " . _link(strtolower($row['title']), 'member', 'admin_description', 'id=' . $row['id']));
-			__p("Senaste inloggning: " . (empty($userinfo['last_activity_time']) ? "Aldrig" : general_helpers::show_date($userinfo['last_activity_time'])));
+				__p(_link($row['title'], 'member', 'admin_description', 'id=' . $row['id']));
+			__p('&nbsp;');
+			__p("<strong>Senaste<br>inloggning:</strong> " . (empty($userinfo['last_activity_time']) ? "Aldrig" : general_helpers::show_date($userinfo['last_activity_time'])));
 			if($userinfo['show_email'])
-				__p("Mejladress: " . $userinfo['email']);
+				__p("<strong>Mejladress:</strong> " . $userinfo['email']);
 			if($userinfo['show_telephone']) {
 				if(!empty($userinfo['telephone1']))
-					__p("Telefonnummer: " . $userinfo['telephone1']);
+					__p("<strong>Telefonnummer:</strong> " . $userinfo['telephone1']);
 				if(!empty($userinfo['telephone2']))
-					__p("Telefonnummer: " . $userinfo['telephone2']);
+					__p("<strong>Telefonnummer:</strong> " . $userinfo['telephone2']);
 			}
 			if($userinfo['show_skype'] && !empty($userinfo['skype_name']))
-				__p("Skype-namn: " . $userinfo['skype_name']);
-			__p("Kommun: " . $userinfo['county_name']);
-			__p("Län: " . $userinfo['region_name']);
-			__p("Presentation:" . '<br>' . \Logic\text::make_html_from_wiki_text($userinfo['description']));
+				__p("<strong>Skype-namn:</strong> " . $userinfo['skype_name']);
+			__p("<strong>Kommun:</strong> " . $userinfo['county_name']);
+			__p("<strong>Län:</strong> " . $userinfo['region_name']);
+			__p("<strong>Presentation:</strong>" . '<br>' . \Logic\text::make_html_from_wiki_text($userinfo['description']));
+			echo '</div>';
 			__br();
 			if ($user_id == $_SESSION['id'])
 				__p(_link("Ändra mina uppgifter", 
@@ -56,7 +60,7 @@
 				__p(_link("Ställ in forumbehörigheter för denna användare", 
 					"forum_admin", "edit_user", "id=" . $user_id));
 			if(isset($_SESSION['is_vote_admin']))
-				__p(_link("Ställ inte valkretsbehörigheter för denna användare", 
+				__p(_link("Ställ in valkretsbehörigheter för denna användare", 
 					"vote_admin", "edit_user", "id=" . $user_id));
 			if(isset($_SESSION['is_superadmin']))
 				__p(_link("Ställ in admin-rättigheter för denna användare", 
