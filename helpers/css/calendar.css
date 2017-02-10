@@ -143,7 +143,7 @@
     line-height: 15px;
     padding: 3px 5px;
 }
-.calendar_form input[type="submit"]{
+/*.calendar_form input[type="submit"]{
     margin-left: 165px;
     background: none repeat scroll 0 0 #2ea2cc;
     border-color: #0074a2;
@@ -155,7 +155,7 @@
     height: 28px;
     width: 10em;
     cursor: pointer;
-}
+}*/
 .calendar_form input[type="submit"]:hover{
 	background: none repeat scroll 0 0 #1b7aa6;
     border-color: #005684;

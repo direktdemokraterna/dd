@@ -360,9 +360,13 @@ span.fa.fa-youtube:hover {  background-color: #e52d27; }
 
 
 /* FORMS, FIELDSETS & INPUTS */
-
+select {
+  /*-webkit-appearance: none;*/
+  /*-webkit-border-radius: 0px;*/
+}
 input[type="submit"],
-button[type="submit"]  {
+button[type="submit"],
+.calendar_form input[type="submit"]  {
     border-radius: 0;
     line-height: 1.25;
     padding: 10px 15px;
