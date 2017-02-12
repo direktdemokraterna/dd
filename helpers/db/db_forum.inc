@@ -182,7 +182,7 @@ class db_forum
 
 	private static function update_post_count ($forum_id, $user_id)
 	{
-		self::update_forum_post_count($topic_info['forum_id']);
+		self::update_forum_post_count($forum_id);
 		self::update_user_post_count($user_id);
 	}
 
