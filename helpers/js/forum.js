@@ -50,16 +50,10 @@ function make_tag (element, tag_content, tag_content_length){
 
 function quote_post (post_id) {
 	var textarea = document.getElementById("new_post_content");
-
 	var selection = document.getSelection();
-
-	if (textarea.value.length == 0 || textarea.value.slice(-2) == '\n\n'){
-		var newlines = '';
-	}
-	else {
-		var newlines = '\n\n';
-	}
-
+	var newlines = textarea.value && textarea.value.slice(-2) != '\n\n'
+		? '\n\n'
+		: '';
 	if (selection && selection != '') {
 		textarea.value = textarea.value + newlines + '[quote=' + post_id + ']' + selection + '[/quote]\n\n';
 	}
@@ -67,8 +61,7 @@ function quote_post (post_id) {
 		var post_content_post_id = 'post_content_' + post_id;
 		var str = window[post_content_post_id].value;
 		var post_content = str.replace(/\[quote[\s\S]*\/quote\]\n\n/, '');
-
-		textarea.value = textarea.value + newlines + '[quote=' + post_id + ']' + post_content + '[/quote]\n\n';
+		textarea.value += newlines + '[quote=' + post_id + ']' + post_content + '[/quote]\n\n';
 	}
 
 	window.setTimeout(function() { textarea.focus(); },10);
