@@ -264,8 +264,8 @@ class vote
 			case "ended": return array(
 				"restore_vote" => "Återuppta omröstningen");
 			case "continuous": return array(
-				"end_vote" => "Avsluta omröstningen"
-				, "restore_delegate_vote" => "Gör om till tidsbegränsad omröstning");
+				"finish_vote" => "Avbryt omröstningen"
+				, "make_active" => "Gör om till tidsbegränsad omröstning");
 			case "finished": return array(
 				"restore_finished_vote" => "Återuppta omröstningen");
 			default: throw new \Exception("unknown status: " . $status);
