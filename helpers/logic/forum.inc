@@ -11,14 +11,11 @@ class forum
 	public static function insert_post($topic_id, $post_content) 
 	{
 		$forum_id = \db_forum::get_forum_from_post_id($topic_id);
-		$check_access = \db_forum::check_access($_SESSION['id'], $forum_id);
-		if($check_access){
-			$post_insert_id = \db_forum::new_post($_SESSION['id'], $topic_id);
-			self::insert_post_content($post_insert_id, $post_content);
-		}
-		else
-			\Logic\util::report_error("Du har inte behörighet till det forumet.");
-		return $post_insert_id;
+		$has_access = \db_forum::check_access($_SESSION['id'], $forum_id);
+		if($has_access)
+			return self::create_post($topic_id, $post_content);
+		\Logic\util::report_error("Du har inte behörighet till det forumet.");
+		return 0;
 	}
 
 	public static function update_county_region_forum_access ($user_id, $county_id)
@@ -58,7 +55,7 @@ class forum
 		return $html_text;
 	}
 
-	public static function set_post_content ($post_id, $text, $action = "new")
+	public static function set_post_content ($post_id, $text, $action)
 	{
 		$processed_post_content = self::process_post_text($text);
 		return empty($processed_post_content)
@@ -116,24 +113,20 @@ class forum
 		return ceil($number / POSTS_PER_PAGE);
 	}
 	
-	private static function insert_post_content($post_id, $post_content) 
+	private static function create_post($topic_id, $post_content) 
 	{
 		$processed_content = \Logic\text::process_text($post_content);
 		$are_quotes_valid = self::check_quote_sanity($processed_content);
 		if(!$are_quotes_valid){
-			\db_forum::delete_post($post_id);
 			\Logic\util::report_error("Citaten i ditt inlägg är inte korrekta.");
+			return 0;
 		}
-		else{
-			$ok = \db_forum::add_content_to_post($post_id, $processed_content);
-			if($ok){
-				$_SESSION['report_message'] = "Inlägg skapat.";
-			}
-			else{
-				\db_forum::delete_post($post_id);
-				\Logic\util::report_error("Inlägget kunde inte skapas.");
-			}
-		}
+		$post_insert_id = \db_forum::new_post($_SESSION['id'], $topic_id, $processed_content);
+		if($post_insert_id)
+			$_SESSION['report_message'] = "Inlägg skapat.";
+		else
+			\Logic\util::report_error("Inlägget kunde inte skapas.");
+		return $post_insert_id;
 	}
 
 	private static function check_quote_sanity($post_content)

@@ -88,19 +88,6 @@ class db_forum
 		return $check;
 	}
 
-	public static function new_topic ($user_id, $forum_id, $title)
-	{
-		$query = "insert into post (user_id, forum_id, title, is_topic, posted_time) values (?, ?, ?, ?, ?)";
-		$values = Array($user_id, $forum_id, general_helpers::clean($title), 1, time());
-		$insert_id = db::insert($query, $values);
-		$query = "update post set topic_id = id where id = ?";
-		$values = Array($insert_id);
-		db::update($query, $values);
-		self::update_forum_post_count($forum_id);
-		self::update_user_post_count($user_id);
-		return $insert_id;
-	}
-
 	public static function get_posts ($topic_id, $access_user_id, $page = 1, $limit = POSTS_PER_PAGE){
 		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time 		as posted_time, p.last_edited_time as last_edited_time, u.image as user_image
@@ -161,22 +148,42 @@ class db_forum
 		return db::select_single_value($query, $values);
 	}
 
-	public static function get_forum_from_post_id ($topic_id)
+	public static function get_forum_from_post_id ($post_id)
 	{
 		$query = "select forum_id from post where id = ?";
-		$values = Array($topic_id);
+		$values = Array($post_id);
 		return db::select_single_value($query, $values);
 	}
 
-	public static function new_post ($user_id, $topic_id)
+	public static function new_topic ($user_id, $forum_id, $title, $content = "")
+	{
+		$query = "insert into post (user_id, forum_id, title, is_topic, posted_time, content) values (?, ?, ?, ?, ?, ?)";
+		$values = Array($user_id, $forum_id, general_helpers::clean($title), 1, time(), $content);
+		$insert_id = db::insert($query, $values);
+		if ($insert_id) {
+			$query = "update post set topic_id = id where id = ?";
+			$values = Array($insert_id);
+			db::update($query, $values);
+			self::update_post_count($forum_id, $user_id);
+		}
+		return $insert_id;
+	}
+
+	public static function new_post ($user_id, $topic_id, $content = "")
 	{
 		$topic_info = self::get_post_info($topic_id);
-		$query = "insert into post (user_id, topic_id, forum_id, title, is_topic, posted_time) values (?, ?, ?, ?, ?, ?)";
-		$values = Array($user_id, $topic_id, $topic_info['forum_id'], $topic_info['title'], 0, time());
+		$query = "insert into post (user_id, topic_id, forum_id, title, is_topic, posted_time, content) values (?, ?, ?, ?, ?, ?, ?)";
+		$values = Array($user_id, $topic_id, $topic_info['forum_id'], $topic_info['title'], 0, time(), $content);
 		$insert_id = db::insert($query, $values);
+		if ($insert_id)
+			self::update_post_count($topic_info['forum_id'], $user_id);
+		return $insert_id;
+	}
+
+	private static function update_post_count ($forum_id, $user_id)
+	{
 		self::update_forum_post_count($topic_info['forum_id']);
 		self::update_user_post_count($user_id);
-		return $insert_id;
 	}
 
 	public static function new_report ($post_id, $user_id, $argument)
@@ -220,18 +227,21 @@ class db_forum
 
 	public static function add_content_to_post ($post_id, $content, $edit = "new")
 	{
-		if($edit == "new"){
-			$query = "update post set content = ? where id = ?";
-			$values = Array($content, $post_id);
-		}
-		elseif($edit == "edit"){
-			$query = "update post set content = ?, last_edited_time = ? where id = ?";
-			$values = Array($content, time(), $post_id);
-		}
-		elseif($edit == "add"){
-			$query = "update post set content = concat(content, ?), last_edited_time = ? where id = ?";
-			$values = Array($content, time(), $post_id);
-		}
+		$is_add = $edit == "add";
+		$is_new = $edit == "new";
+		$new_content_expression = $is_add
+			? "concat(content, ?)"
+			: "?"; //new, update
+		$last_edited_expression = $is_new
+			? ""
+			: ", last_edited_time = ?"; //add, update
+		$query = "update post set content = " 
+			. $new_content_expression 
+			. $last_edited_expression
+			. "where id = ?";
+		$values = $is_add
+			? Array($content, $post_id)
+			: Array($content, time(), $post_id);
 		return db::update($query, $values);
 	}
 
