@@ -361,8 +361,8 @@ span.fa.fa-youtube:hover {  background-color: #e52d27; }
 
 /* FORMS, FIELDSETS & INPUTS */
 select {
-  /*-webkit-appearance: none;*/
-  /*-webkit-border-radius: 0px;*/
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
 }
 input[type="submit"],
 button[type="submit"],
@@ -562,21 +562,38 @@ a.lang-flag {
     display: inline;
 }
 
-.standard-form select{
-    max-width: 400px;
-    width: 95%;
+.standard-form select {
+    max-width: 100%;
+    width: 40%;
     margin: 10px 0px;
-    line-height: 15px;
-    padding: 3px 5px;
+    line-height: 3rem;
+    padding: 0 5px;
+    font-family: 'Lato';
+    background: url(/images/select-chevrons.gif) no-repeat right center;
+	height: 36px;
+    font-size: 1.6rem;
+    border: 1px solid #ddd;
 }
 
+.standard-form input[type="text"] {
+    font-size: 1.6rem;
+    height: 36px;
+    width: 40%;
+}
+.standard-form label:after {
+	clear: both;
+	content: '';
+	display:table;
+	}
+
 .standard-form textarea {
-    margin-left: 10px;
+    margin-left: 0;
     margin-bottom: 20px;
-    width: 95%;
+    width: calc(100% - 225px);
     margin-top: 5px;
     height: 250px;
     display: block;
+	margin-left: 225px;
 }
 
 .standard-form input[type="checkbox"]{
