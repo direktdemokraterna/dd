@@ -131,28 +131,37 @@ class forum
 
 	private static function check_quote_sanity($post_content)
 	{
-		$number_of_quotes_in_post = substr_count($post_content, "[quote=");
-		for($i=0; $i<$number_of_quotes_in_post; $i++){
-			$quote_start = strpos($post_content, "[quote=");
-			$text_starting_at_post_id = substr($post_content, $quote_start+7);
-			$end_pos_of_post_id = strpos($text_starting_at_post_id, "]");
-			$post_id = substr($text_starting_at_post_id, 0, $end_pos_of_post_id);
-			$quote_stop = strpos($post_content, "[/quote]");
-
-			$old_full_quote_text = substr($post_content, $quote_start, $quote_stop-$quote_start+8); 
-
-			$quote_text_with_end_bracket = substr($old_full_quote_text, 8 + strlen((string)$post_id));
-			$quote_text = substr($quote_text_with_end_bracket, 0, -8);
-
-			// Checking quote validity in db.
-			$valid_quote = \db_forum::check_quote_validity($post_id, $quote_text);
+		$quotes_in_post = self::get_quotes_in_post($post_content);
+		foreach ($quotes_in_post as $quote_text) {
+			$post_id = self::extract_post_id($quote_text);
+			$quote_content = self::extract_quote_content($quote_text);
+			$valid_quote = \db_forum::check_quote_validity($post_id, $quote_content);
 			if(!$valid_quote)
 				return false;
-			else{
-				$user_id_of_post = \db_forum::get_post_info($post_id);
-				\db_notice::make_quoting_post_notice($user_id_of_post['user_id'], $post_id);
-			}
+			$user_id_of_post = \db_forum::get_post_info($post_id);
+			\db_notice::make_quoting_post_notice($user_id_of_post['user_id'], $post_id);
  		}
 		return true;
+	}
+
+	private static function get_quotes_in_post($post_content)
+	{
+		$quote_end = 0;
+		$number_of_quotes_in_post = substr_count($post_content, "[quote=");
+		for($i=0; $i<$number_of_quotes_in_post; $i++){
+			$quote_start = strpos($post_content, "[quote=", $quote_end);
+			$quote_end = strpos($post_content, "[/quote]", $quote_start) + 8;
+			yield substr($post_content, $quote_start, $quote_end - $quote_start); 
+ 		}
+	}
+
+	private static function extract_post_id($quote_text)
+	{
+		return substr($quote_text, 7, strpos($quote_text, "]") - 7);
+	}
+
+	private static function extract_quote_content($quote_text)
+	{
+		return substr($quote_text, strpos($quote_text, "]") + 1, -8);
 	}
 }

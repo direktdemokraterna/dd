@@ -333,10 +333,6 @@ class db_forum
 	{
 		$query = "select * from post where id = ? and content like ?";
 		$values = Array($post_id, '%' . $quote_text . '%');
-		if(empty(db::select($query, $values)))
-			return false;
-		else
-			return true;
+		return !empty(db::select($query, $values));
 	}
-
 }
