@@ -24,7 +24,7 @@ else {
 	if($constituency_check){
 		$insert_id = db_prop::add_prop($_POST['type_of_vote'], $_SESSION['id'], $_POST['constituency_id'], $title, $description);
 		if($insert_id){
-			db_notice::make_proposition_created_notice($insert_id);
+			//db_notice::make_proposition_created_notice($insert_id);
 			$_SESSION['report_message'] = "Propositionen har skapats.";
 			$redirect = "index.php?type=vote&action=view_prop&id=" . $insert_id;
 		}

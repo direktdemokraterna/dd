@@ -73,10 +73,10 @@ class vote
 				if(mb_stristr($reply , "success"))
 					$_SESSION['report_message'] = "Din röst har registrerats.";
 				else
-					throw new \Exception("Rösten har inte registrerats i anonymise_prop_ballot");
+					throw new \Exception("Rösten har inte registrerats i anonymise_prop_ballot: reply=" . $reply);
 			}
 			else
-				die("Ingen valkretsbehörighet");
+				throw new \Exception("Ingen valkretsbehörighet");
 		}		
 	}
 

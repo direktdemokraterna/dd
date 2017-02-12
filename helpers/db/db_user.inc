@@ -24,7 +24,7 @@ class db_user
 		db::insert($query, $values);
 
 		// Adding user notice settings
-		db_notice::create_user_settings($user_id);
+		//db_notice::create_user_settings($user_id);
 
 		// Adding forum accesses for new user
 		$public_forums = db_forum::get_public_forum_ids();

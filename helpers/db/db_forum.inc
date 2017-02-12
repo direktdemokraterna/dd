@@ -238,7 +238,7 @@ class db_forum
 		$query = "update post set content = " 
 			. $new_content_expression 
 			. $last_edited_expression
-			. "where id = ?";
+			. " where id = ?";
 		$values = $is_add
 			? Array($content, $post_id)
 			: Array($content, time(), $post_id);

@@ -27,7 +27,7 @@ foreach ($users_to_send_emails_to as $user) {
 	}
 	$ok = general_helpers::admin_mail($email_address, $title, $message);
 	if($ok){
-		db_notice::delete_email_notices_for_user($user['user_id']);
-		db_notice::update_last_email_notification($user['user_id'], time());
+		//db_notice::delete_email_notices_for_user($user['user_id']);
+		//db_notice::update_last_email_notification($user['user_id'], time());
 	}
 }

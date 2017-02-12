@@ -139,7 +139,7 @@ class forum
 			if(!$valid_quote)
 				return false;
 			$user_id_of_post = \db_forum::get_post_info($post_id);
-			\db_notice::make_quoting_post_notice($user_id_of_post['user_id'], $post_id);
+			//\db_notice::make_quoting_post_notice($user_id_of_post['user_id'], $post_id);
  		}
 		return true;
 	}
