@@ -198,6 +198,12 @@ form.text-editor {
     padding: 1em 0 0 0;
     margin: 0;
 }
+.footer-widget li[class^="fa-"]:after,
+.standard-form textarea:after {
+	content: '';
+	clear: both;
+	display:table;
+	}
 
 /* TYPOGRAPHY */
 
@@ -325,12 +331,6 @@ li.mb-logout a:before {
 .i-youtube:before {
     content: "\f167";
 }
-
-.footer-widget li[class^="fa-"]:after {
-	content: '';
-	clear: both;
-	display:table;
-	}
 	
 .social-media-icons-dd {
 	text-align: right;
@@ -561,11 +561,18 @@ a.lang-flag {
 .checkbox-form label {
     display: inline;
 }
+.standard-form select,
+.standard-form input[type="text"],
+.standard-form textarea {
+	margin: 10px 0;
+	}
+
+
+
 
 .standard-form select {
     max-width: 100%;
     width: 40%;
-    margin: 10px 0px;
     line-height: 3rem;
     padding: 0 5px;
     font-family: 'Lato';
@@ -587,13 +594,14 @@ a.lang-flag {
 	}
 
 .standard-form textarea {
-    margin-left: 0;
+        margin-left: 0;
     margin-bottom: 20px;
     width: calc(100% - 225px);
     margin-top: 5px;
     height: 250px;
     display: block;
-	margin-left: 225px;
+    margin-left: 225px;
+    /*float: right;*/
 }
 
 .standard-form input[type="checkbox"]{
