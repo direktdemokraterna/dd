@@ -135,12 +135,15 @@ class forum
 		foreach ($quotes_in_post as $quote_text) {
 			$post_id = self::extract_post_id($quote_text);
 			$quote_content = self::extract_quote_content($quote_text);
-			$valid_quote = \db_forum::check_quote_validity($post_id, $quote_content);
-			if(!$valid_quote)
-				return false;
-			else{
-				$user_id_of_post = \db_forum::get_post_info($post_id);
-				\db_notice::make_quoting_post_notice($user_id_of_post['user_id'], $post_id);
+			$quote_chunks = explode("\n", $quote_content);
+			foreach ($quote_chunks as $quote_chunk) {
+				$valid_quote = \db_forum::check_quote_validity($post_id, $quote_chunk);
+				if(!$valid_quote)
+					return false;
+				else{
+					$user_id_of_post = \db_forum::get_post_info($post_id);
+					\db_notice::make_quoting_post_notice($user_id_of_post['user_id'], $post_id);
+				}
 			}
  		}
 		return true;
