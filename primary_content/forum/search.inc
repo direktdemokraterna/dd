@@ -8,5 +8,5 @@
 	else {
 		__h1("Hittade inlägg");
 		$result_count = db_forum::get_post_count_from_search($search_query, $_SESSION['id']);
-		\View\forum::show_posts($page, $posts, $result_count);
+		\View\forum::show_posts($page, $posts, $result_count, true);
 	}

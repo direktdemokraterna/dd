@@ -89,11 +89,15 @@ class forum
 		__h1($topic_title);
 	} 
 
-	public static function show_posts($page, $posts, $post_count) 
+	public static function show_posts($page, $posts, $post_count, $search = false) 
 	{
 		self::output_post_paging_row($page, $post_count);
-		foreach($posts as $post_info)
-			self::output_post($post_info);			
+		foreach($posts as $post_info){
+			if($search)
+				self::output_search_post($post_info);
+			else
+				self::output_post($post_info);			
+		}
 		self::output_post_paging_row($page, $post_count);
 	}
 
@@ -106,6 +110,16 @@ class forum
 		$post_element_id = self::make_post_element_id($post_info['post_id']);
 		general::open_div("single_post_container anchor", $post_element_id);
 		self::make_post_header($post_info, $show_action_buttons);
+		self::make_post_body($post_info);
+		echo '<div style="clear: both;"></div>';
+		general::close_div();
+	}
+
+	public static function output_search_post($post_info, $show_action_buttons = true) 
+	{
+		$post_element_id = self::make_post_element_id($post_info['post_id']);
+		general::open_div("single_post_container anchor");
+		self::make_search_post_header($post_info);
 		self::make_post_body($post_info);
 		echo '<div style="clear: both;"></div>';
 		general::close_div();
@@ -126,6 +140,17 @@ class forum
 			self::make_post_actions($post_info);
 		self::make_post_reference_link($post_id);
 		general::close_span();
+		general::close_div();
+	}
+
+	private static function make_search_post_header($post_info) 
+	{
+		$post_id = $post_info['post_id'];
+		$post_element_id = self::make_post_element_id($post_id);
+		general::open_div("post_search_top_row");
+		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']);
+		self::output_topic_link_for_post($post_info);
+		echo '</span>';
 		general::close_div();
 	}
 
@@ -222,7 +247,7 @@ class forum
 	private static function output_topic_link_for_post($post_info)
 	{
 		$is_first_post = $post_info['topic_id'] == $post_info['post_id'];
-		echo $is_first_post ? ' tråden startad: ' : ' ' . 'svara till: ';
+		echo $is_first_post ? ' Trådstart: ' : ' ' . 'Som svar till: ';
 		__link($post_info['title'], "forum", "show_posts", "topic_id=" . 
 			$post_info['topic_id'] . \View\general::get_from_action_for_url(array('search')));
 		__space();

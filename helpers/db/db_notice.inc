@@ -79,13 +79,13 @@ class db_notice
 	public static function make_vote_started_notice ($vote_id)
 	{
 		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
-		$query = "select u.id as id from user u, constituency_user cu, notice_user_setting n where n.user_id=u.id and cu.constituency_id=? and cu.user_id=u.id and n.view_vote_finished=1";
+		$query = "select u.id as id from user u, constituency_voter cv, notice_user_setting n where n.user_id=u.id and cv.constituency_id=? and cv.voter_id=u.id and n.view_vote_finished=1";
 		$values = Array($constituency_id);
 		$users_who_want_view_notice = db::select($query, $values);
 		foreach ($users_who_want_view_notice as $user) {
 			self::create_notice($user['id'], 'view', 'vote_started', $vote_id);
 		}
-		$query = "select u.id as id from user u, constituency_user cu, notice_user_setting n where n.user_id=u.id and cu.constituency_id=? and cu.user_id=u.id  and n.email_vote_finished=1";
+		$query = "select u.id as id from user u, constituency_voter cv, notice_user_setting n where n.user_id=u.id and cv.constituency_id=? and cv.voter_id=u.id  and n.email_vote_finished=1";
 		$values = Array($constituency_id);
 		$users_who_want_email_notice = db::select($query, $values);
 		foreach ($users_who_want_email_notice as $user) {
@@ -96,13 +96,13 @@ class db_notice
 	public static function make_vote_finished_notice ($vote_id)
 	{
 		$constituency_id = db_constituency::get_vote_constituency_id($vote_id);
-		$query = "select u.id as id from user u, constituency_user cu, notice_user_setting n where n.user_id=u.id and cu.constituency_id=? and cu.user_id=u.id and n.view_vote_finished=1";
+		$query = "select u.id as id from user u, constituency_voter cv, notice_user_setting n where n.user_id=u.id and cv.constituency_id=? and cv.voter_id=u.id and n.view_vote_finished=1";
 		$values = Array($constituency_id);
 		$users_who_want_view_notice = db::select($query, $values);
 		foreach ($users_who_want_view_notice as $user) {
 			self::create_notice($user['id'], 'view', 'vote_finished', $vote_id);
 		}
-		$query = "select u.id as id from user u, constituency_user cu, notice_user_setting n where n.user_id=u.id and cu.constituency_id=? and cu.user_id=u.id  and n.email_vote_finished=1";
+		$query = "select u.id as id from user u, constituency_voter cv, notice_user_setting n where n.user_id=u.id and cv.constituency_id=? and cv.voter_id=u.id  and n.email_vote_finished=1";
 		$values = Array($constituency_id);
 		$users_who_want_email_notice = db::select($query, $values);
 		foreach ($users_who_want_email_notice as $user) {
@@ -113,13 +113,13 @@ class db_notice
 	public static function make_proposition_created_notice ($prop_id)
 	{
 		$constituency_id = db_constituency::get_prop_constituency_id($prop_id);
-		$query = "select u.id as id from user u, constituency_user cu, notice_user_setting n where n.user_id=u.id and cu.constituency_id=? and cu.user_id=u.id and n.view_proposition_created=1 and u.id!=?";
+		$query = "select u.id as id from user u, constituency_voter cv, notice_user_setting n where n.user_id=u.id and cv.constituency_id=? and cv.voter_id=u.id and n.view_proposition_created=1 and u.id!=?";
 		$values = Array($constituency_id, $_SESSION['id']);
 		$users_who_want_view_notice = db::select($query, $values);
 		foreach ($users_who_want_view_notice as $user) {
 			self::create_notice($user['id'], 'view', 'proposition_created', $prop_id);
 		}
-		$query = "select u.id as id from user u, constituency_user cu, notice_user_setting n where n.user_id=u.id and cu.constituency_id=? and cu.user_id=u.id  and n.email_proposition_created=1 and u.id!=?";
+		$query = "select u.id as id from user u, constituency_voter cv, notice_user_setting n where n.user_id=u.id and cv.constituency_id=? and cv.voter_id=u.id  and n.email_proposition_created=1 and u.id!=?";
 		$values = Array($constituency_id, $_SESSION['id']);
 		$users_who_want_email_notice = db::select($query, $values);
 		foreach ($users_who_want_email_notice as $user) {

@@ -73,6 +73,20 @@ div.single_post_container.anchor:last-child {
 .post_top_row {
 	display: none;
 }
+.post_search_top_row {
+	background: #f7f7f7;
+	border-top: 1px solid #ddd;
+	margin-top: 15px;
+	padding: 8px 8px 10px;
+	font-size: 16px;
+	font-weight: normal;
+	font-weight: 400;
+}
+.post_search_top_row:after {
+    content: '';
+    clear: both;
+    display: table;
+}
 .post_date {
 	color: #2b2b2b;
 	width: 25%;
