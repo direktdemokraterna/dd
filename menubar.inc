@@ -17,11 +17,10 @@
 				));
 			?>
 		</li>
-		<?php if(db_message::check_unread($_SESSION['id']) > 0) : ?>
-			<li id="unread-mail"><a href="index.php?type=message&action=inbox" style="min-width: 15px; padding: 0 5px 0 5px;"><span style="font: 400 13px/32px FontAwesome;" class="fa fa-envelope-o" id="fa-envelope-o"></span></a>
-			</li>
-		<?php endif; ?>
-		<li class="mb-messages"><?php
+		<?php
+			$classes = db_message::check_unread($_SESSION['id'])
+				 ? 'mb-messages-unread' : 'mb-messages';
+			echo "<li class='" . $classes . "'>";
 			__link("Meddelanden", "message");
 			\View\controls::output_link_list("message", array(
 				"inbox" => "Inkorg"
