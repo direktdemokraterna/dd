@@ -98,8 +98,8 @@ class forum
 	private static function replace_named_open_quotes($html_text, &$count) {
 		$html_text = preg_replace_callback("/\\[quote=(\d+)\\]/i", 
 			function ($matches) {
-				return "<div class=\"quote_in_post\"><a class=\"quote_in_post_link\" href=\"index.php?type=forum&action=show_posts&post_id=$matches[1]#post$matches[1]\">" .
-				self::get_name_of_poster($matches[1]) . " skrev:</a><br><br>";
+				return "<div class='quote_in_post'><a class='quote_in_post_link' href='index.php?type=forum&action=show_posts&post_id=$matches[1]#post$matches[1]'>" .
+				self::get_name_of_poster($matches[1]) . " skrev:</a>";
 			}, $html_text, -1, $count);
 		return $html_text;	
 	}

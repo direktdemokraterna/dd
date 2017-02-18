@@ -138,10 +138,7 @@ textarea, input[type="text"] {
 .post_content span {
     word-wrap: break-word;
 }
-.quote_in_post + br,
-.quote_in_post br + br {
-	display: none;
-	}
+
 .forum_info + p {
     margin-top: 10px;
     margin-left: 5px;
@@ -230,6 +227,7 @@ input.vote_button, button.vote_button, .median-vote input[type="text"], .green_m
 	line-height: 1.5;
 	font-size: 1.7rem;
 }
+
 .quote_in_post:before {
 	content: '”';
     font-size: 5.9rem;
@@ -244,6 +242,7 @@ input.vote_button, button.vote_button, .median-vote input[type="text"], .green_m
 .quote_in_post > .quote_in_post:before {
 	content:'';
 	}
+
 .small {
 	font-size: 1.3rem;
 	}
