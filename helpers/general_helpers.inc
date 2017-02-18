@@ -103,25 +103,26 @@ class general_helpers {
 		return false;
 	}
 
-	public static function clean_personnummer ($personnummer) { 
+	public static function check_personnummer ($personnummer) {
+		$clean_personnummer = self::clean_personnummer($personnummer);
+		if($clean_personnummer == null || strlen($clean_personnummer) != 10) 
+			return false;
+		$one_two = 2;
+		$control_sum = 0;
+		for ($i=0; $i<9; $i++){ 
+			$temp = $clean_personnummer[$i] * $one_two;
+			$control_sum += ($temp > 9 ? 1 + ($temp % 10) : $temp);
+			$one_two = $one_two == 2 ? 1 : 2;
+		}
+		$control_digit = (10 - $control_sum % 10) % 10;
+		return ($control_digit == $clean_personnummer[9]);
+	}
+
 		$personnummer = str_replace("-", "", $personnummer);
 		if (strlen($personnummer) === 12)
 		    $personnummer = substr($personnummer, 2);
 		if (strlen($personnummer) !== 10) return null;
 		return $personnummer;
-	}
-
-	public static function check_personnummer ($personal_identity_number) {
-		if(strlen($personal_identity_number) != 10) return false;
-		$one_two = 2;
-		$control_sum = 0;
-		for ($i=0; $i<9; $i++){ 
-			$temp = $personal_identity_number[$i] * $one_two;
-			$control_sum += ($temp > 9 ? 1 + ($temp % 10) : $temp);
-			$one_two = $one_two == 2 ? 1 : 2;
-		}
-		$control_digit = (10 - $control_sum % 10) % 10;
-		return ($control_digit == $personal_identity_number[9]);
 	}
 
 	public static function clean ($data, $flags = ENT_COMPAT, $charset = 'ISO-8859-1', $dblencode = true ) {
