@@ -1,4 +1,16 @@
 /**************/
+/* 2017-02-18
+/* New like-funktion for posts
+/**************/
+
+DROP TABLE IF EXISTS `user_like_post`;
+CREATE TABLE `user_like_post` (
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `post_id` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`user_id`, `post_id`)
+) ENGINE = InnoDB DEFAULT CHARSET=latin1;
+
+/**************/
 /* 2017-02-09
 /* Hotfix for making notice functions work with current test users
 /**************/

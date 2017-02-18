@@ -92,12 +92,8 @@ class forum
 	public static function show_posts($page, $posts, $post_count, $search = false) 
 	{
 		self::output_post_paging_row($page, $post_count);
-		foreach($posts as $post_info){
-			if($search)
-				self::output_search_post($post_info);
-			else
-				self::output_post($post_info);			
-		}
+		foreach($posts as $post_info)
+			self::output_post($post_info, $search ? false : true);			
 		self::output_post_paging_row($page, $post_count);
 	}
 
@@ -109,48 +105,8 @@ class forum
 	{
 		$post_element_id = self::make_post_element_id($post_info['post_id']);
 		general::open_div("single_post_container anchor", $post_element_id);
-		self::make_post_header($post_info, $show_action_buttons);
-		self::make_post_body($post_info);
+		self::make_post_body($post_info, $show_action_buttons);
 		echo '<div style="clear: both;"></div>';
-		general::close_div();
-	}
-
-	public static function output_search_post($post_info, $show_action_buttons = true) 
-	{
-		$post_element_id = self::make_post_element_id($post_info['post_id']);
-		general::open_div("single_post_container anchor");
-		self::make_search_post_header($post_info);
-		self::make_post_body($post_info);
-		echo '<div style="clear: both;"></div>';
-		general::close_div();
-	}
-
-	private static function make_post_header($post_info, $show_action_buttons) 
-	{
-		$post_id = $post_info['post_id'];
-		$post_element_id = self::make_post_element_id($post_id);
-		general::open_div("post_top_row");
-		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']);
-		if(in_array($_GET['action'], array("posts_by_user", "search"))){
-			self::output_topic_link_for_post($post_info);
-		}
-		echo '</span>';
-		general::open_span("post_alternatives");
-		if ($show_action_buttons)
-			self::make_post_actions($post_info);
-		self::make_post_reference_link($post_id);
-		general::close_span();
-		general::close_div();
-	}
-
-	private static function make_search_post_header($post_info) 
-	{
-		$post_id = $post_info['post_id'];
-		$post_element_id = self::make_post_element_id($post_id);
-		general::open_div("post_search_top_row");
-		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']);
-		self::output_topic_link_for_post($post_info);
-		echo '</span>';
 		general::close_div();
 	}
 
@@ -159,37 +115,11 @@ class forum
 		return 'post' . $post_id;		
 	}
 
-	private static function make_post_actions($post_info) 
-	{
-		$post_id = $post_info['post_id'];
-		$user_id = $post_info['user_id'];
-		if(isset($_SESSION['is_forum_admin'])) {
-			__link("Moderera", "forum_admin", "edit_post", "id=" . $post_id);
-			__space();
-		}
-		if($user_id == $_SESSION['id']) {
-			if(\Logic\forum::is_recent_post($post_info)) {
-				__link("Radera", "forum", "delete", "id=$post_id"
-					, null, "Vill du verkligen radera det här inlägget?");
-				__space();
-				__link("Ändra", "forum", "edit", "id=" . $post_id);
-				__space();
-			}
-			else{
-				__link("Tillägg", "forum", "add", "id=" . $post_id);
-				__space();
-			}
-		}
-		__link("Rapportera", "forum", "report", "id=" . $post_id);
-		__space();
-		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">' . 'Citera' . '</a>&nbsp;'; 
-	}
-
-	private static function make_post_body($post_info) 
+	private static function make_post_body($post_info, $show_action_buttons) 
 	{
 		general::open_div("post_bottom_row");
 		self::make_post_user_tag($post_info);
-		self::make_post_content($post_info);
+		self::make_post_content($post_info, $show_action_buttons);
 		self::make_post_content_bbcode($post_info);
 		general::close_div();
 	}
@@ -228,6 +158,36 @@ class forum
 				strtolower(\general_helpers::show_date($post_info['last_edited_time']))
 				, "post_last_edited");
 		general::close_div();
+	}
+
+	private static function make_post_actions($post_info) 
+	{
+		$post_id = $post_info['post_id'];
+		$user_id = $post_info['user_id'];
+		if(isset($_SESSION['is_forum_admin'])) {
+			__link("Moderera", "forum_admin", "edit_post", "id=" . $post_id);
+			__space();
+		}
+		if($user_id == $_SESSION['id']) {
+			if(\Logic\forum::is_recent_post($post_info)) {
+				__link("Radera", "forum", "delete", "id=$post_id"
+					, null, "Vill du verkligen radera det här inlägget?");
+				__space();
+				__link("Ändra", "forum", "edit", "id=" . $post_id);
+				__space();
+			}
+			else{
+				__link("Tillägg", "forum", "add", "id=" . $post_id);
+				__space();
+			}
+		}
+		__link("Rapportera", "forum", "report", "id=" . $post_id);
+		__space();
+		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">' . 'Citera' . '</a>&nbsp;'; 
+		__space();
+		echo "<a onclick='like_post(" . $post_id . ")' href='javascript:void(0);'><span title='Gilla' style='font-size: 150%'>&#x1f44d;</span></a>";
+		echo "<span id='likes_count_" . $post_id . "' style='font-size: 67%'>"
+		. ($post_info['like_count']) . "</span>";
 	}
 
 	private static function make_post_content_bbcode($post_info) 

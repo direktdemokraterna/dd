@@ -77,3 +77,15 @@ function focus_on_new_topic_title () {
 	var topic_title = document.getElementById("new_topic_title");	
 	topic_title.focus();
 }
+
+function like_post (post_id) {
+	var like_count_element = $("#likes_count_" + post_id);
+	var count = parseInt(like_count_element.text());
+	like_count_element.text(++count);
+}
+
+function unlike_post (post_id) {
+	var like_count_element = $("#likes_count_" + post_id);
+	var count = parseInt(like_count_element.text());
+	like_count_element.text(--count);
+}

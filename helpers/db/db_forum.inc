@@ -2,6 +2,18 @@
 
 class db_forum 
 {
+	public static function get_posts ($topic_id, $access_user_id, $page = 1, $limit = POSTS_PER_PAGE){
+		$limit_clause = db_general::get_limit_clause($page, $limit);
+		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time as posted_time, p.last_edited_time as last_edited_time, u.image as user_image,
+			(select count(*) from user_like_post where post_id = p.id) as like_count
+					from post p, user u, forum_user fu
+					where p.user_id = u.id and p.topic_id = ? 
+					and fu.user_id = ? and fu.forum_id = p.forum_id 
+					order by posted_time asc " . $limit_clause;
+		$values = Array($topic_id, $access_user_id);
+		return db::select($query, $values);
+	}
+
 	public static function get_last_posts ($num_posts = 10)
 	{
 		$limit_posts = (int) $num_posts;
@@ -9,16 +21,6 @@ class db_forum
 					f.id as forum_id, f.title as forum_title, c.id as cat_id, c.title as cat_title, (select id from post t where t.id = p.topic_id) as topic_id 
 					from post p, user u, category c, forum f, forum_user fu 
 					where p.user_id = u.id and p.forum_id = f.id and f.category_id = c.id and f.id = fu.forum_id and fu.user_id = ? order by p.posted_time desc limit ".$limit_posts;
-		$values = Array($_SESSION['id']);
-		return db::select($query, $values);
-	}
-
-	public static function list_forums ()
-	{
-		$query = "select c.id as cat_id, c.title as cat_name, f.id as forum_id, f.title as forum_name, f.description as description, f.last_posted_time as last_posted_time, f.					last_posted_post as last_posted_id, f.number_of_topics as number_of_topics, f.number_of_posts as number_of_posts
-					from forum f, category c, forum_user fu 
-					where c.id = f.category_id and f.id = fu.forum_id and fu.user_id = ?
-					order by field(f.access_type, 'public', 'workgroup', 'local_region', 'local_county'), f.category_id asc, f.id asc";
 		$values = Array($_SESSION['id']);
 		return db::select($query, $values);
 	}
@@ -38,6 +40,16 @@ class db_forum
 					where u.id = p.user_id and p.id = ? and exists (select * from forum_user where forum_id = p.forum_id and user_id = ?)";
 		$values = Array($post_id, $user_id);
 		return db::select_single_row($query, $values);
+	}
+
+	public static function list_forums ()
+	{
+		$query = "select c.id as cat_id, c.title as cat_name, f.id as forum_id, f.title as forum_name, f.description as description, f.last_posted_time as last_posted_time, f.					last_posted_post as last_posted_id, f.number_of_topics as number_of_topics, f.number_of_posts as number_of_posts
+					from forum f, category c, forum_user fu 
+					where c.id = f.category_id and f.id = fu.forum_id and fu.user_id = ?
+					order by field(f.access_type, 'public', 'workgroup', 'local_region', 'local_county'), f.category_id asc, f.id asc";
+		$values = Array($_SESSION['id']);
+		return db::select($query, $values);
 	}
 
 	public static function get_public_forum_ids ()
@@ -86,17 +98,6 @@ class db_forum
 		$values = Array($user_id, $forum_id);
 		$check = db::select_single_value($query, $values);
 		return $check;
-	}
-
-	public static function get_posts ($topic_id, $access_user_id, $page = 1, $limit = POSTS_PER_PAGE){
-		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time 		as posted_time, p.last_edited_time as last_edited_time, u.image as user_image
-					from post p, user u, forum_user fu
-					where p.user_id = u.id and p.topic_id = ? 
-					and fu.user_id = ? and fu.forum_id = p.forum_id 
-					order by posted_time asc " . $limit_clause;
-		$values = Array($topic_id, $access_user_id);
-		return db::select($query, $values);
 	}
 
 	public static function get_post_count ($post_id)
