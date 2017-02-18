@@ -61,7 +61,8 @@
 					}
 				echo '</div>';
 			}
-		__info("<div class='vote-description'><h2>Beskrivning</h2>", \Logic\text::make_html_from_wiki_text($propinfo['description'] . '</div>'));
+			$description = \Logic\text::make_html_from_wiki_text($propinfo['description']);
+			echo "<div class='vote-description'><h2>Beskrivning</h2>" . $description . '</div>';
 		
 		if($voter_allowed_to_vote) {
 			if($propinfo['status'] == "pending") {
