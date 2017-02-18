@@ -68,7 +68,8 @@ class vote
 	}
 
 	public static function output_vote_description($voteinfo) {
-		__info("<h2>Beskrivning</h2>", \Logic\text::make_html_from_wiki_text($voteinfo['description']));
+		$description = \Logic\text::make_html_from_wiki_text($voteinfo['description']);
+		echo "<div class='vote-description'><h2>Beskrivning</h2>" . $description . '</div>';
 	}
 
 	public static function output_view_cast_ballots($voteinfo) {
