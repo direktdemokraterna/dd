@@ -118,6 +118,7 @@ class general_helpers {
 		return ($control_digit == $clean_personnummer[9]);
 	}
 
+	public static function clean_personnummer ($personnummer) { 
 		$personnummer = str_replace("-", "", $personnummer);
 		if (strlen($personnummer) === 12)
 		    $personnummer = substr($personnummer, 2);
