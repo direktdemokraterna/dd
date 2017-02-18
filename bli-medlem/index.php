@@ -120,6 +120,19 @@ if ($is_all_mandatory_set) {
 
 </div>
 </div>
-
+<script>
+    (function () {
+        var element = document.getElementById('personal_identity_number');
+        function onChangeHandler() {
+            var inputValue = element.value;
+            if ((inputValue.length === 2 || inputValue.length === 10)
+                    && inputValue.substring(0, 2) !== '20'
+                    && inputValue.substring(0, 2) !== '19') {
+                element.value = '19' + inputValue;
+            }
+        }
+        element.addEventListener('keyup', onChangeHandler);
+    })();
+</script>
 </body>
 </html>
