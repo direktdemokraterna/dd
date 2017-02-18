@@ -137,7 +137,7 @@ class db_prop
 
 	public static function get_props_order_by ($qualifier = null, $sort = 0)
 	{
-		$retval = db_general::get_order_by(self::get_qualified_visible_columns($qualifier), 1, $sort);
+		$retval = db_general::get_order_by(self::get_qualified_visible_columns($qualifier), -2, $sort);
 		return $retval;
 	}
 
