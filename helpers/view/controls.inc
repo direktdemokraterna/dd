@@ -181,6 +181,7 @@ class controls
 			: (isset($options['content']) ? $options['content'] : '');
 
 		echo '<form method="post" action="" id="' . $form_name . '" class="text-editor anchor-form scroll">';
+		\general_helpers::initiate_csrf_protection();
 		echo '<fieldset>';		
 		echo '<legend>' . $legend . '</legend>';
 		__hidden("target_id", $target_id);

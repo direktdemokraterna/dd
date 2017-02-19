@@ -52,8 +52,13 @@ class navigation_helpers {
 
 	private static function execute_action($divisionName, $pageInfo) 
 	{
-		$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
-		require($path);
+		if($_SESSION['csrf_token'] != $_POST['csrf_token'])
+			\Logic\util::report_error("CSRF-fel, ladda om sidan och försök igen.");
+		else{
+			$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
+			require($path);
+			$_SESSION['csrf_token'] = null;
+		}
 		if (empty($redirect)) {
 			$redirect = $_SERVER['REQUEST_URI'];
 			if (\Logic\util::page_has_error())

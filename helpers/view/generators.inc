@@ -46,6 +46,7 @@
 
 	function __open_form($class = "standard-form") {
 		echo '<form method="post" action="" class="' . $class . '">';
+		general_helpers::initiate_csrf_protection();
 	}
 
 	function __link($label, $type, $action = null, $params = null, $class = null, $confirm = null) 
