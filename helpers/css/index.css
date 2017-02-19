@@ -188,8 +188,7 @@ form#new_topic_form  {
 }
 
 form#new_post_form.scroll {
-    padding-top: 80px;
-    margin-top: -30px;
+    padding-top: 50px;
 }
 form.text-editor {
     padding: 1em 0 0 0;
