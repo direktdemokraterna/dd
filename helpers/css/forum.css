@@ -70,9 +70,6 @@ div.single_post_container.anchor:last-child {
     clear: both;
     display: table;
 }
-.post_top_row {
-	display: none;
-}
 .post_search_top_row {
 	background: #f7f7f7;
 	border-top: 1px solid #ddd;

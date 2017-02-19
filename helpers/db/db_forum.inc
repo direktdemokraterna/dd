@@ -5,7 +5,8 @@ class db_forum
 	public static function get_posts ($topic_id, $access_user_id, $page = 1, $limit = POSTS_PER_PAGE){
 		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time as posted_time, p.last_edited_time as last_edited_time, u.image as user_image,
-			(select count(*) from user_like_post where post_id = p.id) as like_count
+			(select count(*) from user_like_post where post_id = p.id) as like_count,
+			(select count(*) from user_like_post where post_id = p.id and user_id = fu.user_id) as user_like
 					from post p, user u, forum_user fu
 					where p.user_id = u.id and p.topic_id = ? 
 					and fu.user_id = ? and fu.forum_id = p.forum_id 
@@ -335,5 +336,27 @@ class db_forum
 		$query = "select * from post where id = ? and content like ?";
 		$values = Array($post_id, '%' . $quote_text . '%');
 		return !empty(db::select($query, $values));
+	}
+
+	public static function like_post ($user_id, $post_id)
+	{
+		$query = "insert into user_like_post (user_id, post_id) values (?, ?)";
+		$values = Array($user_id, $post_id);
+		db::insert($query, $values);
+		return self::get_post_likes($post_id);
+	}	
+
+	public static function unlike_post ($user_id, $post_id)
+	{
+		$query = "delete from user_like_post where user_id = ? and post_id = ?";
+		$values = Array($user_id, $post_id);
+		db::delete($query, $values);
+		return self::get_post_likes($post_id);
+	}
+
+	public static function get_post_likes($post_id) {
+		$query = "select count(*) from user_like_post where post_id = ?";
+		$values = Array($post_id);
+		return db::select_single_value($query, $values);
 	}
 }

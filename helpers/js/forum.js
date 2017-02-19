@@ -78,14 +78,43 @@ function focus_on_new_topic_title () {
 	topic_title.focus();
 }
 
-function like_post (post_id) {
-	var like_count_element = $("#likes_count_" + post_id);
-	var count = parseInt(like_count_element.text());
-	like_count_element.text(++count);
+function toggle_like_button (post_id) {
+	var like_link = $("#like_link_" + post_id);
+	var liking_link = $("#liking_link_" + post_id);
+	var like_display = like_link.css("display");
+	var liking_display = liking_link.css("display");
+	liking_link.css("display", like_display);
+	like_link.css("display", liking_display);
 }
 
-function unlike_post (post_id) {
-	var like_count_element = $("#likes_count_" + post_id);
-	var count = parseInt(like_count_element.text());
-	like_count_element.text(--count);
+function get_api_url (action_path, user_id, post_id) {
+    return "/dd/api.php/forum/" + action_path + "?user_id=" + user_id + "&post_id=" + post_id
+}
+
+function ajax_error_handler(url) {
+    return function(xhr, status, error) {
+    	alert(url + ' error: ' + error);	
+    };
+}
+
+function like_post (user_id, post_id) {
+	toggle_like_button(post_id);
+	var url = get_api_url("post/like", user_id, post_id)
+    $.ajax({url: url
+    	, success: function(result){
+			$("#likes_count_" + post_id).text(result);
+    	}
+    	, error: ajax_error_handler(url)
+    });
+}
+
+function unlike_post (user_id, post_id) {
+	var url = get_api_url("post/unlike", user_id, post_id)
+    $.ajax({url: url
+    	, success: function(result){
+			toggle_like_button(post_id);
+			$("#likes_count_" + post_id).text(result);
+    	}
+    	, error: ajax_error_handler(url)
+    });
 }
