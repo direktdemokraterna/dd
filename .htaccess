@@ -1,0 +1,7 @@
+AddDefaultCharset utf-8
+RewriteEngine On
+
+RewriteRule ^.*/images/(.*) /images/$1 [L]
+RewriteRule ^.*/helpers/(.*) /helpers/$1 [L]
+RewriteRule ^(member|message|forum|vote|member_admin|treasurer|superadmin)/(.*) /index.php?type=$1&action=$2 [QSA]
+RewriteRule ^(member|message|forum|vote|member_admin|treasurer|superadmin) /index.php?type=$1 [QSA]
