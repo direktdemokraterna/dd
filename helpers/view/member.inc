@@ -4,13 +4,12 @@ namespace View;
 class member 
 {
 	public static function output_edit_fields($user_data = null, $include_social_security_number = true, &$tab_index = 1) {
-		__textfield("username", "Användarnamn", $tab_index++, $user_data);
+		__textfield("username", "Användarnamn", $tab_index++, $user_data, ['required' => null]);
 		__textfield("first_name", "Förnamn", $tab_index++, $user_data);
 		__textfield("last_name", "Efternamn", $tab_index++, $user_data);
 		if ($include_social_security_number)
-			__textfield("social_security_number", "Personnummer", 
-				$tab_index++, $user_data);			
-		__textfield("email", "Mejladress", $tab_index++, $user_data);
+			__textfield("social_security_number", "Personnummer", $tab_index++, $user_data);
+		__textfield("email", "Mejladress", $tab_index++, $user_data, ['required' => null]);
 		__textfield("street_address", "Gatuadress", $tab_index++, $user_data);
 		__textfield("zip_code", "Postnummer", $tab_index++, $user_data);
 		__textfield("city_address", "Postort", $tab_index++, $user_data);

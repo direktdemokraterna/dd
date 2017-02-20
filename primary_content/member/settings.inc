@@ -8,10 +8,11 @@
 	__open_form();
 	\View\member::output_edit_fields($user_settings, false, $tab_index);
 	__br();
-	__submit_and_close("Ändra", "profile");
+	__submit_and_close("Ändra", "profile", null, $tab_index++);
 
 	__h2("Presentation");
 	\View\controls::output_text_editor(array(
+	    'tab_index' => $tab_index++,
 		'name' => 'description'
 		,'legend' => "Personlig beskrivning (synlig för alla medlemmar)"
 		,'target_id' => $user_settings['id']
@@ -28,7 +29,7 @@
 	__br();
 	echo '<img class="image150" src="' . USERIMG_PATH . 'userimg_150_width/' . $user_settings['image'] . '">';
 	__br();
-	__submit_and_close("Ändra", "image");
+	__submit_and_close("Ändra", "image", null, $tab_index++);
 	
 	__h2("Inställningar");
 	__open_form();
@@ -36,7 +37,7 @@
 	__checkbox("show_telephone", "Visa telefonnummer", 1, $tab_index++, $user_settings);
 	__checkbox("show_skype", "Visa Skype-namn", 1, $tab_index++, $user_settings);	
 	__br();
-	__submit_and_close("Ändra", "settings");
+	__submit_and_close("Ändra", "settings", null, $tab_index++);
 	
 	__h2("Ändra lösenord");
 	__open_form();
@@ -44,7 +45,7 @@
 	__password("new_password1", "Nytt lösenord", $tab_index++);
 	__password("new_password2", "Upprepa nytt lösenord", $tab_index++);
 	__br();
-	__submit_and_close("Ändra", "password");
+	__submit_and_close("Ändra", "password", null, $tab_index);
 
 	__h2("Notifieringar");
 	__open_form();
@@ -78,6 +79,6 @@
 	__br();
 	\View\controls::output_selector("email_notification_interval", $interval_options, $notice_user_settings['email_notification_interval']);
 	__br();
-	__submit_and_close("Uppdatera", "notice");
+	__submit_and_close("Uppdatera", "notice", null, $tab_index++);
 
 ?>
