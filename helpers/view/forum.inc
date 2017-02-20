@@ -92,8 +92,12 @@ class forum
 	public static function show_posts($page, $posts, $post_count, $search = false) 
 	{
 		self::output_post_paging_row($page, $post_count);
-		foreach($posts as $post_info)
-			self::output_post($post_info, $search ? false : true);			
+		foreach($posts as $post_info){
+			if($search)
+				self::output_search_post($post_info);
+			else
+				self::output_post($post_info, true);			
+		}
 		self::output_post_paging_row($page, $post_count);
 	}
 
@@ -107,6 +111,27 @@ class forum
 		general::open_div("single_post_container anchor", $post_element_id);
 		self::make_post_body($post_info, $show_action_buttons);
 		echo '<div style="clear: both;"></div>';
+		general::close_div();
+	}
+
+	public static function output_search_post($post_info) 
+	{
+		$post_element_id = self::make_post_element_id($post_info['post_id']);
+		general::open_div("single_post_container anchor");
+		self::make_search_post_header($post_info);
+		self::make_post_body($post_info, false);
+		echo '<div style="clear: both;"></div>';
+		general::close_div();
+	}
+
+	private static function make_search_post_header($post_info) 
+	{
+		$post_id = $post_info['post_id'];
+		$post_element_id = self::make_post_element_id($post_id);
+		general::open_div("post_search_top_row");
+		echo '<span class="post_date">' . \general_helpers::show_date($post_info['posted_time']);
+		self::output_topic_link_for_post($post_info);
+		echo '</span>';
 		general::close_div();
 	}
 
@@ -185,13 +210,27 @@ class forum
 		__space();
 		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">' . 'Citera' . '</a>&nbsp;'; 
 		__space();
+		self::output_like_control($user_id, $post_id, $post_info);
+	}
+
+	private static function output_like_control($user_id, $post_id, $post_info) {
 		$user_likes_post = $post_info["user_like"];
 		self::output_like_link($_SESSION['id'], $post_id, $user_likes_post);
+		//self::output_like_flavor_panel();
 		self::output_liking_link($_SESSION['id'], $post_id, $user_likes_post);
 		echo "<span id='likes_count_" . $post_id . "' style='font-size: 67%'>"
 		. ($post_info['like_count']) . "</span>";
 	}
-
+/*
+	private static function output_like_flavor_panel($user_id, $post_id, $user_likes_post) {
+		$img_element = "<img style='margin-bottom: -10px' title='Gillar' height=30px; width=30px; src='images/neutral-thumbs-up-48.png'>";
+		$id_attribute = "id='liking_link_" . $post_id . "'";
+		$action_attribute = "onclick='unlike_post(" . $user_id . ", " . $post_id . ")'";
+		$style_attribute = "style='display: " . ($user_likes_post ? "inline" : "none") . "'";
+		echo "<a " . $id_attribute . " " . $action_attribute 
+			. " href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
+	}
+*/
 	private static function output_like_link($user_id, $post_id, $user_likes_post) {
 		$img_element = "<img style='margin-bottom: -6px' title='Gilla' height=20px; width=20px; src='images/neutral-thumbs-up-48.png'>";
 		$id_attribute = "id='like_link_" . $post_id . "'";
@@ -209,7 +248,15 @@ class forum
 		echo "<a " . $id_attribute . " " . $action_attribute 
 			. " href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
 	}
-
+/*
+	private static function output_big_like_link($js_func, $post_id, $visible, $title, $flavor) {
+		$img_element = "<img style='margin-bottom: -10px' title='" . $title . "' height=30px; width=30px; src='images/" . $flavor . "-thumbs-up-48.png'>";
+		$id_attribute = "id='liking_link_" . $post_id . "'";
+		$action_attribute = "";
+		$style_attribute = "style='display: " . ($user_likes_post ? "inline" : "none") . "'";
+		echo "<a " . $id_attribute . " onclick='" . $js_func . "' href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
+	}
+*/
 	private static function make_post_content_bbcode($post_info) 
 	{
 		$post_id = $post_info['post_id'];
