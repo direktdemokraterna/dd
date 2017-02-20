@@ -103,28 +103,40 @@ class general_helpers {
 		return false;
 	}
 
-	public static function check_personnummer ($personnummer) {
-		$clean_personnummer = self::clean_personnummer($personnummer);
-		if($clean_personnummer == null || strlen($clean_personnummer) != 10) 
-			return false;
-		$one_two = 2;
-		$control_sum = 0;
-		for ($i=0; $i<9; $i++){ 
-			$temp = $clean_personnummer[$i] * $one_two;
-			$control_sum += ($temp > 9 ? 1 + ($temp % 10) : $temp);
-			$one_two = $one_two == 2 ? 1 : 2;
-		}
-		$control_digit = (10 - $control_sum % 10) % 10;
-		return ($control_digit == $clean_personnummer[9]);
+	public static function check_personnummer ($personal_number) {
+		$clean_personal_number = substr(self::clean_personnummer($personal_number), 2);
+		return self::luhn_algorithm_check($clean_personal_number);
 	}
 
-	public static function clean_personnummer ($personnummer) { 
-		$personnummer = str_replace("-", "", $personnummer);
-		if (strlen($personnummer) === 12)
-		    $personnummer = substr($personnummer, 2);
-		if (strlen($personnummer) !== 10) return null;
-		return $personnummer;
+	// Removes "-" and converts to 12 digits.
+    // If 10 digits and starting with 0 or 1 then 20 is added as prefix, when starting with another digit 19 is added
+    // This logic is not 100 % accurate so best is to always require 12 digits to avoid problems
+	public static function clean_personnummer ($personal_number) {
+		$personal_number = str_replace("-", "", $personal_number);
+        if (strlen($personal_number) === 10) {
+            if (substr($personal_number, 0, 1) === "0" || substr($personal_number, 0, 1) === "1") {
+                return "20" . $personal_number;
+            } else {
+                return "19" . $personal_number;
+            }
+        }
+		if (strlen($personal_number) !== 12) return null;
+		return $personal_number;
 	}
+
+	private static function luhn_algorithm_check ($short_personal_number) {
+        if ($short_personal_number === null || strlen($short_personal_number) !== 10)
+            return false;
+        $one_two = 2;
+        $control_sum = 0;
+        for ($i=0; $i<9; $i++){
+            $temp = $short_personal_number[$i] * $one_two;
+            $control_sum += ($temp > 9 ? 1 + ($temp % 10) : $temp);
+            $one_two = $one_two == 2 ? 1 : 2;
+        }
+        $control_digit = (10 - $control_sum % 10) % 10;
+        return ($control_digit == $short_personal_number[9]);
+    }
 
 	public static function clean ($data, $flags = ENT_COMPAT, $charset = 'ISO-8859-1', $dblencode = true ) {
 		return htmlspecialchars($data, $flags, $charset, $dblencode);
