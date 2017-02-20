@@ -5,25 +5,25 @@
 }
 
 .user_presentation_left img{margin-bottom: 10px}
-.user_presentation_left p{margin:20px 0px;}
+.user_presentation_left p{margin:20px 0;}
 .user_presentation_left a{padding: 10px 5px}
 .user_presentation_left p a.active{background: #eee}
 
 .user_presentation_right {
-	margin: 0px 0px 0px 20px;
+	margin: 0 0 0 20px;
     overflow: hidden;
     text-align: left;
 }
 
-.user_presentation_right p{margin: 0px 0px 5px 20px}
-.user_presentation_right form{margin: 0px 0px 5px 20px}
+.user_presentation_right p{margin: 0 0 5px 20px}
+.user_presentation_right form{margin: 0 0 5px 20px}
 
 .image150 {
     width: 150px;	
 	border-radius: 10px;
-	-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
-	-moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
-	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+	-webkit-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.25);
+	-moz-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.25);
+	box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.25);
 	border: 1px solid #7d7d7d;
 }
 

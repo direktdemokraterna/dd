@@ -367,7 +367,7 @@ span.fa.fa-youtube:hover {  background-color: #e52d27; }
 /* FORMS, FIELDSETS & INPUTS */
 select {
   -webkit-appearance: none;
-  -webkit-border-radius: 0px;
+  -webkit-border-radius: 0;
 }
 input[type="submit"],
 button[type="submit"],
@@ -406,16 +406,16 @@ textarea#new_topic_content {
 fieldset .post_content {
 	border: 1px solid #e3e3e3;
     border-radius: 20px;
-	-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
-    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+	-webkit-box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.15);
 }
 .post_content {
 	border: 1px solid #e3e3e3;
     border-radius: 20px;
-	-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
-    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
-    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.15);
+	-webkit-box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.15);
 }
 fieldset textarea {
 	margin: 0 0 20px;
@@ -558,7 +558,7 @@ a.lang-flag {
 .standard-form label {
     display: inline-block;
     margin-right: 5px;
-    padding: 10px 0px;
+    padding: 10px 0;
     width: 220px;
     font-size: 14px
 }

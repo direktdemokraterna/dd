@@ -137,9 +137,9 @@ span.perma-link a,
 	margin-bottom: 5px;
 	max-width: 140px;
 	border-radius: 10px;
-	-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
-	-moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
-	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+	-webkit-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.25);
+	-moz-box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.25);
+	box-shadow: 2px 2px 5px 0 rgba(0,0,0,0.25);
 	border: 1px solid #e3e3e3;
 }
 .post_content {
@@ -167,10 +167,10 @@ span.perma-link a,
 		padding: 8 0 8 0;
 	}
 	.post_user_image {
-		margin-left: 0px;
+		margin-left: 0;
 	}
 	.post_content {
-		min-height: 0px;
+		min-height: 0;
 	}
 }
 .new_post_content {
@@ -198,7 +198,7 @@ fieldset label {
 fieldset input {
 }
 fieldset input[type="text"] {
-	margin: 0px 0px 20px;
+	margin: 0 0 20px;
 	width: 95%;
 	max-width: 400px;
 	height: 40px;
@@ -208,12 +208,12 @@ fieldset input[type="submit"] {
 }
 #post_buttons_div {
 	margin-left: 10px;
-	padding: 10px 10px 0px 10px;
+	padding: 10px 10px 0 10px;
 	background: #f5f5f5;
 }
 #post_buttons_div input[type="button"] {
 	margin-right: 1px;
-	padding: 0px 5px;
+	padding: 0 5px;
 	border-radius: 3px;
 	border: 1px solid #ccc;
 	background: #f7f7f7;
@@ -235,7 +235,7 @@ fieldset input[type="submit"] {
 }
 #format_buttons_div input[type="button"] {
 	margin-right: 3px;
-	padding: 0px 5px;
+	padding: 0 5px;
 	border-radius: 0;
 	border: 1px solid #ccc;
 	background: #fff;
