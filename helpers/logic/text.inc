@@ -16,6 +16,7 @@ class text
 	public static function make_html_from_wiki_text($wiki_text) {
 		try {
 			$html_text = self::replace_brackets_with_html_tags($wiki_text);
+            $html_text = self::replace_links_with_a_tags($html_text);
 			$html_text = nl2br($html_text, false);
 		}
 		catch (\Exception $ex) {
@@ -38,7 +39,6 @@ class text
 		$html_text = $wiki_text;
 		foreach (self::$html_tags_by_bbc_tag as $bbc_tag => $html_tag)
 			$html_text = str_replace($bbc_tag, $html_tag, $html_text);	
-		$html_text = self::replace_links_with_a_tags($html_text);
 		return $html_text;
 	}
 	
