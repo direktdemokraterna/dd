@@ -16,7 +16,3 @@
 		<button type="submit" value="Välj">Välj</button>
 	</fieldset>
 </form>
-
-<?php if(isset($_POST['user_id'])) : ?>
-	<?php
-		
