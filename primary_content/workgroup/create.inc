@@ -1,4 +1,6 @@
-<form method="post" action="" class="text-editor">
+<?php
+    __open_form("text-editor");
+?>
 	<fieldset>
 		<legend class="create_new_topic">Skapa ny arbetsgrupp</legend>
 		<label for "title">Arbetsgruppens namn</label>

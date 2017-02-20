@@ -1,8 +1,7 @@
 <?php 
 	__h1("Registrera utbetalning");
+    __open_form();
 ?>
-
-<form method="post" action="" class="standard-form">
 	<fieldset>
 		<legend>Registrera utbetalning</legend>
 		<label for "amount">Utbetald summa</label>

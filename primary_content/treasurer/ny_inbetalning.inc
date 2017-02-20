@@ -1,8 +1,7 @@
 <?php 
 	__h1("Registrera inbetalning");
+    __open_form();
 ?>
-
-<form method="post" action="" class="standard-form">
 	<fieldset>
 		<legend>Registrera inbetalning</legend>
 		<label for "amount">Inbetald summa</label>

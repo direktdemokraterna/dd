@@ -2,8 +2,8 @@
 	$post_info = db_forum::get_full_post_info($_GET['id'], $_SESSION['id']);
 	__h1("Rapportera inlägg");
 	\View\forum::output_post($post_info, false);
+__open_form("text-editor");
 ?>
-<form method="post" action="" id="report_post_form" class="text-editor">
 	<fieldset>
 		<legend class="report_post">Motivera varför detta inlägg ska rapporteras</legend>
 		<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">

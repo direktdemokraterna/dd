@@ -1,8 +1,7 @@
 <?php 
 	__h1("Medlemsavgifter");
+    __open_form();
 ?>
-
-<form method="post" action="" class="standard-form">
 	<fieldset>
 		<legend>Välj användare</legend>
 		<select name="user_id" id="user_id">
