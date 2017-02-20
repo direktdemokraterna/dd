@@ -5,7 +5,6 @@
 			\View\controls::output_link_list("member", array(
 				"list" => "Visa alla medlemmar"
 				,"settings" => "Ändra inställningar"
-				,"calendar" => "Kalender"
 				));
 		?>
 	</li>
