@@ -26,7 +26,7 @@
 			$redirect = "index.php?type=member&action=calendar&year=" . $year . "&month=" . $month . "&day=" . $day;
 		}
 		else {
-			$_SESSION['report_message'] = Något gick fel. Inga ändringar utförda.;
+			$_SESSION['report_message'] = "Något gick fel. Inga ändringar utförda.";
 			$_SESSION['red_report_message'] = 1;
 		}
 		
