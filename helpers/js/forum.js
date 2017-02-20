@@ -88,7 +88,8 @@ function toggle_like_button (post_id) {
 }
 
 function get_api_url (action_path, user_id, post_id) {
-    return "/dd/api.php/forum/" + action_path + "?user_id=" + user_id + "&post_id=" + post_id
+	var basePath = window.location.pathname.replace("index", "api") + "/forum/";
+    return basePath + action_path + "?user_id=" + user_id + "&post_id=" + post_id
 }
 
 function ajax_error_handler(url) {
