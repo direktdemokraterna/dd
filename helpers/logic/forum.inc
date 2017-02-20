@@ -116,17 +116,29 @@ class forum
 	private static function create_post($topic_id, $post_content) 
 	{
 		$processed_content = \Logic\text::process_text($post_content);
-		$are_quotes_valid = self::check_quote_sanity($processed_content);
-		if(!$are_quotes_valid){
-			\Logic\util::report_error("Citaten i ditt inlägg är inte korrekta.");
-			return 0;
-		}
+//		$are_quotes_valid = self::check_quote_sanity($processed_content);
+//		if(!$are_quotes_valid){
+//			\Logic\util::report_error("Citaten i ditt inlägg är inte korrekta.");
+//			return 0;
+//		}
 		$post_insert_id = \db_forum::new_post($_SESSION['id'], $topic_id, $processed_content);
-		if($post_insert_id)
+		if($post_insert_id){
+			self::check_quotes($processed_content, $post_insert_id);
 			$_SESSION['report_message'] = "Inlägg skapat.";
+		}
 		else
 			\Logic\util::report_error("Inlägget kunde inte skapas.");
 		return $post_insert_id;
+	}
+
+	private static function check_quotes($post_content, $new_post_id)
+	{
+		$quotes_in_post = self::get_quotes_in_post($post_content);
+		foreach ($quotes_in_post as $quote_text) {
+			$post_id = self::extract_post_id($quote_text);
+			$user_id_of_post = \db_forum::get_user_id_from_post($post_id);
+			\db_notice::make_quoting_post_notice($user_id_of_post, $new_post_id);
+ 		}
 	}
 
 	private static function check_quote_sanity($post_content)
@@ -141,8 +153,8 @@ class forum
 				if(!$valid_quote)
 					return false;
 				else{
-					$user_id_of_post = \db_forum::get_post_info($post_id);
-					\db_notice::make_quoting_post_notice($user_id_of_post['user_id'], $post_id);
+					$user_id_of_post = \db_forum::get_user_id_from_post($post_id);
+					\db_notice::make_quoting_post_notice($user_id_of_post, $post_id);	// Här är det fel, det är inte $post_id som ska bifogas utan $post_insert_id från det nya inlägget. Men detta har inte skapats än vilket gör hela den här funktionen helt misslyckad. Därför är den avvecklad och ligger bara kvar här för referensbehov. 
 				}
 			}
  		}

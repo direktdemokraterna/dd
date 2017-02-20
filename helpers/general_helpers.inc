@@ -306,6 +306,8 @@ class general_helpers {
 	public static function remove_notices() {
 		if(isset($_REQUEST['remove_all_notices'])){
 			db_notice::remove_all_view_notices($_SESSION['id']);
+			$redirect = str_replace("&remove_all_notices=1", "", $_SERVER['REQUEST_URI']);
+			header("Location: $redirect");
 		}
 		if(isset($_REQUEST['remove_notice'])){
 			db_notice::remove_own_notice($_REQUEST['remove_notice']);

@@ -29,16 +29,16 @@ class db_vote_admin
 	{
 		$query = "insert into vote (type, status, constituency_id, title, description , forum_topic_id, timestamp_created, timestamp_ended, timestamp_delegate_ended) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = Array($type, $status, $constituency_id, $title, $description, $forum_topic_id, time(), $timestamp_ended, $timestamp_delegate_ended);
-		$return = db::insert($query, $values);
+		$return_value = db::insert($query, $values);
 		db_notice::make_vote_started_notice($vote_id);
-		return $return;
+		return $return_value;
 	}
 
 	public static function create_workgroup_election ($workgroup_id, $constituency_id, $title, $description, $forum_topic_id)
 	{
 		$query = "insert into vote (type, status, from_proposition_id, constituency_id, title, description, forum_topic_id, timestamp_created) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		$values = Array("workgroup-election", "continuous", $workgroup_id, $constituency_id, $title, $description, $forum_topic_id, time());
-		$return = db::insert($query, $values);
+		$return_value = db::insert($query, $values);
 		db_notice::make_vote_started_notice($vote_id);
 		return $return;
 	}
@@ -80,7 +80,7 @@ class db_vote_admin
 	{
 		$query = "update vote set status = 'ended', timestamp_ended = ? where id = ?";
 		$values = Array(time(), $vote_id);
-		$return = db::update($query, $values);
+		$return_value = db::update($query, $values);
 		db_notice::make_vote_finished_notice($vote_id);
 		return $return;
 	}
@@ -113,7 +113,7 @@ class db_vote_admin
 	{
 		$query = "update vote set status = 'finished', timestamp_ended = ? where id = ?";
 		$values = Array(time(), $vote_id);
-		$return = db::update($query, $values);
+		$return_value = db::update($query, $values);
 		db_notice::make_vote_finished_notice($vote_id);
 		return $return;
 	}

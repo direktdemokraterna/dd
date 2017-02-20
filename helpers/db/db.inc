@@ -19,6 +19,8 @@ class db
 	// returns a result array from a select query
 	public static function select ($query, $values)
 	{
+		if(!is_array($values))
+			$values = Array($values);
 		$db = self::connect();
 		$stmt = $db->prepare($query);
 		$stmt->execute($values);
@@ -46,6 +48,8 @@ class db
 	// returns single value from a select query
 	public static function select_single_value ($query, $values)
 	{
+		if(!is_array($values))
+			$values = Array($values);
 		$db = self::connect();
 		$stmt = $db->prepare($query);
 		$stmt->execute($values);
@@ -56,6 +60,8 @@ class db
 	// returns single row from a select query
 	public static function select_single_row ($query, $values)
 	{
+		if(!is_array($values))
+			$values = Array($values);
 		$db = self::connect();
 		$stmt = $db->prepare($query);
 		$stmt->execute($values);
@@ -66,6 +72,8 @@ class db
 	// executes an insert query, returns insert_id
 	public static function insert ($query, $values)
 	{
+		if(!is_array($values))
+			$values = Array($values);
 		$db = self::connect();
 		$stmt = $db->prepare($query);
 		$stmt->execute($values);
@@ -98,6 +106,8 @@ class db
 
 	public static function execute ($query, $values)
 	{
+		if(!is_array($values))
+			$values = Array($values);
 		$db = self::connect();
 		$stmt = $db->prepare($query);
 		$stmt->execute($values);
