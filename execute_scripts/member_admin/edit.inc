@@ -5,7 +5,22 @@ if(isset($_POST['edit_user'])){
 		\Logic\util::report_error($error);
 	else{
 		$region_id = db_constituency::get_region_id_from_county_id($_POST['county_id']);
-		$ok = db_user::update_user_by_admin($_POST['username'], $_POST['first_name'], $_POST['last_name'], $_POST['street_address'], $_POST['zip_code'], $_POST['city_address'], $_POST['county_id'], $region_id, $_POST['social_security_number'], $_POST['email'], $_POST['skype_name'], $_POST['telephone1'], $_POST['telephone2'], $_GET['id']);
+		$ok = db_user::update_user_by_admin(
+		    general_helpers::clean($_POST['username']),
+            general_helpers::clean($_POST['first_name']),
+            general_helpers::clean($_POST['last_name']),
+            general_helpers::clean($_POST['street_address']),
+            general_helpers::clean($_POST['zip_code']),
+            general_helpers::clean($_POST['city_address']),
+            general_helpers::clean($_POST['county_id']),
+            $region_id,
+            general_helpers::clean($_POST['social_security_number']),
+            general_helpers::clean($_POST['email']),
+            general_helpers::clean($_POST['skype_name']),
+            general_helpers::clean($_POST['telephone1']),
+            general_helpers::clean($_POST['telephone2']),
+            general_helpers::clean($_GET['id'])
+        );
 		if($ok){
 			\Logic\forum::update_county_region_forum_access($_GET['id'], $_POST['county_id']);
 			\Logic\constituency::update_county_region_constituencies($_SESSION['id'], $_POST['county_id']);

@@ -13,7 +13,7 @@
 			$_SESSION['red_report_message'] = 1;
 		}
 
-		if($_POST['type_of_transaction'] != "utbetalning"){
+		if($_POST['type_of_transaction'] !== "utbetalning"){
 			$_SESSION['report_message'] = "Felaktig typ av utbetalning."; 
 			$_SESSION['red_report_message'] = 1;
 		}
