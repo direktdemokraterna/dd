@@ -28,10 +28,13 @@
 	__br();
 	__label("Nuvarande bild:", "");
 	__br();
-	echo '<img class="image150" src="' . USERIMG_PATH . 'userimg_150_width/' . $user_settings['image'] . '">';
+	echo '<img class="image150" src="' . USERIMG_PATH . 'userimg_150_width/' . $user_settings['image'] . '" alt="Nuvarande profilbild" title="Nuvarande profilbild">';
+    __br();
+    __label("Förhandsgranskning ny bild:", "");
+    __br();
+    echo '<img id="previewImage" class="image150" src="' . USERIMG_PATH . 'no_image.png" alt="Förhandsgranskning" title="Förhandsgranskning">';
 	__br();
 	__submit_and_close("Ändra", "image", null, $tab_index++);
-	
 	__h2("Inställningar");
 	__open_form();
 	__checkbox("show_email", "Visa mejladress", 1, $tab_index++, $user_settings);	
@@ -83,3 +86,24 @@
 	__submit_and_close("Uppdatera", "notice", null, $tab_index++);
 
 ?>
+<script>
+    (function () {
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#previewImage').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#settings_image").change(function(){
+            readURL(this);
+        });
+
+    })();
+</script>
+
