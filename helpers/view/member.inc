@@ -4,7 +4,7 @@ namespace View;
 class member 
 {
 	public static function output_edit_fields($user_data = null, $include_social_security_number = true, &$tab_index = 1) {
-		__textfield("username", "Användarnamn", $tab_index++, $user_data, ['required' => null]);
+		__textfield("username", "Användarnamn", $tab_index++, $user_data, ['required' => null, 'autofocus' => null]);
 		__textfield("first_name", "Förnamn", $tab_index++, $user_data);
 		__textfield("last_name", "Efternamn", $tab_index++, $user_data);
 		if ($include_social_security_number)
