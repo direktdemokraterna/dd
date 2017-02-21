@@ -21,6 +21,7 @@
 
 	__h2("Bild");
 	echo '<form enctype="multipart/form-data" class="standard-form" method="post" action="">';
+    general_helpers::initiate_csrf_protection();
 	__br();
 	__label("Personlig bild (jpg, gif eller png)",  "settings_image");
 	echo '<input type="file" name="image" value="" id="settings_image">';
