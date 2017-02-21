@@ -5,7 +5,8 @@
 FROM tutum/lamp
 
 RUN apt-get update && apt-get install -y \
-    php5-curl
+    php5-curl \
+    php5-gd
 
 COPY . /app
 COPY docker /
