@@ -38,7 +38,7 @@
 			$_SESSION['report_message'] = "Inga ändringar utförda.";
 	}
 	elseif(isset($_POST['description_content'])){
-		$ok = db_delegate::update_delegate_description($_SESSION['id'], $_POST['description_content']);
+		$ok = db_delegate::update_delegate_description($_SESSION['id'], general_helpers::clean($_POST['description_content']));
 		if($ok)
 			$_SESSION['report_message'] = "Din delegats beskrivning har uppdaterats.";
 		else
