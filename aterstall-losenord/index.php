@@ -11,6 +11,9 @@ if(isset($_POST['reset_token']) && isset($_POST['password'])) {
 	}
 }
 elseif (isset($_POST['user_email'])) {
+	if($_SESSION['csrf_token'] != $_POST['csrf_token'])
+		die("Det här gick inte så bra. Ladda om föregående sida och försök igen.");
+
     $send_activation_code_result = \Logic\resetpassword::send_reset_token($_POST['user_email']);
 
 	if ($send_activation_code_result) {
@@ -80,6 +83,7 @@ elseif (isset($_POST['user_email'])) {
 	<?php endif; ?>
 <?php else : ?>
 	<form method="post" action="" class="login-form">
+		<?php general_helpers::initiate_csrf_protection(); ?>
 		<p>Skriv in din mejladress. Ett mejl med en återställningskod kommer att skickas till dig. Med hjälp av koden kan du återställa ditt lösenord.</p><br>
 		<label for="user_email">Mejladress</label>
 		<input type="text" name="user_email" id="user_email" value="" autofocus required><br>
