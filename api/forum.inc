@@ -7,14 +7,14 @@
 	include("/helpers/db/db_forum.inc");
 
 	class forum {
-		public static function like_post($user_id, $post_id) {
-			$like_count = \db_forum::like_post($user_id, $post_id);
-			return $like_count;
+		public static function like_post($user_id, $post_id, $flavor) {
+			$new_likes = \db_forum::like_post($user_id, $post_id, $flavor);
+			return $new_likes;
 		}
 
 		public static function unlike_post($user_id, $post_id) {
-			$like_count = \db_forum::unlike_post($user_id, $post_id);
-			return $like_count;
+			$new_likes = \db_forum::unlike_post($user_id, $post_id);
+			return $new_likes;
 		}
 	}
 ?>

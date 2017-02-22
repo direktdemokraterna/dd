@@ -1,10 +1,21 @@
 /**************/
+/* 2017-02-22
+/* Added flavor to like-funktion for posts
+/**************/
+
+ALTER TABLE `dd`.`user_like_post` 
+ADD COLUMN `flavor` VARCHAR(20) NULL DEFAULT 'neutral' AFTER `post_id`;
+
+ALTER TABLE `dd`.`user_like_post` 
+MODIFY COLUMN `flavor` VARCHAR(20) NOT NULL;
+
+/**************/
 /* 2017-02-18
 /* New like-funktion for posts
 /**************/
 
-DROP TABLE IF EXISTS `user_like_post`;
-CREATE TABLE `user_like_post` (
+DROP TABLE IF EXISTS `dd`.`user_like_post`;
+CREATE TABLE `dd`.`user_like_post` (
   `user_id` INTEGER UNSIGNED NOT NULL,
   `post_id` INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY (`user_id`, `post_id`)

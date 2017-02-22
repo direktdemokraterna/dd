@@ -87,9 +87,9 @@ function toggle_like_button (post_id) {
 	like_link.css("display", liking_display);
 }
 
-function get_api_url (action_path, user_id, post_id) {
+function get_api_url (action_path, user_id, post_id, flavor) {
 	var basePath = window.location.pathname.replace("index", "api") + "/forum/";
-    return basePath + action_path + "?user_id=" + user_id + "&post_id=" + post_id
+    return basePath + action_path + "?user_id=" + user_id + "&post_id=" + post_id + "&flavor=" + flavor;
 }
 
 function ajax_error_handler(url) {
@@ -98,23 +98,43 @@ function ajax_error_handler(url) {
     };
 }
 
-function like_post (user_id, post_id) {
+function open_like_panel (post_id) {
+	var likePanel = $("#like_panel_" + post_id);
+	likePanel.css("display", "block");
+	likePanel.mouseleave(function(){
+		$("#like_panel_" + post_id).css("display", "none");
+    });
+}
+
+function update_likes_flavor (link_id, newLikes) {
+	$("#" + link_id).children().attr("src","images/" + newLikes.flavor + "-thumbs-up-48.png");
+}
+
+function update_likes (post_id, result) {
+	var newLikes = JSON.parse(result);
+	$("#likes_count_" + post_id).text(newLikes.count);
+	update_likes_flavor("like_link_" + post_id, newLikes);
+	update_likes_flavor("liking_link_" + post_id, newLikes);
+}
+
+function like_post (user_id, post_id, flavor) {
+	$("#like_panel_" + post_id).css("display", "none");
 	toggle_like_button(post_id);
-	var url = get_api_url("post/like", user_id, post_id)
+	var url = get_api_url("post/like", user_id, post_id, flavor)
     $.ajax({url: url
     	, success: function(result){
-			$("#likes_count_" + post_id).text(result);
+			update_likes(post_id, result);
     	}
     	, error: ajax_error_handler(url)
     });
 }
 
 function unlike_post (user_id, post_id) {
-	var url = get_api_url("post/unlike", user_id, post_id)
+	var url = get_api_url("post/unlike", user_id, post_id);
     $.ajax({url: url
     	, success: function(result){
 			toggle_like_button(post_id);
-			$("#likes_count_" + post_id).text(result);
+			update_likes(post_id, result);
     	}
     	, error: ajax_error_handler(url)
     });

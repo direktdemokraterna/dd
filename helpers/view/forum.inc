@@ -210,53 +210,55 @@ class forum
 		__space();
 		echo '<a onMouseDown="quote_post(' . $post_id . ')" style="user-select: none;" unselectable="on">' . 'Citera' . '</a>&nbsp;'; 
 		__space();
-		self::output_like_control($user_id, $post_id, $post_info);
+		self::output_like_control($user_id, $post_id);
 	}
 
-	private static function output_like_control($user_id, $post_id, $post_info) {
-		$user_likes_post = $post_info["user_like"];
-		self::output_like_link($_SESSION['id'], $post_id, $user_likes_post);
-		//self::output_like_flavor_panel();
-		self::output_liking_link($_SESSION['id'], $post_id, $user_likes_post);
+	private static function output_like_control($user_id, $post_id) {
+		$likes_info = \db_forum::get_post_like_info($user_id, $post_id);
+		echo '<div style="position: relative; display: inline-block; overflow: visible">';
+		self::output_like_flavor_panel($_SESSION['id'], $post_id);
+		$user_likes_post = $likes_info->user_like;
+		self::output_like_link($_SESSION['id'], $post_id, $user_likes_post, $likes_info->flavor);
+		self::output_liking_link($_SESSION['id'], $post_id, $user_likes_post, $likes_info->flavor);
 		echo "<span id='likes_count_" . $post_id . "' style='font-size: 67%'>"
-		. ($post_info['like_count']) . "</span>";
+		. ($likes_info->count) . "</span>";
+		echo '</div>';
 	}
-/*
-	private static function output_like_flavor_panel($user_id, $post_id, $user_likes_post) {
-		$img_element = "<img style='margin-bottom: -10px' title='Gillar' height=30px; width=30px; src='images/neutral-thumbs-up-48.png'>";
-		$id_attribute = "id='liking_link_" . $post_id . "'";
-		$action_attribute = "onclick='unlike_post(" . $user_id . ", " . $post_id . ")'";
-		$style_attribute = "style='display: " . ($user_likes_post ? "inline" : "none") . "'";
-		echo "<a " . $id_attribute . " " . $action_attribute 
-			. " href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
+
+	private static function output_like_flavor_panel($user_id, $post_id) {
+		echo "<div id='like_panel_" . $post_id . "'style ='background-color: aliceblue; display: none; position: absolute; z-index: 1; margin-right: -100px; left: -40px; top: 2px'>";
+		self::output_big_like_link("Mot-argument", "critical"
+			, "like_post(" . $user_id . ", " . $post_id . ", \"critical\")");
+		self::output_big_like_link("Neutral", "neutral"
+			, "like_post(" . $user_id . ", " . $post_id . ", \"neutral\")");
+		self::output_big_like_link("För-argument", "supportive"
+			, "like_post(" . $user_id . ", " . $post_id . ", \"supportive\")");
+		echo '</div>';
 	}
-*/
-	private static function output_like_link($user_id, $post_id, $user_likes_post) {
-		$img_element = "<img style='margin-bottom: -6px' title='Gilla' height=20px; width=20px; src='images/neutral-thumbs-up-48.png'>";
+
+	private static function output_like_link($user_id, $post_id, $user_likes_post, $flavor) {
+		$img_element = "<img class='like-button' style='margin-bottom: -6px' title='Gilla' height=20px; width=20px; src='images/" . $flavor . "-thumbs-up-48.png'>";
 		$id_attribute = "id='like_link_" . $post_id . "'";
-		$action_attribute = "onclick='like_post(" . $user_id . ", " . $post_id . ")'";
+		$action_attribute = "onclick='open_like_panel(" . $post_id . ")'";
 		$style_attribute = "style='display: " . ($user_likes_post ? "none" : "inline") . "'";
 		echo "<a " . $id_attribute . " " . $action_attribute 
 			. " href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
 	}
 
-	private static function output_liking_link($user_id, $post_id, $user_likes_post) {
-		$img_element = "<img style='margin-bottom: -10px' title='Gillar' height=30px; width=30px; src='images/neutral-thumbs-up-48.png'>";
-		$id_attribute = "id='liking_link_" . $post_id . "'";
-		$action_attribute = "onclick='unlike_post(" . $user_id . ", " . $post_id . ")'";
-		$style_attribute = "style='display: " . ($user_likes_post ? "inline" : "none") . "'";
-		echo "<a " . $id_attribute . " " . $action_attribute 
-			. " href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
+	private static function output_liking_link($user_id, $post_id, $user_likes_post, $flavor) {
+		self::output_big_like_link("Gillar", $flavor
+			, "unlike_post(" . $user_id . ", " . $post_id . ")"
+			, $user_likes_post, "liking_link_" . $post_id);
 	}
-/*
-	private static function output_big_like_link($js_func, $post_id, $visible, $title, $flavor) {
-		$img_element = "<img style='margin-bottom: -10px' title='" . $title . "' height=30px; width=30px; src='images/" . $flavor . "-thumbs-up-48.png'>";
-		$id_attribute = "id='liking_link_" . $post_id . "'";
-		$action_attribute = "";
-		$style_attribute = "style='display: " . ($user_likes_post ? "inline" : "none") . "'";
-		echo "<a " . $id_attribute . " onclick='" . $js_func . "' href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
+
+	private static function output_big_like_link($title, $flavor, $js_func
+		, $visible = true, $link_id = "") {
+		$img_element = "<img class='like-button' style='margin-bottom: -10px' title='" . $title . "' height=30px; width=30px; src='images/" . $flavor . "-thumbs-up-48.png'>";
+		$id_attribute = $link_id ? " id='" . $link_id . "'" : "";
+		$style_attribute = "style='display: " . ($visible ? "inline" : "none") . "'";
+		echo "<a" . $id_attribute . " onclick='" . $js_func . "' href='javascript:void(0);' " . $style_attribute . ">" . $img_element . "</a>";		
 	}
-*/
+
 	private static function make_post_content_bbcode($post_info) 
 	{
 		$post_id = $post_info['post_id'];

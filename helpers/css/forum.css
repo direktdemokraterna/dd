@@ -297,3 +297,13 @@ footer li {
     margin-top: 2em;
 	margin-bottom: 1em;		
 }
+.like-button {
+    opacity: 0.5;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.like-button:hover {
+    transform: scale(1.5, 1.5);
+    opacity: 1;
+}

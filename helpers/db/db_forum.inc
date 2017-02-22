@@ -4,9 +4,7 @@ class db_forum
 {
 	public static function get_posts ($topic_id, $access_user_id, $page = 1, $limit = POSTS_PER_PAGE){
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time as posted_time, p.last_edited_time as last_edited_time, u.image as user_image,
-			(select count(*) from user_like_post where post_id = p.id) as like_count,
-			(select count(*) from user_like_post where post_id = p.id and user_id = fu.user_id) as user_like
+		$query = "select p.id as post_id, p.title as title, p.content as content, p.user_id as user_id, concat(u.first_name, ' ', u.last_name) as user_full_name, p.posted_time as posted_time, p.last_edited_time as last_edited_time, u.image as user_image
 					from post p, user u, forum_user fu
 					where p.user_id = u.id and p.topic_id = ? 
 					and fu.user_id = ? and fu.forum_id = p.forum_id 
@@ -338,12 +336,12 @@ class db_forum
 		return !empty(db::select($query, $values));
 	}
 
-	public static function like_post ($user_id, $post_id)
+	public static function like_post ($user_id, $post_id, $flavor)
 	{
-		$query = "insert into user_like_post (user_id, post_id) values (?, ?)";
-		$values = Array($user_id, $post_id);
+		$query = "insert into user_like_post (user_id, post_id, flavor) values (?, ?, ?)";
+		$values = Array($user_id, $post_id, $flavor);
 		db::insert($query, $values);
-		return self::get_post_likes($post_id);
+		return self::get_post_like_info($user_id, $post_id);
 	}	
 
 	public static function unlike_post ($user_id, $post_id)
@@ -351,12 +349,37 @@ class db_forum
 		$query = "delete from user_like_post where user_id = ? and post_id = ?";
 		$values = Array($user_id, $post_id);
 		db::delete($query, $values);
-		return self::get_post_likes($post_id);
+		return self::get_post_like_info($user_id, $post_id);
 	}
 
-	public static function get_post_likes($post_id) {
-		$query = "select count(*) from user_like_post where post_id = ?";
-		$values = Array($post_id);
+	public static function get_post_like_info($user_id, $post_id) {
+		$critical_count = self::get_post_likes_flavor($post_id, 'critical');
+		$neutral_count = self::get_post_likes_flavor($post_id, 'neutral');
+		$supportive_count = self::get_post_likes_flavor($post_id, 'supportive');
+		$total = $critical_count + $neutral_count + $supportive_count;
+		$flavor = self::get_dominant_flavor($critical_count, $neutral_count, $supportive_count);
+		$user_like = self::get_user_like_post($user_id, $post_id);
+		return (object)array('flavor' => $flavor, 'count' => $total, 'user_like' => $user_like);
+	}
+
+	private static function get_user_like_post ($user_id, $post_id)
+	{
+		$query = "select count(*) from user_like_post where user_id = ? and post_id = ?";
+		$values = Array($user_id, $post_id);
+		return db::select_single_value($query, $values);
+	}
+
+	private static function get_dominant_flavor($critical_count, $neutral_count, $supportive_count){
+		if ($critical_count > $supportive_count * 2)
+			return 'critical';
+		if ($supportive_count > $critical_count * 2)
+			return 'supportive';
+		return 'neutral';
+	}
+
+	private static function get_post_likes_flavor($post_id, $flavor) {
+		$query = "select count(*) from user_like_post where post_id = ? and flavor = ?";
+		$values = Array($post_id, $flavor);
 		return db::select_single_value($query, $values);
 	}
 }

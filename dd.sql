@@ -1501,6 +1501,7 @@ DROP TABLE IF EXISTS `user_like_post`;
 CREATE TABLE `user_like_post` (
   `user_id` INTEGER UNSIGNED NOT NULL,
   `post_id` INTEGER UNSIGNED NOT NULL,
+  `flavor` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`user_id`, `post_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET=latin1;
 
