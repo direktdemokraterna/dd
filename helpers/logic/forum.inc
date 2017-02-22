@@ -66,7 +66,6 @@ class forum
 	private static function process_post_text ($text)
 	{
 		$processed_text = \Logic\text::process_text($text);
-		$processed_text = str_replace("[/quote]\r\n\r\n", "[/quote]\r\n", $processed_text);
 		if (self::is_post_text_valid($processed_text))
 			return $processed_text;
 		\Logic\util::report_error("Felaktig text i inlägget.");
