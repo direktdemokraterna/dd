@@ -88,7 +88,14 @@ function toggle_like_button (post_id) {
 }
 
 function get_api_url (action_path, user_id, post_id, flavor) {
-	var basePath = window.location.origin + window.location.pathname.replace("index", "api") + "/forum/";
+	function getOrigin() {
+		// Fix for internet explorer without support for window.location.origin
+        if (!window.location.origin) {
+            return window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+        }
+        return window.location.origin
+	}
+	var basePath = getOrigin() + window.location.pathname.replace("index", "api") + "/forum/";
     return basePath + action_path + "?user_id=" + user_id + "&post_id=" + post_id + "&flavor=" + flavor;
 }
 
