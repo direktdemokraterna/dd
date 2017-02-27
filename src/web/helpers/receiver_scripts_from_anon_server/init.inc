@@ -1,7 +1,7 @@
 <?php 
 
 // Defines constants
-include("../../config.inc");
+include("../../../../config.inc");
 
 // Includes files
 include("../../helpers.inc");

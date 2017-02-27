@@ -125,7 +125,7 @@ class controls
 	}
 
 	public static function generate_internal_link($label, $type, $action = null, $params = null, $class = null, $confirm = null) {
-		$url = 'index.php?type=' . $type . ($action ? '&action=' . $action : '')
+        $url = 'index.php?type=' . $type . ($action ? '&action=' . $action : '')
             . (empty($params) ? '' : '&' . $params);
 		$href = 'href="' . $url . '"';
 		$classAttr = ($class ? ' class="' . $class . '"'  : '');
@@ -147,7 +147,7 @@ class controls
 		echo '<form method="get" class="sidebar_search_form" action="index.php">';
         echo '<input type="hidden" name="type" value="' . $type . '">';
         echo '<input type="hidden" name="action" value="' . $action . '">';
-		echo '<input onClick="this.select();" tabindex="' . $tab_index++ . '" type="text" value="' .
+        echo '<input onClick="this.select();" tabindex="' . $tab_index++ . '" type="text" value="' .
 		$value . '" name="' . $search_input_name . '" class="sidebar_search_input">';
 		echo '<div class="align-right">';
 		echo '<button tabindex="' . $tab_index . '" type="submit" class="sidebar_search_submit" value="Sök">Sök</button>';
