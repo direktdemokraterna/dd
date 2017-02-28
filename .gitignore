@@ -14,3 +14,6 @@ images/userimg/c8l7Io47ACwlDpE9a9jA.png
 test/translate/testcases.xml
 test/translate/testcases1.xml
 test/translate/testcases_before_phrase_templates.xml
+src/web/config.inc
+src/web/helpers/keys/dd_anon/dd_anon_public_key.txt
+src/web/helpers/keys/dd_anon/dd_anon_public_key.txt
