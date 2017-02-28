@@ -12,7 +12,14 @@ class db_treasurer
 	public static function get_all_account_entries ($page = 1, $limit = LIST_ITEMS_PER_PAGE)
 	{
 		$limit_clause = db_general::get_limit_clause($page, $limit);
-		$query = "select id, type_of_transaction, amount, timestamp_accounting, timestamp_insertion, user_id, comment_from_bank, comment_from_admin from accounting";
+		$query = "select id, type_of_transaction, amount, timestamp_accounting, timestamp_insertion, user_id, comment_from_bank, comment_from_admin from accounting order by timestamp_accounting desc " . $limit_clause;
+		$values = Array();
+		return db::select($query, $values);
+	}
+
+	public static function get_all_account_entries_count ()
+	{
+		$query = "select count(*) from accounting";
 		$values = Array();
 		return db::select($query, $values);
 	}
