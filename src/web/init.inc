@@ -16,7 +16,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . 'helpers');
 // Includes files
 include(dirname(__FILE__)."/helpers/util.inc");
 
-include(dirname(__FILE__)."/config.inc");
+include(dirname(__FILE__)."/../../config.inc");
 include(dirname(__FILE__)."/config_default.inc");
 
 include(dirname(__FILE__)."/helpers/general_helpers.inc");

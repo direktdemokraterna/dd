@@ -3,12 +3,12 @@
 *.iml
 .idea
 /config.inc
-/helpers/keys/dd_anon
+src/web/helpers/keys/dd_anon
 dd.intellisense.cache
 dd.suo
 dd.sublime-project
 debug.php
-helpers/keys/dd_anon/dd_anon_public_key.txt
+src/web/helpers/keys/dd_anon/dd_anon_public_key.txt
 images/mall-vote-info.png
 images/userimg/c8l7Io47ACwlDpE9a9jA.png
 test/translate/testcases.xml

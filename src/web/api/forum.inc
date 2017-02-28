@@ -2,7 +2,7 @@
 	namespace Api;
 
 	include("helpers/util.inc");
-	include("config.inc");
+	include("../../config.inc");
 	include("helpers/db/db.inc");
 	include("helpers/db/db_forum.inc");
 
