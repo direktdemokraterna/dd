@@ -51,8 +51,8 @@ elseif (isset($_POST['user_email'])) {
 
 <h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">Återställ lösenord</h1>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="../helpers/js/constituency.js"></script>
-<script src="../helpers/js/session.js"></script>
+<script src="../js/constituency.js"></script>
+<script src="../js/session.js"></script>
 <script>
     function validateForm() {
         var password = document.forms["change_password"]["password"].value;
