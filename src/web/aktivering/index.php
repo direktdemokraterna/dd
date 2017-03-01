@@ -42,10 +42,10 @@ elseif(isset($_POST['user_email'])){
 ?><!DOCTYPE html>
 <html>
 <head>
-    <link href="../helpers/css/reset.css" rel="stylesheet" type="text/css">
-    <link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
-	<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
-    <link href="../helpers/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../css/index.css" rel="stylesheet" type="text/css">
+	<link href="../css/login.css" rel="stylesheet" type="text/css">
+    <link href="../css/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
