@@ -1,24 +1,27 @@
 <?php 
 	__h1("Registrera inbetalning");
-    __open_form();
+	__open_form();
 ?>
 	<fieldset>
-		<legend>Registrera inbetalning</legend>
 		<label for "amount">Inbetald summa</label>
-		<input type="text" name="amount" id="amount">
+		<input type="text" name="amount" id="amount" tabindex="1">
 		<br>
 		<label for "accounting_day">Inbetalningsdag</label>
-		<input type="text" name="accounting_day" id="accounting_day" value="<?php echo date("Y") . "-" . date("m") . "-" . date("d"); ?>">
+		<input type="text" name="accounting_day" id="accounting_day" value="<?php echo date("Y") . "-" . date("m") . "-" . date("d"); ?>" tabindex="2">
 		<br>
-		<label for "comment_from_admin">Beskrivning av inbetalningen</label>
-		<input type="text" name="comment_from_admin" id="comment_from_admin">
+		<label for "comment_from_admin">Beskrivning av inbetalningen (kan lämnas blankt)</label>
+		<input type="text" name="comment_from_admin" id="comment_from_admin" tabindex="3">
 		<br>
-		<label for "comment_from_bank">Beskrivning från avsändaren (texten på bankutdraget)</label>
-		<input type="text" name="comment_from_bank" id="comment_from_bank">
+		<label for "type_of_transaction">Typ av inbetalning</label>
+		<select name="type_of_transaction" id="type_of_transaction" tabindex="4">
+			<option value="medlemsavgift">Medlemsinbetalning</option>
+			<option value="donation">Donation</option>
+			<option value="annan inkomst">annan inkomst</option>
+		</select>
 		<br>
-		<label for "user_id">Användare (lämna blankt om inbetalningen inte kommer från en specifik användare)</label>
-		<select name="user_id" id="user_id">
-			<option value=""></option>
+		<label for "user_id">Användare</label>
+		<select name="user_id" id="user_id" tabindex="5">
+			<option value="">Ingen användare</option>
 			<?php
 				$users = db_user::get_all_ids_full_names_and_social_security_numbers();
 				foreach ($users as $user){
@@ -27,6 +30,6 @@
 			?>
 		</select>
 		<br>
-		<button type="submit" value="Registrera">Registrera</button>
+		<button type="submit" value="Registrera" tabindex="6">Registrera</button>
 	</fieldset>
 </form>

@@ -13,13 +13,13 @@
 			$_SESSION['red_report_message'] = 1;
 		}
 
-		if($_POST['type_of_transaction'] !== "utbetalning"){
+		if($_POST['type_of_transaction'] != "webbutgift" && $_POST['type_of_transaction'] != "finansutgift" && $_POST['type_of_transaction'] != "marknadsföringsutgift" && $_POST['type_of_transaction'] != "övriga utgifter"){
 			$_SESSION['report_message'] = "Felaktig typ av utbetalning."; 
 			$_SESSION['red_report_message'] = 1;
 		}
 
-		if(!$_SESSION['report_message']){
-			$ok = db_treasurer::add_entry($_POST['type_of_transaction'], $_POST['amount'], $accounting_day, null, null, $comment_from_admin);
+		if(!isset($_SESSION['report_message'])){
+			$ok = db_treasurer::add_entry($_POST['type_of_transaction'], $_POST['amount'], $accounting_day, $comment_from_admin);
 		}
 
 		if($ok){

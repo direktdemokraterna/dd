@@ -938,3 +938,22 @@ body {
 
 .slate   { background-color: #ddd; }
 .slate select   { color: #000; }
+
+/* Accounting table (table with internal borders only) */
+.accounting-table {
+    border-collapse: collapse;
+}
+.accounting-table td + td, th + th {
+    border-left: 1px dotted grey;
+}
+.accounting-table tr + tr {
+    border-top: 1px dotted grey;
+}
+.accounting-table td {
+    padding: 5px;
+    text-align: center;
+}
+.accounting-table th {
+    padding: 5px;
+    text-align: center;
+}

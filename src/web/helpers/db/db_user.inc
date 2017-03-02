@@ -333,6 +333,13 @@ class db_user
 		return db::select_single_value($query, $values);
 	}
 
+	public static function update_membership_fee_payment ($user_id, $timestamp_payment)
+	{
+		$query = "update user set membership_fee_payed_until=? where id = ?";
+		$values = Array($timestamp_payment, $user_id);
+		return db::update($query, $values);
+	}
+
 	public static function check_if_personnummer_exists ($personnummer, $exclude_user_id = 0)
 	{
 		return self::check_if_key_property_exists('social_security_number', $personnummer, $exclude_user_id);

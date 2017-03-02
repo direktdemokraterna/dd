@@ -2,13 +2,6 @@
 
 class db_treasurer
 {
-	public static function add_account_entry ($type_of_transaction, $amount, $timestamp_accounting, $comment_from_bank, $comment_from_admin, $user_id = null)
-	{
-		$query = "insert into accounting (type_of_transaction, amount, timestamp_accounting, timestamp_insertion, user_id, comment_from_bank, comment_from_admin) values (?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($type_of_transaction, $amount, $timestamp_accounting, time(), $user_id, $comment_from_bank, $comment_from_admin);
-		return db::insert($query, $values);
-	}
-
 	public static function get_all_account_entries ($page = 1, $limit = LIST_ITEMS_PER_PAGE)
 	{
 		$limit_clause = db_general::get_limit_clause($page, $limit);
@@ -21,7 +14,7 @@ class db_treasurer
 	{
 		$query = "select count(*) from accounting";
 		$values = Array();
-		return db::select($query, $values);
+		return db::select_single_value($query, $values);
 	}
 
 	public static function get_account_entries_for_user ($user_id)
@@ -31,21 +24,17 @@ class db_treasurer
 		return db::select($query, $values);
 	}
 
-	public static function add_entry ($type_of_transaction, $amount, $timestamp_accounting, $user_id, $comment_from_bank, $comment_from_admin)
+	public static function add_entry ($type_of_transaction, $amount, $timestamp_accounting, $comment_from_admin, $user_id = null)
 	{
-		$query = "insert into accounting (type_of_transaction, amount, timestamp_accounting, timestamp_insertion, user_id, comment_from_bank, comment_from_admin) values (?, ?, ?, ?, ?, ?, ?)";
-		$values = Array($type_of_transaction, $amount, $timestamp_accounting, time(), $user_id, $comment_from_bank, $comment_from_admin);
+		$query = "insert into accounting (type_of_transaction, amount, timestamp_accounting, timestamp_insertion, user_id, comment_from_admin) values (?, ?, ?, ?, ?, ?)";
+		$values = Array($type_of_transaction, $amount, $timestamp_accounting, time(), $user_id, $comment_from_admin);
 		return db::insert($query, $values);
 	}
 
-	public static function add_membership_fee ($timestamp_accounting, $user_id, $comment_from_bank, $comment_from_admin)
+	public static function add_membership_fee ($timestamp_accounting, $comment_from_admin, $user_id)
 	{
-		$query = "insert into accounting (type_of_transaction, amount, timestamp_accounting, timestamp_insertion, user_id, comment_from_bank, comment_from_admin) values (?, ?, ?, ?, ?, ?, ?)";
-		$values = Array("medlemsavgift", MEMBERSHIP_FEE, $timestamp_accounting, time(), $user_id, $comment_from_bank, $comment_from_admin);
-		$ok = db::insert($query, $values);
-		if($ok){
-			self::update_membership_fee_payment($user_id, $timestamp_accounting);
-		}
+		$ok = self::add_entry("medlemsavgift", MEMBERSHIP_FEE, $timestamp_accounting, $comment_from_admin, $user_id);
+		if($ok) db_user::update_membership_fee_payment($user_id, $timestamp_accounting);
 		return $ok;
 	}
 
