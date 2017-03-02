@@ -35,7 +35,7 @@
 ?><!DOCTYPE html>
 <html>
 <head>
-	<link href="../../helpers/css/index.css" rel="stylesheet" type="text/css">
+	<link href="../../css/index.css" rel="stylesheet" type="text/css">
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="shortcut icon" href="images/favicon.ico">

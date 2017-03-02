@@ -56,10 +56,10 @@ if ($is_all_mandatory_set) {
 ?><!DOCTYPE html>
 <html>
 <head>
-    <link href="../helpers/css/reset.css" rel="stylesheet" type="text/css">
-    <link href="../helpers/css/index.css" rel="stylesheet" type="text/css">
-	<link href="../helpers/css/login.css" rel="stylesheet" type="text/css">
-    <link href="../helpers/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../css/index.css" rel="stylesheet" type="text/css">
+	<link href="../css/login.css" rel="stylesheet" type="text/css">
+    <link href="../css/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,8 +94,8 @@ if ($is_all_mandatory_set) {
 <h1 style="font-size: 24px; font-family: Lato, sans-serif; font-weight: 700; margin-bottom: 30px; ">Medlemsansökan
 </h1>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="../helpers/js/constituency.js"></script>
-<script src="../helpers/js/session.js"></script>
+<script src="../js/constituency.js"></script>
+<script src="../js/session.js"></script>
 
 <?php
 	echo "* obligatoriskt";

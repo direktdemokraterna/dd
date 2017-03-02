@@ -3,9 +3,9 @@
 	<head>
 		<?php
 			ini_set('display_errors', '1');
-			include("init.inc");
-			include("helpers/load_css.inc");
-			include("helpers/load_js.inc");
+            require("init.inc");
+            require("helpers/load_css.inc");
+            require("helpers/load_js.inc");
 		?>
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,14 +25,14 @@
 			if(isset($_SESSION['id'])){
 				$is_active = db_user::is_user_active($_SESSION['id']);
 				if($is_active){
-					require("index_logged_in.inc");
+					require("../includes/index_logged_in.inc");
 				}
 				else{
-					require("index_inactive.inc");
+					require("../includes/index_inactive.inc");
 				}
 			}
 			else{
-				require("index_logged_out.inc");
+				require("../includes/index_logged_out.inc");
 			}
 		?>
 	</body>

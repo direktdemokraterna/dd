@@ -4,8 +4,8 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'general_helpers' => '/../helpers/general_helpers.inc',
-                'i18n\\util' => '/../helpers/i18n/util.inc'
+                'general_helpers' => '/../src/web/helpers/general_helpers.inc',
+                'i18n\\util' => '/../src/web/helpers/i18n/util.inc'
             );
         }
         $cn = strtolower($class);
