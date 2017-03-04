@@ -28,7 +28,7 @@
 </div>
 </div>
 <script>
-    var csrf_token = '<?php echo \general_helpers::create_csrf_token() ?>';
+    var csrf_token = '<?php echo \general_helpers::produce_csrf_token() ?>';
 </script>
 
 <?php
