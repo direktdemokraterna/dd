@@ -6,12 +6,12 @@ class navigation_helpers {
 		$path = self::get_specific_path();
 		return $path
 			? $path
-			: "primary_content/first_page.inc";
+			: "../includes/primary_content/first_page.inc";
 	}
 
 	public static function get_sidebar_page() {
 		$page = self::get_sidebar_page_name();
-		return "sidebar/$page.inc";
+		return "../includes/sidebar/$page.inc";
 	}
 
 	public static function handle_action_request() 
@@ -55,7 +55,7 @@ class navigation_helpers {
 		if($_SESSION['csrf_token'] != $_POST['csrf_token'])
 			\Logic\util::report_error("CSRF-fel, ladda om sidan och försök igen.");
 		else{
-			$path = "execute_scripts/" . $divisionName . "/" . $pageInfo->name;
+			$path = "../includes/execute_scripts/" . $divisionName . "/" . $pageInfo->name;
 			require($path);
 			$_SESSION['csrf_token'] = null;
 		}
@@ -81,7 +81,7 @@ class navigation_helpers {
 	private static function get_page_path($divisionName, $pageName) {
 		$parts = explode('/', $pageName);
 		$is_qualified_page_name = count($parts) == 2;
-		return "primary_content/" . ($is_qualified_page_name ? '' : $divisionName . "/") . $pageName; 
+		return "../includes/primary_content/" . ($is_qualified_page_name ? '' : $divisionName . "/") . $pageName;
 	}
 
 	private static function get_division($divisionName) {
