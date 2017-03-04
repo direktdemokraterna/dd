@@ -20,13 +20,17 @@
 		</div>
 	</div>
 	<div class="main">
-		<?php 
+		<?php
 			require("../includes/primary_content.inc");
 			require("../includes/sidebar.inc");
 		?>
 	</div>
 </div>
 </div>
-<?php 
+<script>
+    var csrf_token = '<?php echo \general_helpers::create_csrf_token() ?>';
+</script>
+
+<?php
 	require("../includes/footer.inc");
 ?>

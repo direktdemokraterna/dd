@@ -101,7 +101,8 @@ function get_api_url (action_path, user_id, post_id, flavor) {
 
 function ajax_error_handler(url) {
     return function(xhr, status, error) {
-    	alert(url + ' error: ' + error);	
+    	var message = '<div class="warning_message">' + url + ' error: ' + error + '</div>';
+    	$('#main-content').prepend(message);
     };
 }
 
@@ -128,21 +129,27 @@ function like_post (user_id, post_id, flavor) {
 	$("#like_panel_" + post_id).css("display", "none");
 	toggle_like_button(post_id);
 	var url = get_api_url("post/like", user_id, post_id, flavor)
-    $.ajax({url: url
-    	, success: function(result){
+    $.ajax({
+    	url: url,
+		method: 'POST',
+        data: 'csrf_token=' + (csrf_token || ''),
+		success: function(result){
 			update_likes(post_id, result);
-    	}
-    	, error: ajax_error_handler(url)
+    	},
+		error: ajax_error_handler(url)
     });
 }
 
 function unlike_post (user_id, post_id) {
 	var url = get_api_url("post/unlike", user_id, post_id);
-    $.ajax({url: url
-    	, success: function(result){
+    $.ajax({
+    	url: url,
+		method: 'POST',
+		data: 'csrf_token=' + (csrf_token || ''),
+		success: function(result) {
 			toggle_like_button(post_id);
 			update_likes(post_id, result);
-    	}
-    	, error: ajax_error_handler(url)
+    	},
+		error: ajax_error_handler(url)
     });
 }

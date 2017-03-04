@@ -204,7 +204,7 @@ form.text-editor {
 /* TYPOGRAPHY */
 
 .forum_info, .list_sub_text, .quote_in_post, .post_alternatives, span.perma-link, .post_content span.post_date,
-input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .red_message,
+input.vote_button, button.vote_button, .median-vote input[type="text"], .green_message, .warning_message, .red_message,
 .sortable, textarea, input[type="text"],
 .btn-blue, .vote-container.float-right, #vote_container_grey_box td, .vote_result_box, .post_user_info,
 .login-column, .footer-widget
@@ -743,7 +743,7 @@ footer p {
     color: inherit;
 }
 
-.green_message, .red_message {
+.green_message, .warning_message, .red_message {
     /*max-width: 800px;*/
     width: 100%;
     padding: 20px;
@@ -757,7 +757,10 @@ footer p {
 .red_message {
     background:  #dd3d36;
 }
-.green_message:before, .red_message:before {
+.warning_message {
+    background: #f5821f;
+}
+.green_message:before, .warning_message:before, .red_message:before {
 	display: inline-block;
     font: normal normal normal 16px/1 FontAwesome;
 	content: "\f05a";

@@ -8,6 +8,10 @@
 
 	class forum {
 		public static function like_post($user_id, $post_id, $flavor) {
+		    if (!preg_match('/critical|neutral|supportive/', $flavor)) {
+                http_response_code(400);
+		        return ["error" => "Invalid input"];
+            }
 			$new_likes = \db_forum::like_post($user_id, $post_id, $flavor);
 			return $new_likes;
 		}

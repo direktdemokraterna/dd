@@ -327,13 +327,18 @@ class general_helpers {
 	}
 
 	public static function initiate_csrf_protection() {
-		if(empty($_SESSION['csrf_token'])){
-			$csrf_token = uniqid();
-			$_SESSION['csrf_token'] = $csrf_token;
-		}
-		else
-			$csrf_token = $_SESSION['csrf_token'];
+        $csrf_token = self::create_csrf_token();
 		echo '<input type="hidden" name="csrf_token" value="' . $csrf_token . '">';
 	}
+
+	public static function create_csrf_token() {
+        if (empty($_SESSION['csrf_token'])) {
+            $csrf_token = uniqid();
+            $_SESSION['csrf_token'] = $csrf_token;
+        } else {
+            $csrf_token = $_SESSION['csrf_token'];
+        }
+        return $csrf_token;
+    }
 
 } //End of class
