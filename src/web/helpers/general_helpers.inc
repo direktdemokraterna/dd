@@ -284,15 +284,34 @@ class general_helpers {
 	}
 
 	public static function resize_image($file, $w) { // modifierad från http://stackoverflow.com/questions/14649645/resize-image-in-php
-		list($width, $height) = getimagesize($file);
+		list($width, $height, $type) = getimagesize($file);
 		$r = $width / $height;
 		$newheight = $w/$r;
 		$newwidth = $w;
-		$src = imagecreatefromjpeg($file);
+		if($type==1){  // image is gif
+			$src = imagecreatefromgif($file);
+			$src = self::flatten_image($src);
+		}
+		elseif($type==2)  // image is jpg
+			$src = imagecreatefromjpeg($file);
+		elseif($type==3){  // image is png
+			$src = imagecreatefrompng($file);
+			$src = self::flatten_image($src);
+		}
 		$dst = imagecreatetruecolor($newwidth, $newheight);
 		imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
 		return $dst;
+	}
+
+	public static function flatten_image($image) { // modifierad från http://stackoverflow.com/questions/3538106/how-to-delete-transparent-color-in-images
+		$width = imagesx($image);
+		$height = imagesy($image);
+		$bg = imagecreatetruecolor($width, $height);
+		$white = imagecolorallocate($bg, 255, 255, 255);
+		imagefill($bg, 0, 0, $white);
+		imagecopyresampled($bg, $image, 0, 0, 0, 0, $width, $height, $width, $height);
+		return $bg;
 	}
 
 	public static function output_notice_link($id) {
