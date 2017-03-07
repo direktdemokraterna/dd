@@ -3,7 +3,7 @@
 	__h1($userdata['first_name'] . " " . $userdata['last_name']);
 	__strong("Adminroller för denna användare");
 	__br();
-	__open_form("standard-form checkbox-form");
+	__open_form("");
 	echo '<ul class="checkbox-grid">';
 	$admin_roles = db_admin::get_all_admin_roles_and_if_user_belongs($_GET['id']);
 	foreach($admin_roles as $row) {

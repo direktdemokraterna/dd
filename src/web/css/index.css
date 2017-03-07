@@ -682,9 +682,9 @@ a.lang-flag {
 /* CHECKBOX GRID */
 
 .checkbox-grid li {
-    /*display: block;
+    display: block;
     float: left;
-    width: 25%;*/
+    width: 25%;
 }
 
 /* FOOTER */
