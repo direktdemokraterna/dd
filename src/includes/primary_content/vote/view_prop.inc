@@ -85,6 +85,9 @@
 			\View\general::open_div(null, "vote_container_grey_box");
 				echo '<a class="no-line"><h2 class="h2-information">Information</h2></a>';
 				echo '<table cellpadding="0"><tr>';
+				__td("Valkrets: ");
+				__td($propinfo['constituency_name']);
+				echo '</tr><tr>';
 				__td(_info("Föreslagen omröstning", '</td><td>' . \View\vote::get_vote_type_description($propinfo['type'])));
 				echo '</tr><tr>';
 				__td(_info("Skapad", '</td><td>' . general_helpers::show_date($propinfo['timestamp_created'])));
