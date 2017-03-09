@@ -102,7 +102,7 @@ class forum
 	}
 
 	private static function output_post_paging_row($page, $post_count) {
-		\View\controls::output_paging_row($page, $post_count, "inlägg");
+		\View\controls::output_paging_row($page, $post_count, "inlägg", POSTS_PER_PAGE);
 	}
 
 	public static function output_post($post_info, $show_action_buttons = true) 

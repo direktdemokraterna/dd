@@ -31,7 +31,7 @@ class controls
 	}
 
 	public static function output_paging_row($page, $list_count, $label = null
-		, $page_size = POSTS_PER_PAGE) 
+		, $page_size = LIST_ITEMS_PER_PAGE) 
 	{
 		$paging_info = Paging_info::create($page, $list_count, $page_size);
 		general::open_div("paging_info");
