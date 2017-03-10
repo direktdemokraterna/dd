@@ -3,7 +3,7 @@
 *.iml
 .idea
 /config.inc
-userimg/**
+**/userimg
 src/web/helpers/keys/dd_anon
 dd.intellisense.cache
 dd.suo
