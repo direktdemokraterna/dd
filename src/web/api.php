@@ -1,5 +1,5 @@
 <?php
-include("../includes/api/forum.inc");
+include("./includes/api/forum.inc");
 
 $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
 $path = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;

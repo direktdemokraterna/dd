@@ -25,14 +25,14 @@
 			if(isset($_SESSION['id'])){
 				$is_active = db_user::is_user_active($_SESSION['id']);
 				if($is_active){
-					require("../includes/index_logged_in.inc");
+					require("./includes/index_logged_in.inc");
 				}
 				else{
-					require("../includes/index_inactive.inc");
+					require("./includes/index_inactive.inc");
 				}
 			}
 			else{
-				require("../includes/index_logged_out.inc");
+				require("./includes/index_logged_out.inc");
 			}
 		?>
 	</body>

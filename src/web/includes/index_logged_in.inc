@@ -1,6 +1,6 @@
 <?php 
 	db_user::update_last_activity_time($_SESSION['id']);
-    require("../includes/menubar.inc");
+    require("./includes/menubar.inc");
 ?>
 <div id="header-lang">
 	<?php \View\index::output_language_buttons(); ?>
@@ -21,8 +21,8 @@
 	</div>
 	<div class="main">
 		<?php
-			require("../includes/primary_content.inc");
-			require("../includes/sidebar.inc");
+			require("./includes/primary_content.inc");
+			require("./includes/sidebar.inc");
 		?>
 	</div>
 </div>
@@ -32,5 +32,5 @@
 </script>
 
 <?php
-	require("../includes/footer.inc");
+	require("./includes/footer.inc");
 ?>

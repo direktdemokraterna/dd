@@ -16,8 +16,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR . 'helpers');
 // Includes files
 require(dirname(__FILE__)."/helpers/util.inc");
 
-require(dirname(__FILE__)."/../../config.inc");
-require(dirname(__FILE__)."/../includes/config_default.inc");
+require(dirname(__FILE__)."/./includes/config.inc");
+require(dirname(__FILE__)."/./includes/config_default.inc");
 
 require(dirname(__FILE__)."/helpers/general_helpers.inc");
 require(dirname(__FILE__)."/helpers/navigation_helpers.inc");

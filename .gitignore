@@ -9,6 +9,7 @@ dd.suo
 dd.sublime-project
 debug.php
 src/web/config.inc
+src/web/includes/config.inc
 src/web/helpers/keys/dd_anon/dd_anon_public_key.txt
 images/mall-vote-info.png
 images/userimg/c8l7Io47ACwlDpE9a9jA.png
