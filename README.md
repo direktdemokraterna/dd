@@ -6,15 +6,10 @@ Här beskrivs det medlemssystem för Direktdemokraterna som varit under utveckli
 
 ##För versionshantering används GitHub
 
-* <https://github.com/anderslonnfalt/dd>
-* <https://github.com/anderslonnfalt/dd_anon>
+* <https://github.com/direktdemokraterna/dd>
+* <https://github.com/direktdemokraterna/dd_anon>
 
-Utvecklare: Joakim Sigvald och Anders Lönnfält
-
-#Demo
-
-Applikationen kan köras för test på adressen:
-http://138.201.47.118/
+Utvecklare: Joakim Sigvald, Anders Lönnfält, Daniel Kihlgren och Peter Hjorthammar
 
 #Beskrivning
 
@@ -68,5 +63,3 @@ https://docs.google.com/spreadsheets/d/1EM-6HONBCUbahUX1Vzxuz-Fq_-Bw3MqAQbZtUtxv
 * (FRÅ)Fråga
 * (FÖR)Förändringsförslag
 * (KOM)Kommentar
-
-Utvecklare: Joakim Sigvald och Anders Lönnfält
