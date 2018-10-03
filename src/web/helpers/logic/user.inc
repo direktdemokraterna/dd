@@ -21,10 +21,10 @@ class user
 	{
 		$ok = \db_user::delete_user ($user_id);
 		if ($ok) {
-			\Logic\delegate::delete_delegate_for_user($user_id);
-			\Logic\vote::remove_ballots($user_id);
-			\Logic\vote::remove_prop_ballots($user_id);
-			\Logic\vote::remove_delegations($user_id);
+//			\Logic\delegate::delete_delegate_for_user($user_id);
+//			\Logic\vote::remove_ballots($user_id);
+//			\Logic\vote::remove_prop_ballots($user_id);
+//			\Logic\vote::remove_delegations($user_id);
 		}
 		return $ok;
 	}
