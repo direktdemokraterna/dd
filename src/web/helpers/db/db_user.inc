@@ -3,8 +3,8 @@ class db_user
 {
 	public static function delete_user ($user_id)
 	{
-		$query = "update user set deletion_time = ? where id = ?";
-		$values = Array(time(), $user_id);
+		$query = "update user set password = '', remember_me_token = null, first_name = ?, last_name = ?, street_address = '', zip_code = '', city_address = '', social_security_number = '', email = '', telephone1 = '', telephone2 = '', skype_name = '', image = 'no_image.png', activation_first_name = '', activation_last_name = '', deletion_time = ? where id = ?";
+		$values = Array("Raderad", "användare", time(), $user_id);
 		$ok = db::update($query, $values);
 		return $ok;
 	}
