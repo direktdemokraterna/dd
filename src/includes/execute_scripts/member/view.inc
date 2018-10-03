@@ -13,16 +13,16 @@ if(isset($_POST['delete_user'])){
     }
 
 }
-elseif(isset($_POST['restore_user'])){
-	$user_data = db_user::get_user_data($_GET['id']);
-	$error = \Logic\user::validate_user($user_data['social_security_number'], $user_data['email']);
-	if ($error)
-		\Logic\util::report_error($error);
-	else {
-		$ok = \Logic\user::restore_user($_GET['id']);
-		if($ok)
-			$_SESSION['report_message'] = "Användaren har lagts till medlemslistan";
-	}
-}
+//elseif(isset($_POST['restore_user'])){
+//	$user_data = db_user::get_user_data($_GET['id']);
+//	$error = \Logic\user::validate_user($user_data['social_security_number'], $user_data['email']);
+//	if ($error)
+//		\Logic\util::report_error($error);
+//	else {
+//		$ok = \Logic\user::restore_user($_GET['id']);
+//		if($ok)
+//			$_SESSION['report_message'] = "Användaren har lagts till medlemslistan";
+//	}
+//}
 
 ?>
