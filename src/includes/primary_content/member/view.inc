@@ -21,19 +21,21 @@
 		echo '<div class="user_presentation_right">';
 		if($userinfo['deletion_time']) {
 			__p("Den här användarens medlemskap avslutades " . strtolower(general_helpers::show_date($userinfo['deletion_time'])) . '.');
-			if(isset($_SESSION['is_member_admin'])) {
-				__open_form();
-				__hidden("restore_user", 1);
-				__submit_and_close("Återställ medlem");
-			}
+//			if(isset($_SESSION['is_member_admin'])) {
+//				__open_form();
+//				__hidden("restore_user", 1);
+//				__submit_and_close("Återställ medlem");
+//			}
 		}
 		else {
 			echo '<div class="user-info-details">';
-			__p('<strong>Roll i Direktdemokraterna:</strong>');
 			$admin_roles = db_admin::get_admin_roles_for_user($user_id);			
-			foreach($admin_roles as $row)
-				__p(_link($row['title'], 'member', 'admin_description', 'id=' . $row['id']));
-			__p('&nbsp;');
+			if(!empty($admin_roles)){
+				__p('<strong>Roll i Direktdemokraterna:</strong>');
+				foreach($admin_roles as $row)
+					__p(_link($row['title'], 'member', 'admin_description', 'id=' . $row['id']));
+				__p('&nbsp;');
+			}
 			__p("<strong>Senaste<br>inloggning:</strong> " . (empty($userinfo['last_activity_time']) ? "Aldrig" : general_helpers::show_date($userinfo['last_activity_time'])));
 			if($userinfo['show_email'])
 				__p("<strong>Mejladress:</strong> " . $userinfo['email']);
