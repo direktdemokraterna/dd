@@ -19,7 +19,7 @@ Description: Sidebar for forums
 				<li>
 					<?php 
 						__link($row['post_title'], 'forum', 'show_posts', 
-							'post_id=' . $row['post_id']);
+							'post_id=' . $row['post_id'] . '#post' . $row['post_id']);
 						echo '<span class="post-meta-sidebar">av ';
 						__link($row['user_full_name'], 'member', 'view', 
 							'id=' . $row['user_id']);
