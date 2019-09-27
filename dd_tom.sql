@@ -18,8 +18,8 @@ SET SQL_SAFE_UPDATES = 0;
 -- Create schema dd
 --
 
-CREATE DATABASE IF NOT EXISTS dd_anders;
-USE dd_anders;
+CREATE DATABASE IF NOT EXISTS direktde_ddnew;
+USE direktde_ddnew;
 
 --
 -- Definition of table `constituency`
@@ -418,13 +418,13 @@ CREATE TABLE `user` (
   PRIMARY KEY  (`id`),
   FULLTEXT KEY `search` (`first_name`,`last_name`,`description`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-ALTER TABLE `dd_anders`.`user`
+ALTER TABLE `direktde_ddnew`.`user`
   ADD CONSTRAINT fk_user_voter_id FOREIGN KEY (id) REFERENCES voter(`id`);
-ALTER TABLE `dd_anders`.`user`
+ALTER TABLE `direktde_ddnew`.`user`
   ADD CONSTRAINT fk_user_region_id FOREIGN KEY (region_id) REFERENCES constituency(`id`);
-ALTER TABLE `dd_anders`.`user`
+ALTER TABLE `direktde_ddnew`.`user`
   ADD CONSTRAINT fk_user_county_id FOREIGN KEY (county_id) REFERENCES constituency(`id`);
-CREATE UNIQUE INDEX ux_user_username ON `dd_anders`.`user` (`username`);
+CREATE UNIQUE INDEX ux_user_username ON `direktde_ddnew`.`user` (`username`);
 
 --
 -- Dumping data for table `user`
@@ -442,7 +442,7 @@ CREATE TABLE `delegate` (
   `timestamp_created` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-ALTER TABLE `dd_anders`.`delegate`
+ALTER TABLE `direktde_ddnew`.`delegate`
   ADD FOREIGN KEY (id) REFERENCES voter(`id`);
 
 --
@@ -459,9 +459,9 @@ CREATE TABLE `delegate_user` (
   `delegate_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-ALTER TABLE `dd_anders`.`delegate_user`
+ALTER TABLE `direktde_ddnew`.`delegate_user`
   ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
-ALTER TABLE `dd_anders`.`delegate_user`
+ALTER TABLE `direktde_ddnew`.`delegate_user`
   ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
 
 --
@@ -487,11 +487,11 @@ CREATE TABLE `admin_role` (
 
 /*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
 INSERT INTO `admin_role` (`id`,`title`,`description`,`type`) VALUES 
- (1,'Superadmin','','superadmin'),
- (2,'Member admin','','member_admin'),
- (3,'Forum admin','','forum_admin'),
- (4,'Vote admin','','vote_admin'),
- (5,'Treasurer','','treasurer');
+ (1,'Systemadministratör','','superadmin'),
+ (2,'Medlemsadministratör','','member_admin'),
+ (3,'Forumadministratör','','forum_admin'),
+ (4,'Valadministratör','','vote_admin'),
+ (5,'Kassör','','treasurer');
 /*!40000 ALTER TABLE `admin_role` ENABLE KEYS */;
 
 --
@@ -504,9 +504,9 @@ CREATE TABLE `admin_role_user` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`admin_role_id`, `user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-ALTER TABLE `dd_anders`.`admin_role_user`
+ALTER TABLE `direktde_ddnew`.`admin_role_user`
   ADD FOREIGN KEY (admin_role_id) REFERENCES admin_role(`id`);
-ALTER TABLE `dd_anders`.`admin_role_user`
+ALTER TABLE `direktde_ddnew`.`admin_role_user`
   ADD FOREIGN KEY (user_id) REFERENCES user(`id`);
 
 --
@@ -607,9 +607,9 @@ CREATE TABLE `constituency_voter` (
   `voter_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY (`constituency_id`, `voter_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-ALTER TABLE `dd_anders`.`constituency_voter`
+ALTER TABLE `direktde_ddnew`.`constituency_voter`
   ADD FOREIGN KEY (voter_id) REFERENCES voter(`id`);
-ALTER TABLE `dd_anders`.`constituency_voter`
+ALTER TABLE `direktde_ddnew`.`constituency_voter`
   ADD FOREIGN KEY (constituency_id) REFERENCES constituency(`id`);
 
 --
@@ -692,6 +692,22 @@ CREATE TABLE `post` (
 --
 -- Dumping data for table `post`
 --
+
+--
+-- Definition of table `topic_meta_info`
+--
+
+CREATE TABLE `topic_meta_info` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `topic_id` INTEGER UNSIGNED NOT NULL,
+  `number_of_posts` INTEGER UNSIGNED NOT NULL,
+  `number_of_participants` INTEGER UNSIGNED NOT NULL,
+  `last_posted_time` INTEGER UNSIGNED NOT NULL,
+  `last_user_id` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+)
+ENGINE = MyISAM DEFAULT CHARSET=latin1;
+
 --
 -- Definition of table `post_report`
 --
@@ -894,7 +910,7 @@ CREATE TABLE `voter_delegate` (
   `time_delegate_chosen` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-ALTER TABLE `dd_anders`.`voter_delegate`
+ALTER TABLE `direktde_ddnew`.`voter_delegate`
   ADD FOREIGN KEY (delegate_id) REFERENCES delegate(`id`);
 
 --

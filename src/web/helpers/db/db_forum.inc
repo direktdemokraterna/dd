@@ -78,14 +78,15 @@ class db_forum
 	{
 		$limit_clause = db_general::get_limit_clause($page, $limit);
 		$query = "select p.id as topic_id, p.title as topic_title, u.id as topic_user_id, concat(u.first_name, ' ', u.last_name) as topic_user_full_name, 
-					(select count(*) from post p2 where p2.topic_id = p.id) as number_of_posts, 
-					(select count(distinct user_id) from post p3 where p3.topic_id = p.id) as number_of_participants, 
-					(select p4.posted_time from post p4 where p4.topic_id = p.id order by p4.posted_time desc limit 1) as last_posted_time, 
-					(select u2.id from post p5, user u2 where p5.user_id = u2.id and p5.topic_id = p.id order by p5.posted_time desc limit 1) as last_user_id, 
-					(select concat(u3.first_name, ' ', u3.last_name) from post p6, user u3 where p6.user_id = u3.id and p6.topic_id = p.id order by p6.posted_time desc limit 1) as last_user_full_name
-					from post p, user u, forum_user fu 
+					tmi.number_of_posts as number_of_posts, 
+					tmi.number_of_participants as number_of_participants, 
+					tmi.last_posted_time as last_posted_time, 
+					tmi.last_user_id as last_user_id, 
+					(select concat(u3.first_name, ' ', u3.last_name) from user u3 where u3.id = last_user_id limit 1) as last_user_full_name
+					from post p, user u, forum_user fu, topic_meta_info tmi
 					where p.user_id = u.id and p.is_topic = 1 and p.forum_id = ? 
 					and fu.user_id = ? and fu.forum_id = p.forum_id 
+					and p.id = tmi.topic_id 
 					order by last_posted_time desc " . $limit_clause;
 		$values = Array($forum_id, $access_user_id);
 		return db::select($query, $values);
@@ -165,8 +166,36 @@ class db_forum
 			$values = Array($insert_id);
 			db::update($query, $values);
 			self::update_post_count($forum_id, $user_id);
+
+			$query = "insert into topic_meta_info (topic_id) values (?)";
+			$values = Array($insert_id);
+			db::insert($query, $values);
+			self::update_topic_meta_info($insert_id);
 		}
 		return $insert_id;
+	}
+
+	public static function update_topic_meta_info ($insert_id)
+	{
+		$query = "select count(*) from post where topic_id = ?";
+		$values = Array($insert_id);
+		$number_of_posts = db::select_single_value($query, $values);
+
+		$query = "select count(distinct user_id) from post where topic_id = ?"; 
+		$values = Array($insert_id);
+		$number_of_participants = db::select_single_value($query, $values);
+					
+		$query = "select posted_time from post where topic_id = ? order by posted_time desc limit 1"; 
+		$values = Array($insert_id);
+		$last_posted_time = db::select_single_value($query, $values);
+		
+		$query = "select user_id from post where topic_id = ? order by posted_time desc limit 1";
+		$values = Array($insert_id);
+		$last_user_id = db::select_single_value($query, $values);
+
+		$query = "update topic_meta_info set number_of_posts = ?, number_of_participants = ?, last_posted_time = ?, last_user_id = ? where topic_id = ?";
+		$values = Array($number_of_posts, $number_of_participants, $last_posted_time, $last_user_id, $insert_id);
+		return db::update($query, $values);
 	}
 
 	public static function new_post ($user_id, $topic_id, $content = "")
@@ -175,8 +204,10 @@ class db_forum
 		$query = "insert into post (user_id, topic_id, forum_id, title, is_topic, posted_time, content) values (?, ?, ?, ?, ?, ?, ?)";
 		$values = Array($user_id, $topic_id, $topic_info['forum_id'], $topic_info['title'], 0, time(), $content);
 		$insert_id = db::insert($query, $values);
-		if ($insert_id)
+		if ($insert_id){
 			self::update_post_count($topic_info['forum_id'], $user_id);
+			self::update_topic_meta_info($topic_id);
+		}
 		return $insert_id;
 	}
 
@@ -215,6 +246,7 @@ class db_forum
 		$return = db::delete($query, $values);
 		self::update_forum_post_count($post_info['forum_id']);
 		self::update_user_post_count($post_info['user_id']);
+		self::update_topic_meta_info($post_info['topic_id']);
 		return $return;
 	}
 
